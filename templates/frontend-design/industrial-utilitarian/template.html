@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Industrial Utilitarian — Frontend Design</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Work+Sans:wght@400;600&display=swap');
+
+  :root {
+    --steel: #e8e4df;
+    --iron: #3a3835;
+    --rust: #b8452e;
+    --concrete: #c8c4be;
+    --oxide: #8c8278;
+    --slate: #2c2a28;
+    --chalk: #f4f2ef;
+    --bolt: 2px solid #3a3835;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Work Sans', sans-serif;
+    background: var(--chalk);
+    color: var(--iron);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .slide {
+    min-height: 100vh;
+    padding: 64px 80px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: var(--bolt);
+  }
+
+  .spec-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--oxide);
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(36px, 7vw, 72px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    text-transform: uppercase;
+    max-width: 14ch;
+  }
+  h1 .highlight {
+    color: var(--rust);
+    position: relative;
+  }
+  h1 .highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--rust);
+  }
+
+  .spec-sheet {
+    border: var(--bolt);
+    padding: 32px;
+    background: var(--steel);
+    max-width: 56ch;
+  }
+  .spec-sheet .row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 16px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(58, 56, 53, 0.1);
+    font-size: 14px;
+  }
+  .spec-sheet .row:last-child { border-bottom: none; }
+  .spec-sheet .key {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--oxide);
+  }
+  .spec-sheet .val {
+    font-weight: 500;
+  }
+
+  /* Data table */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .data-table th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--oxide);
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: var(--bolt);
+  }
+  .data-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(58, 56, 53, 0.08);
+  }
+  .data-table .mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+
+  h2 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(20px, 3vw, 32px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--slate);
+    margin-bottom: 24px;
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border: var(--bolt);
+    color: var(--iron);
+    background: var(--steel);
+  }
+  .tag.active { background: var(--slate); color: var(--chalk); border-color: var(--slate); }
+
+  /* Metric cards */
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--iron);
+    border: var(--bolt);
+  }
+  .metric-card {
+    background: var(--steel);
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .metric-card .number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--slate);
+  }
+  .metric-card .unit {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--oxide);
+    margin-top: 4px;
+  }
+
+  .body-industrial {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #5a5652;
+    max-width: 44ch;
+  }
+
+  .mono-quote {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(18px, 3vw, 28px);
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--slate);
+    max-width: 24ch;
+    padding: 24px;
+    border-left: 4px solid var(--rust);
+    background: var(--steel);
+  }
+
+  @media (max-width: 900px) {
+    .slide { padding: 40px 24px; }
+    .metric-grid { grid-template-columns: 1fr 1fr; }
+    .spec-sheet .row { grid-template-columns: 100px 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 28px; }
+    .metric-grid { grid-template-columns: 1fr; }
+    .data-table { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="slide">
+  <span class="spec-label">SPEC-001 &mdash; INDUSTRIAL UTILITARIAN</span>
+  <h1>Form follows<br><span class="highlight">function.</span></h1>
+  <div style="margin-top:40px">
+    <div class="spec-sheet">
+      <div class="row"><span class="key">Design System</span><span class="val">Industrial Utilitarian v1.0</span></div>
+      <div class="row"><span class="key">Type Scale</span><span class="val">JetBrains Mono + Work Sans</span></div>
+      <div class="row"><span class="key">Grid</span><span class="val">8px modular, strict adherence</span></div>
+      <div class="row"><span class="key">Palette</span><span class="val">Steel, Iron, Rust, Concrete, Chalk</span></div>
+      <div class="row"><span class="key">Philosophy</span><span class="val">Every element must justify its existence</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="slide">
+  <span class="spec-label">SPEC-002 &mdash; TYPOGRAPHY</span>
+  <h2>Type System</h2>
+  <table class="data-table" style="margin-top:24px">
+    <thead><tr><th>Token</th><th>Font</th><th>Size</th><th>Weight</th><th>Usage</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">--h1</td><td>JetBrains Mono</td><td class="mono">clamp(36,7vw,72)</td><td>700</td><td>Page titles</td></tr>
+      <tr><td class="mono">--h2</td><td>JetBrains Mono</td><td class="mono">clamp(20,3vw,32)</td><td>700</td><td>Section headers</td></tr>
+      <tr><td class="mono">--body</td><td>Work Sans</td><td class="mono">16px</td><td>400</td><td>Body text</td></tr>
+      <tr><td class="mono">--mono</td><td>JetBrains Mono</td><td class="mono">10px</td><td>400</td><td>Labels, specs, data</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="slide">
+  <span class="spec-label">SPEC-003 &mdash; METRICS</span>
+  <h2>Performance Targets</h2>
+  <div class="metric-grid" style="margin-top:24px">
+    <div class="metric-card"><div class="number">0.0s</div><div class="unit">Build Step</div></div>
+    <div class="metric-card"><div class="number">&lt;50ms</div><div class="unit">First Paint</div></div>
+    <div class="metric-card"><div class="number">0</div><div class="unit">Dependencies</div></div>
+    <div class="metric-card"><div class="number">4.0</div><div class="unit">Lighthouse</div></div>
+  </div>
+  <p class="body-industrial" style="margin-top:32px">Industrial design strips away ornamentation. No hero animations. No parallax. No gradients. Just raw typography, hard borders, and the confidence of reduction. The browser's native capabilities are the framework.</p>
+</div>
+
+<div class="slide" style="background:var(--slate);color:var(--chalk);border-color:var(--slate)">
+  <span class="spec-label" style="color:var(--oxide)">SPEC-004 &mdash; DARK MODE</span>
+  <h1 style="color:var(--chalk)">SLATE<br>EDITION</h1>
+  <div class="mono-quote" style="background:#363430;border-left-color:var(--rust);color:var(--chalk);margin-top:32px">
+    Good design is as little design as possible. Less, but better — because it concentrates on the essential aspects.
+  </div>
+  <div class="tag-group" style="margin-top:32px">
+    <span class="tag active">Dieter Rams</span>
+    <span class="tag">10 Principles</span>
+    <span class="tag">Good Design</span>
+    <span class="tag">Braun</span>
+  </div>
+</div>
+
+<div class="slide">
+  <span class="spec-label">SPEC-005 &mdash; PRINCIPLES</span>
+  <h2>Design Constraints</h2>
+  <div class="tag-group" style="margin-top:24px">
+    <span class="tag active">No rounded corners</span>
+    <span class="tag active">Hard borders only</span>
+    <span class="tag active">Monospace labels</span>
+    <span class="tag active">8px grid</span>
+    <span class="tag active">No gradients</span>
+    <span class="tag active">No shadows</span>
+    <span class="tag active">Pure function</span>
+    <span class="tag active">Zero bloat</span>
+  </div>
+  <p class="body-industrial" style="margin-top:40px">The industrial-utilitarian aesthetic is not for everyone. It is for systems that need to convey reliability, precision, and honesty. Dashboards. Documentation. Tools. Anything where clarity of information trumps visual seduction.</p>
+</div>
+
+</body>
+</html>

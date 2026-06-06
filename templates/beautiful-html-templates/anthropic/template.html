@@ -1,0 +1,1777 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anthropic Template</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600;1,8..60,700&family=Outfit:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ╔══════════════════════════════════════════════════════════════════════╗
+   ║  ZONE A · TOKENS  —  ANTHROPIC STYLE                                 ║
+   ║                                                                      ║
+   ║  Replace this block to change the visual style entirely.             ║
+   ║  Every color, font, and size in this file reads from these vars.     ║
+   ║  Never write raw hex values, font names, or px sizes outside here.   ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
+      :root {
+        /* ── Palette: Anthropic warm ivory + clay ──────────────────────────── */
+        --c-bg: #faf9f5;
+        --c-bg-alt: #f5f4ed;
+        --c-bg-dark: #141413;
+        --c-bg-dark-alt: #1c1c1a;
+        --c-bg-light: #ffffff;
+        --c-fg: #141413;
+        --c-fg-2: #30302e;
+        --c-fg-3: #5e5d59;
+        --c-fg-light: #faf9f5;
+        --c-fg-light-2: #b0aea5;
+        --c-fg-light-3: #6e6d68;
+        --c-accent: #d97757;
+        --c-border: #e8e6dc;
+        --c-border-dark: #3d3d3a;
+        --c-border-light: #d1cfc5;
+
+        /* ── Typography: mixed serif/sans ───────────────────────────────────── */
+        --f-display: "Source Serif 4", "Noto Serif SC", Georgia, serif;
+        --f-heading: "Outfit", "Noto Sans SC", system-ui, sans-serif;
+        --f-body: "DM Sans", "Noto Sans SC", system-ui, sans-serif;
+        --f-body-serif: "Source Serif 4", "Noto Serif SC", Georgia, serif;
+        --f-data: "Lora", "Noto Serif SC", Georgia, serif;
+        --f-mono: "IBM Plex Mono", "JetBrains Mono", monospace;
+
+        /* ── Type Scale: fixed px, 20px editorial body ─────────────────────── */
+        --sz-display: 5rem;
+        --sz-h1: 3rem;
+        --sz-h2: 1.9rem;
+        --sz-h3: 1.3rem;
+        --sz-lead: 1.25rem;
+        --sz-body: 1rem;
+        --sz-caption: 0.8rem;
+        --sz-label: 0.7rem;
+
+        /* ── Spacing: fixed px ─────────────────────────────────────────────── */
+        --pad-x: 5rem;
+        --pad-y: 3.5rem;
+        --gap-lg: 2.5rem;
+        --gap-md: 1.5rem;
+        --gap-sm: 0.75rem;
+
+        /* ── Motion ────────────────────────────────────────────────────────── */
+        --ease-slide: cubic-bezier(0.77, 0, 0.175, 1);
+        --dur-slide: 0.85s;
+        --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+        --dur-enter: 0.65s;
+
+        /* ── Shapes: Anthropic 8px radius + three-layer shadow ─────────────── */
+        --radius-card: 8px;
+        --radius-btn: 8px;
+        --shadow-1: 0 1px 1px rgba(0, 0, 0, 0.04);
+        --shadow-2: 0 4px 4px rgba(0, 0, 0, 0.03);
+        --shadow-3: 0 16px 24px rgba(0, 0, 0, 0.04);
+        --shadow-card: var(--shadow-1), var(--shadow-2), var(--shadow-3);
+        --focus-ring: 0 0 0 4px #2c84db;
+      }
+
+      /* ╔══════════════════════════════════════════════════════════════════════╗
+   ║  ZONE B · ENGINE — DO NOT MODIFY                                     ║
+   ║                                                                      ║
+   ║  Layout engine, transitions, animation system, navigation.           ║
+   ║  Touching this breaks the mechanics.                                 ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--c-bg);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      #deck {
+        display: flex;
+        height: 100vh;
+        transition: transform var(--dur-slide) var(--ease-slide);
+        will-change: transform;
+      }
+
+      .slide {
+        flex: 0 0 100vw;
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+        padding: var(--pad-y) var(--pad-x);
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        overflow: hidden;
+      }
+      .slide-body {
+        min-height: 0;
+      }
+
+      .slide.dark {
+        background: var(--c-bg-dark);
+        color: var(--c-fg-light);
+      }
+      .slide.light {
+        background: var(--c-bg-light);
+        color: var(--c-fg);
+      }
+
+      /* Subtle editorial texture on dark slides */
+      .slide.dark::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          radial-gradient(circle at 20% 80%, rgba(217, 119, 87, 0.03) 0%, transparent 50%),
+          repeating-linear-gradient(0deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 1px, transparent 1px, transparent 120px);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .slide.dark > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* ── Animation system ─────────────────────────────────────────────── */
+      [data-anim] {
+        opacity: 0;
+      }
+      .slide.is-active [data-anim] {
+        animation-duration: var(--dur-enter);
+        animation-timing-function: var(--ease-enter);
+        animation-fill-mode: forwards;
+      }
+      .slide.is-active [data-anim="fade-up"] { animation-name: kFadeUp; }
+      .slide.is-active [data-anim="fade-in"] { animation-name: kFadeIn; }
+      .slide.is-active [data-anim="reveal-right"] { animation-name: kRevealRight; }
+      .slide.is-active [data-anim="reveal-left"] { animation-name: kRevealLeft; }
+      .slide.is-active [data-anim="scale-in"] { animation-name: kScaleIn; }
+
+      [data-delay="0"] { animation-delay: 0s; }
+      [data-delay="1"] { animation-delay: 0.08s; }
+      [data-delay="2"] { animation-delay: 0.18s; }
+      [data-delay="3"] { animation-delay: 0.3s; }
+      [data-delay="4"] { animation-delay: 0.44s; }
+      [data-delay="5"] { animation-delay: 0.6s; }
+      [data-delay="6"] { animation-delay: 0.78s; }
+
+      @keyframes kFadeUp {
+        from { opacity: 0; transform: translateY(28px); }
+        to { opacity: 1; transform: none; }
+      }
+      @keyframes kFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes kRevealRight {
+        from { clip-path: inset(0 100% 0 0); opacity: 1; }
+        to { clip-path: inset(0 0% 0 0); opacity: 1; }
+      }
+      @keyframes kRevealLeft {
+        from { clip-path: inset(0 0 0 100%); opacity: 1; }
+        to { clip-path: inset(0 0 0 0%); opacity: 1; }
+      }
+      @keyframes kScaleIn {
+        from { opacity: 0; transform: scale(0.94); }
+        to { opacity: 1; transform: none; }
+      }
+
+      #nav-dots {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 7px;
+        z-index: 100;
+      }
+      .nav-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255, 255, 255, 0.22);
+        cursor: pointer;
+        transition: background 0.3s, transform 0.3s;
+        padding: 0;
+      }
+      .nav-dot.is-active {
+        background: rgba(255, 255, 255, 0.8);
+        transform: scale(1.4);
+      }
+
+      #slide-counter {
+        position: fixed;
+        bottom: 20px;
+        right: 28px;
+        font-family: var(--f-mono);
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        color: rgba(255, 255, 255, 0.25);
+        z-index: 100;
+        user-select: none;
+      }
+
+      /* ╔══════════════════════════════════════════════════════════════════════╗
+   ║  ZONE C · TYPOGRAPHY                                                 ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
+
+      .display {
+        font-family: var(--f-display);
+        font-size: var(--sz-display);
+        font-weight: 700;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+      }
+      .h1 {
+        font-family: var(--f-display);
+        font-size: var(--sz-h1);
+        font-weight: 600;
+        line-height: 1.15;
+        letter-spacing: -0.01em;
+      }
+      .h2 {
+        font-family: var(--f-heading);
+        font-size: var(--sz-h2);
+        font-weight: 600;
+        line-height: 1.22;
+      }
+      .h3 {
+        font-family: var(--f-heading);
+        font-size: var(--sz-h3);
+        font-weight: 500;
+        line-height: 1.35;
+      }
+      .lead {
+        font-family: var(--f-body-serif);
+        font-size: var(--sz-lead);
+        font-weight: 400;
+        line-height: 1.65;
+      }
+      .body {
+        font-family: var(--f-body);
+        font-size: var(--sz-body);
+        font-weight: 400;
+        line-height: 1.65;
+      }
+      .caption {
+        font-family: var(--f-body);
+        font-size: var(--sz-caption);
+        font-weight: 400;
+        line-height: 1.5;
+      }
+      .label {
+        font-family: var(--f-mono);
+        font-size: var(--sz-label);
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .data {
+        font-family: var(--f-data);
+        font-feature-settings: "tnum";
+      }
+
+      /* Italic serif accent (Anthropic signature) */
+      .display em, .h1 em, .h2 em, .h3 em, .lead em {
+        font-style: italic;
+        color: var(--c-accent);
+      }
+
+      .dark .muted { color: var(--c-fg-light-2); }
+      .light .muted { color: var(--c-fg-2); }
+      .accent { color: var(--c-accent); }
+
+      /* ╔══════════════════════════════════════════════════════════════════════╗
+   ║  ZONE D · CHROME                                                      ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
+
+      .slide-chrome, .slide-foot {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .slide-chrome {
+        padding-bottom: var(--gap-sm);
+        border-bottom: 1px solid var(--c-border);
+        margin-bottom: var(--gap-md);
+      }
+      .slide-foot {
+        padding-top: var(--gap-sm);
+        border-top: 1px solid var(--c-border);
+        margin-top: var(--gap-md);
+      }
+      .dark .slide-chrome, .dark .slide-foot { border-color: var(--c-border-dark); }
+      .light .slide-chrome, .light .slide-foot { border-color: var(--c-border); }
+
+      .slide--cover .slide-chrome, .slide--cover .slide-foot,
+      .slide--chapter .slide-chrome, .slide--chapter .slide-foot,
+      .slide--quote .slide-chrome, .slide--quote .slide-foot,
+      .slide--blockquote .slide-chrome, .slide--blockquote .slide-foot,
+      .slide--end .slide-chrome, .slide--end .slide-foot { display: none; }
+
+      .chapter-marker {
+        font-family: var(--f-mono);
+        font-size: var(--sz-label);
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--c-accent);
+        border-bottom: 2px solid var(--c-accent);
+        padding-bottom: 0.3em;
+        display: inline-block;
+      }
+
+      /* ╔══════════════════════════════════════════════════════════════════════╗
+   ║  ZONE E · LAYOUT PATTERNS                                            ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
+
+      /* ── COVER ──────────────────────────────────────────────────────────── */
+      .slide--cover { grid-template-rows: 1fr; }
+      .slide--cover .slide-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: var(--gap-md);
+        padding-bottom: var(--gap-lg);
+      }
+      .cover-meta {
+        display: flex;
+        gap: 2em;
+        align-items: center;
+        font-family: var(--f-mono);
+        font-size: var(--sz-caption);
+        letter-spacing: 0.08em;
+        color: var(--c-fg-light-2);
+        padding-top: var(--gap-sm);
+      }
+
+      /* ── CHAPTER ─────────────────────────────────────────────────────────── */
+      .slide--chapter { grid-template-rows: 1fr; }
+      .slide--chapter .slide-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: var(--gap-md);
+      }
+
+      /* ── STATEMENT ───────────────────────────────────────────────────────── */
+      .slide--statement { grid-template-rows: auto 1fr auto; }
+      .slide--statement .slide-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: var(--gap-md);
+        max-width: 78%;
+      }
+
+      /* ── SPLIT ───────────────────────────────────────────────────────────── */
+      .slide--split .slide-body {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--gap-lg);
+        align-items: center;
+        height: 100%;
+      }
+      .split-text {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-md);
+      }
+      .split-image {
+        width: 100%;
+        aspect-ratio: 4/3;
+        background: var(--c-bg-alt);
+        border: 1px solid var(--c-border);
+        border-radius: var(--radius-card);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .dark .split-image { background: var(--c-bg-dark-alt); border-color: var(--c-border-dark); }
+      .img-placeholder {
+        font-family: var(--f-mono);
+        font-size: var(--sz-caption);
+        letter-spacing: 0.06em;
+        color: var(--c-fg-3);
+      }
+
+      /* ── STATS ───────────────────────────────────────────────────────────── */
+      .slide--stats .slide-body {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-lg);
+        min-height: 0;
+      }
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--gap-md);
+        flex: 1;
+        align-content: center;
+      }
+      .stats-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+      .stat-card {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4em;
+      }
+      .stat-value {
+        font-family: var(--f-display);
+        font-size: 4rem;
+        font-weight: 700;
+        color: var(--c-accent);
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+      .stat-label {
+        font-family: var(--f-heading);
+        font-size: var(--sz-h3);
+        font-weight: 600;
+        line-height: 1.3;
+      }
+      .stat-note {
+        font-family: var(--f-mono);
+        font-size: var(--sz-caption);
+        letter-spacing: 0.04em;
+        color: var(--c-fg-2);
+      }
+      .dark .stat-note { color: var(--c-fg-light-2); }
+
+      /* ── QUOTE ───────────────────────────────────────────────────────────── */
+      .slide--quote { grid-template-rows: 1fr; }
+      .slide--quote .slide-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: var(--gap-md);
+        text-align: center;
+      }
+      .quote-mark {
+        font-family: var(--f-display);
+        font-size: 6rem;
+        line-height: 1;
+        color: var(--c-accent);
+        opacity: 0.2;
+      }
+      .quote-text {
+        font-family: var(--f-display);
+        font-size: var(--sz-h2);
+        font-style: italic;
+        font-weight: 400;
+        line-height: 1.4;
+        max-width: 68%;
+      }
+      .quote-attr {
+        font-family: var(--f-mono);
+        font-size: var(--sz-caption);
+        letter-spacing: 0.08em;
+        color: var(--c-fg-light-3);
+      }
+
+      /* ── COMPARE ─────────────────────────────────────────────────────────── */
+      .slide--compare .slide-body {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--gap-lg);
+      }
+      .compare-panel {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-sm);
+      }
+      .compare-label {
+        font-family: var(--f-mono);
+        font-size: var(--sz-label);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--c-fg-3);
+      }
+      .compare-label.after { color: var(--c-accent); }
+      .light .compare-label { color: var(--c-fg-3); }
+      .light .compare-label.after { color: var(--c-accent); }
+      .compare-bullets {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8em;
+        font-family: var(--f-body);
+        font-size: var(--sz-body);
+        line-height: 1.55;
+        list-style: none;
+      }
+      .compare-bullets li::before {
+        content: "— ";
+        color: var(--c-accent);
+      }
+
+      /* ── DENSE ───────────────────────────────────────────────────────────── */
+      .slide--dense .slide-body {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-md);
+        min-height: 0;
+      }
+      .dense-hl {
+        font-family: var(--f-display);
+        font-size: var(--sz-h2);
+        font-weight: 600;
+        line-height: 1.2;
+        padding-bottom: var(--gap-sm);
+        border-bottom: 1px solid var(--c-border);
+      }
+      .dark .dense-hl { border-color: var(--c-border-dark); }
+      .dense-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--gap-lg);
+        flex: 1;
+        min-height: 0;
+      }
+      .dense-col h3 {
+        font-family: var(--f-mono);
+        font-size: var(--sz-caption);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--c-accent);
+        margin-bottom: 0.8em;
+      }
+      .dense-col p {
+        font-family: var(--f-body-serif);
+        font-size: var(--sz-body);
+        line-height: 1.7;
+        color: var(--c-fg-2);
+        margin-bottom: 0.9em;
+      }
+      .dark .dense-col p { color: var(--c-fg-light-2); }
+
+      /* ── LIST ────────────────────────────────────────────────────────────── */
+      .slide--list .slide-body {
+        display: grid;
+        grid-template-columns: 2fr 3fr;
+        gap: var(--gap-lg);
+        align-items: start;
+        height: 100%;
+      }
+      .list-head {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-sm);
+      }
+      .bullet-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2em;
+        list-style: none;
+      }
+      .bullet-list li {
+        position: relative;
+        padding-left: 1.3em;
+        font-family: var(--f-body-serif);
+        font-size: var(--sz-lead);
+        line-height: 1.55;
+      }
+      .bullet-list li::before {
+        content: "—";
+        position: absolute;
+        left: 0;
+        color: var(--c-accent);
+        font-weight: 600;
+      }
+
+      /* ── EDITORIAL ───────────────────────────────────────────────────────── */
+      .slide--editorial .slide-body {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-md);
+        min-height: 0;
+      }
+      .editorial-stamp {
+        font-family: var(--f-mono);
+        font-size: var(--sz-label);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--c-accent);
+      }
+      .editorial-hl {
+        font-family: var(--f-display);
+        font-size: var(--sz-h2);
+        font-weight: 600;
+        line-height: 1.2;
+      }
+      .editorial-cols {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: var(--gap-lg);
+        flex: 1;
+      }
+      .log-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.7em;
+        font-family: var(--f-body-serif);
+        font-size: var(--sz-body);
+        line-height: 1.6;
+      }
+      .log-date {
+        font-family: var(--f-mono);
+        font-size: var(--sz-label);
+        letter-spacing: 0.06em;
+        color: var(--c-accent);
+        margin-right: 0.6em;
+      }
+      .dark .log-date { color: var(--c-accent); }
+      .stat-4 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--gap-md);
+      }
+      .stat-4-item .stat-4-val {
+        font-family: var(--f-data);
+        font-size: var(--sz-h2);
+        color: var(--c-accent);
+        line-height: 1;
+        font-feature-settings: "tnum";
+      }
+      .stat-4-item .stat-4-label {
+        font-family: var(--f-mono);
+        font-size: var(--sz-caption);
+        letter-spacing: 0.04em;
+        color: var(--c-fg-2);
+        margin-top: 0.3em;
+      }
+      .dark .stat-4-item .stat-4-label { color: var(--c-fg-light-2); }
+      .editorial-analysis {
+        font-family: var(--f-body-serif);
+        font-size: var(--sz-caption);
+        color: var(--c-fg-3);
+        line-height: 1.6;
+        padding-top: var(--gap-sm);
+        border-top: 1px solid var(--c-border);
+      }
+      .dark .editorial-analysis { border-color: var(--c-border-dark); color: var(--c-fg-light-3); }
+
+      /* ── BENTO GRID (new) ────────────────────────────────────────────────── */
+      .slide--bento .slide-body {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-md);
+        min-height: 0;
+      }
+      .bento-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: var(--gap-md);
+        flex: 1;
+      }
+      .bento-card {
+        background: var(--c-bg-light);
+        border: 1px solid var(--c-border);
+        border-radius: var(--radius-card);
+        padding: var(--gap-md);
+        box-shadow: var(--shadow-card);
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-sm);
+      }
+      .dark .bento-card { background: var(--c-bg-dark-alt); border-color: var(--c-border-dark); }
+      .bento-card.span-2-col { grid-column: span 2; }
+      .bento-card.span-2-row { grid-row: span 2; }
+      .bento-stat {
+        font-family: var(--f-data);
+        font-size: var(--sz-h1);
+        font-weight: 400;
+        color: var(--c-accent);
+        line-height: 1;
+        font-feature-settings: "tnum";
+      }
+      .bento-head {
+        font-family: var(--f-heading);
+        font-size: var(--sz-h3);
+        font-weight: 600;
+        line-height: 1.3;
+      }
+      .bento-body {
+        font-family: var(--f-body-serif);
+        font-size: var(--sz-body);
+        line-height: 1.7;
+        color: var(--c-fg-2);
+      }
+      .dark .bento-body { color: var(--c-fg-light-2); }
+
+      /* ── BENCHMARK TABLE (new) ───────────────────────────────────────────── */
+      .slide--benchmark .slide-body {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-md);
+        min-height: 0;
+      }
+      .bench-table-wrap {
+        flex: 1;
+        overflow-y: auto;
+      }
+      .bench-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: var(--f-body);
+        font-size: var(--sz-body);
+      }
+      .bench-table thead th {
+        font-family: var(--f-mono);
+        font-size: var(--sz-label);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-align: left;
+        padding: 0.6em 1em;
+        border-bottom: 2px solid var(--c-border);
+        color: var(--c-fg-3);
+        position: sticky;
+        top: 0;
+        background: var(--c-bg-light);
+      }
+      .dark .bench-table thead th {
+        border-color: var(--c-border-dark);
+        color: var(--c-fg-light-3);
+        background: var(--c-bg-dark);
+      }
+      .bench-table td {
+        padding: 0.7em 1em;
+        border-bottom: 1px solid var(--c-border);
+        line-height: 1.5;
+        font-family: var(--f-data);
+        font-feature-settings: "tnum";
+      }
+      .dark .bench-table td { border-color: var(--c-border-dark); }
+      .bench-table td:first-child {
+        font-family: var(--f-body);
+        font-weight: 600;
+      }
+      .bench-table .win {
+        font-weight: 600;
+        color: var(--c-accent);
+      }
+      .bench-table .loss { color: var(--c-fg-3); }
+      .bench-table tbody tr:hover td {
+        background: rgba(217, 119, 87, 0.04);
+      }
+      .bench-source {
+        font-family: var(--f-mono);
+        font-size: var(--sz-caption);
+        color: var(--c-fg-3);
+        letter-spacing: 0.06em;
+        margin-top: var(--gap-sm);
+      }
+      .dark .bench-source { color: var(--c-fg-light-3); }
+
+      /* ── METHODOLOGY (new) ────────────────────────────────────────────────── */
+      .slide--methodology .slide-body {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-md);
+        min-height: 0;
+        overflow-y: auto;
+      }
+      .method-section {
+        border-left: 3px solid var(--c-accent);
+        padding-left: var(--gap-md);
+        margin-bottom: var(--gap-sm);
+      }
+      .method-title {
+        font-family: var(--f-heading);
+        font-size: var(--sz-h3);
+        font-weight: 600;
+        margin-bottom: 0.4em;
+      }
+      .method-body {
+        font-family: var(--f-body-serif);
+        font-size: var(--sz-body);
+        line-height: 1.7;
+        color: var(--c-fg-2);
+      }
+      .dark .method-body { color: var(--c-fg-light-2); }
+      .footnote-list {
+        margin-top: var(--gap-md);
+        padding-top: var(--gap-sm);
+        border-top: 1px solid var(--c-border);
+        display: flex;
+        flex-direction: column;
+        gap: 0.4em;
+      }
+      .dark .footnote-list { border-color: var(--c-border-dark); }
+      .footnote-item {
+        font-family: var(--f-mono);
+        font-size: var(--sz-caption);
+        color: var(--c-fg-3);
+        line-height: 1.6;
+      }
+      .dark .footnote-item { color: var(--c-fg-light-3); }
+      .footnote-item sup {
+        font-family: var(--f-body);
+        color: var(--c-accent);
+        margin-right: 0.3em;
+      }
+
+      /* ── BLOCKQUOTE (new) ─────────────────────────────────────────────────── */
+      .slide--blockquote { grid-template-rows: 1fr; }
+      .slide--blockquote .slide-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: var(--gap-md);
+      }
+      .blockquote-xl {
+        position: relative;
+        padding-left: var(--gap-lg);
+        max-width: 72%;
+      }
+      .blockquote-xl::before {
+        content: "\201C";
+        position: absolute;
+        left: 0;
+        top: -0.15em;
+        font-family: var(--f-display);
+        font-size: 4.5rem;
+        line-height: 1;
+        color: var(--c-accent);
+        opacity: 0.25;
+      }
+      .blockquote-text {
+        font-family: var(--f-display);
+        font-size: var(--sz-h2);
+        font-weight: 400;
+        font-style: italic;
+        line-height: 1.4;
+      }
+      .blockquote-cite {
+        display: flex;
+        align-items: baseline;
+        gap: 0.6em;
+        margin-top: var(--gap-sm);
+        font-family: var(--f-mono);
+        font-size: var(--sz-caption);
+        letter-spacing: 0.04em;
+        color: var(--c-fg-3);
+      }
+      .blockquote-cite em {
+        font-style: normal;
+        color: var(--c-accent);
+      }
+
+      /* ── RELATED (new) ────────────────────────────────────────────────────── */
+      .slide--related .slide-body {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-md);
+        min-height: 0;
+      }
+      .related-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--gap-md);
+        flex: 1;
+        align-content: center;
+      }
+      .related-card {
+        border: 1px solid var(--c-border);
+        border-radius: var(--radius-card);
+        padding: var(--gap-md);
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-sm);
+        box-shadow: var(--shadow-card);
+      }
+      .dark .related-card { border-color: var(--c-border-dark); }
+      .related-kicker {
+        font-family: var(--f-mono);
+        font-size: var(--sz-label);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--c-fg-3);
+      }
+      .related-title {
+        font-family: var(--f-heading);
+        font-size: var(--sz-body);
+        font-weight: 600;
+        line-height: 1.4;
+      }
+      .related-desc {
+        font-family: var(--f-body-serif);
+        font-size: var(--sz-caption);
+        color: var(--c-fg-2);
+        line-height: 1.6;
+      }
+      .dark .related-desc { color: var(--c-fg-light-2); }
+      .related-link {
+        font-family: var(--f-mono);
+        font-size: var(--sz-label);
+        letter-spacing: 0.06em;
+        color: var(--c-accent);
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      /* ── AUTHOR (new) ─────────────────────────────────────────────────────── */
+      .slide--author { grid-template-rows: 1fr; }
+      .slide--author .slide-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: var(--gap-md);
+      }
+      .attribution {
+        display: flex;
+        align-items: center;
+        gap: var(--gap-md);
+        padding-top: var(--gap-md);
+        border-top: 1px solid var(--c-border-dark);
+      }
+      .attribution-avatar {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: var(--c-bg-dark-alt);
+        border: 1px solid var(--c-border-dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--f-mono);
+        font-size: 0.8rem;
+        color: var(--c-fg-light-3);
+      }
+      .attribution-name {
+        font-family: var(--f-heading);
+        font-size: var(--sz-body);
+        font-weight: 600;
+      }
+      .attribution-meta {
+        font-family: var(--f-mono);
+        font-size: var(--sz-caption);
+        letter-spacing: 0.04em;
+        color: var(--c-fg-light-3);
+      }
+
+      /* ── END ──────────────────────────────────────────────────────────────── */
+      .slide--end { grid-template-rows: 1fr; }
+      .slide--end .slide-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: var(--gap-md);
+      }
+      .end-contact {
+        font-family: var(--f-mono);
+        font-size: var(--sz-body);
+        letter-spacing: 0.06em;
+        color: var(--c-fg-2);
+      }
+      .dark .end-contact { color: var(--c-fg-light-2); }
+
+      /* ╔══════════════════════════════════════════════════════════════════════╗
+   ║  ZONE F · COMPONENTS                                                 ║
+   ╚══════════════════════════════════════════════════════════════════════╝ */
+
+      .rule {
+        width: 40px;
+        height: 2px;
+        background: var(--c-accent);
+      }
+      .rule.full {
+        width: 100%;
+        background: var(--c-border);
+      }
+      .light .rule.full { background: var(--c-border-light); }
+
+      .kicker {
+        font-family: var(--f-mono);
+        font-size: var(--sz-label);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--c-accent);
+      }
+
+      .tag {
+        display: inline-block;
+        font-family: var(--f-mono);
+        font-size: var(--sz-label);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--c-accent);
+        border: 1px solid var(--c-accent);
+        padding: 0.3em 0.8em;
+        line-height: 1;
+      }
+
+      .img-caption {
+        font-family: var(--f-mono);
+        font-size: var(--sz-caption);
+        letter-spacing: 0.04em;
+        color: var(--c-fg-3);
+        margin-top: 0.8vh;
+      }
+
+      /* ── CHART ─────────────────────────────────────────────────────────── */
+      .slide--chart .slide-body {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-md);
+        min-height: 0;
+      }
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        flex-shrink: 0;
+      }
+      .chart-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        min-height: 0;
+      }
+      .bar-track {
+        height: 28vh;
+        display: flex;
+        align-items: flex-end;
+        gap: 4vw;
+        border-left: 1px solid var(--c-border-dark);
+        padding-left: 0.5vw;
+      }
+      .light .bar-track { border-color: var(--c-border-light); }
+      .bar-col {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-end;
+        gap: 0.8vh;
+        height: 100%;
+      }
+      .bar-fill { width: 100%; background: var(--c-fg-light-3); }
+      .bar-fill.accent { background: var(--c-accent); }
+      .light .bar-fill { background: var(--c-fg-3); }
+      .light .bar-fill.accent { background: var(--c-accent); }
+      .bar-x-label {
+        font-family: var(--f-mono);
+        font-size: var(--sz-caption);
+        letter-spacing: 0.1em;
+        color: var(--c-fg-light-3);
+        white-space: nowrap;
+        text-transform: uppercase;
+      }
+      .light .bar-x-label { color: var(--c-fg-3); }
+      .bar-val {
+        font-family: var(--f-body);
+        font-size: var(--sz-body);
+        font-weight: 500;
+        color: var(--c-fg-light-2);
+      }
+      .bar-val.hi { color: var(--c-accent); font-weight: 600; }
+      .light .bar-val { color: var(--c-fg-2); }
+      .chart-baseline {
+        height: 1px;
+        background: var(--c-border-dark);
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .light .chart-baseline { background: var(--c-border-light); }
+      .chart-source {
+        flex-shrink: 0;
+        font-family: var(--f-mono);
+        font-size: var(--sz-caption);
+        color: var(--c-fg-light-3);
+        letter-spacing: 0.06em;
+        margin-top: var(--gap-sm);
+      }
+      .light .chart-source { color: var(--c-fg-3); }
+
+      /* ── DIAGRAM ────────────────────────────────────────────────────────── */
+      .slide--diagram .slide-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: var(--gap-lg);
+        min-height: 0;
+      }
+      .flow {
+        display: flex;
+        align-items: stretch;
+        gap: 0;
+      }
+      .flow-step {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-sm);
+        padding-right: calc(var(--pad-x) * 0.3);
+      }
+      .flow-num {
+        font-family: var(--f-display);
+        font-size: 3.5rem;
+        font-weight: 700;
+        font-style: italic;
+        line-height: 1;
+        color: var(--c-accent);
+        letter-spacing: -0.02em;
+      }
+      .flow-title {
+        font-family: var(--f-heading);
+        font-size: var(--sz-h3);
+        font-weight: 600;
+        line-height: 1.15;
+      }
+      .flow-desc {
+        font-family: var(--f-body);
+        font-size: var(--sz-body);
+        color: var(--c-fg-2);
+        line-height: 1.6;
+      }
+      .dark .flow-desc { color: var(--c-fg-light-2); }
+      .flow-arrow {
+        display: flex;
+        align-items: flex-start;
+        padding-top: 1em;
+        padding-right: calc(var(--pad-x) * 0.3);
+        font-size: 1.8rem;
+        color: var(--c-border);
+        flex-shrink: 0;
+      }
+      .dark .flow-arrow { color: var(--c-border-dark); }
+
+      /* ── PIE ──────────────────────────────────────────────────────────────── */
+      .slide--pie .slide-body {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-md);
+        min-height: 0;
+      }
+      .pie-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: calc(var(--pad-x) * 0.6);
+        align-items: center;
+        flex: 1;
+        min-height: 0;
+      }
+      .pie-donut {
+        width: min(22vw, 34vh);
+        height: min(22vw, 34vh);
+        border-radius: 50%;
+        position: relative;
+        flex-shrink: 0;
+        justify-self: center;
+      }
+      .pie-donut::after {
+        content: "";
+        position: absolute;
+        inset: 22%;
+        border-radius: 50%;
+        background: var(--c-bg-dark);
+      }
+      .light .pie-donut::after { background: var(--c-bg-light); }
+      .pie-legend {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-md);
+      }
+      .pie-item {
+        display: grid;
+        grid-template-columns: 0.8em 1fr auto;
+        gap: 1em;
+        align-items: center;
+      }
+      .pie-swatch {
+        width: 0.8em;
+        height: 0.8em;
+        border-radius: 2px;
+        flex-shrink: 0;
+      }
+      .pie-item-label {
+        font-family: var(--f-body);
+        font-size: var(--sz-lead);
+        line-height: 1.4;
+      }
+      .pie-item-val {
+        font-family: var(--f-mono);
+        font-size: var(--sz-body);
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        color: var(--c-accent);
+      }
+      .pie-total {
+        margin-top: var(--gap-sm);
+        padding-top: var(--gap-sm);
+        border-top: 1px solid var(--c-border-dark);
+        font-family: var(--f-mono);
+        font-size: var(--sz-label);
+        letter-spacing: 0.1em;
+        color: var(--c-fg-light-3);
+      }
+      .light .pie-total { border-color: var(--c-border-light); color: var(--c-fg-3); }
+
+      /* ── RESPONSIVE ──────────────────────────────────────────────────────── */
+      @media (max-width: 800px) {
+        :root {
+          --sz-display: 2.5rem;
+          --sz-h1: 1.8rem;
+          --sz-h2: 1.3rem;
+          --sz-h3: 1.1rem;
+          --sz-lead: 1rem;
+          --pad-x: 1.5rem;
+          --pad-y: 2rem;
+        }
+        .stats-grid { grid-template-columns: 1fr; }
+        .stats-grid.cols-4 { grid-template-columns: 1fr 1fr; }
+        .bento-grid { grid-template-columns: 1fr; }
+        .related-grid { grid-template-columns: 1fr; }
+        .slide--split .slide-body { grid-template-columns: 1fr; }
+        .slide--list .slide-body { grid-template-columns: 1fr; }
+        .slide--compare .slide-body { grid-template-columns: 1fr; }
+        .dense-cols { grid-template-columns: 1fr; }
+        .editorial-cols { grid-template-columns: 1fr; }
+        .pie-row { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav id="nav-dots"></nav>
+    <div id="slide-counter"></div>
+
+    <div id="deck">
+
+      <!-- SLIDE 1 · COVER -->
+      <section class="slide dark slide--cover">
+        <div class="slide-body">
+          <div class="label" data-anim="fade-up" data-delay="0">[Research Report · Date]</div>
+          <div class="rule" data-anim="fade-up" data-delay="1"></div>
+          <h1 class="display" data-anim="fade-up" data-delay="2">[研究报告 <em>标题</em>]</h1>
+          <p class="lead" data-anim="fade-up" data-delay="3">[Subtitle or one-line description of the report scope and main contribution. 中文副标题在此，展示中英文混排。]</p>
+          <div class="cover-meta" data-anim="fade-in" data-delay="5">
+            <span>[Author Names]</span>
+            <span>[Institution]</span>
+            <span>[Date]</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2 · CHAPTER -->
+      <section class="slide dark slide--chapter">
+        <div class="slide-body">
+          <div class="chapter-marker" data-anim="fade-up" data-delay="0">Section I</div>
+          <h2 class="h1" data-anim="fade-up" data-delay="2">[Background <em>&amp; Context</em>]</h2>
+          <p class="lead" data-anim="fade-up" data-delay="3">[Framing the research question — why this matters now, what prior work exists, and what gap this study addresses.]</p>
+        </div>
+      </section>
+
+      <!-- SLIDE 3 · DENSE -->
+      <section class="slide light slide--dense">
+        <div class="slide-chrome">
+          <span class="kicker">[Kicker]</span>
+          <span class="label">[Report Name]</span>
+        </div>
+        <div class="slide-body">
+          <div class="dense-hl" data-anim="fade-up" data-delay="0">[Literature <em>Review</em>]</div>
+          <div class="dense-cols">
+            <div class="dense-col" data-anim="fade-up" data-delay="1">
+              <h3>[Prior Work]</h3>
+              <p>[Summary of existing research in this area. Discuss key findings, methodological approaches, and limitations of prior studies. Be specific about what is known and what remains open.]</p>
+              <p>[Second paragraph covering additional prior work or a different thread of related research. Connect it to the gap your study fills.]</p>
+            </div>
+            <div class="dense-col" data-anim="fade-up" data-delay="2">
+              <h3>[Research Gap]</h3>
+              <p>[Description of the specific gap or open question this research addresses. Explain why prior methods are insufficient and what new approach or data enables progress.]</p>
+              <p>[Further elaboration on the gap — methodological constraints, data limitations, or theoretical puzzles that motivate the current study.]</p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-foot"><span class="label">[References available upon request]</span></div>
+      </section>
+
+      <!-- SLIDE 4 · STATEMENT -->
+      <section class="slide dark slide--statement">
+        <div class="slide-chrome">
+          <span class="kicker">[Kicker]</span>
+          <span class="label">[Report Name]</span>
+        </div>
+        <div class="slide-body">
+          <div class="rule" data-anim="fade-up" data-delay="0"></div>
+          <h2 class="h1" data-anim="fade-up" data-delay="1">[核心<em>论点</em> — the central thesis that defines the research contribution. 中英文双语论证。]</h2>
+        </div>
+        <div class="slide-foot"><span class="label">[Confidence / Evidence Level]</span></div>
+      </section>
+
+      <!-- SLIDE 5 · STATS -->
+      <section class="slide light slide--stats">
+        <div class="slide-chrome">
+          <span class="kicker">[Kicker]</span>
+          <span class="label">[Report Name]</span>
+        </div>
+        <div class="slide-body">
+          <h2 class="h2" data-anim="fade-up" data-delay="0">[Key <em>Findings</em> at a Glance]</h2>
+          <div class="stats-grid cols-4">
+            <div class="stat-card" data-anim="fade-up" data-delay="1">
+              <div class="stat-value">[X]%</div>
+              <div class="stat-label">[Finding One]</div>
+              <div class="stat-note">[Effect size / CI]</div>
+            </div>
+            <div class="stat-card" data-anim="fade-up" data-delay="2">
+              <div class="stat-value">[Y]x</div>
+              <div class="stat-label">[Finding Two]</div>
+              <div class="stat-note">[p-value / context]</div>
+            </div>
+            <div class="stat-card" data-anim="fade-up" data-delay="3">
+              <div class="stat-value">[Z]&permil;</div>
+              <div class="stat-label">[Finding Three]</div>
+              <div class="stat-note">[Sample / timeframe]</div>
+            </div>
+            <div class="stat-card" data-anim="fade-up" data-delay="4">
+              <div class="stat-value">[W]</div>
+              <div class="stat-label">[Finding Four]</div>
+              <div class="stat-note">[Comparison baseline]</div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-foot"><span class="label">[Source: Dataset / Survey / Experiment]</span></div>
+      </section>
+
+      <!-- SLIDE 6 · SPLIT -->
+      <section class="slide light slide--split">
+        <div class="slide-body">
+          <div class="split-text">
+            <div class="kicker" data-anim="fade-up" data-delay="0">[Kicker]</div>
+            <h2 class="h2" data-anim="fade-up" data-delay="1">[Primary <em>Result</em>]</h2>
+            <p class="lead" data-anim="fade-up" data-delay="2">[Interpretation of the key finding. Connect it to the research question and explain the mechanism or implication.]</p>
+            <ul class="bullet-list" data-anim="fade-up" data-delay="3">
+              <li>[Supporting evidence or robustness check]</li>
+              <li>[Alternative explanation ruled out]</li>
+              <li>[Practical significance of this result]</li>
+            </ul>
+          </div>
+          <div class="split-image" data-anim="reveal-right" data-delay="2">
+            <span class="img-placeholder">[Figure: Data Visualization]</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7 · QUOTE -->
+      <section class="slide dark slide--quote">
+        <div class="slide-body">
+          <div class="quote-mark" data-anim="fade-in" data-delay="0">&ldquo;</div>
+          <p class="quote-text" data-anim="fade-up" data-delay="1">[Pull quote from a primary source, expert interview, or seminal paper that contextualizes the finding.]</p>
+          <div class="quote-attr" data-anim="fade-in" data-delay="3">[Author], [Publication / Year]</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8 · CHAPTER -->
+      <section class="slide dark slide--chapter">
+        <div class="slide-body">
+          <div class="chapter-marker" data-anim="fade-up" data-delay="0">Section II</div>
+          <h2 class="h1" data-anim="fade-up" data-delay="2">[Methodology <em>&amp; Approach</em>]</h2>
+          <p class="lead" data-anim="fade-up" data-delay="3">[Overview of research design, data sources, analytical methods, and validation strategy.]</p>
+        </div>
+      </section>
+
+      <!-- SLIDE 9 · METHODOLOGY -->
+      <section class="slide light slide--methodology">
+        <div class="slide-chrome">
+          <span class="kicker">[Kicker]</span>
+          <span class="label">[Report Name]</span>
+        </div>
+        <div class="slide-body">
+          <h2 class="h2" data-anim="fade-up" data-delay="0">[Research <em>Design</em>]</h2>
+          <div class="method-section" data-anim="fade-up" data-delay="1">
+            <div class="method-title">[Data Collection]</div>
+            <div class="method-body">[Description of data sources, sampling strategy, time period, and any inclusion/exclusion criteria. Include sample size and demographic or geographic scope where relevant.]</div>
+          </div>
+          <div class="method-section" data-anim="fade-up" data-delay="2">
+            <div class="method-title">[Analytical Method]</div>
+            <div class="method-body">[Description of the primary analytical approach — statistical models, qualitative coding, experimental design, etc. Explain why this method is appropriate for the research question.]</div>
+          </div>
+          <div class="method-section" data-anim="fade-up" data-delay="3">
+            <div class="method-title">[Validation &amp; Robustness]</div>
+            <div class="method-body">[How results were validated — robustness checks, sensitivity analyses, inter-coder reliability, out-of-sample testing, etc.]</div>
+          </div>
+          <div class="footnote-list" data-anim="fade-in" data-delay="5">
+            <div class="footnote-item"><sup>1</sup> [Full citation or methodological reference]</div>
+            <div class="footnote-item"><sup>2</sup> [Second citation or technical note]</div>
+            <div class="footnote-item"><sup>3</sup> [Third citation or data availability statement]</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10 · BENCHMARK -->
+      <section class="slide light slide--benchmark">
+        <div class="slide-chrome">
+          <span class="kicker">[Kicker]</span>
+          <span class="label">[Report Name]</span>
+        </div>
+        <div class="slide-body">
+          <h2 class="h2" data-anim="fade-up" data-delay="0">[Comparative <em>Results</em>]</h2>
+          <div class="bench-table-wrap" data-anim="fade-up" data-delay="1">
+            <table class="bench-table">
+              <thead>
+                <tr>
+                  <th>[Benchmark]</th>
+                  <th>[Method A]</th>
+                  <th>[Method B]</th>
+                  <th>[Method C]</th>
+                  <th>[Our Method]</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>[Task / Metric 1]</td>
+                  <td>82.4</td>
+                  <td>85.1</td>
+                  <td>87.3</td>
+                  <td class="win">91.2</td>
+                </tr>
+                <tr>
+                  <td>[Task / Metric 2]</td>
+                  <td class="win">78.9</td>
+                  <td>76.2</td>
+                  <td>74.8</td>
+                  <td>77.5</td>
+                </tr>
+                <tr>
+                  <td>[Task / Metric 3]</td>
+                  <td>63.1</td>
+                  <td>68.7</td>
+                  <td class="loss">58.4</td>
+                  <td class="win">72.6</td>
+                </tr>
+                <tr>
+                  <td>[Task / Metric 4]</td>
+                  <td>91.0</td>
+                  <td>90.5</td>
+                  <td>92.1</td>
+                  <td class="win">93.8</td>
+                </tr>
+                <tr>
+                  <td>[Task / Metric 5]</td>
+                  <td>55.2</td>
+                  <td>60.1</td>
+                  <td>59.8</td>
+                  <td class="win">64.3</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="bench-source">[Source: Standard benchmark suite / evaluation protocol. Bold indicates best result.]</div>
+        </div>
+        <div class="slide-foot"><span class="label">[Evaluation Date / Version]</span></div>
+      </section>
+
+      <!-- SLIDE 11 · CHART -->
+      <section class="slide dark slide--chart">
+        <div class="slide-chrome">
+          <span class="kicker">[Kicker]</span>
+          <span class="label">[Report Name]</span>
+        </div>
+        <div class="slide-body">
+          <div class="chart-header" data-anim="fade-up" data-delay="0">
+            <h2 class="h2">[Primary <em>Findings</em> by Category]</h2>
+            <span class="tag">[n = X]</span>
+          </div>
+          <div class="chart-wrapper" data-anim="fade-up" data-delay="1">
+            <div class="bar-track">
+              <div class="bar-col"><div class="bar-val">[A]%</div><div class="bar-fill" style="height:72%"></div><div class="bar-x-label">[Cat A]</div></div>
+              <div class="bar-col"><div class="bar-val">[B]%</div><div class="bar-fill" style="height:58%"></div><div class="bar-x-label">[Cat B]</div></div>
+              <div class="bar-col"><div class="bar-val">[C]%</div><div class="bar-fill" style="height:85%"></div><div class="bar-x-label">[Cat C]</div></div>
+              <div class="bar-col"><div class="bar-val hi">[D]%</div><div class="bar-fill accent" style="height:94%"></div><div class="bar-x-label">[Cat D]</div></div>
+              <div class="bar-col"><div class="bar-val">[E]%</div><div class="bar-fill" style="height:63%"></div><div class="bar-x-label">[Cat E]</div></div>
+            </div>
+            <div class="chart-baseline"></div>
+          </div>
+          <div class="chart-source">[Source: Primary data collection, N = sample size. Error bars represent 95% CI.]</div>
+        </div>
+        <div class="slide-foot"><span class="label">[Figure X]</span></div>
+      </section>
+
+      <!-- SLIDE 12 · BENTO GRID -->
+      <section class="slide light slide--bento">
+        <div class="slide-chrome">
+          <span class="kicker">[Kicker]</span>
+          <span class="label">[Report Name]</span>
+        </div>
+        <div class="slide-body">
+          <h2 class="h2" data-anim="fade-up" data-delay="0">[Synthesis: <em>Thematic</em> Insights]</h2>
+          <div class="bento-grid">
+            <div class="bento-card span-2-col" data-anim="fade-up" data-delay="1">
+              <div class="bento-stat">[X]%</div>
+              <div class="bento-head">[Theme One: Primary Trend]</div>
+              <div class="bento-body">[Synthesis of the most important cross-cutting finding. Connect multiple data points into a coherent narrative thread. What does this pattern mean for the field?]</div>
+            </div>
+            <div class="bento-card" data-anim="fade-up" data-delay="2">
+              <div class="bento-head">[Theme Two]</div>
+              <div class="bento-body">[A secondary but important pattern in the data. How does it qualify or complicate the primary trend?]</div>
+            </div>
+            <div class="bento-card" data-anim="fade-up" data-delay="3">
+              <div class="bento-head">[Theme Three]</div>
+              <div class="bento-body">[A counter-intuitive or surprising finding worth highlighting separately.]</div>
+            </div>
+            <div class="bento-card" data-anim="fade-up" data-delay="4">
+              <div class="bento-head">[Theme Four]</div>
+              <div class="bento-body">[An implication or open question that emerges from the synthesis.]</div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-foot"><span class="label">[Source]</span></div>
+      </section>
+
+      <!-- SLIDE 13 · EDITORIAL -->
+      <section class="slide dark slide--editorial">
+        <div class="slide-chrome">
+          <span class="editorial-stamp">[Research Brief]</span>
+          <span class="label">[Date]</span>
+        </div>
+        <div class="slide-body">
+          <div class="editorial-hl" data-anim="fade-up" data-delay="0">[Timeline of Key <em>Developments</em>]</div>
+          <div class="editorial-cols">
+            <div class="log-list" data-anim="fade-up" data-delay="1">
+              <div><span class="log-date">[Period 1]</span> [Key event or development in the research timeline]</div>
+              <div><span class="log-date">[Period 2]</span> [Second milestone — a methodological advance or new data release]</div>
+              <div><span class="log-date">[Period 3]</span> [Third event — a shift in consensus or new competing hypothesis]</div>
+              <div><span class="log-date">[Period 4]</span> [Fourth event — a regulatory change, technological shift, or external shock]</div>
+              <div><span class="log-date">[Period 5]</span> [Present state — where the field stands now and what is unresolved]</div>
+            </div>
+            <div class="stat-4" data-anim="fade-up" data-delay="2">
+              <div class="stat-4-item"><div class="stat-4-val">[X]</div><div class="stat-4-label">[Metric A]</div></div>
+              <div class="stat-4-item"><div class="stat-4-val">[Y]</div><div class="stat-4-label">[Metric B]</div></div>
+              <div class="stat-4-item"><div class="stat-4-val">[Z]&times;</div><div class="stat-4-label">[Metric C]</div></div>
+              <div class="stat-4-item"><div class="stat-4-val">[W]%</div><div class="stat-4-label">[Metric D]</div></div>
+            </div>
+          </div>
+          <div class="editorial-analysis" data-anim="fade-in" data-delay="4">[One-line synthesis connecting the timeline events to the quantitative summary above. What is the overarching narrative?]</div>
+        </div>
+        <div class="slide-foot"><span class="label">[Sources: See appendix for full reference list]</span></div>
+      </section>
+
+      <!-- SLIDE 14 · COMPARE -->
+      <section class="slide light slide--compare">
+        <div class="slide-chrome">
+          <span class="kicker">[Kicker]</span>
+          <span class="label">[Report Name]</span>
+        </div>
+        <div class="slide-body">
+          <div class="compare-panel" data-anim="fade-up" data-delay="0">
+            <div class="compare-label">[Baseline / Control]</div>
+            <h3 class="h3">[Status Quo Description]</h3>
+            <ul class="compare-bullets">
+              <li>[Characteristic or outcome under current conditions]</li>
+              <li>[Second characteristic — limitation or cost of baseline]</li>
+              <li>[Third characteristic — why change is needed]</li>
+            </ul>
+          </div>
+          <div class="compare-panel" data-anim="fade-up" data-delay="1">
+            <div class="compare-label after">[Intervention / Proposed]</div>
+            <h3 class="h3">[After Intervention Description]</h3>
+            <ul class="compare-bullets">
+              <li>[Observed change or projected improvement]</li>
+              <li>[Second improvement — mechanism or enabling factor]</li>
+              <li>[Third improvement — broader implications]</li>
+            </ul>
+          </div>
+        </div>
+        <div class="slide-foot"><span class="label">[Comparison: before vs. after / control vs. treatment]</span></div>
+      </section>
+
+      <!-- SLIDE 15 · BLOCKQUOTE -->
+      <section class="slide dark slide--blockquote">
+        <div class="slide-body">
+          <div class="blockquote-xl" data-anim="fade-up" data-delay="0">
+            <div class="blockquote-text">[The most important paragraph from the discussion section — the argument that everything else has been building toward. This should read as a self-contained synthesis that a reader could quote.]</div>
+          </div>
+          <div class="blockquote-cite" data-anim="fade-in" data-delay="2">
+            <span><em>&mdash; [Author Name]</em>, [Publication / Year]</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 16 · RELATED -->
+      <section class="slide light slide--related">
+        <div class="slide-chrome">
+          <span class="kicker">[Kicker]</span>
+          <span class="label">[Report Name]</span>
+        </div>
+        <div class="slide-body">
+          <h2 class="h2" data-anim="fade-up" data-delay="0">[Related <em>Research</em>]</h2>
+          <div class="related-grid">
+            <div class="related-card" data-anim="fade-up" data-delay="1">
+              <div class="related-kicker">[Category]</div>
+              <div class="related-title">[Related Paper or Project Title]</div>
+              <div class="related-desc">[One-line summary of how this work connects to or extends the current research.]</div>
+              <a class="related-link" href="#">Read More &rarr;</a>
+            </div>
+            <div class="related-card" data-anim="fade-up" data-delay="2">
+              <div class="related-kicker">[Category]</div>
+              <div class="related-title">[Related Paper or Project Title]</div>
+              <div class="related-desc">[One-line summary of how this work connects to or extends the current research.]</div>
+              <a class="related-link" href="#">Read More &rarr;</a>
+            </div>
+            <div class="related-card" data-anim="fade-up" data-delay="3">
+              <div class="related-kicker">[Category]</div>
+              <div class="related-title">[Related Paper or Project Title]</div>
+              <div class="related-desc">[One-line summary of how this work connects to or extends the current research.]</div>
+              <a class="related-link" href="#">Read More &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="slide-foot"><span class="label">[Full bibliography available in appendix]</span></div>
+      </section>
+
+      <!-- SLIDE 17 · AUTHOR -->
+      <section class="slide dark slide--author">
+        <div class="slide-body">
+          <div class="kicker" data-anim="fade-up" data-delay="0">[Kicker]</div>
+          <div class="rule" data-anim="fade-up" data-delay="1"></div>
+          <h2 class="h1" data-anim="fade-up" data-delay="2">[About the <em>Authors</em>]</h2>
+          <p class="lead" style="max-width:60%;" data-anim="fade-up" data-delay="3">[Brief description of the research team, institutional affiliation, and relevant expertise.]</p>
+          <div class="attribution" data-anim="fade-in" data-delay="5">
+            <div class="attribution-avatar">[A]</div>
+            <div>
+              <div class="attribution-name">[Lead Author Name]</div>
+              <div class="attribution-meta">[Title / Department / Institution] · [email@institution.edu]</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 18 · END -->
+      <section class="slide dark slide--end">
+        <div class="slide-body">
+          <div class="kicker" data-anim="fade-up" data-delay="0">[Kicker]</div>
+          <div class="rule" data-anim="fade-up" data-delay="1"></div>
+          <h2 class="h1" data-anim="fade-up" data-delay="2">[Thank <em>You</em> · 感谢阅读]</h2>
+          <div class="end-contact" data-anim="fade-in" data-delay="4">
+            <p>[email@institution.edu]</p>
+            <p>[institution.edu/research]</p>
+            <p style="margin-top:var(--gap-sm);font-size:var(--sz-caption)">[Report No. / DOI / Archive ID]</p>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /#deck -->
+
+    <script>
+      /* ══════════════════════════════════════════════════════════════════════
+         ANTHROPIC PRESENTATION ENGINE
+         Self-contained navigation: keyboard, touch, mouse-wheel, nav-dots.
+         No external dependencies.
+         ══════════════════════════════════════════════════════════════════════ */
+      (function () {
+        "use strict";
+
+        const deck = document.getElementById("deck");
+        const slides = Array.from(document.querySelectorAll(".slide"));
+        const dotsEl = document.getElementById("nav-dots");
+        const counter = document.getElementById("slide-counter");
+        const total = slides.length;
+        let current = 0;
+        let animating = false;
+
+        function init() {
+          deck.style.width = total + "00vw";
+          slides.forEach(function (_, i) {
+            const btn = document.createElement("button");
+            btn.className = "nav-dot";
+            btn.setAttribute("aria-label", "Go to slide " + (i + 1));
+            btn.addEventListener("click", function () { goTo(i); });
+            dotsEl.appendChild(btn);
+          });
+          goTo(0, true);
+        }
+
+        function goTo(index, instant) {
+          index = Math.max(0, Math.min(total - 1, index));
+          if (index === current && !instant) return;
+          animating = true;
+          const prev = slides[current];
+          prev.classList.remove("is-active");
+          void prev.offsetWidth;
+          if (instant) {
+            deck.style.transition = "none";
+            deck.style.transform = "translateX(-" + index + "00vw)";
+            void deck.offsetWidth;
+            deck.style.transition = "";
+          } else {
+            deck.style.transform = "translateX(-" + index + "00vw)";
+          }
+          current = index;
+          const next = slides[current];
+          next.classList.add("is-active");
+          Array.from(dotsEl.children).forEach(function (dot, i) {
+            dot.classList.toggle("is-active", i === current);
+          });
+          counter.textContent = current + 1 + " / " + total;
+          const delay = instant ? 0 : parseFloat(getComputedStyle(deck).transitionDuration) * 1000;
+          setTimeout(function () { animating = false; }, delay);
+        }
+
+        document.addEventListener("keydown", function (e) {
+          if (animating) return;
+          if (e.key === "ArrowRight" || e.key === "ArrowDown" || e.key === " ") {
+            e.preventDefault();
+            goTo(current + 1);
+          } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+            e.preventDefault();
+            goTo(current - 1);
+          } else if (e.key === "Home") {
+            e.preventDefault();
+            goTo(0);
+          } else if (e.key === "End") {
+            e.preventDefault();
+            goTo(total - 1);
+          }
+        });
+
+        let wheelCooldown = false;
+        document.addEventListener("wheel", function (e) {
+          e.preventDefault();
+          if (animating || wheelCooldown) return;
+          wheelCooldown = true;
+          setTimeout(function () { wheelCooldown = false; }, 900);
+          if (e.deltaY > 0 || e.deltaX > 0) { goTo(current + 1); }
+          else { goTo(current - 1); }
+        }, { passive: false });
+
+        let touchStartX = null, touchStartY = null;
+        document.addEventListener("touchstart", function (e) {
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+        document.addEventListener("touchend", function (e) {
+          if (touchStartX === null) return;
+          const dx = touchStartX - e.changedTouches[0].clientX;
+          const dy = touchStartY - e.changedTouches[0].clientY;
+          if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+            if (animating) return;
+            if (dx > 0) { goTo(current + 1); }
+            else { goTo(current - 1); }
+          }
+          touchStartX = null;
+          touchStartY = null;
+        }, { passive: true });
+
+        init();
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+{
+  "slug": "warm-terminal",
+  "name": "Warm Terminal",
+  "tagline": "Warm cream editorial meets dark terminal precision; Geist + Petrona, purple accent, mono code blocks.",
+  "mood": [
+    "warm",
+    "editorial",
+    "technical",
+    "precise",
+    "modern"
+  ],
+  "occasion": [
+    "SaaS pitch",
+    "developer tool launch",
+    "technical talk",
+    "product demo",
+    "API documentation",
+    "design system presentation"
+  ],
+  "tone": [
+    "warm-modern",
+    "precise",
+    "editorial",
+    "technical"
+  ],
+  "formality": "medium",
+  "density": "medium",
+  "palette": {
+    "bg": "#F7F3EF",
+    "bg_alt": "#ECE5DD",
+    "text": "#1A1C21",
+    "dark": "#1A1C21",
+    "accent": "#6e56cf",
+    "green": "#3fb950",
+    "description": "warm cream/beige base with near-black text, purple accent, and dark terminal cards; light and dark slide modes"
+  },
+  "typography": {
+    "display": "Geist",
+    "body": "Geist",
+    "serif": "Petrona",
+    "mono": "Geist Mono",
+    "style": "modern geometric sans-serif for UI, Petrona serif for quotes, Geist Mono for terminal code blocks"
+  },
+  "scheme": "mixed",
+  "best_for": "Anything that should bridge human warmth and technical precision: SaaS pitches, developer tool launches, API documentation, design system presentations. The cream base with dark terminal cards creates a \"warm tools\" aesthetic — inviting but serious.",
+  "avoid_for": "Contexts that need pure corporate polish or pure playful energy — the mixed light/dark palette and terminal blocks commit to a warm-technical voice that sits between editorial and developer-tool aesthetics.",
+  "slide_count": 10,
+  "navigation": "inline IntersectionObserver + keyboard handler with fixed nav dots"
+}

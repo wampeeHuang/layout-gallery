@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Organic Natural — Frontend Design</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=DM+Sans:opsz,wght@9..40,400&display=swap');
+
+  :root {
+    --soil: #3d3226;
+    --leaf: #4a6741;
+    --stone: #c4b9a8;
+    --moss: #8a9a6e;
+    --bark: #5c4332;
+    --lichen: #b8c4a0;
+    --cream: #f7f3ea;
+    --clay: #d4a574;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--soil);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+
+  .slide {
+    min-height: 100vh;
+    padding: 80px 96px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid rgba(61, 50, 38, 0.08);
+  }
+
+  .leaf-icon {
+    font-size: 32px;
+    margin-bottom: 24px;
+    opacity: 0.6;
+  }
+
+  h1 {
+    font-family: 'Newsreader', serif;
+    font-size: clamp(44px, 8vw, 88px);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+    max-width: 12ch;
+    color: var(--soil);
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--leaf);
+  }
+
+  .body-organic {
+    font-family: 'Newsreader', serif;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #6b5d4e;
+    max-width: 40ch;
+    margin-top: 24px;
+  }
+
+  /* Flowing grid */
+  .flow-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    position: relative;
+  }
+  .flow-card {
+    padding: 48px 32px;
+    text-align: center;
+    border: 1px solid rgba(61, 50, 38, 0.06);
+  }
+  .flow-card .num {
+    font-family: 'Newsreader', serif;
+    font-size: 64px;
+    font-style: italic;
+    color: var(--leaf);
+    opacity: 0.6;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .flow-card h3 {
+    font-family: 'Newsreader', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--soil);
+    margin-bottom: 8px;
+  }
+  .flow-card p {
+    font-size: 14px;
+    color: #8a7a66;
+    line-height: 1.7;
+  }
+
+  h2 {
+    font-family: 'Newsreader', serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    color: var(--soil);
+    margin-bottom: 16px;
+  }
+
+  .pullquote-organic {
+    font-family: 'Newsreader', serif;
+    font-size: clamp(24px, 4vw, 36px);
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--leaf);
+    max-width: 20ch;
+    padding-left: 24px;
+    border-left: 2px solid var(--moss);
+  }
+
+  /* Color swatches */
+  .swatch-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 32px;
+  }
+  .swatch {
+    width: 72px;
+    height: 72px;
+  }
+
+  /* Stats */
+  .organic-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    text-align: center;
+  }
+  .organic-stat .val {
+    font-family: 'Newsreader', serif;
+    font-size: 56px;
+    font-style: italic;
+    color: var(--leaf);
+  }
+  .organic-stat .lbl {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #8a7a66;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 900px) {
+    .slide { padding: 48px 32px; }
+    .flow-grid { grid-template-columns: 1fr 1fr; }
+    .organic-stats { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 36px; }
+    .flow-grid { grid-template-columns: 1fr; }
+    .organic-stats { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="slide">
+  <div class="leaf-icon">ðŸŒ¿</div>
+  <h1>Design that<br><em>breathes</em> like<br>a forest</h1>
+  <p class="body-organic">Organic design draws from the shapes and rhythms of the natural world. Asymmetry that feels balanced. Curves that follow no geometry but their own. Colors pulled from soil, leaf, bark, and stone.</p>
+</div>
+
+<div class="slide">
+  <h2>Material Palette</h2>
+  <div class="swatch-row">
+    <div class="swatch" style="background:var(--cream)" title="Cream"></div>
+    <div class="swatch" style="background:var(--stone)" title="Stone"></div>
+    <div class="swatch" style="background:var(--lichen)" title="Lichen"></div>
+    <div class="swatch" style="background:var(--moss)" title="Moss"></div>
+    <div class="swatch" style="background:var(--clay)" title="Clay"></div>
+    <div class="swatch" style="background:var(--bark)" title="Bark"></div>
+    <div class="swatch" style="background:var(--leaf)" title="Leaf"></div>
+    <div class="swatch" style="background:var(--soil)" title="Soil"></div>
+  </div>
+  <p class="body-organic">Eight colors drawn from a walk in the woods. No synthetics. No neons. Every hue comes from earth, moss, bark, and leaf. The palette shifts with the seasons of your content.</p>
+</div>
+
+<div class="slide">
+  <h2>Principles of the Organic</h2>
+  <div class="flow-grid" style="margin-top:48px">
+    <div class="flow-card">
+      <div class="num">1</div>
+      <h3>Asymmetry</h3>
+      <p>Nature has no straight lines. Trees branch irregularly. Rivers meander. Layouts follow organic flow, not rigid grids.</p>
+    </div>
+    <div class="flow-card">
+      <div class="num">2</div>
+      <h3>Texture</h3>
+      <p>Noise overlays. Grain. The tactile quality of handmade paper. Visual texture that invites touch.</p>
+    </div>
+    <div class="flow-card">
+      <div class="num">3</div>
+      <h3>Depth</h3>
+      <p>Layered transparencies. Foreground, midground, background. The parallax of a forest canopy translated to the viewport.</p>
+    </div>
+  </div>
+</div>
+
+<div class="slide">
+  <div class="pullquote-organic">"In every walk with nature, one receives far more than he seeks."</div>
+  <div class="organic-stats" style="margin-top:64px">
+    <div class="organic-stat"><div class="val">100%</div><div class="lbl">Natural Palette</div></div>
+    <div class="organic-stat"><div class="val">8</div><div class="lbl">Earth Tones</div></div>
+    <div class="organic-stat"><div class="val">âˆž</div><div class="lbl">Organic Flow</div></div>
+  </div>
+</div>
+
+<div class="slide">
+  <h2>Newsreader &times; DM Sans</h2>
+  <p class="body-organic">Newsreader: a serif with warmth — like type pressed into handmade paper. DM Sans for supporting text — clean but never cold. The pairing of forest floor and open sky.</p>
+  <div style="margin-top:48px;font-family:'Newsreader',serif;font-size:clamp(24px,4vw,40px);font-style:italic;color:var(--leaf);max-width:20ch;line-height:1.4">
+    The earth has music for those who listen.
+  </div>
+</div>
+
+</body>
+</html>

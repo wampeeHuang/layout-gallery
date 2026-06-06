@@ -1,0 +1,55 @@
+{
+  "slug": "lecture-clean",
+  "name": "Lecture Clean",
+  "tagline": "Dual-theme teaching deck with clean white and terminal dark modes; mermaid diagrams, progressive reveals, toggle cards.",
+  "mood": [
+    "clear",
+    "modern",
+    "technical",
+    "focused",
+    "versatile"
+  ],
+  "occasion": [
+    "tech talk",
+    "workshop",
+    "internal training",
+    "code review",
+    "architecture presentation",
+    "methodology share",
+    "bilingual EN/CN deck"
+  ],
+  "tone": [
+    "precise",
+    "teaching",
+    "confident",
+    "clean"
+  ],
+  "formality": "medium",
+  "density": "high",
+  "palette": {
+    "bg": "#ffffff",
+    "bg_alt": "#f9fafb",
+    "fg": "#1f2328",
+    "accent": "#2f6fe0",
+    "alt": "#1a7f37",
+    "amber": "#9a6700",
+    "red": "#cf222e",
+    "dark_bg": "#0d1117",
+    "dark_fg": "#e6edf3",
+    "dark_accent": "#56d364",
+    "description": "Two full themes: clean white (light) and terminal green-on-black (dark). Toggle via data-theme attribute. Single blue accent in clean mode, green accent in terminal mode."
+  },
+  "typography": {
+    "display": "Bricolage Grotesque",
+    "body": "Noto Sans SC",
+    "mono": "JetBrains Mono",
+    "serif_cn": "Noto Serif SC",
+    "sans_cn": "Noto Sans SC",
+    "style": "modern grotesque display + clean sans body + coding mono; full Chinese support"
+  },
+  "scheme": "mixed",
+  "best_for": "Tech talks, workshops, methodology shares, code walkthroughs — anything that wants to feel precise, modern, teaching-forward. The terminal theme is great for code-heavy sections; the clean theme for concepts and frameworks. Built-in mermaid diagram support makes it ideal for architecture and flow presentations.",
+  "avoid_for": "Contexts that need to feel warm, handcrafted, or emotionally expressive — the geometric precision and monospace chrome commit to a rational, systems voice.",
+  "slide_count": 12,
+  "navigation": "inline keyboard + prev/next buttons"
+}

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Japanese Zen — Frontend Design</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap');
+
+  :root {
+    --paper: #f7f5f0;
+    --sumi: #2c2416;
+    --akari: #f0ebe0;
+    --koke: #6b7a5c;
+    --sakura: #d4a8a0;
+    --ai: #4a6b8a;
+    --kin: #b8974a;
+    --kasumi: #d9d3c7;
+    --ma: 96px;
+    --ma-sm: 48px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Zen Kaku Gothic New', 'Hiragino Sans', sans-serif;
+    background: var(--paper);
+    color: var(--sumi);
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .slide {
+    min-height: 100vh;
+    padding: var(--ma);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid var(--kasumi);
+  }
+
+  .ma-marker {
+    position: absolute;
+    top: 32px;
+    left: var(--ma);
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--kasumi);
+  }
+
+  h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(40px, 7vw, 80px);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+    max-width: 10ch;
+  }
+  h1 .english {
+    display: block;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--kasumi);
+    margin-bottom: 16px;
+  }
+
+  .haiku {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(24px, 4vw, 36px);
+    line-height: 2;
+    letter-spacing: 0.06em;
+    max-width: 14ch;
+    color: var(--sumi);
+    padding: 48px 0;
+    border-top: 1px solid var(--kasumi);
+    border-bottom: 1px solid var(--kasumi);
+  }
+
+  .asym-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: var(--ma);
+    align-items: end;
+  }
+  .asym-grid.reverse { grid-template-columns: 2fr 3fr; }
+
+  .section-num {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-size: 12px;
+    letter-spacing: 6px;
+    color: var(--kasumi);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  .body-jp {
+    font-size: 15px;
+    line-height: 2.2;
+    color: #5a5244;
+    max-width: 36ch;
+  }
+
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  }
+  .principle-card .kanji {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 56px;
+    color: var(--koke);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .principle-card h3 {
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .principle-card p {
+    font-size: 13px;
+    color: #8a8274;
+    line-height: 1.8;
+  }
+
+  .ink-block {
+    background: var(--sumi);
+    color: var(--paper);
+    padding: var(--ma);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .ink-block h2 { color: var(--paper); }
+  .ink-block .body-jp { color: #b8b0a0; }
+
+  .kensho {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(32px, 6vw, 56px);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    line-height: 2;
+    color: var(--paper);
+    max-width: 10ch;
+  }
+
+  .fade-bar {
+    width: 40px;
+    height: 1px;
+    background: var(--kin);
+    margin: 32px 0;
+  }
+
+  .bilingual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  @media (max-width: 900px) {
+    .slide, .ink-block { padding: var(--ma-sm); }
+    .ma-marker { left: var(--ma-sm); }
+    .asym-grid, .asym-grid.reverse { grid-template-columns: 1fr; gap: 32px; }
+    .principles { grid-template-columns: 1fr; gap: 32px; }
+    .bilingual-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 32px; }
+    .haiku { font-size: 20px; }
+    .kensho { font-size: 24px; }
+    .principle-card .kanji { font-size: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="slide">
+  <span class="ma-marker">間 MA</span>
+  <h1><span class="english">Japanese Zen Aesthetic</span>余白の美</h1>
+  <div style="max-width:36ch;margin-top:24px">
+    <p class="body-jp">空白不是虚无，而是存在。每个元素以克制赢得其位置。少不是妥协——它是最高级的精细。</p>
+    <p class="body-jp" style="margin-top:12px;font-size:13px;color:#8a8274">The beauty of emptiness. Space not as void, but as presence. Every element earns its place through restraint. Less is not a compromise — it is the highest form of refinement.</p>
+  </div>
+</div>
+
+<div class="slide">
+  <span class="section-num">三 / San</span>
+  <div class="haiku">古池や<br>蛙飛び込む<br>水の音</div>
+  <div class="bilingual-grid" style="margin-top:32px">
+    <p class="body-jp">古池。青蛙跃入。水声。十七个音节。一个宇宙。这就是编辑原则：每个元素都必须承载重量。不能加深意义，就删掉。</p>
+    <p class="body-jp">Bashō's frog pond. Seventeen syllables. An entire universe. This is the editorial principle: every element must carry weight. If it doesn't deepen the meaning, remove it.</p>
+  </div>
+</div>
+
+<div class="slide">
+  <span class="section-num">七 / Shichi</span>
+  <div class="principles">
+    <div class="principle-card">
+      <div class="kanji">間</div>
+      <h3>Ma — 留白</h3>
+      <p>乐音之间的停顿。茶室的空墙。空间不是剩余物——它是构图的主要材料。</p>
+      <p style="font-size:12px;color:#b8b0a0;margin-top:4px">The pause between notes. The empty wall in a tea room. Space is not what's left over — it is the primary material of composition.</p>
+    </div>
+    <div class="principle-card">
+      <div class="kanji">深</div>
+      <h3>Fukami — 深度</h3>
+      <p>意义随时间逐层揭示，而非一次性全部展示。滚动触发层层渐现。页面在呼吸。</p>
+      <p style="font-size:12px;color:#b8b0a0;margin-top:4px">Layers of meaning revealed through time, not all at once. Scroll-triggered reveals. Progressive disclosure. The page breathes.</p>
+    </div>
+    <div class="principle-card">
+      <div class="kanji">寂</div>
+      <h3>Sabi — 寂之美</h3>
+      <p>岁月的美。柔和的色调。纹理背景。一个有生活痕迹的设计。Wabi-sabi 作为 UX。</p>
+      <p style="font-size:12px;color:#b8b0a0;margin-top:4px">The beauty of age. Muted colors. Textured backgrounds. A design that feels lived-in, not freshly minted. Wabi-sabi as UX.</p>
+    </div>
+  </div>
+</div>
+
+<div class="slide ink-block">
+  <h2>寂び</h2>
+  <div class="fade-bar"></div>
+  <p class="kensho">静けさの中に<br>真実がある</p>
+  <div class="bilingual-grid" style="margin-top:32px">
+    <p class="body-jp" style="color:#b8b0a0">寂静之中，真实存在。禅的暗色模式。墨汁在和纸上。高对比不是为了吸引注意力，而是为了清晰。最终还原：黑与白。</p>
+    <p class="body-jp">In silence, truth. The dark mode of zen. Sumi ink on washi paper. High contrast not for attention, but for clarity. The ultimate reduction: black and white.</p>
+  </div>
+</div>
+
+<div class="slide">
+  <span class="section-num">五 / Go</span>
+  <div class="asym-grid">
+    <div>
+      <h2>非対称<br>Asymmetry</h2>
+      <p class="body-jp">日本构图偏好偏离中心。奇数。不平衡的平衡。插花中一枝略微偏斜。网格中刻意打破。完美是死的，不对称是活的。</p>
+      <p style="font-size:13px;color:#8a8274;margin-top:8px">Japanese composition favors the off-center. The odd number. A flower arrangement with one stem slightly askew. Perfection is sterile; asymmetry is alive.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-end">
+      <div style="width:120px;height:2px;background:var(--sumi)"></div>
+      <div style="width:80px;height:2px;background:var(--sumi);margin-right:24px"></div>
+      <div style="width:160px;height:2px;background:var(--sumi);margin-right:8px"></div>
+      <div style="width:48px;height:2px;background:var(--koke);margin-right:40px"></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

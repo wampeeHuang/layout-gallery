@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retro-Futuristic — Frontend Design</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap');
+
+  :root {
+    --void: #0a0a14;
+    --neon-pink: #ff2d95;
+    --neon-cyan: #00f0ff;
+    --neon-purple: #b347ea;
+    --grid-color: rgba(0, 240, 255, 0.12);
+    --chrome: #c0c8d8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Share Tech Mono', monospace;
+    background: var(--void);
+    color: var(--chrome);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .slide {
+    min-height: 100vh;
+    padding: 64px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+    background:
+      linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .scanline::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
+    pointer-events: none;
+  }
+
+  h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(40px, 8vw, 80px);
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    text-transform: uppercase;
+    background: linear-gradient(180deg, var(--neon-cyan) 0%, var(--neon-pink) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    max-width: 12ch;
+  }
+
+  .tag {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--neon-cyan);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+  }
+
+  .terminal-box {
+    border: 1px solid var(--neon-cyan);
+    padding: 24px;
+    background: rgba(0, 240, 255, 0.03);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.1), inset 0 0 20px rgba(0, 240, 255, 0.03);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--neon-cyan);
+    max-width: 52ch;
+  }
+  .terminal-box .prompt { color: var(--neon-pink); }
+  .terminal-box .cursor { animation: blink 1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .data-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .data-card {
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    padding: 24px;
+    background: rgba(10, 10, 20, 0.6);
+    backdrop-filter: blur(10px);
+    text-align: center;
+  }
+  .data-card .value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+  }
+  .data-card .label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--chrome);
+    margin-top: 8px;
+  }
+
+  .pulse-ring {
+    width: 200px;
+    height: 200px;
+    border: 2px solid var(--neon-pink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 2s ease-out infinite;
+    margin: 0 auto;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 45, 149, 0.4); }
+    100% { box-shadow: 0 0 0 40px rgba(255, 45, 149, 0); }
+  }
+  .pulse-ring span {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px rgba(255, 45, 149, 0.5);
+  }
+
+  /* Neon bar */
+  .neon-divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-pink), var(--neon-purple), transparent);
+    margin: 32px 0;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+  }
+
+  h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(24px, 4vw, 40px);
+    letter-spacing: 0.04em;
+    color: var(--chrome);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .spec-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    max-width: 60ch;
+  }
+  .spec-row {
+    display: contents;
+    font-size: 14px;
+  }
+  .spec-label { color: var(--neon-pink); padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .spec-value { color: var(--chrome); padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+  @media (max-width: 900px) {
+    .slide { padding: 40px 24px; }
+    .data-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 32px; }
+    .data-grid { grid-template-columns: 1fr; }
+    .spec-table { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="slide scanline">
+  <span class="tag">// SYS.INIT v.2084</span>
+  <h1>Retro-<br>Futuristic</h1>
+  <div class="neon-divider"></div>
+  <div class="terminal-box">
+    <span class="prompt">root@neon:~$</span> cat /etc/design/manifest.txt<br>
+    > Synthwave meets cyberpunk. Neon grids. Chrome lettering.<br>
+    > Scanlines and phosphor glow. The future as imagined in 1984.<br>
+    <span class="prompt">root@neon:~$</span> <span class="cursor">â–ˆ</span>
+  </div>
+</div>
+
+<div class="slide scanline">
+  <span class="tag">// METRICS DASHBOARD</span>
+  <h2>System Specs</h2>
+  <div class="data-grid" style="margin-top:40px">
+    <div class="data-card"><div class="value">80s</div><div class="label">Aesthetic Era</div></div>
+    <div class="data-card"><div class="value">16</div><div class="label">Color Palette</div></div>
+    <div class="data-card"><div class="value">60fps</div><div class="label">Scroll Sync</div></div>
+    <div class="data-card"><div class="value">âˆž</div><div class="label">Neon Glow</div></div>
+  </div>
+</div>
+
+<div class="slide scanline">
+  <span class="tag">// TYPOGRAPHY MODULE</span>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
+    <div>
+      <h2>Orbitron<br>&times;<br>Share Tech Mono</h2>
+      <p style="font-size:14px;color:var(--chrome);line-height:1.8;max-width:30ch">Geometric sans for headlines. Monospace for data. The font pairing of cybernetic precision. Wide tracking. Uppercase dominance. Every character engineered.</p>
+    </div>
+    <div class="pulse-ring"><span>SYS.ONLINE</span></div>
+  </div>
+</div>
+
+<div class="slide scanline">
+  <span class="tag">// COLOR MATRIX</span>
+  <h2>Palette</h2>
+  <div class="spec-table" style="margin-top:24px">
+    <span class="spec-label">Primary</span><span class="spec-value" style="color:var(--neon-cyan)">#00F0FF — Cyan Beam</span>
+    <span class="spec-label">Accent</span><span class="spec-value" style="color:var(--neon-pink)">#FF2D95 — Hot Pink</span>
+    <span class="spec-label">Secondary</span><span class="spec-value" style="color:var(--neon-purple)">#B347EA — Purple Haze</span>
+    <span class="spec-label">Void</span><span class="spec-value">#0A0A14 — Deep Void</span>
+    <span class="spec-label">Chrome</span><span class="spec-value" style="color:var(--chrome)">#C0C8D8 — Cool Metal</span>
+  </div>
+</div>
+
+<div class="slide scanline">
+  <span class="tag">// END TRANSMISSION</span>
+  <div class="terminal-box" style="margin-top:32px">
+    <span class="prompt">root@neon:~$</span> shutdown -h now<br>
+    > Retro-futurism is not nostalgia.<br>
+    > It is the future we were promised, rendered in pixels.<br>
+    > Connection terminated. <span class="cursor">â–ˆ</span>
+  </div>
+</div>
+
+</body>
+</html>

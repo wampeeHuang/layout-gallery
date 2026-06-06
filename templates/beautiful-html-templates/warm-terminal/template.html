@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Warm Terminal</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Petrona:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ╔══════════════════════════════════════════════════════════════════════╗
+         ║  ZONE A · TOKENS — Warm Terminal (jupid.com inspired)               ║
+         ╚══════════════════════════════════════════════════════════════════════╝ */
+      :root {
+        --c-bg: #F7F3EF;
+        --c-bg-alt: #ECE5DD;
+        --c-bg-dark: #1A1C21;
+        --c-bg-dark-alt: #15161A;
+        --c-bg-light: #ffffff;
+        --c-fg: #1A1C21;
+        --c-fg-2: #30363d;
+        --c-fg-3: #8b949e;
+        --c-fg-light: #F7F3EF;
+        --c-fg-light-2: #b0aea5;
+        --c-fg-light-3: #8b949e;
+        --c-accent: #6e56cf;
+        --c-accent-green: #3fb950;
+        --c-accent-amber: #d29922;
+        --c-border: #d1cfc5;
+        --c-border-dark: #30363d;
+
+        --f-display: "Geist", system-ui, sans-serif;
+        --f-heading: "Geist", system-ui, sans-serif;
+        --f-body: "Geist", system-ui, sans-serif;
+        --f-serif: "Petrona", Georgia, serif;
+        --f-mono: "Geist Mono", "JetBrains Mono", monospace;
+
+        --sz-display: clamp(2.8rem, 7vw, 5.5rem);
+        --sz-h1: clamp(2rem, 4vw, 3.2rem);
+        --sz-h2: clamp(1.4rem, 2.4vw, 2rem);
+        --sz-h3: clamp(1.1rem, 1.6vw, 1.3rem);
+        --sz-lead: clamp(0.9rem, 1.1vw, 1.1rem);
+        --sz-body: clamp(0.82rem, 0.95vw, 0.92rem);
+        --sz-caption: clamp(0.68rem, 0.72vw, 0.76rem);
+
+        --pad-x: clamp(2.5rem, 7vw, 7rem);
+        --pad-y: clamp(1.8rem, 5vh, 4.5rem);
+        --gap-lg: clamp(1.2rem, 3.5vh, 2.5rem);
+        --gap-md: clamp(0.7rem, 2vh, 1.5rem);
+        --gap-sm: clamp(0.35rem, 1vh, 0.8rem);
+
+        --ease-slide: cubic-bezier(0.77, 0, 0.175, 1);
+        --dur-slide: 0.85s;
+        --radius-card: 12px;
+        --radius-terminal: 8px;
+        --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.05);
+        --shadow-terminal: 0 4px 24px rgba(26, 28, 33, 0.15);
+      }
+
+      /* ╔══════════════════════════════════════════════════════════════════════╗
+         ║  ZONE B · ENGINE — DO NOT MODIFY                                    ║
+         ╚══════════════════════════════════════════════════════════════════════╝ */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+      body {
+        font-family: var(--f-body);
+        background: var(--c-bg);
+        color: var(--c-fg);
+        overflow-x: hidden;
+      }
+
+      #deck {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .slide {
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        overflow: hidden;
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+
+      .slide.dark { background: var(--c-bg-dark); color: var(--c-fg-light); }
+      .slide.dark .slide-foot { border-top-color: var(--c-border-dark); }
+      .slide.light { background: var(--c-bg); color: var(--c-fg); }
+
+      /* ── Nav chrome ───────────────────────────────────────────────────── */
+      #nav-dots {
+        position: fixed;
+        right: clamp(1rem, 2.5vw, 2.5rem);
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 1000;
+      }
+      #nav-dots button {
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        border: 1px solid var(--c-fg-3);
+        background: transparent;
+        cursor: pointer;
+        padding: 0;
+        transition: all 0.3s ease;
+      }
+      #nav-dots.dark-chrome button { border-color: var(--c-fg-light-2); }
+      #nav-dots button.active {
+        background: var(--c-accent);
+        border-color: var(--c-accent);
+        transform: scale(1.4);
+      }
+
+      #slide-counter {
+        position: fixed;
+        bottom: clamp(0.8rem, 2vh, 1.5rem);
+        left: clamp(1rem, 2.5vw, 2.5rem);
+        font-family: var(--f-mono);
+        font-size: var(--sz-caption);
+        color: var(--c-fg-3);
+        z-index: 1000;
+      }
+      #slide-counter.dark-chrome { color: var(--c-fg-light-3); }
+
+      /* ╔══════════════════════════════════════════════════════════════════════╗
+         ║  ZONE C · TYPOGRAPHY                                                ║
+         ╚══════════════════════════════════════════════════════════════════════╝ */
+      h1 { font-family: var(--f-display); font-size: var(--sz-display); font-weight: 700; line-height: 1.08; letter-spacing: -0.03em; }
+      h2 { font-family: var(--f-heading); font-size: var(--sz-h1); font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; }
+      h3 { font-family: var(--f-heading); font-size: var(--sz-h2); font-weight: 500; line-height: 1.2; }
+      .lead { font-size: var(--sz-lead); color: var(--c-fg-2); line-height: 1.5; }
+      .slide.dark .lead { color: var(--c-fg-light-2); }
+      .serif { font-family: var(--f-serif); }
+      .mono { font-family: var(--f-mono); }
+      .accent { color: var(--c-accent); }
+
+      /* ╔══════════════════════════════════════════════════════════════════════╗
+         ║  ZONE D · SLIDE CHROME                                              ║
+         ╚══════════════════════════════════════════════════════════════════════╝ */
+      .slide-chrome {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: clamp(0.6rem, 1.5vh, 1.2rem) var(--pad-x);
+        font-family: var(--f-mono);
+        font-size: var(--sz-caption);
+        color: var(--c-fg-3);
+        flex-shrink: 0;
+      }
+      .slide.dark .slide-chrome { color: var(--c-fg-light-3); }
+
+      .slide-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 var(--pad-x);
+        max-height: 100%;
+      }
+
+      .slide-foot {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: clamp(0.5rem, 1.2vh, 1rem) var(--pad-x);
+        border-top: 1px solid var(--c-border);
+        font-size: var(--sz-caption);
+        color: var(--c-fg-3);
+        flex-shrink: 0;
+      }
+
+      /* ╔══════════════════════════════════════════════════════════════════════╗
+         ║  ZONE E · LAYOUTS                                                   ║
+         ╚══════════════════════════════════════════════════════════════════════╝ */
+
+      /* Cover */
+      .slide--cover .slide-body {
+        align-items: flex-start;
+        justify-content: center;
+        gap: var(--gap-lg);
+      }
+      .slide--cover h1 { max-width: 85%; }
+      .slide--cover .tag {
+        font-family: var(--f-mono);
+        font-size: var(--sz-caption);
+        color: var(--c-accent);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        background: color-mix(in srgb, var(--c-accent) 12%, transparent);
+        padding: 4px 12px;
+        border-radius: 4px;
+      }
+
+      /* Split — two column */
+      .slide--split .slide-body {
+        flex-direction: row;
+        align-items: center;
+        gap: var(--gap-lg);
+        padding: 0;
+      }
+      .slide--split .split-left,
+      .slide--split .split-right {
+        flex: 1;
+        padding: var(--pad-y) var(--pad-x);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .slide--split .split-right { background: var(--c-bg-alt); }
+      .slide.dark .slide--split .split-right { background: var(--c-bg-dark-alt); }
+
+      /* Terminal card */
+      .terminal-card {
+        background: var(--c-bg-dark);
+        color: var(--c-fg-light);
+        border-radius: var(--radius-terminal);
+        padding: clamp(1rem, 3vh, 2rem);
+        font-family: var(--f-mono);
+        font-size: var(--sz-body);
+        box-shadow: var(--shadow-terminal);
+        border: 1px solid var(--c-border-dark);
+      }
+      .terminal-card .prompt { color: var(--c-accent-green); }
+      .terminal-card .cmd { color: var(--c-fg-light); }
+      .terminal-card .output { color: var(--c-fg-light-2); }
+
+      /* Feature grid */
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--gap-md);
+        width: 100%;
+        max-width: 900px;
+      }
+      @media (max-width: 700px) { .feature-grid { grid-template-columns: 1fr; } }
+      .feature-card {
+        background: var(--c-bg-light);
+        border: 1px solid var(--c-border);
+        border-radius: var(--radius-card);
+        padding: clamp(1rem, 2.5vh, 1.8rem);
+      }
+      .slide.dark .feature-card {
+        background: var(--c-bg-dark-alt);
+        border-color: var(--c-border-dark);
+      }
+      .feature-card h3 { margin-bottom: var(--gap-sm); }
+      .feature-card .icon {
+        font-size: 1.6rem;
+        margin-bottom: var(--gap-sm);
+      }
+
+      /* Big number */
+      .big-number {
+        font-family: var(--f-display);
+        font-size: clamp(4rem, 12vw, 9rem);
+        font-weight: 700;
+        line-height: 0.9;
+        color: var(--c-accent);
+      }
+
+      /* Quote */
+      .slide--quote .slide-body {
+        align-items: center;
+        text-align: center;
+        max-width: 70%;
+        margin: 0 auto;
+      }
+      .slide--quote blockquote {
+        font-family: var(--f-serif);
+        font-size: clamp(1.5rem, 3.5vw, 2.8rem);
+        font-style: italic;
+        line-height: 1.3;
+      }
+      .slide--quote .attribution {
+        font-family: var(--f-mono);
+        font-size: var(--sz-caption);
+        color: var(--c-fg-3);
+        margin-top: var(--gap-md);
+      }
+
+      /* ╔══════════════════════════════════════════════════════════════════════╗
+         ║  ZONE F · COMPONENTS                                                ║
+         ╚══════════════════════════════════════════════════════════════════════╝ */
+      .btn-accent {
+        display: inline-block;
+        padding: 10px 28px;
+        background: var(--c-accent);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-family: var(--f-body);
+        font-weight: 600;
+        font-size: var(--sz-body);
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      .badge {
+        display: inline-block;
+        font-family: var(--f-mono);
+        font-size: var(--sz-caption);
+        padding: 3px 10px;
+        border-radius: 4px;
+        border: 1px solid var(--c-border);
+      }
+      .badge-purple { background: color-mix(in srgb, var(--c-accent) 15%, transparent); color: var(--c-accent); border-color: color-mix(in srgb, var(--c-accent) 30%, transparent); }
+      .badge-green { background: color-mix(in srgb, var(--c-accent-green) 15%, transparent); color: var(--c-accent-green); border-color: color-mix(in srgb, var(--c-accent-green) 30%, transparent); }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+        html { scroll-behavior: auto; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <nav id="nav-dots"></nav>
+    <div id="slide-counter"></div>
+
+    <div id="deck">
+
+      <!-- ── Slide 1: Cover ── -->
+      <section class="slide light slide--cover">
+        <div class="slide-chrome"><span>Warm Terminal</span><span>01 / 10</span></div>
+        <div class="slide-body">
+          <span class="tag">New Template</span>
+          <h1>Your Deck Title<br><span class="serif accent">Goes Right Here</span></h1>
+          <p class="lead">A warm editorial aesthetic with terminal accents. Inspired by modern SaaS design — cream base, near-black text, purple accent, mono code blocks.</p>
+        </div>
+        <div class="slide-foot"><span>Company Name</span><span>2026</span></div>
+      </section>
+
+      <!-- ── Slide 2: Split ── -->
+      <section class="slide light slide--split">
+        <div class="slide-chrome"><span>Overview</span><span>02 / 10</span></div>
+        <div class="slide-body">
+          <div class="split-left">
+            <h2>Warm meets<br><span class="accent">technical</span></h2>
+            <p class="lead" style="margin-top:var(--gap-sm);">Cream-beige warmth with dark terminal precision. The palette bridges human editorial feel and developer tool aesthetics.</p>
+          </div>
+          <div class="split-right">
+            <div class="terminal-card">
+              <p><span class="prompt">$</span> <span class="cmd">design preview --template warm-terminal</span></p>
+              <p class="output" style="margin-top:8px;">→ bg: #F7F3EF<br>→ fg: #1A1C21<br>→ accent: #6e56cf<br>→ font: Geist + Petrona</p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-foot"><span>Design System</span><span>Tokens</span></div>
+      </section>
+
+      <!-- ── Slide 3: Feature Grid ── -->
+      <section class="slide light">
+        <div class="slide-chrome"><span>Features</span><span>03 / 10</span></div>
+        <div class="slide-body" style="align-items:center;">
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="icon">🎨</div>
+              <h3>Warm Palette</h3>
+              <p class="lead">Cream-beige backgrounds with near-black text. Inviting but serious.</p>
+            </div>
+            <div class="feature-card">
+              <div class="icon">⌨️</div>
+              <h3>Terminal Blocks</h3>
+              <p class="lead">Mono code cards for data, configs, CLI output. Dark card on light slide.</p>
+            </div>
+            <div class="feature-card">
+              <div class="icon">🔤</div>
+              <h3>Geist + Petrona</h3>
+              <p class="lead">Sans-serif for UI, serif for quotes. Mixes warmth with precision.</p>
+            </div>
+            <div class="feature-card">
+              <div class="icon">💜</div>
+              <h3>Purple Accent</h3>
+              <p class="lead">#6e56cf as the single vibrant note. Green for terminal prompts.</p>
+            </div>
+            <div class="feature-card">
+              <div class="icon">📐</div>
+              <h3>Editorial Grid</h3>
+              <p class="lead">Clean split layouts, generous whitespace. Reads like a magazine.</p>
+            </div>
+            <div class="feature-card">
+              <div class="icon">🌓</div>
+              <h3>Light + Dark</h3>
+              <p class="lead">Toggle between warm light and deep dark modes per slide.</p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-foot"><span>6 Capabilities</span><span>Key Highlights</span></div>
+      </section>
+
+      <!-- ── Slide 4: Quote ── -->
+      <section class="slide dark slide--quote">
+        <div class="slide-chrome"><span>Testimonial</span><span>04 / 10</span></div>
+        <div class="slide-body">
+          <blockquote>&ldquo;The best tools feel warm and precise at the same time.&rdquo;</blockquote>
+          <p class="attribution">— Design Principle, Warm Terminal</p>
+        </div>
+        <div class="slide-foot"><span>Quote</span><span>Inspiration</span></div>
+      </section>
+
+      <!-- ── Slide 5: Big Number ── -->
+      <section class="slide light">
+        <div class="slide-chrome"><span>Stats</span><span>05 / 10</span></div>
+        <div class="slide-body" style="align-items:center; text-align:center; gap:var(--gap-sm);">
+          <div class="big-number">34+</div>
+          <p class="lead">templates in the library. All ready for beautiful-html-editor injection.</p>
+          <div style="display:flex;gap:var(--gap-md);margin-top:var(--gap-md);">
+            <span class="badge badge-purple">Light Mode</span>
+            <span class="badge badge-green">Dark Mode</span>
+            <span class="badge badge-purple">Editable</span>
+          </div>
+        </div>
+        <div class="slide-foot"><span>Templates</span><span>Count</span></div>
+      </section>
+
+      <!-- ── Slide 6-10: reusable layouts (clone as needed) ── -->
+      <section class="slide dark slide--split">
+        <div class="slide-chrome"><span>Terminal</span><span>06 / 10</span></div>
+        <div class="slide-body">
+          <div class="split-left">
+            <h2>Query your<br><span class="accent">design system</span></h2>
+          </div>
+          <div class="split-right">
+            <div class="terminal-card">
+              <p><span class="prompt">$</span> <span class="cmd">cat tokens.css</span></p>
+              <p class="output" style="margin-top:8px;">
+                --c-bg: #F7F3EF;<br>
+                --c-fg: #1A1C21;<br>
+                --c-accent: #6e56cf;<br>
+                --f-display: "Geist";
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="slide-foot"><span>Config</span><span>CSS Variables</span></div>
+      </section>
+
+    </div>
+
+    <script>
+      (function() {
+        const slides = document.querySelectorAll('.slide');
+        const navDots = document.getElementById('nav-dots');
+        const counter = document.getElementById('slide-counter');
+        const total = slides.length;
+        let current = 0;
+
+        slides.forEach((_, i) => {
+          const btn = document.createElement('button');
+          btn.setAttribute('aria-label', 'Slide ' + (i + 1));
+          btn.addEventListener('click', () => goTo(i));
+          navDots.appendChild(btn);
+        });
+
+        function goTo(i) {
+          current = Math.max(0, Math.min(i, total - 1));
+          slides[current].scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+          updateChrome();
+        }
+
+        function updateChrome() {
+          navDots.querySelectorAll('button').forEach((b, i) => b.classList.toggle('active', i === current));
+          counter.textContent = (current + 1) + ' / ' + total;
+          const isDark = slides[current].classList.contains('dark');
+          navDots.classList.toggle('dark-chrome', isDark);
+          counter.classList.toggle('dark-chrome', isDark);
+        }
+
+        function prefersReducedMotion() {
+          return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        }
+
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(e => { if (e.isIntersecting) { current = Array.from(slides).indexOf(e.target); updateChrome(); } });
+        }, { threshold: 0.6 });
+        slides.forEach(s => obs.observe(s));
+
+        document.addEventListener('keydown', e => {
+          if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
+          if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+        });
+
+        updateChrome();
+      })();
+    </script>
+  </body>
+</html>

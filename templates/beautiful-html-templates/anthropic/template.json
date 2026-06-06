@@ -1,0 +1,53 @@
+{
+  "slug": "anthropic",
+  "name": "Anthropic",
+  "tagline": "Editorial warmth with mixed serif-sans hierarchy and layered card elevation; weighty yet inviting — the research-institution aesthetic.",
+  "mood": ["institutional", "erudite", "weighty", "authoritative", "refined"],
+  "occasion": [
+    "research report",
+    "white paper",
+    "economic / industry analysis",
+    "board presentation",
+    "thought leadership",
+    "policy brief",
+    "academic deck",
+    "investor deck"
+  ],
+  "tone": ["sober", "refined", "literary", "scholarly"],
+  "formality": "high",
+  "density": "high",
+  "palette": {
+    "bg": "#faf9f5",
+    "bg_alt": "#f5f4ed",
+    "bg_dark": "#141413",
+    "bg_dark_alt": "#1c1c1a",
+    "bg_light": "#ffffff",
+    "fg": "#141413",
+    "fg_2": "#30302e",
+    "fg_3": "#5e5d59",
+    "fg_light": "#faf9f5",
+    "fg_light_2": "#b0aea5",
+    "fg_light_3": "#6e6d68",
+    "accent": "#d97757",
+    "border": "#e8e6dc",
+    "border_dark": "#3d3d3a",
+    "border_light": "#d1cfc5",
+    "description": "warm ivory + near-black palette deployed with mixed serif-sans typography, larger 20px body, three-layer card shadows, and subtle editorial texture — scholarly density with a humanist undertone"
+  },
+  "typography": {
+    "display": "Source Serif 4",
+    "heading": "Outfit",
+    "body": "DM Sans",
+    "body_serif": "Source Serif 4",
+    "data": "Lora",
+    "mono": "IBM Plex Mono",
+    "serif_cn": "Noto Serif SC",
+    "sans_cn": "Noto Sans SC",
+    "style": "mixed serif-sans hierarchy: Source Serif 4 for editorial headlines and reading text, Outfit for geometric sans headings, DM Sans for UI, Lora for data tables, IBM Plex Mono for code; full Chinese serif/sans support"
+  },
+  "scheme": "mixed",
+  "best_for": "Research reports, white papers, economic/industry analysis, board presentations, thought leadership, policy briefs, academic decks. Anything that should project institutional credibility, intellectual weight, and editorial refinement.",
+  "avoid_for": "Contexts that need playful, casual, or rapid-fire energy — the mixed-serif hierarchy and dense editorial layout commits to a scholarly, deliberative voice.",
+  "slide_count": 18,
+  "navigation": "inline keyboard handler"
+}

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luxury Dark — Frontend Design</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400&display=swap');
+
+  :root {
+    --ebony: #0c0b0a;
+    --gold: #c8a45c;
+    --gold-light: #e0c878;
+    --champagne: #f0e8d8;
+    --marble: #1a1816;
+    --onyx: #262420;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--ebony);
+    color: var(--champagne);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .slide {
+    min-height: 100vh;
+    padding: 80px 96px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid rgba(200, 164, 92, 0.1);
+    background: radial-gradient(ellipse at 30% 50%, rgba(200, 164, 92, 0.04) 0%, transparent 70%);
+  }
+
+  .gold-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 32px;
+  }
+
+  .overline {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    color: var(--champagne);
+    max-width: 12ch;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .dek {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: #9a9488;
+    line-height: 1.5;
+    max-width: 36ch;
+    margin-top: 32px;
+  }
+
+  /* Split layout */
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--champagne);
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+
+  .body-serif {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #a09888;
+    max-width: 40ch;
+  }
+
+  /* Feature cards */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(200, 164, 92, 0.15);
+  }
+  .feature-card {
+    background: var(--marble);
+    padding: 48px 32px;
+    text-align: center;
+  }
+  .feature-card .icon {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .feature-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--champagne);
+    margin-bottom: 8px;
+  }
+  .feature-card p {
+    font-size: 13px;
+    color: #8a8274;
+    line-height: 1.7;
+  }
+
+  /* Quote */
+  .quote-block {
+    text-align: center;
+    max-width: 24ch;
+    margin: 0 auto;
+  }
+  .quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 5vw, 48px);
+    font-style: italic;
+    line-height: 1.3;
+    color: var(--champagne);
+  }
+  .quote-text::before { content: 'â€œ'; color: var(--gold); }
+  .quote-text::after { content: 'â€'; color: var(--gold); }
+  .quote-attr {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 24px;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--champagne) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .tag-row {
+    display: flex;
+    gap: 32px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #6a6458;
+  }
+
+  @media (max-width: 900px) {
+    .slide { padding: 48px 32px; }
+    .split { grid-template-columns: 1fr; gap: 40px; }
+    .feature-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 36px; }
+    h2 { font-size: 28px; }
+    .quote-text { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="slide">
+  <span class="overline">Maison &times; Atelier</span>
+  <h1>The Art of<br><em>Understated</em><br>Luxury</h1>
+  <p class="dek">Refinement is not loud. It does not announce itself. It is felt in the weight of the paper, the spacing of the letters, the warmth of the gold against ebony.</p>
+  <div class="tag-row" style="margin-top:48px">
+    <span>Cormorant Garamond</span>
+    <span>Gold &times; Ebony</span>
+    <span>Since 2026</span>
+  </div>
+</div>
+
+<div class="slide">
+  <span class="overline">01 — Palette</span>
+  <div class="gold-rule"></div>
+  <div class="split">
+    <div>
+      <h2>Gold on<br><span class="gradient-text">Obsidian</span></h2>
+      <p class="body-serif">The palette of a private library at dusk. Deep ebony grounds. Warm gold accents that catch light like polished brass. Champagne highlights for moments of brilliance. No white. No pure black. Everything lives in the space between.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:var(--ebony);padding:32px;text-align:center;border:1px solid rgba(200,164,92,0.2)"><div style="color:var(--gold);font-size:11px;letter-spacing:2px">EBONY</div></div>
+      <div style="background:var(--marble);padding:32px;text-align:center"><div style="color:var(--gold);font-size:11px;letter-spacing:2px">MARBLE</div></div>
+      <div style="background:var(--gold);padding:32px;text-align:center"><div style="color:var(--ebony);font-size:11px;letter-spacing:2px">GOLD</div></div>
+      <div style="background:var(--champagne);padding:32px;text-align:center"><div style="color:var(--ebony);font-size:11px;letter-spacing:2px">CHAMPAGNE</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="slide">
+  <span class="overline">02 — Craft</span>
+  <div class="gold-rule"></div>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="icon">T</div>
+      <h3>Typography</h3>
+      <p>Cormorant Garamond for headlines — a modern serif with old-soul warmth. Montserrat for labels — clean, architectural, precise.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">S</div>
+      <h3>Spacing</h3>
+      <p>Generous margins. Breathing room between elements. White space as a luxury good — the design equivalent of a spacious room.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon">L</div>
+      <h3>Light</h3>
+      <p>Radial gradients that mimic gallery lighting. Subtle illumination from a single source. The page glows, it does not shout.</p>
+    </div>
+  </div>
+</div>
+
+<div class="slide">
+  <span class="overline">03 — Philosophy</span>
+  <div class="gold-rule"></div>
+  <div class="quote-block">
+    <p class="quote-text">Luxury is the balance of restraint and richness</p>
+    <p class="quote-attr">Design Principle No. 7</p>
+  </div>
+</div>
+
+<div class="slide">
+  <span class="overline">04 — Contact</span>
+  <div class="gold-rule"></div>
+  <h2>Begin the<br>conversation</h2>
+  <p class="body-serif">Luxury-dark aesthetic for brands that understand the power of understatement. Let the product speak. Everything else is atmosphere.</p>
+</div>
+
+</body>
+</html>
