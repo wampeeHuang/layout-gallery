@@ -109,3 +109,15 @@ scripts/
   build-registry.js  ← 一次性迁移脚本（从旧 _index.json，已退役）
   extract-css-vars.js← 批量提取 CSS 变量
 ```
+
+## 部署状态
+
+**本地：** :3081 运行中。工具架 (:3099) 已注册，id=`layout-gallery`。
+
+**线上：待部署**（3 步，~10 分钟）：
+1. 创建 GitHub 仓库 `wampeeHuang/layout-gallery`（旧仓库 `skill-html-showcase` 保留回滚）
+2. `git remote add origin` + `git push`
+3. Vercel 导入 → 绑定 `layouts.blackcamellia.xin` → 设 `PUBLIC_MODE=true`
+
+域名 `blackcamellia.xin` 在阿里云。Vercel 绑定需加 CNAME 记录。
+旧画廊 :3080（`D:\projects\skill-html-showcase`）已停，可回滚。
