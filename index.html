@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>版式画廊 · Layout Gallery</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    --ink: #002FA7;
+    --paper: #FAFAF8;
+    --border: #E0E0DC;
+    --text: #0A0A0A;
+    --text-muted: #999;
+    --bg: #FAFAF8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: Inter, 'Noto Sans SC', sans-serif;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  header {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(250,250,248,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+  }
+  header .row { display: flex; align-items: center; gap: 12px; }
+  header h1 {
+    font-size: 16px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink);
+  }
+  header .count { font-size: 12px; color: var(--text-muted); margin-left: 4px; }
+
+  /* Filters */
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .filters button {
+    border: 1px solid var(--border); background: var(--paper);
+    font-family: inherit; font-size: 12px; padding: 4px 10px;
+    border-radius: 4px; cursor: pointer; color: var(--text);
+    transition: all 120ms ease;
+  }
+  .filters button:hover { border-color: var(--ink); color: var(--ink); }
+  .filters button.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .filters .sep { width: 1px; background: var(--border); margin: 0 4px; align-self: stretch; }
+  .filters .label {
+    font-size: 11px; color: var(--text-muted); text-transform: uppercase;
+    letter-spacing: 0.08em; display: flex; align-items: center; padding: 0 4px;
+  }
+
+  /* Search */
+  .search {
+    border: 1px solid var(--border); border-radius: 4px;
+    font-family: inherit; font-size: 12px; padding: 4px 10px;
+    width: 180px; background: var(--paper); color: var(--text);
+    outline: none;
+  }
+  .search:focus { border-color: var(--ink); }
+
+  /* Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+    padding: 20px;
+  }
+
+  /* Card */
+  .card {
+    border: 1px solid var(--border); border-radius: 8px;
+    background: var(--paper); overflow: hidden;
+    cursor: pointer; transition: box-shadow 150ms ease;
+  }
+  .card:hover { box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+
+  .card .preview {
+    aspect-ratio: 16 / 9; background: #f5f5f3;
+    position: relative; overflow: hidden;
+  }
+  .card .preview iframe {
+    width: 1280px; height: 720px;
+    border: none;
+    transform: scale(0.26); transform-origin: 0 0;
+    pointer-events: none;
+  }
+  .card .preview .type-badge {
+    position: absolute; top: 8px; right: 8px;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em;
+    background: var(--ink); color: var(--paper);
+    padding: 2px 6px; border-radius: 3px;
+  }
+  .card .body { padding: 12px 14px; }
+  .card .body h3 {
+    font-size: 14px; font-weight: 500; margin-bottom: 4px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .card .body .tagline {
+    font-size: 12px; color: var(--text-muted);
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden; min-height: 32px; margin-bottom: 8px;
+  }
+  .card .body .tags {
+    display: flex; flex-wrap: wrap; gap: 4px;
+  }
+  .card .body .tag {
+    font-size: 10px; padding: 2px 6px; border-radius: 3px;
+    background: #f2f2f0; color: var(--text-muted);
+    text-transform: lowercase;
+  }
+  .card .body .skill-tag {
+    font-size: 10px; color: var(--ink); opacity: 0.6;
+    margin-top: 6px;
+  }
+
+  /* Empty state */
+  .empty {
+    grid-column: 1 / -1; text-align: center;
+    padding: 80px 20px; color: var(--text-muted);
+  }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(0,0,0,0.3); backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 40px;
+  }
+  .modal-overlay.hidden { display: none; }
+
+  .modal {
+    background: var(--paper); border-radius: 12px;
+    max-width: 720px; width: 100%; max-height: 85vh;
+    overflow-y: auto; box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  }
+  .modal .modal-header {
+    position: sticky; top: 0; z-index: 2;
+    background: var(--paper); padding: 20px 24px 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: flex-start;
+  }
+  .modal .modal-header h2 { font-size: 18px; font-weight: 500; }
+  .modal .modal-header button {
+    border: none; background: none; font-size: 20px; cursor: pointer;
+    color: var(--text-muted); padding: 4px 8px;
+  }
+  .modal .modal-body { padding: 16px 24px 32px; }
+  .modal .modal-body section { margin-bottom: 20px; }
+  .modal .modal-body section h4 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--text-muted); margin-bottom: 8px;
+  }
+  .modal .palette { display: flex; gap: 6px; flex-wrap: wrap; }
+  .modal .palette span {
+    width: 28px; height: 28px; border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+  .modal .css-vars { font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .modal .css-vars .v {
+    display: flex; gap: 8px; padding: 3px 0; border-bottom: 1px solid #f0f0ed;
+  }
+  .modal .css-vars .vn { color: var(--ink); min-width: 120px; }
+  .modal .css-vars .vd { color: var(--text-muted); flex: 1; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: inherit; font-size: 12px; padding: 6px 14px;
+    border-radius: 6px; cursor: pointer; border: 1px solid var(--border);
+    background: var(--paper); color: var(--text);
+    text-decoration: none; transition: all 120ms ease;
+  }
+  .btn:hover { border-color: var(--ink); color: var(--ink); }
+  .btn.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .btn.primary:hover { opacity: 0.9; }
+
+  /* Responsive */
+  @media (max-width: 720px) {
+    .grid { grid-template-columns: 1fr; padding: 12px; }
+    header { padding: 10px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="row">
+    <h1>版式画廊</h1>
+    <span class="count" id="totalCount"></span>
+  </div>
+  <div class="filters" id="filters"></div>
+</header>
+
+<div class="grid" id="grid"></div>
+
+<div class="modal-overlay hidden" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+let registry = [];
+let activeFilters = {};
+
+async function init() {
+  const res = await fetch('/api/registry');
+  const data = await res.json();
+  registry = data.items;
+  buildFilters();
+  render();
+}
+
+function buildFilters() {
+  const container = document.getElementById('filters');
+
+  // Collect unique values
+  const styles = [...new Set(registry.map(e => e.design_style).filter(Boolean))].sort();
+  const types = [...new Set(registry.map(e => e.template_type).filter(Boolean))].sort();
+  const schemes = ['light', 'dark', 'mixed'];
+  const skills = [...new Set(registry.map(e => e.skill).filter(Boolean))].sort();
+
+  const skillNames = {
+    'beautiful-html-templates': '精美版式',
+    'guizang-ppt-skill': '归藏PPT',
+    'frontend-design': 'frontend-design',
+  };
+
+  function btn(label, group, value) {
+    const b = document.createElement('button');
+    b.textContent = label;
+    b.onclick = () => toggle(group, value, b);
+    return b;
+  }
+
+  function sep() { const d = document.createElement('span'); d.className = 'sep'; return d; }
+  function lbl(text) { const s = document.createElement('span'); s.className = 'label'; s.textContent = text; return s; }
+
+  // Search
+  const search = document.createElement('input');
+  search.type = 'text'; search.className = 'search'; search.placeholder = '搜索版式…';
+  search.oninput = (e) => { activeFilters.q = e.target.value; render(); };
+  container.appendChild(search);
+  container.appendChild(sep());
+
+  container.appendChild(lbl('风格'));
+  styles.forEach(s => container.appendChild(btn(s, 'design_style', s)));
+  container.appendChild(sep());
+  container.appendChild(lbl('类型'));
+  types.forEach(t => container.appendChild(btn(t, 'template_type', t)));
+  container.appendChild(sep());
+  container.appendChild(lbl('配色'));
+  schemes.forEach(s => container.appendChild(btn(s, 'scheme', s)));
+  container.appendChild(sep());
+  container.appendChild(lbl('来源'));
+  skills.forEach(s => container.appendChild(btn(skillNames[s] || s, 'skill', s)));
+}
+
+function toggle(group, value, el) {
+  if (activeFilters[group] === value) {
+    delete activeFilters[group];
+    el.classList.remove('on');
+  } else {
+    activeFilters[group] = value;
+    document.querySelectorAll(`.filters button`).forEach(b => {
+      if (b.textContent === el.textContent) b.classList.add('on');
+      else if (b.dataset.group === group) b.classList.remove('on');
+    });
+    el.dataset.group = group;
+    el.classList.add('on');
+  }
+  render();
+}
+
+function render() {
+  let items = registry.filter(e => e.status !== 'placeholder');
+
+  // Filters
+  Object.entries(activeFilters).forEach(([key, val]) => {
+    if (key === 'q') {
+      const q = val.toLowerCase();
+      items = items.filter(e =>
+        e.name.toLowerCase().includes(q) ||
+        (e.tagline||'').toLowerCase().includes(q) ||
+        (e.mood||[]).some(m=>m.toLowerCase().includes(q)) ||
+        (e.design_style||'').toLowerCase().includes(q)
+      );
+    } else {
+      items = items.filter(e => e[key] === val);
+    }
+  });
+
+  document.getElementById('totalCount').textContent = `${items.length} 版式`;
+
+  const grid = document.getElementById('grid');
+  grid.innerHTML = items.length === 0
+    ? '<div class="empty">没有匹配的版式</div>'
+    : items.map(cardHTML).join('');
+}
+
+function cardHTML(e) {
+  const preview = e.template_path
+    ? `<iframe src="${e.template_path}" loading="lazy"></iframe>`
+    : `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-muted)">${e.name}</div>`;
+
+  const typeLabel = e.template_type === 'slide-deck' ? 'slides' : e.template_type || '';
+
+  const moodTags = (e.mood||[]).slice(0, 3).map(m =>
+    `<span class="tag">${m}</span>`
+  ).join('');
+
+  const schemeTag = `<span class="tag">${e.scheme}</span>`;
+  const densityTag = `<span class="tag">${e.density || ''}</span>`;
+
+  return `
+    <div class="card" onclick="openModal('${e.slug}')">
+      <div class="preview">
+        ${preview}
+        ${typeLabel ? `<span class="type-badge">${typeLabel}</span>` : ''}
+      </div>
+      <div class="body">
+        <h3>${e.name}</h3>
+        <div class="tagline">${e.tagline || ''}</div>
+        <div class="tags">${moodTags}${schemeTag}${densityTag}</div>
+        <div class="skill-tag">${e.skill}</div>
+      </div>
+    </div>`;
+}
+
+function openModal(slug) {
+  const e = registry.find(x => x.slug === slug);
+  if (!e) return;
+
+  const paletteHTML = (e.palette||[]).map(p =>
+    `<span style="background:${p.color}" title="${p.name}"></span>`
+  ).join('');
+
+  const cssVarsHTML = e.css_variables.length === 0
+    ? '<p style="color:var(--text-muted)">无 :root CSS 变量</p>'
+    : e.css_variables.map(v =>
+      `<div class="v"><span class="vn">${v.name}</span><span class="vd">${v.default}</span><span style="color:var(--text-muted);font-size:10px">${v.description||''}</span></div>`
+    ).join('');
+
+  const moodHTML = (e.mood||[]).map(m => `<span class="tag">${m}</span>`).join(' ');
+  const occasionHTML = (e.occasion||[]).map(o => `<span class="tag">${o}</span>`).join(' ');
+  const featuresHTML = (e.features||[]).map(f => `<span class="tag">${f}</span>`).join(' ') || '<span style="color:var(--text-muted)">—</span>';
+
+  const htmlPath = e.template_path;
+
+  document.getElementById('modal').innerHTML = `
+    <div class="modal-header">
+      <div><h2>${e.name}</h2><p style="color:var(--text-muted);font-size:12px;margin-top:4px">${e.tagline||''}</p></div>
+      <button onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:flex;gap:12px;margin-bottom:20px">
+        <a class="btn primary" href="${htmlPath}" target="_blank">打开预览</a>
+        <a class="btn" href="/api/template/${e.slug}/html" download>下载 HTML</a>
+      </div>
+      <section><h4>风格标签</h4><div class="tags">${moodHTML}</div></section>
+      <section><h4>配色</h4><div class="palette">${paletteHTML}</div><div style="margin-top:4px;font-size:11px;color:var(--text-muted)">${e.scheme} · ${(e.palette||[]).map(p=>p.name).join(', ')}</div></section>
+      <section><h4>字体</h4><p style="font-size:12px">展示: ${e.displayFont||'(未指定)'} · 正文: ${e.bodyFont||'(未指定)'}</p><p style="font-size:11px;color:var(--text-muted);margin-top:2px">${e.typography_style||''}</p></section>
+      <section><h4>适用场景</h4><div class="tags">${occasionHTML}</div></section>
+      <section><h4>功能特性</h4><div class="tags">${featuresHTML}</div></section>
+      <section><h4>CSS 变量合约</h4><div class="css-vars">${cssVarsHTML}</div></section>
+      <section><h4>适用/不适用</h4><p style="font-size:12px;margin-bottom:4px"><strong>适用：</strong>${e.best_for||''}</p><p style="font-size:12px"><strong>不适用：</strong>${e.avoid_for||''}</p></section>
+    </div>`;
+
+  document.getElementById('modalOverlay').classList.remove('hidden');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.add('hidden');
+}
+
+init();
+</script>
+</body>
+</html>
