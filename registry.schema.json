@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://layouts.blackcamellia.xin/registry.schema.json",
+  "title": "版式画廊 · 模板注册表 Schema",
+  "description": "每个模板条目的完整字段定义。AI Agent 和人类共享同一份合约。",
+  "type": "object",
+  "required": ["slug", "name", "skill", "template_type", "design_style", "scheme", "visibility", "template_path"],
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "URL 友好标识符，kebab-case，全局唯一"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "模板显示名称，中文优先"
+    },
+    "tagline": {
+      "type": "string",
+      "description": "一句话卖点。AI 搜索匹配此字段"
+    },
+    "skill": {
+      "type": "string",
+      "enum": ["beautiful-html-templates", "guizang-ppt-skill", "frontend-design"],
+      "description": "模板来源 skill"
+    },
+    "template_type": {
+      "type": "string",
+      "enum": ["slide-deck", "single-page", "report", "infographic", "social-card", "poster"],
+      "description": "用途类型 — AI 决策第一优先级"
+    },
+    "design_style": {
+      "type": "string",
+      "enum": ["editorial", "swiss-minimal", "warm-humanist", "tech-cyberpunk", "experimental", "institutional", "eastern-zen"],
+      "description": "风格大类 — AI 入口筛选"
+    },
+    "aspect_ratio": {
+      "type": "string",
+      "enum": ["16:9", "9:16", "auto"],
+      "default": "16:9"
+    },
+    "mood": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "情绪标签，AI 语义匹配"
+    },
+    "occasion": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "适用场合"
+    },
+    "tone": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "语气/调性"
+    },
+    "formality": {
+      "type": "string",
+      "enum": ["low", "medium-low", "medium", "medium-high", "high"],
+      "default": "medium",
+      "description": "正式度: low=休闲, medium-low=半正式, medium=适中, medium-high=正式, high=权威"
+    },
+    "density": {
+      "type": "string",
+      "enum": ["low", "medium", "medium-high", "high"],
+      "default": "medium",
+      "description": "信息密度: low=留白多, medium=均衡, medium-high=较密, high=高密度"
+    },
+    "scheme": {
+      "type": "string",
+      "enum": ["light", "dark", "mixed"],
+      "description": "配色方案: light=亮色, dark=暗色, mixed=混合"
+    },
+    "palette": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "color"],
+        "properties": {
+          "name": { "type": "string" },
+          "color": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" }
+        }
+      },
+      "description": "配色色板"
+    },
+    "displayFont": {
+      "type": "string",
+      "description": "展示/标题字体"
+    },
+    "bodyFont": {
+      "type": "string",
+      "description": "正文字体"
+    },
+    "typography_style": {
+      "type": "string",
+      "description": "字体风格描述，如 'Serif标题 + Sans-serif正文'"
+    },
+    "best_for": {
+      "type": "string",
+      "description": "最适合的使用场景"
+    },
+    "avoid_for": {
+      "type": "string",
+      "description": "不适合的使用场景"
+    },
+    "features": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["chart", "code", "table", "citation", "stat"] },
+      "description": "能力标记: chart=图表, code=代码, table=表格, citation=引用, stat=统计数字"
+    },
+    "slide_count": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 0
+    },
+    "css_variables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "default"],
+        "properties": {
+          "name": { "type": "string", "pattern": "^--[\\w-]+$" },
+          "default": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      },
+      "description": "CSS 变量合约 — AI 不看 HTML 就知道可调哪些颜色/字体"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": ["public", "local"],
+      "default": "public",
+      "description": "public=线上可见, local=仅本地"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "placeholder"],
+      "default": "active"
+    },
+    "preview_type": {
+      "type": "string",
+      "enum": ["iframe"],
+      "default": "iframe"
+    },
+    "template_path": {
+      "type": "string",
+      "pattern": "^templates/[a-z-]+/[a-z0-9-]+/template\\.html$",
+      "description": "模板 HTML 文件路径，相对于项目根目录"
+    }
+  }
+}

@@ -73,12 +73,39 @@ GET /api/design-styles → 风格大类 + 模板数
 
 总计 43 模板（含在 3 个来源目录下）。
 
+## 新增模板（标准工作流）
+
+```
+1. 把 template.html 放到 templates/{skill}/{slug}/template.html
+2. 写元数据 JSON（参考 registry.schema.json 字段定义）
+3. node scripts/add-template.js <元数据.json>
+   → 自动提取 CSS 变量 → 校验 schema → 原子写入 registry.json
+```
+
+元数据 JSON 最小示例：
+```json
+{
+  "slug": "my-template",
+  "name": "我的模板",
+  "skill": "beautiful-html-templates",
+  "template_type": "slide-deck",
+  "design_style": "editorial",
+  "scheme": "light"
+}
+```
+
+Schema 权威定义：`registry.schema.json`。所有字段、枚举值、必填项以它为准。
+
 ## 目录
 
 ```
 templates/           ← 43 个模板 HTML（按来源分目录）
 registry.json        ← 元数据 + CSS 变量合约（唯一真相源）
-server.js            ← Express（端口 3080）
+registry.schema.json ← JSON Schema 合约（字段+枚举+必填项）
+server.js            ← Express（端口 3080，线上 PUBLIC_MODE 过滤 visibility=local）
 index.html           ← 前端画廊
-scripts/             ← 构建/提取脚本
+scripts/
+  add-template.js    ← 新增模板（校验+CSS提取+原子写入）
+  build-registry.js  ← 一次性迁移脚本（从旧 _index.json，已退役）
+  extract-css-vars.js← 批量提取 CSS 变量
 ```
