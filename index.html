@@ -285,7 +285,7 @@ function renderGrid(items) {
     const apiPath = '/api/template/' + t.slug + '/html';
     return `<div class="card">
       <div class="card-preview" onclick="event.stopPropagation();window.open('${t.template_path}','_blank')" style="cursor:pointer">
-        <iframe src="${t.template_path}" loading="lazy"></iframe>
+        <iframe data-src="${t.template_path}"></iframe>
         <div class="card-preview-overlay" onclick="event.stopPropagation()">
           <button class="card-preview-open" onclick="event.stopPropagation();window.open('${t.template_path}','_blank')">打开预览 ↗</button>
         </div>
@@ -302,7 +302,29 @@ function renderGrid(items) {
       </div>
     </div>`;
   }).join('');
-  requestAnimationFrame(()=>scaleIframes());
+  requestAnimationFrame(()=>{ scaleIframes(); observeIframes(); });
+}
+
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const iframe = entry.target;
+    iframe.src = iframe.dataset.src;
+    iframe.onload = () => {
+      const container = iframe.parentElement;
+      const w = container.offsetWidth;
+      if (!w) return;
+      const scale = w / 960;
+      iframe.style.width = '960px';
+      iframe.style.height = '600px';
+      iframe.style.transform = `scale(${scale})`;
+    };
+    io.unobserve(iframe);
+  });
+}, { rootMargin: '400px' });
+
+function observeIframes() {
+  document.querySelectorAll('iframe[data-src]').forEach(iframe => io.observe(iframe));
 }
 
 function scaleIframes() {
