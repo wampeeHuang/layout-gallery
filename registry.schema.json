@@ -22,7 +22,7 @@
     },
     "skill": {
       "type": "string",
-      "enum": ["beautiful-html-templates", "guizang-ppt-skill", "frontend-design"],
+      "enum": ["beautiful-html-templates", "guizang-ppt-skill", "frontend-design", "codebase-to-course"],
       "description": "模板来源 skill"
     },
     "template_type": {

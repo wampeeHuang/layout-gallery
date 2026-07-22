@@ -415,7 +415,7 @@
       "精确Precise",
       "诚实Honest"
     ],
-    "formality": "formal",
+    "formality": "medium-high",
     "density": "high",
     "scheme": "light",
     "palette": [],
@@ -499,7 +499,7 @@
       "克制Refined",
       "冥想Meditative"
     ],
-    "formality": "formal",
+    "formality": "medium-high",
     "density": "low",
     "scheme": "light",
     "palette": [],
@@ -590,7 +590,7 @@
       "高级Premium",
       "克制Restrained"
     ],
-    "formality": "formal",
+    "formality": "medium-high",
     "density": "low",
     "scheme": "light",
     "palette": [],
@@ -661,7 +661,7 @@
       "大声Loud",
       "玩味Playful"
     ],
-    "formality": "casual",
+    "formality": "low",
     "density": "high",
     "scheme": "light",
     "palette": [],
@@ -749,7 +749,7 @@
       "温暖Warm",
       "流动Flowing"
     ],
-    "formality": "neutral",
+    "formality": "medium",
     "density": "low",
     "scheme": "light",
     "palette": [],
@@ -830,7 +830,7 @@
       "霓虹Neon",
       "电影感Cinematic"
     ],
-    "formality": "casual",
+    "formality": "low",
     "density": "high",
     "scheme": "light",
     "palette": [],
@@ -6135,5 +6135,422 @@
     "visibility": "public",
     "preview_type": "iframe",
     "template_path": "templates/beautiful-html-templates/warm-terminal/template.html"
+  },
+  {
+    "slug": "warm-paper-course",
+    "name": "温暖纸质课程",
+    "tagline": "滚动叙事型课程框架：全屏模块 + 吸附滚动 + 17种教学组件，5套主题色一键切换",
+    "skill": "codebase-to-course",
+    "template_type": "single-page",
+    "design_style": "warm-humanist",
+    "aspect_ratio": "auto",
+    "mood": [
+      "温暖",
+      "专注",
+      "学院派",
+      "文艺",
+      "亲和"
+    ],
+    "occasion": [
+      "技术教程",
+      "产品文档",
+      "内部培训",
+      "知识库"
+    ],
+    "tone": [
+      "教学",
+      "友好",
+      "专业"
+    ],
+    "formality": "medium-low",
+    "density": "medium",
+    "scheme": "light",
+    "palette": [
+      {
+        "name": "背景底",
+        "color": "#FAF7F2"
+      },
+      {
+        "name": "正文",
+        "color": "#2C2A28"
+      },
+      {
+        "name": "次要文字",
+        "color": "#6B6560"
+      },
+      {
+        "name": "Vermillion 朱红",
+        "color": "#D94F30"
+      },
+      {
+        "name": "Coral 珊瑚",
+        "color": "#E06B56"
+      },
+      {
+        "name": "Teal 青蓝",
+        "color": "#2A7B9B"
+      },
+      {
+        "name": "Amber 琥珀",
+        "color": "#D4A843"
+      },
+      {
+        "name": "Forest 森林绿",
+        "color": "#2D8B55"
+      },
+      {
+        "name": "代码底",
+        "color": "#1E1E2E"
+      }
+    ],
+    "displayFont": "Bricolage Grotesque",
+    "bodyFont": "DM Sans",
+    "typography_style": "Display标题 + Sans-serif正文 + Mono代码，三字体分工",
+    "best_for": "代码库教程、系统设计文档、产品入门指南——适合需要渐进式叙事的长文内容",
+    "avoid_for": "简短宣传页、纯图片展示、需要复杂数据可视化的场景",
+    "features": [
+      "code"
+    ],
+    "slide_count": 0,
+    "css_variables": [
+      {
+        "name": "--color-bg",
+        "default": "#FAF7F2",
+        "description": "BACKGROUNDS"
+      },
+      {
+        "name": "--color-accent",
+        "default": "#D94F30",
+        "description": "ACCENT — 换主题改这 4 个变量即可"
+      },
+      {
+        "name": "--color-success",
+        "default": "#2D8B55",
+        "description": "SEMANTIC"
+      },
+      {
+        "name": "--color-actor-1",
+        "default": "#D94F30",
+        "description": "ACTOR COLORS"
+      },
+      {
+        "name": "--font-display",
+        "default": "'Bricolage Grotesque', Georgia, serif",
+        "description": "FONTS"
+      },
+      {
+        "name": "--text-xs",
+        "default": "0.75rem",
+        "description": "TYPE SCALE"
+      },
+      {
+        "name": "--leading-tight",
+        "default": "1.15",
+        "description": "LINE HEIGHTS"
+      },
+      {
+        "name": "--space-1",
+        "default": "0.25rem",
+        "description": "SPACING"
+      },
+      {
+        "name": "--content-width",
+        "default": "800px",
+        "description": "LAYOUT"
+      },
+      {
+        "name": "--radius-sm",
+        "default": "8px",
+        "description": "RADII"
+      },
+      {
+        "name": "--shadow-sm",
+        "default": "0 1px 2px rgba(44,42,40,0.05)",
+        "description": "SHADOWS (warm-tinted, never pure black)"
+      },
+      {
+        "name": "--ease-out",
+        "default": "cubic-bezier(0.16,1,0.3,1)",
+        "description": "EASING"
+      },
+      {
+        "name": "--color-bg-warm",
+        "default": "#F5F0E8",
+        "description": ""
+      },
+      {
+        "name": "--color-bg-code",
+        "default": "#1E1E2E",
+        "description": ""
+      },
+      {
+        "name": "--color-text",
+        "default": "#2C2A28",
+        "description": ""
+      },
+      {
+        "name": "--color-text-secondary",
+        "default": "#6B6560",
+        "description": ""
+      },
+      {
+        "name": "--color-text-muted",
+        "default": "#9E9790",
+        "description": ""
+      },
+      {
+        "name": "--color-border",
+        "default": "#E5DFD6",
+        "description": ""
+      },
+      {
+        "name": "--color-border-light",
+        "default": "#EEEBE5",
+        "description": ""
+      },
+      {
+        "name": "--color-surface",
+        "default": "#FFFFFF",
+        "description": ""
+      },
+      {
+        "name": "--color-surface-warm",
+        "default": "#FDF9F3",
+        "description": ""
+      },
+      {
+        "name": "--color-accent-hover",
+        "default": "#C4432A",
+        "description": ""
+      },
+      {
+        "name": "--color-accent-light",
+        "default": "#FDEEE9",
+        "description": ""
+      },
+      {
+        "name": "--color-accent-muted",
+        "default": "#E8836C",
+        "description": ""
+      },
+      {
+        "name": "--color-success-light",
+        "default": "#E8F5EE",
+        "description": ""
+      },
+      {
+        "name": "--color-error",
+        "default": "#C93B3B",
+        "description": ""
+      },
+      {
+        "name": "--color-error-light",
+        "default": "#FDE8E8",
+        "description": ""
+      },
+      {
+        "name": "--color-info",
+        "default": "#2A7B9B",
+        "description": ""
+      },
+      {
+        "name": "--color-info-light",
+        "default": "#E4F2F7",
+        "description": ""
+      },
+      {
+        "name": "--color-actor-2",
+        "default": "#2A7B9B",
+        "description": ""
+      },
+      {
+        "name": "--color-actor-3",
+        "default": "#7B6DAA",
+        "description": ""
+      },
+      {
+        "name": "--color-actor-4",
+        "default": "#D4A843",
+        "description": ""
+      },
+      {
+        "name": "--color-actor-5",
+        "default": "#2D8B55",
+        "description": ""
+      },
+      {
+        "name": "--font-body",
+        "default": "'DM Sans', -apple-system, sans-serif",
+        "description": ""
+      },
+      {
+        "name": "--font-mono",
+        "default": "'JetBrains Mono', 'Fira Code', 'Consolas', monospace",
+        "description": ""
+      },
+      {
+        "name": "--text-sm",
+        "default": "0.875rem",
+        "description": ""
+      },
+      {
+        "name": "--text-base",
+        "default": "1rem",
+        "description": ""
+      },
+      {
+        "name": "--text-lg",
+        "default": "1.125rem",
+        "description": ""
+      },
+      {
+        "name": "--text-xl",
+        "default": "1.25rem",
+        "description": ""
+      },
+      {
+        "name": "--text-2xl",
+        "default": "1.5rem",
+        "description": ""
+      },
+      {
+        "name": "--text-3xl",
+        "default": "1.875rem",
+        "description": ""
+      },
+      {
+        "name": "--text-4xl",
+        "default": "2.25rem",
+        "description": ""
+      },
+      {
+        "name": "--text-5xl",
+        "default": "3rem",
+        "description": ""
+      },
+      {
+        "name": "--text-6xl",
+        "default": "3.75rem",
+        "description": ""
+      },
+      {
+        "name": "--leading-snug",
+        "default": "1.3",
+        "description": ""
+      },
+      {
+        "name": "--leading-normal",
+        "default": "1.6",
+        "description": ""
+      },
+      {
+        "name": "--leading-loose",
+        "default": "1.8",
+        "description": ""
+      },
+      {
+        "name": "--space-2",
+        "default": "0.5rem",
+        "description": ""
+      },
+      {
+        "name": "--space-3",
+        "default": "0.75rem",
+        "description": ""
+      },
+      {
+        "name": "--space-4",
+        "default": "1rem",
+        "description": ""
+      },
+      {
+        "name": "--space-5",
+        "default": "1.25rem",
+        "description": ""
+      },
+      {
+        "name": "--space-6",
+        "default": "1.5rem",
+        "description": ""
+      },
+      {
+        "name": "--space-8",
+        "default": "2rem",
+        "description": ""
+      },
+      {
+        "name": "--space-10",
+        "default": "2.5rem",
+        "description": ""
+      },
+      {
+        "name": "--space-12",
+        "default": "3rem",
+        "description": ""
+      },
+      {
+        "name": "--space-16",
+        "default": "4rem",
+        "description": ""
+      },
+      {
+        "name": "--space-20",
+        "default": "5rem",
+        "description": ""
+      },
+      {
+        "name": "--space-24",
+        "default": "6rem",
+        "description": ""
+      },
+      {
+        "name": "--content-width-wide",
+        "default": "1000px",
+        "description": ""
+      },
+      {
+        "name": "--nav-height",
+        "default": "50px",
+        "description": ""
+      },
+      {
+        "name": "--radius-md",
+        "default": "12px",
+        "description": ""
+      },
+      {
+        "name": "--radius-lg",
+        "default": "16px",
+        "description": ""
+      },
+      {
+        "name": "--radius-full",
+        "default": "9999px",
+        "description": ""
+      },
+      {
+        "name": "--shadow-md",
+        "default": "0 4px 12px rgba(44,42,40,0.08)",
+        "description": ""
+      },
+      {
+        "name": "--shadow-lg",
+        "default": "0 8px 24px rgba(44,42,40,0.10)",
+        "description": ""
+      },
+      {
+        "name": "--shadow-xl",
+        "default": "0 16px 48px rgba(44,42,40,0.12)",
+        "description": ""
+      },
+      {
+        "name": "--ease-in-out",
+        "default": "cubic-bezier(0.65,0,0.35,1)",
+        "description": ""
+      }
+    ],
+    "visibility": "public",
+    "preview_type": "iframe",
+    "template_path": "templates/codebase-to-course/warm-paper-course/template.html"
   }
 ]

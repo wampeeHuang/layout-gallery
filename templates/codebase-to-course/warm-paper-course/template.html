@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课程标题</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   CODEBASE-TO-COURSE — WARM PAPER COURSE
+   温暖纸质调板 · 滚动吸附模块 · 5套主题色
+
+   CSS 变量全在 :root 里，改色只改 4 个 accent 变量即可切换主题:
+     vermillion #D94F30 (默认) · coral #E06B56
+     teal #2A7B9B · amber #D4A843 · forest #2D8B55
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── DESIGN TOKENS ─────────────────────────────────────────── */
+:root {
+  /* BACKGROUNDS */
+  --color-bg:             #FAF7F2;
+  --color-bg-warm:        #F5F0E8;
+  --color-bg-code:        #1E1E2E;
+  --color-text:           #2C2A28;
+  --color-text-secondary: #6B6560;
+  --color-text-muted:     #9E9790;
+  --color-border:         #E5DFD6;
+  --color-border-light:   #EEEBE5;
+  --color-surface:        #FFFFFF;
+  --color-surface-warm:   #FDF9F3;
+
+  /* ACCENT — 换主题改这 4 个变量即可 */
+  --color-accent:         #D94F30;
+  --color-accent-hover:   #C4432A;
+  --color-accent-light:   #FDEEE9;
+  --color-accent-muted:   #E8836C;
+
+  /* SEMANTIC */
+  --color-success:        #2D8B55;
+  --color-success-light:  #E8F5EE;
+  --color-error:          #C93B3B;
+  --color-error-light:    #FDE8E8;
+  --color-info:           #2A7B9B;
+  --color-info-light:     #E4F2F7;
+
+  /* ACTOR COLORS */
+  --color-actor-1:        #D94F30;
+  --color-actor-2:        #2A7B9B;
+  --color-actor-3:        #7B6DAA;
+  --color-actor-4:        #D4A843;
+  --color-actor-5:        #2D8B55;
+
+  /* FONTS */
+  --font-display: 'Bricolage Grotesque', Georgia, serif;
+  --font-body:    'DM Sans', -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* TYPE SCALE */
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
+  --text-4xl:  2.25rem;
+  --text-5xl:  3rem;
+  --text-6xl:  3.75rem;
+
+  /* LINE HEIGHTS */
+  --leading-tight:  1.15;
+  --leading-snug:   1.3;
+  --leading-normal: 1.6;
+  --leading-loose:  1.8;
+
+  /* SPACING */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* LAYOUT */
+  --content-width:      800px;
+  --content-width-wide: 1000px;
+  --nav-height:         50px;
+
+  /* RADII */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-full: 9999px;
+
+  /* SHADOWS (warm-tinted, never pure black) */
+  --shadow-sm: 0 1px 2px rgba(44,42,40,0.05);
+  --shadow-md: 0 4px 12px rgba(44,42,40,0.08);
+  --shadow-lg: 0 8px 24px rgba(44,42,40,0.10);
+  --shadow-xl: 0 16px 48px rgba(44,42,40,0.12);
+
+  /* EASING */
+  --ease-out:    cubic-bezier(0.16,1,0.3,1);
+  --ease-in-out: cubic-bezier(0.65,0,0.35,1);
+}
+
+/* ── RESET & BASE ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  line-height: var(--leading-normal);
+  background: var(--color-bg);
+  background-image: radial-gradient(
+    ellipse at 20% 50%,
+    rgba(217,79,48,0.03) 0%,
+    transparent 50%
+  );
+}
+
+/* ── SCROLLBAR ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+/* ── CODE GLOBALS ───────────────────────────────────────────── */
+pre, code {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: hidden;
+}
+
+/* Catppuccin-inspired syntax highlighting */
+.code-keyword  { color: #CBA6F7; }
+.code-string   { color: #A6E3A1; }
+.code-function { color: #89B4FA; }
+.code-comment  { color: #6C7086; }
+.code-number   { color: #FAB387; }
+.code-property { color: #F9E2AF; }
+.code-operator { color: #94E2D5; }
+.code-tag      { color: #F38BA8; }
+.code-attr     { color: #F9E2AF; }
+.code-value    { color: #A6E3A1; }
+
+/* ── NAV ────────────────────────────────────────────────────── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-height);
+  z-index: 1000;
+  background: rgba(250,247,242,0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 2px;
+  width: 30%;
+  background: var(--color-accent);
+}
+
+.nav-inner {
+  max-width: var(--content-width-wide);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.nav-title {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+
+.nav-dots {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.nav-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--color-text-muted);
+  background: transparent;
+  cursor: pointer;
+  transition: all 150ms;
+  position: relative;
+}
+.nav-dot::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-bg-code);
+  color: #CDD6F4;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 150ms;
+}
+.nav-dot:hover::after { opacity: 1; }
+.nav-dot.active {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-light);
+}
+.nav-dot.visited {
+  border-color: var(--color-accent-muted);
+  background: var(--color-accent-muted);
+}
+
+/* ── MODULE STRUCTURE ───────────────────────────────────────── */
+.module {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  padding: var(--space-16) var(--space-6);
+  padding-top: calc(var(--nav-height) + var(--space-12));
+}
+
+.module-content {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.module-header { margin-bottom: var(--space-12); }
+
+.module-number {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-6xl);
+  font-weight: 800;
+  color: var(--color-accent);
+  opacity: 0.15;
+  line-height: 1;
+  margin-bottom: var(--space-2);
+}
+
+.module-title {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+}
+
+.module-subtitle {
+  margin-top: var(--space-3);
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-snug);
+}
+
+.screen {
+  margin-bottom: var(--space-16);
+}
+
+.screen-heading {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-6);
+  line-height: var(--leading-snug);
+}
+
+p { margin-bottom: var(--space-4); }
+p:last-child { margin-bottom: 0; }
+
+/* ── TRANSLATION BLOCKS ─────────────────────────────────────── */
+.translation-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  margin: var(--space-8) 0;
+}
+
+.translation-code {
+  background: var(--color-bg-code);
+  color: #CDD6F4;
+  padding: var(--space-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+}
+
+.translation-english {
+  background: var(--color-surface-warm);
+  padding: var(--space-6);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  border-left: 3px solid var(--color-accent);
+}
+
+.translation-label {
+  display: block;
+  margin-bottom: var(--space-3);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.translation-lines .tl {
+  padding: var(--space-1) 0;
+  border-bottom: 1px solid var(--color-border-light);
+  color: var(--color-text-secondary);
+}
+.translation-lines .tl:last-child { border-bottom: none; }
+
+/* ── QUIZ ───────────────────────────────────────────────────── */
+.quiz-container {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+  margin: var(--space-8) 0;
+}
+
+.quiz-question-block { margin-bottom: var(--space-8); }
+.quiz-question-block:last-of-type { margin-bottom: 0; }
+
+.quiz-question {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+  line-height: var(--leading-snug);
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  transition: border-color 150ms, background 150ms;
+}
+
+.quiz-option-radio {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+/* ── CALLOUT BOXES ──────────────────────────────────────────── */
+.callout {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border-radius: var(--radius-md);
+  margin: var(--space-6) 0;
+  border-left: 4px solid;
+}
+.callout-accent  { background: var(--color-accent-light);  border-color: var(--color-accent); }
+.callout-info    { background: var(--color-info-light);    border-color: var(--color-info); }
+.callout-warning { background: var(--color-error-light);   border-color: var(--color-error); }
+
+.callout-icon { font-size: 1.25rem; flex-shrink: 0; margin-top: 2px; }
+.callout-title { display: block; font-weight: 700; margin-bottom: var(--space-1); }
+.callout-content p { font-size: var(--text-sm); margin: 0; color: var(--color-text-secondary); }
+
+/* ── PATTERN / FEATURE CARDS ────────────────────────────────── */
+.pattern-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-6) 0;
+}
+
+.pattern-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  border-top: 3px solid var(--color-accent);
+}
+
+.pattern-icon {
+  width: 40px; height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  margin-bottom: var(--space-3);
+}
+
+.pattern-title {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.pattern-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-normal);
+  margin: 0;
+}
+
+/* ── FLOW DIAGRAMS (static) ─────────────────────────────────── */
+.flow-steps {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin: var(--space-6) 0;
+}
+
+.flow-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+
+.flow-step-num {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: white;
+  font-family: var(--font-display);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flow-step p { font-size: var(--text-sm); color: var(--color-text-secondary); max-width: 120px; margin: 0; }
+
+.flow-arrow {
+  font-size: var(--text-xl);
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+/* ── BADGE / CONFIG LIST ────────────────────────────────────── */
+.badge-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: var(--space-6) 0;
+}
+
+.badge-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+}
+
+.badge-code {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  background: var(--color-bg-code);
+  color: #CBA6F7;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.badge-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ── VISUAL FILE TREE ───────────────────────────────────────── */
+.file-tree {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  margin: var(--space-6) 0;
+}
+
+.ft-folder, .ft-file {
+  padding: var(--space-2) var(--space-3);
+  border-left: 2px solid var(--color-border-light);
+  margin-left: var(--space-4);
+}
+
+.ft-folder > .ft-name { color: var(--color-accent); font-weight: 600; }
+.ft-folder > .ft-name::before { content: '📁 '; }
+.ft-file > .ft-name::before { content: '📄 '; }
+.ft-desc {
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  margin-left: var(--space-2);
+  font-size: var(--text-xs);
+}
+.ft-children { margin-left: var(--space-4); }
+
+/* ── NUMBERED STEP CARDS ────────────────────────────────────── */
+.step-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: var(--space-6) 0;
+}
+
+.step-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-accent);
+  box-shadow: var(--shadow-sm);
+}
+
+.step-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: white;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  flex-shrink: 0;
+}
+
+.step-body strong { display: block; font-weight: 600; margin-bottom: var(--space-1); }
+.step-body p { margin: 0; color: var(--color-text-secondary); font-size: var(--text-sm); }
+
+/* ── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  :root {
+    --text-4xl: 1.875rem;
+    --text-5xl: 2.25rem;
+    --text-6xl: 3rem;
+  }
+  .translation-block { grid-template-columns: 1fr; }
+  .translation-english { border-left: none; border-top: 3px solid var(--color-accent); }
+  .pattern-cards { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --text-4xl: 1.5rem;
+    --text-5xl: 1.875rem;
+    --text-6xl: 2.25rem;
+  }
+  .module { padding: var(--space-8) var(--space-4); }
+  .pattern-cards { grid-template-columns: 1fr; }
+  .flow-steps { flex-direction: column; }
+  .flow-arrow { transform: rotate(90deg); }
+  .nav-title { max-width: 140px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="progress-bar" id="progress-bar"></div>
+  <div class="nav-inner">
+    <span class="nav-title">课程标题</span>
+    <div class="nav-dots" id="nav-dots">
+      <button class="nav-dot active" data-tooltip="概述" data-target="module-1"></button>
+      <button class="nav-dot" data-tooltip="核心概念" data-target="module-2"></button>
+      <button class="nav-dot" data-tooltip="实战演练" data-target="module-3"></button>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ═══ MODULE 1: Overview ═══ -->
+<section class="module" id="module-1" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header">
+      <span class="module-number">01</span>
+      <h1 class="module-title">系统概览</h1>
+      <p class="module-subtitle">理解整体架构与核心设计理念</p>
+    </header>
+    <div class="module-body">
+
+      <section class="screen">
+        <h2 class="screen-heading">核心设计原则</h2>
+        <p>这套设计系统围绕三个核心理念构建：温暖的纸质触感、清晰的排版层级、渐进式信息披露。</p>
+
+        <div class="pattern-cards">
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background:var(--color-accent-light)">📖</div>
+            <div class="pattern-title">纸质调板</div>
+            <p class="pattern-desc">暖米色底 (#FAF7F2) 搭配暖灰文字，模拟纸张阅读体验，避免冷白色刺激。</p>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background:var(--color-info-light)">🔤</div>
+            <div class="pattern-title">字体层级</div>
+            <p class="pattern-desc">Bricolage Grotesque 标题 + DM Sans 正文 + JetBrains Mono 代码，三字体分工明确。</p>
+          </div>
+          <div class="pattern-card">
+            <div class="pattern-icon" style="background:var(--color-success-light)">🎯</div>
+            <div class="pattern-title">滚动叙事</div>
+            <p class="pattern-desc">全屏模块 + scroll-snap 吸附，每个模块一个主题，纵向滚动自然叙事。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen">
+        <h2 class="screen-heading">5 套主题色</h2>
+        <p>只改 4 个 CSS 变量即可切换全局主题色，无需改动任何组件样式。</p>
+        <div class="badge-list">
+          <div class="badge-item">
+            <span class="badge-code">--color-accent: #D94F30</span>
+            <span class="badge-desc">Vermillion 朱红 — 默认暖色，适合技术教程</span>
+          </div>
+          <div class="badge-item">
+            <span class="badge-code">--color-accent: #E06B56</span>
+            <span class="badge-desc">Coral 珊瑚 — 柔和版朱红，适合创意内容</span>
+          </div>
+          <div class="badge-item">
+            <span class="badge-code">--color-accent: #2A7B9B</span>
+            <span class="badge-desc">Teal 青蓝 — 冷静专业，适合系统设计文档</span>
+          </div>
+          <div class="badge-item">
+            <span class="badge-code">--color-accent: #D4A843</span>
+            <span class="badge-desc">Amber 琥珀 — 温暖知性，适合人文类内容</span>
+          </div>
+          <div class="badge-item">
+            <span class="badge-code">--color-accent: #2D8B55</span>
+            <span class="badge-desc">Forest 森林绿 — 自然清新，适合最佳实践指南</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MODULE 2: Components ═══ -->
+<section class="module" id="module-2" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header">
+      <span class="module-number">02</span>
+      <h1 class="module-title">核心组件</h1>
+      <p class="module-subtitle">17 种预置教学组件，即插即用</p>
+    </header>
+    <div class="module-body">
+
+      <section class="screen">
+        <h2 class="screen-heading">代码翻译块</h2>
+        <p>左侧代码 + 右侧逐行解释，双栏对照降低认知负荷。Catppuccin 语法高亮配色。</p>
+        <div class="translation-block">
+          <div class="translation-code">
+            <span class="translation-label">代码</span>
+<pre><span class="code-keyword">async function</span> <span class="code-function">fetchUser</span>(<span class="code-property">id</span>) {
+  <span class="code-keyword">const</span> res = <span class="code-keyword">await</span> <span class="code-property">fetch</span>(<span class="code-string">`/api/users/${id}`</span>);
+  <span class="code-keyword">if</span> (!res.<span class="code-property">ok</span>) <span class="code-keyword">throw new</span> <span class="code-function">Error</span>(<span class="code-string">'Not found'</span>);
+  <span class="code-keyword">return</span> res.<span class="code-function">json</span>();
+}</pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">逐行解释</span>
+            <div class="translation-lines">
+              <div class="tl">声明异步函数 fetchUser，接收 id 参数</div>
+              <div class="tl">用 fetch API 请求用户数据，URL 动态拼接 id</div>
+              <div class="tl">响应非 OK 时抛出错误（触发调用方 catch）</div>
+              <div class="tl">解析 JSON 响应体并返回</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen">
+        <h2 class="screen-heading">标注框</h2>
+        <p>三种语义变体，用于强调、补充信息和警告。</p>
+        <div class="callout callout-accent">
+          <span class="callout-icon">💡</span>
+          <div class="callout-content">
+            <span class="callout-title">关键要点</span>
+            <p>所有组件都使用 CSS 变量驱动颜色，改 :root 变量即可全局换肤。</p>
+          </div>
+        </div>
+        <div class="callout callout-info">
+          <span class="callout-icon">ℹ️</span>
+          <div class="callout-content">
+            <span class="callout-title">补充说明</span>
+            <p>代码块使用 Catppuccin Mocha 配色方案，暗底亮字保证可读性。</p>
+          </div>
+        </div>
+        <div class="callout callout-warning">
+          <span class="callout-icon">⚠️</span>
+          <div class="callout-content">
+            <span class="callout-title">注意事项</span>
+            <p>Google Fonts 域名可能被墙，国内部署建议替换为本地字体或国内 CDN。</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MODULE 3: Workflow ═══ -->
+<section class="module" id="module-3" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header">
+      <span class="module-number">03</span>
+      <h1 class="module-title">实战流程</h1>
+      <p class="module-subtitle">从代码库到课程的四步工作流</p>
+    </header>
+    <div class="module-body">
+
+      <section class="screen">
+        <h2 class="screen-heading">构建流程</h2>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step-num">1</div>
+            <p>分析代码库结构</p>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <div class="flow-step-num">2</div>
+            <p>写模块简报</p>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <div class="flow-step-num">3</div>
+            <p>生成模块 HTML</p>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <div class="flow-step-num">4</div>
+            <p>build.sh 组装</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen">
+        <h2 class="screen-heading">输出结构</h2>
+        <div class="file-tree">
+          <div class="ft-folder"><span class="ft-name">my-course/</span></div>
+          <div class="ft-children">
+            <div class="ft-file"><span class="ft-name">index.html</span> <span class="ft-desc">← build.sh 组装成品</span></div>
+            <div class="ft-file"><span class="ft-name">styles.css</span> <span class="ft-desc">← 设计系统（直接复制）</span></div>
+            <div class="ft-file"><span class="ft-name">main.js</span> <span class="ft-desc">← 交互引擎（直接复制）</span></div>
+            <div class="ft-folder"><span class="ft-name">modules/</span></div>
+            <div class="ft-children">
+              <div class="ft-file"><span class="ft-name">01-overview.html</span></div>
+              <div class="ft-file"><span class="ft-name">02-core-concept.html</span></div>
+              <div class="ft-file"><span class="ft-name">03-deep-dive.html</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen">
+        <h2 class="screen-heading">快速测验</h2>
+        <div class="quiz-container">
+          <div class="quiz-question-block" data-correct="1">
+            <div class="quiz-question">这套设计系统切换主题需要改几个 CSS 变量？</div>
+            <div class="quiz-options">
+              <label class="quiz-option"><span class="quiz-option-radio"></span> 1 个</label>
+              <label class="quiz-option"><span class="quiz-option-radio"></span> 4 个</label>
+              <label class="quiz-option"><span class="quiz-option-radio"></span> 10 个</label>
+              <label class="quiz-option"><span class="quiz-option-radio"></span> 全部重写</label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function() {
+  /* ── Progress bar ─────────────────────────────────────────── */
+  const bar = document.getElementById('progress-bar');
+  function updateProgress() {
+    if (!bar) return;
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = docHeight > 0 ? Math.min(100, (scrollTop / docHeight) * 100) + '%' : '0%';
+  }
+
+  /* ── Nav dots ──────────────────────────────────────────────── */
+  const dots = document.querySelectorAll('.nav-dot');
+  const modules = document.querySelectorAll('.module');
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const target = document.getElementById(dot.dataset.target);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  function updateActiveDot() {
+    let activeId = null;
+    modules.forEach(m => {
+      const rect = m.getBoundingClientRect();
+      if (rect.top <= window.innerHeight * 0.4) activeId = m.id;
+    });
+    dots.forEach(d => {
+      d.classList.remove('active');
+      if (d.dataset.target === activeId) d.classList.add('active');
+    });
+  }
+
+  /* ── Quiz ─────────────────────────────────────────────────── */
+  document.querySelectorAll('.quiz-option').forEach(option => {
+    option.addEventListener('click', function() {
+      const block = this.closest('.quiz-question-block');
+      if (block.dataset.answered === 'true') return;
+
+      const options = block.querySelectorAll('.quiz-option');
+      const correct = parseInt(block.dataset.correct);
+      const chosen = Array.from(options).indexOf(this);
+
+      options.forEach((o, i) => {
+        o.style.pointerEvents = 'none';
+        if (i === correct) {
+          o.style.borderColor = 'var(--color-success)';
+          o.style.background = 'var(--color-success-light)';
+          o.querySelector('.quiz-option-radio').style.background = 'var(--color-success)';
+          o.querySelector('.quiz-option-radio').style.borderColor = 'var(--color-success)';
+          o.querySelector('.quiz-option-radio').textContent = '✓';
+        } else if (i === chosen && chosen !== correct) {
+          o.style.borderColor = 'var(--color-error)';
+          o.style.background = 'var(--color-error-light)';
+          o.querySelector('.quiz-option-radio').style.background = 'var(--color-error)';
+          o.querySelector('.quiz-option-radio').style.borderColor = 'var(--color-error)';
+          o.querySelector('.quiz-option-radio').textContent = '✗';
+        }
+      });
+
+      block.dataset.answered = 'true';
+    });
+  });
+
+  /* ── Scroll handler ───────────────────────────────────────── */
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateProgress();
+        updateActiveDot();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  updateProgress();
+  updateActiveDot();
+})();
+</script>
+</body>
+</html>
