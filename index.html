@@ -181,17 +181,16 @@ const DENSITY_REVERSE = {'高密度':'high','中密度':'medium','低密度':'lo
 const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 
 let templates = [];           // Full list (for chips + modal lookup)
-let activeSource = 'all', activeStyle = 'all', activeScheme = 'all';
-let activeFormality = 'all', activeDensity = 'all', searchQuery = '';
+const F = { source: 'all', style: 'all', scheme: 'all', formality: 'all', density: 'all', query: '' };
 
 async function fetchFiltered() {
   const p = new URLSearchParams();
-  if(activeSource!=='all') p.set('skill', SOURCE_REVERSE[activeSource]||activeSource);
-  if(activeStyle!=='all') p.set('design_style', STYLE_REVERSE[activeStyle]||activeStyle);
-  if(activeScheme!=='all') p.set('scheme', activeScheme);
-  if(activeFormality!=='all') p.set('formality', FORMALITY_REVERSE[activeFormality]||activeFormality);
-  if(activeDensity!=='all') p.set('density', DENSITY_REVERSE[activeDensity]||activeDensity);
-  if(searchQuery) p.set('q', searchQuery);
+  if(F.source!=='all') p.set('skill', SOURCE_REVERSE[F.source]||F.source);
+  if(F.style!=='all') p.set('design_style', STYLE_REVERSE[F.style]||F.style);
+  if(F.scheme!=='all') p.set('scheme', F.scheme);
+  if(F.formality!=='all') p.set('formality', FORMALITY_REVERSE[F.formality]||F.formality);
+  if(F.density!=='all') p.set('density', DENSITY_REVERSE[F.density]||F.density);
+  if(F.query) p.set('q', F.query);
   const qs = p.toString();
   const res = await fetch('/api/registry' + (qs?'?'+qs:''));
   const data = await res.json();
@@ -263,8 +262,7 @@ function renderDensityFilters() {
 }
 
 async function selectFilter(group, value) {
-  const map={source:'activeSource',style:'activeStyle',scheme:'activeScheme',formality:'activeFormality',density:'activeDensity'};
-  window[map[group]]=value;
+  F[group] = value;
   document.querySelectorAll(`[data-group="${group}"]`).forEach(el=>el.classList.remove('active'));
   const tgt=document.querySelector(`[data-group="${group}"][data-val="${value}"]`);
   if(tgt)tgt.classList.add('active');
@@ -401,17 +399,17 @@ function closeModal(e) {
 function bindEvents() {
   const searchInput = document.getElementById('searchInput');
   searchInput.addEventListener('input', debounce(async e => {
-    searchQuery = e.target.value.toLowerCase().trim();
+    F.query = e.target.value.toLowerCase().trim();
     const items = await fetchFiltered();
     renderGrid(items);
   }, 200));
   document.getElementById('searchBtn').addEventListener('click', async () => {
-    searchQuery = searchInput.value.toLowerCase().trim();
+    F.query = searchInput.value.toLowerCase().trim();
     const items = await fetchFiltered();
     renderGrid(items);
   });
   searchInput.addEventListener('keydown', async e => {
-    if(e.key==='Enter'){ searchQuery = searchInput.value.toLowerCase().trim(); const items = await fetchFiltered(); renderGrid(items); }
+    if(e.key==='Enter'){ F.query = searchInput.value.toLowerCase().trim(); const items = await fetchFiltered(); renderGrid(items); }
   });
   document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
   window.addEventListener('resize', debounce(() => scaleIframes(), 150));
