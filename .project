@@ -1,0 +1,12 @@
+{
+  "id": "html-gallery",
+  "name": "版式画廊部署",
+  "description": "99个HTML幻灯片模板的浏览器，7个来源汇集，公开站 gallery.evopearl.com",
+  "status": "active",
+  "created": "2026-06-06",
+  "deploy": {
+    "pipeline": "vercel",
+    "project": "html-gallery",
+    "domain": "gallery.evopearl.com"
+  }
+}

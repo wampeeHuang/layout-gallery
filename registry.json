@@ -1,5 +1,47 @@
 [
   {
+    "slug": "fuck-anthropic",
+    "name": "纸媒宣言 · Paper Manifesto",
+    "tagline": "复古纸媒x粗野主义 — Georgia衬线大字报、边框网格、墨色反转hover、宣言黑底红影",
+    "skill": "beautiful-html-templates",
+    "template_type": "single-page",
+    "design_style": "editorial",
+    "aspect_ratio": "auto",
+    "mood": ["激进", "复古", "宣言感", "粗野"],
+    "occasion": ["公共声明", "倡议页面", "运动网站", "编辑精选"],
+    "tone": ["宣言", "对抗", "批判"],
+    "formality": "medium-high",
+    "density": "medium",
+    "scheme": "light",
+    "palette": [
+      { "name": "Paper", "color": "#f4efe7" },
+      { "name": "Ink", "color": "#1b1916" },
+      { "name": "Oxide", "color": "#b84f35" },
+      { "name": "Oxide Dark", "color": "#8b3525" },
+      { "name": "Sun", "color": "#d89a57" }
+    ],
+    "displayFont": "Georgia / Times New Roman / Noto Serif SC",
+    "bodyFont": "Inter / PingFang SC / Microsoft YaHei",
+    "typography_style": "Serif巨大标题(Georgia) + Sans-serif正文(Inter)，衬线/无衬线强对比，letter-spacing极窄",
+    "best_for": "公共声明、倡议/请愿页面、社论专题、运动/活动站点、个人宣言",
+    "avoid_for": "企业内部文档、数据报告、电商落地页",
+    "features": ["citation"],
+    "slide_count": 0,
+    "css_variables": [
+      { "name": "--paper", "default": "#f4efe7", "description": "页面背景纸色" },
+      { "name": "--paper-deep", "default": "#e8dfd2", "description": "深纸色（panel背景）" },
+      { "name": "--ink", "default": "#1b1916", "description": "主文字色/暗色块背景" },
+      { "name": "--ink-soft", "default": "#5f5951", "description": "次级文字" },
+      { "name": "--oxide", "default": "#b84f35", "description": "锈红强调色" },
+      { "name": "--sun", "default": "#d89a57", "description": "琥珀高亮（引用左边框、manifesto按钮）" },
+      { "name": "--display", "default": "Georgia, \"Times New Roman\", serif", "description": "展示字体栈" },
+      { "name": "--body", "default": "Inter, system-ui, sans-serif", "description": "正文字体栈" }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/beautiful-html-templates/fuck-anthropic/template.html"
+  },
+  {
     "slug": "template",
     "name": "归藏PPT · Style A 电子杂志",
     "tagline": "电子杂志 x 电子墨水 — Monocle式温润质感，5套配色主题，WebGL动态背景",

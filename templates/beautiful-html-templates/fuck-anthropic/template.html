@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Paper Manifesto · 纸媒宣言</title>
+<style>
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  TOKENS — replace these to re-theme the entire page         ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+:root {
+  --paper: #f4efe7;
+  --paper-deep: #e8dfd2;
+  --ink: #1b1916;
+  --ink-soft: #5f5951;
+  --oxide: #b84f35;
+  --oxide-dark: #8b3525;
+  --sun: #d89a57;
+  --line: rgba(27, 25, 22, 0.18);
+  --line-soft: rgba(27, 25, 22, 0.1);
+  --card-bg: rgba(255, 253, 248, 0.62);
+
+  --display: Georgia, "Times New Roman", "Noto Serif SC", "Songti SC", serif;
+  --body: Inter, "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", ui-sans-serif, system-ui, sans-serif;
+
+  --page-w: 1180px;
+  --gutter: 24px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 86% 0%, rgba(216, 154, 87, 0.18), transparent 25rem),
+    linear-gradient(90deg, transparent 0, transparent calc(50% - 1px), rgba(27, 25, 22, 0.025) 50%, transparent calc(50% + 1px)),
+    var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+}
+
+/* Dot texture overlay */
+body::before {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  opacity: 0.34;
+  background-image: radial-gradient(rgba(27, 25, 22, 0.22) 0.45px, transparent 0.45px);
+  background-size: 5px 5px;
+  mix-blend-mode: multiply;
+}
+
+a { color: inherit; text-decoration: none; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--oxide); outline-offset: 4px; }
+
+/* ── Page wrapper ──────────────────────────────────────────────── */
+.page { width: min(var(--page-w), calc(100% - 48px)); margin: 0 auto; padding: 24px 0 80px; }
+
+/* ── Topbar ────────────────────────────────────────────────────── */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  min-height: 58px;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+
+.wordmark {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: var(--ink); font-family: var(--display); font-size: 1.05rem;
+  font-weight: 700; letter-spacing: -0.02em;
+}
+
+.wordmark-mark {
+  display: grid; width: 31px; height: 31px; place-items: center;
+  background: var(--oxide); color: var(--paper);
+  font-family: var(--body); font-size: 0.66rem; font-weight: 800; letter-spacing: -0.06em;
+}
+
+/* ── Hero ──────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  padding: clamp(68px, 10vw, 132px) 0 56px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.hero::after {
+  position: absolute; right: 0; bottom: -2px;
+  width: min(34%, 330px); height: 7px;
+  content: ""; background: var(--oxide);
+}
+
+.hero-masthead {
+  display: flex; justify-content: space-between; max-width: 740px;
+  margin-bottom: 34px;
+  color: var(--oxide-dark); font-size: 0.71rem; font-weight: 800;
+  letter-spacing: 0.17em; text-transform: uppercase;
+}
+
+.eyebrow {
+  margin: 0 0 16px;
+  color: var(--oxide-dark); font-size: 0.72rem; font-weight: 800;
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+
+h1, h2, h3, p { margin: 0; }
+h1, h2, .quote-text {
+  font-family: var(--display); font-weight: 700;
+}
+
+h1 {
+  max-width: 990px;
+  font-size: clamp(4.25rem, 11vw, 9.6rem);
+  line-height: 0.82; letter-spacing: -0.08em;
+}
+
+.hero-copy {
+  max-width: 730px; margin-top: 32px;
+  color: #34302a; font-size: clamp(1.08rem, 2vw, 1.38rem); line-height: 1.65;
+}
+
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+
+.button {
+  display: inline-flex; min-height: 45px; align-items: center;
+  justify-content: center; padding: 0 18px;
+  border: 1px solid var(--ink); font-size: 0.83rem; font-weight: 800;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+  cursor: pointer; font-family: var(--body);
+}
+
+.button:hover { transform: translate(-2px, -2px); }
+
+.button.primary {
+  background: var(--ink); color: var(--paper);
+  box-shadow: 4px 4px 0 var(--oxide);
+}
+
+.button.primary:hover { background: var(--oxide); }
+
+.button.secondary { background: transparent; color: var(--ink); }
+.button.secondary:hover { background: var(--ink); color: var(--paper); }
+
+.hero-note {
+  max-width: 780px; margin-top: 42px; padding: 14px 0 14px 18px;
+  border-left: 3px solid var(--sun);
+  color: var(--ink-soft); font-size: 0.9rem; line-height: 1.65;
+}
+
+/* ── Grid sections ─────────────────────────────────────────────── */
+.grid-section { margin-top: clamp(70px, 10vw, 118px); }
+
+.section-heading { max-width: 760px; margin-bottom: 28px; }
+
+.section-heading h2 {
+  max-width: 720px;
+  font-size: clamp(2.45rem, 5vw, 4.6rem);
+  line-height: 0.95; letter-spacing: -0.055em;
+}
+
+.section-heading p:last-child {
+  margin-top: 16px; color: var(--ink-soft); font-size: 1rem; line-height: 1.7;
+}
+
+/* 2‑column bordered grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--ink);
+  border-left: 1px solid var(--line);
+}
+
+.card {
+  min-height: 100%; padding: 26px 26px 30px;
+  border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  background: transparent;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.card:hover { background: var(--ink); color: var(--paper); }
+
+.card h3 {
+  margin-bottom: 13px; font-family: var(--display);
+  font-size: 1.55rem; line-height: 1.08; letter-spacing: -0.04em;
+}
+
+.card p { color: var(--ink-soft); line-height: 1.7; }
+.card:hover p { color: rgba(244, 239, 231, 0.76); }
+
+/* ── Quote block ───────────────────────────────────────────────── */
+.quote-block {
+  margin-top: clamp(62px, 9vw, 105px);
+  padding: 22px 0 22px clamp(22px, 5vw, 90px);
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+
+.quote-text {
+  max-width: 950px;
+  font-size: clamp(2rem, 4.9vw, 4.7rem);
+  line-height: 0.98; letter-spacing: -0.06em;
+}
+
+/* ── Two-column panel row ──────────────────────────────────────── */
+.two-column {
+  margin-top: clamp(62px, 9vw, 105px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--ink);
+  border-left: 1px solid var(--line);
+}
+
+.panel {
+  min-height: 100%; padding: 26px 26px 30px;
+  border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  background: var(--card-bg);
+}
+
+.panel h2 {
+  margin-bottom: 13px; font-family: var(--display);
+  font-size: 1.55rem; line-height: 1.08; letter-spacing: -0.04em;
+}
+
+.panel p, .panel li { color: var(--ink-soft); line-height: 1.7; }
+
+.list { margin: 0; padding-left: 19px; }
+.list li + li { margin-top: 12px; }
+
+/* ── Timeline / records ────────────────────────────────────────── */
+.record-list { border-top: 1px solid var(--ink); margin-top: 32px; }
+
+.record-item {
+  display: grid;
+  grid-template-columns: minmax(154px, 0.58fr) minmax(0, 2fr);
+  gap: 30px; padding: 25px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.record-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 9px; }
+
+.record-meta time {
+  color: var(--oxide-dark);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.82rem; font-weight: 800; letter-spacing: 0.04em;
+}
+
+.record-meta .tag {
+  padding: 4px 8px; border: 1px solid var(--line);
+  color: var(--ink-soft); font-size: 0.66rem; font-weight: 800;
+  letter-spacing: 0.07em; text-transform: uppercase;
+}
+
+.record-content h3 {
+  max-width: 700px; margin-bottom: 8px; font-family: var(--display);
+  font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+  line-height: 1.08; letter-spacing: -0.045em;
+}
+
+.record-content p { max-width: 800px; color: var(--ink-soft); line-height: 1.72; }
+
+/* ── 4‑column alternative grid ─────────────────────────────────── */
+.alt-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--ink);
+  border-left: 1px solid var(--line);
+}
+
+.alt-card {
+  min-height: 100%; padding: 26px 26px 30px;
+  border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  background: rgba(255, 253, 248, 0.38);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.alt-card:hover { background: var(--ink); color: var(--paper); }
+
+.alt-card h3 {
+  margin-bottom: 13px; font-family: var(--display);
+  font-size: 1.35rem; line-height: 1.08; letter-spacing: -0.04em;
+}
+
+.alt-card p { color: var(--ink-soft); line-height: 1.7; }
+.alt-card:hover p { color: rgba(244, 239, 231, 0.76); }
+
+/* ── Manifesto (dark section) ──────────────────────────────────── */
+.manifesto {
+  margin-top: clamp(70px, 10vw, 118px);
+  padding: clamp(38px, 6vw, 76px);
+  background: var(--ink); color: var(--paper);
+  box-shadow: 10px 10px 0 var(--oxide);
+}
+
+.manifesto .eyebrow { color: var(--sun); }
+
+.manifesto h2 {
+  max-width: 900px; margin-bottom: 20px; font-family: var(--display);
+  font-size: clamp(2.6rem, 5.5vw, 5rem);
+  line-height: 0.94; letter-spacing: -0.06em;
+}
+
+.manifesto p {
+  max-width: 780px; color: rgba(244, 239, 231, 0.75); line-height: 1.72;
+}
+
+.manifesto p + p { margin-top: 14px; }
+
+.manifesto .button.primary {
+  background: var(--sun); color: var(--ink);
+  box-shadow: 4px 4px 0 var(--paper);
+}
+
+.manifesto .button.secondary {
+  border-color: rgba(244, 239, 231, 0.55); color: var(--paper);
+}
+
+.manifesto .button.secondary:hover { background: var(--paper); color: var(--ink); }
+
+.community-links { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 30px; }
+
+/* ── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 920px) {
+  .card-grid, .two-column, .alt-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 680px) {
+  .page { width: min(100% - 28px, var(--page-w)); padding-top: 14px; }
+  .topbar { align-items: flex-start; flex-direction: column; gap: 6px; padding: 10px 0 0; }
+  .hero { padding-top: 67px; }
+  .hero-masthead { margin-bottom: 24px; font-size: 0.62rem; }
+  h1 { font-size: clamp(3.8rem, 18vw, 5.8rem); line-height: 0.86; }
+  .hero-copy { margin-top: 25px; font-size: 1.04rem; }
+  .hero-note { margin-top: 31px; }
+  .grid-section, .manifesto { margin-top: 68px; }
+  .section-heading h2 { font-size: clamp(2.5rem, 12vw, 3.55rem); }
+  .card-grid, .two-column, .alt-grid { grid-template-columns: 1fr; }
+  .card, .panel, .alt-card { padding: 22px 20px 25px; }
+  .record-item { grid-template-columns: 1fr; gap: 14px; padding: 21px 0; }
+  .record-meta { flex-direction: row; align-items: center; }
+  .quote-block { padding-left: 20px; }
+  .manifesto { padding: 34px 24px; box-shadow: 6px 6px 0 var(--oxide); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+  <!-- ════════════════════════════════════════════════════════════
+       TOPBAR
+       ════════════════════════════════════════════════════════════ -->
+  <div class="topbar">
+    <div class="wordmark">
+      <span class="wordmark-mark">!</span>
+      Project Name
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════════════
+       HERO
+       ════════════════════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-masthead">
+      <span>CAMPAIGN · JULY 2026</span><span>PUBLIC STATEMENT</span>
+    </div>
+    <h1>Your Big<br>Headline<br>Goes Here</h1>
+    <p class="hero-copy">
+      Lead paragraph that elaborates on the headline. Make it punchy. Two to three sentences
+      that set the stakes, name the problem, and pull the reader in. Keep it under 200 words.
+    </p>
+    <div class="hero-actions">
+      <a href="#" class="button primary">Take Action</a>
+      <a href="#" class="button secondary">Read More</a>
+    </div>
+    <aside class="hero-note">
+      A supplementary note, disclaimer, or citation. Rendered with a warm amber left-border accent.
+      Useful for context that doesn't fit the main flow.
+    </aside>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       CARD GRID SECTION
+       ════════════════════════════════════════════════════════════ -->
+  <section class="grid-section">
+    <div class="section-heading">
+      <h2>Section<br>Heading</h2>
+      <p>Section subtitle explaining the evidence, argument, or angle that follows. Keep it tight.</p>
+    </div>
+    <div class="card-grid">
+      <article class="card">
+        <h3>Card Title One</h3>
+        <p>Card body text. Hover inverts to dark background with light text. Each card is a self-contained point or argument.</p>
+      </article>
+      <article class="card">
+        <h3>Card Title Two</h3>
+        <p>Second point. The grid uses borders — no rounded corners, no box-shadows. All structure is carried by lines.</p>
+      </article>
+      <article class="card">
+        <h3>Card Title Three</h3>
+        <p>Third argument. These cards work for presenting evidence, documenting incidents, or making structured arguments.</p>
+      </article>
+      <article class="card">
+        <h3>Card Title Four</h3>
+        <p>Fourth entry. Cards can also link out — add an external arrow for references or source links.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       QUOTE
+       ════════════════════════════════════════════════════════════ -->
+  <blockquote class="quote-block">
+    <p class="quote-text">"A pull quote that dominates the page. Big serif, tight leading, full-width impact."</p>
+  </blockquote>
+
+  <!-- ════════════════════════════════════════════════════════════
+       TWO-COLUMN PANELS
+       ════════════════════════════════════════════════════════════ -->
+  <section class="two-column">
+    <div class="panel">
+      <p class="eyebrow">Context</p>
+      <h2>Left Panel</h2>
+      <p>Background information or context for the argument. The panel has a subtle paper-card background that distinguishes it from the grid.</p>
+    </div>
+    <div class="panel">
+      <p class="eyebrow">Action Items</p>
+      <h2>Right Panel</h2>
+      <ul class="list">
+        <li>First concrete demand or action item</li>
+        <li>Second action item with more detail</li>
+        <li>Third point — keep these actionable</li>
+        <li>Fourth item if needed</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       TIMELINE / RECORDS
+       ════════════════════════════════════════════════════════════ -->
+  <section class="grid-section">
+    <div class="section-heading">
+      <h2>Documented<br>Timeline</h2>
+      <p>A chronological record of events, incidents, or milestones.</p>
+    </div>
+    <div class="record-list">
+      <article class="record-item">
+        <div class="record-meta">
+          <time>2026-07-15</time>
+          <span class="tag">Category</span>
+        </div>
+        <div class="record-content">
+          <h3>Event or milestone headline</h3>
+          <p>Description of what happened, why it matters, and the broader context. Keep it factual and sourced.</p>
+        </div>
+      </article>
+      <article class="record-item">
+        <div class="record-meta">
+          <time>2026-07-01</time>
+          <span class="tag">Category</span>
+        </div>
+        <div class="record-content">
+          <h3>Another recorded event</h3>
+          <p>Second entry in the chronology. Each record maintains the same grid structure for easy scanning.</p>
+        </div>
+      </article>
+      <article class="record-item">
+        <div class="record-meta">
+          <time>2026-06-15</time>
+          <span class="tag">Category</span>
+        </div>
+        <div class="record-content">
+          <h3>Earlier milestone</h3>
+          <p>Third record. The timeline format works for incident reports, changelogs, or any date-anchored content.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       4‑COLUMN ALTERNATIVES
+       ════════════════════════════════════════════════════════════ -->
+  <section class="grid-section">
+    <div class="section-heading">
+      <h2>Alternatives<br>Exist</h2>
+      <p>A 4-column grid of options, competitors, or alternatives. Each cell is a name plus brief descriptor.</p>
+    </div>
+    <div class="alt-grid">
+      <div class="alt-card"><h3>Option A</h3><p>Brief one-liner describing this alternative.</p></div>
+      <div class="alt-card"><h3>Option B</h3><p>Brief one-liner describing this alternative.</p></div>
+      <div class="alt-card"><h3>Option C</h3><p>Brief one-liner describing this alternative.</p></div>
+      <div class="alt-card"><h3>Option D</h3><p>Brief one-liner describing this alternative.</p></div>
+      <div class="alt-card"><h3>Option E</h3><p>Brief one-liner describing this alternative.</p></div>
+      <div class="alt-card"><h3>Option F</h3><p>Brief one-liner describing this alternative.</p></div>
+      <div class="alt-card"><h3>Option G</h3><p>Brief one-liner describing this alternative.</p></div>
+      <div class="alt-card"><h3>Option H</h3><p>Brief one-liner describing this alternative.</p></div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════════════
+       MANIFESTO (dark section)
+       ════════════════════════════════════════════════════════════ -->
+  <section class="manifesto">
+    <p class="eyebrow">Manifesto</p>
+    <h2>This is where you make your closing statement.</h2>
+    <p>
+      The manifesto block inverts the page: dark background, light text, with the oxide accent as an offset shadow.
+      It is the emotional and rhetorical climax of the page — use it for your strongest argument, call to
+      action, or closing declaration.
+    </p>
+    <p>
+      Second paragraph reinforces the point. The warm paper colors of the body text here create a
+      different reading experience from the dark background sections on the rest of the page.
+    </p>
+    <div class="community-links">
+      <a href="#" class="button primary">Primary CTA</a>
+      <a href="#" class="button secondary">Secondary Link</a>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>
