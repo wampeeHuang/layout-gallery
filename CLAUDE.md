@@ -2,8 +2,6 @@
 
 AI 调用的设计风格仓库。模板统一索引 → 按意图发现 → 一行 API 拿到 HTML。
 
-遵守 [FOLDER-CONSTITUTION.md](../FOLDER-CONSTITUTION.md)。视觉设计遵守 [DESIGN.md](../DESIGN.md)。
-
 ## 架构
 
 ```
@@ -114,6 +112,15 @@ scripts/
   build-registry.js  ← 一次性迁移脚本（从旧 _index.json，已退役）
   extract-css-vars.js← 批量提取 CSS 变量
 ```
+
+## AI 输出治理
+
+本项目 CSS 由 AI 生成，不由人写。`meta/ai-prompt.md` 是唯一的 AI 操作文件：
+- **AI 读** `ai-prompt.md` → 生成 CSS → 自审 §7 合规清单（16 项）→ 不合规 = 重新生成
+- **闭环中没有人**。AI 自己是第一道也是最后一道防线
+- 设计原则体系见 Obsidian `设计原则-通用六条.md`（人读版本）
+
+任何改 CSS 的操作，交付前必须通过 §7 合规清单。
 
 ## 文件纪律
 
