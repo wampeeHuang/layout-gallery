@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const { renderBrandKit } = require('./scripts/brand-renderer');
 
 const app = express();
 const PORT = process.env.PORT || 3080;
@@ -92,6 +93,102 @@ app.get('/api/design-styles', (req, res) => {
     map[e.design_style] = (map[e.design_style] || 0) + 1;
   });
   res.json(Object.entries(map).map(([name, count]) => ({ name, count })));
+});
+
+// GET /api/brand/:slug — 品牌套件结构化数据
+app.get('/api/brand/:slug', (req, res) => {
+  const items = loadRegistry();
+  const entry = items.find(e => e.slug === req.params.slug);
+  if (!entry) return res.status(404).json({ error: 'not found' });
+
+  const tmplPath = path.join(PROJECT_DIR, entry.template_path);
+  const html = fs.readFileSync(tmplPath, 'utf-8');
+  const rootMatch = html.match(/:root\s*\{([^}]*)\}/s);
+  const tokens = {};
+  if (rootMatch) {
+    const re = /--([\w-]+)\s*:\s*([^;]+);/g;
+    let m;
+    while ((m = re.exec(rootMatch[1])) !== null) {
+      tokens['--' + m[1]] = m[2].trim();
+    }
+  }
+
+  res.json({
+    slug: entry.slug,
+    name: entry.name,
+    tagline: entry.tagline,
+    design_style: entry.design_style,
+    scheme: entry.scheme,
+    formality: entry.formality,
+    density: entry.density,
+    mood: entry.mood,
+    palette: entry.palette,
+    typography: { displayFont: entry.displayFont, bodyFont: entry.bodyFont, style: entry.typography_style },
+    best_for: entry.best_for,
+    avoid_for: entry.avoid_for,
+    features: entry.features,
+    tokens,
+    css_variables: entry.css_variables,
+  });
+});
+
+// GET /api/prompt — AI 套件提示词（ai-system-prompt.md）
+app.get('/api/prompt', (req, res) => {
+  const promptPath = path.join(PROJECT_DIR, 'meta', 'ai-system-prompt.md');
+  if (!fs.existsSync(promptPath)) return res.status(404).json({ error: 'ai-system-prompt.md not found' });
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.sendFile(promptPath);
+});
+
+// GET /api/token-contract — Token 命名标准 JSON
+app.get('/api/token-contract', (req, res) => {
+  const contractPath = path.join(PROJECT_DIR, 'meta', 'token-contract.json');
+  if (!fs.existsSync(contractPath)) return res.status(404).json({ error: 'token-contract.json not found' });
+  res.sendFile(contractPath);
+});
+
+// GET /api/template/:slug/tokens — 纯 token 键值对
+app.get('/api/template/:slug/tokens', (req, res) => {
+  const items = loadRegistry();
+  const entry = items.find(e => e.slug === req.params.slug);
+  if (!entry) return res.status(404).json({ error: 'not found' });
+
+  const tmplPath = path.join(PROJECT_DIR, entry.template_path);
+  if (!fs.existsSync(tmplPath)) return res.status(404).json({ error: 'template file not found' });
+
+  const html = fs.readFileSync(tmplPath, 'utf-8');
+  const rootMatch = html.match(/:root\s*\{([^}]*)\}/s);
+  const tokens = {};
+  if (rootMatch) {
+    const re = /--([\w-]+)\s*:\s*([^;]+);/g;
+    let m;
+    while ((m = re.exec(rootMatch[1])) !== null) {
+      tokens['--' + m[1]] = m[2].trim();
+    }
+  }
+  res.json(tokens);
+});
+
+// GET /brand/:slug — 品牌套件 HTML 页
+app.get('/brand/:slug', (req, res) => {
+  const items = loadRegistry();
+  const entry = items.find(e => e.slug === req.params.slug);
+  if (!entry) return res.status(404).json({ error: 'not found' });
+
+  try {
+    const html = renderBrandKit(entry, PROJECT_DIR);
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.send(html);
+  } catch (err) {
+    console.error('Brand kit render error:', err);
+    res.status(500).json({ error: 'render failed', detail: err.message });
+  }
+});
+
+// GET /learn — 设计原理页
+app.get('/learn', (req, res) => {
+  const learnPath = path.join(PROJECT_DIR, 'meta', 'learn-template.html');
+  res.sendFile(learnPath);
 });
 
 // ── Static Files ─────────────────────────────────────────────

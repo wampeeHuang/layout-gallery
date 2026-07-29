@@ -37,8 +37,22 @@ GET /api/registry?q=report                  → 全文搜索（name/tagline/mood
 ### 获取模板详情
 
 ```
-GET /api/template/:slug      → 单个模板完整元数据 + CSS 变量合约
-GET /api/template/:slug/html → 原始 template.html
+GET /api/template/:slug        → 单个模板完整元数据 + CSS 变量合约
+GET /api/template/:slug/html   → 原始 template.html
+GET /api/template/:slug/tokens → 纯 CSS 变量键值对（从 template.html 提取）
+```
+
+### 品牌套件
+
+```
+GET /brand/:slug      → 品牌套件 HTML 页（token 表 + 组件预览 + 复制套件）
+GET /brand/:slug.json → 品牌套件结构化数据（AI 可读）
+```
+
+### Token 合约
+
+```
+GET /api/token-contract → Token 命名标准 JSON
 ```
 
 ### 取值速查
@@ -97,8 +111,8 @@ Schema 权威定义：`registry.schema.json`。所有字段、枚举值、必填
 ## 目录
 
 ```
-meta/                ← AI 操作文件（ai-prompt.md + token-contract）
-  ai-prompt.md       ← 唯一 AI 提示词（原则 + token 表 + 合规清单）
+meta/                     ← AI 操作文件（ai-system-prompt.md + token-contract）
+  ai-system-prompt.md    ← 唯一 AI 提示词（原则 + token 表 + 合规清单）
   token-contract.css ← Token 命名契约
   token-contract.json← 机器可读版本
 templates/           ← 44 个模板 HTML（按来源分目录）
@@ -115,8 +129,8 @@ scripts/
 
 ## AI 输出治理
 
-本项目 CSS 由 AI 生成，不由人写。`meta/ai-prompt.md` 是唯一的 AI 操作文件：
-- **AI 读** `ai-prompt.md` → 生成 CSS → 自审 §7 合规清单（16 项）→ 不合规 = 重新生成
+本项目 CSS 由 AI 生成，不由人写。`meta/ai-system-prompt.md` 是唯一的 AI 操作文件：
+- **AI 读** `ai-system-prompt.md` → 生成 CSS → 自审 §7 合规清单（16 项）→ 不合规 = 重新生成
 - **闭环中没有人**。AI 自己是第一道也是最后一道防线
 - 设计原则体系见 Obsidian `设计原则-通用六条.md`（人读版本）
 
@@ -130,7 +144,7 @@ scripts/
 
 | 文件 | 性质 | 读者 |
 |------|------|------|
-| `ai-prompt.md` | AI 提示词（原则 + token 表 + 合规清单） | AI |
+| `ai-system-prompt.md` | AI 提示词（原则 + token 表 + 合规清单） | AI |
 | `token-contract.css` | Token 命名契约 | AI |
 | `token-contract.json` | 机器可读版本 | AI / MCP API |
 

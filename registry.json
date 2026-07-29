@@ -34,8 +34,14 @@
       { "name": "--ink-soft", "default": "#5f5951", "role": "text-secondary", "group": "color", "description": "次级文字" },
       { "name": "--oxide", "default": "#b84f35", "role": "accent", "group": "color", "description": "锈红强调色" },
       { "name": "--sun", "default": "#d89a57", "role": "accent-hover", "group": "color", "description": "琥珀高亮（引用左边框、manifesto按钮）" },
-      { "name": "--display", "default": "Georgia, \"Times New Roman\", serif", "role": "display-font", "group": "typography", "description": "展示字体栈" },
-      { "name": "--body", "default": "Inter, system-ui, sans-serif", "role": "body-font", "group": "typography", "description": "正文字体栈" }
+      { "name": "--oxide-dark", "default": "#8b3525", "role": "", "group": "color", "description": "深锈红（masthead/eyebrow/日期文字）" },
+      { "name": "--line", "default": "rgba(27, 25, 22, 0.18)", "role": "border-default", "group": "color", "description": "默认边框/分割线" },
+      { "name": "--line-soft", "default": "rgba(27, 25, 22, 0.1)", "role": "", "group": "color", "description": "浅分割线（card-grid左边界、tag边框）" },
+      { "name": "--card-bg", "default": "rgba(255, 253, 248, 0.62)", "role": "surface-card", "group": "color", "description": "卡片/panel半透明纸色背景" },
+      { "name": "--display", "default": "Georgia, \"Times New Roman\", \"Noto Serif SC\", \"Songti SC\", serif", "role": "display-font", "group": "typography", "description": "展示字体栈（衬线）" },
+      { "name": "--body", "default": "Inter, \"PingFang SC\", \"Microsoft YaHei\", \"Hiragino Sans GB\", ui-sans-serif, system-ui, sans-serif", "role": "body-font", "group": "typography", "description": "正文字体栈（无衬线）" },
+      { "name": "--page-w", "default": "1180px", "role": "", "group": "spacing", "description": "内容区最大宽度" },
+      { "name": "--gutter", "default": "24px", "role": "element-gap", "group": "spacing", "description": "全局列间距基准" }
     ],
     "visibility": "public",
     "status": "active",

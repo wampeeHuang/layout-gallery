@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>设计原理 · 版式画廊</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --font-sans:Inter, system-ui, -apple-system, sans-serif;
+  --font-serif:Georgia, 'Noto Serif SC', 'Source Han Serif SC', serif;
+  --font-mono:'SF Mono', 'Cascadia Code', Consolas, monospace;
+  --bg:#fafaf8;
+  --bg-card:#fff;
+  --text:#1a1a1a;
+  --text-secondary:#5c5c5c;
+  --text-muted:#999;
+  --border:#e5e3df;
+  --accent:#d4684e;
+  --accent-hover:#c05a42;
+  --radius:6px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md:0 8px 30px rgba(0,0,0,0.1);
+  --wmax:960px;
+  --pad:48px;
+}
+body{font-family:var(--font-sans);color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.6}
+a{color:var(--accent);text-decoration:none}
+a:hover{color:var(--accent-hover)}
+
+/* === HEADER === */
+.learn-header{text-align:center;padding:100px var(--pad) 60px}
+.learn-header .back-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--text-secondary);text-decoration:none;margin-bottom:24px;border:1px solid var(--border);border-radius:9999px;padding:6px 16px;transition:background .15s}
+.learn-header .back-link:hover{background:var(--bg-card)}
+.learn-header h1{font-family:var(--font-serif);font-size:clamp(40px,7vw,64px);font-weight:700;letter-spacing:-.03em;line-height:1.1;color:var(--text);margin-bottom:16px}
+.learn-header .lead{font-size:18px;color:var(--text-secondary);max-width:560px;margin:0 auto;line-height:1.65}
+
+/* === NAV === */
+.learn-nav{position:sticky;top:0;z-index:99;background:var(--bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px var(--pad);display:flex;justify-content:center;flex-wrap:wrap;gap:4px}
+.learn-nav a{font-size:12px;color:var(--text-secondary);text-decoration:none;padding:6px 14px;border-radius:9999px;border:1px solid transparent;transition:all .15s;white-space:nowrap}
+.learn-nav a:hover,.learn-nav a.active{color:var(--text);background:var(--bg-card);border-color:var(--border);font-weight:500}
+
+/* === MAIN === */
+.learn-main{max-width:var(--wmax);margin:0 auto;padding:0 var(--pad) 120px}
+.learn-section{margin-top:90px;scroll-margin-top:80px}
+.learn-section:first-of-type{margin-top:60px}
+.learn-section h2{font-family:var(--font-serif);font-size:30px;font-weight:700;letter-spacing:-.02em;color:var(--text);margin-bottom:8px}
+.learn-section > .desc{font-size:15px;color:var(--text-secondary);line-height:1.7;margin-bottom:36px;max-width:540px}
+
+/* === CARDS === */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:28px}
+.card h3{font-size:16px;font-weight:600;margin-bottom:8px;color:var(--text)}
+.card p{font-size:14px;color:var(--text-secondary);line-height:1.6;margin-bottom:16px}
+.card .card-note{font-size:12px;color:var(--text-muted);padding:8px 12px;background:var(--bg);border-radius:4px;border:1px solid var(--border);font-family:var(--font-mono)}
+
+/* === CARDS === */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:28px}
+.card h3{font-size:16px;font-weight:600;margin-bottom:8px;color:var(--text)}
+.card p{font-size:14px;color:var(--text-secondary);line-height:1.6;margin-bottom:16px}
+.card .card-note{font-size:12px;color:var(--text-muted);padding:8px 12px;background:var(--bg);border-radius:4px;border:1px solid var(--border);font-family:var(--font-mono)}
+
+/* === MISC === */
+.coming-soon{display:flex;align-items:center;justify-content:center;flex-direction:column;padding:60px 20px;text-align:center;border:2px dashed var(--border);border-radius:var(--radius);background:var(--bg);color:var(--text-muted)}
+.coming-soon .icon{font-size:36px;margin-bottom:12px}
+.coming-soon h3{font-size:16px;color:var(--text-secondary);margin-bottom:6px}
+.coming-soon p{font-size:13px}
+
+@media(max-width:640px){
+  :root{--pad:24px}
+  .learn-header{padding:60px var(--pad) 40px}
+  .learn-header h1{font-size:36px}
+  .learn-section{margin-top:60px}
+}
+</style>
+</head>
+<body>
+
+<header class="learn-header">
+  <a href="/" class="back-link">← 返回画廊</a>
+  <h1>设计原理</h1>
+  <p class="lead">版式画廊的设计工程方法论——让每个模板背后都有可以复现的原则、有据可查的标准。</p>
+</header>
+
+<nav class="learn-nav" id="learn-nav">
+  <a href="#image-specs">图像规范</a>
+  <a href="#palette">配色库</a>
+  <a href="#typography">字体配对</a>
+  <a href="#principles">设计原则</a>
+  <a href="#books">推荐资源</a>
+</nav>
+
+<main class="learn-main">
+
+<!-- ==================== IMAGE SPECS ==================== -->
+<section class="learn-section" id="image-specs">
+  <h2>图像规范</h2>
+  <p class="desc">模板中图片占位的统一约定——比例、加载、缩放。45 个模板遵守同一套规则。</p>
+
+  <div class="card-grid" style="margin-top:24px">
+    <div class="card">
+      <h3>画幅比例 16:10</h3>
+      <p>比 16:9 多 6% 纵高，中文排版不局促；比 4:3 更接近现代屏幕。MacBook 原生比例，mockup 事实标准（1440×900、1920×1200）。</p>
+      <div class="card-note">推荐 · 16:10</div>
+    </div>
+    <div class="card">
+      <h3>骨架屏占位</h3>
+      <p>图片加载前用纯 CSS 骨架屏占位，避免布局偏移（CLS）。<code>@keyframes</code> 驱动 opacity 脉冲，零 JS 依赖。骨架条宽度递减模拟真实行长分布。</p>
+      <div class="card-note">CSS only · 1.5s pulse</div>
+    </div>
+    <div class="card">
+      <h3>transform scale 缩放</h3>
+      <p>hover 缩放用 <code>transform: scale()</code>，不走 width/height。transform 在 GPU 合成层执行，不触发 reflow，60fps 平滑。配合 <code>overflow: hidden</code> 裁切边缘。</p>
+      <div class="card-note">GPU 合成 · 不重排</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PALETTE ==================== -->
+<section class="learn-section" id="palette">
+  <h2>配色库</h2>
+  <p class="desc">8 套 oklch 色板，按行业分类。每套含主色、辅色、中性色、语义色四层，可直接复制为 CSS :root。</p>
+  <div class="coming-soon">
+    <div class="icon">🎨</div>
+    <h3>即将上线</h3>
+    <p>配色库正在从 45 个模板中提炼行业通用色板，敬请期待。</p>
+  </div>
+</section>
+
+<!-- ==================== TYPOGRAPHY ==================== -->
+<section class="learn-section" id="typography">
+  <h2>字体配对</h2>
+  <p class="desc">6 套中英文字体组合，覆盖正文/标题/代码三场景。每套标注适用风格和字体回退栈。</p>
+  <div class="coming-soon">
+    <div class="icon">🔤</div>
+    <h3>即将上线</h3>
+    <p>字体配对库建设中——从模板中提炼已验证的中英文组合方案。</p>
+  </div>
+</section>
+
+<!-- ==================== PRINCIPLES ==================== -->
+<section class="learn-section" id="principles">
+  <h2>设计原则</h2>
+  <p class="desc">版式画廊的 7+5+0 原则体系——7 条通用设计原则、5 条 AI 输出约束、0 容忍硬伤。</p>
+
+  <div class="card-grid" style="margin-top:24px">
+    <div class="card">
+      <h3>视觉及格线</h3>
+      <p>用可量化的视觉标准定义"合格"。排版四要素（字号、行高、字距、行长）必须落在可读区间内，颜色对比度 ≥ AA 级。</p>
+      <div class="card-note">量化指标 → 工具自动检测 → 不通过不发版</div>
+    </div>
+    <div class="card">
+      <h3>技术及格线</h3>
+      <p>CSS 必须通过三关：无硬编码值、无 Google Fonts、无未压缩图片。Token 化率 100%，所有视觉属性从 :root 变量派生。</p>
+      <div class="card-note">CI 门禁 → 静态扫描 → 阻断不合规提交</div>
+    </div>
+    <div class="card">
+      <h3>Token 优先</h3>
+      <p>设计决策表达为 CSS 自定义属性，不是硬编码值。颜色、间距、阴影、圆角全部从 :root 变量注入，保证换肤只需换 token。</p>
+      <div class="card-note">约束 → 模板必须声明 CSS 变量 → registry 校验</div>
+    </div>
+    <div class="card">
+      <h3>渐进增强</h3>
+      <p>基础体验用纯 CSS + 语义 HTML，增强体验用少量 JS。骨架屏、动画、交互均检测 prefers-reduced-motion。</p>
+      <div class="card-note">无 JS 仍可用 → 有 JS 更流畅</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BOOKS ==================== -->
+<section class="learn-section" id="books">
+  <h2>推荐资源</h2>
+  <p class="desc">设计工程领域的经典书籍与常用工具——覆盖排版、配色、设计系统、CSS 工程。</p>
+
+  <div class="card-grid" style="margin-top:24px">
+    <div class="card">
+      <h3>《The Elements of Typographic Style》</h3>
+      <p>Robert Bringhurst 著。排版圣经，网页排版的底层逻辑都在这本书里。</p>
+      <div class="card-note">排版 · 经典</div>
+    </div>
+    <div class="card">
+      <h3>《Thinking with Type》</h3>
+      <p>Ellen Lupton 著。从字母结构到网格系统，适合设计师和前端工程师共读。</p>
+      <div class="card-note">排版 · 入门到进阶</div>
+    </div>
+    <div class="card">
+      <h3>《Refactoring UI》</h3>
+      <p>Adam Wathan & Steve Schoger 著。从程序员视角讲界面设计，实用至上。</p>
+      <div class="card-note">UI 设计 · 实用</div>
+    </div>
+    <div class="card">
+      <h3>《Designing with Type》</h3>
+      <p>James Craig 著。字体选择与组合的系统方法论。</p>
+      <div class="card-note">字体 · 经典</div>
+    </div>
+    <div class="card">
+      <h3>《Grid Systems in Graphic Design》</h3>
+      <p>Josef Müller-Brockmann 著。网格系统的开山之作，理解 layout 的底层逻辑。</p>
+      <div class="card-note">网格 · 经典</div>
+    </div>
+    <div class="card">
+      <h3>《Practical Typography》</h3>
+      <p>Matthew Butterick 著。在线免费，网页排版实操指南，字体选择、行距、对比度的具体建议。</p>
+      <div class="card-note">排版 · 免费在线</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function(){
+  var nav=document.getElementById('learn-nav');
+  var links=nav.querySelectorAll('a');
+  var sections=[].slice.call(document.querySelectorAll('.learn-section'));
+  function update(){
+    var id=sections[0].id;
+    var atBottom=window.innerHeight+window.scrollY>=document.body.offsetHeight-120;
+    if(atBottom)id=sections[sections.length-1].id;
+    else for(var i=sections.length-1;i>=0;i--)if(sections[i].getBoundingClientRect().top<=100){id=sections[i].id;break}
+    links.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+id)});
+  }
+  window.addEventListener('scroll',update,{passive:true});
+  update();
+})();
+</script>
+</body>
+</html>

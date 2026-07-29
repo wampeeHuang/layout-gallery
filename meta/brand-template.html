@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TEMPLATE_NAME}} · 品牌套件 · 版式画廊</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --font-sans:{{FONT_SANS}};
+  --font-serif:{{FONT_SERIF}};
+  --font-mono:{{FONT_MONO}};
+  --bg:{{BG}};
+  --bg-card:{{BG_CARD}};
+  --text:{{TEXT}};
+  --text-secondary:{{TEXT_SECONDARY}};
+  --text-muted:{{TEXT_MUTED}};
+  --border:{{BORDER}};
+  --accent:{{ACCENT}};
+  --accent-hover:{{ACCENT_HOVER}};
+  --radius:{{RADIUS}};
+  --shadow-sm:{{SHADOW_SM}};
+  --shadow-md:{{SHADOW_MD}};
+  --wmax:1080px;
+  --pad:48px;
+}
+body{font-family:var(--font-sans);color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.5}
+
+/* === HERO === */
+.bk-hero{text-align:center;padding:100px var(--pad) 72px}
+.bk-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border);border-radius:9999px;padding:6px 16px;margin-bottom:28px}
+.bk-eyebrow::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--accent)}
+.bk-hero h1{font-size:clamp(48px,8vw,80px);font-weight:700;letter-spacing:-.035em;line-height:1.08;color:var(--text);margin-bottom:22px;text-wrap:balance}
+.bk-hero .bk-sub{font-size:18px;font-weight:400;color:var(--text-secondary);max-width:520px;margin:0 auto;line-height:1.65;text-wrap:pretty}
+.bk-meta{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:28px}
+.bk-chip{padding:6px 16px;border-radius:9999px;font-size:12px;font-weight:500;border:1px solid var(--border);background:var(--bg-card)}
+.bk-chip.mood{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* === STICKY NAV === */
+.bk-nav-strip{position:sticky;top:0;z-index:99;background:var(--bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px var(--pad);display:flex;justify-content:center;flex-wrap:wrap;gap:4px}
+.bk-nav-strip a{font-size:12px;font-weight:400;color:var(--text-secondary);text-decoration:none;padding:7px 16px;border-radius:9999px;border:1px solid transparent;transition:color var(--duration-base,150ms) var(--ease-default,cubic-bezier(0.4,0,0.2,1)),background var(--duration-base,150ms) var(--ease-default,cubic-bezier(0.4,0,0.2,1));white-space:nowrap}
+.bk-nav-strip a:hover{color:var(--text);background:var(--bg-card)}
+.bk-nav-strip a.active{color:var(--text);background:var(--bg-card);border-color:var(--border);font-weight:500}
+
+/* === MAIN === */
+.bk-main{max-width:var(--wmax);margin:0 auto;padding:0 var(--pad) 120px}
+.bk-section{margin-top:100px;scroll-margin-top:80px}
+.bk-section:first-of-type{margin-top:76px}
+.bk-section h2{font-size:34px;font-weight:700;letter-spacing:-.02em;color:var(--text);margin-bottom:8px;text-wrap:balance}
+.bk-section > .bk-desc{font-size:16px;color:var(--text-secondary);line-height:1.65;margin-bottom:40px;max-width:520px;text-wrap:pretty}
+
+/* === OVERVIEW === */
+.overview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.ov-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:28px 24px}
+.ov-card h4{font-size:16px;font-weight:600;margin-bottom:6px;color:var(--text)}
+.ov-card p{font-size:14px;color:var(--text-secondary);line-height:1.6;text-wrap:pretty}
+
+/* === COLOR (MD3-style) === */
+.color-hero{display:grid;grid-template-columns:320px 1fr;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-card);overflow:hidden}
+.color-hero .seed-panel{background:var(--text);color:var(--bg);padding:40px 32px;display:flex;flex-direction:column;justify-content:center}
+.seed-panel .seed-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px}
+.seed-panel .seed-name{font-size:26px;font-weight:700;margin-bottom:8px}
+.seed-panel .seed-hex{font-family:var(--font-mono);font-size:13px;color:var(--accent)}
+.seed-panel .seed-role{font-size:14px;color:var(--text-muted);margin-top:6px}
+.color-hero .preview-panel{display:flex;align-items:center;justify-content:center;gap:24px;padding:40px;flex-wrap:wrap}
+.preview-panel .prev-card{border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;background:var(--bg);min-width:180px}
+.prev-card .prev-title{font-size:18px;font-weight:600;margin-bottom:4px}
+.prev-card .prev-body{font-size:13px;color:var(--text-secondary);margin-bottom:12px;text-wrap:pretty}
+.prev-btn{display:inline-block;padding:8px 20px;border-radius:9999px;font-size:13px;font-weight:500;cursor:default;border:none}
+
+.color-grid-full{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);margin-top:1px;border-radius:var(--radius);overflow:hidden}
+.color-token{background:var(--bg-card)}
+.color-token .c-chip{height:100px;position:relative;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px}
+.color-token .c-chip .c-label{font-size:11px;font-weight:500;padding:3px 10px;border-radius:3px;background:rgba(0,0,0,.25);color:#fff}
+.color-token .c-chip .c-label.light{background:rgba(255,255,255,.7);color:var(--text)}
+.color-token .c-info{padding:14px 16px}
+.color-token .c-info .c-var{font-family:var(--font-mono);font-size:11px;color:var(--text-muted);margin-bottom:3px}
+.color-token .c-info .c-hex{font-family:var(--font-mono);font-size:12px;color:var(--text);font-weight:500;margin-bottom:4px}
+.color-token .c-info .c-role{font-size:12px;color:var(--accent);line-height:1.4}
+.color-token .c-info .c-use{font-size:11px;color:var(--text-muted);margin-top:4px;line-height:1.4}
+
+/* === TYPE === */
+.type-showcase{border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-card);overflow:hidden}
+.type-row{display:grid;grid-template-columns:240px 1fr;border-bottom:1px solid var(--border)}
+.type-row:last-child{border-bottom:none}
+.type-row .type-meta{padding:24px;border-right:1px solid var(--border)}
+.type-meta .t-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
+.type-meta .t-name{font-size:17px;font-weight:600;margin-bottom:4px}
+.type-meta .t-spec{font-family:var(--font-mono);font-size:11px;color:var(--text-secondary)}
+.type-row .type-preview{padding:24px 32px;display:flex;align-items:center}
+
+/* === SCALE TABLE === */
+.scale-table{width:100%;border-collapse:collapse;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--bg-card)}
+.scale-table th,.scale-table td{text-align:left;padding:14px 18px;border-bottom:1px solid var(--border)}
+.scale-table th{font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.06em;color:var(--text-muted);text-transform:uppercase}
+.scale-table td{font-size:14px;color:var(--text)}
+.scale-table .mono{font-family:var(--font-mono);font-size:13px;color:var(--text-secondary)}
+
+/* === SPACING === */
+.spacing-bars{display:flex;flex-direction:column;gap:0}
+.spacing-row{display:grid;grid-template-columns:120px 1fr auto;align-items:center;gap:20px;padding:12px 0;border-bottom:1px solid var(--border)}
+.spacing-row .s-name{font-family:var(--font-mono);font-size:12px;color:var(--text-secondary)}
+.spacing-row .s-bar{height:20px;background:var(--accent);opacity:.75;border-radius:3px;min-width:4px}
+.spacing-row .s-desc{font-size:14px;color:var(--text-secondary);text-align:right;white-space:nowrap}
+
+/* === RADIUS === */
+.token-showcase{display:flex;gap:20px;flex-wrap:wrap}
+.radius-card{display:flex;flex-direction:column;align-items:center;gap:10px;padding:20px}
+.radius-card .r-box{width:90px;height:90px;background:var(--accent);border:2px solid var(--accent-hover)}
+.radius-card .r-label{font-family:var(--font-mono);font-size:11px;color:var(--text-secondary)}
+.radius-card .r-val{font-size:12px;color:var(--text)}
+
+/* === SHADOW === */
+.shadow-card{width:220px;padding:28px 24px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);text-align:center}
+.shadow-card .sh-name{font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);margin-bottom:6px}
+.shadow-card .sh-val{font-family:var(--font-mono);font-size:11px;color:var(--text);margin-bottom:12px}
+.shadow-card .sh-desc{font-size:13px;color:var(--text-secondary)}
+
+/* === MOTION === */
+.motion-demo{display:flex;gap:16px;flex-wrap:wrap}
+.motion-chip{border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;background:var(--bg-card);display:flex;flex-direction:column;gap:6px;min-width:180px}
+.motion-chip .m-var{font-family:var(--font-mono);font-size:12px;color:var(--text)}
+.motion-chip .m-val{font-family:var(--font-mono);font-size:11px;color:var(--text-secondary)}
+.motion-chip .m-curve{font-size:11px;color:var(--accent)}
+.motion-chip .m-bar{width:100%;height:4px;background:var(--border);border-radius:2px;position:relative;overflow:hidden;margin-top:6px}
+.motion-chip .m-bar::after{content:"";position:absolute;top:0;left:0;width:30%;height:100%;background:var(--accent);border-radius:2px}
+
+/* === COMPONENT === */
+.comp-section{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.comp-panel{background:var(--bg-card);padding:28px}
+.comp-panel h4{font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:20px}
+.comp-panel .comp-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.comp-panel .token-note{font-family:var(--font-mono);font-size:10px;color:var(--accent);margin-top:12px;line-height:1.6;padding-top:12px;border-top:1px solid var(--border)}
+.token-note span{display:inline-block;background:{{ACCENT_10}};padding:2px 6px;border-radius:3px;margin:2px 2px}
+
+/* === TOKEN TABLE === */
+.token-group{margin-bottom:56px}
+.token-group h3{font-size:22px;font-weight:700;margin-bottom:4px;color:var(--text)}
+.token-group .tg-desc{font-size:14px;color:var(--text-secondary);margin-bottom:16px}
+.token-table{width:100%;border-collapse:collapse;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--bg-card)}
+.token-table th,.token-table td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:top}
+.token-table th{font-family:var(--font-mono);font-size:10px;font-weight:500;letter-spacing:.06em;color:var(--text-muted);text-transform:uppercase;background:var(--bg)}
+.token-table td.name{font-family:var(--font-mono);font-size:12px;color:var(--text);font-weight:500}
+.token-table td.value{font-family:var(--font-mono);font-size:12px;color:var(--text-secondary)}
+.token-table td.role{font-size:12px;color:var(--accent)}
+.token-table td.note{font-size:12px;color:var(--text-muted)}
+.token-table .swatch{display:inline-block;width:16px;height:16px;border-radius:3px;border:1px solid var(--border);vertical-align:middle;margin-right:8px}
+
+/* === DECISIONS === */
+.decision-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.decision-item{background:var(--bg-card);padding:24px 28px}
+.decision-item .d-q{font-size:17px;font-weight:600;color:var(--text);margin-bottom:4px}
+.decision-item .d-a{font-size:14px;color:var(--text-secondary);line-height:1.6}
+.decision-item .d-tag{display:inline-block;margin-top:8px;font-family:var(--font-mono);font-size:10px;color:var(--accent);padding:3px 8px;background:{{ACCENT_10}};border-radius:3px}
+
+/* === BRAND ASSETS (bg texture / logo) === */
+.visuals-grid{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start}
+.visuals-grid .vg-preview{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;display:flex;align-items:center;justify-content:center}
+.visuals-grid pre{background:var(--text);color:var(--bg);padding:20px;border-radius:var(--radius);font-family:var(--font-mono);font-size:12px;line-height:1.7;overflow-x:auto;margin:0;max-height:220px;overflow-y:auto}
+
+/* === ASSET DEMOS === */
+.asset-hover-card{position:relative;border-radius:var(--radius);overflow:hidden;cursor:default;background:var(--bg-card);border:1px solid var(--border)}
+.asset-hover-card .hover-overlay{position:absolute;inset:0;opacity:0;transition:opacity .2s ease;pointer-events:none}
+.asset-hover-card:hover .hover-overlay{opacity:1}
+.asset-modal-demo{position:relative;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.asset-modal-demo .modal-backdrop{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.asset-modal-demo .modal-dialog{width:55%;padding:20px 24px;border-radius:var(--radius);z-index:1}
+.asset-glass-btn{padding:12px 24px;border-radius:9999px;border:1px solid var(--border);font-size:14px;font-weight:500;cursor:default;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+
+/* === COPY === */
+.copy-tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:0}
+.copy-tab{padding:12px 24px;font-size:14px;font-weight:400;color:var(--text-secondary);cursor:pointer;border:none;background:none;font-family:var(--font-sans);border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
+.copy-tab:hover{color:var(--text)}
+.copy-tab.active{color:var(--text);font-weight:500;border-bottom-color:var(--accent)}
+.copy-body{background:var(--text);color:var(--bg);padding:36px;display:none}
+.copy-body.active{display:block}
+.copy-body h3{font-size:20px;font-weight:600;margin-bottom:6px}
+.copy-body .cp-desc{font-size:13px;color:var(--text-muted);margin-bottom:18px;line-height:1.6}
+.copy-body pre{background:rgba(255,255,255,.05);padding:20px;border-radius:4px;font-family:var(--font-mono);font-size:11px;line-height:1.7;overflow-x:auto;color:#a0a0a0;max-height:320px;overflow-y:auto}
+.copy-body .copy-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 22px;background:var(--accent);color:#fff;border:none;border-radius:9999px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font-sans);margin-top:14px;transition:all .15s}
+.copy-body .copy-btn:hover{background:var(--accent-hover)}
+.copy-body .copy-btn.copied{background:#059669}
+
+/* === RESPONSIVE === */
+@media(max-width:768px){
+  :root{--pad:24px}
+  .overview-grid{grid-template-columns:1fr}
+  .bk-hero h1{font-size:clamp(36px,10vw,56px)}
+  .bk-section h2{font-size:28px}
+  .color-hero{grid-template-columns:1fr}
+  .type-row{grid-template-columns:1fr}
+  .type-row .type-meta{border-right:none;border-bottom:1px solid var(--border)}
+  .spacing-row{grid-template-columns:100px 1fr auto}
+}
+{{HEADING_OVERRIDES}}
+</style>
+</head>
+<body>
+
+<header class="bk-hero">
+  <div class="bk-eyebrow">{{EYEBROW_TEXT}}</div>
+  <h1>{{TEMPLATE_NAME}}</h1>
+  <p class="bk-sub">{{TAGLINE}}</p>
+  <div class="bk-meta">
+    {{MOOD_CHIPS}}
+  </div>
+</header>
+
+<nav class="bk-nav-strip" id="nav-strip">
+  <a href="#overview" class="active">概览</a>
+  <a href="#colors">配色</a>
+  <a href="#type">字体</a>
+  <a href="#spacing">间距</a>
+  <a href="#radius">圆角</a>
+  <a href="#shadow">阴影</a>
+  <a href="#motion">动效</a>
+  <a href="#components">组件</a>
+  <a href="#tokens">Token 表</a>
+  <a href="#assets">品牌资产</a>
+  <a href="#decisions">设计决策</a>
+  <a href="#copy">复制套件</a>
+</nav>
+
+<main class="bk-main">
+
+<!-- OVERVIEW -->
+<section class="bk-section" id="overview">
+  <h2>设计概览</h2>
+  <p class="bk-desc">{{OVERVIEW_DESC}}</p>
+  <div class="overview-grid">
+    <div class="ov-card">
+      <h4>适用场景</h4>
+      <p>{{BEST_FOR}}</p>
+    </div>
+    <div class="ov-card">
+      <h4>不适合</h4>
+      <p>{{AVOID_FOR}}</p>
+    </div>
+    <div class="ov-card">
+      <h4>设计基因</h4>
+      <p>{{DESIGN_DNA}}</p>
+    </div>
+  </div>
+</section>
+
+<!-- COLORS -->
+<section class="bk-section" id="colors">
+  <h2>配色系统</h2>
+  <p class="bk-desc">{{COLOR_DESC}}</p>
+
+  <div class="color-hero">
+    <div class="seed-panel">
+      <div class="seed-label">来源色 · Seed</div>
+      <div class="seed-name">{{SEED_NAME}}</div>
+      <div class="seed-hex">{{SEED_HEX}}</div>
+      <div class="seed-role">{{SEED_ROLE}}</div>
+    </div>
+    <div class="preview-panel">
+      {{COLOR_PREVIEW_CARDS}}
+    </div>
+  </div>
+
+  <div class="color-grid-full">
+    {{COLOR_TOKEN_GRID}}
+  </div>
+</section>
+
+<!-- TYPOGRAPHY -->
+<section class="bk-section" id="type">
+  <h2>字体系统</h2>
+  <p class="bk-desc">{{TYPOGRAPHY_DESC}}</p>
+
+  <div class="type-showcase">
+    {{TYPE_SPECIMEN_ROWS}}
+  </div>
+
+  <table class="scale-table" style="margin-top:1px">
+    <tr><th>层级</th><th>CSS 变量</th><th>字号 / 字重</th><th>用途</th></tr>
+    {{TYPE_SCALE_ROWS}}
+  </table>
+</section>
+
+<!-- SPACING -->
+<section class="bk-section" id="spacing">
+  <h2>间距系统</h2>
+  <p class="bk-desc">{{SPACING_DESC}}</p>
+  <div class="spacing-bars">
+    {{SPACING_BARS}}
+  </div>
+</section>
+
+<!-- RADIUS -->
+<section class="bk-section" id="radius">
+  <h2>圆角系统</h2>
+  <p class="bk-desc">{{RADIUS_DESC}}</p>
+  <div class="token-showcase">
+    {{RADIUS_CARDS}}
+  </div>
+</section>
+
+<!-- SHADOW -->
+<section class="bk-section" id="shadow">
+  <h2>阴影系统</h2>
+  <p class="bk-desc">{{SHADOW_DESC}}</p>
+  <div class="token-showcase">
+    {{SHADOW_CARDS}}
+  </div>
+</section>
+
+<!-- MOTION -->
+<section class="bk-section" id="motion">
+  <h2>动效系统</h2>
+  <p class="bk-desc">{{MOTION_DESC}}</p>
+  <div class="motion-demo">
+    {{MOTION_CHIPS}}
+  </div>
+</section>
+
+<!-- COMPONENTS -->
+<section class="bk-section" id="components">
+  <h2>组件样板</h2>
+  <p class="bk-desc">基于本套 Token 渲染的核心组件。每个组件标注了所使用的 Token。</p>
+  <div class="comp-section">
+    {{COMPONENT_PANELS}}
+  </div>
+</section>
+
+<!-- TOKEN TABLE -->
+<section class="bk-section" id="tokens">
+  <h2>CSS Token 全表</h2>
+  <p class="bk-desc">{{TOKEN_TABLE_DESC}}</p>
+  {{TOKEN_GROUPS}}
+</section>
+
+<!-- BRAND ASSETS -->
+<section class="bk-section" id="assets">
+  <h2>品牌资产</h2>
+  <p class="bk-desc">品牌资产 = Token 组合应用的结果。不是变量定义（那是 Token 表的事），不是设计理由（那是设计决策的事）——是视觉身份的具象表达。</p>
+
+  <!-- Background texture -->
+  <h3 style="font-size:22px;font-weight:600;margin:48px 0 16px;color:var(--text)">背景纹理</h3>
+  <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px;max-width:560px;line-height:1.6">
+    从模板提取的 body 背景和伪元素纹理。展示 Token 如何组合成品牌独有的视觉基调。
+  </p>
+  {{ASSET_BG_TEXTURE}}
+
+  <!-- Brand mark -->
+  <h3 style="font-size:22px;font-weight:600;margin:48px 0 16px;color:var(--text)">品牌标识</h3>
+  <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px;max-width:560px;line-height:1.6">
+    基于模板配色生成的 SVG Logo。AI 可替换为模板自己的品牌标识代码。
+  </p>
+  {{ASSET_LOGO}}
+
+  <!-- Overlay rules -->
+  <h3 style="font-size:22px;font-weight:600;margin:48px 0 16px;color:var(--text)">叠加规则</h3>
+  <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px;max-width:560px;line-height:1.6">
+    遮罩/叠加用了哪些 Token，处于什么交互状态。不定义新的 color token，而是声明 token 的使用方式。
+  </p>
+  {{OVERLAY_DEMOS}}
+</section>
+
+<!-- DECISIONS -->
+<section class="bk-section" id="decisions">
+  <h2>设计决策记录</h2>
+  <p class="bk-desc">为什么选这个值，不选那个值——每个 token 的决策逻辑。</p>
+  <div class="decision-list">
+    {{DECISION_ITEMS}}
+  </div>
+</section>
+
+<!-- COPY SECTION -->
+<section class="bk-section" id="copy">
+  <h2>复制设计套件</h2>
+  <p class="bk-desc">三格式导出——CSS :root 给人用，JSON 给 AI 用，AI 提示词给 Cursor/Claude Code 用。</p>
+
+  <div class="copy-tabs">
+    <button class="copy-tab active" data-tab="css">CSS :root</button>
+    <button class="copy-tab" data-tab="json">JSON (AI)</button>
+    <button class="copy-tab" data-tab="ai">AI 提示词</button>
+  </div>
+
+  <div class="copy-body active" id="copy-css">
+    <h3>CSS :root</h3>
+    <p class="cp-desc">粘贴到项目 stylesheet，所有 Token 立即可用。</p>
+    <pre id="css-block">{{CSS_ROOT_BLOCK}}</pre>
+    <button class="copy-btn" id="btn-css">复制 CSS</button>
+  </div>
+
+  <div class="copy-body" id="copy-json">
+    <h3>JSON (AI 可读)</h3>
+    <p class="cp-desc">结构化 Token 数据，AI Agent 直接解析。</p>
+    <pre id="json-block">{{JSON_BLOCK}}</pre>
+    <button class="copy-btn" id="btn-json">复制 JSON</button>
+  </div>
+
+  <div class="copy-body" id="copy-ai">
+    <h3>AI 提示词</h3>
+    <p class="cp-desc">粘贴给 Cursor / Claude Code / Copilot，让 AI 按此设计基因生成页面。</p>
+    <pre id="ai-block">{{AI_PROMPT_BLOCK}}</pre>
+    <button class="copy-btn" id="btn-ai">复制 AI 提示词</button>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function(){
+  var links=document.querySelectorAll('#nav-strip a');
+  var sections=[].slice.call(document.querySelectorAll('.bk-section'));
+  function update(){
+    var id=sections[0].id;
+    var atBottom=window.innerHeight+window.scrollY>=document.body.offsetHeight-120;
+    if(atBottom)id=sections[sections.length-1].id;
+    else for(var i=sections.length-1;i>=0;i--)if(sections[i].getBoundingClientRect().top<=120){id=sections[i].id;break}
+    links.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+id)});
+  }
+  links.forEach(function(a){a.addEventListener('click',function(){setTimeout(update,100)})});
+  window.addEventListener('scroll',update,{passive:true});
+  update();
+})();
+(function(){
+  var tabs=document.querySelectorAll('.copy-tab');
+  var bodies=document.querySelectorAll('.copy-body');
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){
+      var target=this.getAttribute('data-tab');
+      tabs.forEach(function(x){x.classList.remove('active')});
+      this.classList.add('active');
+      bodies.forEach(function(b){b.classList.remove('active')});
+      document.getElementById('copy-'+target).classList.add('active');
+    });
+  });
+})();
+(function(){
+  [{btn:'btn-css',block:'css-block',label:'复制 CSS'},
+   {btn:'btn-json',block:'json-block',label:'复制 JSON'},
+   {btn:'btn-ai',block:'ai-block',label:'复制 AI 提示词'}]
+  .forEach(function(c){
+    var btn=document.getElementById(c.btn);
+    btn.addEventListener('click',function(){
+      navigator.clipboard.writeText(document.getElementById(c.block).textContent).then(function(){
+        btn.textContent='已复制';
+        btn.classList.add('copied');
+        setTimeout(function(){btn.textContent=c.label;btn.classList.remove('copied')},1800);
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
