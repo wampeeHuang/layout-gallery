@@ -122,10 +122,19 @@
         "properties": {
           "name": { "type": "string", "pattern": "^--[\\w-]+$" },
           "default": { "type": "string" },
-          "description": { "type": "string" }
+          "description": { "type": "string" },
+          "role": {
+            "type": "string",
+            "description": "标准化角色名。token-contract.json 定义的 role 之一，跨模板做对比。未分配时为空或 null"
+          },
+          "group": {
+            "type": "string",
+            "enum": ["color", "typography", "spacing", "radius", "shadow", "motion", "other"],
+            "description": "Token 六大分类。标记为 'other' 表示未归入标准分类"
+          }
         }
       },
-      "description": "CSS 变量合约 — AI 不看 HTML 就知道可调哪些颜色/字体"
+      "description": "CSS 变量合约 — AI 不看 HTML 就知道可调哪些颜色/字体。role 做标准化映射，group 做分类归组"
     },
     "visibility": {
       "type": "string",

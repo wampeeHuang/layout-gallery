@@ -99,7 +99,12 @@ Schema 权威定义：`registry.schema.json`。所有字段、枚举值、必填
 ## 目录
 
 ```
-templates/           ← 43 个模板 HTML（按来源分目录）
+meta/                ← AI 操作文件（ai-prompt.md + token-contract）
+  ai-prompt.md       ← 唯一 AI 提示词（原则 + token 表 + 合规清单）
+  token-contract.css ← Token 命名契约
+  token-contract.json← 机器可读版本
+templates/           ← 44 个模板 HTML（按来源分目录）
+prototype/           ← 原型文件（品牌套件页等）
 registry.json        ← 元数据 + CSS 变量合约（唯一真相源）
 registry.schema.json ← JSON Schema 合约（字段+枚举+必填项）
 server.js            ← Express（端口 3080，线上 PUBLIC_MODE 过滤 visibility=local）
@@ -110,14 +115,33 @@ scripts/
   extract-css-vars.js← 批量提取 CSS 变量
 ```
 
+## 文件纪律
+
+### `meta/` — AI 操作文件，不是草稿本
+
+`meta/` 是 AI 生成和审计的接口目录。只放 AI 运行时需要的操作文件：
+
+| 文件 | 性质 | 读者 |
+|------|------|------|
+| `ai-prompt.md` | AI 提示词（原则 + token 表 + 合规清单） | AI |
+| `token-contract.css` | Token 命名契约 | AI |
+| `token-contract.json` | 机器可读版本 | AI / MCP API |
+
+**硬规则：**
+- `meta/` 不进草稿、不进过程文件、不进实验产物
+- 新建文件前问：AI 运行时需要读这个文件吗？不需要 → 不进 meta/
+- 过程产物放 `_runtime/`，任务结束删除
+- 数据不进原则文件（已踩坑：visual-layer.json、design-principles.md 创建后又删除——两份都是过程文件，不该出现在 meta/）
+
+### 文件创建自检
+
+新建任何文件前：
+1. 这个文件 AI 运行时需要吗？不需要 → `_runtime/`
+2. 这个数据已有源吗？有 → 不建副本，引用源
+3. 这是过程产物吗？是 → `_runtime/`，标注生命周期
+
 ## 部署状态
 
+**线上：** https://gallery.evopearl.com（Vercel auto-deploy）
+**GitHub：** wampeeHuang/layout-gallery
 **本地：** :3081 运行中。工具架 (:3099) 已注册，id=`layout-gallery`。
-
-**线上：待部署**（3 步，~10 分钟）：
-1. 创建 GitHub 仓库 `wampeeHuang/layout-gallery`（旧仓库 `skill-html-showcase` 保留回滚）
-2. `git remote add origin` + `git push`
-3. Vercel 导入 → 绑定 `layouts.blackcamellia.xin` → 设 `PUBLIC_MODE=true`
-
-域名 `blackcamellia.xin` 在阿里云。Vercel 绑定需加 CNAME 记录。
-旧画廊 :3080（`D:\projects\skill-html-showcase`）已停，可回滚。

@@ -28,14 +28,14 @@
     "features": ["citation"],
     "slide_count": 0,
     "css_variables": [
-      { "name": "--paper", "default": "#f4efe7", "description": "页面背景纸色" },
-      { "name": "--paper-deep", "default": "#e8dfd2", "description": "深纸色（panel背景）" },
-      { "name": "--ink", "default": "#1b1916", "description": "主文字色/暗色块背景" },
-      { "name": "--ink-soft", "default": "#5f5951", "description": "次级文字" },
-      { "name": "--oxide", "default": "#b84f35", "description": "锈红强调色" },
-      { "name": "--sun", "default": "#d89a57", "description": "琥珀高亮（引用左边框、manifesto按钮）" },
-      { "name": "--display", "default": "Georgia, \"Times New Roman\", serif", "description": "展示字体栈" },
-      { "name": "--body", "default": "Inter, system-ui, sans-serif", "description": "正文字体栈" }
+      { "name": "--paper", "default": "#f4efe7", "role": "surface-bg", "group": "color", "description": "页面背景纸色" },
+      { "name": "--paper-deep", "default": "#e8dfd2", "role": "surface-card", "group": "color", "description": "深纸色（panel背景）" },
+      { "name": "--ink", "default": "#1b1916", "role": "text-primary", "group": "color", "description": "主文字色/暗色块背景" },
+      { "name": "--ink-soft", "default": "#5f5951", "role": "text-secondary", "group": "color", "description": "次级文字" },
+      { "name": "--oxide", "default": "#b84f35", "role": "accent", "group": "color", "description": "锈红强调色" },
+      { "name": "--sun", "default": "#d89a57", "role": "accent-hover", "group": "color", "description": "琥珀高亮（引用左边框、manifesto按钮）" },
+      { "name": "--display", "default": "Georgia, \"Times New Roman\", serif", "role": "display-font", "group": "typography", "description": "展示字体栈" },
+      { "name": "--body", "default": "Inter, system-ui, sans-serif", "role": "body-font", "group": "typography", "description": "正文字体栈" }
     ],
     "visibility": "public",
     "status": "active",

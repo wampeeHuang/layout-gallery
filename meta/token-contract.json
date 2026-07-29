@@ -1,0 +1,80 @@
+{
+  "version": "1.0.0",
+  "description": "版式画廊 Token 命名契约 — 机器可读版。定义六大分类最小必需 Token 集。模板变量名可自定义，通过 role 字段做标准化映射。",
+  "categories": {
+    "color": {
+      "label": "颜色",
+      "required": true,
+      "roles": [
+        {"role": "surface-bg", "description": "页面底色 / body background", "type": "color"},
+        {"role": "surface-card", "description": "卡片/面板背景", "type": "color"},
+        {"role": "text-primary", "description": "主文字色", "type": "color"},
+        {"role": "text-secondary", "description": "次级/辅助文字色", "type": "color"},
+        {"role": "border-default", "description": "默认边框色", "type": "color"},
+        {"role": "accent", "description": "品牌强调色", "type": "color"},
+        {"role": "accent-hover", "description": "强调色 hover/active 态", "type": "color"}
+      ]
+    },
+    "typography": {
+      "label": "排版",
+      "required": true,
+      "roles": [
+        {"role": "display-font", "description": "标题字体栈", "type": "font-stack"},
+        {"role": "body-font", "description": "正文字体栈", "type": "font-stack"},
+        {"role": "mono-font", "description": "等宽字体栈", "type": "font-stack"},
+        {"role": "display-size", "description": "主标题字号", "type": "size"},
+        {"role": "h2-size", "description": "二级标题字号", "type": "size"},
+        {"role": "h3-size", "description": "三级标题字号", "type": "size"},
+        {"role": "body-size", "description": "正文基础字号", "type": "size"},
+        {"role": "small-size", "description": "辅助/标签字号", "type": "size"}
+      ]
+    },
+    "spacing": {
+      "label": "间距",
+      "required": true,
+      "roles": [
+        {"role": "hero-spacing", "description": "Hero 区顶部留白", "type": "size"},
+        {"role": "section-spacing", "description": "区段间距", "type": "size"},
+        {"role": "page-padding", "description": "页面两侧留白", "type": "size"},
+        {"role": "card-padding", "description": "卡片内边距", "type": "size"},
+        {"role": "element-gap", "description": "元素间距 / 列间距", "type": "size"},
+        {"role": "tight-gap", "description": "紧凑间距 / 图标-文字间距", "type": "size"}
+      ]
+    },
+    "radius": {
+      "label": "圆角",
+      "required": true,
+      "roles": [
+        {"role": "sharp", "description": "直角（默认）", "type": "size"},
+        {"role": "subtle", "description": "细微圆角", "type": "size"},
+        {"role": "card", "description": "卡片/按钮圆角", "type": "size"}
+      ]
+    },
+    "shadow": {
+      "label": "阴影",
+      "required": true,
+      "roles": [
+        {"role": "default", "description": "默认状态阴影", "type": "shadow"},
+        {"role": "card-hover", "description": "卡片 hover 阴影", "type": "shadow"}
+      ]
+    },
+    "motion": {
+      "label": "动效",
+      "required": true,
+      "roles": [
+        {"role": "standard-easing", "description": "标准缓动曲线", "type": "easing"},
+        {"role": "duration-fast", "description": "瞬态时长 (hover/click)", "type": "duration"},
+        {"role": "duration-base", "description": "标准过渡时长", "type": "duration"}
+      ]
+    }
+  },
+  "compliance": {
+    "full": "六大类全部覆盖",
+    "partial": "缺一类或多类 — brand-kit 页折叠未覆盖分类",
+    "minimal": "只有颜色和字体 — 标记为'需完善'"
+  },
+  "validation": {
+    "method": "registry.json 条目的 css_variables[].role 字段检查",
+    "threshold": "每类至少 1 个 role 被映射 = 该类通过"
+  }
+}
