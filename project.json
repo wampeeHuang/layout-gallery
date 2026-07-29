@@ -1,7 +1,0 @@
-{
-  "name": "版式画廊",
-  "status": "incubating",
-  "category": "工具开发",
-  "description": "AI 可调用的设计风格仓库 — 43 模板统一索引，API 查询+渲染，CSS 变量合约",
-  "ownership": "self"
-}
