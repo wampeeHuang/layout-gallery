@@ -125,7 +125,16 @@
           "description": { "type": "string" },
           "role": {
             "type": "string",
-            "description": "标准化角色名。token-contract.json 定义的 role 之一，跨模板做对比。未分配时为空或 null"
+            "enum": [
+              "surface-bg", "surface-card", "text-primary", "text-secondary", "border-default", "accent", "accent-hover",
+              "display-font", "body-font", "mono-font", "display-size", "h2-size", "h3-size", "body-size", "small-size",
+              "hero-spacing", "section-spacing", "page-padding", "card-padding", "element-gap", "tight-gap",
+              "sharp", "subtle", "card",
+              "default", "card-hover",
+              "standard-easing", "duration-fast", "duration-base",
+              ""
+            ],
+            "description": "标准化角色名，必须来自 token-contract.json 定义的 29 个 role 之一。空字符串 = 未分配"
           },
           "group": {
             "type": "string",

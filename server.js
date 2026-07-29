@@ -140,6 +140,17 @@ app.get('/api/prompt', (req, res) => {
   res.sendFile(promptPath);
 });
 
+// GET /api/template/:slug/audit — Token 角色覆盖审计
+app.get('/api/template/:slug/audit', (req, res) => {
+  const items = loadRegistry();
+  const entry = items.find(e => e.slug === req.params.slug);
+  if (!entry) return res.status(404).json({ error: 'not found' });
+
+  const { auditEntry, loadContractRoles } = require('./scripts/audit-tokens');
+  const contractRoles = loadContractRoles();
+  res.json(auditEntry(entry, contractRoles));
+});
+
 // GET /api/token-contract — Token 命名标准 JSON
 app.get('/api/token-contract', (req, res) => {
   const contractPath = path.join(PROJECT_DIR, 'meta', 'token-contract.json');
@@ -189,6 +200,132 @@ app.get('/brand/:slug', (req, res) => {
 app.get('/learn', (req, res) => {
   const learnPath = path.join(PROJECT_DIR, 'meta', 'learn-template.html');
   res.sendFile(learnPath);
+});
+
+// GET /grow — 生长 Agent UI
+app.get('/grow', (req, res) => {
+  res.sendFile(path.join(PROJECT_DIR, 'grow.html'));
+});
+
+// POST /api/grow — SSE 生长管线
+app.post('/api/grow', (req, res) => {
+  const { url } = req.body;
+  if (!url) return res.status(400).json({ error: 'URL 为空' });
+
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('X-Accel-Buffering', 'no');
+
+  const { runPipeline } = require('./scripts/growth-agent');
+
+  runPipeline(url, {
+    onProgress(ev) {
+      res.write('data:' + JSON.stringify(ev) + '\n\n');
+    },
+    onError(err) {
+      res.write('data:' + JSON.stringify({ step: 'error', status: 'error', error: err.message, timestamp: Date.now() }) + '\n\n');
+    },
+  }).then(result => {
+    res.write('data:' + JSON.stringify({ step: 'done', status: 'done', ok: result.ok, slug: result.slug, error: result.error, timestamp: Date.now() }) + '\n\n');
+    res.end();
+  }).catch(err => {
+    res.write('data:' + JSON.stringify({ step: 'error', status: 'error', error: err.message, timestamp: Date.now() }) + '\n\n');
+    res.end();
+  });
+});
+
+// POST /api/grow/approve — 注册到 registry.json
+app.post('/api/grow/approve', (req, res) => {
+  const { slug } = req.body;
+  if (!slug) return res.status(400).json({ error: 'slug 为空' });
+
+  const growthDir = path.join(PROJECT_DIR, 'templates', '_growth', slug);
+  const tokensPath = path.join(growthDir, 'tokens.json');
+  const tmplPath = path.join(growthDir, 'template.html');
+
+  if (!fs.existsSync(tokensPath) || !fs.existsSync(tmplPath)) {
+    return res.status(404).json({ error: '模板文件不存在: ' + growthDir });
+  }
+
+  const tokens = JSON.parse(fs.readFileSync(tokensPath, 'utf-8'));
+  const tmplHtml = fs.readFileSync(tmplPath, 'utf-8');
+
+  // Extract :root
+  const rootMatch = tmplHtml.match(/:root\s*\{([^}]*)\}/s);
+  const cssVars = [];
+  if (rootMatch) {
+    const re = /--([\w-]+)\s*:\s*([^;]+);/g;
+    let m;
+    while ((m = re.exec(rootMatch[1])) !== null) {
+      cssVars.push({ name: '--' + m[1], value: m[2].trim() });
+    }
+  }
+
+  // Extract palette from color tokens
+  const colorTokens = tokens.tokens?.color || [];
+  const palette = colorTokens.slice(0, 8).map(t => ({
+    name: (t.description || t.name).slice(0, 20),
+    color: t.value,
+  }));
+
+  // Detect style signals from tokens
+  const bg = colorTokens.find(t => t.role === 'surface-bg');
+  const bgIsDark = bg && bg.value.match(/#([0-9a-fA-F]{3,6})/) && parseInt(bg.value.match(/#([0-9a-fA-F]{3,6})/)[1], 16) < 0x808080;
+  const scheme = bgIsDark ? 'dark' : 'light';
+
+  // Density from spacing tokens
+  const spacings = tokens.tokens?.spacing || [];
+  const density = spacings.length <= 3 ? 'low' : spacings.length <= 5 ? 'medium' : 'high';
+
+  const entry = {
+    slug,
+    name: slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+    tagline: '生长 Agent 自动提取 · ' + new Date().toISOString().slice(0, 10),
+    template_type: 'brand',
+    design_style: 'editorial',
+    scheme,
+    formality: 'medium',
+    density,
+    mood: [],
+    palette,
+    displayFont: 'Inter',
+    bodyFont: 'Noto Sans SC',
+    typography_style: 'modern',
+    best_for: ['品牌落地页'],
+    avoid_for: [],
+    features: [],
+    css_variables: cssVars,
+    visibility: 'public',
+    status: 'active',
+    template_path: 'templates/_growth/' + slug + '/template.html',
+    skill: '_growth',
+  };
+
+  const registry = JSON.parse(fs.readFileSync(registryPath, 'utf-8'));
+  const idx = registry.findIndex(e => e.slug === slug);
+  if (idx >= 0) {
+    registry[idx] = { ...registry[idx], ...entry };
+  } else {
+    registry.push(entry);
+  }
+  fs.writeFileSync(registryPath, JSON.stringify(registry, null, 2), 'utf-8');
+
+  res.json({ ok: true, entry });
+});
+
+// POST /api/grow/reject — 清理临时文件
+app.post('/api/grow/reject', (req, res) => {
+  const { slug } = req.body;
+  if (!slug) return res.status(400).json({ error: 'slug 为空' });
+
+  const growthDir = path.join(PROJECT_DIR, 'templates', '_growth', slug);
+  if (fs.existsSync(growthDir)) {
+    fs.rmSync(growthDir, { recursive: true, force: true });
+    res.json({ ok: true, removed: growthDir });
+  } else {
+    res.json({ ok: true, note: '目录不存在，无需清理' });
+  }
 });
 
 // ── Static Files ─────────────────────────────────────────────

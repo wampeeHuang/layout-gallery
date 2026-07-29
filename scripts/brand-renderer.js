@@ -22,10 +22,18 @@ function renderBrandKit(entry, projectDir) {
   const fb = loadFallbackMap(projectDir);
   const tmplPath = path.join(projectDir, entry.template_path);
   const html = fs.readFileSync(tmplPath, 'utf-8');
-  const vars = extractCssVars(html);
+
+  // ── Token data: tokens.json required (一源双端, no fallback) ──
+  const tokensPath = path.join(path.dirname(tmplPath), 'tokens.json');
+  if (!fs.existsSync(tokensPath)) {
+    throw new Error('Missing tokens.json for template: ' + entry.slug + '\n  Expected: ' + tokensPath + '\n  Every template MUST have tokens.json — 一源双端 hard requirement.');
+  }
+  const tokensData = JSON.parse(fs.readFileSync(tokensPath, 'utf-8'));
+  const vars = flattenTokens(tokensData);
+  const tokensByGroup = groupTokensFromData(tokensData);
+
   const P = buildPalette(entry, vars, fb);
   const T = buildTypography(entry, vars, fb);
-  const tokensByGroup = groupTokens(entry, vars);
   const assets = extractTemplateAssets(html, P, vars);
 
   let out = fs.readFileSync(path.join(projectDir, 'meta', 'brand-template.html'), 'utf-8');
@@ -119,22 +127,9 @@ function renderBrandKit(entry, projectDir) {
   // ── Copy blocks ──
   out = out.replace(/\{\{CSS_ROOT_BLOCK\}\}/g, esc(buildCssBlock(tokensByGroup)));
   out = out.replace(/\{\{JSON_BLOCK\}\}/g, esc(buildJsonBlock(entry, tokensByGroup)));
-  out = out.replace(/\{\{AI_PROMPT_BLOCK\}\}/g, esc(buildAiBlock(entry, tokensByGroup)));
+  out = out.replace(/\{\{AI_PROMPT_BLOCK\}\}/g, esc(buildAiBlock()));
 
   return out;
-}
-
-// ── CSS variable extraction ──
-function extractCssVars(html) {
-  const vars = {};
-  const rootMatch = html.match(/:root\s*\{([^}]*)\}/s);
-  if (!rootMatch) return vars;
-  const re = /--([\w-]+)\s*:\s*([^;]+);/g;
-  let m;
-  while ((m = re.exec(rootMatch[1])) !== null) {
-    vars['--' + m[1]] = m[2].trim();
-  }
-  return vars;
 }
 
 // ── Template asset extraction (background textures, pseudo-elements, heading styles) ──
@@ -359,65 +354,32 @@ function extractFontName(stack) {
   return m ? m[1] : stack.split(',')[0].trim();
 }
 
-// ── Token grouping (uses registry css_variables if available, falls back to parsed vars) ──
-function groupTokens(entry, vars) {
-  const groups = { Color: [], Typography: [], Spacing: [], Radius: [], Shadow: [], Motion: [], Other: [] };
-  const seen = new Set();
+// ── tokens.json helpers (一源双端) ──
 
-  // Prefer registry css_variables for roles/descriptions
-  if (entry.css_variables && entry.css_variables.length > 0) {
-    entry.css_variables.forEach(cv => {
-      const name = cv.name.startsWith('--') ? cv.name : '--' + cv.name;
-      const value = vars[name] || cv.default || '';
-      const group = cv.group ? capitalize(cv.group) : catFromName(name);
-      const catName = mapGroup(group);
-      if (!seen.has(name)) {
-        seen.add(name);
-        groups[catName].push({ name, value, role: cv.role || '', desc: cv.description || '' });
-      }
-    });
+function flattenTokens(tokensData) {
+  const vars = {};
+  for (const tokens of Object.values(tokensData.tokens)) {
+    for (const t of tokens) {
+      vars[t.name] = t.value;
+    }
   }
-
-  // Add any vars not already covered (use value-based fallback)
-  for (const [name, value] of Object.entries(vars)) {
-    if (seen.has(name)) continue;
-    const catName = mapGroup(catFromValue(name, value));
-    groups[catName].push({ name, value, role: '', desc: '' });
-  }
-
-  // Filter empty groups
-  const result = {};
-  for (const [k, v] of Object.entries(groups)) {
-    if (v.length > 0) result[k] = v;
-  }
-  return result;
+  return vars;
 }
 
-function catFromName(name) {
-  const n = name.replace(/^--/, '').toLowerCase();
-  // Name-based
-  if (/^(bg|ink|paper|accent|text-|surface|border|oxide|sun|color|line|card)/.test(n)) return 'Color';
-  if (/font|display|body|mono|heading|type/.test(n)) return 'Typography';
-  if (/space|gap|pad|margin|gutter|page|width|size/.test(n)) return 'Spacing';
-  if (/radius|round/.test(n)) return 'Radius';
-  if (/shadow|elevat/.test(n)) return 'Shadow';
-  if (/duration|ease|transition|animation|motion/.test(n)) return 'Motion';
-  return 'Other';
-}
-
-function catFromValue(name, value) {
-  // Value-based fallback when name-based fails
-  const v = (value || '').toLowerCase().trim();
-  if (/^#|rgb|hsl|oklch|color/.test(v)) return 'Color';
-  if (/px|rem|em|vw|vh|%|ch|cm|mm/.test(v)) return 'Spacing';
-  if (/^\d/.test(v) && /ms|s\b/.test(v)) return 'Motion';
-  return catFromName(name);
-}
-
-function mapGroup(g) {
-  const map = { Color: 'Color', Typography: 'Typography', Spacing: 'Spacing',
-                Radius: 'Radius', Shadow: 'Shadow', Motion: 'Motion' };
-  return map[g] || 'Other';
+function groupTokensFromData(tokensData) {
+  const catMap = { color: 'Color', typography: 'Typography', spacing: 'Spacing',
+                   radius: 'Radius', shadow: 'Shadow', motion: 'Motion' };
+  const groups = {};
+  for (const [cat, tokens] of Object.entries(tokensData.tokens)) {
+    const key = catMap[cat] || capitalize(cat);
+    groups[key] = tokens.map(t => ({
+      name: t.name,
+      value: t.value,
+      role: t.role || '',
+      desc: t.description || ''
+    }));
+  }
+  return groups;
 }
 
 // ── HTML block builders ──
@@ -427,8 +389,8 @@ function buildMoodChips(entry, P) {
   if (entry.design_style) chips.push('<span class="bk-chip mood">' + esc(styleLabel(entry.design_style)) + '</span>');
   if (entry.mood) entry.mood.forEach(m => chips.push('<span class="bk-chip mood">' + esc(m) + '</span>'));
   if (entry.scheme) chips.push('<span class="bk-chip">' + esc(schemeLabel(entry.scheme)) + '</span>');
-  if (entry.density) chips.push('<span class="bk-chip">' + esc(entry.density) + ' density</span>');
-  if (entry.template_type) chips.push('<span class="bk-chip">' + esc(entry.template_type) + '</span>');
+  if (entry.density) chips.push('<span class="bk-chip">' + esc(densityLabel(entry.density)) + '</span>');
+  if (entry.template_type) chips.push('<span class="bk-chip">' + esc(typeLabel(entry.template_type)) + '</span>');
   return chips.join('\n    ');
 }
 
@@ -436,8 +398,8 @@ function buildOverview(entry) {
   const parts = [];
   if (entry.design_style) parts.push(styleLabel(entry.design_style) + ' 风格');
   if (entry.scheme) parts.push(schemeLabel(entry.scheme) + ' 配色');
-  if (entry.formality) parts.push('正式度 ' + entry.formality);
-  if (entry.density) parts.push('信息密度 ' + entry.density);
+  if (entry.formality) parts.push('正式度 ' + formalityLabel(entry.formality));
+  if (entry.density) parts.push('信息密度 ' + densityLabel(entry.density));
   return (entry.tagline || '') + '。' + parts.join(' · ') + '。';
 }
 
@@ -1088,23 +1050,13 @@ function buildJsonBlock(entry, groups) {
   return JSON.stringify(obj, null, 2);
 }
 
-function buildAiBlock(entry, groups) {
-  let p = '## Design Kit: ' + entry.name + '\n\n';
-  p += '### Design DNA\n';
-  p += 'Style: ' + styleLabel(entry.design_style) + '\n';
-  p += 'Scheme: ' + schemeLabel(entry.scheme) + '\n';
-  p += 'Formality: ' + (entry.formality || '—') + '\n';
-  p += 'Density: ' + (entry.density || '—') + '\n';
-  if (entry.mood && entry.mood.length > 0) p += 'Mood: ' + entry.mood.join(', ') + '\n';
-  p += '\n### Token Contract\n';
-  p += 'All values MUST use var() references. No hardcoded hex/rgba/px.\n\n';
-  p += buildCssBlock(groups);
-  p += '\n\n### Constraints\n';
-  p += '- text-wrap: balance on all headings\n';
-  p += '- text-wrap: pretty on all body text\n';
-  p += '- One accent color only\n';
-  p += '- No serif fonts unless specified by --font-serif\n';
-  return p;
+function buildAiBlock() {
+  const promptPath = path.join(__dirname, '..', 'meta', 'ai-system-prompt.md');
+  try {
+    return fs.readFileSync(promptPath, 'utf-8');
+  } catch (e) {
+    return '# 版式画廊 · 模板生成规范\n\n(ai-system-prompt.md 未找到)';
+  }
 }
 
 // ── Helpers ──
@@ -1124,6 +1076,21 @@ function styleLabel(s) {
 
 function schemeLabel(s) {
   const map = { light: '亮色', dark: '暗色', mixed: '混合' };
+  return map[s] || s || '';
+}
+
+function densityLabel(s) {
+  const map = { high: '高密度', 'medium-high': '中高密度', medium: '中密度', low: '低密度' };
+  return map[s] || s || '';
+}
+
+function formalityLabel(s) {
+  const map = { high: '权威', 'medium-high': '正式', medium: '适中', 'medium-low': '半正式', low: '休闲' };
+  return map[s] || s || '';
+}
+
+function typeLabel(s) {
+  const map = { 'single-page': '单页', 'slide-deck': '幻灯片', report: '报告', infographic: '信息图', 'social-card': '社交卡片', poster: '海报' };
   return map[s] || s || '';
 }
 

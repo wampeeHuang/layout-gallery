@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>版式画廊 · 生长 Agent</title>
+<style>
+:root{
+  --bg:#fafafa; --bg-card:#fff; --text:#1a1a1a; --text-secondary:#666; --text-muted:#999;
+  --border:#e8e8e8; --accent:#2563eb; --accent-hover:#1d4ed8; --danger:#dc2626; --success:#16a34a;
+  --font-sans:'Inter','Noto Sans SC',sans-serif;
+  font-family:var(--font-sans); color:var(--text); background:var(--bg);
+  font-size:15px; line-height:1.5;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+
+body{ max-width:800px; margin:0 auto; padding:48px 24px; }
+
+h1{ font-size:28px; font-weight:700; margin-bottom:4px; }
+.subtitle{ color:var(--text-secondary); font-size:14px; margin-bottom:32px; }
+
+/* URL input */
+.url-bar{ display:flex; gap:10px; margin-bottom:32px; }
+.url-bar input{ flex:1; padding:12px 16px; border:1.5px solid var(--border); border-radius:10px; font-size:15px; outline:none; transition:border-color .15s; font-family:var(--font-sans); }
+.url-bar input:focus{ border-color:var(--accent); }
+.url-bar button{ padding:12px 24px; background:var(--accent); color:#fff; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; transition:background .15s; white-space:nowrap; }
+.url-bar button:hover{ background:var(--accent-hover); }
+.url-bar button:disabled{ opacity:.5; pointer-events:none; }
+
+/* Pipeline */
+.pipeline{ display:flex; gap:6px; margin-bottom:28px; }
+.step{ flex:1; padding:12px 8px; text-align:center; border-radius:8px; font-size:12px; font-weight:500; background:#f0f0f0; color:var(--text-muted); transition:all .3s; position:relative; }
+.step .step-num{ display:block; font-size:18px; font-weight:700; margin-bottom:2px; }
+.step.running{ background:#dbeafe; color:var(--accent); animation:pulse 1.2s ease-in-out infinite; }
+.step.done{ background:#dcfce7; color:var(--success); }
+.step.error{ background:#fee2e2; color:var(--danger); }
+@keyframes pulse{ 0%,100%{opacity:1}50%{opacity:.65} }
+
+/* Progress log */
+.log{ background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:24px; max-height:200px; overflow-y:auto; font-size:13px; font-family:"SF Mono","Consolas",monospace; }
+.log .line{ padding:3px 0; border-bottom:1px solid #f5f5f5; }
+.log .line:last-child{ border-bottom:none; }
+.log .ts{ color:var(--text-muted); margin-right:8px; }
+.log .err{ color:var(--danger); }
+.log .ok{ color:var(--success); }
+
+/* Results */
+.results{ display:none; }
+.results.visible{ display:block; }
+.tabs{ display:flex; gap:4px; margin-bottom:16px; }
+.tab{ padding:8px 16px; border:none; background:#f0f0f0; border-radius:8px 8px 0 0; font-size:13px; cursor:pointer; color:var(--text-secondary); font-family:var(--font-sans); }
+.tab.active{ background:var(--bg-card); color:var(--text); font-weight:600; box-shadow:0 -1px 4px rgba(0,0,0,.04); }
+.tab-content{ display:none; background:var(--bg-card); border-radius:0 12px 12px 12px; padding:20px; border:1px solid var(--border); max-height:480px; overflow:auto; }
+.tab-content.active{ display:block; }
+.tab-content pre{ font-family:"SF Mono","Consolas",monospace; font-size:13px; white-space:pre-wrap; word-break:break-all; margin:0; }
+
+/* Action bar */
+.actions{ display:none; gap:10px; margin-top:20px; }
+.actions.visible{ display:flex; }
+.actions button{ padding:10px 24px; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; border:none; }
+.btn-approve{ background:var(--success); color:#fff; }
+.btn-reject{ background:var(--bg); color:var(--danger); border:1.5px solid var(--danger)!important; }
+.btn-preview{ background:var(--bg); color:var(--accent); border:1.5px solid var(--accent)!important; }
+
+/* Error box */
+.error-box{ display:none; background:#fef2f2; border:1.5px solid #fecaca; border-radius:10px; padding:16px; margin-bottom:20px; }
+.error-box.visible{ display:block; }
+.error-box h3{ color:var(--danger); font-size:15px; margin-bottom:8px; }
+.error-box p{ font-size:13px; color:var(--text-secondary); }
+
+/* Status badge */
+.status-badge{ display:inline-block; padding:2px 8px; border-radius:99px; font-size:11px; font-weight:600; }
+.status-badge.ok{ background:#dcfce7; color:var(--success); }
+.status-badge.err{ background:#fee2e2; color:var(--danger); }
+</style>
+</head>
+<body>
+
+<h1>生长 Agent</h1>
+<p class="subtitle">输入目标网站 URL → AI 提取视觉设计 → 生成 tokens.json + :root → 品牌套件预览</p>
+
+<div class="url-bar">
+  <input type="url" id="urlInput" placeholder="https://example.com — 输入网站 URL" autofocus>
+  <button id="startBtn" onclick="startGrow()">开始生长</button>
+</div>
+
+<div class="error-box" id="errorBox">
+  <h3 id="errorTitle">错误</h3>
+  <p id="errorMsg"></p>
+</div>
+
+<div class="pipeline" id="pipeline">
+  <div class="step" id="step1"><span class="step-num">1</span>验证 URL</div>
+  <div class="step" id="step2"><span class="step-num">2</span>抓取样式</div>
+  <div class="step" id="step3"><span class="step-num">3</span>视觉提取</div>
+  <div class="step" id="step4"><span class="step-num">4</span>结构化</div>
+  <div class="step" id="step5"><span class="step-num">5</span>Schema 校验</div>
+  <div class="step" id="step6"><span class="step-num">6</span>写入+同步</div>
+</div>
+
+<div class="log" id="logBox"><div class="line"><span class="ts">--:--:--</span>等待输入 URL...</div></div>
+
+<div class="results" id="results">
+  <div class="tabs" id="tabs">
+    <button class="tab active" onclick="switchTab('tokens')">tokens.json</button>
+    <button class="tab" onclick="switchTab('root')">:root CSS</button>
+    <button class="tab" onclick="switchTab('brand')">品牌预览</button>
+  </div>
+  <div class="tab-content active" id="tab-tokens"><pre id="preview-tokens">等待生成...</pre></div>
+  <div class="tab-content" id="tab-root"><pre id="preview-root">等待生成...</pre></div>
+  <div class="tab-content" id="tab-brand"><iframe id="brandFrame" style="width:100%;height:420px;border:none;"></iframe></div>
+</div>
+
+<div class="actions" id="actions">
+  <button class="btn-approve" onclick="approve()">批准写入 registry</button>
+  <button class="btn-preview" onclick="openBrand()">新窗口预览品牌页</button>
+  <button class="btn-reject" onclick="reject()">丢弃</button>
+</div>
+
+<script>
+const STEP_NAMES = {1:'验证URL',2:'抓取样式',3:'Gemini视觉提取',4:'DeepSeek结构化',5:'Schema校验',6:'写入+同步'};
+let currentSlug = null;
+let currentBrandUrl = null;
+
+function log(ts, msg, cls) {
+  const box = document.getElementById('logBox');
+  const div = document.createElement('div');
+  div.className = 'line';
+  div.innerHTML = '<span class="ts">' + ts + '</span>' + (cls ? '<span class="' + cls + '">' + msg + '</span>' : msg);
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+
+function setStep(n, state) {
+  const el = document.getElementById('step' + n);
+  el.className = 'step ' + state;
+}
+
+function now() {
+  return new Date().toLocaleTimeString('zh-CN', {hour12:false});
+}
+
+function showError(title, msg) {
+  document.getElementById('errorTitle').textContent = title;
+  document.getElementById('errorMsg').textContent = msg;
+  document.getElementById('errorBox').classList.add('visible');
+}
+
+function hideError() {
+  document.getElementById('errorBox').classList.remove('visible');
+}
+
+async function startGrow() {
+  const url = document.getElementById('urlInput').value.trim();
+  if (!url) return;
+
+  hideError();
+  document.getElementById('startBtn').disabled = true;
+  document.getElementById('results').classList.remove('visible');
+  document.getElementById('actions').classList.remove('visible');
+  document.getElementById('logBox').innerHTML = '';
+
+  // Reset steps
+  for (let i = 1; i <= 6; i++) {
+    document.getElementById('step' + i).className = 'step';
+  }
+
+  log(now(), '开始: ' + url);
+
+  try {
+    const resp = await fetch('/api/grow', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({url}),
+    });
+
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({error: resp.statusText}));
+      throw new Error(err.error || 'HTTP ' + resp.status);
+    }
+
+    const reader = resp.body.getReader();
+    const decoder = new TextDecoder();
+    let buf = '';
+    let resultData = null;
+
+    while (true) {
+      const {done, value} = await reader.read();
+      if (done) break;
+
+      buf += decoder.decode(value, {stream: true});
+      const lines = buf.split('\n');
+      buf = lines.pop(); // incomplete line
+
+      for (const line of lines) {
+        if (!line.startsWith('data:')) continue;
+        const json = line.slice(5).trim();
+        if (!json) continue;
+
+        try {
+          const ev = JSON.parse(json);
+          handleSSE(ev);
+          if (ev.step === 'complete' && ev.status === 'done') {
+            resultData = ev;
+          }
+        } catch (_) {}
+      }
+    }
+
+    if (resultData) {
+      document.getElementById('results').classList.add('visible');
+      document.getElementById('actions').classList.add('visible');
+      currentSlug = resultData.slug;
+      currentBrandUrl = resultData.brandUrl;
+
+      // Load preview tabs
+      if (resultData.slug) {
+        fetch('/api/template/' + resultData.slug + '/tokens')
+          .then(r => r.json())
+          .then(d => { document.getElementById('preview-tokens').textContent = JSON.stringify(d, null, 2); })
+          .catch(() => { document.getElementById('preview-tokens').textContent = '加载失败'; });
+
+        fetch('/api/template/' + resultData.slug + '/html')
+          .then(r => r.text())
+          .then(html => {
+            const m = html.match(/:root\s*\{([^}]*)\}/s);
+            document.getElementById('preview-root').textContent = m ? ':root {\n' + m[1].trim().replace(/;/g, ';\n').replace(/\n\s*\n/g, '\n') + '\n}' : '未找到 :root 块';
+          })
+          .catch(() => { document.getElementById('preview-root').textContent = '加载失败'; });
+
+        document.getElementById('brandFrame').src = resultData.brandUrl;
+      }
+    }
+  } catch (e) {
+    log(now(), '管线异常: ' + e.message, 'err');
+    showError('管线异常', e.message);
+  } finally {
+    document.getElementById('startBtn').disabled = false;
+  }
+}
+
+function handleSSE(ev) {
+  const s = ev.step;
+  if (typeof s === 'number') {
+    setStep(s, ev.status);
+    const name = STEP_NAMES[s] || '步骤' + s;
+    if (ev.status === 'running') {
+      log(now(), '[' + name + '] ' + (ev.message || '执行中...'));
+    } else if (ev.status === 'done') {
+      const details = [];
+      if (ev.url) details.push('URL=' + ev.url);
+      if (ev.hostname) details.push('host=' + ev.hostname);
+      if (ev.slug) details.push('slug=' + ev.slug);
+      if (ev.cssVarCount !== undefined) details.push('CSS变量=' + ev.cssVarCount);
+      if (ev.colorCount !== undefined) details.push('颜色=' + ev.colorCount);
+      if (ev.fontCount !== undefined) details.push('字体=' + ev.fontCount);
+      if (ev.tier) details.push('抓取层=' + ev.tier);
+      if (ev.styleSignals) details.push('风格=' + JSON.stringify(ev.styleSignals));
+      if (ev.categories) details.push('分类数=' + ev.categories);
+      if (ev.dir) details.push('目录=' + ev.dir);
+      if (ev.warning) details.push('⚠ ' + ev.warning);
+      log(now(), '[' + name + '] 完成 — ' + details.join(', '), 'ok');
+    } else if (ev.status === 'error') {
+      log(now(), '[' + name + '] 失败: ' + (ev.error || ev.errors?.join('; ') || '未知'), 'err');
+    }
+  } else if (s === 'complete') {
+    log(now(), '全部完成 → ' + ev.slug + ' | 品牌页: ' + ev.brandUrl, 'ok');
+  }
+}
+
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelector('.tab[onclick*="' + name + '"]').classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+function openBrand() {
+  if (currentBrandUrl) window.open(currentBrandUrl, '_blank');
+}
+
+function approve() {
+  if (!currentSlug) return;
+  log(now(), '批准写入 registry.json...');
+  fetch('/api/grow/approve', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({slug: currentSlug}),
+  })
+  .then(r => r.json())
+  .then(d => {
+    if (d.ok) {
+      log(now(), '已注册到 registry.json, 可在首页查看', 'ok');
+    } else {
+      log(now(), '注册失败: ' + (d.error || '未知'), 'err');
+    }
+  })
+  .catch(e => log(now(), '注册失败: ' + e.message, 'err'));
+}
+
+function reject() {
+  if (!currentSlug) return;
+  log(now(), '丢弃: ' + currentSlug);
+  fetch('/api/grow/reject', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({slug: currentSlug}),
+  })
+  .then(r => r.json())
+  .then(d => {
+    if (d.ok) log(now(), '已清理临时文件', 'ok');
+    else log(now(), '清理失败: ' + (d.error || ''), 'err');
+  })
+  .catch(e => log(now(), '清理失败: ' + e.message, 'err'));
+}
+</script>
+</body>
+</html>

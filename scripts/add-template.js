@@ -217,6 +217,23 @@ function main() {
   fs.writeFileSync(REGISTRY_PATH, JSON.stringify(registry, null, 2), 'utf-8');
   console.log(`registry.json 已更新 (${registry.length} 条目)`);
 
+  // Token coverage audit
+  try {
+    const { auditEntry, loadContractRoles } = require('./audit-tokens');
+    const contractRoles = loadContractRoles();
+    const report = auditEntry(entry, contractRoles);
+    console.log('');
+    console.log('── Token 覆盖 ──');
+    console.log(`  合规: ${report.compliance}  |  角色: ${report.totalCovered}/${report.totalRoles}  |  分类: ${report.coveredCategories}/6`);
+    for (const [catKey, cat] of Object.entries(report.categories)) {
+      if (cat.missing.length > 0) {
+        console.log(`  ${cat.label}: 缺 ${cat.missing.join(', ')}`);
+      }
+    }
+  } catch (e) {
+    console.warn('跳过 token 审计:', e.message);
+  }
+
   // Summary
   console.log('');
   console.log('── 条目摘要 ──');

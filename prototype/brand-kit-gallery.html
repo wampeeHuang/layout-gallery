@@ -908,6 +908,11 @@ If ANY box is unchecked → output is non-compliant → regenerate.</pre>
     });
   });
 })();
+// Load AI prompt from source of truth
+fetch('/api/prompt')
+  .then(function(r){return r.text()})
+  .then(function(t){document.getElementById('ai-block').textContent = t})
+  .catch(function(){});
 
 // Copy buttons
 var copies = [
