@@ -1,6 +1,12 @@
-# HANDOFF — 版式画廊部署
+# HANDOFF — 版式画廊
 
 date: 2026-07-29
+
+## 搬家记录 (2026-07-29)
+
+`D:\workspace\_lab\2026-06-06-版式画廊部署` → `D:\workspace\layout-gallery`
+原因：已部署（gallery.evopearl.com），有 git，按 workspace 宪法搬出 lab。
+`.project` status: `active` → `stable`
 
 ## 当前状态
 
