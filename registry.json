@@ -6744,38 +6744,14 @@
     "density": "medium",
     "scheme": "light",
     "palette": [
-      {
-        "name": "页面底色",
-        "color": "fafafa"
-      },
-      {
-        "name": "卡片白",
-        "color": "ffffff"
-      },
-      {
-        "name": "主文字",
-        "color": "1a1a1a"
-      },
-      {
-        "name": "辅助文字",
-        "color": "666666"
-      },
-      {
-        "name": "弱文字",
-        "color": "999999"
-      },
-      {
-        "name": "边框",
-        "color": "e8e8e8"
-      },
-      {
-        "name": "强调蓝",
-        "color": "2563eb"
-      },
-      {
-        "name": "强调深蓝",
-        "color": "1d4ed8"
-      }
+      { "name": "Canvas", "color": "#fafafa" },
+      { "name": "Card", "color": "#ffffff" },
+      { "name": "Ink", "color": "#1a1a1a" },
+      { "name": "Ink Muted", "color": "#666666" },
+      { "name": "Ink Faint", "color": "#999999" },
+      { "name": "Border", "color": "#e8e8e8" },
+      { "name": "Accent", "color": "#2563eb" },
+      { "name": "Accent Deep", "color": "#1d4ed8" }
     ],
     "displayFont": "Inter, Noto Sans SC, sans-serif",
     "bodyFont": "Inter, Noto Sans SC, sans-serif",

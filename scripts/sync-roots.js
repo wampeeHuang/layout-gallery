@@ -9,6 +9,8 @@ const path = require('path');
 const projectDir = path.resolve(__dirname, '..');
 const templatesDir = path.join(projectDir, 'templates');
 
+module.exports = { generateRoot };
+
 // ── :root generation ──────────────────────────────────────────
 
 const CAT_LABELS = {
@@ -120,7 +122,9 @@ function findTemplateDirs() {
   return dirs;
 }
 
-// ── main ──────────────────────────────────────────────────────
+// ── main (CLI only) ───────────────────────────────────────────
+
+if (require.main !== module) return;
 
 const args = process.argv.slice(2);
 const checkOnly = args.includes('--check');

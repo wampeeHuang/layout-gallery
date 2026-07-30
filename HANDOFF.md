@@ -1,21 +1,67 @@
 # HANDOFF — 版式画廊
 
-date: 2026-07-29
+date: 2026-07-30
 
-## 明天第一件事：首页品牌套件对齐
+## Turbo 导航无抖动 (2026-07-30)
 
-**问题**：`index.html` 完全脱离品牌套件体系。
+`@hotwired/turbo@8.0.12` CDN 注入 `meta/nav.html`，导航栏 `data-turbo-permanent` 跨页持久化，消除 MPA 导航闪烁。
 
-- `:root` 硬编码 CSS 变量，不是从 `tokens.json` 派生
-- 卡片/搜索/筛选/模态的视觉风格跟 `/brand/layout-gallery` 品牌页对不上
-- 画廊自己是品牌套件系统的展示窗口，但外观没吃自己的狗粮
+### 改动清单
 
-**解法方向**：
-1. `index.html` 从 `templates/frontend-design/layout-gallery/tokens.json` 派生 `:root`
-2. 或者更彻底的：首页也走 `brand-renderer.js` 包裹层，把卡片网格当品牌页的一个区段来渲染
-3. 卡片预览 iframe 缩放逻辑保留，但视觉 chrome（header/filters/cards/modal）全部 token 化
+| 文件 | 改动 |
+|------|------|
+| `meta/nav.html` | +Turbo CDN script，`.site-nav` 加 `id="site-nav"` + `data-turbo-permanent`，+`@font-face` 字体别名，+JS 监听 `turbo:load` 更新 active 态 |
+| `index.html` | `DOMContentLoaded`→`turbo:load`；删冗余 `@font-face`（nav.html 已提供） |
+| `library.html` | `DOMContentLoaded`→`turbo:load`；删冗余 `@font-face`（nav.html 已提供） |
 
-**现状**：首页 250+ 行 CSS 跟 `brand-renderer` 14 区段品牌页是两条平行线，没有共享任何 token 或组件。
+### 原理
+
+- Turbo 拦截同源链接点击，fetch 新页面 → 替换 `<body>`（保留 `data-turbo-permanent` 元素）→ 触发 `turbo:load`
+- **关键修复**：`data-turbo-permanent` 必须搭配 `id` 属性，Turbo 用 `id` 在旧/新页面间匹配 permanent 元素。没有 `id` 静默失败，每次仍然替换 DOM
+- `turbo:load` 在首次加载和每次 Turbo 导航都触发，替代 `DOMContentLoaded`
+- 服务端 `servePage()` 注入 `class="active"` 覆盖首次加载；JS `updateActive()` 覆盖后续 Turbo 导航
+- `@font-face` 放 nav.html 确保所有页面字体解析一致，不再各自声明
+
+### 验证
+
+Puppeteer 实测：四页间 Turbo 导航，`#site-nav` 同 DOM 引用保持（`isSame: true`），宽 1440px、高 57px、y=0 全部一致，active 态正确切换。
+
+## 品牌 Token 统一 & 页面宽度标准化 (2026-07-30)
+
+四个页面全部注入同一份 `tokens.json` 的 `:root`，导航栏不再跳色。统一内容宽度 `1200px` + 两侧 `32px` padding。
+
+### 改动清单
+
+| 文件 | 改动 |
+|------|------|
+| `tokens.json` | 新增 `--page-wmax:1200px`、`--page-pad:32px` |
+| `grow.html` | `:root` 替换为 `<!-- ROOT_INJECT -->`，保留 `--danger`/`--success` 在第二个 `:root`；body max-width+padding 移至 `.page-wrap` 修复导航栏被压缩 |
+| `meta/learn-template.html` | `:root` 替换为 `<!-- ROOT_INJECT -->`，保留 `--font-serif`；`var(--pad)`→`var(--page-pad)`；`var(--wmax)`→`var(--page-wmax)` |
+| `index.html` | 去 `--l-wmax`/`--l-pad`，改用 `--page-wmax`/`--page-pad`；去 eyebrow "Swiss Minimal · 设计基因套件"；去统计条 |
+| `library.html` | `max-width:1500px/1520px`→`var(--page-wmax)`，`--space-2xl`→`--page-pad` |
+| `server.js` | `/learn` 和 `/grow` 传 `galleryTokensPath`（原为 `null`） |
+| `templates/.../layout-gallery/template.html` | 填充品牌范例内容（调色盘+字体层级+卡片组件），`:root` 从 tokens.json 自动同步 |
+
+### 关键修复
+
+- **跨页跳色**：learn 页 `--accent:#d4684e`（暖橙）→ gallery 的 `--accent:#2563eb`（蓝），导航栏不再跳色
+- **grow.html `:root` 裸奔**：`<!-- ROOT_INJECT -->` 必须在 `<style>` 标签内，否则注入的 CSS 暴露为裸文本
+- **grow.html 导航栏宽度不对**：`body{max-width:1200px}` 和 `body{padding:...}` 把导航栏也限制在 1200px 内，移至 `.page-wrap` 修复
+- **index.html `tagHTML` bug**：`${tagHTML}` → `${tags.join('')}`，修复精选卡片 tag 不显示的 bug
+
+## 导航重构 (2026-07-30)
+
+四个页面全部挂载共享导航栏，`meta/nav.html` 是唯一来源。
+
+| 页面 | 路径 | 文件 |
+|------|------|------|
+| 画廊（landing） | `/` | `index.html`（新建） |
+| 版式库 | `/library` | `library.html`（原 index.html） |
+| 知识库 | `/learn` | `meta/learn-template.html` |
+| AI 萃取 | `/grow` | `grow.html` |
+
+所有页面路由走 `server.js` 的 `servePage()` 辅助函数注入导航栏。`:root` 全部从 `tokens.json` 派生（一源双端闭环）。
+导航栏 CSS 全部 `var(--token, fallback)` 适配不同页面的 `:root`。
 
 ## 本次会话新增 (2026-07-29)
 
@@ -48,18 +94,18 @@ date: 2026-07-29
 
 - 线上: https://gallery.evopearl.com
 - GitHub: wampeeHuang/layout-gallery
-- 模板数: 44（registry.json）
+- 模板数: 46（registry.json）
 - 生长管线: 代码完成，**未端到端测试**
-- **首页与品牌套件体系脱节** ← 明天从这里开始
+- **一源双端闭环**：四个页面 `:root` 全部从 `tokens.json` 派生 ← 2026-07-30 完成
+- **Turbo 导航**：导航栏 `data-turbo-permanent` 跨页持久化 ← 2026-07-30 完成
 
 ## 未完成
 
 1. **[阻塞]** 设 `AIGOAPI_API_KEY` 环境变量 — 值 `sk-f0X9TrTs3eKDNur7lh02VaO8koR6JrXaMRgmhCUvOdjqt4eS`
 2. **[阻塞]** 端到端测试生长管线
-3. **首页品牌套件对齐** — 从 tokens.json 派生 :root，视觉统一
-4. 批量 tokens.json — 44 个模板的 :root → tokens.json 反向提取
-5. 速率限制 — POST /api/grow 无并发保护
-6. `templates/_growth/` 进 .gitignore
+3. 批量 tokens.json — 44 个模板的 :root → tokens.json 反向提取
+4. 速率限制 — POST /api/grow 无并发保护
+5. `templates/_growth/` 进 .gitignore
 
 ## 关键配置
 

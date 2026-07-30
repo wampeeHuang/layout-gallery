@@ -196,15 +196,14 @@ app.get('/brand/:slug', (req, res) => {
   }
 });
 
-// GET /learn — 设计原理页
+// GET /learn — 知识库
 app.get('/learn', (req, res) => {
-  const learnPath = path.join(PROJECT_DIR, 'meta', 'learn-template.html');
-  res.sendFile(learnPath);
+  servePage(res, path.join(PROJECT_DIR, 'meta', 'learn-template.html'), galleryTokensPath, 'learn');
 });
 
-// GET /grow — 生长 Agent UI
+// GET /grow — AI 萃取
 app.get('/grow', (req, res) => {
-  res.sendFile(path.join(PROJECT_DIR, 'grow.html'));
+  servePage(res, path.join(PROJECT_DIR, 'grow.html'), galleryTokensPath, 'grow');
 });
 
 // POST /api/grow — SSE 生长管线
@@ -326,6 +325,39 @@ app.post('/api/grow/reject', (req, res) => {
   } else {
     res.json({ ok: true, note: '目录不存在，无需清理' });
   }
+});
+
+// ── Page serving with injection ─────────────────────────────
+
+const { generateRoot } = require('./scripts/sync-roots');
+const galleryTokensPath = path.join(PROJECT_DIR, 'templates', 'frontend-design', 'layout-gallery', 'tokens.json');
+const navHTML = fs.readFileSync(path.join(PROJECT_DIR, 'meta', 'nav.html'), 'utf-8');
+
+function servePage(res, filePath, tokensPath, activeNav) {
+  let html = fs.readFileSync(filePath, 'utf-8');
+  // Inject :root from tokens.json
+  if (tokensPath) {
+    const tokens = JSON.parse(fs.readFileSync(tokensPath, 'utf-8'));
+    html = html.replace('<!-- ROOT_INJECT -->', generateRoot(tokens));
+  }
+  // Inject nav
+  html = html.replace('<!-- NAV_INJECT -->', navHTML);
+  // Mark active nav item
+  if (activeNav) {
+    html = html.replace('data-nav="' + activeNav + '"', 'data-nav="' + activeNav + '" class="active"');
+  }
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.send(html);
+}
+
+// GET / — 画廊 landing
+app.get('/', (req, res) => {
+  servePage(res, path.join(PROJECT_DIR, 'index.html'), galleryTokensPath, 'home');
+});
+
+// GET /library — 版式库
+app.get('/library', (req, res) => {
+  servePage(res, path.join(PROJECT_DIR, 'library.html'), galleryTokensPath, 'library');
 });
 
 // ── Static Files ─────────────────────────────────────────────

@@ -5,16 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>版式画廊 · 生长 Agent</title>
 <style>
+<!-- ROOT_INJECT -->
 :root{
-  --bg:#fafafa; --bg-card:#fff; --text:#1a1a1a; --text-secondary:#666; --text-muted:#999;
-  --border:#e8e8e8; --accent:#2563eb; --accent-hover:#1d4ed8; --danger:#dc2626; --success:#16a34a;
-  --font-sans:'Inter','Noto Sans SC',sans-serif;
+  --danger:#dc2626; --success:#16a34a;
   font-family:var(--font-sans); color:var(--text); background:var(--bg);
   font-size:15px; line-height:1.5;
 }
 *{box-sizing:border-box; margin:0; padding:0;}
 
-body{ max-width:800px; margin:0 auto; padding:48px 24px; }
+body{ padding:0; }
+.page-wrap{ max-width:var(--page-wmax, 1200px); margin:0 auto; padding:24px var(--page-pad, 32px) 48px; }
 
 h1{ font-size:28px; font-weight:700; margin-bottom:4px; }
 .subtitle{ color:var(--text-secondary); font-size:14px; margin-bottom:32px; }
@@ -75,7 +75,9 @@ h1{ font-size:28px; font-weight:700; margin-bottom:4px; }
 </style>
 </head>
 <body>
+<!-- NAV_INJECT -->
 
+<div class="page-wrap">
 <h1>生长 Agent</h1>
 <p class="subtitle">输入目标网站 URL → AI 提取视觉设计 → 生成 tokens.json + :root → 品牌套件预览</p>
 
@@ -314,5 +316,6 @@ function reject() {
   .catch(e => log(now(), '清理失败: ' + e.message, 'err'));
 }
 </script>
+</div>
 </body>
 </html>

@@ -14,8 +14,9 @@
   --text-3xl:32px; --text-2xl:24px; --text-xl:18px; --text-lg:15px; --text-base:16px; --text-sm:13px; --text-xs:12px; --text-2xs:11px;
 
   /* Spacing */
-  --space-3xl:48px; --space-2xl:32px; --space-xl:24px; --space-lg:20px;
-  --space-md:14px; --space-sm:8px; --space-xs:4px;
+  --page-wmax:1200px; --page-pad:32px; --space-3xl:48px; --space-2xl:32px;
+  --space-xl:24px; --space-lg:20px; --space-md:14px; --space-sm:8px;
+  --space-xs:4px;
 
   /* Radius */
   --radius-lg:16px; --radius:12px; --radius-md:10px; --radius-sm:6px;
@@ -31,7 +32,84 @@
   font-family:var(--font-sans); color:var(--text); background:var(--bg);
   font-size:var(--text-base); line-height:1.5;
 }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* Brand kit hero */
+.bk-hero{text-align:center;padding:80px 48px 60px}
+.bk-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:var(--text-2xs);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border);border-radius:var(--radius-pill);padding:4px 16px;margin-bottom:24px}
+.bk-eyebrow::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--accent)}
+.bk-hero h1{font-size:clamp(36px,6vw,56px);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:16px}
+.bk-hero .sub{font-size:var(--text-lg);color:var(--text-secondary);max-width:480px;margin:0 auto;line-height:1.65}
+
+/* Palette swatches */
+.bk-section{max-width:960px;margin:0 auto;padding:0 48px 80px}
+.bk-section h2{font-size:var(--text-2xl);font-weight:700;letter-spacing:-.02em;margin-bottom:20px}
+.swatch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-bottom:var(--space-3xl)}
+.swatch{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
+.swatch .chip{height:64px}
+.swatch .label{padding:10px 14px;background:var(--bg-card);font-size:var(--text-xs)}
+.swatch .label .name{font-weight:600;color:var(--text);margin-bottom:2px}
+.swatch .label .hex{font-family:var(--font-mono);font-size:var(--text-2xs);color:var(--text-muted)}
+
+/* Type scale */
+.type-grid{display:grid;gap:16px}
+.type-row{display:flex;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid var(--border)}
+.type-row .size{font-family:var(--font-mono);font-size:var(--text-2xs);color:var(--text-muted);min-width:50px}
+.type-row .sample{color:var(--text);white-space:nowrap}
+
+/* Card preview */
+.card-row{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-xl)}
+.ov-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:28px var(--space-lg);transition:all var(--duration-slow)}
+.ov-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);border-color:var(--accent)}
+.ov-card h4{font-size:var(--text-lg);font-weight:600;margin-bottom:6px}
+.ov-card p{font-size:var(--text-sm);color:var(--text-secondary);line-height:1.6}
+
+@media(max-width:640px){
+  .bk-hero,.bk-section{padding-left:24px;padding-right:24px}
+  .card-row{grid-template-columns:1fr}
+}
 </style>
 </head>
-<body></body>
+<body>
+
+<div class="bk-hero">
+  <div class="bk-eyebrow">Swiss Minimal · 设计基因套件</div>
+  <h1>版式画廊品牌</h1>
+  <p class="sub">极简瑞士风格，冷蓝主色 #2563eb。高对比度无彩基底 + 低饱和 accent，AI 可直接解析。</p>
+</div>
+
+<div class="bk-section">
+  <h2>调色盘</h2>
+  <div class="swatch-grid">
+    <div class="swatch"><div class="chip" style="background:#fafafa"></div><div class="label"><div class="name">--bg</div><div class="hex">#fafafa</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#fff;border-bottom:1px solid #e8e8e8"></div><div class="label"><div class="name">--bg-card</div><div class="hex">#fff</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#1a1a1a"></div><div class="label"><div class="name">--text</div><div class="hex">#1a1a1a</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#666"></div><div class="label"><div class="name">--text-secondary</div><div class="hex">#666</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#e8e8e8"></div><div class="label"><div class="name">--border</div><div class="hex">#e8e8e8</div></div></div>
+    <div class="swatch"><div class="chip" style="background:#2563eb"></div><div class="label"><div class="name">--accent</div><div class="hex">#2563eb</div></div></div>
+  </div>
+
+  <h2>字体层级</h2>
+  <div class="type-grid">
+    <div class="type-row"><span class="size">32px</span><span class="sample" style="font-size:32px;font-weight:700">一级标题 / Heading 1</span></div>
+    <div class="type-row"><span class="size">24px</span><span class="sample" style="font-size:24px;font-weight:700">二级标题 / Heading 2</span></div>
+    <div class="type-row"><span class="size">18px</span><span class="sample" style="font-size:18px;font-weight:600">三级标题 / Heading 3</span></div>
+    <div class="type-row"><span class="size">16px</span><span class="sample" style="font-size:16px">正文标准字号 / Body text — 版式画廊从编辑杂志到东方禅意</span></div>
+    <div class="type-row"><span class="size">13px</span><span class="sample" style="font-size:13px;color:var(--text-secondary)">辅助说明 / Secondary description</span></div>
+  </div>
+
+  <h2 style="margin-top:var(--space-3xl)">卡片组件</h2>
+  <div class="card-row">
+    <div class="ov-card">
+      <h4>品牌 Token 体系</h4>
+      <p>颜色、字体、间距、圆角、阴影、动效——六维 Token 完整覆盖，AI 可解析、可审计、可迁移。</p>
+    </div>
+    <div class="ov-card">
+      <h4>一源双端闭环</h4>
+      <p>tokens.json 是唯一数据源，品牌页和首页 CSS :root 从同一份 Token 派生，永不漂移。</p>
+    </div>
+  </div>
+</div>
+
+</body>
 </html>
