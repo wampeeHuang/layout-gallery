@@ -190,6 +190,7 @@ a:hover{color:var(--accent-hover)}
 <script>
 (function(){
   var nav=document.getElementById('learn-nav');
+  if(!nav)return;
   var links=nav.querySelectorAll('a');
   var sections=[].slice.call(document.querySelectorAll('.learn-section'));
   function update(){
@@ -199,6 +200,9 @@ a:hover{color:var(--accent-hover)}
     else for(var i=sections.length-1;i>=0;i--)if(sections[i].getBoundingClientRect().top<=150){id=sections[i].id;break}
     links.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+id)});
   }
+  // Remove previous listener if re-initialized via Turbo
+  if(window._learnScrollHandler)window.removeEventListener('scroll',window._learnScrollHandler);
+  window._learnScrollHandler=update;
   window.addEventListener('scroll',update,{passive:true});
   update();
 })();

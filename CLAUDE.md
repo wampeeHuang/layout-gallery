@@ -5,7 +5,7 @@ AI 调用的设计风格仓库。模板统一索引 → 按意图发现 → 一�
 ## 架构
 
 ```
-registry.json + templates/  ← 唯一真相源（Git 管理）
+data/registry.json + templates/  ← 唯一真相源（Git 管理）
 本地 :3080 → 读全量
 线上 Vercel → 读 registry，过滤 visibility=public
 ```
@@ -106,25 +106,32 @@ GET /api/design-styles → 风格大类 + 模板数
 }
 ```
 
-Schema 权威定义：`registry.schema.json`。所有字段、枚举值、必填项以它为准。
+Schema 权威定义：`schemas/registry.schema.json`。所有字段、枚举值、必填项以它为准。
 
 ## 目录
 
 ```
-meta/                     ← AI 操作文件（ai-system-prompt.md + token-contract）
-  ai-system-prompt.md    ← 唯一 AI 提示词（原则 + token 表 + 合规清单）
-  token-contract.css ← Token 命名契约
-  token-contract.json← 机器可读版本
-templates/           ← 44 个模板 HTML（按来源分目录）
-prototype/           ← 原型文件（品牌套件页等）
-registry.json        ← 元数据 + CSS 变量合约（唯一真相源）
-registry.schema.json ← JSON Schema 合约（字段+枚举+必填项）
-server.js            ← Express（端口 3080，线上 PUBLIC_MODE 过滤 visibility=local）
-index.html           ← 前端画廊
+data/registry.json          ← 模板注册表（唯一真相源，Git 管理）
+schemas/registry.schema.json ← JSON Schema 合约（字段+枚举+必填项）
+config/template-manifest.json ← 模板文件合约（required/optional + validator 注册）
+templates/                  ← 模板 HTML（按来源分目录，数量见 registry.json）
+meta/                       ← AI 操作文件 + 品牌套件模板 + nav
+prototype/                  ← 原型文件
 scripts/
-  add-template.js    ← 新增模板（校验+CSS提取+原子写入）
-  build-registry.js  ← 一次性迁移脚本（从旧 _index.json，已退役）
-  extract-css-vars.js← 批量提取 CSS 变量
+  add-template.js           ← 新增模板（校验+token检查+原子写入 registry）
+  validate-templates.js     ← CLI 审计（文件完整性 + :root 同步）
+  brand-renderer.js         ← 品牌套件页运行时渲染（/brand/:slug）
+  sync-roots.js             ← tokens.json → :root 同步到 template.html
+  growth-agent.js           ← 生长 Agent（URL→萃取→tokens.json→注册）
+  extract-external-tokens.js← 外部网站 token 萃取（Puppeteer）
+  generate-demo-page.js     ← tokens.json + layout.json → template.html 生成
+  audit-tokens.js           ← Token 角色覆盖审计
+  extract-css-vars.js       ← 批量提取 CSS 变量
+  build-registry.js         ← 一次性迁移脚本（已退役）
+server.js                   ← Express（端口 3080，线上 PUBLIC_MODE 过滤）
+index.html                  ← 画廊首页
+library.html                ← 模板库浏览页
+grow.html                   ← 生长 Agent 操作页
 ```
 
 ## AI 输出治理

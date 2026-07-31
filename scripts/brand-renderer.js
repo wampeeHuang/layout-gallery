@@ -61,10 +61,31 @@ function renderBrandKit(entry, projectDir) {
   const accent10 = hexToRgba(P.accent, 0.1);
   out = out.replace(/\{\{ACCENT_10\}\}/g, accent10);
 
+  // ── Brand kit type scale & spacing (from tokens.json brandKit section) ──
+  const brandKit = tokensData.brandKit || {};
+  if (brandKit.typeScale) {
+    out = out.replace(/\{\{TYPE_SCALE_VARS\}\}/g, brandKit.typeScale.map(t => t.name + ':' + t.value).join(';') + ';');
+  }
+  if (brandKit.spacingScale) {
+    out = out.replace(/\{\{SPACING_VARS\}\}/g, brandKit.spacingScale.map(t => t.name + ':' + t.value).join(';') + ';');
+  }
+
+  // ── Page layout vars from tokens.json spacing ──
+  out = out.replace(/\{\{PAGE_WMAX\}\}/g, vars['--page-wmax'] || '1200px');
+  out = out.replace(/\{\{PAGE_PAD\}\}/g, vars['--page-pad'] || '32px');
+
   // ── Template heading typography overrides ──
+  // Extract only font-family from template styles. Font-size/line-height/letter-spacing
+  // stay with brand-template.html's own layout — the brand-kit is a spec sheet, not a poster.
   let headingOverrides = '';
-  if (assets.h1Style) headingOverrides += '.bk-hero h1{' + assets.h1Style + 'font-family:var(--font-serif);font-weight:700}\n';
-  if (assets.h2Style) headingOverrides += '.bk-section h2{' + assets.h2Style + 'font-family:var(--font-serif);font-weight:700}\n';
+  if (assets.h1Style) {
+    const h1FF = (assets.h1Style.match(/font-family\s*:\s*([^;]+);/) || [])[1];
+    headingOverrides += '.bk-hero h1{' + (h1FF ? 'font-family:' + h1FF + ';' : '') + 'font-weight:700}\n';
+  }
+  if (assets.h2Style) {
+    const h2FF = (assets.h2Style.match(/font-family\s*:\s*([^;]+);/) || [])[1];
+    headingOverrides += '.bk-section h2{' + (h2FF ? 'font-family:' + h2FF + ';' : '') + 'font-weight:700}\n';
+  }
   out = out.replace(/\{\{HEADING_OVERRIDES\}\}/g, headingOverrides);
 
   // ── Hero ──
@@ -91,11 +112,11 @@ function renderBrandKit(entry, projectDir) {
   // ── Typography ──
   out = out.replace(/\{\{TYPOGRAPHY_DESC\}\}/g, esc(buildTypeDesc(entry, T)));
   out = out.replace(/\{\{TYPE_SPECIMEN_ROWS\}\}/g, buildTypeSpecimens(T, P));
-  out = out.replace(/\{\{TYPE_SCALE_ROWS\}\}/g, buildTypeScaleTable(tokensByGroup));
+  out = out.replace(/\{\{TYPE_SCALE_ROWS\}\}/g, buildTypeScaleTable(tokensByGroup, tokensData.brandKit));
 
   // ── Spacing ──
-  out = out.replace(/\{\{SPACING_DESC\}\}/g, esc(buildSpacingDesc(tokensByGroup, assets.implicit.spacing)));
-  out = out.replace(/\{\{SPACING_BARS\}\}/g, buildSpacingBars(tokensByGroup, assets.implicit.spacing, P));
+  out = out.replace(/\{\{SPACING_DESC\}\}/g, esc(buildSpacingDesc(tokensByGroup, assets.implicit.spacing, tokensData.brandKit)));
+  out = out.replace(/\{\{SPACING_BARS\}\}/g, buildSpacingBars(tokensByGroup, assets.implicit.spacing, P, tokensData.brandKit));
 
   // ── Radius ──
   out = out.replace(/\{\{RADIUS_DESC\}\}/g, esc(buildRadiusDesc(tokensByGroup, assets.implicit.radius)));
@@ -209,12 +230,18 @@ function extractTemplateAssets(html, P, vars) {
   // Scan CSS for hardcoded design values (not tokenized in :root)
   const rawSpacing = []; // { prop: 'padding'|'margin'|'gap', val: string }
 
-  for (const [, val] of css.matchAll(/padding\s*:\s*([^;]+);/g))
-    if (!val.includes('var(--')) rawSpacing.push({ prop: 'padding', val: val.trim() });
-  for (const [, val] of css.matchAll(/margin(?:-top|-bottom|-left|-right)?\s*:\s*([^;]+);/g))
-    if (!val.includes('var(--') && val.trim() !== '0' && val.trim() !== '0 auto') rawSpacing.push({ prop: 'margin', val: val.trim() });
-  for (const [, val] of css.matchAll(/gap\s*:\s*([^;]+);/g))
-    if (!val.includes('var(--')) rawSpacing.push({ prop: 'gap', val: val.trim() });
+  for (const [, val] of css.matchAll(/padding\s*:\s*([^;]+);/g)) {
+    const v = cleanSpacingVal(val);
+    if (v && !v.includes('var(--')) rawSpacing.push({ prop: 'padding', val: v });
+  }
+  for (const [, val] of css.matchAll(/margin(?:-top|-bottom|-left|-right)?\s*:\s*([^;]+);/g)) {
+    const v = cleanSpacingVal(val);
+    if (v && !v.includes('var(--') && v !== '0' && v !== '0 auto') rawSpacing.push({ prop: 'margin', val: v });
+  }
+  for (const [, val] of css.matchAll(/gap\s*:\s*([^;]+);/g)) {
+    const v = cleanSpacingVal(val);
+    if (v && !v.includes('var(--')) rawSpacing.push({ prop: 'gap', val: v });
+  }
 
   // Classify spacing values: deduplicate and group by property type
   function classifySpacing(raw) {
@@ -494,15 +521,29 @@ function buildTypeSpecimens(T, P) {
   ).join('\n    ');
 }
 
-function buildTypeScaleTable(groups) {
+function buildTypeScaleTable(groups, brandKit) {
+  // Use brand kit type scale if available (一源双端 — tokens.json brandKit section)
+  const bkItems = (brandKit && brandKit.typeScale) ? brandKit.typeScale : null;
+  if (bkItems && bkItems.length > 0) {
+    return bkItems.map(t => {
+      const label = t.name.replace('--brand-t-', '');
+      const pxVal = cssValToPx(t.value);
+      const sizeStyle = pxVal > 0 ? 'font-size:' + Math.min(pxVal, 40) + 'px;font-weight:700' : '';
+      return '<tr><td>' + (sizeStyle ? '<span style="' + sizeStyle + '">' + capitalize(label) + '</span>' : capitalize(label)) +
+        '</td><td class="mono">' + esc(t.name) + '</td>' +
+        '<td class="mono">' + esc(t.value) + '</td>' +
+        '<td>' + esc(t.role || '') + '</td></tr>';
+    }).join('\n    ');
+  }
+
   const items = groups.Typography || [];
   if (items.length === 0) {
     return '<tr><td colspan="4" style="color:var(--text-muted)">排版变量待补充</td></tr>';
   }
   return items.filter(t => !t.name.includes('font')).map(t => {
     const label = t.name.replace('--', '').replace('text-', '').replace(/-/g, ' ');
-    const pxVal = parseInt(t.value);
-    const sizeStyle = !isNaN(pxVal) ? 'font-size:' + pxVal + 'px;font-weight:700' : '';
+    const pxVal = cssValToPx(t.value);
+    const sizeStyle = pxVal > 0 ? 'font-size:' + Math.min(pxVal, 40) + 'px;font-weight:700' : '';
     const weight = t.role ? '' : guessWeight(t.value);
     return '<tr><td>' + (sizeStyle ? '<span style="' + sizeStyle + '">' + capitalize(label) + '</span>' : capitalize(label)) +
       '</td><td class="mono">' + esc(t.name) + '</td>' +
@@ -518,7 +559,15 @@ function guessWeight(val) {
   return '';
 }
 
-function buildSpacingDesc(groups, implicit) {
+function buildSpacingDesc(groups, implicit, brandKit) {
+  // Use brand kit spacing if available
+  const bkItems = (brandKit && brandKit.spacingScale) ? brandKit.spacingScale : null;
+  if (bkItems && bkItems.length > 0) {
+    const total = (implicit.padding || []).length + (implicit.margin || []).length + (implicit.gap || []).length;
+    const extra = total > 0 ? ' + ' + total + ' 个 CSS 硬编码值' : '';
+    return bkItems.length + ' 级间距系统（Token 化）。' + extra;
+  }
+
   const items = groups.Spacing || [];
   if (items.length === 0) {
     const total = (implicit.padding || []).length + (implicit.margin || []).length + (implicit.gap || []).length;
@@ -531,8 +580,10 @@ function buildSpacingDesc(groups, implicit) {
   return items.length + ' 级间距系统（Token 化）。' + extra;
 }
 
-function buildSpacingBars(groups, implicit, P) {
-  const items = groups.Spacing || [];
+function buildSpacingBars(groups, implicit, P, brandKit) {
+  // Use brand kit spacing if available
+  const bkItems = (brandKit && brandKit.spacingScale) ? brandKit.spacingScale : null;
+  const items = bkItems || groups.Spacing || [];
   const hasImplicit = implicit && ((implicit.padding || []).length + (implicit.margin || []).length + (implicit.gap || []).length) > 0;
 
   if (items.length === 0) {
@@ -541,7 +592,7 @@ function buildSpacingBars(groups, implicit, P) {
   }
   const maxPx = Math.max(...items.map(t => parseInt(t.value) || 0), 1);
   let html = items.map(t => {
-    const px = parseInt(t.value) || 16;
+    const px = parseInt(t.value) || 4;
     const w = Math.max(4, Math.round((px / maxPx) * 100));
     return '<div class="spacing-row"><div class="s-name">' + esc(t.name.replace('--', '')) + '</div>' +
       '<div class="s-bar" style="width:' + w + '%"></div>' +
@@ -1068,6 +1119,15 @@ function esc(s) {
 
 function capitalize(s) { if (!s) return ''; return s.charAt(0).toUpperCase() + s.slice(1); }
 
+function cleanSpacingVal(val) {
+  // Strip trailing } (captured from CSS rule ending without semicolon)
+  // and skip values that look like CSS fragments
+  let v = val.trim();
+  v = v.replace(/}$/, '').trim();
+  if (!v || v.includes('{') || v.includes('\n')) return '';
+  return v;
+}
+
 function styleLabel(s) {
   const map = { 'editorial': '编辑杂志', 'swiss-minimal': '瑞士极简', 'warm-humanist': '温润人文',
     'tech-cyberpunk': '科技赛博', 'experimental': '实验先锋', 'institutional': '机构公文', 'eastern-zen': '东方禅意' };
@@ -1120,6 +1180,14 @@ function isDarkColor(hex) {
   const g = parseInt(h.substring(2, 4), 16);
   const b = parseInt(h.substring(4, 6), 16);
   return (r * 299 + g * 587 + b * 114) / 1000 < 140;
+}
+
+function cssValToPx(val) {
+  if (!val) return 0;
+  var num = parseFloat(val);
+  if (isNaN(num)) return 0;
+  if (val.indexOf('rem') !== -1) num = num * 16;
+  return Math.round(num);
 }
 
 function fontShortName(stack) {

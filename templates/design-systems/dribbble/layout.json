@@ -1,0 +1,35 @@
+{
+  "pageType": "shot-grid",
+  "header": {
+    "style": "hero",
+    "background": "gradient",
+    "elements": ["badge", "title", "description"]
+  },
+  "content": {
+    "layout": "grid",
+    "columns": 4,
+    "gap": "var(--space-xl)",
+    "maxWidth": "var(--page-wmax)",
+    "padding": "var(--page-pad)"
+  },
+  "cardTemplate": {
+    "type": "shot-card",
+    "structure": ["image", "title", "authorRow"],
+    "imageShape": "4:3",
+    "hoverEffect": "overlay-info",
+    "borderRadius": "var(--radius)",
+    "padding": "0",
+    "bodyPadding": "var(--space-md)",
+    "authorRow": ["avatar", "name", "stats"]
+  },
+  "sampleData": [
+    {"image": "gradient-s1", "title": "Fintech Dashboard — Dark Theme Exploration", "author": "Alex Chen", "avatar": "A", "likes": "2.4k", "views": "18.2k"},
+    {"image": "gradient-s2", "title": "Brand Identity — Organic Skincare Line", "author": "Sarah Kim", "avatar": "S", "likes": "8.1k", "views": "54.6k"},
+    {"image": "gradient-s3", "title": "Mobile Onboarding — 3D Character Animation", "author": "Miguel Torres", "avatar": "M", "likes": "1.4k", "views": "9.8k"},
+    {"image": "gradient-s4", "title": "E-commerce Product Page Redesign", "author": "Priya Patel", "avatar": "P", "likes": "5.7k", "views": "32.1k"},
+    {"image": "gradient-s5", "title": "Newsletter Template — Modular Grid System", "author": "Lena Weber", "avatar": "L", "likes": "3.2k", "views": "21.5k"},
+    {"image": "gradient-s6", "title": "SaaS Landing Page — Gradient & Glass", "author": "Yuki Tanaka", "avatar": "Y", "likes": "9.5k", "views": "67.3k"},
+    {"image": "gradient-s7", "title": "Icon Family — 240 Icons, 6 Weights", "author": "Carlos Ruiz", "avatar": "C", "likes": "12k", "views": "89.1k"},
+    {"image": "gradient-s8", "title": "3D Illustration Set — Startup Pack", "author": "Noir Studio", "avatar": "N", "likes": "15k", "views": "104k"}
+  ]
+}

@@ -178,7 +178,7 @@ function build() {
   registry.sort((a, b) => (order[a.skill] || 9) - (order[b.skill] || 9) || a.slug.localeCompare(b.slug));
 
   fs.writeFileSync(
-    path.join(__dirname, '..', 'registry.json'),
+    path.join(__dirname, '..', 'data', 'registry.json'),
     JSON.stringify(registry, null, 2),
     'utf-8'
   );

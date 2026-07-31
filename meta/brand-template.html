@@ -21,10 +21,40 @@
   --radius:{{RADIUS}};
   --shadow-sm:{{SHADOW_SM}};
   --shadow-md:{{SHADOW_MD}};
+  {{TYPE_SCALE_VARS}}
+  {{SPACING_VARS}}
+
+  /* Brand page own typography (NOT template's -- this is the spec sheet's UI) */
+  --brand-t-2xs:10px;
+  --brand-t-xs:11px;
+  --brand-t-sm:12px;
+  --brand-t-md:13px;
+  --brand-t-base:14px;
+  --brand-t-lg:15px;
+  --brand-t-xl:16px;
+  --brand-t-2xl:18px;
+  --brand-t-3xl:20px;
+  --brand-t-4xl:24px;
+  --brand-t-5xl:32px;
+  --brand-t-6xl:40px;
+
+  /* Brand page own spacing (NOT template's spacingScale) */
+  --brand-sp-2xs:4px;
+  --brand-sp-xs:6px;
+  --brand-sp-sm:8px;
+  --brand-sp-md:12px;
+  --brand-sp-lg:16px;
+  --brand-sp-xl:20px;
+  --brand-sp-2xl:24px;
+  --brand-sp-3xl:28px;
+  --brand-sp-4xl:32px;
+  --brand-sp-5xl:40px;
+  --brand-sp-6xl:48px;
+  --brand-sp-7xl:56px;
 
   /* Layout */
-  --brand-wmax:1080px;
-  --brand-pad:48px;
+  --brand-wmax:{{PAGE_WMAX}};
+  --brand-pad:{{PAGE_PAD}};
   --brand-content-max:520px;
   --brand-hero-pt:100px;
   --brand-hero-pb:72px;
@@ -32,34 +62,6 @@
   --brand-section-first:76px;
   --brand-section-scroll:80px;
   --brand-main-pb:120px;
-
-  /* Type scale */
-  --brand-t-2xs:10px;
-  --brand-t-xs:11px;
-  --brand-t-sm:12px;
-  --brand-t-md:13px;
-  --brand-t-base:14px;
-  --brand-t-lg:16px;
-  --brand-t-xl:17px;
-  --brand-t-2xl:18px;
-  --brand-t-3xl:20px;
-  --brand-t-4xl:22px;
-  --brand-t-5xl:26px;
-  --brand-t-6xl:34px;
-
-  /* Spacing scale */
-  --brand-sp-2xs:4px;
-  --brand-sp-xs:6px;
-  --brand-sp-sm:8px;
-  --brand-sp-md:10px;
-  --brand-sp-lg:12px;
-  --brand-sp-xl:16px;
-  --brand-sp-2xl:20px;
-  --brand-sp-3xl:24px;
-  --brand-sp-4xl:28px;
-  --brand-sp-5xl:32px;
-  --brand-sp-6xl:40px;
-  --brand-sp-7xl:48px;
 
   /* Component dimensions */
   --brand-icon-sm:10px;
@@ -89,23 +91,23 @@
 body{font-family:var(--font-sans);color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.5}
 
 /* === HERO === */
-.bk-hero{text-align:center;padding:var(--brand-hero-pt) var(--pad) var(--brand-hero-pb)}
+.bk-hero{text-align:center;padding:var(--brand-hero-pt) var(--brand-pad) var(--brand-hero-pb)}
 .bk-eyebrow{display:inline-flex;align-items:center;gap:var(--brand-sp-sm);font-family:var(--font-mono);font-size:var(--brand-t-xs);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--border);border-radius:9999px;padding:var(--brand-sp-xs) var(--brand-sp-xl);margin-bottom:var(--brand-sp-4xl)}
 .bk-eyebrow::before{content:"";display:inline-block;width:var(--brand-icon-sm);height:var(--brand-icon-sm);border-radius:2px;background:var(--accent)}
-.bk-hero h1{font-size:clamp(48px,8vw,80px);font-weight:700;letter-spacing:-.035em;line-height:1.08;color:var(--text);margin-bottom:22px;text-wrap:balance}
+.bk-hero h1{font-family:var(--font-serif, var(--font-sans));font-size:clamp(32px,5vw,56px);font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--text);margin-bottom:22px;text-wrap:balance}
 .bk-hero .bk-sub{font-size:var(--brand-t-2xl);font-weight:400;color:var(--text-secondary);max-width:var(--brand-content-max);margin:0 auto;line-height:1.65;text-wrap:pretty}
 .bk-meta{display:flex;justify-content:center;gap:var(--brand-sp-md);flex-wrap:wrap;margin-top:var(--brand-sp-4xl)}
 .bk-chip{padding:var(--brand-sp-xs) var(--brand-sp-xl);border-radius:9999px;font-size:var(--brand-t-sm);font-weight:500;border:1px solid var(--border);background:var(--bg-card)}
 .bk-chip.mood{background:var(--accent);color:var(--chrome-white);border-color:var(--accent)}
 
 /* === STICKY NAV === */
-.bk-nav-strip{position:sticky;top:0;z-index:99;background:var(--bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:var(--brand-sp-lg) var(--pad);display:flex;justify-content:center;flex-wrap:wrap;gap:var(--brand-sp-2xs)}
+.bk-nav-strip{position:sticky;top:0;z-index:99;background:var(--bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:var(--brand-sp-lg) var(--brand-pad);display:flex;justify-content:center;flex-wrap:wrap;gap:var(--brand-sp-2xs)}
 .bk-nav-strip a{font-size:var(--brand-t-sm);font-weight:400;color:var(--text-secondary);text-decoration:none;padding:7px var(--brand-sp-xl);border-radius:9999px;border:1px solid transparent;transition:color var(--duration-base,150ms) var(--ease-default,cubic-bezier(0.4,0,0.2,1)),background var(--duration-base,150ms) var(--ease-default,cubic-bezier(0.4,0,0.2,1));white-space:nowrap}
 .bk-nav-strip a:hover{color:var(--text);background:var(--bg-card)}
 .bk-nav-strip a.active{color:var(--text);background:var(--bg-card);border-color:var(--border);font-weight:500}
 
 /* === MAIN === */
-.bk-main{max-width:var(--brand-wmax);margin:0 auto;padding:0 var(--pad) var(--brand-main-pb)}
+.bk-main{max-width:var(--brand-wmax);margin:0 auto;padding:0 var(--brand-pad) var(--brand-main-pb)}
 .bk-section{margin-top:var(--brand-section-gap);scroll-margin-top:var(--brand-section-scroll)}
 .bk-section:first-of-type{margin-top:var(--brand-section-first)}
 .bk-section h2{font-size:var(--brand-t-6xl);font-weight:700;letter-spacing:-.02em;color:var(--text);margin-bottom:var(--brand-sp-sm);text-wrap:balance}
@@ -173,7 +175,7 @@ body{font-family:var(--font-sans);color:var(--text);background:var(--bg);-webkit
 .radius-card .r-val{font-size:var(--brand-t-sm);color:var(--text)}
 
 /* === SHADOW === */
-.shadow-card{width:var(--brand-shadow-card-w);padding:var(--brand-sp-4xl) var(--brand-sp-3xl);background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);text-align:center}
+.shadow-card{width:var(--brand-shadow-card-w);padding:var(--brand-sp-4xl) var(--brand-sp-3xl);background:#fff;border:1px solid var(--border);border-radius:var(--radius);text-align:center}
 .shadow-card .sh-name{font-family:var(--font-mono);font-size:var(--brand-t-xs);color:var(--text-secondary);margin-bottom:var(--brand-sp-xs)}
 .shadow-card .sh-val{font-family:var(--font-mono);font-size:var(--brand-t-xs);color:var(--text);margin-bottom:var(--brand-sp-lg)}
 .shadow-card .sh-desc{font-size:var(--brand-t-md);color:var(--text-secondary)}
@@ -255,7 +257,7 @@ body{font-family:var(--font-sans);color:var(--text);background:var(--bg);-webkit
     --brand-sp-label:100px;
   }
   .overview-grid{grid-template-columns:1fr}
-  .bk-hero h1{font-size:clamp(36px,10vw,56px)}
+  .bk-hero h1{font-size:clamp(28px,8vw,40px)}
   .color-hero{grid-template-columns:1fr}
   .type-row{grid-template-columns:1fr}
   .type-row .type-meta{border-right:none;border-bottom:1px solid var(--border)}

@@ -110,7 +110,7 @@ body{font-family:var(--font-sans);color:var(--text);background:var(--bg);-webkit
 </div>
 
 <script>
-const FEATURED_SLUGS = ['layout-gallery','fuck-anthropic','template-swiss','neubrutalism-course','green-thread-quote','zen-garden'];
+const FEATURED_SLUGS = ['layout-gallery','brutalist-paper','template-swiss','neubrutalism-course','green-thread-quote','zen-garden'];
 
 const STYLE_LABELS = {'editorial':'编辑/杂志','swiss-minimal':'极简瑞士','warm-humanist':'温暖人文','tech-cyberpunk':'科技/赛博','experimental':'实验/前卫','institutional':'机构/权威','eastern-zen':'东方禅意'};
 const SCHEME_SHORT = {light:'亮',dark:'暗',mixed:'混'};
@@ -136,7 +136,7 @@ function renderFeatured(allItems) {
     (t.mood||[]).slice(0,2).forEach(m => tags.push(`<span class="tag mood">${m}</span>`));
     if(t.scheme){ const cls = 'scheme-'+t.scheme; tags.push(`<span class="tag ${cls}">${SCHEME_SHORT[t.scheme]||t.scheme}</span>`); }
     if(t.design_style) tags.push(`<span class="tag">${STYLE_LABELS[t.design_style]||t.design_style}</span>`);
-    return `<a href="/brand/${t.slug}/" class="card" style="text-decoration:none">
+    return `<a href="/brand/${t.slug}/" target="_blank" class="card" style="text-decoration:none">
       <div class="card-preview">
         <iframe data-src="${t.template_path}" onload="scaleFrame(this)" style="width:960px;height:600px"></iframe>
       </div>
@@ -180,6 +180,7 @@ window.addEventListener('resize', () => {
 });
 
 document.addEventListener('turbo:load', init);
+document.addEventListener('DOMContentLoaded', () => { if (!window.Turbo) init(); });
 </script>
 </body>
 </html>

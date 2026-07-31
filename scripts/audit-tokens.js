@@ -9,7 +9,7 @@ const path = require('path');
 
 const PROJECT_DIR = path.join(__dirname, '..');
 const CONTRACT_PATH = path.join(PROJECT_DIR, 'meta', 'token-contract.json');
-const REGISTRY_PATH = path.join(PROJECT_DIR, 'registry.json');
+const REGISTRY_PATH = path.join(PROJECT_DIR, 'data', 'registry.json');
 
 // ── Load contract roles ──────────────────────────────────────────
 

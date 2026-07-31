@@ -1,6 +1,6 @@
 [
   {
-    "slug": "fuck-anthropic",
+    "slug": "brutalist-paper",
     "name": "纸媒宣言 · Paper Manifesto",
     "tagline": "复古纸媒x粗野主义 — Georgia衬线大字报、边框网格、墨色反转hover、宣言黑底红影",
     "skill": "beautiful-html-templates",
@@ -13,19 +13,7 @@
       "宣言感",
       "粗野"
     ],
-    "occasion": [
-      "公共声明",
-      "倡议页面",
-      "运动网站",
-      "编辑精选"
-    ],
-    "tone": [
-      "宣言",
-      "对抗",
-      "批判"
-    ],
     "formality": "medium-high",
-    "density": "medium",
     "scheme": "light",
     "palette": [
       {
@@ -54,9 +42,6 @@
     "typography_style": "Serif巨大标题(Georgia) + Sans-serif正文(Inter)，衬线/无衬线强对比，letter-spacing极窄",
     "best_for": "公共声明、倡议/请愿页面、社论专题、运动/活动站点、个人宣言",
     "avoid_for": "企业内部文档、数据报告、电商落地页",
-    "features": [
-      "citation"
-    ],
     "slide_count": 0,
     "css_variables": [
       {
@@ -160,7 +145,8 @@
     ],
     "visibility": "public",
     "status": "active",
-    "template_path": "templates/beautiful-html-templates/fuck-anthropic/template.html"
+    "brand_kit_ready": true,
+    "template_path": "templates/beautiful-html-templates/brutalist-paper/template.html"
   },
   {
     "slug": "template",
@@ -175,18 +161,7 @@
       "杂志感",
       "人文"
     ],
-    "occasion": [
-      "品牌叙事",
-      "文化内容",
-      "设计提案",
-      "个人作品集"
-    ],
-    "tone": [
-      "雅致",
-      "叙事"
-    ],
     "formality": "medium",
-    "density": "medium",
     "scheme": "mixed",
     "palette": [
       {
@@ -215,9 +190,6 @@
     "typography_style": "Serif标题 + Sans-serif正文 + Monospace元数据，有衬线/无衬线对比",
     "best_for": "品牌形象、杂志风内容、文化/艺术类PPT、有质感的叙事",
     "avoid_for": "数据密集报告、纯商务白底PPT",
-    "features": [
-      "chart"
-    ],
     "slide_count": 0,
     "css_variables": [
       {
@@ -293,18 +265,7 @@
       "极简",
       "秩序"
     ],
-    "occasion": [
-      "商业报告",
-      "数据展示",
-      "产品发布",
-      "架构/系统提案"
-    ],
-    "tone": [
-      "严谨",
-      "权威"
-    ],
     "formality": "high",
-    "density": "high",
     "scheme": "light",
     "palette": [
       {
@@ -329,9 +290,6 @@
     "typography_style": "全无衬线，极端字重对比(200→900)，12列模数网格",
     "best_for": "商业报告、数据密集展示、架构图、严谨提案",
     "avoid_for": "情感化叙事、文艺/手作风格",
-    "features": [
-      "chart"
-    ],
     "slide_count": 0,
     "css_variables": [
       {
@@ -567,19 +525,7 @@
       "功能主义",
       "零装饰"
     ],
-    "occasion": [
-      "技术文档",
-      "数据仪表盘",
-      "API文档",
-      "工程/制造品牌"
-    ],
-    "tone": [
-      "功能Functional",
-      "精确Precise",
-      "诚实Honest"
-    ],
     "formality": "medium-high",
-    "density": "high",
     "scheme": "light",
     "palette": [],
     "displayFont": "Work Sans",
@@ -587,10 +533,6 @@
     "typography_style": "Sans-serif标题 + Monospace正文，粗野/功能主义",
     "best_for": "技术文档站点、SaaS仪表盘、API文档、工程/制造品牌、开发者工具。信息清晰度高于视觉诱惑的场景",
     "avoid_for": "",
-    "features": [
-      "chart",
-      "code"
-    ],
     "slide_count": 0,
     "css_variables": [
       {
@@ -651,19 +593,7 @@
       "静寂侘寂",
       "余白美学"
     ],
-    "occasion": [
-      "品牌故事",
-      "艺术策展",
-      "冥想/生活方式",
-      "高端餐饮"
-    ],
-    "tone": [
-      "安静Calm",
-      "克制Refined",
-      "冥想Meditative"
-    ],
     "formality": "medium-high",
-    "density": "low",
     "scheme": "light",
     "palette": [],
     "displayFont": "Noto Serif JP",
@@ -671,7 +601,6 @@
     "typography_style": "Serif日文标题 + Sans-serif正文，留白/禅意",
     "best_for": "品牌叙事、艺术类项目、生活方式品牌、需要传递'安静的力量'的场景。大面积留白是奢侈，不是浪费",
     "avoid_for": "",
-    "features": [],
     "slide_count": 0,
     "css_variables": [
       {
@@ -742,19 +671,7 @@
       "高级克制",
       "暖金质感"
     ],
-    "occasion": [
-      "奢侈品牌",
-      "高端地产",
-      "私人会所",
-      "精品酒店"
-    ],
-    "tone": [
-      "优雅Elegant",
-      "高级Premium",
-      "克制Restrained"
-    ],
     "formality": "medium-high",
-    "density": "low",
     "scheme": "light",
     "palette": [],
     "displayFont": "Cormorant Garamond",
@@ -762,7 +679,6 @@
     "typography_style": "Serif标题 + Sans-serif正文，奢华/暗色调",
     "best_for": "奢侈品牌官网、精品酒店、高端地产、私人会所、珠宝/手表品牌。不是谁都能驾驭暗色——它筛选受众",
     "avoid_for": "",
-    "features": [],
     "slide_count": 0,
     "css_variables": [
       {
@@ -813,19 +729,7 @@
       "大胆叛逆",
       "反精致"
     ],
-    "occasion": [
-      "产品发布",
-      "技术博客",
-      "黑客松",
-      "独立开发者作品集"
-    ],
-    "tone": [
-      "生猛Raw",
-      "大声Loud",
-      "玩味Playful"
-    ],
     "formality": "low",
-    "density": "high",
     "scheme": "light",
     "palette": [],
     "displayFont": "Syne",
@@ -833,9 +737,6 @@
     "typography_style": "粗体Sans-serif + Monospace标题，新粗野主义",
     "best_for": "独立开发者、技术品牌、想表达'我跟别人不一样'的场景。黄底黑字、粉底黑字、青底黑字——对比度永远拉满",
     "avoid_for": "",
-    "features": [
-      "table"
-    ],
     "slide_count": 0,
     "css_variables": [
       {
@@ -901,19 +802,7 @@
       "大地色系",
       "生物亲和"
     ],
-    "occasion": [
-      "环保/可持续品牌",
-      "健康/养生",
-      "手工/匠人",
-      "户外/旅行"
-    ],
-    "tone": [
-      "泥土Earthy",
-      "温暖Warm",
-      "流动Flowing"
-    ],
     "formality": "medium",
-    "density": "low",
     "scheme": "light",
     "palette": [],
     "displayFont": "Newsreader",
@@ -921,7 +810,6 @@
     "typography_style": "Serif标题 + Sans-serif正文，有机/自然",
     "best_for": "环保品牌、健康养生、手工匠人、户外旅行、农场/有机食品。想传达'这不是流水线产品'的时候用",
     "avoid_for": "",
-    "features": [],
     "slide_count": 0,
     "css_variables": [
       {
@@ -982,19 +870,7 @@
       "合成波",
       "赛博朋克"
     ],
-    "occasion": [
-      "游戏/电竞",
-      "技术大会",
-      "音乐/艺术节",
-      "科幻内容"
-    ],
-    "tone": [
-      "赛博Cybernetic",
-      "霓虹Neon",
-      "电影感Cinematic"
-    ],
     "formality": "low",
-    "density": "high",
     "scheme": "light",
     "palette": [],
     "displayFont": "Orbitron",
@@ -1002,7 +878,6 @@
     "typography_style": "科技感Sans标题 + Monospace正文，复古未来主义",
     "best_for": "游戏/电竞品牌、技术大会网站、音乐节/夜店、科幻/未来主题内容。终端命令行 + 霓虹辉光 + 网格线 = 完整世界观",
     "avoid_for": "",
-    "features": [],
     "slide_count": 0,
     "css_variables": [
       {
@@ -1054,22 +929,7 @@
       "cyberpunk",
       "energetic"
     ],
-    "occasion": [
-      "gaming pitch",
-      "hackathon demo",
-      "web3 / crypto deck",
-      "indie product launch",
-      "developer tools",
-      "synthwave brand"
-    ],
-    "tone": [
-      "geeky",
-      "neon",
-      "rebellious",
-      "sci-fi"
-    ],
     "formality": "low",
-    "density": "medium",
     "scheme": "dark",
     "palette": [
       {
@@ -1102,9 +962,6 @@
     "typography_style": "boxy display sans paired with technical mono, all unmistakably digital and pixel-flavored",
     "best_for": "Anything that should feel like a CRT screen at 2am: cyberpunk, gaming, web3, indie dev tools, hackathon demos. Just as good for a tech talk that wants to lean into nostalgic-digital craft, a synthwave brand deck, or a creative review that wants to feel like a console.",
     "avoid_for": "Contexts where the dark neon palette would actively work against the message — quiet institutional finance disclosures, healthcare patient-facing materials, traditional luxury.",
-    "features": [
-      "code"
-    ],
     "slide_count": 10,
     "css_variables": [
       {
@@ -1177,24 +1034,7 @@
       "authoritative",
       "refined"
     ],
-    "occasion": [
-      "research report",
-      "white paper",
-      "economic / industry analysis",
-      "board presentation",
-      "thought leadership",
-      "policy brief",
-      "academic deck",
-      "investor deck"
-    ],
-    "tone": [
-      "sober",
-      "refined",
-      "literary",
-      "scholarly"
-    ],
     "formality": "high",
-    "density": "high",
     "scheme": "mixed",
     "palette": [
       {
@@ -1227,10 +1067,6 @@
     "typography_style": "mixed serif-sans hierarchy: Source Serif 4 for editorial headlines and reading text, Outfit for geometric sans headings, DM Sans for UI, Lora for data tables, IBM Plex Mono for code; full Chinese serif/sans support",
     "best_for": "Research reports, white papers, economic/industry analysis, board presentations, thought leadership, policy briefs, academic decks. Anything that should project institutional credibility, intellectual weight, and editorial refinement.",
     "avoid_for": "Contexts that need playful, casual, or rapid-fire energy — the mixed-serif hierarchy and dense editorial layout commits to a scholarly, deliberative voice.",
-    "features": [
-      "code",
-      "citation"
-    ],
     "slide_count": 18,
     "css_variables": [
       {
@@ -1478,23 +1314,7 @@
       "cultural-institution",
       "poster-like"
     ],
-    "occasion": [
-      "exhibition or biennale",
-      "arts institution programme",
-      "design or typography conference",
-      "literary or curatorial publication",
-      "studio annual report",
-      "museum season announcement"
-    ],
-    "tone": [
-      "literary",
-      "considered",
-      "contemplative",
-      "warm-modern",
-      "Dutch-editorial"
-    ],
     "formality": "high",
-    "density": "medium",
     "scheme": "light",
     "palette": [
       {
@@ -1523,7 +1343,6 @@
     "typography_style": "transitional Didone-flavored display serif paired with a clean grotesk sans for micro-typography and a mono for tabular data",
     "best_for": "Anything that should feel like an art-biennale poster or a museum's annual programme: exhibition decks, arts-institution announcements, design conference brochures, curatorial pitches, literary publications, studio retrospectives. Equally good for any deck wanting Dutch-editorial atmosphere with an unmistakable single-color signature.",
     "avoid_for": "Decks that need visual punch or saturated multi-color energy — the warm-paper canvas and one-yellow palette are intentionally quiet and atmospheric.",
-    "features": [],
     "slide_count": 8,
     "css_variables": [
       {
@@ -1585,21 +1404,7 @@
       "graphic",
       "fresh"
     ],
-    "occasion": [
-      "creative agency pitch",
-      "indie SaaS launch",
-      "designer portfolio",
-      "brand redesign",
-      "modern startup deck"
-    ],
-    "tone": [
-      "confident",
-      "graphic",
-      "pop",
-      "design-led"
-    ],
     "formality": "medium-low",
-    "density": "high",
     "scheme": "light",
     "palette": [
       {
@@ -1632,9 +1437,6 @@
     "typography_style": "geometric sans display + neutral body, used in heavy weights for a poster-like feel",
     "best_for": "Anything that should feel pop-graphic and design-led: indie SaaS launches, agency credentials, creative reviews, brand redesigns. Also a strong unexpected pick for tech, finance, or research when the speaker wants to land as confident and contemporary rather than buttoned-up.",
     "avoid_for": "Contexts that require quiet institutional restraint or traditional weight (regulated disclosures, formal legal briefs).",
-    "features": [
-      "citation"
-    ],
     "slide_count": 10,
     "css_variables": [
       {
@@ -1721,21 +1523,7 @@
       "calm",
       "trustworthy"
     ],
-    "occasion": [
-      "B2B SaaS pitch",
-      "consulting deliverable",
-      "internal review",
-      "advisory pitch",
-      "investor update"
-    ],
-    "tone": [
-      "clean",
-      "considered",
-      "polished",
-      "neutral"
-    ],
     "formality": "medium-high",
-    "density": "medium",
     "scheme": "light",
     "palette": [
       {
@@ -1760,9 +1548,6 @@
     "typography_style": "modern sans pairing; quiet, professional, no decorative flourishes",
     "best_for": "Anything that should feel modern-considered and lightly authoritative: B2B SaaS pitches, consulting deliverables, advisory updates, investor reports. Also a clean, tasteful choice whenever you want to read as professional without going stiff — research synthesis, internal reviews, brand work for service businesses.",
     "avoid_for": "Contexts where the deck should feel hot, playful, or intentionally informal — the cool electric-blue restraint will read as overly polished.",
-    "features": [
-      "citation"
-    ],
     "slide_count": 10,
     "css_variables": [
       {
@@ -1829,21 +1614,7 @@
       "loud",
       "confident"
     ],
-    "occasion": [
-      "brand manifesto",
-      "creative-led pitch",
-      "magazine / editorial",
-      "founder vision deck",
-      "art / culture"
-    ],
-    "tone": [
-      "dramatic",
-      "graphic",
-      "sharp",
-      "intentional"
-    ],
     "formality": "medium",
-    "density": "low",
     "scheme": "light",
     "palette": [
       {
@@ -1868,10 +1639,6 @@
     "typography_style": "groovy display + editorial serif + grotesk body; very high typographic contrast",
     "best_for": "Anything that should land like a magazine cover: brand manifestos, founder vision decks, editorial / cultural pitches, creative reviews. Excellent any time you want a few words to feel like a poster — including unexpected fits like a tech keynote or a finance manifesto that wants to be quotable.",
     "avoid_for": "Decks that need to communicate dense information per slide — the layout is built around a few large statements, not paragraphs of detail.",
-    "features": [
-      "chart",
-      "table"
-    ],
     "slide_count": 10,
     "css_variables": [
       {
@@ -1913,22 +1680,7 @@
       "loud",
       "newspaper"
     ],
-    "occasion": [
-      "brand manifesto",
-      "founder vision deck",
-      "magazine / cultural pitch",
-      "design talk",
-      "bilingual EN/CN deck",
-      "campaign launch"
-    ],
-    "tone": [
-      "graphic",
-      "punchy",
-      "literary",
-      "considered"
-    ],
     "formality": "medium-high",
-    "density": "medium",
     "scheme": "dark",
     "palette": [
       {
@@ -1961,10 +1713,6 @@
     "typography_style": "broadside-newspaper grotesk pairing with technical mono captions and Simplified Chinese support",
     "best_for": "Anything that should land like a broadside newspaper headline: brand manifestos, magazine and cultural pitches, design talks, bilingual EN/CN decks, founder vision statements. Also a striking pick for tech, research, or business decks that want a dramatic single-accent editorial feel.",
     "avoid_for": "Decks that need to feel quiet, warm, or institutionally traditional — the dark canvas with fire-orange accent commits to drama.",
-    "features": [
-      "chart",
-      "citation"
-    ],
     "slide_count": 20,
     "css_variables": [
       {
@@ -2162,21 +1910,7 @@
       "fresh",
       "fun"
     ],
-    "occasion": [
-      "lifestyle brand",
-      "creator portfolio",
-      "DTC product launch",
-      "wellness or beauty pitch",
-      "Y2K-tinged brand work"
-    ],
-    "tone": [
-      "upbeat",
-      "graphic",
-      "approachable",
-      "cool"
-    ],
     "formality": "medium-low",
-    "density": "medium",
     "scheme": "light",
     "palette": [
       {
@@ -2209,9 +1943,6 @@
     "typography_style": "high-contrast didone serif paired with a friendly geometric sans",
     "best_for": "Anything that should feel modular, modern, and a little Y2K: lifestyle brands, creator portfolios, DTC launches, beauty / wellness, agency credentials. Also fun for a playful tech demo or a research deck that wants pop-art clarity instead of gravitas.",
     "avoid_for": "Contexts that require traditional institutional weight — the capsule shapes and pastel pops actively soften authority.",
-    "features": [
-      "citation"
-    ],
     "slide_count": 10,
     "css_variables": [
       {
@@ -2303,22 +2034,7 @@
       "elegant",
       "warm-minimal"
     ],
-    "occasion": [
-      "investment thesis",
-      "white paper",
-      "advisory deliverable",
-      "research report",
-      "book / longform pitch",
-      "gallery / cultural"
-    ],
-    "tone": [
-      "classical",
-      "literary",
-      "restrained",
-      "confident-quiet"
-    ],
     "formality": "high",
-    "density": "low",
     "scheme": "light",
     "palette": [
       {
@@ -2351,9 +2067,6 @@
     "typography_style": "transitional serif headlines paired with a clean grotesk; reads like a Sunday newspaper essay",
     "best_for": "Anything that should feel quiet, considered, and grown-up: investment theses, white papers, advisory work, longform research, gallery / cultural decks. Also a strong choice for editorial features, founder reflections, or any deck where restraint is the message — including across tech and finance.",
     "avoid_for": "Decks that need visual heat, multiple accents, or a sense of urgency — the warm-neutral palette is intentionally low-energy.",
-    "features": [
-      "citation"
-    ],
     "slide_count": 10,
     "css_variables": [
       {
@@ -2407,23 +2120,7 @@
       "tech-print",
       "monochrome"
     ],
-    "occasion": [
-      "design trend or research report",
-      "studio annual or seasonal bulletin",
-      "creative agency capabilities deck",
-      "art or architecture publication",
-      "academic / curatorial publication",
-      "newsletter or zine pitch"
-    ],
-    "tone": [
-      "considered",
-      "literary",
-      "studious",
-      "quietly-modern",
-      "editorial"
-    ],
     "formality": "high",
-    "density": "medium",
     "scheme": "light",
     "palette": [
       {
@@ -2448,9 +2145,6 @@
     "typography_style": "transitional italic serif for hero type and section heads, paired with a neutral grotesk for body and a clean mono for tabular data and micro-captions; strictly cobalt-on-cream",
     "best_for": "Anything that should feel like a quietly serious design / research bulletin, art publication, or curated trend report. Strong for studio annuals, agency capabilities decks, design-research publications, architecture / art / academic decks, and any deck wanting one strict accent colour and a printed-ledger calmness rather than corporate polish.",
     "avoid_for": "Decks that need warmth, multi-colour energy, or a casual / playful voice — the strict cobalt + cream + grid palette is intentionally austere.",
-    "features": [
-      "citation"
-    ],
     "slide_count": 8,
     "css_variables": [
       {
@@ -2502,20 +2196,7 @@
       "modern",
       "confident"
     ],
-    "occasion": [
-      "fashion / beauty pitch",
-      "fitness brand",
-      "F&B brand deck",
-      "lifestyle launch",
-      "creative agency"
-    ],
-    "tone": [
-      "graphic",
-      "punchy",
-      "magazine"
-    ],
     "formality": "medium",
-    "density": "medium",
     "scheme": "mixed",
     "palette": [
       {
@@ -2548,9 +2229,6 @@
     "typography_style": "tall condensed display sans for shouty headlines + neutral body for everything else",
     "best_for": "Anything that should feel warm-graphic and editorial: fashion, beauty, fitness, F&B, lifestyle brands, agency credentials. Just as strong for a creator portfolio, a manifesto, or a tech / research deck that wants warmth and a single bold accent instead of corporate cool.",
     "avoid_for": "Contexts that should feel quiet or institutional — the coral accent and oversized Bebas Neue commit hard to a confident magazine voice.",
-    "features": [
-      "citation"
-    ],
     "slide_count": 10,
     "css_variables": [
       {
@@ -2607,20 +2285,7 @@
       "playful",
       "design-led"
     ],
-    "occasion": [
-      "creative agency pitch",
-      "design studio deck",
-      "ad shop credentials",
-      "brand creative review",
-      "concept presentation"
-    ],
-    "tone": [
-      "graphic",
-      "expressive",
-      "modern"
-    ],
     "formality": "medium",
-    "density": "medium-high",
     "scheme": "light",
     "palette": [
       {
@@ -2653,9 +2318,6 @@
     "typography_style": "ultra-heavy poster sans + clean grotesk + technical mono",
     "best_for": "Anything that should feel design-led and confident: creative agency pitches, design studio decks, ad shop credentials, brand creative reviews, art-direction reviews. Also a great unexpected pick for a tech talk, research findings, or finance review when the speaker wants to lead with taste rather than convention.",
     "avoid_for": "Contexts that demand institutional restraint and a quiet authority — the saturated multi-accent palette will read as expressive, not formal.",
-    "features": [
-      "citation"
-    ],
     "slide_count": 8,
     "css_variables": [
       {
@@ -2733,24 +2395,7 @@
       "sunny",
       "wholesome"
     ],
-    "occasion": [
-      "education / classroom",
-      "kids product launch",
-      "wellness program",
-      "community workshop",
-      "creator portfolio (craft / illustration)",
-      "team kickoff",
-      "wedding / baby shower planning"
-    ],
-    "tone": [
-      "friendly",
-      "soft",
-      "encouraging",
-      "approachable",
-      "lighthearted"
-    ],
     "formality": "low",
-    "density": "medium",
     "scheme": "light",
     "palette": [
       {
@@ -2783,7 +2428,6 @@
     "typography_style": "rounded sans display + friendly geometric sans body; warm and informal",
     "best_for": "Anything that should feel friendly, soft, and joyful: educational content, kids and family, wellness programs, community workshops, creator portfolios for craft / illustration. Also lovely for an unexpected playful internal kickoff, a wedding planning deck, or any moment where warmth is the message — including across tech or business contexts.",
     "avoid_for": "Contexts where the audience explicitly expects authority and precision — the hand-drawn pastel SVG decorations are the opposite of buttoned-up.",
-    "features": [],
     "slide_count": 10,
     "css_variables": [
       {
@@ -2900,21 +2544,7 @@
       "intentional",
       "moody"
     ],
-    "occasion": [
-      "editorial / magazine pitch",
-      "fashion brand deck",
-      "lifestyle media",
-      "literary / cultural",
-      "art direction review"
-    ],
-    "tone": [
-      "literary",
-      "warm",
-      "considered",
-      "stylish"
-    ],
     "formality": "medium-high",
-    "density": "medium",
     "scheme": "mixed",
     "palette": [
       {
@@ -2935,9 +2565,6 @@
     "typography_style": "expressive variable grotesk + literary serif + technical mono; magazine-page typographic system",
     "best_for": "Anything that should feel like a fashion-magazine spread: editorial pitches, fashion brand decks, lifestyle media, art direction reviews. Equally good for any deck — including tech, research, or business — that wants tri-tone discipline and serif/sans contrast instead of the usual neutrals.",
     "avoid_for": "Decks that need to read as soft or comforting — the burgundy/pink/cream tri-tone is intentionally high-contrast and styled.",
-    "features": [
-      "citation"
-    ],
     "slide_count": 8,
     "css_variables": [
       {
@@ -3015,23 +2642,7 @@
       "literary",
       "natural"
     ],
-    "occasion": [
-      "sustainability brand",
-      "wellness brand",
-      "outdoor / nature product",
-      "winery or restaurant",
-      "literary or arts deck",
-      "advisory deliverable",
-      "bilingual EN/CN deck"
-    ],
-    "tone": [
-      "classical",
-      "warm",
-      "considered",
-      "patient"
-    ],
     "formality": "medium-high",
-    "density": "medium",
     "scheme": "mixed",
     "palette": [
       {
@@ -3060,10 +2671,6 @@
     "typography_style": "transitional serif headlines + clean geometric sans body + technical mono; full Chinese serif/sans support",
     "best_for": "Anything that should feel organic, considered, and grown-up: sustainability and wellness brands, outdoor / nature products, wineries and restaurants, literary or arts decks, advisory deliverables, bilingual EN/CN reports. Also a calm, distinctive choice for tech, research, or business decks that want patience over urgency.",
     "avoid_for": "Decks that need neon energy or rapid-fire pop — the forest-green canvas and Playfair serif commit to a slow, classical voice.",
-    "features": [
-      "code",
-      "citation"
-    ],
     "slide_count": 12,
     "css_variables": [
       {
@@ -3256,23 +2863,7 @@
       "focused",
       "versatile"
     ],
-    "occasion": [
-      "tech talk",
-      "workshop",
-      "internal training",
-      "code review",
-      "architecture presentation",
-      "methodology share",
-      "bilingual EN/CN deck"
-    ],
-    "tone": [
-      "precise",
-      "teaching",
-      "confident",
-      "clean"
-    ],
     "formality": "medium",
-    "density": "high",
     "scheme": "mixed",
     "palette": [
       {
@@ -3305,9 +2896,6 @@
     "typography_style": "modern grotesque display + clean sans body + coding mono; full Chinese support",
     "best_for": "Tech talks, workshops, methodology shares, code walkthroughs — anything that wants to feel precise, modern, teaching-forward. The terminal theme is great for code-heavy sections; the clean theme for concepts and frameworks. Built-in mermaid diagram support makes it ideal for architecture and flow presentations.",
     "avoid_for": "Contexts that need to feel warm, handcrafted, or emotionally expressive — the geometric precision and monospace chrome commit to a rational, systems voice.",
-    "features": [
-      "code"
-    ],
     "slide_count": 12,
     "css_variables": [
       {
@@ -3347,25 +2935,7 @@
       "social",
       "hospitality"
     ],
-    "occasion": [
-      "supper club or dinner series",
-      "event or community gathering",
-      "small hospitality / restaurant brand",
-      "creative studio open house",
-      "membership or subscription pitch",
-      "wine or food brand catalogue",
-      "modern lifestyle brand"
-    ],
-    "tone": [
-      "warm",
-      "playful",
-      "considered",
-      "social",
-      "magazine-friendly",
-      "modern-editorial"
-    ],
     "formality": "medium",
-    "density": "medium",
     "scheme": "light",
     "palette": [
       {
@@ -3386,7 +2956,6 @@
     "typography_style": "bold uppercase Bricolage Grotesque for hero / chapter titles paired with Fraunces italic for body, captions, button labels, and tagline — a contemporary mix-and-match modern editorial pairing",
     "best_for": "Anything that should feel like a warm, intimate, modern hospitality / community brand: supper clubs, dinner series, small restaurants, creative-studio events, membership pitches, lifestyle and wine brands. Equally good for any deck wanting a single warm accent colour, italic-meets-bold typography, and a social-media-aware modern-editorial voice.",
     "avoid_for": "Decks that need corporate polish, technical density, or a cold / minimalist register — the rust-red palette and bold-italic mix are intentionally warm and people-facing.",
-    "features": [],
     "slide_count": 8,
     "css_variables": [
       {
@@ -3438,22 +3007,7 @@
       "tactile",
       "mid-century"
     ],
-    "occasion": [
-      "design studio credentials",
-      "architecture / interior brand",
-      "ceramics or craft brand",
-      "furniture pitch",
-      "advisory deliverable",
-      "bilingual EN/CN deck"
-    ],
-    "tone": [
-      "warm",
-      "design-led",
-      "intentional",
-      "considered"
-    ],
     "formality": "medium",
-    "density": "medium",
     "scheme": "mixed",
     "palette": [
       {
@@ -3486,9 +3040,6 @@
     "typography_style": "expressive variable grotesk display + clean DM body + DM Mono captions",
     "best_for": "Anything that should feel mid-century, tactile, and intentional: design studio credentials, architecture / interior brands, ceramics / craft / furniture, advisory decks. Also a warm, distinctive choice for tech, research, or business decks that want a considered analog feel instead of digital-cool.",
     "avoid_for": "Contexts that need fast tech energy or institutional restraint — the muted sage and burnt-orange palette is intentionally warm and slow.",
-    "features": [
-      "citation"
-    ],
     "slide_count": 9,
     "css_variables": [
       {
@@ -3685,23 +3236,7 @@
       "archival",
       "ledger"
     ],
-    "occasion": [
-      "user research synthesis",
-      "white paper",
-      "longform report",
-      "academic deck",
-      "policy brief",
-      "advisory deliverable",
-      "bilingual EN/CN deck"
-    ],
-    "tone": [
-      "literary",
-      "considered",
-      "neutral",
-      "honest"
-    ],
     "formality": "high",
-    "density": "high",
     "scheme": "light",
     "palette": [
       {
@@ -3730,9 +3265,6 @@
     "typography_style": "literary serif headlines + clean geometric sans body + technical mono; reads like a hand-typeset ledger",
     "best_for": "Anything that should feel like a hand-typeset ledger: user research synthesis, white papers, longform reports, academic and policy briefs, advisory deliverables, bilingual EN/CN reports. Equally good for tech, design, or brand decks that want their words to be the only thing on the page.",
     "avoid_for": "Decks that need visual personality or color-led storytelling — the all-ink palette is intentionally austere.",
-    "features": [
-      "citation"
-    ],
     "slide_count": 18,
     "css_variables": [
       {
@@ -3949,22 +3481,7 @@
       "editorial",
       "modern"
     ],
-    "occasion": [
-      "product launch",
-      "design review",
-      "founder pitch",
-      "brand deck",
-      "consulting findings",
-      "conference talk"
-    ],
-    "tone": [
-      "bold",
-      "minimal",
-      "design-led",
-      "graphic"
-    ],
     "formality": "medium",
-    "density": "high",
     "scheme": "light",
     "palette": [
       {
@@ -3993,11 +3510,6 @@
     "typography_style": "geometric sans paired with technical mono captions; uppercase display weight",
     "best_for": "Anything that should feel confident and editorial-graphic: design-led pitches, brand work, founder talks, conference keynotes. Excellent for stat-heavy slides, comparisons, and process flows. Just as strong for tech, research, or finance when the speaker wants to read as design-led rather than corporate.",
     "avoid_for": "Contexts that need to feel quiet, traditional, or warm — the neon-yellow accent and uppercase display commit to a confident editorial voice.",
-    "features": [
-      "chart",
-      "table",
-      "citation"
-    ],
     "slide_count": 13,
     "css_variables": [
       {
@@ -4049,22 +3561,7 @@
       "graphic",
       "honest"
     ],
-    "occasion": [
-      "cultural commentary",
-      "manifesto",
-      "community / civic deck",
-      "design talk",
-      "campaign pitch",
-      "founder vision"
-    ],
-    "tone": [
-      "punchy",
-      "direct",
-      "expressive",
-      "warm-bold"
-    ],
     "formality": "medium-low",
-    "density": "medium-high",
     "scheme": "light",
     "palette": [
       {
@@ -4093,9 +3590,6 @@
     "typography_style": "heavy slab display + narrow grotesk + brush script + mono; protest-poster typographic stack",
     "best_for": "Anything that should feel honest, loud, and graphic: cultural commentary, manifestos, civic and community decks, design talks, campaign pitches. Excellent for founder-vision moments, mission statements, or any deck — including across industries — that wants protest-poster energy instead of corporate polish.",
     "avoid_for": "Contexts where institutional restraint is the actual goal — the saturated political-poster palette commits hard to expressive energy.",
-    "features": [
-      "chart"
-    ],
     "slide_count": 10,
     "css_variables": [
       {
@@ -4163,21 +3657,7 @@
       "thoughtful",
       "literary"
     ],
-    "occasion": [
-      "research findings with personality",
-      "qualitative report",
-      "founder reflection",
-      "creator essay deck",
-      "workshop debrief"
-    ],
-    "tone": [
-      "literary",
-      "intimate",
-      "warm",
-      "grounded"
-    ],
     "formality": "medium",
-    "density": "medium",
     "scheme": "light",
     "palette": [
       {
@@ -4202,10 +3682,6 @@
     "typography_style": "handwritten script for warmth + grotesk for legibility + mono for captions; textbook annotation feel",
     "best_for": "Anything that should feel hand-crafted, warm, and literary: qualitative research findings, founder reflections, longform brand stories, workshop debriefs. The signature safety-pin illustrations and paper-grain texture make it especially good for any deck — including tech or business — that wants personality and warmth over polish.",
     "avoid_for": "Decks that need to feel digital-native polished or rigorously data-driven — handwritten Caveat is intentionally informal.",
-    "features": [
-      "chart",
-      "citation"
-    ],
     "slide_count": 11,
     "css_variables": [],
     "visibility": "public",
@@ -4227,21 +3703,7 @@
       "luxe",
       "expressive"
     ],
-    "occasion": [
-      "fashion brand deck",
-      "creator personal brand",
-      "after-hours product (nightlife / dating / spirits)",
-      "luxury launch",
-      "editorial feature"
-    ],
-    "tone": [
-      "literary",
-      "sultry",
-      "considered",
-      "magazine"
-    ],
     "formality": "medium-high",
-    "density": "low",
     "scheme": "dark",
     "palette": [
       {
@@ -4270,9 +3732,6 @@
     "typography_style": "sharp transitional serif headlines + clean sans body + technical mono labels",
     "best_for": "Anything that should feel nocturnal, intentional, and a little luxe: fashion brand decks, creator personal brands, after-hours / nightlife / spirits launches, luxury product reveals, editorial features. Also a striking unexpected pick for a tech keynote, research synthesis, or business pitch that wants to land with magnetic confidence.",
     "avoid_for": "Daytime corporate-professional and traditional B2B contexts where the dark canvas with hot-pink accent reads as too styled or too expressive.",
-    "features": [
-      "citation"
-    ],
     "slide_count": 9,
     "css_variables": [
       {
@@ -4339,20 +3798,7 @@
       "indie",
       "friendly"
     ],
-    "occasion": [
-      "creator portfolio",
-      "indie product launch",
-      "lifestyle brand",
-      "small-business pitch",
-      "newsletter / community"
-    ],
-    "tone": [
-      "upbeat",
-      "informal",
-      "welcoming"
-    ],
     "formality": "low",
-    "density": "medium",
     "scheme": "light",
     "palette": [
       {
@@ -4377,9 +3823,6 @@
     "typography_style": "geometric variable display with personality + clean grotesk body",
     "best_for": "Anything that should feel warm, indie, and approachable: creator portfolios, indie product launches, lifestyle brands, small-business pitches, newsletter / community decks. Also welcoming for any deck — including tech or research — that wants to feel friendly and human rather than corporate.",
     "avoid_for": "Contexts where institutional credibility matters more than warmth — the peach palette is intentionally informal.",
-    "features": [
-      "citation"
-    ],
     "slide_count": 10,
     "css_variables": [
       {
@@ -4426,22 +3869,7 @@
       "energetic",
       "confident"
     ],
-    "occasion": [
-      "startup pitch",
-      "accelerator demo day",
-      "founder pitch",
-      "indie product launch",
-      "brand deck",
-      "creator portfolio"
-    ],
-    "tone": [
-      "direct",
-      "modern",
-      "no-nonsense",
-      "graphic"
-    ],
     "formality": "medium-low",
-    "density": "high",
     "scheme": "light",
     "palette": [
       {
@@ -4470,11 +3898,6 @@
     "typography_style": "system sans set in heavy weights with strong uppercase tracking; functional rather than expressive",
     "best_for": "Anything that should feel direct and graphic-confident: founder pitches, accelerator demos, brand decks, indie launches, creator portfolios. Strong for stat slides, comparison tables, and process flows. Equally good for tech, research, or finance when the speaker wants the deck to feel scrappy-confident rather than buttoned-up.",
     "avoid_for": "Contexts that need to feel soft, warm, or intentionally quiet — the brutalist borders and offset shadows commit to a graphic voice.",
-    "features": [
-      "chart",
-      "table",
-      "citation"
-    ],
     "slide_count": 10,
     "css_variables": [
       {
@@ -4541,21 +3964,7 @@
       "geeky",
       "playful"
     ],
-    "occasion": [
-      "retro gaming pitch",
-      "Y2K brand",
-      "creator portfolio (90s aesthetic)",
-      "tech-history talk",
-      "shitpost-but-make-it-fancy deck"
-    ],
-    "tone": [
-      "winking",
-      "nostalgic",
-      "geeky",
-      "fun"
-    ],
     "formality": "low",
-    "density": "medium",
     "scheme": "light",
     "palette": [
       {
@@ -4588,7 +3997,6 @@
     "typography_style": "8-bit pixel display + Microsoft system sans + DOS terminal mono",
     "best_for": "Anything that should feel knowingly nostalgic: retro gaming, Y2K-aesthetic brands, creator portfolios with a 90s vibe, tech-history talks, deliberately tongue-in-cheek decks. A great choice anywhere a playful retro reference is the entire point.",
     "avoid_for": "Decks that need to read as modern, elegant, or institutionally credible — the Win95 chrome will always read as a costume.",
-    "features": [],
     "slide_count": 10,
     "css_variables": [
       {
@@ -4695,21 +4103,7 @@
       "underground",
       "warm-retro"
     ],
-    "occasion": [
-      "indie zine / publication",
-      "music or arts brand",
-      "creator portfolio",
-      "small-batch / craft launch",
-      "cultural / community deck"
-    ],
-    "tone": [
-      "scrappy",
-      "warm",
-      "intentional",
-      "DIY"
-    ],
     "formality": "medium-low",
-    "density": "medium",
     "scheme": "light",
     "palette": [
       {
@@ -4742,9 +4136,6 @@
     "typography_style": "tall condensed display + handwritten script + clean grotesk body; layered like a printed zine page",
     "best_for": "Anything that should feel printed, lo-fi, and crafted: indie zines and publications, music / arts brands, creator portfolios, small-batch craft launches, community decks. Also a great underdog choice for tech, research, or business decks that want a riso-print warmth instead of digital polish.",
     "avoid_for": "Contexts that demand digital-native polish or fast modern-tech energy — the layered zine aesthetic intentionally feels handmade.",
-    "features": [
-      "citation"
-    ],
     "slide_count": 10,
     "css_variables": [
       {
@@ -4803,23 +4194,7 @@
       "tactile",
       "product-catalogue"
     ],
-    "occasion": [
-      "product launch or catalogue",
-      "indie hardware or analog studio brand",
-      "music label or release schedule",
-      "creative studio annual report",
-      "magazine or zine pitch",
-      "vintage-flavored brand campaign"
-    ],
-    "tone": [
-      "playful",
-      "confident",
-      "warm",
-      "tactile",
-      "80s-Japanese-tech"
-    ],
     "formality": "low",
-    "density": "medium",
     "scheme": "light",
     "palette": [
       {
@@ -4852,7 +4227,6 @@
     "typography_style": "condensed black grotesk display in red and brown for hero type, paired with a clean modern sans for body and a mono for spec-sheet listings; Japanese kanji used as decorative micro-type",
     "best_for": "Anything that should feel like a vintage Japanese cassette package or a TDK / Sony / Sakura Color product catalogue: indie hardware brand decks, music-label release schedules, analog studio retrospectives, zine and magazine pitches, kawaii-tech product launches, creative-studio annual reports. Equally good for any deck wanting bold colour, condensed display type, and a tactile printed-product personality.",
     "avoid_for": "Decks that need restrained, corporate, or quiet typography — the bold condensed lockups, ribbon stripes, and primary-colour palette are intentionally loud and product-page-y.",
-    "features": [],
     "slide_count": 8,
     "css_variables": [
       {
@@ -4925,21 +4299,7 @@
       "messy-on-purpose",
       "workshop"
     ],
-    "occasion": [
-      "brainstorm / workshop",
-      "creative agency credentials",
-      "design-thinking session",
-      "ideation pitch",
-      "art-direction review"
-    ],
-    "tone": [
-      "informal",
-      "warm",
-      "expressive",
-      "human"
-    ],
     "formality": "low",
-    "density": "high",
     "scheme": "light",
     "palette": [
       {
@@ -4972,9 +4332,6 @@
     "typography_style": "groovy display + handwritten script + warm slab body; reads like a designer's whiteboard",
     "best_for": "Anything that should feel like a designer's whiteboard: brainstorms, workshops, creative-agency credentials, design-thinking sessions, ideation pitches, art-direction reviews. Equally fun for any deck — including tech, research, or business — that wants to read as in-progress thinking rather than polished conclusions.",
     "avoid_for": "Contexts that demand precision and institutional weight — the post-it sticky-note aesthetic intentionally reads as warm and unfinished.",
-    "features": [
-      "citation"
-    ],
     "slide_count": 10,
     "css_variables": [
       {
@@ -5076,23 +4433,7 @@
       "considered",
       "weighty"
     ],
-    "occasion": [
-      "investor deck",
-      "consulting deliverable",
-      "board presentation",
-      "legal / policy brief",
-      "academic deck",
-      "advisory pitch",
-      "bilingual EN/CN deck"
-    ],
-    "tone": [
-      "sober",
-      "polished",
-      "established",
-      "literary"
-    ],
     "formality": "high",
-    "density": "high",
     "scheme": "mixed",
     "palette": [
       {
@@ -5121,9 +4462,6 @@
     "typography_style": "transitional serif headlines + clean sans body + technical mono captions; full Chinese serif/sans support",
     "best_for": "Anything that should feel weighty, considered, and credibly institutional: investor decks, board presentations, consulting deliverables, legal / policy briefs, advisory pitches. Also a strong choice for tech, research, or brand work that wants to read as quietly authoritative rather than loud.",
     "avoid_for": "Contexts that should feel hot, fast, or intentionally playful — the navy + gold restraint commits to a sober voice.",
-    "features": [
-      "citation"
-    ],
     "slide_count": 18,
     "css_variables": [
       {
@@ -5315,22 +4653,7 @@
       "quiet",
       "warm-classical"
     ],
-    "occasion": [
-      "editorial feature",
-      "longform brand story",
-      "gallery or museum",
-      "literary pitch",
-      "advisory deliverable",
-      "wedding / lifestyle media"
-    ],
-    "tone": [
-      "literary",
-      "considered",
-      "warm",
-      "magazine"
-    ],
     "formality": "high",
-    "density": "low",
     "scheme": "light",
     "palette": [
       {
@@ -5363,9 +4686,6 @@
     "typography_style": "high-contrast garalde serif headlines paired with a clean humanist sans body",
     "best_for": "Anything that should feel literary, elegant, and unhurried: editorial features, longform brand stories, gallery / museum decks, advisory deliverables, wedding / lifestyle media, founder essays. Equally good for tech, research, or business decks that want a Sunday-supplement warmth instead of corporate polish.",
     "avoid_for": "Decks that need visual heat or punch — the warm-paper palette and Cormorant serif are intentionally quiet.",
-    "features": [
-      "citation"
-    ],
     "slide_count": 12,
     "css_variables": [
       {
@@ -5433,21 +4753,7 @@
       "considered",
       "graphic"
     ],
-    "occasion": [
-      "museum / cultural institution",
-      "art / architecture brand",
-      "longform research",
-      "heritage / craft brand",
-      "manifesto"
-    ],
-    "tone": [
-      "weighty",
-      "considered",
-      "tactile",
-      "literary"
-    ],
     "formality": "medium-high",
-    "density": "medium",
     "scheme": "light",
     "palette": [
       {
@@ -5480,9 +4786,6 @@
     "typography_style": "ultra-heavy display + stencil + tall condensed + clean body; reads like an archaeological field manual",
     "best_for": "Anything that should feel archival, tactile, and weighty-graphic: museum and cultural-institution decks, art / architecture brands, longform research, heritage and craft brands, manifestos. A great choice anytime — including across tech and business — when you want the deck to feel like a field manual rather than a slide deck.",
     "avoid_for": "Contexts that demand digital-native polish or playful pop — the stencil-cut display and earth-tone palette commit to a deliberate analog feel.",
-    "features": [
-      "citation"
-    ],
     "slide_count": 11,
     "css_variables": [
       {
@@ -5560,22 +4863,7 @@
       "design-led",
       "high-contrast"
     ],
-    "occasion": [
-      "design studio credentials",
-      "creative agency pitch",
-      "brand showcase",
-      "art-direction review",
-      "fashion / sneaker brand",
-      "bilingual EN/CN deck"
-    ],
-    "tone": [
-      "graphic",
-      "loud",
-      "modern",
-      "intentional"
-    ],
     "formality": "medium",
-    "density": "medium",
     "scheme": "dark",
     "palette": [
       {
@@ -5604,10 +4892,6 @@
     "typography_style": "broadcast-grotesk display + technical mono captions; ultra-high-contrast typographic system",
     "best_for": "Anything that should feel electric and design-led: studio credentials, creative agency pitches, brand showcases, art-direction reviews, fashion / sneaker brand work. Also a striking unexpected choice for tech, research, or business decks where the speaker wants the deck to *be* a brand statement.",
     "avoid_for": "Contexts that should feel quiet or institutional — the black-and-electric-yellow palette is the loudest in the library.",
-    "features": [
-      "chart",
-      "citation"
-    ],
     "slide_count": 12,
     "css_variables": [
       {
@@ -5800,23 +5084,7 @@
       "quiet",
       "intellectual"
     ],
-    "occasion": [
-      "research findings",
-      "white paper or longform report",
-      "academic or university deck",
-      "advisory deliverable",
-      "literary or editorial pitch",
-      "founder reflection / vision deck",
-      "bilingual EN/CN deck"
-    ],
-    "tone": [
-      "literary",
-      "considered",
-      "patient",
-      "intelligent"
-    ],
     "formality": "high",
-    "density": "low",
     "scheme": "dark",
     "palette": [
       {
@@ -5841,9 +5109,6 @@
     "typography_style": "italic transitional serif as the structural display face, paired with clean DM Sans body and Courier Prime mono for attributions and labels; bilingual EN/CN support",
     "best_for": "Anything that should feel scholarly, literary, and quietly intelligent: research synthesis, white papers, academic and policy briefs, advisory deliverables, longform editorial pieces, founder reflections. Equally strong for any deck — including tech, business, or creator work — that wants a calm, considered atmosphere instead of energetic visuals.",
     "avoid_for": "Contexts that need visual heat or pop — the navy + warm-yellow italic-Cormorant aesthetic is intentionally low-tempo.",
-    "features": [
-      "citation"
-    ],
     "slide_count": 9,
     "css_variables": [
       {
@@ -6046,22 +5311,7 @@
       "precise",
       "modern"
     ],
-    "occasion": [
-      "SaaS pitch",
-      "developer tool launch",
-      "technical talk",
-      "product demo",
-      "API documentation",
-      "design system presentation"
-    ],
-    "tone": [
-      "warm-modern",
-      "precise",
-      "editorial",
-      "technical"
-    ],
     "formality": "medium",
-    "density": "medium",
     "scheme": "mixed",
     "palette": [
       {
@@ -6094,9 +5344,6 @@
     "typography_style": "modern geometric sans-serif for UI, Petrona serif for quotes, Geist Mono for terminal code blocks",
     "best_for": "Anything that should bridge human warmth and technical precision: SaaS pitches, developer tool launches, API documentation, design system presentations. The cream base with dark terminal cards creates a \"warm tools\" aesthetic — inviting but serious.",
     "avoid_for": "Contexts that need pure corporate polish or pure playful energy — the mixed light/dark palette and terminal blocks commit to a warm-technical voice that sits between editorial and developer-tool aesthetics.",
-    "features": [
-      "code"
-    ],
     "slide_count": 10,
     "css_variables": [
       {
@@ -6314,19 +5561,7 @@
       "文艺",
       "亲和"
     ],
-    "occasion": [
-      "技术教程",
-      "产品文档",
-      "内部培训",
-      "知识库"
-    ],
-    "tone": [
-      "教学",
-      "友好",
-      "专业"
-    ],
     "formality": "medium-low",
-    "density": "medium",
     "scheme": "light",
     "palette": [
       {
@@ -6371,9 +5606,6 @@
     "typography_style": "Display标题 + Sans-serif正文 + Mono代码，三字体分工",
     "best_for": "代码库教程、系统设计文档、产品入门指南——适合需要渐进式叙事的长文内容",
     "avoid_for": "简短宣传页、纯图片展示、需要复杂数据可视化的场景",
-    "features": [
-      "code"
-    ],
     "slide_count": 0,
     "css_variables": [
       {
@@ -6730,37 +5962,47 @@
       "克制",
       "工具感"
     ],
-    "occasion": [
-      "设计系统展示",
-      "开发工具",
-      "模板画廊"
-    ],
-    "tone": [
-      "专业",
-      "清晰",
-      "现代"
-    ],
     "formality": "medium",
-    "density": "medium",
     "scheme": "light",
     "palette": [
-      { "name": "Canvas", "color": "#fafafa" },
-      { "name": "Card", "color": "#ffffff" },
-      { "name": "Ink", "color": "#1a1a1a" },
-      { "name": "Ink Muted", "color": "#666666" },
-      { "name": "Ink Faint", "color": "#999999" },
-      { "name": "Border", "color": "#e8e8e8" },
-      { "name": "Accent", "color": "#2563eb" },
-      { "name": "Accent Deep", "color": "#1d4ed8" }
+      {
+        "name": "Canvas",
+        "color": "#fafafa"
+      },
+      {
+        "name": "Card",
+        "color": "#ffffff"
+      },
+      {
+        "name": "Ink",
+        "color": "#1a1a1a"
+      },
+      {
+        "name": "Ink Muted",
+        "color": "#666666"
+      },
+      {
+        "name": "Ink Faint",
+        "color": "#999999"
+      },
+      {
+        "name": "Border",
+        "color": "#e8e8e8"
+      },
+      {
+        "name": "Accent",
+        "color": "#2563eb"
+      },
+      {
+        "name": "Accent Deep",
+        "color": "#1d4ed8"
+      }
     ],
     "displayFont": "Inter, Noto Sans SC, sans-serif",
     "bodyFont": "Inter, Noto Sans SC, sans-serif",
     "typography_style": "Sans-serif 统一字体 · 字重驱动层级 · 紧凑行高",
     "best_for": "多模板展示、设计系统参考、前端开发工具",
     "avoid_for": "内容密集型阅读、传统出版排版",
-    "features": [
-      "code"
-    ],
     "slide_count": 0,
     "css_variables": [
       {
@@ -7034,5 +6276,863 @@
     "status": "active",
     "preview_type": "iframe",
     "template_path": "templates/frontend-design/layout-gallery/template.html"
+  },
+  {
+    "slug": "pinterest-gestalt",
+    "name": "Pinterest Gestalt",
+    "tagline": "Pinterest 设计系统 — 暖红强调色，4px 基座，9色相×12阶，系统字体栈",
+    "skill": "design-systems",
+    "template_type": "brand_kit",
+    "design_style": "warm-humanist",
+    "aspect_ratio": "16:9",
+    "mood": [
+      "warm",
+      "clean",
+      "confident"
+    ],
+    "formality": "medium",
+    "scheme": "light",
+    "palette": [
+      {
+        "name": "Red Pushpin 450",
+        "color": "#E60023"
+      },
+      {
+        "name": "White Mochimalist",
+        "color": "#FFFFFF"
+      },
+      {
+        "name": "Gray Roboflow 50",
+        "color": "#F9F9F9"
+      },
+      {
+        "name": "Gray Roboflow 500",
+        "color": "#767676"
+      },
+      {
+        "name": "Black Cosmicore",
+        "color": "#111111"
+      }
+    ],
+    "displayFont": "System Font Stack",
+    "bodyFont": "System Font Stack",
+    "typography_style": "modern",
+    "best_for": [
+      "品牌落地页",
+      "SaaS 产品",
+      "社区平台"
+    ],
+    "avoid_for": [
+      "游戏",
+      "娱乐"
+    ],
+    "slide_count": 0,
+    "css_variables": [
+      {
+        "name": "--bg",
+        "default": "#FFFFFF",
+        "description": ""
+      },
+      {
+        "name": "--bg-card",
+        "default": "#F9F9F9",
+        "description": ""
+      },
+      {
+        "name": "--text",
+        "default": "#111111",
+        "description": ""
+      },
+      {
+        "name": "--text-secondary",
+        "default": "#767676",
+        "description": ""
+      },
+      {
+        "name": "--text-muted",
+        "default": "#A5A5A5",
+        "description": ""
+      },
+      {
+        "name": "--border",
+        "default": "#CDCDCD",
+        "description": ""
+      },
+      {
+        "name": "--accent",
+        "default": "#E60023",
+        "description": ""
+      },
+      {
+        "name": "--accent-hover",
+        "default": "#B60000",
+        "description": ""
+      },
+      {
+        "name": "--success",
+        "default": "#005F3E",
+        "description": ""
+      },
+      {
+        "name": "--warning",
+        "default": "#BD5B00",
+        "description": ""
+      },
+      {
+        "name": "--error",
+        "default": "#CC0000",
+        "description": ""
+      },
+      {
+        "name": "--info",
+        "default": "#0074E8",
+        "description": ""
+      },
+      {
+        "name": "--font-sans",
+        "default": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', Helvetica, 'Hiragino Kaku Gothic Pro', 'Meiryo', 'Noto Sans SC', Arial, sans-serif",
+        "description": ""
+      },
+      {
+        "name": "--font-mono",
+        "default": "SFMono-Medium, 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', 'Ubuntu Mono', Menlo, Consolas, Courier, monospace",
+        "description": ""
+      },
+      {
+        "name": "--text-3xl",
+        "default": "36px",
+        "description": ""
+      },
+      {
+        "name": "--text-2xl",
+        "default": "28px",
+        "description": ""
+      },
+      {
+        "name": "--text-xl",
+        "default": "20px",
+        "description": ""
+      },
+      {
+        "name": "--text-lg",
+        "default": "16px",
+        "description": ""
+      },
+      {
+        "name": "--text-base",
+        "default": "16px",
+        "description": ""
+      },
+      {
+        "name": "--text-sm",
+        "default": "14px",
+        "description": ""
+      },
+      {
+        "name": "--text-xs",
+        "default": "12px",
+        "description": ""
+      },
+      {
+        "name": "--text-2xs",
+        "default": "11px",
+        "description": ""
+      },
+      {
+        "name": "--weight-bold",
+        "default": "700",
+        "description": ""
+      },
+      {
+        "name": "--weight-semibold",
+        "default": "600",
+        "description": ""
+      },
+      {
+        "name": "--page-wmax",
+        "default": "1200px",
+        "description": ""
+      },
+      {
+        "name": "--page-pad",
+        "default": "32px",
+        "description": ""
+      },
+      {
+        "name": "--space-3xl",
+        "default": "64px",
+        "description": ""
+      },
+      {
+        "name": "--space-2xl",
+        "default": "48px",
+        "description": ""
+      },
+      {
+        "name": "--space-xl",
+        "default": "24px",
+        "description": ""
+      },
+      {
+        "name": "--space-lg",
+        "default": "16px",
+        "description": ""
+      },
+      {
+        "name": "--space-md",
+        "default": "12px",
+        "description": ""
+      },
+      {
+        "name": "--space-sm",
+        "default": "8px",
+        "description": ""
+      },
+      {
+        "name": "--space-xs",
+        "default": "4px",
+        "description": ""
+      },
+      {
+        "name": "--radius-lg",
+        "default": "16px",
+        "description": ""
+      },
+      {
+        "name": "--radius",
+        "default": "12px",
+        "description": ""
+      },
+      {
+        "name": "--radius-md",
+        "default": "8px",
+        "description": ""
+      },
+      {
+        "name": "--radius-sm",
+        "default": "4px",
+        "description": ""
+      },
+      {
+        "name": "--radius-xs",
+        "default": "4px",
+        "description": ""
+      },
+      {
+        "name": "--radius-pill",
+        "default": "999px",
+        "description": ""
+      },
+      {
+        "name": "--shadow-sm",
+        "default": "0 0 8px rgba(0,0,0,0.10)",
+        "description": ""
+      },
+      {
+        "name": "--shadow-md",
+        "default": "0 2px 8px rgba(0,0,0,0.12)",
+        "description": ""
+      },
+      {
+        "name": "--ease-default",
+        "default": "cubic-bezier(0.4,0,0.2,1)",
+        "description": ""
+      },
+      {
+        "name": "--duration-fast",
+        "default": "140ms",
+        "description": ""
+      },
+      {
+        "name": "--duration-base",
+        "default": "150ms",
+        "description": ""
+      },
+      {
+        "name": "--duration-slow",
+        "default": "200ms",
+        "description": ""
+      },
+      {
+        "name": "--duration-slower",
+        "default": "350ms",
+        "description": ""
+      }
+    ],
+    "visibility": "public",
+    "preview_type": "iframe",
+    "template_path": "templates/design-systems/pinterest-gestalt/template.html"
+  },
+  {
+    "slug": "vercel-geist",
+    "name": "Vercel Geist",
+    "tagline": "Vercel 设计系统 — 冷蓝强调色，边框代阴影，极简工具美学",
+    "skill": "design-systems",
+    "template_type": "brand_kit",
+    "design_style": "swiss-minimal",
+    "aspect_ratio": "16:9",
+    "mood": [
+      "sharp",
+      "minimal",
+      "technical"
+    ],
+    "formality": "medium",
+    "scheme": "light",
+    "palette": [
+      {
+        "name": "Blue 700",
+        "color": "#006BFF"
+      },
+      {
+        "name": "Background 100",
+        "color": "#FFFFFF"
+      },
+      {
+        "name": "Gray 1000",
+        "color": "#171717"
+      },
+      {
+        "name": "Gray 900",
+        "color": "#4D4D4D"
+      },
+      {
+        "name": "Gray 400",
+        "color": "#EAEAEA"
+      }
+    ],
+    "displayFont": "Geist Sans (GFW blocked → Inter)",
+    "bodyFont": "Geist Sans (GFW blocked → Inter)",
+    "typography_style": "modern",
+    "best_for": [
+      "开发者工具",
+      "仪表盘",
+      "技术文档站"
+    ],
+    "avoid_for": [
+      "品牌营销",
+      "创意展示"
+    ],
+    "slide_count": 0,
+    "css_variables": [
+      {
+        "name": "--bg",
+        "default": "#FFFFFF",
+        "description": ""
+      },
+      {
+        "name": "--bg-card",
+        "default": "#FAFAFA",
+        "description": ""
+      },
+      {
+        "name": "--text",
+        "default": "#171717",
+        "description": ""
+      },
+      {
+        "name": "--text-secondary",
+        "default": "#4D4D4D",
+        "description": ""
+      },
+      {
+        "name": "--text-muted",
+        "default": "#8F8F8F",
+        "description": ""
+      },
+      {
+        "name": "--border",
+        "default": "#EAEAEA",
+        "description": ""
+      },
+      {
+        "name": "--accent",
+        "default": "#006BFF",
+        "description": ""
+      },
+      {
+        "name": "--accent-hover",
+        "default": "#0059EC",
+        "description": ""
+      },
+      {
+        "name": "--success",
+        "default": "#107D32",
+        "description": ""
+      },
+      {
+        "name": "--warning",
+        "default": "#FFA600",
+        "description": ""
+      },
+      {
+        "name": "--error",
+        "default": "#FC0035",
+        "description": ""
+      },
+      {
+        "name": "--info",
+        "default": "#006BFF",
+        "description": ""
+      },
+      {
+        "name": "--font-sans",
+        "default": "'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+        "description": ""
+      },
+      {
+        "name": "--font-mono",
+        "default": "'Geist Mono', 'SF Mono', 'Cascadia Code', 'Consolas', monospace",
+        "description": ""
+      },
+      {
+        "name": "--text-3xl",
+        "default": "36px",
+        "description": ""
+      },
+      {
+        "name": "--text-2xl",
+        "default": "28px",
+        "description": ""
+      },
+      {
+        "name": "--text-xl",
+        "default": "20px",
+        "description": ""
+      },
+      {
+        "name": "--text-lg",
+        "default": "16px",
+        "description": ""
+      },
+      {
+        "name": "--text-base",
+        "default": "16px",
+        "description": ""
+      },
+      {
+        "name": "--text-sm",
+        "default": "14px",
+        "description": ""
+      },
+      {
+        "name": "--text-xs",
+        "default": "12px",
+        "description": ""
+      },
+      {
+        "name": "--text-2xs",
+        "default": "11px",
+        "description": ""
+      },
+      {
+        "name": "--page-wmax",
+        "default": "1200px",
+        "description": ""
+      },
+      {
+        "name": "--page-pad",
+        "default": "32px",
+        "description": ""
+      },
+      {
+        "name": "--space-3xl",
+        "default": "64px",
+        "description": ""
+      },
+      {
+        "name": "--space-2xl",
+        "default": "48px",
+        "description": ""
+      },
+      {
+        "name": "--space-xl",
+        "default": "24px",
+        "description": ""
+      },
+      {
+        "name": "--space-lg",
+        "default": "16px",
+        "description": ""
+      },
+      {
+        "name": "--space-md",
+        "default": "12px",
+        "description": ""
+      },
+      {
+        "name": "--space-sm",
+        "default": "8px",
+        "description": ""
+      },
+      {
+        "name": "--space-xs",
+        "default": "4px",
+        "description": ""
+      },
+      {
+        "name": "--radius-lg",
+        "default": "16px",
+        "description": ""
+      },
+      {
+        "name": "--radius",
+        "default": "12px",
+        "description": ""
+      },
+      {
+        "name": "--radius-md",
+        "default": "8px",
+        "description": ""
+      },
+      {
+        "name": "--radius-sm",
+        "default": "6px",
+        "description": ""
+      },
+      {
+        "name": "--radius-xs",
+        "default": "4px",
+        "description": ""
+      },
+      {
+        "name": "--radius-pill",
+        "default": "999px",
+        "description": ""
+      },
+      {
+        "name": "--shadow-sm",
+        "default": "0 0 0 1px rgba(0,0,0,0.08)",
+        "description": ""
+      },
+      {
+        "name": "--shadow-md",
+        "default": "0 2px 8px rgba(0,0,0,0.08)",
+        "description": ""
+      },
+      {
+        "name": "--ease-default",
+        "default": "cubic-bezier(0.4,0,0.2,1)",
+        "description": ""
+      },
+      {
+        "name": "--duration-fast",
+        "default": "150ms",
+        "description": ""
+      },
+      {
+        "name": "--duration-base",
+        "default": "200ms",
+        "description": ""
+      },
+      {
+        "name": "--duration-slow",
+        "default": "300ms",
+        "description": ""
+      },
+      {
+        "name": "--duration-slower",
+        "default": "500ms",
+        "description": ""
+      }
+    ],
+    "visibility": "public",
+    "preview_type": "iframe",
+    "template_path": "templates/design-systems/vercel-geist/template.html"
+  },
+  {
+    "slug": "dribbble",
+    "name": "Dribbble",
+    "tagline": "Dribbble 品牌 — 经典粉 #EA4C89，Inter 字体，重阴影大圆角",
+    "skill": "design-systems",
+    "template_type": "brand_kit",
+    "design_style": "experimental",
+    "aspect_ratio": "16:9",
+    "mood": [
+      "playful",
+      "creative",
+      "bold"
+    ],
+    "formality": "low",
+    "scheme": "light",
+    "palette": [
+      {
+        "name": "Dribbble Pink",
+        "color": "#EA4C89"
+      },
+      {
+        "name": "Surface Raised",
+        "color": "#FEFEFD"
+      },
+      {
+        "name": "Heading",
+        "color": "#1D1C27"
+      },
+      {
+        "name": "Text Secondary",
+        "color": "#5C5B60"
+      },
+      {
+        "name": "Surface Base",
+        "color": "#000000"
+      }
+    ],
+    "displayFont": "Inter",
+    "bodyFont": "Inter",
+    "typography_style": "modern",
+    "best_for": [
+      "设计师作品集",
+      "创意品牌",
+      "社区平台"
+    ],
+    "avoid_for": [
+      "企业软件",
+      "金融"
+    ],
+    "slide_count": 0,
+    "css_variables": [
+      {
+        "name": "--bg",
+        "default": "#FEFEFD",
+        "description": ""
+      },
+      {
+        "name": "--bg-card",
+        "default": "#FFFFFF",
+        "description": ""
+      },
+      {
+        "name": "--surface-overlay",
+        "default": "#1B1B1C",
+        "description": ""
+      },
+      {
+        "name": "--text",
+        "default": "#1D1C27",
+        "description": ""
+      },
+      {
+        "name": "--text-secondary",
+        "default": "#5C5B60",
+        "description": ""
+      },
+      {
+        "name": "--text-muted",
+        "default": "#9E9EA7",
+        "description": ""
+      },
+      {
+        "name": "--border",
+        "default": "#0C110F",
+        "description": ""
+      },
+      {
+        "name": "--accent",
+        "default": "#EA4C89",
+        "description": ""
+      },
+      {
+        "name": "--accent-hover",
+        "default": "#F2B5D7",
+        "description": ""
+      },
+      {
+        "name": "--success",
+        "default": "#28A948",
+        "description": ""
+      },
+      {
+        "name": "--warning",
+        "default": "#FFA600",
+        "description": ""
+      },
+      {
+        "name": "--error",
+        "default": "#ECC6B6",
+        "description": ""
+      },
+      {
+        "name": "--info",
+        "default": "#006BFF",
+        "description": ""
+      },
+      {
+        "name": "--dark-bg",
+        "default": "#000000",
+        "description": ""
+      },
+      {
+        "name": "--font-sans",
+        "default": "'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+        "description": ""
+      },
+      {
+        "name": "--font-mono",
+        "default": "'SF Mono', 'Cascadia Code', 'Consolas', monospace",
+        "description": ""
+      },
+      {
+        "name": "--text-3xl",
+        "default": "42px",
+        "description": ""
+      },
+      {
+        "name": "--text-2xl",
+        "default": "32px",
+        "description": ""
+      },
+      {
+        "name": "--text-xl",
+        "default": "24px",
+        "description": ""
+      },
+      {
+        "name": "--text-lg",
+        "default": "18px",
+        "description": ""
+      },
+      {
+        "name": "--text-base",
+        "default": "16px",
+        "description": ""
+      },
+      {
+        "name": "--text-sm",
+        "default": "14px",
+        "description": ""
+      },
+      {
+        "name": "--text-xs",
+        "default": "12px",
+        "description": ""
+      },
+      {
+        "name": "--text-2xs",
+        "default": "11px",
+        "description": ""
+      },
+      {
+        "name": "--weight-bold",
+        "default": "700",
+        "description": ""
+      },
+      {
+        "name": "--weight-semibold",
+        "default": "600",
+        "description": ""
+      },
+      {
+        "name": "--page-wmax",
+        "default": "1400px",
+        "description": ""
+      },
+      {
+        "name": "--page-pad",
+        "default": "32px",
+        "description": ""
+      },
+      {
+        "name": "--space-3xl",
+        "default": "64px",
+        "description": ""
+      },
+      {
+        "name": "--space-2xl",
+        "default": "48px",
+        "description": ""
+      },
+      {
+        "name": "--space-xl",
+        "default": "24px",
+        "description": ""
+      },
+      {
+        "name": "--space-lg",
+        "default": "16px",
+        "description": ""
+      },
+      {
+        "name": "--space-md",
+        "default": "12px",
+        "description": ""
+      },
+      {
+        "name": "--space-sm",
+        "default": "8px",
+        "description": ""
+      },
+      {
+        "name": "--space-xs",
+        "default": "4px",
+        "description": ""
+      },
+      {
+        "name": "--radius-lg",
+        "default": "20px",
+        "description": ""
+      },
+      {
+        "name": "--radius",
+        "default": "16px",
+        "description": ""
+      },
+      {
+        "name": "--radius-md",
+        "default": "12px",
+        "description": ""
+      },
+      {
+        "name": "--radius-sm",
+        "default": "8px",
+        "description": ""
+      },
+      {
+        "name": "--radius-xs",
+        "default": "4px",
+        "description": ""
+      },
+      {
+        "name": "--radius-pill",
+        "default": "9999px",
+        "description": ""
+      },
+      {
+        "name": "--shadow-sm",
+        "default": "0 1px 4px rgba(0,0,0,0.06)",
+        "description": ""
+      },
+      {
+        "name": "--shadow-md",
+        "default": "0 8px 30px rgba(0,0,0,0.12)",
+        "description": ""
+      },
+      {
+        "name": "--ease-default",
+        "default": "cubic-bezier(0.4,0,0.2,1)",
+        "description": ""
+      },
+      {
+        "name": "--duration-fast",
+        "default": "150ms",
+        "description": ""
+      },
+      {
+        "name": "--duration-base",
+        "default": "200ms",
+        "description": ""
+      },
+      {
+        "name": "--duration-slow",
+        "default": "300ms",
+        "description": ""
+      },
+      {
+        "name": "--duration-slower",
+        "default": "500ms",
+        "description": ""
+      }
+    ],
+    "visibility": "public",
+    "preview_type": "iframe",
+    "template_path": "templates/design-systems/dribbble/template.html"
   }
 ]

@@ -1,0 +1,39 @@
+{
+  "pageType": "masonry-feed",
+  "header": {
+    "style": "hero",
+    "background": "accent",
+    "elements": ["badge", "title", "description"]
+  },
+  "content": {
+    "layout": "masonry",
+    "columns": 5,
+    "gap": "var(--space-md)",
+    "maxWidth": "var(--page-wmax)",
+    "padding": "var(--page-pad)"
+  },
+  "cardTemplate": {
+    "type": "pin-card",
+    "structure": ["image", "title", "source"],
+    "imageShape": "auto-height",
+    "imageMinHeight": "120px",
+    "imageMaxHeight": "320px",
+    "hoverEffect": "overlay-darken",
+    "borderRadius": "var(--radius-md)",
+    "padding": "0",
+    "bodyPadding": "var(--space-sm) var(--space-sm) var(--space-md)"
+  },
+  "sampleData": [
+    {"image": "gradient-1", "title": "Minimalist UI Exploration", "source": "Alex Chen · 2.3k saves", "height": 240},
+    {"image": "gradient-2", "title": "Brand Identity System", "source": "Sarah Kim · 8.1k saves", "height": 180},
+    {"image": "gradient-3", "title": "Dashboard Dark Mode", "source": "Miguel Torres · 1.4k saves", "height": 300},
+    {"image": "gradient-4", "title": "E-commerce Mobile App", "source": "Priya Patel · 5.7k saves", "height": 200},
+    {"image": "gradient-5", "title": "Onboarding Flow Animation", "source": "DesignStudio · 12k saves", "height": 260},
+    {"image": "gradient-6", "title": "Typography Scale System", "source": "Yuki Tanaka · 3.2k saves", "height": 160},
+    {"image": "gradient-7", "title": "SaaS Landing Page", "source": "Studio Blanc · 9.5k saves", "height": 220},
+    {"image": "gradient-8", "title": "Icon Family", "source": "Lena Weber · 6.8k saves", "height": 190},
+    {"image": "gradient-9", "title": "Newsletter Template", "source": "Carlos Ruiz · 4.1k saves", "height": 280},
+    {"image": "gradient-10", "title": "3D Avatar System", "source": "Noir Studio · 15k saves", "height": 240}
+  ],
+  "masonryColumnPattern": [280, 200, 320, 180, 260, 220, 300, 190, 250, 210]
+}

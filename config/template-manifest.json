@@ -1,0 +1,32 @@
+{
+  "_notice": "唯一真相源 — 模板文件合约。validate-templates.js / add-template.js / server.js 都从此读取，禁止各自硬编码。",
+  "_version": 1,
+
+  "template_types": {
+    "gallery": {
+      "description": "Gallery 卡片模板 — 仅需 template.html",
+      "required": ["template.html"],
+      "optional": ["tokens.json", "template.json"]
+    },
+    "brand_kit": {
+      "description": "品牌套件模板 — 需 template.html + tokens.json，双端可用",
+      "required": ["template.html", "tokens.json"],
+      "optional": ["template.json"]
+    }
+  },
+
+  "default_type": "gallery",
+
+  "validators": {
+    "tokens_schema": {
+      "module": "validate-templates",
+      "function": "validateTokensSchema",
+      "description": "校验 tokens.json 六分类结构 + brandKit 字段完整性"
+    },
+    "root_sync": {
+      "module": "validate-templates",
+      "function": "validateRootSync",
+      "description": "校验 template.html :root 与 tokens.json 值一致"
+    }
+  }
+}

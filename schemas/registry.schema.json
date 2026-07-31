@@ -22,17 +22,17 @@
     },
     "skill": {
       "type": "string",
-      "enum": ["beautiful-html-templates", "guizang-ppt-skill", "frontend-design", "codebase-to-course"],
+      "enum": ["beautiful-html-templates", "guizang-ppt-skill", "frontend-design", "codebase-to-course", "design-systems"],
       "description": "模板来源 skill"
     },
     "template_type": {
       "type": "string",
-      "enum": ["slide-deck", "single-page", "report", "infographic", "social-card", "poster"],
+      "enum": ["slide-deck", "single-page", "report", "infographic", "social-card", "poster", "brand_kit"],
       "description": "用途类型 — AI 决策第一优先级"
     },
     "design_style": {
       "type": "string",
-      "enum": ["editorial", "swiss-minimal", "warm-humanist", "tech-cyberpunk", "experimental", "institutional", "eastern-zen"],
+      "enum": ["editorial", "swiss-minimal", "warm-humanist", "tech-cyberpunk", "experimental", "institutional", "eastern-zen", "warm-minimal", "minimal", "playful"],
       "description": "风格大类 — AI 入口筛选"
     },
     "aspect_ratio": {
@@ -57,7 +57,7 @@
     },
     "formality": {
       "type": "string",
-      "enum": ["low", "medium-low", "medium", "medium-high", "high"],
+      "enum": ["casual", "low", "medium-low", "medium", "medium-high", "high"],
       "default": "medium",
       "description": "正式度: low=休闲, medium-low=半正式, medium=适中, medium-high=正式, high=权威"
     },
@@ -97,17 +97,19 @@
       "description": "字体风格描述，如 'Serif标题 + Sans-serif正文'"
     },
     "best_for": {
-      "type": "string",
+      "type": "array",
+      "items": { "type": "string" },
       "description": "最适合的使用场景"
     },
     "avoid_for": {
-      "type": "string",
+      "type": "array",
+      "items": { "type": "string" },
       "description": "不适合的使用场景"
     },
     "features": {
       "type": "array",
-      "items": { "type": "string", "enum": ["chart", "code", "table", "citation", "stat"] },
-      "description": "能力标记: chart=图表, code=代码, table=表格, citation=引用, stat=统计数字"
+      "items": { "type": "string" },
+      "description": "能力标记: chart=图表, code=代码, table=表格, citation=引用, stat=统计数字, 也可自由描述"
     },
     "slide_count": {
       "type": "integer",
@@ -163,7 +165,7 @@
     },
     "template_path": {
       "type": "string",
-      "pattern": "^templates/[a-z-]+/[a-z0-9-]+/template\\.html$",
+      "pattern": "^templates/[a-z0-9-]+/[a-z0-9-]+/template\\.html$",
       "description": "模板 HTML 文件路径，相对于项目根目录"
     }
   }

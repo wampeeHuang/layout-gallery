@@ -18,8 +18,8 @@ const fs = require('fs');
 const path = require('path');
 
 const PROJECT_DIR = path.join(__dirname, '..');
-const REGISTRY_PATH = path.join(PROJECT_DIR, 'registry.json');
-const SCHEMA_PATH = path.join(PROJECT_DIR, 'registry.schema.json');
+const REGISTRY_PATH = path.join(PROJECT_DIR, 'data', 'registry.json');
+const SCHEMA_PATH = path.join(PROJECT_DIR, 'schemas', 'registry.schema.json');
 
 // ── CSS Variable Extraction ────────────────────────────────────
 
@@ -126,15 +126,28 @@ function main() {
 
   const tmplPath = path.join(PROJECT_DIR, meta.template_path);
 
-  // Extract CSS variables
-  if (fs.existsSync(tmplPath)) {
-    const html = fs.readFileSync(tmplPath, 'utf-8');
-    meta.css_variables = extractCSSVars(html);
-    console.log(`CSS 变量: 提取 ${meta.css_variables.length} 个`);
-  } else {
-    console.warn(`模板文件不存在: ${tmplPath}，跳过 CSS 变量提取`);
-    meta.css_variables = meta.css_variables || [];
+  // ── 文件系统门禁 ────────────────────────────────────────────
+  if (!fs.existsSync(tmplPath)) {
+    console.error(`✗ 模板文件不存在: ${tmplPath}`);
+    console.error('  每个模板必须包含 template.html。注册中止。');
+    process.exit(1);
   }
+
+  // Check tokens.json (brand kit readiness)
+  const tokensPath = path.join(path.dirname(tmplPath), 'tokens.json');
+  if (fs.existsSync(tokensPath)) {
+    console.log('tokens.json: ✓ 品牌套件可用');
+    meta.brand_kit_ready = true;
+  } else {
+    console.warn('⚠ 缺 tokens.json — 品牌套件页 /brand/' + meta.slug + '/ 将不可用');
+    console.warn('  运行 node scripts/extract-tokens.js ' + path.dirname(meta.template_path).replace(/\\/g, '/') + ' 生成');
+    meta.brand_kit_ready = false;
+  }
+
+  // Extract CSS variables
+  const html = fs.readFileSync(tmplPath, 'utf-8');
+  meta.css_variables = extractCSSVars(html);
+  console.log(`CSS 变量: 提取 ${meta.css_variables.length} 个`);
 
   // Set defaults
   meta.visibility = meta.visibility || 'public';
@@ -203,6 +216,7 @@ function main() {
     visibility: meta.visibility,
     preview_type: meta.preview_type,
     template_path: meta.template_path,
+    brand_kit_ready: meta.brand_kit_ready !== undefined ? meta.brand_kit_ready : false,
   };
 
   if (existingIdx >= 0) {

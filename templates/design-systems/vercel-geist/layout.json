@@ -1,0 +1,60 @@
+{
+  "pageType": "dashboard",
+  "header": {
+    "style": "navbar",
+    "background": "dark",
+    "elements": ["logo", "navLinks", "ctaButton"]
+  },
+  "content": {
+    "layout": "sidebar-main",
+    "sidebar": true,
+    "sidebarWidth": "240px",
+    "maxWidth": "100%",
+    "padding": "0",
+    "gap": "var(--space-lg)"
+  },
+  "sidebar": {
+    "sections": [
+      {"type": "nav-group", "label": "Overview", "items": ["Dashboard", "Analytics", "Reports"]},
+      {"type": "nav-group", "label": "Resources", "items": ["Projects", "Deployments", "Domains", "Storage"]},
+      {"type": "nav-group", "label": "Settings", "items": ["Team", "Billing", "API Keys", "Logs"]}
+    ]
+  },
+  "mainContent": {
+    "sections": [
+      {
+        "type": "metric-cards",
+        "columns": 4,
+        "cards": [
+          {"label": "Total Deployments", "value": "2,847", "change": "+12.5%", "trend": "up"},
+          {"label": "Active Projects", "value": "142", "change": "+3.2%", "trend": "up"},
+          {"label": "Avg Build Time", "value": "24.8s", "change": "-8.1%", "trend": "down"},
+          {"label": "Error Rate", "value": "0.12%", "change": "+0.03%", "trend": "up"}
+        ]
+      },
+      {
+        "type": "code-block",
+        "language": "terminal",
+        "lines": [
+          "$ vercel deploy",
+          "> Building...",
+          "> Uploading...  [====================] 100%",
+          "> Deploying... [====================] 100%",
+          "> Ready: https://myapp.vercel.app  [2.4s]"
+        ]
+      },
+      {
+        "type": "table",
+        "columns": ["Project", "Status", "Last Deploy", "Branch"],
+        "rows": [
+          ["nextjs-blog", "Ready", "2 min ago", "main"],
+          ["api-service", "Building", "12 min ago", "feat/auth"],
+          ["landing-v2", "Failed", "1 hour ago", "redesign"],
+          ["admin-dashboard", "Ready", "3 hours ago", "main"]
+        ]
+      }
+    ]
+  },
+  "navLinks": ["Features", "Docs", "Templates", "Pricing"],
+  "logo": "Geist"
+}

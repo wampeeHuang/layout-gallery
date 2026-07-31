@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const REGISTRY_PATH = path.join(__dirname, '..', 'registry.json');
+const REGISTRY_PATH = path.join(__dirname, '..', 'data', 'registry.json');
 const TEMPLATES_DIR = path.join(__dirname, '..', 'templates');
 
 function extractCSSVars(html) {
