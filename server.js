@@ -2,10 +2,36 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const { renderBrandKit } = require('./scripts/brand-renderer');
+const { validateAll } = require('./scripts/validate-templates');
 
 const app = express();
 const PORT = process.env.PORT || 3080;
 const PROJECT_DIR = __dirname;
+
+// ── Startup audit ───────────────────────────────────────────────
+
+function startupAudit() {
+  try {
+    const registryPath = path.join(PROJECT_DIR, 'data', 'registry.json');
+    const registry = JSON.parse(fs.readFileSync(registryPath, 'utf-8'));
+    const { results } = validateAll(registry, {});
+    const total = results.length;
+    const ok = results.filter(r => r.ok).length;
+    const hasTokens = results.filter(r => r.optional.present.includes('tokens.json')).length;
+    console.log(`[启动审计] ${total} 模板 | 合约合规: ${ok}/${total} | tokens.json: ${hasTokens}/${total}`);
+    const missingTokens = results.filter(r => !r.optional.present.includes('tokens.json')).map(r => r.slug);
+    if (missingTokens.length > 0) {
+      console.log(`[启动审计] 缺 tokens.json (${missingTokens.length}): ${missingTokens.slice(0, 8).join(', ')}${missingTokens.length > 8 ? '...' : ''}`);
+    }
+    const failed = results.filter(r => !r.ok);
+    if (failed.length > 0) {
+      console.warn(`[启动审计] ⚠ ${failed.length} 模板不合规:`);
+      failed.forEach(r => console.warn(`  ${r.slug}: ${r.required.missing.join(', ')}`));
+    }
+  } catch (e) {
+    console.warn('[启动审计] 跳过: ' + e.message);
+  }
+}
 
 // CORS for local dev
 app.use((req, res, next) => {
@@ -17,10 +43,16 @@ app.use(express.json());
 
 // ── API ──────────────────────────────────────────────────────
 
-const registryPath = path.join(PROJECT_DIR, 'registry.json');
+const registryPath = path.join(PROJECT_DIR, 'data', 'registry.json');
 
 function loadRegistry() {
   return JSON.parse(fs.readFileSync(registryPath, 'utf-8'));
+}
+
+function isBrandKitReady(entry) {
+  if (!entry.template_path) return false;
+  const tokensPath = path.join(PROJECT_DIR, path.dirname(entry.template_path), 'tokens.json');
+  return fs.existsSync(tokensPath);
 }
 
 // GET /api/registry — query + filter
@@ -62,7 +94,12 @@ app.get('/api/registry', (req, res) => {
     );
   }
 
-  res.json({ count: items.length, items });
+  const enriched = items.map(e => ({
+    ...e,
+    brand_kit_ready: isBrandKitReady(e),
+    html_api: '/api/template/' + e.slug + '/html'
+  }));
+  res.json({ count: enriched.length, items: enriched });
 });
 
 // GET /api/template/:slug — single template detail
@@ -70,7 +107,7 @@ app.get('/api/template/:slug', (req, res) => {
   const items = loadRegistry();
   const entry = items.find(e => e.slug === req.params.slug);
   if (!entry) return res.status(404).json({ error: 'not found' });
-  res.json(entry);
+  res.json({ ...entry, brand_kit_ready: isBrandKitReady(entry), html_api: '/api/template/' + entry.slug + '/html' });
 });
 
 // GET /api/template/:slug/html — raw template HTML
@@ -371,4 +408,5 @@ app.listen(PORT, () => {
   const items = loadRegistry();
   const public = items.filter(e => e.visibility === 'public' && e.status !== 'placeholder').length;
   console.log(`  ${items.length} templates (${public} public)`);
+  startupAudit();
 });
