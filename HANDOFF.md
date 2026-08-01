@@ -1,66 +1,53 @@
 # HANDOFF — 版式画廊
 
-date: 2026-08-01
+date: 2026-08-02
 
-## 骨架系统上线 (Route B 完成)
+## 当前状态
 
-`template-renderer.js --all` 通过 7 个富骨架渲染 48/49 模板。tokens.json 为唯一真相源。
+- **49/49 合约合规**，零 Google Fonts，零真实品牌引用
+- 服务器 `localhost:3080` 运行中，brand 页正常
+- 提交 `48d70f9` 已落地
 
-### 骨架（`templates/skeletons/`）
+## 已完成
 
-| 骨架 | 行数 | 路由 |
-|------|------|------|
-| editorial-single-page | 408 | single-page |
-| product-listing | 273 | (待分配) |
-| broadside-engine | ~600 | slide-deck: experimental, default |
-| blue-professional | ~600 | slide-deck: swiss-minimal, institutional |
-| retro-zine | 585 | slide-deck: editorial |
-| capsule | 706 | slide-deck: warm-humanist + brand_kit |
-| retro-windows | 869 | slide-deck: tech-cyberpunk |
+- [x] 25 个非标模板迁移到 20 标准 CSS 变量名
+- [x] 49 模板全量品牌审计（替换 Pinterest/Vercel/IKEA/LinkedIn/Instagram/Figma/Claude/Slack 等）
+- [x] 22 个模板推断 typeScale/spacingScale
+- [x] 修复 brandKit.colorRoles 同步 + :root 重建
+- [x] 修复 brand 页 500（typeScale 格式契约断裂）
+- [x] `isShorthandValue()` 守卫：CSS 简写值不参与 VAR_MAP
+- [x] `_migrate-editorial.js` 扩展为通用迁移脚本（5 目录全覆盖）
 
-### renderer 改动
+## 待办
 
-- `matchSkeleton()` — template_type + design_style 智能路由
-- `buildFontImports()` — 从 tokens.json brandKit.googleFonts 注入
-- 7 个 `build*Content()` — 每骨架独立内容构建
-- `renderTemplate()` — 注入 `{{FONT_IMPORTS}}` + `{{TOKEN_CSS}}` + 所有占位符
+### 紧急
+- [ ] **brutalist-paper 缺 tokens.json** — 启动审计报 `缺 tokens.json (1): brutalist-paper`
+- [ ] 服务器重启后需手动 `node server.js`（无 PM2/systemd 守护）
 
-### 标准化 CSS 变量
+### 管道加固
+- [ ] Google Fonts 扫描进 `validate-templates.js`
+- [ ] `sync-roots.js --preserve` 模式：保留模板特有变量不被覆盖
+- [ ] template-renderer.js 标准变量名修复（task #38）
+- [ ] validator 加标准名强制校验（task #19）
 
-所有骨架共用 28+ 变量：`--bg`, `--text`, `--accent`, `--accent-alt`, `--line`, `--surface`, `--bg-alt`, `--display`, `--body`, `--mono`, `--hand` 等。
+### 内容深化
+- [ ] 加深中文翻译：capsule, creative-mode, peoples-platform, playful, studio, coral, bold-poster
 
-### 验证结果
+## 关键文件
 
-- 48/48 渲染成功，0 残留 `{{...}}`
-- 1 跳过：pin-and-paper (无 tokens.json)
+| 文件 | 作用 |
+|------|------|
+| `scripts/_migrate-editorial.js` | 通用迁移脚本，VAR_MAP + PRESERVE_PATTERNS + isShorthandValue |
+| `scripts/brand-renderer.js` | 品牌页渲染，line 584 已加防御 |
+| `data/token-contract.json` | 20 标准变量名契约 |
+| `scripts/validate-templates.js` | 模板校验器 |
 
-### 下一步
+## 复盘
 
-- pin-and-paper 需创建 tokens.json
-- 骨架内容为占位文本，可按模板定制
-- 新增设计风格时加骨架 + 路由规则
+`D:\workspace\_output\retrospectives\2026-08-02-gallery-49-compliance.md`
 
----
+## 新增 tips（agentboard）
 
-## 归档（安全回滚点）
-
-| 方式 | 标识 | 恢复 |
-|------|------|------|
-| Git commit | `af7dc7a` | `git checkout af7dc7a -- templates/` |
-| 本地 zip | `_archive-2026-08-01-templates.zip` (623KB) | 解压覆盖 `templates/` |
-
----
-
-## extract-tokens.js — 48/49 完成
-
-```bash
-node scripts/extract-tokens.js brutalist-paper     # 单个
-node scripts/extract-tokens.js --all               # 全量（跳过已有）
-node scripts/extract-tokens.js --all --force        # 全量覆盖
-```
-
----
-
-## library.html 弹窗交互打磨
-
-弹窗精简 + 交互统一 + 死代码清理。详见 commit `8f55318`。
+- `css-variable-shorthand-vs-scalar-mapping.md` — CSS 变量映射须区分简写/标量
+- `metadata-priority-inversion-actual-vs-hint.md` — 元数据不能覆盖实际数据
+- `producer-consumer-format-contract.md` — 生产/消费格式契约须在边界校验
