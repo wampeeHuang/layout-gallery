@@ -1021,8 +1021,8 @@
   },
   {
     "slug": "anthropic",
-    "name": "Anthropic",
-    "tagline": "Editorial warmth with mixed serif-sans hierarchy and layered card elevation; weighty yet inviting — the research-institution aesthetic.",
+    "name": "人类学",
+    "tagline": "衬线与非衬线混排的编辑温度，层叠卡片与柔和阴影 — 研究机构般厚重而亲切的美学。",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
     "design_style": "editorial",
@@ -1038,27 +1038,15 @@
     "scheme": "mixed",
     "palette": [
       {
-        "name": "bg",
+        "name": "底色",
         "color": "#faf9f5"
       },
       {
-        "name": "bg_alt",
+        "name": "卡片",
         "color": "#f5f4ed"
       },
       {
-        "name": "bg_dark",
-        "color": "#141413"
-      },
-      {
-        "name": "bg_dark_alt",
-        "color": "#1c1c1a"
-      },
-      {
-        "name": "bg_light",
-        "color": "#ffffff"
-      },
-      {
-        "name": "fg",
+        "name": "深色",
         "color": "#141413"
       }
     ],
@@ -1301,8 +1289,8 @@
   },
   {
     "slug": "biennale-yellow",
-    "name": "Biennale Yellow",
-    "tagline": "Solar yellow on warm parchment with deep indigo serif and atmospheric sun-glow gradients.",
+    "name": "双年展黄",
+    "tagline": "太阳黄落在暖羊皮纸上，深靛蓝衬线字配大气光晕渐变。",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
     "design_style": "editorial",
@@ -1318,24 +1306,16 @@
     "scheme": "light",
     "palette": [
       {
-        "name": "paper",
+        "name": "纸色",
         "color": "#E9E5DB"
       },
       {
-        "name": "ink",
+        "name": "墨色",
         "color": "#1B2566"
       },
       {
-        "name": "sun",
+        "name": "日光",
         "color": "#F1EE2E"
-      },
-      {
-        "name": "ember",
-        "color": "#E26B4A"
-      },
-      {
-        "name": "haze",
-        "color": "#F0DA7C"
       }
     ],
     "displayFont": "Instrument Serif",
@@ -1602,8 +1582,8 @@
   },
   {
     "slug": "bold-poster",
-    "name": "Bold Poster",
-    "tagline": "Editorial poster aesthetic with massive Shrikhand display and a single fire-engine red accent.",
+    "name": "大胆海报",
+    "tagline": "编辑海报美学 — 巨大的 Shrikhand 展示字体，单一火红强调色。",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
     "design_style": "editorial",
@@ -1618,20 +1598,16 @@
     "scheme": "light",
     "palette": [
       {
-        "name": "bg",
+        "name": "底色",
         "color": "#FFFFFF"
       },
       {
-        "name": "dark",
+        "name": "深色",
         "color": "#1C1410"
       },
       {
-        "name": "red",
+        "name": "红色",
         "color": "#D8000F"
-      },
-      {
-        "name": "light",
-        "color": "#F5F2EF"
       }
     ],
     "displayFont": "Shrikhand",
@@ -1668,8 +1644,8 @@
   },
   {
     "slug": "broadside",
-    "name": "Broadside",
-    "tagline": "Dark editorial canvas with a single fire orange accent and bilingual Latin/Chinese type stack.",
+    "name": "大报",
+    "tagline": "深色编辑画布配单一火焰橙强调色，中英文混排字体栈。",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
     "design_style": "editorial",
@@ -1684,28 +1660,16 @@
     "scheme": "dark",
     "palette": [
       {
-        "name": "bg",
+        "name": "底色",
         "color": "#111111"
       },
       {
-        "name": "bg_alt",
+        "name": "卡片",
         "color": "#1a1a18"
       },
       {
-        "name": "fg",
+        "name": "文字",
         "color": "#f0ece5"
-      },
-      {
-        "name": "accent",
-        "color": "#e85d26"
-      },
-      {
-        "name": "border",
-        "color": "#282826"
-      },
-      {
-        "name": "muted",
-        "color": "#888880"
       }
     ],
     "displayFont": "Barlow",
@@ -1897,8 +1861,8 @@
   },
   {
     "slug": "capsule",
-    "name": "Capsule",
-    "tagline": "Modular pill-shaped cards on warm bone with a full pastel-pop palette.",
+    "name": "胶囊",
+    "tagline": "暖骨底色的胶囊卡片系统，Bodoni Moda + Space Grotesk 字体，八色彩盘活泼跳跃。",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
     "design_style": "playful",
@@ -1914,28 +1878,36 @@
     "scheme": "light",
     "palette": [
       {
-        "name": "bg",
-        "color": "#F5F5F0"
-      },
-      {
-        "name": "fg",
-        "color": "#1A1A1A"
-      },
-      {
-        "name": "coral",
+        "name": "珊瑚",
         "color": "#E85D4E"
       },
       {
-        "name": "lime",
+        "name": "青柠",
         "color": "#C4D94E"
       },
       {
-        "name": "lavender",
+        "name": "薰衣草",
         "color": "#C5B5E0"
       },
       {
-        "name": "sky",
+        "name": "天蓝",
         "color": "#8BB4F7"
+      },
+      {
+        "name": "紫罗兰",
+        "color": "#A06CE8"
+      },
+      {
+        "name": "黄",
+        "color": "#F2D160"
+      },
+      {
+        "name": "桃",
+        "color": "#F5B895"
+      },
+      {
+        "name": "薄荷",
+        "color": "#A8E6CF"
       }
     ],
     "displayFont": "Bodoni Moda",
@@ -2184,8 +2156,8 @@
   },
   {
     "slug": "coral",
-    "name": "Coral",
-    "tagline": "Cream and coral on near-black, set in oversized Bebas Neue.",
+    "name": "珊瑚",
+    "tagline": "奶油底色与珊瑚红双色碰撞，Bebas Neue 超大号标题字，温润却不失锐利。",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
     "design_style": "playful",
@@ -2200,28 +2172,20 @@
     "scheme": "mixed",
     "palette": [
       {
-        "name": "coral",
+        "name": "珊瑚",
         "color": "#E85D5D"
       },
       {
-        "name": "coral_dark",
+        "name": "深珊瑚",
         "color": "#D44A4A"
       },
       {
-        "name": "cream",
+        "name": "奶油",
         "color": "#F5F0E8"
       },
       {
-        "name": "cream_dark",
+        "name": "深奶油",
         "color": "#E8E0D4"
-      },
-      {
-        "name": "ink",
-        "color": "#1A1A1A"
-      },
-      {
-        "name": "gray",
-        "color": "#6B6B6B"
       }
     ],
     "displayFont": "Bebas Neue",
@@ -2273,8 +2237,8 @@
   },
   {
     "slug": "creative-mode",
-    "name": "Creative Mode",
-    "tagline": "Cream paper canvas with confident multi-color (green, pink, orange, yellow) accents and Archivo Black display.",
+    "name": "创作模式",
+    "tagline": "奶油纸底色，绿、粉、橙、黄多彩点缀，Archivo Black 标题字自信有力。",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
     "design_style": "playful",
@@ -2289,27 +2253,35 @@
     "scheme": "light",
     "palette": [
       {
-        "name": "cream",
+        "name": "奶油",
         "color": "#EFE9D9"
       },
       {
-        "name": "cream_2",
+        "name": "深奶油",
         "color": "#E4DCC4"
       },
       {
-        "name": "green",
+        "name": "绿",
         "color": "#1F8A4C"
       },
       {
-        "name": "pink",
+        "name": "深绿",
+        "color": "#136636"
+      },
+      {
+        "name": "粉",
         "color": "#F06CA8"
       },
       {
-        "name": "orange",
+        "name": "深粉",
+        "color": "#D14E8B"
+      },
+      {
+        "name": "橙",
         "color": "#E85A1F"
       },
       {
-        "name": "yellow",
+        "name": "黄",
         "color": "#F5C518"
       }
     ],
@@ -2382,8 +2354,8 @@
   },
   {
     "slug": "daisy-days",
-    "name": "Daisy Days",
-    "tagline": "Cheerful pastel deck with hand-drawn daisies, stars, and rainbows. Friendly, soft, and warm.",
+    "name": "雏菊日",
+    "tagline": "粉彩手绘雏菊与彩虹星雨，圆润展示字配柔和圆体正文，轻松活泼。",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
     "design_style": "playful",
@@ -2399,28 +2371,40 @@
     "scheme": "light",
     "palette": [
       {
-        "name": "cream",
+        "name": "奶油",
         "color": "#F5F0E6"
       },
       {
-        "name": "turquoise",
+        "name": "绿松",
         "color": "#7ECDC0"
       },
       {
-        "name": "soft_pink",
+        "name": "柔粉",
         "color": "#F7C8D4"
       },
       {
-        "name": "butter",
+        "name": "黄油",
         "color": "#FDE68A"
       },
       {
-        "name": "mint",
+        "name": "薄荷",
         "color": "#A8E6CF"
       },
       {
-        "name": "lavender",
+        "name": "薰衣草",
         "color": "#D4A5E8"
+      },
+      {
+        "name": "桃",
+        "color": "#FFCBA4"
+      },
+      {
+        "name": "天蓝",
+        "color": "#A8D8F0"
+      },
+      {
+        "name": "珊瑚",
+        "color": "#F8635F"
       }
     ],
     "displayFont": "Fredoka One",
@@ -2532,8 +2516,8 @@
   },
   {
     "slug": "editorial-tri-tone",
-    "name": "Editorial Tri-Tone",
-    "tagline": "Three-color editorial system: dusty pink, mustard cream, and deep burgundy, set in Bricolage + Instrument Serif.",
+    "name": "编辑三色调",
+    "tagline": "三色编辑系统：灰粉、芥末奶油、深酒红，Bricolage + Instrument Serif 字体组合。",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
     "design_style": "editorial",
@@ -2548,15 +2532,15 @@
     "scheme": "mixed",
     "palette": [
       {
-        "name": "pink",
+        "name": "粉色",
         "color": "#F2B6C6"
       },
       {
-        "name": "cream_yellow",
+        "name": "奶油",
         "color": "#F2D86A"
       },
       {
-        "name": "burgundy",
+        "name": "酒红",
         "color": "#7A1F35"
       }
     ],
@@ -3469,8 +3453,8 @@
   },
   {
     "slug": "neo-grid-bold",
-    "name": "Neo-Grid Bold",
-    "tagline": "Editorial neo-brutalism with a single neon yellow accent on off-white paper.",
+    "name": "新网格粗体",
+    "tagline": "编辑新粗野主义 — 米白纸张上单一霓虹黄强调色。",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
     "design_style": "editorial",
@@ -3485,24 +3469,16 @@
     "scheme": "light",
     "palette": [
       {
-        "name": "bg",
+        "name": "底色",
         "color": "#ECECE8"
       },
       {
-        "name": "ink",
+        "name": "墨色",
         "color": "#0A0A0A"
       },
       {
-        "name": "paper",
+        "name": "纸张",
         "color": "#F5F4EF"
-      },
-      {
-        "name": "accent",
-        "color": "#E6FF3D"
-      },
-      {
-        "name": "muted",
-        "color": "#8A8A85"
       }
     ],
     "displayFont": "Space Grotesk",
@@ -3549,8 +3525,8 @@
   },
   {
     "slug": "peoples-platform",
-    "name": "People's Platform (Block & Bold)",
-    "tagline": "Activist poster energy: blue, orange, red on cream, with Alfa Slab + Caveat Brush.",
+    "name": "人民平台",
+    "tagline": "蓝、橙、红三色宣言海报风，Alfa Slab + Caveat Brush 字体，粗粝力量感。",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
     "design_style": "playful",
@@ -3565,24 +3541,32 @@
     "scheme": "light",
     "palette": [
       {
-        "name": "blue",
+        "name": "蓝",
         "color": "#2C2CDC"
       },
       {
-        "name": "orange",
+        "name": "深蓝",
+        "color": "#1B1BB0"
+      },
+      {
+        "name": "橙",
         "color": "#F2A03A"
       },
       {
-        "name": "red",
+        "name": "深橙",
+        "color": "#E89321"
+      },
+      {
+        "name": "红",
         "color": "#E83A2A"
       },
       {
-        "name": "cream",
-        "color": "#F4E9D6"
+        "name": "深红",
+        "color": "#B7281C"
       },
       {
-        "name": "ink",
-        "color": "#0E0E14"
+        "name": "奶油",
+        "color": "#F4E9D6"
       }
     ],
     "displayFont": "Alfa Slab One",
@@ -3786,8 +3770,8 @@
   },
   {
     "slug": "playful",
-    "name": "Playful",
-    "tagline": "Sun-warm peach background with Syne display: a friendly indie launch deck.",
+    "name": "玩趣",
+    "tagline": "暖桃色底色，Syne 宽体标题字，独立厂牌式的友好与松弛。",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
     "design_style": "playful",
@@ -3802,19 +3786,15 @@
     "scheme": "light",
     "palette": [
       {
-        "name": "bg",
+        "name": "暖桃",
         "color": "#F0C8A0"
       },
       {
-        "name": "bg_alt",
+        "name": "深桃",
         "color": "#E8B88E"
       },
       {
-        "name": "text",
-        "color": "#1A1A1A"
-      },
-      {
-        "name": "light",
+        "name": "浅桃",
         "color": "#F7DEC6"
       }
     ],
@@ -4286,8 +4266,8 @@
   },
   {
     "slug": "scatterbrain",
-    "name": "Scatterbrain",
-    "tagline": "Post-it inspired: pastel sticky notes, Caveat handwriting, Shrikhand and Zilla Slab type stack.",
+    "name": "散脑",
+    "tagline": "便利贴拼贴风，粉彩便签，Caveat 手写体混搭 Shrikhand + Zilla Slab，随性创作。",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
     "design_style": "playful",
@@ -4303,28 +4283,48 @@
     "scheme": "light",
     "palette": [
       {
-        "name": "yellow",
-        "color": "#FFE066"
+        "name": "黄",
+        "color": "#ffe066"
       },
       {
-        "name": "blue",
-        "color": "#A5D8FF"
+        "name": "深黄",
+        "color": "#ffd43b"
       },
       {
-        "name": "pink",
-        "color": "#FFC9C9"
+        "name": "蓝",
+        "color": "#a5d8ff"
       },
       {
-        "name": "green",
-        "color": "#B2F2BB"
+        "name": "深蓝",
+        "color": "#74c0fc"
       },
       {
-        "name": "orange",
-        "color": "#FFCC80"
+        "name": "粉",
+        "color": "#ffc9c9"
       },
       {
-        "name": "purple",
-        "color": "#D0BFFF"
+        "name": "深粉",
+        "color": "#ff9f9f"
+      },
+      {
+        "name": "绿",
+        "color": "#b2f2bb"
+      },
+      {
+        "name": "深绿",
+        "color": "#8ce99a"
+      },
+      {
+        "name": "橙",
+        "color": "#ffcc80"
+      },
+      {
+        "name": "紫",
+        "color": "#d0bfff"
+      },
+      {
+        "name": "奶油",
+        "color": "#faf8f3"
       }
     ],
     "displayFont": "Shrikhand",
@@ -4641,8 +4641,8 @@
   },
   {
     "slug": "soft-editorial",
-    "name": "Soft Editorial",
-    "tagline": "Cormorant Garamond serif on warm paper with sage, blush, and lemon accents.",
+    "name": "柔编辑",
+    "tagline": "Cormorant Garamond 衬线字落暖纸上，鼠尾绿、腮红粉、柠檬黄三色点缀。",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
     "design_style": "editorial",
@@ -4657,28 +4657,16 @@
     "scheme": "light",
     "palette": [
       {
-        "name": "paper",
+        "name": "纸色",
         "color": "#F2EEDF"
       },
       {
-        "name": "ink",
+        "name": "墨色",
         "color": "#2A241B"
       },
       {
-        "name": "pink",
+        "name": "粉色",
         "color": "#E1A4C2"
-      },
-      {
-        "name": "lemon",
-        "color": "#D6DD63"
-      },
-      {
-        "name": "blush",
-        "color": "#E8C9B6"
-      },
-      {
-        "name": "sage",
-        "color": "#B7C7A8"
       }
     ],
     "displayFont": "Cormorant Garamond",
@@ -4850,8 +4838,8 @@
   },
   {
     "slug": "studio",
-    "name": "Studio",
-    "tagline": "Black canvas with electric-yellow type; high-voltage design studio aesthetic.",
+    "name": "工作室",
+    "tagline": "黑底电光黄双色系统，Barlow 极粗体标题，高电压设计工作室气质。",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
     "design_style": "playful",
@@ -4867,24 +4855,20 @@
     "scheme": "dark",
     "palette": [
       {
-        "name": "bg",
+        "name": "黑",
         "color": "#1c1c1c"
       },
       {
-        "name": "bg_alt",
+        "name": "深灰",
         "color": "#242422"
       },
       {
-        "name": "fg",
+        "name": "电光黄",
         "color": "#f5d200"
       },
       {
-        "name": "accent",
-        "color": "#f5d200"
-      },
-      {
-        "name": "bg_light",
-        "color": "#f5d200"
+        "name": "浅黄",
+        "color": "#f0cc00"
       }
     ],
     "displayFont": "Barlow",
@@ -5071,8 +5055,8 @@
   },
   {
     "slug": "vellum",
-    "name": "Vellum",
-    "tagline": "Deep navy canvas with warm-yellow italic Cormorant serifs and a single dusty teal accent. A quiet, scholarly aesthetic.",
+    "name": "羊皮纸",
+    "tagline": "深海军蓝画布配暖黄斜体 Cormorant 衬线字与灰青绿强调色。安静、学者气质。",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
     "design_style": "editorial",
@@ -5088,20 +5072,16 @@
     "scheme": "dark",
     "palette": [
       {
-        "name": "bg",
+        "name": "底色",
         "color": "#2a3870"
       },
       {
-        "name": "bg_alt",
+        "name": "卡片",
         "color": "#343f80"
       },
       {
-        "name": "fg",
+        "name": "文字",
         "color": "#E8D85C"
-      },
-      {
-        "name": "accent",
-        "color": "#3a7878"
       }
     ],
     "displayFont": "Cormorant Garamond Italic",
@@ -5298,8 +5278,8 @@
   },
   {
     "slug": "warm-terminal",
-    "name": "Warm Terminal",
-    "tagline": "Warm cream editorial meets dark terminal precision; Geist + Petrona, purple accent, mono code blocks.",
+    "name": "温暖终端",
+    "tagline": "温暖奶油编辑风遇见暗色终端精确感；Geist + Petrona，紫色强调，等宽代码块。",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
     "design_style": "editorial",
@@ -5315,28 +5295,16 @@
     "scheme": "mixed",
     "palette": [
       {
-        "name": "bg",
+        "name": "底色",
         "color": "#F7F3EF"
       },
       {
-        "name": "bg_alt",
+        "name": "卡片",
         "color": "#ECE5DD"
       },
       {
-        "name": "text",
+        "name": "正文",
         "color": "#1A1C21"
-      },
-      {
-        "name": "dark",
-        "color": "#1A1C21"
-      },
-      {
-        "name": "accent",
-        "color": "#6e56cf"
-      },
-      {
-        "name": "green",
-        "color": "#3fb950"
       }
     ],
     "displayFont": "Geist",
@@ -6841,8 +6809,8 @@
   },
   {
     "slug": "dribbble",
-    "name": "Dribbble",
-    "tagline": "Dribbble 品牌 — 经典粉 #EA4C89，Inter 字体，重阴影大圆角",
+    "name": "淘设计",
+    "tagline": "经典粉色系电商卡片，粗体标题字，重阴影大圆角，产品展示页。",
     "skill": "design-systems",
     "template_type": "brand_kit",
     "design_style": "playful",
@@ -6856,24 +6824,16 @@
     "scheme": "light",
     "palette": [
       {
-        "name": "Dribbble Pink",
+        "name": "经典粉",
         "color": "#EA4C89"
       },
       {
-        "name": "Surface Raised",
+        "name": "浅粉",
+        "color": "#ff6aa7"
+      },
+      {
+        "name": "粉白",
         "color": "#FEFEFD"
-      },
-      {
-        "name": "Heading",
-        "color": "#1D1C27"
-      },
-      {
-        "name": "Text Secondary",
-        "color": "#5C5B60"
-      },
-      {
-        "name": "Surface Base",
-        "color": "#000000"
       }
     ],
     "displayFont": "Inter",

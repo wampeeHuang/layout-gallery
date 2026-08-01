@@ -581,7 +581,7 @@ function buildTypeScaleTable(groups, brandKit) {
   if (bkItems && bkItems.length > 0) {
     return bkItems.map(t => {
       const val = t.size || t.value;
-      const label = t.name.replace('--brand-t-', '');
+      const label = (t.name || t.level || '?').replace('--brand-t-', '').replace('--sz-', '');
       const pxVal = cssValToPx(val);
       const sizeStyle = pxVal > 0 ? 'font-size:' + Math.min(pxVal, 40) + 'px;font-weight:700' : '';
       return '<tr><td>' + (sizeStyle ? '<span style="' + sizeStyle + '">' + capitalize(label) + '</span>' : capitalize(label)) +

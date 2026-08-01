@@ -153,17 +153,15 @@ function extractRadius(tokensData) {
 
 function extractShadow(tokensData) {
   const vars = flattenTokens(tokensData);
-  return vars['--shadow-md']
-    || vars['--shadow-sm']
-    || vars['--shadow']
-    || vars['--dtcg-semantic-shadow-elevated']
-    || vars['--dtcg-primitive-shadow-sh0']
-    || '0px 4px 15px 0px rgba(0,0,0,0.1)';
+  return {
+    sm: vars['--shadow-sm'] || '0 1px 3px rgba(0,0,0,0.06)',
+    md: vars['--shadow-md'] || '0 8px 30px rgba(0,0,0,0.1)'
+  };
 }
 
 function extractPageWidth(tokensData) {
   const vars = flattenTokens(tokensData);
-  return vars['--page-w'] || '1200px';
+  return vars['--page-wmax'] || vars['--page-w'] || '1200px';
 }
 
 function extractGutter(tokensData) {
@@ -225,6 +223,17 @@ function darken(hex, amount) {
   const g = Math.max(0, parseInt(h.substring(2, 4), 16) - amount);
   const b = Math.max(0, parseInt(h.substring(4, 6), 16) - amount);
   return '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('');
+}
+
+function isLightColor(hex) {
+  if (!hex || !hex.startsWith('#')) return true; // default: treat as light
+  let h = hex.replace('#', '');
+  if (h.length === 3) h = h.split('').map(c => c + c).join('');
+  const r = parseInt(h.substring(0, 2), 16);
+  const g = parseInt(h.substring(2, 4), 16);
+  const b = parseInt(h.substring(4, 6), 16);
+  // Relative luminance approximation
+  return (0.299 * r + 0.587 * g + 0.114 * b) > 150;
 }
 
 function esc(s) {
@@ -347,6 +356,32 @@ function buildTokenCSS(roles, typo, radius, shadow, pageW, gutter, tokensData) {
   const fontBody = typo.body || vars['--font-body'] || 'Inter, sans-serif';
   const fontMono = vars['--font-mono'] || vars['--mono'] || '"SF Mono", Consolas, monospace';
 
+  // Skeleton extension vars (pre-existing, used without fallbacks in some skeletons)
+  const bgAlt = vars['--bg-alt'] || roles.surface;
+  const textOnAccent = vars['--text-on-accent'] || (isLightColor(roles.primary) ? '#1a1a1a' : '#ffffff');
+
+  // Collect non-color tokens from tokens.json to pass through
+  const extraLines = [];
+  const alreadyDeclared = new Set([
+    '--accent', '--accent-hover', '--accent-dark', '--accent-alt',
+    '--bg', '--bg-soft', '--text', '--text-soft', '--line', '--line-soft', '--surface',
+    '--text-rgb', '--bg-rgb', '--accent-rgb',
+    '--font-display', '--font-body', '--font-mono',
+    '--radius', '--shadow-sm', '--shadow-md', '--shadow-solid', '--shadow-block',
+    '--ease-default', '--ease-hover', '--duration-base',
+    '--page-wmax', '--page-pad', '--gap', '--gutter',
+    '--bg-alt', '--text-on-accent'
+  ]);
+
+  ['typography', 'spacing', 'radius', 'shadow', 'motion'].forEach(cat => {
+    (tokensData.tokens[cat] || []).forEach(t => {
+      if (!alreadyDeclared.has(t.name)) {
+        extraLines.push('  ' + t.name + ': ' + t.value + ';');
+        alreadyDeclared.add(t.name);
+      }
+    });
+  });
+
   return `:root {
   --accent: ${roles.primary};
   --accent-hover: ${accentHover};
@@ -359,6 +394,8 @@ function buildTokenCSS(roles, typo, radius, shadow, pageW, gutter, tokensData) {
   --line: ${roles.border};
   --line-soft: ${lineSoft};
   --surface: ${roles.surface};
+  --bg-alt: ${bgAlt};
+  --text-on-accent: ${textOnAccent};
   --text-rgb: ${textRgb};
   --bg-rgb: ${bgRgb};
   --accent-rgb: ${accentRgb};
@@ -366,13 +403,18 @@ function buildTokenCSS(roles, typo, radius, shadow, pageW, gutter, tokensData) {
   --font-body: ${fontBody};
   --font-mono: ${fontMono};
   --radius: ${radius};
-  --shadow: ${shadow};
+  --shadow-sm: ${shadow.sm};
+  --shadow-md: ${shadow.md};
   --shadow-solid: ${shadowSolid};
   --shadow-block: ${shadowBlock};
   --ease-default: ${easeDefault};
   --ease-hover: ${easeHover};
-  --page-w: ${pageW};
+  --duration-base: 150ms;
+  --page-wmax: ${pageW};
+  --page-pad: 32px;
+  --gap: 24px;
   --gutter: ${gutter};
+${extraLines.join('\n')}
 }`;
 }
 
@@ -555,7 +597,7 @@ function buildRetroZineContent(entry) {
     ZINE_ED_TITLE: 'Product<br>Roadmap',
     ZINE_ED_ISSUE: 'FY 2026 / 2027',
     ZINE_ED_COL1: '<span class="ed-drop">P</span>hase one is about foundation — refining our core platform, improving onboarding velocity, and expanding our API surface. <span class="ed-highlight">Enterprise clients</span> with stricter compliance needs are our priority.',
-    ZINE_ED_COL2: '<strong style="font-family: var(--display); font-size: 18px; letter-spacing: 2px;">PHASE TWO: SCALE</strong><br><br>Next quarter we shift from build mode to distribution. International expansion, two new regions, localized support.<br><br><em style="font-family: var(--hand, cursive); font-size: 22px;">Speed without sacrifice is the goal.</em>',
+    ZINE_ED_COL2: '<strong style="font-family: var(--font-display); font-size: 18px; letter-spacing: 2px;">PHASE TWO: SCALE</strong><br><br>Next quarter we shift from build mode to distribution. International expansion, two new regions, localized support.<br><br><em style="font-family: var(--hand, cursive); font-size: 22px;">Speed without sacrifice is the goal.</em>',
     ZINE_NUMBERS_HEADER: 'Our Core Values',
     ZINE_NUM1_LABEL: 'Clarity', ZINE_NUM1_DESC: 'Complex problems deserve simple explanations.',
     ZINE_NUM2_LABEL: 'Velocity', ZINE_NUM2_DESC: 'Ship fast, learn faster, iterate always.',

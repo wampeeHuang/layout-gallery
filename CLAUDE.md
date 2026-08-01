@@ -85,6 +85,143 @@ GET /api/design-styles → 风格大类 + 模板数
 
 总计 43 模板（含在 3 个来源目录下）。
 
+## 存量模板迁移工作流
+
+将旧模板从 archive 恢复到标准化管线，11 个 editorial 模板实战验证。
+
+### 执行步骤
+
+```
+1. 从 _archive-*.zip 恢复旧 template.html
+2. 提取旧 :root → 识别 palette 变量 vs 待映射变量
+3. VAR_MAP 映射旧命名 → 标准合约名（--c-* / --color-* / --paper/--ink → --bg/--text）
+4. buildStandardRoot(tokens.json) → 生成标准化 :root（29 个合约变量 + 全部分类 token passthrough）
+5. extractPreservedVars(旧:root, 标准:root行) → 保留模板特有 palette 变量
+6. replaceVarRefs() → CSS 中 var(--旧名) → var(--标准名)
+7. stripGoogleFonts() → 删 <link> 和 @import，字体名替换为系统字体栈
+8. fixTokensColorNames() + fixTokensFonts() → tokens.json 同步修正
+9. 补 brandKit.typeScale + spacingScale（从模板 CSS 推断）
+10. 翻译内容为中文（模板 HTML + registry name/tagline/palette）
+11. validate-templates.js → 验证通过
+12. curl /brand/:slug → 验证无 broken ref、无 Google Fonts、无空白页
+```
+
+### AI 判断 vs 自动化
+
+| 步骤 | 性质 | 原因 |
+|------|------|------|
+| 恢复旧 HTML、提取 :root | **自动化** | 正则匹配，无判断 |
+| VAR_MAP 映射 | **自动化** | 查表替换 |
+| 识别 palette vs 待映射变量 | **AI 判断** | `--ink` 在 A 模板是语义别名→映射，在 B 模板是 palette 色→保留；碰撞判定需语义理解 |
+| 生成标准化 :root | **自动化** | `buildStandardRoot()` |
+| 保留 palette 变量 | **自动化** | `extractPreservedVars()` — 排他逻辑：不在标准合约 + 不在 VAR_MAP + 不在 mappedConventions = 保留 |
+| 替换 var() 引用 | **自动化** | VAR_MAP 查表 |
+| 删 Google Fonts | **自动化** | 正则匹配 |
+| typeScale/spacingScale 推断 | **AI 判断** | 需从 CSS font-size/gap/padding 提取并归纳为合理层级 |
+| 内容翻译 | **AI 判断** | 自然语言 |
+| registry 元数据 | **AI 判断** | name/tagline 需理解模板风格后撰写 |
+| 验证 | **自动化** | `validate-templates.js` |
+| 浏览器验证 | **自动化** | curl + grep broken refs / Google Fonts / 空白页 |
+
+### AI 判断四原则
+
+#### 1. 变量碰撞判定
+
+问题：旧模板 `--ink: #xxx` 是语义别名（→ 映射为 `--text`）还是 palette 色（→ 保留原名原值）？
+
+**判定标准（按顺序，命中即停）：**
+
+| 优先级 | 判据 | 动作 |
+|--------|------|------|
+| 1 | 变量名在 VAR_MAP 中 → 查该模板 CSS 中此变量的**用途** | |
+| 1a | 仅用于 `color:` / `background:` / `fill:` 等颜色属性 → 可能是 palette | 检查周围变量：同模板有 `--pink` `--cream` 等明显 palette 命名 → **保留** |
+| 1b | 用于 `font-family:` / `font-size:` 等排版属性 → 是排版别名 | **映射** |
+| 1c | 用于正文 `body { color: var(--ink) }` 且无其他 palette 变量 → 是语义别名 | **映射** |
+| 2 | 变量名不在 VAR_MAP → 不在标准合约 → 不匹配任何 mappedConventions | **保留**（当前 `extractPreservedVars` 逻辑） |
+| 3 | 同名变量在多个旧模板出现且值各不相同 → 是 palette 色 | **保留** |
+
+**硬规则：** 变量去留判定后，必须在对应模板目录写 `MIGRATION.md` 记录每个变量的判定结果和依据。不要裸跑不留痕。
+
+#### 2. typeScale / spacingScale 推断
+
+从模板 CSS 中提取并归纳为 8 级字号 + 3 级间距。
+
+**字号推断（必须产出 8 个 token）：**
+
+```
+--sz-display : 最大字号（hero 区 h1 或等效，含 clamp() 则保留）
+--sz-h1      : 次大字号
+--sz-h2      : 第三级
+--sz-h3      : 第四级
+--sz-lead    : 导语/引言字号（略大于 body）
+--sz-body    : 正文基准（模板中最常见的基础字号）
+--sz-caption : 图注/辅助文字（< body）
+--sz-label   : 最小功能字号（tag/pill/按钮）
+```
+
+**提取方法：** 对模板 CSS 所有 `font-size` 值 → 去重 → 从大到小排序 → 按密度取 8 个层级。clamp() 值原样保留不展开。
+
+**间距推断（必须产出 3 个 token）：**
+
+```
+--gap-lg : 段落/区块级间距（取 gap/padding 中最大的 1-2 个值）
+--gap-md : 卡片/组件内间距（取中位数附近）
+--gap-sm : 标签/按钮内间距（取最小的 1-2 个值）
+```
+
+**硬规则：** 值必须来自模板实际 CSS，不许凭空捏造。deck-stage 模板（1920×1080）的字号通常很大（100-500px），这是正常的，不要"修正"为标准网页字号。
+
+#### 3. 内容翻译
+
+**翻译范围：** 所有 `>` 和 `<` 之间的可见文本。不译：CSS 变量名、class 名、字体名、邮箱地址。
+
+**质量门禁：**
+- 翻译后 HTML 中残留英文（非专有名词）>10 个单词 → 不合格
+- 短文本（<20 字）用 `>原始<` → `>译文<` 边界替换，安全且精确
+- 长文本（>40 字）用精确字符串全局替换
+- 含内联 HTML 标签的文本（`<em>` `<br/>` `<strong>`）→ 整个原文精确匹配替换
+
+**硬规则：** 先 `extractEnglishTexts()` 导出全部英文文本清单 → AI 过一遍确认范围 → 再翻译。不要边翻译边发现新文本。
+
+#### 4. name / tagline 撰写
+
+**name（4-8 字）：** 中文名必须独立表意，不让用户需要看懂英文原名。
+- 直译优先（Biennale Yellow → 双年展黄）
+- 直译不通时取风格特征（Anthropic → 人类学，取模板的研究机构气质）
+- 不加"模板""风格""版式"等后缀——名字就是名字
+
+**tagline（15-40 字）：** 一句话说清三个东西：字体特征 + 配色特征 + 整体气质。
+- 模式：`[字体] + [配色] + [氛围]`
+- 例：`三色编辑系统：灰粉、芥末奶油、深酒红，Bricolage + Instrument Serif 字体组合。`
+- 专有名词保留原名（字体名、颜色 hex 值）
+- 不加"这个模板""适用于"等元描述——写模板是什么，不写用来干什么
+
+**palette 色板名称：** 用中文描述色相，不直译英文。`cream_yellow` → `奶油` 不是 `奶油黄`。3 字以内。
+
+**硬规则：** 写完后读一遍——去掉模板名，只读 tagline，能猜到说的是哪个模板吗？猜不到 = 重写。
+
+### 本次踩坑及管线硬化
+
+| 坑 | 根因 | 硬化措施 |
+|----|------|----------|
+| 5 模板空白 — palette 颜色全部丢失 | `extractPreservedVars(oldRoot)` 调用缺 `standardLines` 参数 → `standardLines.forEach` 对 undefined 静默失败 | `sync-roots.js` 加 `--preserve` 模式：合成新 :root 后做旧 :root 变量差集检查，缺失 → fail + 报告 |
+| palette 色不进 :root | `buildStandardRoot` 只 passthrough typography/spacing/radius/shadow/motion，漏了 `color` 分类 | 已修复：passthrough 数组加 `'color'` |
+| Google Fonts 去不干净 | 删了 template.html 但 tokens.json 字体 token 值仍是 Google Font 名 | `validate-templates.js` 加 Google Fonts 扫描：template.html + tokens.json 双端检查，命中 → fail |
+| 卡片介绍英文 | 模板内容翻译了但 registry name/tagline 没动 | 新增检查项：模板内容中文 >50% 时，registry name/tagline 必含中文 |
+| `>text<` 边界翻译漏 | 含 `<br/>` `<em>` 等内联标签的文本不匹配 `>text<` 模式 | 翻译用精确字符串替换，不用正则边界匹配 |
+
+### `sync-roots.js` 待改造
+
+当前 `sync-roots.js` 用 `tokens.json → :root` 全量覆盖，**会摧毁模板特有 palette 变量**。改造方向：
+
+```
+当前：tokens.json → 全量替换 :root  →  palette 变量丢失
+改造：tokens.json → 生成标准化行 → 从旧:root提取非合约变量 → 合并 → :root
+      即 buildStandardRoot() + extractPreservedVars() 逻辑内置
+```
+
+加 `--check` 模式时做差集审计：旧 :root 有但新 :root 没有的变量 → 列出 + 分类（合约/映射/palette/未知）。
+
 ## 新增模板（标准工作流）
 
 ```

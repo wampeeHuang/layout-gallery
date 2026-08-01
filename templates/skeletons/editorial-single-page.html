@@ -18,7 +18,7 @@ body {
   overflow-x: hidden;
   background: var(--bg);
   color: var(--text);
-  font-family: var(--body);
+  font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.6;
 }
@@ -26,7 +26,7 @@ body {
 a { color: inherit; text-decoration: none; }
 
 /* ── Page wrapper ──────────────────────────────────────────────── */
-.page { width: min(var(--page-w), calc(100% - 48px)); margin: 0 auto; padding: 24px 0 80px; }
+.page { width: min(var(--page-wmax), calc(100% - 48px)); margin: 0 auto; padding: 24px 0 80px; }
 
 /* ── Topbar ────────────────────────────────────────────────────── */
 .topbar {
@@ -38,14 +38,14 @@ a { color: inherit; text-decoration: none; }
 
 .wordmark {
   display: inline-flex; align-items: center; gap: 10px;
-  color: var(--text); font-family: var(--display); font-size: 1.05rem;
+  color: var(--text); font-family: var(--font-display); font-size: 1.05rem;
   font-weight: 700; letter-spacing: -0.02em;
 }
 
 .wordmark-mark {
   display: grid; width: 31px; height: 31px; place-items: center;
   background: var(--accent); color: var(--bg);
-  font-family: var(--body); font-size: 0.66rem; font-weight: 800;
+  font-family: var(--font-body); font-size: 0.66rem; font-weight: 800;
 }
 
 /* ── Hero ──────────────────────────────────────────────────────── */
@@ -76,7 +76,7 @@ a { color: inherit; text-decoration: none; }
 
 h1, h2, h3, p { margin: 0; }
 h1, h2, .quote-text {
-  font-family: var(--display); font-weight: 700;
+  font-family: var(--font-display); font-weight: 700;
 }
 
 h1 {
@@ -97,7 +97,7 @@ h1 {
   justify-content: center; padding: 0 18px;
   border: 1px solid var(--text); font-size: 0.83rem; font-weight: 800;
   transition: background var(--ease-default, 0.18s ease), color var(--ease-default, 0.18s ease), transform var(--ease-default, 0.18s ease);
-  cursor: pointer; font-family: var(--body);
+  cursor: pointer; font-family: var(--font-body);
 }
 
 .button:hover { transform: translate(-2px, -2px); }
@@ -150,7 +150,7 @@ h1 {
 .card:hover { background: var(--text); color: var(--bg); }
 
 .card h3 {
-  margin-bottom: 13px; font-family: var(--display);
+  margin-bottom: 13px; font-family: var(--font-display);
   font-size: 1.55rem; line-height: 1.08; letter-spacing: -0.04em;
 }
 
@@ -187,7 +187,7 @@ h1 {
 }
 
 .panel h2 {
-  margin-bottom: 13px; font-family: var(--display);
+  margin-bottom: 13px; font-family: var(--font-display);
   font-size: 1.55rem; line-height: 1.08; letter-spacing: -0.04em;
 }
 
@@ -221,7 +221,7 @@ h1 {
 }
 
 .record-content h3 {
-  max-width: 700px; margin-bottom: 8px; font-family: var(--display);
+  max-width: 700px; margin-bottom: 8px; font-family: var(--font-display);
   font-size: clamp(1.35rem, 2.6vw, 1.85rem);
   line-height: 1.08; letter-spacing: -0.045em;
 }
@@ -239,7 +239,7 @@ h1 {
 .manifesto .eyebrow { color: var(--accent-alt, var(--accent)); }
 
 .manifesto h2 {
-  max-width: 900px; margin-bottom: 20px; font-family: var(--display);
+  max-width: 900px; margin-bottom: 20px; font-family: var(--font-display);
   font-size: clamp(2.6rem, 5.5vw, 5rem);
   line-height: 0.94; letter-spacing: -0.06em;
 }
@@ -268,7 +268,7 @@ h1 {
 }
 
 @media (max-width: 680px) {
-  .page { width: min(100% - 28px, var(--page-w)); padding-top: 14px; }
+  .page { width: min(100% - 28px, var(--page-wmax)); padding-top: 14px; }
   .topbar { flex-direction: column; gap: 8px; padding: 10px 0; }
   .hero { padding-top: 67px; }
   .hero-masthead { margin-bottom: 24px; font-size: 0.62rem; }
