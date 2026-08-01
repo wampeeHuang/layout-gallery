@@ -79,8 +79,7 @@ function validateRootSync(tmplDir, tokensData) {
     rootVars[m[1]] = m[2].trim();
   }
 
-  // Build expected :root values using the same mapping as template-renderer.js
-  // colorRoles map to --accent, --bg, --text, etc.
+  // Build expected :root values from tokens.json
   const cr = (tokensData.brandKit && tokensData.brandKit.colorRoles) ? tokensData.brandKit.colorRoles : {};
   const expected = {};
 
@@ -110,6 +109,68 @@ function validateRootSync(tmplDir, tokensData) {
       mismatchCount++;
       if (mismatchCount <= 3) errors.push(name + ': :root=' + rootVal + ' ≠ tokens.json=' + expectedVal);
     }
+  }
+
+  return errors;
+}
+
+// ── Standard vocabulary gate ─────────────────────────────────────
+// Checks that template tokens.json uses standard CSS var names defined
+// in token-contract.json standardVars. This is the "普通话" enforcement —
+// templates that use domain names (--ink, --oxide) fail this check.
+
+function loadContract() {
+  const contractPath = path.join(PROJECT_DIR, 'meta', 'token-contract.json');
+  const contract = JSON.parse(fs.readFileSync(contractPath, 'utf-8'));
+  return contract;
+}
+
+function validateStandardVars(tmplDir, tokensData) {
+  const errors = [];
+  const contract = loadContract();
+  const standardVars = contract.standardVars;
+  if (!standardVars) {
+    errors.push('token-contract.json 缺少 standardVars 定义');
+    return errors;
+  }
+
+  // Flatten all token names from tokens.json
+  const tokenNames = new Set();
+  for (const tokens of Object.values(tokensData.tokens)) {
+    for (const t of tokens) {
+      tokenNames.add(t.name);
+    }
+  }
+
+  // Check each category's standard vars
+  let missingCount = 0;
+  for (const [category, vars] of Object.entries(standardVars)) {
+    if (category.startsWith('_')) continue; // skip convention comments
+    for (const [stdName, def] of Object.entries(vars)) {
+      if (!tokenNames.has(stdName)) {
+        missingCount++;
+        if (missingCount <= 8) {
+          errors.push('缺标准变量 ' + stdName + ' (' + def.role + ')');
+        }
+      }
+    }
+  }
+
+  if (missingCount > 8) {
+    errors.push('... 共缺 ' + missingCount + ' 个标准变量');
+  }
+
+  // Check colorRoles in brandKit
+  if (tokensData.brandKit && tokensData.brandKit.colorRoles) {
+    const cr = tokensData.brandKit.colorRoles;
+    const requiredRoles = ['primary', 'secondary', 'background', 'text', 'textSecondary', 'border', 'surface'];
+    for (const role of requiredRoles) {
+      if (!cr[role]) {
+        errors.push('brandKit.colorRoles 缺 ' + role);
+      }
+    }
+  } else {
+    errors.push('brandKit.colorRoles 缺失 — 无法推导标准颜色别名');
   }
 
   return errors;
@@ -282,7 +343,7 @@ function main() {
   }
 }
 
-module.exports = { validateAll, reportSummary, validateTokensSchema, validateRootSync };
+module.exports = { validateAll, reportSummary, validateTokensSchema, validateRootSync, validateStandardVars };
 
 if (require.main === module) {
   main();

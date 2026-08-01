@@ -40,7 +40,8 @@
   },
   "scheme": "light",
   "best_for": "Anything that should feel knowingly nostalgic: retro gaming, Y2K-aesthetic brands, creator portfolios with a 90s vibe, tech-history talks, deliberately tongue-in-cheek decks. A great choice anywhere a playful retro reference is the entire point.",
-  "avoid_for": "Decks that need to read as modern, elegant, or institutionally credible \u2014 the Win95 chrome will always read as a costume.",
+  "avoid_for": "Decks that need to read as modern, elegant, or institutionally credible — the Win95 chrome will always read as a costume.",
   "slide_count": 10,
-  "navigation": "inline keyboard handler with on-page nav dots and slide counter"
+  "navigation": "inline keyboard handler with on-page nav dots and slide counter",
+  "design_style": "retro"
 }

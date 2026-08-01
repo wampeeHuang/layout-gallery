@@ -44,7 +44,8 @@
   },
   "scheme": "mixed",
   "best_for": "Anything that should feel organic, considered, and grown-up: sustainability and wellness brands, outdoor / nature products, wineries and restaurants, literary or arts decks, advisory deliverables, bilingual EN/CN reports. Also a calm, distinctive choice for tech, research, or business decks that want patience over urgency.",
-  "avoid_for": "Decks that need neon energy or rapid-fire pop \u2014 the forest-green canvas and Playfair serif commit to a slow, classical voice.",
+  "avoid_for": "Decks that need neon energy or rapid-fire pop — the forest-green canvas and Playfair serif commit to a slow, classical voice.",
   "slide_count": 12,
-  "navigation": "inline keyboard handler"
+  "navigation": "inline keyboard handler",
+  "design_style": "organic"
 }

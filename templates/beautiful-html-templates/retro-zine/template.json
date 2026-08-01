@@ -40,7 +40,8 @@
   },
   "scheme": "light",
   "best_for": "Anything that should feel printed, lo-fi, and crafted: indie zines and publications, music / arts brands, creator portfolios, small-batch craft launches, community decks. Also a great underdog choice for tech, research, or business decks that want a riso-print warmth instead of digital polish.",
-  "avoid_for": "Contexts that demand digital-native polish or fast modern-tech energy \u2014 the layered zine aesthetic intentionally feels handmade.",
+  "avoid_for": "Contexts that demand digital-native polish or fast modern-tech energy — the layered zine aesthetic intentionally feels handmade.",
   "slide_count": 10,
-  "navigation": "inline keyboard handler with on-page slide counter"
+  "navigation": "inline keyboard handler with on-page slide counter",
+  "design_style": "retro"
 }

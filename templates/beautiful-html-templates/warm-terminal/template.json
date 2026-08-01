@@ -45,5 +45,6 @@
   "best_for": "Anything that should bridge human warmth and technical precision: SaaS pitches, developer tool launches, API documentation, design system presentations. The cream base with dark terminal cards creates a \"warm tools\" aesthetic — inviting but serious.",
   "avoid_for": "Contexts that need pure corporate polish or pure playful energy — the mixed light/dark palette and terminal blocks commit to a warm-technical voice that sits between editorial and developer-tool aesthetics.",
   "slide_count": 10,
-  "navigation": "inline IntersectionObserver + keyboard handler with fixed nav dots"
+  "navigation": "inline IntersectionObserver + keyboard handler with fixed nav dots",
+  "design_style": "editorial"
 }

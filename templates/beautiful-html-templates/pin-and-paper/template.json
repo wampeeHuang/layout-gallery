@@ -38,8 +38,9 @@
     "style": "handwritten script for warmth + grotesk for legibility + mono for captions; textbook annotation feel"
   },
   "scheme": "light",
-  "best_for": "Anything that should feel hand-crafted, warm, and literary: qualitative research findings, founder reflections, longform brand stories, workshop debriefs. The signature safety-pin illustrations and paper-grain texture make it especially good for any deck \u2014 including tech or business \u2014 that wants personality and warmth over polish.",
-  "avoid_for": "Decks that need to feel digital-native polished or rigorously data-driven \u2014 handwritten Caveat is intentionally informal.",
+  "best_for": "Anything that should feel hand-crafted, warm, and literary: qualitative research findings, founder reflections, longform brand stories, workshop debriefs. The signature safety-pin illustrations and paper-grain texture make it especially good for any deck — including tech or business — that wants personality and warmth over polish.",
+  "avoid_for": "Decks that need to feel digital-native polished or rigorously data-driven — handwritten Caveat is intentionally informal.",
   "slide_count": 11,
-  "navigation": "deck-stage runtime (arrow keys, space, PgUp/PgDn, Home/End)"
+  "navigation": "deck-stage runtime (arrow keys, space, PgUp/PgDn, Home/End)",
+  "design_style": "organic"
 }

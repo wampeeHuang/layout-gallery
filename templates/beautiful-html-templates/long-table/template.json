@@ -45,5 +45,6 @@
   "best_for": "Anything that should feel like a warm, intimate, modern hospitality / community brand: supper clubs, dinner series, small restaurants, creative-studio events, membership pitches, lifestyle and wine brands. Equally good for any deck wanting a single warm accent colour, italic-meets-bold typography, and a social-media-aware modern-editorial voice.",
   "avoid_for": "Decks that need corporate polish, technical density, or a cold / minimalist register — the rust-red palette and bold-italic mix are intentionally warm and people-facing.",
   "slide_count": 8,
-  "navigation": "vanilla JS (arrow keys, space, Home/End, touch swipe)"
+  "navigation": "vanilla JS (arrow keys, space, Home/End, touch swipe)",
+  "design_style": "organic"
 }

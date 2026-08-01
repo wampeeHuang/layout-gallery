@@ -44,5 +44,6 @@
   "best_for": "Anything that should feel like a quietly serious design / research bulletin, art publication, or curated trend report. Strong for studio annuals, agency capabilities decks, design-research publications, architecture / art / academic decks, and any deck wanting one strict accent colour and a printed-ledger calmness rather than corporate polish.",
   "avoid_for": "Decks that need warmth, multi-colour energy, or a casual / playful voice — the strict cobalt + cream + grid palette is intentionally austere.",
   "slide_count": 8,
-  "navigation": "vanilla JS (arrow keys, space, Home/End, touch swipe)"
+  "navigation": "vanilla JS (arrow keys, space, Home/End, touch swipe)",
+  "design_style": "swiss"
 }

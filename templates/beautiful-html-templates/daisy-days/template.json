@@ -46,8 +46,9 @@
     "style": "rounded sans display + friendly geometric sans body; warm and informal"
   },
   "scheme": "light",
-  "best_for": "Anything that should feel friendly, soft, and joyful: educational content, kids and family, wellness programs, community workshops, creator portfolios for craft / illustration. Also lovely for an unexpected playful internal kickoff, a wedding planning deck, or any moment where warmth is the message \u2014 including across tech or business contexts.",
-  "avoid_for": "Contexts where the audience explicitly expects authority and precision \u2014 the hand-drawn pastel SVG decorations are the opposite of buttoned-up.",
+  "best_for": "Anything that should feel friendly, soft, and joyful: educational content, kids and family, wellness programs, community workshops, creator portfolios for craft / illustration. Also lovely for an unexpected playful internal kickoff, a wedding planning deck, or any moment where warmth is the message — including across tech or business contexts.",
+  "avoid_for": "Contexts where the audience explicitly expects authority and precision — the hand-drawn pastel SVG decorations are the opposite of buttoned-up.",
   "slide_count": 10,
-  "navigation": "scroll-snap with on-page nav dots and slide counter, plus arrow-key fallback"
+  "navigation": "scroll-snap with on-page nav dots and slide counter, plus arrow-key fallback",
+  "design_style": "playful"
 }

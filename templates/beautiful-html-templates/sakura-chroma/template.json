@@ -49,5 +49,6 @@
   "best_for": "Anything that should feel like a vintage Japanese cassette package or a TDK / Sony / Sakura Color product catalogue: indie hardware brand decks, music-label release schedules, analog studio retrospectives, zine and magazine pitches, kawaii-tech product launches, creative-studio annual reports. Equally good for any deck wanting bold colour, condensed display type, and a tactile printed-product personality.",
   "avoid_for": "Decks that need restrained, corporate, or quiet typography — the bold condensed lockups, ribbon stripes, and primary-colour palette are intentionally loud and product-page-y.",
   "slide_count": 8,
-  "navigation": "vanilla JS (arrow keys, space, Home/End, touch swipe)"
+  "navigation": "vanilla JS (arrow keys, space, Home/End, touch swipe)",
+  "design_style": "retro"
 }

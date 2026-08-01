@@ -39,8 +39,9 @@
     "style": "transitional serif headlines paired with a clean grotesk; reads like a Sunday newspaper essay"
   },
   "scheme": "light",
-  "best_for": "Anything that should feel quiet, considered, and grown-up: investment theses, white papers, advisory work, longform research, gallery / cultural decks. Also a strong choice for editorial features, founder reflections, or any deck where restraint is the message \u2014 including across tech and finance.",
-  "avoid_for": "Decks that need visual heat, multiple accents, or a sense of urgency \u2014 the warm-neutral palette is intentionally low-energy.",
+  "best_for": "Anything that should feel quiet, considered, and grown-up: investment theses, white papers, advisory work, longform research, gallery / cultural decks. Also a strong choice for editorial features, founder reflections, or any deck where restraint is the message — including across tech and finance.",
+  "avoid_for": "Decks that need visual heat, multiple accents, or a sense of urgency — the warm-neutral palette is intentionally low-energy.",
   "slide_count": 10,
-  "navigation": "inline keyboard handler with on-page nav dots and slide counter"
+  "navigation": "inline keyboard handler with on-page nav dots and slide counter",
+  "design_style": "organic"
 }

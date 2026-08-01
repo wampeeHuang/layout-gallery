@@ -27,6 +27,11 @@
       "module": "validate-templates",
       "function": "validateRootSync",
       "description": "校验 template.html :root 与 tokens.json 值一致"
+    },
+    "standard_vars": {
+      "module": "validate-templates",
+      "function": "validateStandardVars",
+      "description": "强制标准 CSS 变量名 — 模板必须使用 token-contract.json 定义的标准词汇，方言零容忍"
     }
   }
 }

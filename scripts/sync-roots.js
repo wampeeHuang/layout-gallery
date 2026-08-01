@@ -58,7 +58,7 @@ function generateRoot(tokensData) {
     lines.push('');
   }
   // Global defaults (not tokenized, always appended)
-  lines.push('  font-family:var(--font-sans); color:var(--text); background:var(--bg);');
+  lines.push('  font-family:var(--font-body); color:var(--text); background:var(--bg);');
   lines.push('  font-size:var(--text-base); line-height:1.5;');
   lines.push('}');
   return lines.join('\n');

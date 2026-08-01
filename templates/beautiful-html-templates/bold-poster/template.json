@@ -37,8 +37,9 @@
     "style": "groovy display + editorial serif + grotesk body; very high typographic contrast"
   },
   "scheme": "light",
-  "best_for": "Anything that should land like a magazine cover: brand manifestos, founder vision decks, editorial / cultural pitches, creative reviews. Excellent any time you want a few words to feel like a poster \u2014 including unexpected fits like a tech keynote or a finance manifesto that wants to be quotable.",
-  "avoid_for": "Decks that need to communicate dense information per slide \u2014 the layout is built around a few large statements, not paragraphs of detail.",
+  "best_for": "Anything that should land like a magazine cover: brand manifestos, founder vision decks, editorial / cultural pitches, creative reviews. Excellent any time you want a few words to feel like a poster — including unexpected fits like a tech keynote or a finance manifesto that wants to be quotable.",
+  "avoid_for": "Decks that need to communicate dense information per slide — the layout is built around a few large statements, not paragraphs of detail.",
   "slide_count": 10,
-  "navigation": "inline keyboard handler"
+  "navigation": "inline keyboard handler",
+  "design_style": "editorial"
 }

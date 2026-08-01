@@ -40,7 +40,8 @@
   },
   "scheme": "light",
   "best_for": "Anything that should feel design-led and confident: creative agency pitches, design studio decks, ad shop credentials, brand creative reviews, art-direction reviews. Also a great unexpected pick for a tech talk, research findings, or finance review when the speaker wants to lead with taste rather than convention.",
-  "avoid_for": "Contexts that demand institutional restraint and a quiet authority \u2014 the saturated multi-accent palette will read as expressive, not formal.",
+  "avoid_for": "Contexts that demand institutional restraint and a quiet authority — the saturated multi-accent palette will read as expressive, not formal.",
   "slide_count": 8,
-  "navigation": "deck-stage runtime (arrow keys, space, PgUp/PgDn, Home/End)"
+  "navigation": "deck-stage runtime (arrow keys, space, PgUp/PgDn, Home/End)",
+  "design_style": "playful"
 }

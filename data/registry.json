@@ -5,7 +5,7 @@
     "tagline": "复古纸媒x粗野主义 — Georgia衬线大字报、边框网格、墨色反转hover、宣言黑底红影",
     "skill": "beautiful-html-templates",
     "template_type": "single-page",
-    "design_style": "editorial",
+    "design_style": "brutalist",
     "aspect_ratio": "auto",
     "mood": [
       "激进",
@@ -151,9 +151,9 @@
   {
     "slug": "template",
     "name": "归藏PPT · Style A 电子杂志",
-    "tagline": "电子杂志 x 电子墨水 — Monocle式温润质感，5套配色主题，WebGL动态背景",
+    "tagline": "电子杂志 x 电子墨水 — 全屏滑动网页，WebGL双背景，10+页面布局，6套配色主题",
     "skill": "guizang-ppt-skill",
-    "template_type": "slide-deck",
+    "template_type": "native-editorial-web",
     "design_style": "editorial",
     "aspect_ratio": "16:9",
     "mood": [
@@ -255,10 +255,10 @@
   {
     "slug": "template-swiss",
     "name": "归藏PPT · Style B 瑞士国际主义",
-    "tagline": "瑞士国际主义 — Helvetica Forever，碳网格系统，22种锁定布局，4色强调",
+    "tagline": "瑞士国际主义 — 全屏滑动网页，Carbon网格系统，22+布局，Canvas背景，4色强调",
     "skill": "guizang-ppt-skill",
-    "template_type": "slide-deck",
-    "design_style": "swiss-minimal",
+    "template_type": "native-swiss-web",
+    "design_style": "swiss",
     "aspect_ratio": "16:9",
     "mood": [
       "理性",
@@ -518,7 +518,7 @@
     "tagline": "钢铁·锈色·规格表 — 形式服从功能。不多一像素",
     "skill": "frontend-design",
     "template_type": "single-page",
-    "design_style": "editorial",
+    "design_style": "brutalist",
     "aspect_ratio": "auto",
     "mood": [
       "工业实用",
@@ -586,7 +586,7 @@
     "tagline": "间·寂·余白 — 空白不是虚无而是存在。中英双语排版",
     "skill": "frontend-design",
     "template_type": "single-page",
-    "design_style": "eastern-zen",
+    "design_style": "organic",
     "aspect_ratio": "auto",
     "mood": [
       "日本禅意",
@@ -664,7 +664,7 @@
     "tagline": "金色·乌木·香槟 — 不说话但压场。私密图书馆黄昏时分的调色板",
     "skill": "frontend-design",
     "template_type": "single-page",
-    "design_style": "editorial",
+    "design_style": "luxury",
     "aspect_ratio": "auto",
     "mood": [
       "暗色奢华",
@@ -722,7 +722,7 @@
     "tagline": "粗边框·硬阴影·原色块 — 毫不抱歉的设计态度。反精致、反玻璃态、反1px灰线",
     "skill": "frontend-design",
     "template_type": "single-page",
-    "design_style": "experimental",
+    "design_style": "brutalist",
     "aspect_ratio": "auto",
     "mood": [
       "新粗野主义",
@@ -795,7 +795,7 @@
     "tagline": "泥土·苔藓·树皮 — 从森林漫步中提取的八色调色板",
     "skill": "frontend-design",
     "template_type": "single-page",
-    "design_style": "warm-humanist",
+    "design_style": "organic",
     "aspect_ratio": "auto",
     "mood": [
       "有机自然",
@@ -863,7 +863,7 @@
     "tagline": "霓虹网格·扫描线·终端美学 — 1984年想象的2026年",
     "skill": "frontend-design",
     "template_type": "single-page",
-    "design_style": "tech-cyberpunk",
+    "design_style": "retro",
     "aspect_ratio": "auto",
     "mood": [
       "复古未来",
@@ -921,7 +921,7 @@
     "tagline": "Pixel-art neon arcade aesthetic on a deep navy void.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "warm-humanist",
+    "design_style": "retro",
     "aspect_ratio": "16:9",
     "mood": [
       "retro-tech",
@@ -1025,7 +1025,7 @@
     "tagline": "Editorial warmth with mixed serif-sans hierarchy and layered card elevation; weighty yet inviting — the research-institution aesthetic.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "institutional",
+    "design_style": "editorial",
     "aspect_ratio": "16:9",
     "mood": [
       "institutional",
@@ -1396,7 +1396,7 @@
     "tagline": "Neobrutalist deck with pastel-neon color blocks and chunky black borders.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "warm-humanist",
+    "design_style": "brutalist",
     "aspect_ratio": "16:9",
     "mood": [
       "bold",
@@ -1515,7 +1515,7 @@
     "tagline": "Cream paper background with electric cobalt blue accents; clean modern professional.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "editorial",
+    "design_style": "corporate",
     "aspect_ratio": "16:9",
     "mood": [
       "professional",
@@ -1901,7 +1901,7 @@
     "tagline": "Modular pill-shaped cards on warm bone with a full pastel-pop palette.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "warm-humanist",
+    "design_style": "playful",
     "aspect_ratio": "16:9",
     "mood": [
       "playful",
@@ -2026,7 +2026,7 @@
     "tagline": "Quiet warm-neutral palette with classical Playfair serifs; tasteful and unhurried.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "swiss-minimal",
+    "design_style": "organic",
     "aspect_ratio": "16:9",
     "mood": [
       "quiet",
@@ -2110,7 +2110,7 @@
     "tagline": "Electric cobalt italic serifs on a graph-paper canvas, anchored by stair-stepped pixel-glitch decorations and slim hairline rules.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "swiss-minimal",
+    "design_style": "swiss",
     "aspect_ratio": "16:9",
     "mood": [
       "editorial",
@@ -2188,7 +2188,7 @@
     "tagline": "Cream and coral on near-black, set in oversized Bebas Neue.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "warm-humanist",
+    "design_style": "playful",
     "aspect_ratio": "16:9",
     "mood": [
       "bold",
@@ -2277,7 +2277,7 @@
     "tagline": "Cream paper canvas with confident multi-color (green, pink, orange, yellow) accents and Archivo Black display.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "warm-humanist",
+    "design_style": "playful",
     "aspect_ratio": "16:9",
     "mood": [
       "creative",
@@ -2386,7 +2386,7 @@
     "tagline": "Cheerful pastel deck with hand-drawn daisies, stars, and rainbows. Friendly, soft, and warm.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "warm-humanist",
+    "design_style": "playful",
     "aspect_ratio": "16:9",
     "mood": [
       "cheerful",
@@ -2633,7 +2633,7 @@
     "tagline": "Forest-green canvas with cream type, classical Playfair serifs, and a single rust accent.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "warm-humanist",
+    "design_style": "organic",
     "aspect_ratio": "16:9",
     "mood": [
       "organic",
@@ -2854,7 +2854,7 @@
     "tagline": "Dual-theme teaching deck with clean white and terminal dark modes; mermaid diagrams, progressive reveals, toggle cards.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "tech-cyberpunk",
+    "design_style": "minimalist",
     "aspect_ratio": "16:9",
     "mood": [
       "clear",
@@ -2924,7 +2924,7 @@
     "tagline": "Warm cream and rust-red supper-club aesthetic with bold uppercase grotesk headlines, italic Fraunces, and pill-shaped outlined buttons.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "warm-humanist",
+    "design_style": "organic",
     "aspect_ratio": "16:9",
     "mood": [
       "warm",
@@ -2999,7 +2999,7 @@
     "tagline": "Dark sage canvas with bone paper and burnt-orange accent; mid-century modern with wood undertones.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "warm-humanist",
+    "design_style": "organic",
     "aspect_ratio": "16:9",
     "mood": [
       "warm-modern",
@@ -3228,7 +3228,7 @@
     "tagline": "Ivory ledger paper with all-black type; Lora serif headlines, Jost body, no color at all.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "swiss-minimal",
+    "design_style": "minimalist",
     "aspect_ratio": "16:9",
     "mood": [
       "restrained",
@@ -3473,7 +3473,7 @@
     "tagline": "Editorial neo-brutalism with a single neon yellow accent on off-white paper.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "swiss-minimal",
+    "design_style": "editorial",
     "aspect_ratio": "16:9",
     "mood": [
       "confident",
@@ -3553,7 +3553,7 @@
     "tagline": "Activist poster energy: blue, orange, red on cream, with Alfa Slab + Caveat Brush.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "experimental",
+    "design_style": "playful",
     "aspect_ratio": "16:9",
     "mood": [
       "activist",
@@ -3648,7 +3648,7 @@
     "tagline": "Yellow paper with safety-pin illustrations, ink-blue handwritten Caveat, paper-grain texture.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "warm-humanist",
+    "design_style": "organic",
     "aspect_ratio": "16:9",
     "mood": [
       "crafted",
@@ -3694,7 +3694,7 @@
     "tagline": "Black canvas, hot pink accent, pearl-cream paper, Instrument Serif headlines: late-night editorial luxury.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "editorial",
+    "design_style": "luxury",
     "aspect_ratio": "16:9",
     "mood": [
       "nocturnal",
@@ -3790,7 +3790,7 @@
     "tagline": "Sun-warm peach background with Syne display: a friendly indie launch deck.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "warm-humanist",
+    "design_style": "playful",
     "aspect_ratio": "16:9",
     "mood": [
       "warm",
@@ -3861,7 +3861,7 @@
     "tagline": "Neo-brutalist deck with thick borders, offset shadows, and a pink/sage/ink palette.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "swiss-minimal",
+    "design_style": "brutalist",
     "aspect_ratio": "16:9",
     "mood": [
       "raw",
@@ -3956,7 +3956,7 @@
     "tagline": "Windows 95 chrome: gray title bars, MS Sans Serif, pixel typography, full nostalgia.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "warm-humanist",
+    "design_style": "retro",
     "aspect_ratio": "16:9",
     "mood": [
       "nostalgic",
@@ -4095,7 +4095,7 @@
     "tagline": "Beige paper with green accent and Bebas Neue + Caveat: a riso-printed zine in HTML form.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "warm-humanist",
+    "design_style": "retro",
     "aspect_ratio": "16:9",
     "mood": [
       "crafted",
@@ -4184,7 +4184,7 @@
     "tagline": "Vintage Japanese cassette-package aesthetic: cream paper, diagonal rainbow ribbons, condensed bold type, JIS-style spec checkboxes.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "warm-humanist",
+    "design_style": "retro",
     "aspect_ratio": "16:9",
     "mood": [
       "retro",
@@ -4290,7 +4290,7 @@
     "tagline": "Post-it inspired: pastel sticky notes, Caveat handwriting, Shrikhand and Zilla Slab type stack.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "warm-humanist",
+    "design_style": "playful",
     "aspect_ratio": "16:9",
     "mood": [
       "playful",
@@ -4425,7 +4425,7 @@
     "tagline": "Deep navy canvas with bone paper and a single muted-gold accent; institutional with quiet weight.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "institutional",
+    "design_style": "corporate",
     "aspect_ratio": "16:9",
     "mood": [
       "institutional",
@@ -4744,7 +4744,7 @@
     "tagline": "Bone paper with stencil-cut headlines and a six-color earth palette: archaeology meets brand.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "editorial",
+    "design_style": "organic",
     "aspect_ratio": "16:9",
     "mood": [
       "archival",
@@ -4854,7 +4854,7 @@
     "tagline": "Black canvas with electric-yellow type; high-voltage design studio aesthetic.",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
-    "design_style": "experimental",
+    "design_style": "playful",
     "aspect_ratio": "16:9",
     "mood": [
       "electric",
@@ -5552,7 +5552,7 @@
     "tagline": "滚动叙事型课程框架：全屏模块 + 吸附滚动 + 17种教学组件，5套主题色一键切换",
     "skill": "codebase-to-course",
     "template_type": "single-page",
-    "design_style": "warm-humanist",
+    "design_style": "editorial",
     "aspect_ratio": "auto",
     "mood": [
       "温暖",
@@ -5954,7 +5954,7 @@
     "tagline": "多风格 CSS 模板画廊 · Swiss-minimal 平台设计 · 设计基因三件套",
     "skill": "frontend-design",
     "template_type": "single-page",
-    "design_style": "swiss-minimal",
+    "design_style": "swiss",
     "aspect_ratio": "auto",
     "mood": [
       "理性",
@@ -6283,7 +6283,7 @@
     "tagline": "Pinterest 设计系统 — 暖红强调色，4px 基座，9色相×12阶，系统字体栈",
     "skill": "design-systems",
     "template_type": "brand_kit",
-    "design_style": "warm-humanist",
+    "design_style": "minimalist",
     "aspect_ratio": "16:9",
     "mood": [
       "warm",
@@ -6569,7 +6569,7 @@
     "tagline": "Vercel 设计系统 — 冷蓝强调色，边框代阴影，极简工具美学",
     "skill": "design-systems",
     "template_type": "brand_kit",
-    "design_style": "swiss-minimal",
+    "design_style": "minimalist",
     "aspect_ratio": "16:9",
     "mood": [
       "sharp",
@@ -6845,7 +6845,7 @@
     "tagline": "Dribbble 品牌 — 经典粉 #EA4C89，Inter 字体，重阴影大圆角",
     "skill": "design-systems",
     "template_type": "brand_kit",
-    "design_style": "experimental",
+    "design_style": "playful",
     "aspect_ratio": "16:9",
     "mood": [
       "playful",

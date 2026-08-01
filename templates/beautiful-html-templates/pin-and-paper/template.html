@@ -8,6 +8,39 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
+<style>
+:root{
+  /* Color */
+  --paper:#EFE56A; --paper-2:#F5ECA0; --paper-3:#E8D85A; --cream:#F8F1D6; --kraft:#C9A66B;
+  --ink:#1F3A8A; --ink-soft:#2D4FB8; --ink-line:#3457C4; --black:#0E1430; --red:#C2342B;
+  --olive:#6B7A2E; --orange:#D8702A; --accent:#1F3A8A; --accent-alt:#F8F1D6; --bg:#EFE56A;
+  --text:#1F3A8A; --text-soft:#2D4FB8; --line:#1F3A8A; --surface:#F8F1D6; --accent-hover:#172F6A;
+
+  /* Typography */
+  --font-display:"Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-body:"Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-script:"Caveat", cursive;
+  --font-mono:"DM Mono", ui-monospace, monospace;
+
+  /* Spacing */
+  --page-wmax:1200px; --page-pad:32px; --gap:24px; --gutter:24px;
+
+  /* Radius */
+  --radius:4px;
+
+  /* Shadow */
+  --shadow-card:5px 6px 0 0 var(--ink); --shadow-quote:8px 9px 0 0 var(--ink);
+  --shadow-chart:6px 7px 0 0 rgba(239,229,106,.25); --shadow-sm:2px 3px 0 0 rgba(31,58,138,0.15);
+  --shadow-md:5px 6px 0 0 #1F3A8A;
+
+  /* Motion */
+  --ease-default:0.18s ease;
+  --duration-base:150ms;
+
+  font-family:var(--font-body); color:var(--text); background:var(--bg);
+  font-size:var(--text-base); line-height:1.5;
+}
+</style>
 <script src="deck-stage.js"></script>
 
 <!-- reusable safety pin svg, used via <use href="#pin"> -->

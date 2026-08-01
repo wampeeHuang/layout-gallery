@@ -38,7 +38,8 @@
   },
   "scheme": "mixed",
   "best_for": "Anything that should feel warm-graphic and editorial: fashion, beauty, fitness, F&B, lifestyle brands, agency credentials. Just as strong for a creator portfolio, a manifesto, or a tech / research deck that wants warmth and a single bold accent instead of corporate cool.",
-  "avoid_for": "Contexts that should feel quiet or institutional \u2014 the coral accent and oversized Bebas Neue commit hard to a confident magazine voice.",
+  "avoid_for": "Contexts that should feel quiet or institutional — the coral accent and oversized Bebas Neue commit hard to a confident magazine voice.",
   "slide_count": 10,
-  "navigation": "inline keyboard handler with on-page nav dots and slide counter"
+  "navigation": "inline keyboard handler with on-page nav dots and slide counter",
+  "design_style": "playful"
 }

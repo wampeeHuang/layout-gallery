@@ -32,8 +32,8 @@
     },
     "design_style": {
       "type": "string",
-      "enum": ["editorial", "swiss-minimal", "warm-humanist", "tech-cyberpunk", "experimental", "institutional", "eastern-zen", "warm-minimal", "minimal", "playful"],
-      "description": "风格大类 — AI 入口筛选"
+      "enum": ["minimalist", "editorial", "swiss", "corporate", "brutalist", "modern", "retro", "organic", "luxury", "playful"],
+      "description": "风格大类 — 10 个行业标准分类。minimalist=极简, editorial=杂志编辑, swiss=瑞士国际, corporate=企业商务, brutalist=粗野主义, modern=现代科技, retro=复古经典, organic=自然柔和, luxury=奢华暗色, playful=活泼创意"
     },
     "aspect_ratio": {
       "type": "string",

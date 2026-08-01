@@ -42,8 +42,9 @@
     "style": "italic transitional serif as the structural display face, paired with clean DM Sans body and Courier Prime mono for attributions and labels; bilingual EN/CN support"
   },
   "scheme": "dark",
-  "best_for": "Anything that should feel scholarly, literary, and quietly intelligent: research synthesis, white papers, academic and policy briefs, advisory deliverables, longform editorial pieces, founder reflections. Equally strong for any deck \u2014 including tech, business, or creator work \u2014 that wants a calm, considered atmosphere instead of energetic visuals.",
-  "avoid_for": "Contexts that need visual heat or pop \u2014 the navy + warm-yellow italic-Cormorant aesthetic is intentionally low-tempo.",
+  "best_for": "Anything that should feel scholarly, literary, and quietly intelligent: research synthesis, white papers, academic and policy briefs, advisory deliverables, longform editorial pieces, founder reflections. Equally strong for any deck — including tech, business, or creator work — that wants a calm, considered atmosphere instead of energetic visuals.",
+  "avoid_for": "Contexts that need visual heat or pop — the navy + warm-yellow italic-Cormorant aesthetic is intentionally low-tempo.",
   "slide_count": 9,
-  "navigation": "inline keyboard handler"
+  "navigation": "inline keyboard handler",
+  "design_style": "editorial"
 }

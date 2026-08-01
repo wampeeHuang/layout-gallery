@@ -42,5 +42,6 @@
   "best_for": "Anything that should feel pop-graphic and design-led: indie SaaS launches, agency credentials, creative reviews, brand redesigns. Also a strong unexpected pick for tech, finance, or research when the speaker wants to land as confident and contemporary rather than buttoned-up.",
   "avoid_for": "Contexts that require quiet institutional restraint or traditional weight (regulated disclosures, formal legal briefs).",
   "slide_count": 10,
-  "navigation": "inline keyboard handler with on-page slide counter"
+  "navigation": "inline keyboard handler with on-page slide counter",
+  "design_style": "brutalist"
 }

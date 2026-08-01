@@ -36,8 +36,9 @@
     "style": "modern sans pairing; quiet, professional, no decorative flourishes"
   },
   "scheme": "light",
-  "best_for": "Anything that should feel modern-considered and lightly authoritative: B2B SaaS pitches, consulting deliverables, advisory updates, investor reports. Also a clean, tasteful choice whenever you want to read as professional without going stiff \u2014 research synthesis, internal reviews, brand work for service businesses.",
-  "avoid_for": "Contexts where the deck should feel hot, playful, or intentionally informal \u2014 the cool electric-blue restraint will read as overly polished.",
+  "best_for": "Anything that should feel modern-considered and lightly authoritative: B2B SaaS pitches, consulting deliverables, advisory updates, investor reports. Also a clean, tasteful choice whenever you want to read as professional without going stiff — research synthesis, internal reviews, brand work for service businesses.",
+  "avoid_for": "Contexts where the deck should feel hot, playful, or intentionally informal — the cool electric-blue restraint will read as overly polished.",
   "slide_count": 10,
-  "navigation": "inline keyboard handler with on-page slide counter"
+  "navigation": "inline keyboard handler with on-page slide counter",
+  "design_style": "corporate"
 }

@@ -2,7 +2,13 @@
   "slug": "anthropic",
   "name": "Anthropic",
   "tagline": "Editorial warmth with mixed serif-sans hierarchy and layered card elevation; weighty yet inviting — the research-institution aesthetic.",
-  "mood": ["institutional", "erudite", "weighty", "authoritative", "refined"],
+  "mood": [
+    "institutional",
+    "erudite",
+    "weighty",
+    "authoritative",
+    "refined"
+  ],
   "occasion": [
     "research report",
     "white paper",
@@ -13,7 +19,12 @@
     "academic deck",
     "investor deck"
   ],
-  "tone": ["sober", "refined", "literary", "scholarly"],
+  "tone": [
+    "sober",
+    "refined",
+    "literary",
+    "scholarly"
+  ],
   "formality": "high",
   "density": "high",
   "palette": {
@@ -49,5 +60,6 @@
   "best_for": "Research reports, white papers, economic/industry analysis, board presentations, thought leadership, policy briefs, academic decks. Anything that should project institutional credibility, intellectual weight, and editorial refinement.",
   "avoid_for": "Contexts that need playful, casual, or rapid-fire energy — the mixed-serif hierarchy and dense editorial layout commits to a scholarly, deliberative voice.",
   "slide_count": 18,
-  "navigation": "inline keyboard handler"
+  "navigation": "inline keyboard handler",
+  "design_style": "editorial"
 }

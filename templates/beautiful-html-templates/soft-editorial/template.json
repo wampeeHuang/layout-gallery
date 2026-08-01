@@ -40,7 +40,8 @@
   },
   "scheme": "light",
   "best_for": "Anything that should feel literary, elegant, and unhurried: editorial features, longform brand stories, gallery / museum decks, advisory deliverables, wedding / lifestyle media, founder essays. Equally good for tech, research, or business decks that want a Sunday-supplement warmth instead of corporate polish.",
-  "avoid_for": "Decks that need visual heat or punch \u2014 the warm-paper palette and Cormorant serif are intentionally quiet.",
+  "avoid_for": "Decks that need visual heat or punch — the warm-paper palette and Cormorant serif are intentionally quiet.",
   "slide_count": 12,
-  "navigation": "deck-stage runtime (arrow keys, space, PgUp/PgDn, Home/End)"
+  "navigation": "deck-stage runtime (arrow keys, space, PgUp/PgDn, Home/End)",
+  "design_style": "editorial"
 }

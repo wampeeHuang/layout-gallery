@@ -44,7 +44,8 @@
   },
   "scheme": "light",
   "best_for": "Anything that should feel modular, modern, and a little Y2K: lifestyle brands, creator portfolios, DTC launches, beauty / wellness, agency credentials. Also fun for a playful tech demo or a research deck that wants pop-art clarity instead of gravitas.",
-  "avoid_for": "Contexts that require traditional institutional weight \u2014 the capsule shapes and pastel pops actively soften authority.",
+  "avoid_for": "Contexts that require traditional institutional weight — the capsule shapes and pastel pops actively soften authority.",
   "slide_count": 10,
-  "navigation": "inline keyboard handler with on-page nav dots and slide counter"
+  "navigation": "inline keyboard handler with on-page nav dots and slide counter",
+  "design_style": "playful"
 }

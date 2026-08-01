@@ -39,7 +39,8 @@
   },
   "scheme": "light",
   "best_for": "Anything that should feel direct and graphic-confident: founder pitches, accelerator demos, brand decks, indie launches, creator portfolios. Strong for stat slides, comparison tables, and process flows. Equally good for tech, research, or finance when the speaker wants the deck to feel scrappy-confident rather than buttoned-up.",
-  "avoid_for": "Contexts that need to feel soft, warm, or intentionally quiet \u2014 the brutalist borders and offset shadows commit to a graphic voice.",
+  "avoid_for": "Contexts that need to feel soft, warm, or intentionally quiet — the brutalist borders and offset shadows commit to a graphic voice.",
   "slide_count": 10,
-  "navigation": "inline keyboard handler"
+  "navigation": "inline keyboard handler",
+  "design_style": "brutalist"
 }

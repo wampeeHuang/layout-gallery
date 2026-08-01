@@ -41,7 +41,8 @@
   },
   "scheme": "dark",
   "best_for": "Anything that should feel like a CRT screen at 2am: cyberpunk, gaming, web3, indie dev tools, hackathon demos. Just as good for a tech talk that wants to lean into nostalgic-digital craft, a synthwave brand deck, or a creative review that wants to feel like a console.",
-  "avoid_for": "Contexts where the dark neon palette would actively work against the message \u2014 quiet institutional finance disclosures, healthcare patient-facing materials, traditional luxury.",
+  "avoid_for": "Contexts where the dark neon palette would actively work against the message — quiet institutional finance disclosures, healthcare patient-facing materials, traditional luxury.",
   "slide_count": 10,
-  "navigation": "inline keyboard handler with on-page nav dots and slide counter"
+  "navigation": "inline keyboard handler with on-page nav dots and slide counter",
+  "design_style": "retro"
 }

@@ -1,18 +1,55 @@
 {
-  "version": "1.1.0",
-  "description": "版式画廊 Token 命名契约 — 机器可读版。定义六大分类最小必需 Token 集，含 fallback 默认值。模板变量名可自定义，通过 role 字段做标准化映射。",
+  "version": "2.0.0",
+  "description": "版式画廊 Token 命名契约 — 标准 CSS 变量名是唯一合法词汇。模板必须使用标准名，方言已废除。",
+
+  "standardVars": {
+    "_convention": "所有模板必须使用这些 CSS 变量名。值是示例，每个模板在 tokens.json 中填自己的值。",
+    "color": {
+      "--accent":       {"role": "主强调色", "fallback": "#d4684e"},
+      "--accent-alt":   {"role": "辅强调色", "fallback": "#e8d4c0"},
+      "--accent-hover": {"role": "强调色悬停态", "fallback": "#c05a42"},
+      "--bg":           {"role": "页面底色", "fallback": "#fafaf8"},
+      "--surface":      {"role": "卡片/面板背景", "fallback": "#ffffff"},
+      "--text":         {"role": "主文字色", "fallback": "#1a1a1a"},
+      "--text-soft":    {"role": "次级文字色", "fallback": "#5c5c5c"},
+      "--line":         {"role": "边框色", "fallback": "#e5e3df"}
+    },
+    "typography": {
+      "--font-display": {"role": "标题字体栈", "fallback": "Georgia, 'Noto Serif SC', serif"},
+      "--font-body":    {"role": "正文字体栈", "fallback": "Inter, system-ui, sans-serif"},
+      "--font-mono":    {"role": "等宽字体栈", "fallback": "'SF Mono', Consolas, monospace"}
+    },
+    "spacing": {
+      "--page-wmax":    {"role": "内容最大宽度", "fallback": "1200px"},
+      "--page-pad":     {"role": "页面水平内边距", "fallback": "32px"},
+      "--gap":          {"role": "元素/网格间距", "fallback": "24px"},
+      "--gutter":       {"role": "列间距/留白基准", "fallback": "24px"}
+    },
+    "radius": {
+      "--radius":       {"role": "圆角基准值", "fallback": "4px"}
+    },
+    "shadow": {
+      "--shadow-sm":    {"role": "轻阴影（卡片默认）", "fallback": "0 1px 3px rgba(0,0,0,0.06)"},
+      "--shadow-md":    {"role": "中阴影（卡片悬浮）", "fallback": "0 8px 30px rgba(0,0,0,0.1)"}
+    },
+    "motion": {
+      "--ease-default":  {"role": "标准缓动曲线", "fallback": "0.18s ease"},
+      "--duration-base": {"role": "基础过渡时长", "fallback": "150ms"}
+    }
+  },
+
   "categories": {
     "color": {
       "label": "颜色",
       "required": true,
       "roles": [
-        {"role": "surface-bg", "description": "页面底色 / body background", "type": "color", "fallback": "#fafaf8"},
+        {"role": "surface-bg", "description": "页面底色", "type": "color", "fallback": "#fafaf8"},
         {"role": "surface-card", "description": "卡片/面板背景", "type": "color", "fallback": "#ffffff"},
         {"role": "text-primary", "description": "主文字色", "type": "color", "fallback": "#1a1a1a"},
-        {"role": "text-secondary", "description": "次级/辅助文字色", "type": "color", "fallback": "#5c5c5c"},
+        {"role": "text-secondary", "description": "次级文字色", "type": "color", "fallback": "#5c5c5c"},
         {"role": "border-default", "description": "默认边框色", "type": "color", "fallback": "#e5e3df"},
         {"role": "accent", "description": "品牌强调色", "type": "color", "fallback": "#d4684e"},
-        {"role": "accent-hover", "description": "强调色 hover/active 态", "type": "color", "fallback": "#c05a42"}
+        {"role": "accent-hover", "description": "强调色悬停态", "type": "color", "fallback": "#c05a42"}
       ]
     },
     "typography": {
@@ -20,11 +57,9 @@
       "required": true,
       "roles": [
         {"role": "display-font", "description": "标题字体栈", "type": "font-stack", "fallback": "Georgia, 'Noto Serif SC', serif"},
-        {"role": "body-font", "description": "正文字体栈", "type": "font-stack", "fallback": "Inter, system-ui, -apple-system, sans-serif"},
-        {"role": "mono-font", "description": "等宽字体栈", "type": "font-stack", "fallback": "'SF Mono', 'Cascadia Code', Consolas, monospace"},
+        {"role": "body-font", "description": "正文字体栈", "type": "font-stack", "fallback": "Inter, system-ui, sans-serif"},
+        {"role": "mono-font", "description": "等宽字体栈", "type": "font-stack", "fallback": "'SF Mono', Consolas, monospace"},
         {"role": "display-size", "description": "主标题字号", "type": "size", "fallback": "clamp(40px, 7vw, 64px)"},
-        {"role": "h2-size", "description": "二级标题字号", "type": "size", "fallback": "30px"},
-        {"role": "h3-size", "description": "三级标题字号", "type": "size", "fallback": "16px"},
         {"role": "body-size", "description": "正文基础字号", "type": "size", "fallback": "16px"},
         {"role": "small-size", "description": "辅助/标签字号", "type": "size", "fallback": "12px"}
       ]
@@ -37,8 +72,8 @@
         {"role": "section-spacing", "description": "区段间距", "type": "size", "fallback": "90px"},
         {"role": "page-padding", "description": "页面两侧留白", "type": "size", "fallback": "48px"},
         {"role": "card-padding", "description": "卡片内边距", "type": "size", "fallback": "28px"},
-        {"role": "element-gap", "description": "元素间距 / 列间距", "type": "size", "fallback": "24px"},
-        {"role": "tight-gap", "description": "紧凑间距 / 图标-文字间距", "type": "size", "fallback": "8px"}
+        {"role": "element-gap", "description": "元素间距", "type": "size", "fallback": "24px"},
+        {"role": "tight-gap", "description": "紧凑间距", "type": "size", "fallback": "8px"}
       ]
     },
     "radius": {
@@ -55,26 +90,34 @@
       "required": true,
       "roles": [
         {"role": "default", "description": "默认状态阴影", "type": "shadow", "fallback": "0 1px 3px rgba(0,0,0,0.06)"},
-        {"role": "card-hover", "description": "卡片 hover 阴影", "type": "shadow", "fallback": "0 8px 30px rgba(0,0,0,0.1)"}
+        {"role": "card-hover", "description": "卡片悬浮阴影", "type": "shadow", "fallback": "0 8px 30px rgba(0,0,0,0.1)"}
       ]
     },
     "motion": {
       "label": "动效",
       "required": true,
       "roles": [
-        {"role": "standard-easing", "description": "标准缓动曲线", "type": "easing", "fallback": "cubic-bezier(0.4, 0, 0.2, 1)"},
-        {"role": "duration-fast", "description": "瞬态时长 (hover/click)", "type": "duration", "fallback": "150ms"},
+        {"role": "standard-easing", "description": "标准缓动曲线", "type": "easing", "fallback": "0.18s ease"},
+        {"role": "duration-fast", "description": "瞬态时长", "type": "duration", "fallback": "150ms"},
         {"role": "duration-base", "description": "标准过渡时长", "type": "duration", "fallback": "300ms"}
       ]
     }
   },
-  "compliance": {
-    "full": "六大类全部覆盖",
-    "partial": "缺一类或多类 — brand-kit 页折叠未覆盖分类",
-    "minimal": "只有颜色和字体 — 标记为'需完善'"
+
+  "colorRoles": {
+    "_convention": "brandKit.colorRoles → CSS 变量映射。模板 tokens.json 的 brandKit.colorRoles 必须包含这 7 个 key。",
+    "primary":      "--accent",
+    "secondary":    "--accent-alt",
+    "background":   "--bg",
+    "text":         "--text",
+    "textSecondary":"--text-soft",
+    "border":       "--line",
+    "surface":      "--surface"
   },
-  "validation": {
-    "method": "registry.json 条目的 css_variables[].role 字段检查",
-    "threshold": "每类至少 1 个 role 被映射 = 该类通过"
+
+  "compliance": {
+    "full": "全部模板通过 standardVars 校验 — 标准名全覆盖",
+    "partial": "模板缺少部分标准名 — 品牌页可渲染但不完整",
+    "noncompliant": "模板使用非标准名 — validator 报错，不通过合约"
   }
 }

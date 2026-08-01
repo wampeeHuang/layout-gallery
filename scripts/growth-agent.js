@@ -24,7 +24,7 @@ const AIGO_MODEL = process.env.AIGO_MODEL || 'gemini-3.1-flash-image';
 
 const DEEPSEEK_BASE = process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com';
 const DEEPSEEK_KEY = process.env.DEEPSEEK_API_KEY || '';
-const DEEPSEEK_MODEL = 'deepseek-chat';
+const DEEPSEEK_MODEL = 'deepseek-v4-flash';
 
 // ── Step 1: URL validation ─────────────────────────────────────
 
@@ -247,7 +247,116 @@ function extractHardcodedStyles(html) {
   return { colors, shadows, radii, transitions, spacing };
 }
 
-// ── Step 3: Gemini vision extraction (AIGO) ─────────────────────
+// ── Step 3+4 merged: CSS data → DeepSeek → tokens.json ──────────
+
+async function structureTokensFromCSS(siteData, hostname) {
+  const prompt = buildCombinedPrompt(siteData, hostname);
+
+  const response = await axios.post(DEEPSEEK_BASE + '/v1/chat/completions', {
+    model: DEEPSEEK_MODEL,
+    messages: [{ role: 'user', content: prompt }],
+    max_tokens: 4096,
+    temperature: 0.2,
+  }, {
+    headers: {
+      'Authorization': 'Bearer ' + DEEPSEEK_KEY,
+      'Content-Type': 'application/json',
+    },
+    timeout: 90000,
+  });
+
+  const text = response.data.choices[0].message.content;
+  let json = text.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
+  const start = json.indexOf('{');
+  const end = json.lastIndexOf('}');
+  if (start >= 0 && end > start) json = json.slice(start, end + 1);
+
+  try {
+    const data = JSON.parse(json);
+    return { ok: true, data };
+  } catch (e) {
+    return { ok: false, error: 'DeepSeek 输出非 JSON: ' + e.message, raw: text.slice(0, 500) };
+  }
+}
+
+function buildCombinedPrompt(siteData, hostname) {
+  return `You are a design token formatter. Extract and structure design tokens from CSS analysis data into a valid tokens.json file.
+
+## CSS Custom Properties (:root variables)
+${JSON.stringify(siteData.cssVars || [], null, 2)}
+
+## Font stacks detected
+${JSON.stringify(siteData.fontStacks || [], null, 2)}
+
+## Hardcoded design values (from CSS)
+Colors: ${JSON.stringify(siteData.hardcoded?.colors || [])}
+Shadows: ${JSON.stringify(siteData.hardcoded?.shadows || [])}
+Border radii: ${JSON.stringify(siteData.hardcoded?.radii || [])}
+Transitions: ${JSON.stringify(siteData.hardcoded?.transitions || [])}
+Spacing values: ${JSON.stringify(siteData.hardcoded?.spacing || [])}
+
+## Target schema — output ONLY this JSON, no markdown:
+{
+  "slug": "${hostnameToSlug(hostname)}",
+  "version": 1,
+  "source": "生长 Agent · URL → tokens.json 自动提取",
+  "categories": ["color", "typography", "spacing", "radius", "shadow", "motion"],
+  "tokens": {
+    "color": [
+      {"name": "--bg", "value": "#hex", "role": "surface-bg", "description": "页面底色"},
+      {"name": "--surface", "value": "#hex", "role": "surface-card", "description": "卡片背景"},
+      {"name": "--text", "value": "#hex", "role": "text-primary", "description": "主文字"},
+      {"name": "--text-soft", "value": "#hex", "role": "text-secondary", "description": "次要文字"},
+      {"name": "--line", "value": "#hex", "role": "border-default", "description": "边框色"},
+      {"name": "--accent", "value": "#hex", "role": "accent", "description": "强调色"},
+      {"name": "--accent-alt", "value": "#hex", "role": "accent-hover", "description": "强调色变体"}
+    ],
+    "typography": [
+      {"name": "--display", "value": "'Font',sans-serif", "role": "display-font", "description": "展示字体"},
+      {"name": "--body", "value": "'Font',sans-serif", "role": "body-font", "description": "正文字体"},
+      {"name": "--text-xl", "value": "48px", "role": "display-size", "description": "主标题字号"},
+      {"name": "--text-lg", "value": "24px", "role": "h2-size", "description": "二级标题"},
+      {"name": "--text-base", "value": "16px", "role": "body-size", "description": "正文大小"},
+      {"name": "--text-sm", "value": "13px", "role": "small-size", "description": "小字"}
+    ],
+    "spacing": [
+      {"name": "--space-3xl", "value": "64px", "role": "hero-spacing", "description": "顶部留白"},
+      {"name": "--space-2xl", "value": "48px", "role": "section-spacing", "description": "区块间距"},
+      {"name": "--gutter", "value": "24px", "role": "page-padding", "description": "页面内边距"},
+      {"name": "--space-lg", "value": "24px", "role": "card-padding", "description": "卡片内边距"},
+      {"name": "--space-md", "value": "16px", "role": "element-gap", "description": "元素间距"},
+      {"name": "--space-sm", "value": "8px", "role": "tight-gap", "description": "紧凑间距"}
+    ],
+    "radius": [
+      {"name": "--radius-lg", "value": "16px", "role": "card", "description": "大圆角"},
+      {"name": "--radius-md", "value": "10px", "role": "card", "description": "中圆角"},
+      {"name": "--radius-sm", "value": "4px", "role": "subtle", "description": "小圆角"},
+      {"name": "--radius-none", "value": "0px", "role": "sharp", "description": "无圆角"}
+    ],
+    "shadow": [
+      {"name": "--shadow-md", "value": "0 4px 16px rgba(0,0,0,0.08)", "role": "default", "description": "默认阴影"},
+      {"name": "--shadow-lg", "value": "0 8px 30px rgba(0,0,0,0.12)", "role": "card-hover", "description": "卡片悬停阴影"}
+    ],
+    "motion": [
+      {"name": "--ease-default", "value": "0.2s ease", "role": "standard-easing", "description": "默认缓动"},
+      {"name": "--duration-fast", "value": "0.15s", "role": "duration-fast", "description": "快过渡"},
+      {"name": "--duration-base", "value": "0.3s", "role": "duration-base", "description": "基础过渡"}
+    ]
+  }
+}
+
+## Rules:
+1. Output ONLY valid JSON, no markdown fences, no explanation
+2. Fill ALL tokens with real values extracted from the CSS data above
+3. For missing values: infer from similar sites in the same category, use sensible defaults
+4. Use Chinese descriptions
+5. Match the EXACT schema structure — same token names, same roles
+6. Prioritize actual CSS values over defaults — if the site uses a 4px radius, use 4px not 16px
+7. The "source" field must be: "生长 Agent · URL → tokens.json 自动提取"
+8. Slug: "${hostnameToSlug(hostname)}"`;
+}
+
+// ── Step 3 (legacy): Gemini vision extraction (AIGO) ────────────
 
 async function extractVisual(siteData) {
   // Build prompt with all available CSS data
@@ -328,7 +437,7 @@ ${siteData.screenshot ? '(A screenshot of the website is also provided for visua
     ...
   ],
   "style_signals": {
-    "design_style": "editorial|swiss-minimal|warm-humanist|tech-cyberpunk|experimental|institutional|eastern-zen",
+    "design_style": "minimalist|editorial|swiss|corporate|brutalist|modern|retro|organic|luxury|playful",
     "scheme": "light|dark|mixed",
     "density": "high|medium-high|medium|low",
     "formality": "high|medium-high|medium|medium-low|low"
@@ -578,53 +687,40 @@ async function runPipeline(inputUrl, callbacks = {}) {
       warning: siteData.warning,
     });
 
-    // Step 3: Extract via Gemini
-    emit(3, 'running', { message: 'Gemini 3.1 Flash 视觉提取...' });
-    if (!AIGO_KEY) {
-      emit(3, 'error', { error: 'AIGOAPI_API_KEY / AIGO_API_KEY 未配置' });
-      return { ok: false, step: 3, error: 'AIGOAPI_API_KEY / AIGO_API_KEY 未配置。请设置环境变量 AIGOAPI_API_KEY 或 AIGO_API_KEY。' };
+    // Step 3: DeepSeek structures tokens.json directly from CSS data
+    emit(3, 'running', { message: 'DeepSeek 结构化提取...' });
+    if (!DEEPSEEK_KEY) {
+      emit(3, 'error', { error: 'DEEPSEEK_API_KEY 未配置' });
+      return { ok: false, step: 3, error: 'DEEPSEEK_API_KEY 未配置。' };
     }
-    const extraction = await extractVisual(siteData);
-    if (!extraction.ok) {
-      emit(3, 'error', { error: extraction.error });
-      return { ok: false, step: 3, error: extraction.error, raw: extraction.raw };
+    const structured = await structureTokensFromCSS(siteData, validated.hostname);
+    if (!structured.ok) {
+      emit(3, 'error', { error: structured.error });
+      return { ok: false, step: 3, error: structured.error, raw: structured.raw };
     }
     emit(3, 'done', {
-      colorCount: (extraction.data.colors || []).length,
-      fontCount: (extraction.data.typography || []).filter(t => t.name.includes('font')).length,
-      styleSignals: extraction.data.style_signals,
+      categories: Object.keys(structured.data.tokens || {}).length,
+      colorCount: (structured.data.tokens?.color || []).length,
+      fontCount: (structured.data.tokens?.typography || []).length,
     });
 
-    // Step 4: Structure via DeepSeek
-    emit(4, 'running', { message: 'DeepSeek 结构化 tokens.json...' });
-    if (!DEEPSEEK_KEY) {
-      emit(4, 'error', { error: 'DEEPSEEK_API_KEY 未配置' });
-      return { ok: false, step: 4, error: 'DEEPSEEK_API_KEY 未配置。' };
-    }
-    const structured = await structureTokens(extraction.data, validated.hostname);
-    if (!structured.ok) {
-      emit(4, 'error', { error: structured.error });
-      return { ok: false, step: 4, error: structured.error, raw: structured.raw };
-    }
-    emit(4, 'done', { categories: Object.keys(structured.data.tokens || {}).length });
-
-    // Step 5: Validate schema
-    emit(5, 'running', { message: '校验 tokens.json schema...' });
+    // Step 4: Validate schema
+    emit(4, 'running', { message: '校验 tokens.json schema...' });
     const validation = validateTokens(structured.data);
     if (!validation.ok) {
-      emit(5, 'error', { errors: validation.errors });
-      return { ok: false, step: 5, error: 'Schema 校验失败', errors: validation.errors };
+      emit(4, 'error', { errors: validation.errors });
+      return { ok: false, step: 4, error: 'Schema 校验失败', errors: validation.errors };
     }
-    emit(5, 'done', { valid: true });
+    emit(4, 'done', { valid: true });
 
-    // Step 6: Write + sync
-    emit(6, 'running', { message: '写入文件 + sync-roots.js :root 生成...' });
+    // Step 5: Write + sync
+    emit(5, 'running', { message: '写入文件 + sync-roots.js :root 生成...' });
     const written = writeAndSync(structured.data, validated.slug);
     if (!written.ok) {
-      emit(6, 'error', { error: written.error });
-      return { ok: false, step: 6, error: written.error };
+      emit(5, 'error', { error: written.error });
+      return { ok: false, step: 5, error: written.error };
     }
-    emit(6, 'done', {
+    emit(5, 'done', {
       dir: path.relative(PROJECT_DIR, written.dir),
       tokensPath: path.relative(PROJECT_DIR, written.tokensPath),
       tmplPath: path.relative(PROJECT_DIR, written.tmplPath),

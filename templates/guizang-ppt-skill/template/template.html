@@ -3,32 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>设计系统 · Design Systems</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-<style>
-  :root{
-    /* ============ 主题色(默认:🖋 墨水经典) ============
-       切换主题:从 references/themes.md 复制对应的 :root 块
-       整体替换这几行(--ink / --ink-rgb / --paper / --paper-rgb)
-       其他地方散落的 rgba() 都走 var(--ink-rgb) / var(--paper-rgb),无需逐处改 */
-    --ink:#0a0a0b;
-    --ink-rgb:10,10,11;
-    --paper:#f1efea;
-    --paper-rgb:241,239,234;
-    --paper-tint:#e8e5de;
-    --ink-tint:#18181a;
+<title>归藏PPT · Style A 电子杂志 · Template Gallery</title>
 
-    /* ============ 字体(跨主题固定) ============ */
-    --mono:"IBM Plex Mono",ui-monospace,monospace;
-    --serif-en:"Playfair Display","Source Serif 4",Georgia,serif;
-    --serif-body-en:"Source Serif 4",Georgia,serif;
-    --serif-zh:"Noto Serif SC",source-han-serif-sc,serif;
-    --sans-zh:"Noto Sans SC",source-han-sans-sc,sans-serif;
-  }
+<style>
+:root{
+  /* Color */
+  --ink:#0a0a0b; --paper:#f1efea; --paper-tint:#e8e5de; --ink-tint:#18181a; --accent:#333;
+  --accent-alt:#888; --accent-hover:#1a1a1a; --bg:#f1efea; --surface:#f1efea; --text:#0a0a0b;
+  --text-soft:#18181a; --line:rgba(10,10,11,0.18);
+
+  /* Typography */
+  --font-display:"Playfair Display","Source Serif 4",Georgia,serif;
+  --font-body:"Source Serif 4",Georgia,serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,monospace;
+  --mono:"IBM Plex Mono",ui-monospace,monospace; --serif-en:"Playfair Display","Source Serif 4",Georgia,serif; --serif-body-en:"Source Serif 4",Georgia,serif; --serif-zh:"Noto Serif SC",source-han-serif-sc,serif; --sans-zh:"Noto Sans SC",source-han-sans-sc,sans-serif;
+
+  /* Spacing */
+  --page-wmax:1200px; --page-pad:32px; --gap:24px; --gutter:24px;
+
+  /* Radius */
+  --radius:0px;
+
+  /* Shadow */
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.06); --shadow-md:0 8px 30px rgba(0,0,0,0.1);
+
+  /* Motion */
+  --ease-default:0.18s ease;
+  --duration-base:150ms;
+
+  font-family:var(--font-body); color:var(--text); background:var(--bg);
+  font-size:var(--text-base); line-height:1.5;
+}
+
+  
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var(--paper);font-family:var(--sans-zh);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  html,body{width:100%;height:100%;overflow:hidden;background:var(--text);color:var(--bg);font-family:var(--font-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 
   /* ============ WebGL 双背景 ============ */
   canvas.bg{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;display:block;transition:opacity 1.2s ease}
@@ -42,29 +51,29 @@
   /* width: NSLIDES * 100vw，会在 JS 里动态矫正 */
   #deck{position:fixed;inset:0;width:10000vw;height:100vh;display:flex;flex-wrap:nowrap;transition:transform .9s cubic-bezier(.77,0,.175,1);z-index:10;will-change:transform}
   .slide{width:100vw;height:100vh;flex:0 0 100vw;position:relative;padding:6vh 6vw 10vh 6vw;display:flex;flex-direction:column;overflow:hidden}
-  .slide.light{color:var(--ink);background:var(--paper)}
-  .slide.dark{color:var(--paper);background:var(--ink)}
+  .slide.light{color:var(--text);background:var(--bg)}
+  .slide.dark{color:var(--bg);background:var(--text)}
 
   /* 默认页：遮罩较厚，保证文字可读 */
   .slide::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;transition:background .7s ease}
-  .slide.light::before{background:rgba(var(--paper-rgb),.78);backdrop-filter:blur(3px)}
-  .slide.dark::before{background:rgba(var(--ink-rgb),.78);backdrop-filter:blur(3px)}
+  .slide.light::before{background:rgba(var(--bg-rgb),.78);backdrop-filter:blur(3px)}
+  .slide.dark::before{background:rgba(var(--text-rgb),.78);backdrop-filter:blur(3px)}
   /* Hero 页：遮罩大幅降低，让 WebGL 背景明显透出 */
-  .slide.hero.light::before{background:rgba(var(--paper-rgb),.16);backdrop-filter:none}
-  .slide.hero.dark::before{background:rgba(var(--ink-rgb),.12);backdrop-filter:none}
+  .slide.hero.light::before{background:rgba(var(--bg-rgb),.16);backdrop-filter:none}
+  .slide.hero.dark::before{background:rgba(var(--text-rgb),.12);backdrop-filter:none}
   /* Hero 页顶底微弱渐隐，保证 chrome/foot 区域可读 */
   .slide.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none}
-  .slide.hero.light::after{background:linear-gradient(180deg,rgba(var(--paper-rgb),.28) 0%,rgba(var(--paper-rgb),0) 14%,rgba(var(--paper-rgb),0) 86%,rgba(var(--paper-rgb),.28) 100%)}
-  .slide.hero.dark::after{background:linear-gradient(180deg,rgba(var(--ink-rgb),.32) 0%,rgba(var(--ink-rgb),0) 14%,rgba(var(--ink-rgb),0) 86%,rgba(var(--ink-rgb),.32) 100%)}
+  .slide.hero.light::after{background:linear-gradient(180deg,rgba(var(--bg-rgb),.28) 0%,rgba(var(--bg-rgb),0) 14%,rgba(var(--bg-rgb),0) 86%,rgba(var(--bg-rgb),.28) 100%)}
+  .slide.hero.dark::after{background:linear-gradient(180deg,rgba(var(--text-rgb),.32) 0%,rgba(var(--text-rgb),0) 14%,rgba(var(--text-rgb),0) 86%,rgba(var(--text-rgb),.32) 100%)}
 
   /* ============ Magazine chrome：顶部 meta + 底部 foot ============ */
-  .chrome{display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.7}
+  .chrome{display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--font-mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.7}
   .chrome .left,.chrome .right{display:flex;gap:2.4em;align-items:center}
   .chrome .sep{width:40px;height:1px;background:currentColor;opacity:.4}
-  .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
-  .foot .title{font-family:var(--serif-zh);font-weight:400;letter-spacing:.05em;text-transform:none;opacity:.75;font-size:13px}
+  .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
+  .foot .title{font-family:var(--font-display);font-weight:400;letter-spacing:.05em;text-transform:none;opacity:.75;font-size:13px}
 
-  .tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;padding:6px 14px;border:1px solid currentColor;opacity:.85}
+  .tag{display:inline-block;font-family:var(--font-mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;padding:6px 14px;border:1px solid currentColor;opacity:.85}
   .rule{width:100%;height:1px;background:currentColor;opacity:.25;margin:3vh 0}
   .rule.v{width:1px;height:100%;margin:0}
 
@@ -73,21 +82,21 @@
      · 非衬线（Noto Sans SC）：正文描述、body、补充说明
      · 等宽（IBM Plex Mono）：kicker、meta 小标签、foot 右侧
   */
-  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;opacity:.6;margin-bottom:2.6vh}
-  .display{font-family:var(--serif-en);font-weight:700;font-size:11vw;line-height:.92;letter-spacing:-.025em}
-  .display-zh{font-family:var(--serif-zh);font-weight:700;font-size:7.8vw;line-height:1.04;letter-spacing:-.005em}
-  .h1-zh{font-family:var(--serif-zh);font-weight:700;font-size:4.6vw;line-height:1.12;letter-spacing:-.005em}
-  .h2-zh{font-family:var(--serif-zh);font-weight:600;font-size:3.2vw;line-height:1.2;letter-spacing:0}
-  .h3-zh{font-family:var(--serif-zh);font-weight:500;font-size:1.9vw;line-height:1.35}
-  .body-zh{font-family:var(--sans-zh);font-weight:400;font-size:max(15px,1.22vw);line-height:1.75;opacity:.82;letter-spacing:.01em}
-  .body-serif{font-family:var(--serif-zh);font-weight:400;font-size:max(15px,1.3vw);line-height:1.65;opacity:.88}
-  .lead{font-family:var(--serif-zh);font-weight:400;font-size:1.9vw;line-height:1.4;opacity:.85}
-  .meta{font-family:var(--mono);font-size:max(11px,.88vw);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
-  .big-num{font-family:var(--serif-en);font-weight:800;font-size:10vw;line-height:.85;letter-spacing:-.03em;font-feature-settings:"tnum"}
-  .mid-num{font-family:var(--serif-en);font-weight:700;font-size:5.5vw;line-height:.88;letter-spacing:-.02em;font-feature-settings:"tnum"}
-  .ghost{font-family:var(--serif-en);font-weight:900;font-size:34vw;line-height:.8;opacity:.06;letter-spacing:-.04em;position:absolute;font-feature-settings:"tnum"}
-  em{font-style:italic;font-family:var(--serif-en)}
-  .en{font-family:var(--serif-en);font-style:italic;font-weight:500}
+  .kicker{font-family:var(--font-mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;opacity:.6;margin-bottom:2.6vh}
+  .display{font-family:var(--font-display);font-weight:700;font-size:11vw;line-height:.92;letter-spacing:-.025em}
+  .display-zh{font-family:var(--font-display);font-weight:700;font-size:7.8vw;line-height:1.04;letter-spacing:-.005em}
+  .h1-zh{font-family:var(--font-display);font-weight:700;font-size:4.6vw;line-height:1.12;letter-spacing:-.005em}
+  .h2-zh{font-family:var(--font-display);font-weight:600;font-size:3.2vw;line-height:1.2;letter-spacing:0}
+  .h3-zh{font-family:var(--font-display);font-weight:500;font-size:1.9vw;line-height:1.35}
+  .body-zh{font-family:var(--font-body);font-weight:400;font-size:max(15px,1.22vw);line-height:1.75;opacity:.82;letter-spacing:.01em}
+  .body-serif{font-family:var(--font-display);font-weight:400;font-size:max(15px,1.3vw);line-height:1.65;opacity:.88}
+  .lead{font-family:var(--font-display);font-weight:400;font-size:1.9vw;line-height:1.4;opacity:.85}
+  .meta{font-family:var(--font-mono);font-size:max(11px,.88vw);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
+  .big-num{font-family:var(--font-display);font-weight:800;font-size:10vw;line-height:.85;letter-spacing:-.03em;font-feature-settings:"tnum"}
+  .mid-num{font-family:var(--font-display);font-weight:700;font-size:5.5vw;line-height:.88;letter-spacing:-.02em;font-feature-settings:"tnum"}
+  .ghost{font-family:var(--font-display);font-weight:900;font-size:34vw;line-height:.8;opacity:.06;letter-spacing:-.04em;position:absolute;font-feature-settings:"tnum"}
+  em{font-style:italic;font-family:var(--font-display)}
+  .en{font-family:var(--font-display);font-style:italic;font-weight:500}
 
   /* ============ 布局工具 ============ */
   .col{display:flex;flex-direction:column;gap:2.4vh}
@@ -106,43 +115,43 @@
 
   /* ============ Stat（数字矩阵） ============ */
   .stat{display:flex;flex-direction:column;gap:1vh;align-items:flex-start}
-  .stat .n{font-family:var(--serif-en);font-weight:800;font-size:8vw;line-height:.88;letter-spacing:-.03em;font-feature-settings:"tnum"}
-  .stat .l{font-family:var(--sans-zh);font-size:max(13px,1.05vw);opacity:.7;margin-top:1vh;font-weight:400;line-height:1.5}
-  .stat .m{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.5;margin-bottom:.2vh}
+  .stat .n{font-family:var(--font-display);font-weight:800;font-size:8vw;line-height:.88;letter-spacing:-.03em;font-feature-settings:"tnum"}
+  .stat .l{font-family:var(--font-body);font-size:max(13px,1.05vw);opacity:.7;margin-top:1vh;font-weight:400;line-height:1.5}
+  .stat .m{font-family:var(--font-mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.5;margin-bottom:.2vh}
 
   /* ============ Callout（引用框） ============ */
-  .callout{padding:3vh 2.4vw;border-left:3px solid currentColor;position:relative;font-family:var(--serif-zh);font-size:max(15px,1.2vw);line-height:1.55;opacity:.92}
-  .slide.light .callout{background:rgba(var(--ink-rgb),.05)}
-  .slide.dark .callout{background:rgba(var(--paper-rgb),.06)}
-  .callout .cite{display:block;margin-top:1.6vh;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
-  .callout .q-big{font-family:var(--serif-zh);font-weight:600;font-size:max(17px,1.6vw);line-height:1.42}
+  .callout{padding:3vh 2.4vw;border-left:3px solid currentColor;position:relative;font-family:var(--font-display);font-size:max(15px,1.2vw);line-height:1.55;opacity:.92}
+  .slide.light .callout{background:rgba(var(--text-rgb),.05)}
+  .slide.dark .callout{background:rgba(var(--bg-rgb),.06)}
+  .callout .cite{display:block;margin-top:1.6vh;font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+  .callout .q-big{font-family:var(--font-display);font-weight:600;font-size:max(17px,1.6vw);line-height:1.42}
 
   /* ============ Platform（平台卡） ============ */
   .plat{display:flex;flex-direction:column;justify-content:flex-end;padding:2vh 0;border-top:1px solid currentColor;border-color:rgba(127,127,127,.35)}
-  .plat .name{font-family:var(--serif-zh);font-weight:700;font-size:1.8vw;margin-bottom:.6vh}
-  .plat .nb{font-family:var(--serif-en);font-weight:700;font-size:3.2vw;letter-spacing:-.02em;line-height:1;font-feature-settings:"tnum"}
-  .plat .sub{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-top:.6vh}
-  .plat .fill{font-family:var(--sans-zh);font-weight:300;font-size:2.4vw;opacity:.28;letter-spacing:-.01em;line-height:1}
+  .plat .name{font-family:var(--font-display);font-weight:700;font-size:1.8vw;margin-bottom:.6vh}
+  .plat .nb{font-family:var(--font-display);font-weight:700;font-size:3.2vw;letter-spacing:-.02em;line-height:1;font-feature-settings:"tnum"}
+  .plat .sub{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-top:.6vh}
+  .plat .fill{font-family:var(--font-body);font-weight:300;font-size:2.4vw;opacity:.28;letter-spacing:-.01em;line-height:1}
 
   /* ============ Rowline（表格行） ============ */
   .rowline{display:grid;grid-template-columns:1fr 2fr 1fr;gap:2vw;padding:2.2vh 0;border-top:1px solid currentColor;align-items:center;border-color:rgba(127,127,127,.25)}
   .rowline:last-child{border-bottom:1px solid currentColor;border-color:rgba(127,127,127,.25)}
-  .rowline .k{font-family:var(--serif-zh);font-weight:700;font-size:1.7vw}
-  .rowline .v{font-family:var(--sans-zh);font-weight:400;font-size:max(14px,1.2vw);opacity:.85;line-height:1.55}
-  .rowline .m{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6;justify-self:end}
+  .rowline .k{font-family:var(--font-display);font-weight:700;font-size:1.7vw}
+  .rowline .v{font-family:var(--font-body);font-weight:400;font-size:max(14px,1.2vw);opacity:.85;line-height:1.55}
+  .rowline .m{font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6;justify-self:end}
 
   /* ============ Pillar（支柱卡片） ============ */
   .pillar{display:flex;flex-direction:column;gap:1.8vh}
-  .pillar .ic{font-family:var(--serif-en);font-style:italic;font-size:2.6vw;opacity:.45;font-weight:400}
+  .pillar .ic{font-family:var(--font-display);font-style:italic;font-size:2.6vw;opacity:.45;font-weight:400}
   .pillar .ic svg{width:2.8vw;height:2.8vw;stroke-width:1.2;opacity:.7}
-  .pillar .t{font-family:var(--serif-zh);font-weight:700;font-size:2.4vw;line-height:1.1}
-  .pillar .d{font-family:var(--sans-zh);font-weight:400;font-size:max(14px,1.1vw);opacity:.76;line-height:1.6}
+  .pillar .t{font-family:var(--font-display);font-weight:700;font-size:2.4vw;line-height:1.1}
+  .pillar .d{font-family:var(--font-body);font-weight:400;font-size:max(14px,1.1vw);opacity:.76;line-height:1.6}
 
   /* ============ Signature / Highlight ============ */
-  .sign{font-family:var(--serif-en);font-style:italic;font-weight:500;font-size:2vw;opacity:.7}
+  .sign{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:2vw;opacity:.7}
   .hi{position:relative;display:inline}
-  .slide.dark .hi::after{content:"";position:absolute;left:-.1em;right:-.1em;bottom:-.05em;height:.28em;background:rgba(var(--paper-rgb),.15);z-index:-1}
-  .slide.light .hi::after{content:"";position:absolute;left:-.1em;right:-.1em;bottom:-.05em;height:.28em;background:rgba(var(--ink-rgb),.08);z-index:-1}
+  .slide.dark .hi::after{content:"";position:absolute;left:-.1em;right:-.1em;bottom:-.05em;height:.28em;background:rgba(var(--bg-rgb),.15);z-index:-1}
+  .slide.light .hi::after{content:"";position:absolute;left:-.1em;right:-.1em;bottom:-.05em;height:.28em;background:rgba(var(--text-rgb),.08);z-index:-1}
 
   /* ============ Icons（Lucide via CDN） ============ */
   .ico{width:1em;height:1em;display:inline-block;vertical-align:-.12em;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
@@ -152,7 +161,7 @@
   .ico-sm{width:1.1vw;height:1.1vw;stroke-width:1.4;display:inline-block;vertical-align:-.15em;opacity:.7}
 
   /* ============ 图片占位（虚线框，提示设计师位置） ============ */
-  .img-slot{border:1.5px dashed rgba(127,127,127,.4);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1vh;padding:2vh 2vw;font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;opacity:.55;position:relative;aspect-ratio:16/9;width:100%;max-height:56vh;margin-inline:auto;box-sizing:border-box}
+  .img-slot{border:1.5px dashed rgba(127,127,127,.4);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1vh;padding:2vh 2vw;font-family:var(--font-mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;opacity:.55;position:relative;aspect-ratio:16/9;width:100%;max-height:56vh;margin-inline:auto;box-sizing:border-box}
   .img-slot::before{content:"";position:absolute;inset:8px;border:1px solid currentColor;opacity:.2}
   .img-slot .plus{font-size:2vw;font-weight:300;opacity:.5;letter-spacing:0}
   .img-slot .label{position:relative;z-index:2;text-align:center}
@@ -179,10 +188,10 @@
   .frame-img.h-22{height:22vh}
   .frame-img.h-26{height:26vh}
   .frame-img.h-28{height:28vh}
-  .frame-cap{display:flex;justify-content:space-between;align-items:baseline;gap:1vw;margin-top:.8vh;font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.72}
-  .frame-cap .pf{font-family:var(--serif-zh);font-weight:600;font-size:max(13px,1vw);letter-spacing:.04em;text-transform:none;opacity:.94}
-  .frame-cap .nb{font-family:var(--serif-en);font-style:italic;font-size:max(15px,1.2vw);letter-spacing:.02em;text-transform:none;opacity:.88}
-  .frame-cap .idx{font-family:var(--mono);opacity:.5}
+  .frame-cap{display:flex;justify-content:space-between;align-items:baseline;gap:1vw;margin-top:.8vh;font-family:var(--font-mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.72}
+  .frame-cap .pf{font-family:var(--font-display);font-weight:600;font-size:max(13px,1vw);letter-spacing:.04em;text-transform:none;opacity:.94}
+  .frame-cap .nb{font-family:var(--font-display);font-style:italic;font-size:max(15px,1.2vw);letter-spacing:.02em;text-transform:none;opacity:.88}
+  .frame-cap .idx{font-family:var(--font-mono);opacity:.5}
   figure.tile{display:flex;flex-direction:column;margin:0;min-width:0}
   figure.tile > .frame-img{flex:0 0 auto}
 
@@ -192,11 +201,11 @@
   #nav .dot:hover{background:rgba(255,255,255,.5);transform:scale(1.15)}
   #nav .dot.active{background:rgba(255,255,255,.95);width:22px;border-radius:999px}
   body.light-bg #nav{background:rgba(255,255,255,.25)}
-  body.light-bg #nav .dot{background:rgba(var(--ink-rgb),.25)}
-  body.light-bg #nav .dot.active{background:rgba(var(--ink-rgb),.9)}
-  #hint{position:fixed;bottom:3vh;right:3vw;z-index:30;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.4;mix-blend-mode:difference;color:#aaa}
-  body.low-power #hint{opacity:.72;color:var(--paper);mix-blend-mode:normal}
-  body.light-bg.low-power #hint{color:var(--ink)}
+  body.light-bg #nav .dot{background:rgba(var(--text-rgb),.25)}
+  body.light-bg #nav .dot.active{background:rgba(var(--text-rgb),.9)}
+  #hint{position:fixed;bottom:3vh;right:3vw;z-index:30;font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.4;mix-blend-mode:difference;color:#aaa}
+  body.low-power #hint{opacity:.72;color:var(--bg);mix-blend-mode:normal}
+  body.light-bg.low-power #hint{color:var(--text)}
 
   /* ============================================================
      ============ LAYOUTS API · 面向 agent 的类（v2）============
@@ -215,21 +224,21 @@
 
   /* ---------- 标题层级（API 名称，衬线为主） ---------- */
   .h-hero{
-    font-family:var(--serif-zh);
+    font-family:var(--font-display);
     font-weight:900;
     font-size:10vw;
     line-height:.96;
     letter-spacing:-.02em;
   }
   .h-xl{
-    font-family:var(--serif-zh);
+    font-family:var(--font-display);
     font-weight:700;
     font-size:6.2vw;
     line-height:1.08;
     letter-spacing:-.01em;
   }
   .h-sub{
-    font-family:var(--serif-zh);
+    font-family:var(--font-display);
     font-weight:500;
     font-size:3.1vw;
     line-height:1.25;
@@ -237,17 +246,17 @@
     opacity:.7;
   }
   .h-md{
-    font-family:var(--serif-zh);
+    font-family:var(--font-display);
     font-weight:600;
     font-size:2.3vw;
     line-height:1.3;
   }
   /* 英文标题专用（Playfair 衬线） */
-  .h-hero-en,.h-xl-en{font-family:var(--serif-en);letter-spacing:-.025em}
+  .h-hero-en,.h-xl-en{font-family:var(--font-display);letter-spacing:-.025em}
 
   /* ---------- lead 引语 ---------- */
   .lead{
-    font-family:var(--serif-zh);
+    font-family:var(--font-display);
     font-weight:400;
     font-size:1.75vw;
     line-height:1.5;
@@ -260,7 +269,7 @@
     gap:1.2em;
     align-items:baseline;
     flex-wrap:wrap;
-    font-family:var(--mono);
+    font-family:var(--font-mono);
     font-size:max(12px,.92vw);
     letter-spacing:.16em;
     text-transform:uppercase;
@@ -278,14 +287,14 @@
     border-color:rgba(127,127,127,.3);
   }
   .stat-card .stat-label{
-    font-family:var(--mono);
+    font-family:var(--font-mono);
     font-size:max(10px,.78vw);
     letter-spacing:.24em;
     text-transform:uppercase;
     opacity:.55;
   }
   .stat-card .stat-nb{
-    font-family:var(--serif-en);
+    font-family:var(--font-display);
     font-weight:800;
     font-size:5.8vw;
     line-height:.9;
@@ -294,7 +303,7 @@
     margin-top:.4vh;
   }
   .stat-card .stat-nb .stat-unit{
-    font-family:var(--serif-zh);
+    font-family:var(--font-display);
     font-weight:500;
     font-size:.38em;
     letter-spacing:0;
@@ -302,7 +311,7 @@
     margin-left:.14em;
   }
   .stat-card .stat-note{
-    font-family:var(--sans-zh);
+    font-family:var(--font-body);
     font-weight:400;
     font-size:max(13px,1.05vw);
     line-height:1.5;
@@ -326,7 +335,7 @@
     margin-top:3vh;
   }
   .pipeline-label{
-    font-family:var(--mono);
+    font-family:var(--font-mono);
     font-size:max(11px,.85vw);
     letter-spacing:.24em;
     text-transform:uppercase;
@@ -350,21 +359,21 @@
     border-color:rgba(127,127,127,.35);
   }
   .step-nb{
-    font-family:var(--serif-en);
+    font-family:var(--font-display);
     font-style:italic;
     font-weight:500;
     font-size:1.15vw;
     opacity:.45;
   }
   .step-title{
-    font-family:var(--sans-zh);
+    font-family:var(--font-body);
     font-weight:700;
     font-size:1.55vw;
     letter-spacing:.01em;
     line-height:1.2;
   }
   .step-desc{
-    font-family:var(--sans-zh);
+    font-family:var(--font-body);
     font-weight:400;
     font-size:max(12px,.95vw);
     line-height:1.45;
@@ -390,7 +399,7 @@
   .img-cap{
     display:block;
     margin-top:.8vh;
-    font-family:var(--mono);
+    font-family:var(--font-mono);
     font-size:max(10px,.8vw);
     letter-spacing:.22em;
     text-transform:uppercase;
@@ -400,7 +409,7 @@
   .callout-src{
     display:block;
     margin-top:1.6vh;
-    font-family:var(--mono);
+    font-family:var(--font-mono);
     font-size:11px;
     letter-spacing:.2em;
     text-transform:uppercase;
@@ -408,8 +417,8 @@
   }
 
   /* ---------- chrome & foot 补位（layouts.md 简单写法） ---------- */
-  .chrome{font-family:var(--mono);font-size:max(11px,.78vw);letter-spacing:.2em;text-transform:uppercase;opacity:.62}
-  .foot{font-family:var(--mono);font-size:max(11px,.78vw);letter-spacing:.18em;text-transform:uppercase;opacity:.5}
+  .chrome{font-family:var(--font-mono);font-size:max(11px,.78vw);letter-spacing:.2em;text-transform:uppercase;opacity:.62}
+  .foot{font-family:var(--font-mono);font-size:max(11px,.78vw);letter-spacing:.18em;text-transform:uppercase;opacity:.5}
 
   /* ============ 动效系统(Motion One 驱动) ============
      所有 [data-anim] 元素默认隐藏,进入页面时由 JS 逐个揭示。
@@ -563,7 +572,7 @@
       <div data-anim="left" style="padding:3vh 2vw; border-left:3px solid currentColor; opacity:.55">
         <div class="kicker" style="opacity:.9">Before · 组件库</div>
         <h3 class="h-md" style="margin-top:2vh">UI 零件箱</h3>
-        <ul style="margin-top:3vh; padding-left:1.2em; display:flex; flex-direction:column; gap:1.4vh; font-family:var(--sans-zh); font-size:max(14px,1.1vw); line-height:1.55">
+        <ul style="margin-top:3vh; padding-left:1.2em; display:flex; flex-direction:column; gap:1.4vh; font-family:var(--font-body); font-size:max(14px,1.1vw); line-height:1.55">
           <li>Button / Input / Modal 的集合</li>
           <li>只解决"看起来一致"</li>
           <li>缺乏语义与使用规则</li>
@@ -573,7 +582,7 @@
       <div data-anim="right" style="padding:3vh 2vw; border-left:3px solid currentColor">
         <div class="kicker" style="opacity:.9">After · 设计系统</div>
         <h3 class="h-md" style="margin-top:2vh">共享语言与规则引擎</h3>
-        <ul style="margin-top:3vh; padding-left:1.2em; display:flex; flex-direction:column; gap:1.4vh; font-family:var(--sans-zh); font-size:max(14px,1.1vw); line-height:1.55">
+        <ul style="margin-top:3vh; padding-left:1.2em; display:flex; flex-direction:column; gap:1.4vh; font-family:var(--font-body); font-size:max(14px,1.1vw); line-height:1.55">
           <li>Design Token 驱动全平台</li>
           <li>布局规则 · 交互范式 · 内容语调</li>
           <li>组件只是最表层</li>
@@ -596,7 +605,7 @@
   </div>
   <div class="frame" style="display:grid; gap:5vh; align-content:center; min-height:80vh">
     <div class="kicker" data-anim>Quote · 收束</div>
-    <blockquote style="font-family:var(--serif-zh); font-weight:700; font-size:5.8vw; line-height:1.2; letter-spacing:-.01em; max-width:72vw">
+    <blockquote style="font-family:var(--font-display); font-weight:700; font-size:5.8vw; line-height:1.2; letter-spacing:-.01em; max-width:72vw">
       <span data-anim="line" style="display:block">"好的设计系统，</span>
       <span data-anim="line" style="display:block">是活的，不是死的。"</span>
     </blockquote>
@@ -782,7 +791,7 @@ function go(n){
 let overviewOn=false;
 const ov=document.createElement('div');
 ov.id='overview';
-ov.style.cssText='position:fixed;inset:0;z-index:100;background:rgba(var(--ink-rgb),.92);backdrop-filter:blur(12px);display:none;overflow-y:auto;padding:4vh 4vw';
+ov.style.cssText='position:fixed;inset:0;z-index:100;background:rgba(var(--text-rgb),.92);backdrop-filter:blur(12px);display:none;overflow-y:auto;padding:4vh 4vw';
 document.body.appendChild(ov);
 
 function buildOverview(){
@@ -791,16 +800,16 @@ function buildOverview(){
   grid.style.cssText='display:grid;grid-template-columns:repeat(4,1fr);gap:2vh 1.6vw;max-width:90vw;margin:0 auto';
   slides.forEach((s,i)=>{
     const card=document.createElement('div');
-    card.style.cssText='cursor:pointer;border-radius:6px;overflow:hidden;border:2px solid '+(i===idx?'rgba(var(--paper-rgb),.8)':'rgba(var(--paper-rgb),.15)')+';transition:border-color .2s';
-    card.onmouseenter=()=>card.style.borderColor='rgba(var(--paper-rgb),.6)';
-    card.onmouseleave=()=>card.style.borderColor=i===idx?'rgba(var(--paper-rgb),.8)':'rgba(var(--paper-rgb),.15)';
+    card.style.cssText='cursor:pointer;border-radius:6px;overflow:hidden;border:2px solid '+(i===idx?'rgba(var(--bg-rgb),.8)':'rgba(var(--bg-rgb),.15)')+';transition:border-color .2s';
+    card.onmouseenter=()=>card.style.borderColor='rgba(var(--bg-rgb),.6)';
+    card.onmouseleave=()=>card.style.borderColor=i===idx?'rgba(var(--bg-rgb),.8)':'rgba(var(--bg-rgb),.15)';
     const wrap=document.createElement('div');
-    wrap.style.cssText='width:100%;aspect-ratio:16/9;overflow:hidden;position:relative;pointer-events:none;background:'+(s.classList.contains('light')?'var(--paper)':'var(--ink)');
+    wrap.style.cssText='width:100%;aspect-ratio:16/9;overflow:hidden;position:relative;pointer-events:none;background:'+(s.classList.contains('light')?'var(--bg)':'var(--text)');
     const clone=s.cloneNode(true);
     clone.style.cssText='width:100vw;height:100vh;transform:scale('+(1/4.5)+');transform-origin:top left;position:absolute;top:0;left:0;pointer-events:none';
     wrap.appendChild(clone);
     const label=document.createElement('div');
-    label.style.cssText='padding:6px 10px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--paper);opacity:.7';
+    label.style.cssText='padding:6px 10px;font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--bg);opacity:.7';
     label.textContent=(i+1)+' / '+total;
     card.appendChild(wrap);
     card.appendChild(label);

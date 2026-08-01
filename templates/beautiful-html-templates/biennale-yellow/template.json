@@ -44,5 +44,6 @@
   "best_for": "Anything that should feel like an art-biennale poster or a museum's annual programme: exhibition decks, arts-institution announcements, design conference brochures, curatorial pitches, literary publications, studio retrospectives. Equally good for any deck wanting Dutch-editorial atmosphere with an unmistakable single-color signature.",
   "avoid_for": "Decks that need visual punch or saturated multi-color energy — the warm-paper canvas and one-yellow palette are intentionally quiet and atmospheric.",
   "slide_count": 8,
-  "navigation": "vanilla JS (arrow keys, space, Home/End, touch swipe)"
+  "navigation": "vanilla JS (arrow keys, space, Home/End, touch swipe)",
+  "design_style": "editorial"
 }

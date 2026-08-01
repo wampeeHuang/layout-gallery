@@ -52,14 +52,16 @@ function guessDesignStyle(entry) {
   const mood = (entry.mood || []).join(' ').toLowerCase();
   const combined = name + ' ' + mood;
 
-  if (combined.includes('swiss') || combined.includes('瑞士') || combined.includes('grid') || combined.includes('cobalt') || combined.includes('monochrome') || combined.includes('minimal')) return 'swiss-minimal';
-  if (combined.includes('editorial') || combined.includes('杂志') || combined.includes('magazine') || combined.includes('broadside') || combined.includes('vellum') || combined.includes('ledger')) return 'editorial';
-  if (combined.includes('warm') || combined.includes('温润') || combined.includes('人文') || combined.includes('natural') || combined.includes('organic') || combined.includes('coral') || combined.includes('sakura') || combined.includes('daisy') || combined.includes('grove') || combined.includes('playful') || combined.includes('crafted')) return 'warm-humanist';
-  if (combined.includes('cyberpunk') || combined.includes('neon') || combined.includes('tech') || combined.includes('terminal') || combined.includes('retro-tech') || combined.includes('8-bit') || combined.includes('synthwave') || combined.includes('赛博')) return 'tech-cyberpunk';
-  if (combined.includes('retro') || combined.includes('vintage') || combined.includes('nostalgic') || combined.includes('zine') || combined.includes('retro-futuristic') || combined.includes('复古')) return 'retro-nostalgic';
-  if (combined.includes('bold') || combined.includes('brutalist') || combined.includes('loud') || combined.includes('punk') || combined.includes('大胆') || combined.includes('粗野')) return 'experimental';
-  if (combined.includes('institutional') || combined.includes('authoritative') || combined.includes('corporate') || combined.includes('signal')) return 'institutional';
-  if (combined.includes('zen') || combined.includes('禅') || combined.includes('japanese') || combined.includes('wabi')) return 'eastern-zen';
+  if (combined.includes('brutalist') || combined.includes('粗野') || combined.includes('neo-brutal')) return 'brutalist';
+  if (combined.includes('swiss') || combined.includes('瑞士') || combined.includes('grid') && combined.includes('minimal')) return 'swiss';
+  if (combined.includes('editorial') || combined.includes('杂志') || combined.includes('编辑') || combined.includes('broadside') || combined.includes('vellum') || combined.includes('magazine')) return 'editorial';
+  if (combined.includes('corporate') || combined.includes('企业') || combined.includes('商务') || combined.includes('professional') || combined.includes('signal')) return 'corporate';
+  if (combined.includes('retro') || combined.includes('复古') || combined.includes('vintage') || combined.includes('nostalgic') || combined.includes('y2k') || combined.includes('synthwave') || combined.includes('8-bit')) return 'retro';
+  if (combined.includes('luxury') || combined.includes('奢华') || combined.includes('luxe') || combined.includes('暗色') && combined.includes('gold')) return 'luxury';
+  if (combined.includes('zen') || combined.includes('禅') || combined.includes('organic') || combined.includes('自然') || combined.includes('natural') || combined.includes('grove') || combined.includes('earth') || combined.includes('wabi')) return 'organic';
+  if (combined.includes('modern') || combined.includes('现代') || combined.includes('tech') || combined.includes('科技') || combined.includes('cyberpunk') || combined.includes('terminal') || combined.includes('赛博')) return 'modern';
+  if (combined.includes('playful') || combined.includes('活泼') || combined.includes('creative') || combined.includes('创意') || combined.includes('bold') || combined.includes('daisy') || combined.includes('coral') || combined.includes('capsule')) return 'playful';
+  if (combined.includes('minimal') || combined.includes('极简') || combined.includes('monochrome') || combined.includes('clean')) return 'minimalist';
 
   return 'editorial'; // default
 }

@@ -42,8 +42,9 @@
     "style": "groovy display + handwritten script + warm slab body; reads like a designer's whiteboard"
   },
   "scheme": "light",
-  "best_for": "Anything that should feel like a designer's whiteboard: brainstorms, workshops, creative-agency credentials, design-thinking sessions, ideation pitches, art-direction reviews. Equally fun for any deck \u2014 including tech, research, or business \u2014 that wants to read as in-progress thinking rather than polished conclusions.",
-  "avoid_for": "Contexts that demand precision and institutional weight \u2014 the post-it sticky-note aesthetic intentionally reads as warm and unfinished.",
+  "best_for": "Anything that should feel like a designer's whiteboard: brainstorms, workshops, creative-agency credentials, design-thinking sessions, ideation pitches, art-direction reviews. Equally fun for any deck — including tech, research, or business — that wants to read as in-progress thinking rather than polished conclusions.",
+  "avoid_for": "Contexts that demand precision and institutional weight — the post-it sticky-note aesthetic intentionally reads as warm and unfinished.",
   "slide_count": 10,
-  "navigation": "inline keyboard handler (arrows, space, PgUp/PgDn, Home/End) plus touch swipe and mouse-wheel"
+  "navigation": "inline keyboard handler (arrows, space, PgUp/PgDn, Home/End) plus touch swipe and mouse-wheel",
+  "design_style": "playful"
 }

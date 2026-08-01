@@ -40,8 +40,9 @@
     "style": "heavy slab display + narrow grotesk + brush script + mono; protest-poster typographic stack"
   },
   "scheme": "light",
-  "best_for": "Anything that should feel honest, loud, and graphic: cultural commentary, manifestos, civic and community decks, design talks, campaign pitches. Excellent for founder-vision moments, mission statements, or any deck \u2014 including across industries \u2014 that wants protest-poster energy instead of corporate polish.",
-  "avoid_for": "Contexts where institutional restraint is the actual goal \u2014 the saturated political-poster palette commits hard to expressive energy.",
+  "best_for": "Anything that should feel honest, loud, and graphic: cultural commentary, manifestos, civic and community decks, design talks, campaign pitches. Excellent for founder-vision moments, mission statements, or any deck — including across industries — that wants protest-poster energy instead of corporate polish.",
+  "avoid_for": "Contexts where institutional restraint is the actual goal — the saturated political-poster palette commits hard to expressive energy.",
   "slide_count": 10,
-  "navigation": "deck-stage runtime (arrow keys, space, PgUp/PgDn, Home/End)"
+  "navigation": "deck-stage runtime (arrow keys, space, PgUp/PgDn, Home/End)",
+  "design_style": "playful"
 }

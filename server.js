@@ -217,6 +217,50 @@ app.get('/api/template/:slug/tokens', (req, res) => {
   res.json(tokens);
 });
 
+// GET /api/swap-test — Token 替换检验：源 token 注入目标骨架，风格跟随了吗？
+app.get('/api/swap-test', (req, res) => {
+  const { source, target } = req.query;
+  if (!source || !target) return res.status(400).json({ error: 'need source and target slugs' });
+
+  try {
+    const { renderTemplate: rt, loadEntry: le } = require('./scripts/template-renderer');
+    const items = loadRegistry();
+
+    const srcEntry = items.find(e => e.slug === source);
+    const tgtEntry = items.find(e => e.slug === target);
+    if (!srcEntry) return res.status(404).json({ error: 'source not found: ' + source });
+    if (!tgtEntry) return res.status(404).json({ error: 'target not found: ' + target });
+
+    // Read source tokens
+    const srcDir = path.join(PROJECT_DIR, path.dirname(srcEntry.template_path));
+    const srcTokensPath = path.join(srcDir, 'tokens.json');
+    if (!fs.existsSync(srcTokensPath)) return res.status(400).json({ error: 'source has no tokens.json' });
+    const srcTokens = JSON.parse(fs.readFileSync(srcTokensPath, 'utf-8'));
+
+    // Read target tokens (for side-by-side)
+    const tgtDir = path.join(PROJECT_DIR, path.dirname(tgtEntry.template_path));
+    const tgtTokensPath = path.join(tgtDir, 'tokens.json');
+    const tgtTokens = fs.existsSync(tgtTokensPath) ? JSON.parse(fs.readFileSync(tgtTokensPath, 'utf-8')) : null;
+
+    // Render target skeleton with source tokens
+    const swappedHtml = rt(tgtEntry, PROJECT_DIR, srcTokens);
+
+    // Render target with its own tokens (for comparison)
+    const originalHtml = tgtTokens ? rt(tgtEntry, PROJECT_DIR, tgtTokens) : null;
+
+    res.json({
+      ok: true,
+      source: { slug: srcEntry.slug, name: srcEntry.name, design_style: srcEntry.design_style },
+      target: { slug: tgtEntry.slug, name: tgtEntry.name, design_style: tgtEntry.design_style },
+      swapped_html: swappedHtml,
+      original_html: originalHtml,
+    });
+  } catch (err) {
+    console.error('Swap test error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // GET /brand/:slug — 品牌套件 HTML 页
 app.get('/brand/:slug', (req, res) => {
   const items = loadRegistry();

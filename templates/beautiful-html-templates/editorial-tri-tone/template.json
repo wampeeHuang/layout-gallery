@@ -36,8 +36,9 @@
     "style": "expressive variable grotesk + literary serif + technical mono; magazine-page typographic system"
   },
   "scheme": "mixed",
-  "best_for": "Anything that should feel like a fashion-magazine spread: editorial pitches, fashion brand decks, lifestyle media, art direction reviews. Equally good for any deck \u2014 including tech, research, or business \u2014 that wants tri-tone discipline and serif/sans contrast instead of the usual neutrals.",
-  "avoid_for": "Decks that need to read as soft or comforting \u2014 the burgundy/pink/cream tri-tone is intentionally high-contrast and styled.",
+  "best_for": "Anything that should feel like a fashion-magazine spread: editorial pitches, fashion brand decks, lifestyle media, art direction reviews. Equally good for any deck — including tech, research, or business — that wants tri-tone discipline and serif/sans contrast instead of the usual neutrals.",
+  "avoid_for": "Decks that need to read as soft or comforting — the burgundy/pink/cream tri-tone is intentionally high-contrast and styled.",
   "slide_count": 8,
-  "navigation": "deck-stage runtime (arrow keys, space, PgUp/PgDn, Home/End)"
+  "navigation": "deck-stage runtime (arrow keys, space, PgUp/PgDn, Home/End)",
+  "design_style": "editorial"
 }

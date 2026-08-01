@@ -18,6 +18,27 @@ function loadFallbackMap(projectDir) {
   return map;
 }
 
+// Standard CSS variable vocabulary — enforced by validate-templates.js.
+// These are the ONLY names renderer reads directly. Domain names
+// (--ink, --oxide) are deprecated; the fallback chain is soft landing
+// for unmigrated templates.
+const STD = {
+  color: {
+    bg: '--bg', surface: '--surface', text: '--text',
+    textSecondary: '--text-soft', border: '--line',
+    accent: '--accent', accentAlt: '--accent-alt', accentHover: '--accent-hover'
+  },
+  typography: {
+    display: '--font-display', body: '--font-body', mono: '--font-mono'
+  },
+  spacing: {
+    pageW: '--page-wmax', pagePad: '--page-pad', gap: '--gap', gutter: '--gutter'
+  },
+  radius: { default: '--radius' },
+  shadow: { sm: '--shadow-sm', md: '--shadow-md' },
+  motion: { ease: '--ease-default', duration: '--duration-base' }
+};
+
 function renderBrandKit(entry, projectDir) {
   const fb = loadFallbackMap(projectDir);
   const tmplPath = path.join(projectDir, entry.template_path);
@@ -31,6 +52,21 @@ function renderBrandKit(entry, projectDir) {
   const tokensData = JSON.parse(fs.readFileSync(tokensPath, 'utf-8'));
   const vars = flattenTokens(tokensData);
   const tokensByGroup = groupTokensFromData(tokensData);
+
+  // ── Layer 2: Auto-derive standard aliases from brandKit.colorRoles ──
+  // Templates define domain tokens (--ink, --paper). Renderer injects standard
+  // names (--accent, --bg) so brand page :root and buildPalette() resolve
+  // without requiring duplicate alias entries in tokens.json.
+  // colorRoles → CSS var mapping is the standard contract. Single source of truth.
+  const cr = (tokensData.brandKit && tokensData.brandKit.colorRoles) ? tokensData.brandKit.colorRoles : {};
+  const ROLE_TO_VAR = {
+    primary: '--accent', secondary: '--accent-alt',
+    background: '--bg', text: '--text',
+    textSecondary: '--text-soft', border: '--line', surface: '--surface'
+  };
+  for (const [role, varName] of Object.entries(ROLE_TO_VAR)) {
+    if (cr[role] && !vars[varName]) vars[varName] = cr[role];
+  }
 
   const P = buildPalette(entry, vars, fb);
   const T = buildTypography(entry, vars, fb);
@@ -64,15 +100,21 @@ function renderBrandKit(entry, projectDir) {
   // ── Brand kit type scale & spacing (from tokens.json brandKit section) ──
   const brandKit = tokensData.brandKit || {};
   if (brandKit.typeScale) {
-    out = out.replace(/\{\{TYPE_SCALE_VARS\}\}/g, brandKit.typeScale.map(t => t.name + ':' + t.value).join(';') + ';');
+    out = out.replace(/\{\{TYPE_SCALE_VARS\}\}/g, brandKit.typeScale.map(t => '--' + t.name + ':' + (t.size || t.value)).join(';') + ';');
   }
   if (brandKit.spacingScale) {
-    out = out.replace(/\{\{SPACING_VARS\}\}/g, brandKit.spacingScale.map(t => t.name + ':' + t.value).join(';') + ';');
+    out = out.replace(/\{\{SPACING_VARS\}\}/g, brandKit.spacingScale.map(t => '--' + t.name + ':' + t.value).join(';') + ';');
   }
 
+  // ── Inject template domain color tokens into brand page :root ──
+  // So var(--ink), var(--paper) etc. resolve natively in browser.
+  // Standard aliases (--accent, --bg) already handled by colorRoles augmentation.
+  const colorVars = (tokensByGroup.Color || []).map(t => t.name + ':' + t.value).join(';');
+  out = out.replace(/\{\{TEMPLATE_COLOR_VARS\}\}/g, colorVars ? colorVars + ';' : '');
+
   // ── Page layout vars from tokens.json spacing ──
-  out = out.replace(/\{\{PAGE_WMAX\}\}/g, vars['--page-wmax'] || '1200px');
-  out = out.replace(/\{\{PAGE_PAD\}\}/g, vars['--page-pad'] || '32px');
+  out = out.replace(/\{\{PAGE_WMAX\}\}/g, vars[STD.spacing.pageW] || '1200px');
+  out = out.replace(/\{\{PAGE_PAD\}\}/g, vars[STD.spacing.pagePad] || '32px');
 
   // ── Template heading typography overrides ──
   // Extract only font-family from template styles. Font-size/line-height/letter-spacing
@@ -124,7 +166,7 @@ function renderBrandKit(entry, projectDir) {
 
   // ── Shadow ──
   out = out.replace(/\{\{SHADOW_DESC\}\}/g, esc(buildShadowDesc(tokensByGroup, assets.implicit.shadow)));
-  out = out.replace(/\{\{SHADOW_CARDS\}\}/g, buildShadowCards(tokensByGroup, assets.implicit.shadow));
+  out = out.replace(/\{\{SHADOW_CARDS\}\}/g, buildShadowCards(tokensByGroup, assets.implicit.shadow, vars));
 
   // ── Motion ──
   out = out.replace(/\{\{MOTION_DESC\}\}/g, esc(buildMotionDesc(tokensByGroup, assets.implicit.motion)));
@@ -156,7 +198,8 @@ function renderBrandKit(entry, projectDir) {
 // ── Template asset extraction (background textures, pseudo-elements, heading styles) ──
 function extractTemplateAssets(html, P, vars) {
   const styleMatch = html.match(/<style>([\s\S]*?)<\/style>/i);
-  if (!styleMatch) return { bodyBg: 'background:var(--bg)', before: '', h1Style: '', h2Style: '' };
+  if (!styleMatch) return { bodyBg: 'background:var(--bg)', before: '', h1Style: '', h2Style: '',
+    implicit: { spacing: { padding: [], margin: [], gap: [] }, radius: [], shadow: [], motion: [] } };
 
   const css = styleMatch[1];
 
@@ -304,17 +347,24 @@ function buildPalette(entry, vars, fb) {
     });
   }
 
-  const find = (keys) => { for (const k of keys) { if (vars[k]) return vars[k]; } return ''; };
+  // Standard name lookup first, then domain-name chain for unmigrated templates.
+  // Deprecation: domain-name fallback chain will be removed once all templates
+  // pass standardVars validation.
+  const find = (stdKey, legacyKeys) => {
+    if (vars[stdKey]) return vars[stdKey];
+    for (const k of (legacyKeys || [])) { if (vars[k]) return vars[k]; }
+    return '';
+  };
 
-  const bg = find(['--bg', '--paper', '--bg-color', '--color-bg', '--background']);
-  const bgCard = find(['--bg-card', '--card-bg', '--paper-deep', '--surface', '--color-surface']);
-  const text = find(['--text', '--ink', '--color-text', '--text-primary', '--foreground']);
-  const textSecondary = find(['--text-secondary', '--ink-soft', '--color-text-secondary']);
-  const _textMuted = find(['--text-muted', '--text-tertiary', '--color-text-muted']);
+  const bg = find(STD.color.bg, ['--paper', '--bg-color', '--color-bg', '--background']);
+  const bgCard = find(STD.color.surface, ['--bg-card', '--card-bg', '--paper-deep', '--color-surface']);
+  const text = find(STD.color.text, ['--ink', '--color-text', '--text-primary', '--foreground']);
+  const textSecondary = find(STD.color.textSecondary, ['--text-secondary', '--ink-soft', '--color-text-secondary']);
+  const _textMuted = find(null, ['--text-muted', '--text-tertiary', '--color-text-muted']);
   const textMuted = _textMuted || hexToRgba(text || fb['text-primary'], 0.4);
-  const border = find(['--border', '--line', '--border-color', '--color-border']);
-  const accent = find(['--accent', '--oxide', '--primary', '--color-accent', '--color-primary']);
-  const accentHover = find(['--accent-hover', '--sun', '--primary-hover', '--color-accent-hover']);
+  const border = find(STD.color.border, ['--border', '--border-color', '--color-border', '--line-soft']);
+  const accent = find(STD.color.accent, ['--oxide', '--primary', '--color-accent', '--color-primary']);
+  const accentHover = find(STD.color.accentHover, ['--accent-hover', '--sun', '--primary-hover', '--color-accent-hover']);
 
   return {
     colors,
@@ -362,10 +412,14 @@ function guessRole(name) {
 
 // ── Typography ──
 function buildTypography(entry, vars, fb) {
-  const find = (keys) => { for (const k of keys) { if (vars[k]) return vars[k]; } return ''; };
-  const display = find(['--display', '--font-display', '--font-serif', '--heading-font']);
-  const body = find(['--body', '--font-body', '--font-sans', '--text-font']);
-  const mono = find(['--mono', '--font-mono', '--code-font']);
+  const find = (stdKey, legacyKeys) => {
+    if (vars[stdKey]) return vars[stdKey];
+    for (const k of (legacyKeys || [])) { if (vars[k]) return vars[k]; }
+    return '';
+  };
+  const display = find(STD.typography.display, ['--display', '--font-serif', '--heading-font']);
+  const body = find(STD.typography.body, ['--body', '--font-sans', '--text-font']);
+  const mono = find(STD.typography.mono, ['--mono', '--code-font']);
   return {
     display: display || entry.displayFont || fb['display-font'],
     body: body || entry.bodyFont || fb['body-font'],
@@ -526,13 +580,14 @@ function buildTypeScaleTable(groups, brandKit) {
   const bkItems = (brandKit && brandKit.typeScale) ? brandKit.typeScale : null;
   if (bkItems && bkItems.length > 0) {
     return bkItems.map(t => {
+      const val = t.size || t.value;
       const label = t.name.replace('--brand-t-', '');
-      const pxVal = cssValToPx(t.value);
+      const pxVal = cssValToPx(val);
       const sizeStyle = pxVal > 0 ? 'font-size:' + Math.min(pxVal, 40) + 'px;font-weight:700' : '';
       return '<tr><td>' + (sizeStyle ? '<span style="' + sizeStyle + '">' + capitalize(label) + '</span>' : capitalize(label)) +
         '</td><td class="mono">' + esc(t.name) + '</td>' +
-        '<td class="mono">' + esc(t.value) + '</td>' +
-        '<td>' + esc(t.role || '') + '</td></tr>';
+        '<td class="mono">' + esc(val) + '</td>' +
+        '<td>' + esc(t.usage || t.role || '') + '</td></tr>';
     }).join('\n    ');
   }
 
@@ -588,7 +643,7 @@ function buildSpacingBars(groups, implicit, P, brandKit) {
 
   if (items.length === 0) {
     if (hasImplicit) return buildClassifiedSpacing(implicit, P);
-    return '<p style="color:var(--text-secondary);font-size:14px;padding:32px;text-align:center;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius)">间距未 Token 化 — 此模板在组件内直接使用 px 值，未抽象为 CSS 自定义属性。</p>';
+    return '<p style="color:var(--text-soft);font-size:14px;padding:32px;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)">间距未 Token 化 — 此模板在组件内直接使用 px 值，未抽象为 CSS 自定义属性。</p>';
   }
   const maxPx = Math.max(...items.map(t => parseInt(t.value) || 0), 1);
   let html = items.map(t => {
@@ -606,7 +661,7 @@ function buildSpacingBars(groups, implicit, P, brandKit) {
 
 function buildClassifiedSpacing(implicit, P) {
   const labels = { padding: '内边距 Padding', margin: '外边距 Margin', gap: '间距 Gap' };
-  let html = '<div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted);margin:28px 0 12px;padding-top:16px;border-top:1px dashed var(--border);letter-spacing:.04em;text-transform:uppercase">CSS 硬编码（未 Token 化）</div>';
+  let html = '<div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted);margin:28px 0 12px;padding-top:16px;border-top:1px dashed var(--line);letter-spacing:.04em;text-transform:uppercase">CSS 硬编码（未 Token 化）</div>';
   for (const [prop, vals] of Object.entries(implicit)) {
     if (!vals || vals.length === 0) continue;
     const distinct = [...new Set(vals.map(v => {
@@ -618,7 +673,7 @@ function buildClassifiedSpacing(implicit, P) {
     html += '<div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:6px">' + esc(labels[prop] || prop) + ' · ' + vals.length + ' 处</div>';
     html += '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">';
     for (const v of distinct.slice(0, 15)) {
-      html += '<span style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:4px;font-family:var(--font-mono);font-size:11px;color:var(--text);white-space:nowrap">' + esc(v) + '</span>';
+      html += '<span style="padding:4px 10px;background:var(--bg);border:1px solid var(--line);border-radius:4px;font-family:var(--font-mono);font-size:11px;color:var(--text);white-space:nowrap">' + esc(v) + '</span>';
     }
     if (distinct.length > 15) html += '<span style="font-size:12px;color:var(--text-muted)">+ ' + (distinct.length - 15) + ' more</span>';
     html += '</div></div>';
@@ -639,7 +694,7 @@ function buildRadiusCards(groups, implicit, P) {
   const items = groups.Radius || [];
   if (items.length === 0) {
     if (implicit && implicit.length > 0) return buildImplicitChips(implicit, '圆角', P);
-    return '<p style="color:var(--text-secondary);font-size:14px;padding:32px;text-align:center;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius)">圆角未 Token 化 — 此模板在各组件内直接使用 px 值。</p>';
+    return '<p style="color:var(--text-soft);font-size:14px;padding:32px;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)">圆角未 Token 化 — 此模板在各组件内直接使用 px 值。</p>';
   }
   return items.map(t => {
     const label = t.name.replace('--radius-', '').replace('--radius', 'default');
@@ -674,25 +729,35 @@ function buildShadowDesc(groups, implicit) {
   return items.length + ' 档阴影。';
 }
 
-function buildShadowCards(groups, implicit) {
+function resolveVarRefs(value, vars) {
+  if (!value || typeof value !== 'string') return value;
+  return value.replace(/var\((--[\w-]+)\)/g, (_, name) => {
+    if (vars[name]) return vars[name];
+    return name;
+  });
+}
+
+function buildShadowCards(groups, implicit, vars) {
   const items = groups.Shadow || [];
   if (items.length === 0) {
     if (implicit && implicit.length > 0) {
       return '<div class="token-showcase">' + implicit.map(v => {
         const solid = isSolidShadow(v);
+        const resolved = resolveVarRefs(v, vars || {});
         const label = solid ? '实心偏移（非阴影）' : 'CSS 硬编码';
-        return '<div class="shadow-card" style="box-shadow:' + esc(v) + '">' +
+        return '<div class="shadow-card" style="box-shadow:' + esc(resolved) + '">' +
         '<div class="sh-name">box-shadow</div><div class="sh-val">' + esc(v) + '</div>' +
         '<div class="sh-desc">' + label + '</div></div>';
       }).join('\n    ') + '</div>';
     }
-    return '<p style="color:var(--text-secondary);font-size:14px;padding:32px;text-align:center;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius)">阴影未 Token 化 — 此模板的阴影效果直接写入组件样式。</p>';
+    return '<p style="color:var(--text-soft);font-size:14px;padding:32px;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)">阴影未 Token 化 — 此模板的阴影效果直接写入组件样式。</p>';
   }
-  return items.map(t =>
-    '<div class="shadow-card" style="box-shadow:' + esc(t.value) + '">' +
+  return items.map(t => {
+    const resolved = resolveVarRefs(t.value, vars || {});
+    return '<div class="shadow-card" style="box-shadow:' + esc(resolved) + '">' +
     '<div class="sh-name">' + esc(t.name) + '</div><div class="sh-val">' + esc(t.value) + '</div>' +
-    '<div class="sh-desc">' + esc(t.role || t.desc || '') + '</div></div>'
-  ).join('\n    ');
+    '<div class="sh-desc">' + esc(t.role || t.desc || '') + '</div></div>';
+  }).join('\n    ');
 }
 
 function buildMotionDesc(groups, implicit) {
@@ -719,7 +784,7 @@ function buildMotionChips(groups, implicit, P) {
           '<div class="m-bar"></div></div>';
       }).join('\n    ') + '</div>';
     }
-    return '<p style="color:var(--text-secondary);font-size:14px;padding:32px;text-align:center;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius)">动效未 Token 化 — 此模板的 transition/animation 属性内联在组件样式中，未抽象为 --duration-* / --ease-* 变量。</p>';
+    return '<p style="color:var(--text-soft);font-size:14px;padding:32px;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)">动效未 Token 化 — 此模板的 transition/animation 属性内联在组件样式中，未抽象为 --duration-* / --ease-* 变量。</p>';
   }
   return items.map(t => {
     const isEase = t.name.includes('ease');
@@ -734,10 +799,10 @@ function buildMotionChips(groups, implicit, P) {
 }
 
 function buildImplicitChips(values, label, P) {
-  return '<div style="padding:28px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius)">' +
+  return '<div style="padding:28px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)">' +
     '<div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted);margin-bottom:14px;letter-spacing:.04em;text-transform:uppercase">CSS 硬编码（未 Token 化）</div>' +
     '<div style="display:flex;gap:12px;flex-wrap:wrap">' +
-    values.map(v => '<div style="padding:12px 20px;background:var(--bg);border:1px dashed var(--border);border-radius:6px;font-family:var(--font-mono);font-size:13px;color:var(--text)">' + esc(v) + '</div>').join('') +
+    values.map(v => '<div style="padding:12px 20px;background:var(--bg);border:1px dashed var(--line);border-radius:6px;font-family:var(--font-mono);font-size:13px;color:var(--text)">' + esc(v) + '</div>').join('') +
     '</div></div>';
 }
 
@@ -831,7 +896,7 @@ function buildTokenGroups(groups) {
 
 function buildBgTextureSpecimen(assets, P, accent10) {
   if (!assets.bodyBg || assets.bodyBg === 'background:var(--bg)') {
-    return '<p style="color:var(--text-secondary);font-size:14px;padding:32px;text-align:center;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius)">此模板未定义特殊背景纹理。使用纯色 var(--bg) 作为背景。</p>';
+    return '<p style="color:var(--text-soft);font-size:14px;padding:32px;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)">此模板未定义特殊背景纹理。使用纯色 var(--bg) 作为背景。</p>';
   }
 
   const bodyBgCss = assets.bodyBg; // "background:radial-gradient(...), linear-gradient(...), #f4efe7"
@@ -859,14 +924,14 @@ function buildBgTextureSpecimen(assets, P, accent10) {
   // Left: body background only
   html += '<div>';
   html += '<div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted);margin-bottom:8px">body 背景层</div>';
-  html += '<div style="height:140px;border-radius:2px;border:1px solid var(--border);' + bodyBgCss + '"></div>';
+  html += '<div style="height:140px;border-radius:2px;border:1px solid var(--line);' + bodyBgCss + '"></div>';
   html += '</div>';
 
   // Right: combined (body bg + ::before overlay)
   if (dotOverlay) {
     html += '<div>';
     html += '<div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted);margin-bottom:8px">+ body::before 纹理（完整效果）</div>';
-    html += '<div style="height:140px;border-radius:2px;border:1px solid var(--border);position:relative;overflow:hidden">';
+    html += '<div style="height:140px;border-radius:2px;border:1px solid var(--line);position:relative;overflow:hidden">';
     html += '<div style="position:absolute;inset:0;' + bodyBgCss + '"></div>';
     html += '<div style="position:absolute;inset:0;' + dotOverlay + '"></div>';
     html += '</div>';
@@ -874,7 +939,7 @@ function buildBgTextureSpecimen(assets, P, accent10) {
   } else {
     html += '<div>';
     html += '<div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted);margin-bottom:8px">纹理层</div>';
-    html += '<div style="height:140px;border-radius:2px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:13px;background:var(--bg-card)">无 ::before 伪元素</div>';
+    html += '<div style="height:140px;border-radius:2px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:13px;background:var(--surface)">无 ::before 伪元素</div>';
     html += '</div>';
   }
   html += '</div>';
@@ -899,7 +964,7 @@ function buildBgTextureSpecimen(assets, P, accent10) {
 function buildLogoAsset(P, T, accent10) {
   let html = '';
   html += '<div style="display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start">';
-  html += '<div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;display:flex;align-items:center;justify-content:center;min-width:120px">';
+  html += '<div style="background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:32px;display:flex;align-items:center;justify-content:center;min-width:120px">';
   html += '<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">';
   html += '<rect width="64" height="64" rx="14" fill="' + esc(P.text) + '"/>';
   html += '<rect x="7" y="14" width="22" height="28" rx="3" fill="' + esc(P.accent) + '"/>';
@@ -929,9 +994,9 @@ function buildOverlayDemos(P) {
   html += '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:12px">';
   html += '<div class="asset-hover-card" style="padding:20px 24px;text-align:center">';
   html += '<div style="font-size:14px;font-weight:500;margin-bottom:4px">Template Card</div>';
-  html += '<div style="font-size:12px;color:var(--text-secondary)">悬停查看效果</div>';
+  html += '<div style="font-size:12px;color:var(--text-soft)">悬停查看效果</div>';
   html += '<div class="hover-overlay" style="background:' + esc(hoverOverlay) + ';display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff">' + esc(hoverOverlay) + '</div></div>';
-  html += '<div style="font-size:13px;color:var(--text-secondary);line-height:1.6;padding:8px 0">';
+  html += '<div style="font-size:13px;color:var(--text-soft);line-height:1.6;padding:8px 0">';
   html += '消费 Token：<span style="font-family:var(--font-mono);font-size:11px;color:var(--accent)">--text</span> → ' + esc(hoverOverlay) + '<br>';
   html += '保持预览可见的同时传达"可点击"。比 modal 遮罩浅 2.5 倍。';
   html += '</div></div>';
@@ -941,13 +1006,13 @@ function buildOverlayDemos(P) {
   html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:12px">';
   html += '<div class="asset-modal-demo" style="height:160px">';
   html += '<div style="position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:16px">';
-  for (let i = 0; i < 3; i++) html += '<div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text-muted)">card</div>';
+  for (let i = 0; i < 3; i++) html += '<div style="background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text-muted)">card</div>';
   html += '</div>';
   html += '<div class="modal-backdrop" style="background:' + esc(modalOverlay) + '">';
-  html += '<div class="modal-dialog" style="background:var(--bg-card);border:1px solid var(--border)">';
+  html += '<div class="modal-dialog" style="background:var(--surface);border:1px solid var(--line)">';
   html += '<div style="font-size:14px;font-weight:600;margin-bottom:4px">Modal Title</div>';
-  html += '<div style="font-size:12px;color:var(--text-secondary)">' + esc(modalOverlay) + '</div></div></div></div>';
-  html += '<div style="font-size:13px;color:var(--text-secondary);line-height:1.6;padding:8px 0">';
+  html += '<div style="font-size:12px;color:var(--text-soft)">' + esc(modalOverlay) + '</div></div></div></div>';
+  html += '<div style="font-size:13px;color:var(--text-soft);line-height:1.6;padding:8px 0">';
   html += '消费 Token：<span style="font-family:var(--font-mono);font-size:11px;color:var(--accent)">--text</span> → ' + esc(modalOverlay) + '<br>';
   html += '比 hover 深 2.5 倍，区分"浏览"和"聚焦"两个信息层级。';
   html += '</div></div>';
@@ -960,7 +1025,7 @@ function buildOverlayDemos(P) {
   html += '<div style="position:absolute;bottom:8px;left:20px;width:60px;height:60px;border-radius:50%;background:' + esc(P.accentHover) + ';opacity:.4"></div>';
   html += '<button class="asset-glass-btn" style="background:' + esc(glassBg) + ';color:' + esc(P.text) + '">查看详情</button>';
   html += '</div>';
-  html += '<div style="font-size:13px;color:var(--text-secondary);line-height:1.6">';
+  html += '<div style="font-size:13px;color:var(--text-soft);line-height:1.6">';
   html += '消费 Token：<span style="font-family:var(--font-mono);font-size:11px;color:var(--accent)">--bg</span> → ' + esc(glassBg) + '<br>';
   html += '<span style="font-family:var(--font-mono);font-size:11px;color:var(--accent)">backdrop-filter: blur(8px)</span><br>';
   html += '按钮可读，不遮挡预览内容。依赖背景层提供视觉深度线索。';
@@ -969,12 +1034,20 @@ function buildOverlayDemos(P) {
   return html;
 }
 
+function findTokenName(vars, hex, preferred) {
+  if (preferred && vars[preferred]) return preferred;
+  for (const [k, v] of Object.entries(vars)) {
+    if (v === hex && k.startsWith('--') && !k.startsWith('--font-') && !k.startsWith('--shadow-') && !k.startsWith('--radius') && !k.startsWith('--ease-')) return k;
+  }
+  return '';
+}
+
 function buildDecisions(entry, P, T, vars, assets) {
   const items = [];
   const solidShadow = (assets.implicit.shadow || []).find(s => /^\d+px\s+\d+px\s+0\s/.test(s));
   const implicit = assets.implicit;
 
-  // 1. Typography: actual scale values and rationale
+  // 1. Typography
   const h1FontSize = (assets.h1Style || '').match(/font-size:([^;]+);/);
   const h1LetterSpacing = (assets.h1Style || '').match(/letter-spacing:([^;]+);/);
   const h1LineHeight = (assets.h1Style || '').match(/line-height:([^;]+);/);
@@ -994,21 +1067,22 @@ function buildDecisions(entry, P, T, vars, assets) {
     items.push({ q: '为什么标题用 ' + T.displayName + ' + 正文用 ' + T.bodyName + '？', a: typeA, tag: 'typography' });
   }
 
-  // 2. Color: actual palette rationale
+  // 2. Color: dynamic from actual tokens
   if (P.colors.length > 0) {
-    const accent = P.colors.find(c => c.role === 'accent') || P.colors[1];
-    const bg = P.colors.find(c => /surface-bg|paper/.test(c.role || '')) || P.colors[0];
+    const accentName = findTokenName(vars, P.accent, '--accent');
+    const bgName = findTokenName(vars, P.bg, '--bg');
+    const accentHex = P.accent;
+    const bgHex = P.bg;
     let colorA = '';
-    if (accent && bg) {
-      colorA = '主强调色 <span style="font-family:var(--font-mono);font-size:11px;color:var(--accent)">--oxide</span> ' + accent.hex + ' 与底色 <span style="font-family:var(--font-mono);font-size:11px;color:var(--accent)">--paper</span> ' + bg.hex + ' 构成暖色系对比。';
-      colorA += ' Oxide 是烧土色——介于红与棕之间，既不像纯红那样紧急，也不像纯棕那样沉闷。搭配暖白纸色，产生"印刷在手工纸上"的触感联想。';
+    if (accentName && bgName) {
+      colorA = '主强调色 <span style="font-family:var(--font-mono);font-size:11px;color:var(--accent)">' + esc(accentName) + '</span> ' + accentHex + ' 与底色 <span style="font-family:var(--font-mono);font-size:11px;color:var(--accent)">' + esc(bgName) + '</span> ' + bgHex + ' 构成本模板的色彩基调。';
       if (assets.bodyBg && assets.bodyBg.includes('radial-gradient')) {
-        colorA += ' 背景层叠加 radial-gradient 暖光（--sun 18% 透明度）和 1px 中线（--ink 2.5% 透明度），body::before 点阵纹理（--ink 22% 透明度）模拟纸张纤维质感。不是"换个背景色"——是"造一张纸"。';
+        colorA += ' 背景层叠加 radial-gradient 和点阵纹理模拟纸张纤维质感。';
       }
     } else {
       colorA = P.colors.length + ' 色系统。' + schemeLabel(entry.scheme) + ' 方案。';
     }
-    items.push({ q: '为什么 Oxide #b84f35 + Paper #f4efe7？', a: colorA, tag: 'color' });
+    items.push({ q: '为什么 ' + esc(accentName || 'Accent') + ' + ' + esc(bgName || 'Background') + '？', a: colorA, tag: 'color' });
   }
 
   // 3. Spacing: why these specific values
@@ -1129,8 +1203,8 @@ function cleanSpacingVal(val) {
 }
 
 function styleLabel(s) {
-  const map = { 'editorial': '编辑杂志', 'swiss-minimal': '瑞士极简', 'warm-humanist': '温润人文',
-    'tech-cyberpunk': '科技赛博', 'experimental': '实验先锋', 'institutional': '机构公文', 'eastern-zen': '东方禅意' };
+  const map = { 'minimalist': '极简', 'editorial': '杂志编辑', 'swiss': '瑞士国际', 'corporate': '企业商务',
+    'brutalist': '粗野主义', 'modern': '现代科技', 'retro': '复古经典', 'organic': '自然柔和', 'luxury': '奢华暗色', 'playful': '活泼创意' };
   return map[s] || s || '';
 }
 

@@ -42,7 +42,8 @@
   },
   "scheme": "dark",
   "best_for": "Anything that should feel electric and design-led: studio credentials, creative agency pitches, brand showcases, art-direction reviews, fashion / sneaker brand work. Also a striking unexpected choice for tech, research, or business decks where the speaker wants the deck to *be* a brand statement.",
-  "avoid_for": "Contexts that should feel quiet or institutional \u2014 the black-and-electric-yellow palette is the loudest in the library.",
+  "avoid_for": "Contexts that should feel quiet or institutional — the black-and-electric-yellow palette is the loudest in the library.",
   "slide_count": 12,
-  "navigation": "inline keyboard handler"
+  "navigation": "inline keyboard handler",
+  "design_style": "playful"
 }

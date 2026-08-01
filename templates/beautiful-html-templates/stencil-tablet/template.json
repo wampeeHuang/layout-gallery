@@ -44,8 +44,9 @@
     "style": "ultra-heavy display + stencil + tall condensed + clean body; reads like an archaeological field manual"
   },
   "scheme": "light",
-  "best_for": "Anything that should feel archival, tactile, and weighty-graphic: museum and cultural-institution decks, art / architecture brands, longform research, heritage and craft brands, manifestos. A great choice anytime \u2014 including across tech and business \u2014 when you want the deck to feel like a field manual rather than a slide deck.",
-  "avoid_for": "Contexts that demand digital-native polish or playful pop \u2014 the stencil-cut display and earth-tone palette commit to a deliberate analog feel.",
+  "best_for": "Anything that should feel archival, tactile, and weighty-graphic: museum and cultural-institution decks, art / architecture brands, longform research, heritage and craft brands, manifestos. A great choice anytime — including across tech and business — when you want the deck to feel like a field manual rather than a slide deck.",
+  "avoid_for": "Contexts that demand digital-native polish or playful pop — the stencil-cut display and earth-tone palette commit to a deliberate analog feel.",
   "slide_count": 11,
-  "navigation": "deck-stage runtime (arrow keys, space, PgUp/PgDn, Home/End)"
+  "navigation": "deck-stage runtime (arrow keys, space, PgUp/PgDn, Home/End)",
+  "design_style": "organic"
 }

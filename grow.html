@@ -8,7 +8,7 @@
 <!-- ROOT_INJECT -->
 :root{
   --danger:#dc2626; --success:#16a34a;
-  font-family:var(--font-sans); color:var(--text); background:var(--bg);
+  font-family:var(--font-body); color:var(--text); background:var(--bg);
   font-size:15px; line-height:1.5;
 }
 *{box-sizing:border-box; margin:0; padding:0;}
@@ -17,11 +17,11 @@ body{ padding:0; }
 .page-wrap{ max-width:var(--page-wmax, 1200px); margin:0 auto; padding:24px var(--page-pad, 32px) 48px; }
 
 h1{ font-size:28px; font-weight:700; margin-bottom:4px; }
-.subtitle{ color:var(--text-secondary); font-size:14px; margin-bottom:32px; }
+.subtitle{ color:var(--text-soft); font-size:14px; margin-bottom:32px; }
 
 /* URL input */
 .url-bar{ display:flex; gap:10px; margin-bottom:32px; }
-.url-bar input{ flex:1; padding:12px 16px; border:1.5px solid var(--border); border-radius:10px; font-size:15px; outline:none; transition:border-color .15s; font-family:var(--font-sans); }
+.url-bar input{ flex:1; padding:12px 16px; border:1.5px solid var(--line); border-radius:10px; font-size:15px; outline:none; transition:border-color .15s; font-family:var(--font-body); }
 .url-bar input:focus{ border-color:var(--accent); }
 .url-bar button{ padding:12px 24px; background:var(--accent); color:#fff; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; transition:background .15s; white-space:nowrap; }
 .url-bar button:hover{ background:var(--accent-hover); }
@@ -37,7 +37,7 @@ h1{ font-size:28px; font-weight:700; margin-bottom:4px; }
 @keyframes pulse{ 0%,100%{opacity:1}50%{opacity:.65} }
 
 /* Progress log */
-.log{ background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:24px; max-height:200px; overflow-y:auto; font-size:13px; font-family:"SF Mono","Consolas",monospace; }
+.log{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px; margin-bottom:24px; max-height:200px; overflow-y:auto; font-size:13px; font-family:"SF Mono","Consolas",monospace; }
 .log .line{ padding:3px 0; border-bottom:1px solid #f5f5f5; }
 .log .line:last-child{ border-bottom:none; }
 .log .ts{ color:var(--text-muted); margin-right:8px; }
@@ -48,9 +48,9 @@ h1{ font-size:28px; font-weight:700; margin-bottom:4px; }
 .results{ display:none; }
 .results.visible{ display:block; }
 .tabs{ display:flex; gap:4px; margin-bottom:16px; }
-.tab{ padding:8px 16px; border:none; background:#f0f0f0; border-radius:8px 8px 0 0; font-size:13px; cursor:pointer; color:var(--text-secondary); font-family:var(--font-sans); }
-.tab.active{ background:var(--bg-card); color:var(--text); font-weight:600; box-shadow:0 -1px 4px rgba(0,0,0,.04); }
-.tab-content{ display:none; background:var(--bg-card); border-radius:0 12px 12px 12px; padding:20px; border:1px solid var(--border); max-height:480px; overflow:auto; }
+.tab{ padding:8px 16px; border:none; background:#f0f0f0; border-radius:8px 8px 0 0; font-size:13px; cursor:pointer; color:var(--text-soft); font-family:var(--font-body); }
+.tab.active{ background:var(--surface); color:var(--text); font-weight:600; box-shadow:0 -1px 4px rgba(0,0,0,.04); }
+.tab-content{ display:none; background:var(--surface); border-radius:0 12px 12px 12px; padding:20px; border:1px solid var(--line); max-height:480px; overflow:auto; }
 .tab-content.active{ display:block; }
 .tab-content pre{ font-family:"SF Mono","Consolas",monospace; font-size:13px; white-space:pre-wrap; word-break:break-all; margin:0; }
 
@@ -66,7 +66,7 @@ h1{ font-size:28px; font-weight:700; margin-bottom:4px; }
 .error-box{ display:none; background:#fef2f2; border:1.5px solid #fecaca; border-radius:10px; padding:16px; margin-bottom:20px; }
 .error-box.visible{ display:block; }
 .error-box h3{ color:var(--danger); font-size:15px; margin-bottom:8px; }
-.error-box p{ font-size:13px; color:var(--text-secondary); }
+.error-box p{ font-size:13px; color:var(--text-soft); }
 
 /* Status badge */
 .status-badge{ display:inline-block; padding:2px 8px; border-radius:99px; font-size:11px; font-weight:600; }
@@ -79,7 +79,7 @@ h1{ font-size:28px; font-weight:700; margin-bottom:4px; }
 
 <div class="page-wrap">
 <h1>生长 Agent</h1>
-<p class="subtitle">输入目标网站 URL → AI 提取视觉设计 → 生成 tokens.json + :root → 品牌套件预览</p>
+<p class="subtitle">输入目标网站 URL → DeepSeek 提取设计 token → 生成 tokens.json + :root → 品牌套件预览</p>
 
 <div class="url-bar">
   <input type="url" id="urlInput" placeholder="https://example.com — 输入网站 URL" autofocus>
@@ -94,10 +94,9 @@ h1{ font-size:28px; font-weight:700; margin-bottom:4px; }
 <div class="pipeline" id="pipeline">
   <div class="step" id="step1"><span class="step-num">1</span>验证 URL</div>
   <div class="step" id="step2"><span class="step-num">2</span>抓取样式</div>
-  <div class="step" id="step3"><span class="step-num">3</span>视觉提取</div>
-  <div class="step" id="step4"><span class="step-num">4</span>结构化</div>
-  <div class="step" id="step5"><span class="step-num">5</span>Schema 校验</div>
-  <div class="step" id="step6"><span class="step-num">6</span>写入+同步</div>
+  <div class="step" id="step3"><span class="step-num">3</span>DeepSeek 提取</div>
+  <div class="step" id="step4"><span class="step-num">4</span>Schema 校验</div>
+  <div class="step" id="step5"><span class="step-num">5</span>写入+同步</div>
 </div>
 
 <div class="log" id="logBox"><div class="line"><span class="ts">--:--:--</span>等待输入 URL...</div></div>
@@ -120,7 +119,7 @@ h1{ font-size:28px; font-weight:700; margin-bottom:4px; }
 </div>
 
 <script>
-const STEP_NAMES = {1:'验证URL',2:'抓取样式',3:'Gemini视觉提取',4:'DeepSeek结构化',5:'Schema校验',6:'写入+同步'};
+const STEP_NAMES = {1:'验证URL',2:'抓取样式',3:'DeepSeek提取',4:'Schema校验',5:'写入+同步'};
 let currentSlug = null;
 let currentBrandUrl = null;
 
@@ -163,7 +162,7 @@ async function startGrow() {
   document.getElementById('logBox').innerHTML = '';
 
   // Reset steps
-  for (let i = 1; i <= 6; i++) {
+  for (let i = 1; i <= 5; i++) {
     document.getElementById('step' + i).className = 'step';
   }
 
