@@ -1,53 +1,46 @@
 # HANDOFF — 版式画廊
 
-date: 2026-08-02
+date: 2026-08-03
 
 ## 当前状态
 
-- **49/49 合约合规**，零 Google Fonts，零真实品牌引用
-- 服务器 `localhost:3080` 运行中，brand 页正常
-- 提交 `48d70f9` 已落地
+- 服务器 `localhost:3080` 运行中（PID 48624）
+- template.html UI 重设计完成，已验证生效
 
-## 已完成
+## 本次完成
 
-- [x] 25 个非标模板迁移到 20 标准 CSS 变量名
-- [x] 49 模板全量品牌审计（替换 Pinterest/Vercel/IKEA/LinkedIn/Instagram/Figma/Claude/Slack 等）
-- [x] 22 个模板推断 typeScale/spacingScale
-- [x] 修复 brandKit.colorRoles 同步 + :root 重建
-- [x] 修复 brand 页 500（typeScale 格式契约断裂）
-- [x] `isShorthandValue()` 守卫：CSS 简写值不参与 VAR_MAP
-- [x] `_migrate-editorial.js` 扩展为通用迁移脚本（5 目录全覆盖）
+- [x] 模板 UI 重设计 — 导航栏 56→72px，section spacing 对齐参考站，clamp 水平内边距统一
+- [x] 三个 UI 缺陷修复 — :focus-visible、卡片 cursor pointer、text-overflow ellipsis
+- [x] 复盘文件落盘
 
 ## 待办
 
-### 紧急
-- [ ] **brutalist-paper 缺 tokens.json** — 启动审计报 `缺 tokens.json (1): brutalist-paper`
-- [ ] 服务器重启后需手动 `node server.js`（无 PM2/systemd 守护）
-
-### 管道加固
-- [ ] Google Fonts 扫描进 `validate-templates.js`
-- [ ] `sync-roots.js --preserve` 模式：保留模板特有变量不被覆盖
-- [ ] template-renderer.js 标准变量名修复（task #38）
-- [ ] validator 加标准名强制校验（task #19）
-
-### 内容深化
-- [ ] 加深中文翻译：capsule, creative-mode, peoples-platform, playful, studio, coral, bold-poster
+- [ ] git commit 本次 template.html 变更
+- [ ] **管线修通**（plan：`C:\Users\Administrator\.claude\plans\kind-tinkering-clover.md`）
+  - template-renderer.js 三个 bug（extraLines、$、module.exports）
+  - template-renderer.js 加 contentOverrides 参数
+  - growth-agent.js Step 6-7（AI 内容生成 + 模板渲染）
+  - server.js approve 端点硬编码修复
+- [ ] 修好后 `node scripts/template-renderer.js --all` 重跑
 
 ## 关键文件
 
 | 文件 | 作用 |
 |------|------|
-| `scripts/_migrate-editorial.js` | 通用迁移脚本，VAR_MAP + PRESERVE_PATTERNS + isShorthandValue |
-| `scripts/brand-renderer.js` | 品牌页渲染，line 584 已加防御 |
-| `data/token-contract.json` | 20 标准变量名契约 |
-| `scripts/validate-templates.js` | 模板校验器 |
+| `templates/frontend-design/layout-gallery/template.html` | **本次改动** — 预览模板 UI |
+| `templates/frontend-design/layout-gallery/tokens.json` | 设计 token 唯一真相源 |
+| `scripts/brand-renderer.js` | 品牌页渲染 |
+| `scripts/template-renderer.js` | 模板渲染（待修） |
+| `scripts/growth-agent.js` | 生长管线（待加 Step 6-7） |
+| `server.js` | Express 服务，approve 端点待修 |
+| `meta/brand-template.html` | 品牌页 HTML 模板 |
 
 ## 复盘
 
-`D:\workspace\_output\retrospectives\2026-08-02-gallery-49-compliance.md`
+`D:\workspace\_output\retrospectives\2026-08-03-layout-gallery-template-redesign.md`
 
-## 新增 tips（agentboard）
+## 设计决策备忘
 
-- `css-variable-shorthand-vs-scalar-mapping.md` — CSS 变量映射须区分简写/标量
-- `metadata-priority-inversion-actual-vs-hint.md` — 元数据不能覆盖实际数据
-- `producer-consumer-format-contract.md` — 生产/消费格式契约须在边界校验
+- **横向内边距**：统一 `clamp(24px, 5vw, var(--page-pad))`，min=参考站移动端 24px，max=tokens.json 48px
+- **clamp 优于固定值 + 媒体查询**：无级缩放比两档切换平滑，不依赖断点
+- **navbar-brand 加了 `text-decoration: none` 和 `color: var(--text)`**：之前继承浏览器默认

@@ -73,6 +73,18 @@ body {
   cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIyNCIgeTE9IjQ4IiB4Mj0iMjQiIHkyPSIwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzNENkI0QSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzdEQjg4QSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxwYXRoIGQ9Ik0yNCA0NkMyMCAzNCA4IDE4IDMgNEMxMCAyMiAyMCAzNyAyMiA0NloiIGZpbGw9InVybCgjZykiIG9wYWNpdHk9Ii40NSIvPjxwYXRoIGQ9Ik0yNCA0NkMyMiAzMiAxNiAxNiAxNCAxQzE3IDIwIDIyIDM0IDIzIDQ0WiIgZmlsbD0idXJsKCNnKSIgb3BhY2l0eT0iLjY1Ii8+PHBhdGggZD0iTTI0IDQ2QzIzIDMwIDIyIDE2IDI0IDBDMjYgMTYgMjYgMzAgMjUgNDRaIiBmaWxsPSJ1cmwoI2cpIiBvcGFjaXR5PSIuOSIvPjxwYXRoIGQ9Ik0yNCA0NkMyNiAzMiAzMiAxNiAzNSAxQzMyIDIwIDI3IDM0IDI2IDQ2WiIgZmlsbD0idXJsKCNnKSIgb3BhY2l0eT0iLjUiLz48L3N2Zz4=") 24 0, auto;
 }
 
+/* ── Focus visible ──────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+a:focus-visible, .tpl-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
 a:hover, button:hover, [role="button"]:hover, nav a:hover, .tx-card:hover, .hamburger:hover {
   cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIyNCIgeTE9IjQ4IiB4Mj0iMjQiIHkyPSIwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzNENkI0QSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzdEQjg4QSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxnIHRyYW5zZm9ybT0icm90YXRlKC0xOCwgMjQsIDEyKSI+PHBhdGggZD0iTTI0IDQ2QzIyIDM4IDE0IDI4IDkgMjBDMTQgMzIgMjAgNDIgMjIgNDZaIiBmaWxsPSJ1cmwoI2cpIiBvcGFjaXR5PSIuNCIvPjxwYXRoIGQ9Ik0yNCA0NkMyMyAzNiAxOCAyNiAxNyAxOEMxOSAzMCAyMyA0MCAyNCA0NVoiIGZpbGw9InVybCgjZykiIG9wYWNpdHk9Ii42Ii8+PHBhdGggZD0iTTI0IDQ2QzI0IDM0IDIzIDI0IDI0IDE2QzI1IDI2IDI2IDM4IDI1IDQ1WiIgZmlsbD0idXJsKCNnKSIgb3BhY2l0eT0iLjg1Ii8+PHBhdGggZD0iTTI0IDQ2QzI1IDM2IDI4IDI4IDMyIDIwQzI5IDMwIDI2IDQwIDI2IDQ2WiIgZmlsbD0idXJsKCNnKSIgb3BhY2l0eT0iLjQ1Ii8+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjQsIDEyKSIgZmlsbD0iI0ZGRkZGRiIgc3Ryb2tlPSIjRkZGRkZGIiBzdHJva2Utd2lkdGg9IjEuMSI+PGVsbGlwc2UgY3g9IjAiIGN5PSItNC41IiByeD0iMi44IiByeT0iNSIgb3BhY2l0eT0iLjk1Ii8+PGVsbGlwc2UgY3g9IjQuOCIgY3k9Ii0xLjYiIHJ4PSIyLjgiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSg3MikiIG9wYWNpdHk9Ii45NSIvPjxlbGxpcHNlIGN4PSIyLjkiIGN5PSIzLjkiIHJ4PSIyLjgiIHJ5PSI1IiB0cmFuc2Zvcm09InJvdGF0ZSgxNDQpIiBvcGFjaXR5PSIuOTUiLz48ZWxsaXBzZSBjeD0iLTIuOSIgY3k9IjMuOSIgcng9IjIuOCIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKDIxNikiIG9wYWNpdHk9Ii45NSIvPjxlbGxpcHNlIGN4PSItNC44IiBjeT0iLTEuNiIgcng9IjIuOCIgcnk9IjUiIHRyYW5zZm9ybT0icm90YXRlKDI4OCkiIG9wYWNpdHk9Ii45NSIvPjxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSItNC4yIiBzdHJva2U9IiNFNEU0RTciIHN0cm9rZS13aWR0aD0iMC4zNSIgb3BhY2l0eT0iLjUiLz48bGluZSB4MT0iMCIgeTE9IjAiIHgyPSI0IiB5Mj0iLTEuMyIgc3Ryb2tlPSIjRTRFNEU3IiBzdHJva2Utd2lkdGg9IjAuMzUiIG9wYWNpdHk9Ii41Ii8+PGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMi41IiB5Mj0iMy40IiBzdHJva2U9IiNFNEU0RTciIHN0cm9rZS13aWR0aD0iMC4zNSIgb3BhY2l0eT0iLjUiLz48bGluZSB4MT0iMCIgeTE9IjAiIHgyPSItMi41IiB5Mj0iMy40IiBzdHJva2U9IiNFNEU0RTciIHN0cm9rZS13aWR0aD0iMC4zNSIgb3BhY2l0eT0iLjUiLz48bGluZSB4MT0iMCIgeTE9IjAiIHgyPSItNCIgeTI9Ii0xLjMiIHN0cm9rZT0iI0U0RTRFNyIgc3Ryb2tlLXdpZHRoPSIwLjM1IiBvcGFjaXR5PSIuNSIvPjxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIxLjgiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iI0U0RTRFNyIgc3Ryb2tlLXdpZHRoPSIwLjUiLz48Y2lyY2xlIGN4PSIwIiBjeT0iMCIgcj0iMC43IiBmaWxsPSIjRTRFNEU3IiBvcGFjaXR5PSIuNiIvPjwvZz48L2c+PC9zdmc+") 24 12, auto;
 }
@@ -89,30 +101,31 @@ body:active {
 .navbar {
   position: sticky; top: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 clamp(20px, 4vw, 48px);
-  height: 56px;
-  background: rgba(255,255,255,0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  padding: 0 clamp(24px, 5vw, var(--page-pad));
+  height: 72px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line-soft);
 }
 
 .navbar-brand {
-  display: flex; align-items: center; gap: 10px;
-  font-family: var(--font-display); font-weight: 700; font-size: 1.05rem;
-  letter-spacing: -0.02em;
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--font-display); font-weight: 700; font-size: 1.2rem;
+  color: var(--text); letter-spacing: -0.02em; text-decoration: none;
 }
 
 .navbar-mark {
-  display: grid; width: 31px; height: 31px; place-items: center;
+  display: grid; width: 38px; height: 38px; place-items: center;
   background: var(--accent); color: var(--bg);
-  font-family: var(--font-body); font-size: 0.66rem; font-weight: 800;
+  font-family: var(--font-body); font-size: 0.75rem; font-weight: 800;
+  border-radius: var(--radius-sm);
 }
 
-.navbar-links { display: flex; gap: 24px; align-items: center; }
+.navbar-links { display: flex; gap: 32px; align-items: center; }
 .navbar-links a {
-  font-size: 0.83rem; color: var(--text-soft);
-  transition: color var(--duration-fast);
+  font-size: 0.92rem; font-weight: 500; color: var(--text-soft);
+  text-decoration: none; transition: color var(--duration-fast);
 }
 .navbar-links a:hover { color: var(--text); }
 
@@ -141,9 +154,9 @@ body:active {
 }
 
 /* ── Section shared ───────────────────────────────────────── */
-.section { padding: clamp(48px, 8vw, 80px) clamp(20px, 4vw, 48px); }
+.section { padding: clamp(64px, 8vw, 100px) clamp(24px, 5vw, var(--page-pad)); }
 .section-header {
-  max-width: 800px; margin-bottom: 36px;
+  max-width: 800px; margin-bottom: 48px;
 }
 .section-header h2 {
   font-family: var(--font-display); font-weight: 700;
@@ -164,10 +177,10 @@ body:active {
 }
 
 .tpl-card {
-  background: var(--bg);
+  background: var(--bg); cursor: pointer;
   transition: background var(--duration-base) var(--ease-default);
 }
-.tpl-card:hover { background: var(--accent-soft); }
+.tpl-card:hover { background: var(--accent-soft); cursor: var(--cursor-hover, pointer); }
 
 .tpl-card-inner { padding: 20px 22px 22px; }
 
@@ -190,11 +203,13 @@ body:active {
 .tpl-card .tpl-name {
   margin-top: 13px; font-family: var(--font-display);
   font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 
 .tpl-card .tpl-meta {
   margin-top: 5px; display: flex; gap: 10px; flex-wrap: wrap;
   font-size: var(--text-xs); color: var(--text-muted);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 
 .tpl-card .tpl-tag {
@@ -228,7 +243,7 @@ body:active {
 
 .feature-text {
   display: flex; flex-direction: column; justify-content: center;
-  padding: 36px clamp(24px, 5vw, 48px);
+  padding: 36px clamp(24px, 5vw, var(--page-pad));
 }
 
 .feature-text .feat-eyebrow {
@@ -281,7 +296,7 @@ body:active {
 
 /* ── CTA footer ───────────────────────────────────────────── */
 .cta-footer {
-  padding: clamp(48px, 8vw, 72px) clamp(20px, 4vw, 48px);
+  padding: clamp(64px, 8vw, 88px) clamp(24px, 5vw, var(--page-pad));
   text-align: center;
   background: var(--text); color: var(--bg);
 }
@@ -491,7 +506,7 @@ body:active {
 <!-- ═══════════════════════════════════════════════════════════════
      HERO — clean intro
      ═══════════════════════════════════════════════════════════════ -->
-<section class="section" style="padding-top:clamp(56px,8vw,88px);padding-bottom:clamp(40px,6vw,64px);">
+<section class="section" style="padding-top:clamp(80px,8vw,120px);padding-bottom:clamp(48px,6vw,80px);">
   <div class="section-header" style="max-width:860px;">
     <h2 style="font-size:clamp(2.4rem,5.5vw,4rem);">一源两端，<br>token 驱动的版式工厂</h2>
     <p style="font-size:1.05rem;margin-top:14px;">每套模板含完整 <code style="background:var(--accent-soft);color:var(--accent);padding:2px 6px;border-radius:3px;font-family:var(--font-mono);font-size:0.88rem;">tokens.json</code> + 品牌套件页 + 网站模板。鼠尾草绿 editorial 底盘，六种纯 CSS 纹理，三态 SVG 光标。输入网页 URL → AI 提取设计 token → 生成可替换模板。</p>
