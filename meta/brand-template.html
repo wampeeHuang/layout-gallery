@@ -25,6 +25,7 @@
   {{TEMPLATE_COLOR_VARS}}
   {{TYPE_SCALE_VARS}}
   {{SPACING_VARS}}
+  {{BRAND_COMPONENT_VARS}}
 
   /* Brand page own typography (NOT template's -- this is the spec sheet's UI) */
   --brand-t-2xs:10px;
@@ -81,13 +82,13 @@
   --brand-pre-maxh:220px;
   --brand-sp-label:120px;
 
-  /* Chrome UI colors */
-  --chrome-white:#fff;
-  --chrome-code-bg:rgba(255,255,255,.05);
-  --chrome-code-text:#a0a0a0;
-  --chrome-success:#059669;
-  --chrome-chip-dark:rgba(0,0,0,.25);
-  --chrome-chip-light:rgba(255,255,255,.7);
+  /* Chrome UI colors — all driven by tokens.json */
+  --chrome-white:var(--bg);
+  --chrome-code-bg:var(--surface-alt);
+  --chrome-code-text:var(--text-muted);
+  --chrome-success:var(--success);
+  --chrome-chip-dark:var(--chip-label-dark);
+  --chrome-chip-light:var(--chip-label-light);
 }
 
 body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.5}
@@ -177,7 +178,7 @@ body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit
 .radius-card .r-val{font-size:var(--brand-t-sm);color:var(--text)}
 
 /* === SHADOW === */
-.shadow-card{width:var(--brand-shadow-card-w);padding:var(--brand-sp-4xl) var(--brand-sp-3xl);background:#fff;border:1px solid var(--line);border-radius:var(--radius);text-align:center}
+.shadow-card{width:var(--brand-shadow-card-w);padding:var(--brand-sp-4xl) var(--brand-sp-3xl);background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);text-align:center}
 .shadow-card .sh-name{font-family:var(--font-mono);font-size:var(--brand-t-xs);color:var(--text-soft);margin-bottom:var(--brand-sp-xs)}
 .shadow-card .sh-val{font-family:var(--font-mono);font-size:var(--brand-t-xs);color:var(--text);margin-bottom:var(--brand-sp-lg)}
 .shadow-card .sh-desc{font-size:var(--brand-t-md);color:var(--text-soft)}
@@ -189,7 +190,8 @@ body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit
 .motion-chip .m-val{font-family:var(--font-mono);font-size:var(--brand-t-xs);color:var(--text-soft)}
 .motion-chip .m-curve{font-size:var(--brand-t-xs);color:var(--accent)}
 .motion-chip .m-bar{width:100%;height:4px;background:var(--line);border-radius:2px;position:relative;overflow:hidden;margin-top:var(--brand-sp-xs)}
-.motion-chip .m-bar::after{content:"";position:absolute;top:0;left:0;width:30%;height:100%;background:var(--accent);border-radius:2px}
+.motion-chip .m-bar::after{content:"";position:absolute;top:0;left:0;width:30%;height:100%;background:var(--accent);border-radius:2px;transition:left var(--m-dur,200ms) var(--m-ease,cubic-bezier(0.4,0,0.2,1))}
+.motion-chip:hover .m-bar::after{left:70%}
 
 /* === COMPONENT === */
 .comp-section{display:grid;grid-template-columns:repeat(auto-fit,minmax(var(--brand-comp-min),1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
@@ -264,6 +266,8 @@ body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit
   .type-row{grid-template-columns:1fr}
   .type-row .type-meta{border-right:none;border-bottom:1px solid var(--line)}
 }
+{{TEXTURE_CSS}}
+{{CURSOR_CSS}}
 {{HEADING_OVERRIDES}}
 </style>
 </head>
@@ -426,6 +430,10 @@ body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit
     遮罩/叠加用了哪些 Token，处于什么交互状态。不定义新的 color token，而是声明 token 的使用方式。
   </p>
   {{OVERLAY_DEMOS}}
+
+  {{TEXTURE_SECTION}}
+
+  {{CURSOR_SECTION}}
 </section>
 
 <!-- DECISIONS -->
@@ -516,5 +524,6 @@ body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit
   });
 })();
 </script>
+<script>{{MEADOW_JS}}</script>
 </body>
 </html>

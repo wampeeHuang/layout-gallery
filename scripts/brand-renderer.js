@@ -100,10 +100,13 @@ function renderBrandKit(entry, projectDir) {
   // ── Brand kit type scale & spacing (from tokens.json brandKit section) ──
   const brandKit = tokensData.brandKit || {};
   if (brandKit.typeScale) {
-    out = out.replace(/\{\{TYPE_SCALE_VARS\}\}/g, brandKit.typeScale.map(t => '--' + t.name + ':' + (t.size || t.value)).join(';') + ';');
+    out = out.replace(/\{\{TYPE_SCALE_VARS\}\}/g, brandKit.typeScale.map(t => t.name + ':' + (t.size || t.value)).join(';') + ';');
   }
   if (brandKit.spacingScale) {
-    out = out.replace(/\{\{SPACING_VARS\}\}/g, brandKit.spacingScale.map(t => '--' + t.name + ':' + t.value).join(';') + ';');
+    out = out.replace(/\{\{SPACING_VARS\}\}/g, brandKit.spacingScale.map(t => t.name + ':' + t.value).join(';') + ';');
+  }
+  if (brandKit.components) {
+    out = out.replace(/\{\{BRAND_COMPONENT_VARS\}\}/g, Object.entries(brandKit.components).map(([k, v]) => k + ':' + v).join(';') + ';');
   }
 
   // ── Inject template domain color tokens into brand page :root ──
@@ -183,6 +186,30 @@ function renderBrandKit(entry, projectDir) {
   out = out.replace(/\{\{ASSET_BG_TEXTURE\}\}/g, buildBgTextureSpecimen(assets, P, accent10));
   out = out.replace(/\{\{ASSET_LOGO\}\}/g, buildLogoAsset(P, T, accent10));
   out = out.replace(/\{\{OVERLAY_DEMOS\}\}/g, buildOverlayDemos(P));
+
+  // ── Texture system (optional, from tokens.json) ──
+  const textures = tokensData.textures || [];
+  if (textures.length > 0) {
+    const textureCSS = extractTextureCSS(html, textures.map(t => t.cssClass));
+    out = out.replace(/\{\{TEXTURE_CSS\}\}/g, textureCSS);
+    out = out.replace(/\{\{TEXTURE_SECTION\}\}/g, buildTextureSection(textures, P));
+  } else {
+    out = out.replace(/\{\{TEXTURE_CSS\}\}/g, '');
+    out = out.replace(/\{\{TEXTURE_SECTION\}\}/g, '');
+  }
+
+  // ── Cursor system (optional, from tokens.json) ──
+  const cursor = tokensData.cursor || null;
+  if (cursor) {
+    const cursorCSS = extractCursorCSS(html);
+    out = out.replace(/\{\{CURSOR_CSS\}\}/g, cursorCSS);
+    out = out.replace(/\{\{CURSOR_SECTION\}\}/g, buildCursorSection(cursor, P, cursorCSS));
+    out = out.replace(/\{\{MEADOW_JS\}\}/g, extractMeadowJS(html));
+  } else {
+    out = out.replace(/\{\{CURSOR_CSS\}\}/g, '');
+    out = out.replace(/\{\{CURSOR_SECTION\}\}/g, '');
+    out = out.replace(/\{\{MEADOW_JS\}\}/g, '');
+  }
 
   // ── Decisions ──
   out = out.replace(/\{\{DECISION_ITEMS\}\}/g, buildDecisions(entry, P, T, vars, assets));
@@ -271,17 +298,19 @@ function extractTemplateAssets(html, P, vars) {
   }
 
   // Scan CSS for hardcoded design values (not tokenized in :root)
+  // Strip :root block first — token DEFINITIONS are not hardcoded usage
+  const cssBody = css.replace(/:root\s*\{[^}]*\}/g, '');
   const rawSpacing = []; // { prop: 'padding'|'margin'|'gap', val: string }
 
-  for (const [, val] of css.matchAll(/padding\s*:\s*([^;]+);/g)) {
+  for (const [, val] of cssBody.matchAll(/padding\s*:\s*([^;]+);/g)) {
     const v = cleanSpacingVal(val);
-    if (v && !v.includes('var(--')) rawSpacing.push({ prop: 'padding', val: v });
+    if (v && v !== '0' && !v.includes('var(--')) rawSpacing.push({ prop: 'padding', val: v });
   }
-  for (const [, val] of css.matchAll(/margin(?:-top|-bottom|-left|-right)?\s*:\s*([^;]+);/g)) {
+  for (const [, val] of cssBody.matchAll(/margin(?:-top|-bottom|-left|-right)?\s*:\s*([^;]+);/g)) {
     const v = cleanSpacingVal(val);
     if (v && !v.includes('var(--') && v !== '0' && v !== '0 auto') rawSpacing.push({ prop: 'margin', val: v });
   }
-  for (const [, val] of css.matchAll(/gap\s*:\s*([^;]+);/g)) {
+  for (const [, val] of cssBody.matchAll(/gap\s*:\s*([^;]+);/g)) {
     const v = cleanSpacingVal(val);
     if (v && !v.includes('var(--')) rawSpacing.push({ prop: 'gap', val: v });
   }
@@ -789,7 +818,10 @@ function buildMotionChips(groups, implicit, P) {
   return items.map(t => {
     const isEase = t.name.includes('ease');
     const isDuration = t.name.includes('duration');
-    return '<div class="motion-chip">' +
+    // Pass motion values as CSS custom properties so bars animate on hover
+    const dur = isDuration ? t.value : '200ms';
+    const ease = isEase ? t.value : 'cubic-bezier(0.4,0,0.2,1)';
+    return '<div class="motion-chip" style="--m-dur:' + esc(dur) + ';--m-ease:' + esc(ease) + '">' +
       '<div class="m-var">' + esc(t.name.replace('--', '')) + '</div>' +
       '<div class="m-val">' + esc(t.value) + '</div>' +
       (isEase ? '<div class="m-curve">缓动曲线</div>' : '') +
@@ -1268,6 +1300,160 @@ function fontShortName(stack) {
   if (!stack) return '';
   const first = stack.split(',')[0].trim().replace(/['"]/g, '');
   return first.length > 20 ? first.substring(0, 18) + '...' : first;
+}
+
+// ── Texture CSS extraction ──
+function extractTextureCSS(html, classNames) {
+  const styleMatch = html.match(/<style>([\s\S]*?)<\/style>/i);
+  if (!styleMatch) return '';
+  const css = styleMatch[1];
+
+  // Try comment-marker extraction first
+  const texStart = css.search(/\/\*\s*─{1,3}\s*Texture system/i);
+  if (texStart >= 0) {
+    const afterTex = css.substring(texStart);
+    const nextSection = afterTex.search(/\/\*\s*─{1,3}\s*(?:Cursor|Meadow|Responsive|[A-Z])/i);
+    if (nextSection > 0) return afterTex.substring(0, nextSection).trim();
+    return afterTex.trim();
+  }
+
+  // Fallback: extract by class name
+  const escaped = classNames.map(c => c.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  const clsRegex = new RegExp(escaped.map(c => '\\.' + c).join('|'), 'i');
+  const ruleRegex = /([^{}]+)\{([^{}]*)\}/g;
+  const out = [];
+  let match;
+  while ((match = ruleRegex.exec(css)) !== null) {
+    if (clsRegex.test(match[1])) {
+      out.push(match[1].trim() + ' { ' + match[2].trim() + ' }');
+    }
+  }
+  return out.join('\n');
+}
+
+// ── Cursor CSS extraction ──
+function extractCursorCSS(html) {
+  const styleMatch = html.match(/<style>([\s\S]*?)<\/style>/i);
+  if (!styleMatch) return '';
+  const css = styleMatch[1];
+
+  // Extract cursor section by comment marker.
+  // Template has cursor inside main body block: body { ... cursor ... }
+  // We extract the 3 cursor rules and reconstruct with proper selectors.
+  const cursorCommentStart = css.search(/\/\*\s*─{1,3}\s*Custom cursor/i);
+  if (cursorCommentStart < 0) return '';
+
+  // Find all 3 cursor: url(...) blocks in order
+  const cursorRe = /(?:([^{}]*?)\s*\{\s*)?cursor:\s*url\("([^"]+)"\)\s+(\d+)\s+(\d+)\s*,\s*auto\s*;?\s*\}/g;
+  let m;
+  const rules = [];
+  while ((m = cursorRe.exec(css)) !== null) {
+    if (m.index < cursorCommentStart) continue;
+    rules.push({ selector: (m[1] || '').trim(), data: m[2], x: m[3], y: m[4] });
+  }
+  if (rules.length < 3) return '';
+
+  return [
+    'body {\n  cursor: url("' + rules[0].data + '") ' + rules[0].x + ' ' + rules[0].y + ', auto;\n}',
+    '',
+    (rules[1].selector || 'a:hover, button:hover, [role="button"]:hover, nav a:hover, .tx-card:hover, .hamburger:hover') + ' {\n  cursor: url("' + rules[1].data + '") ' + rules[1].x + ' ' + rules[1].y + ', auto;\n}',
+    '',
+    'body:active {\n  cursor: url("' + rules[2].data + '") ' + rules[2].x + ' ' + rules[2].y + ', auto;\n}'
+  ].join('\n');
+}
+
+// ── Meadow JS extraction ──
+function extractMeadowJS(html) {
+  // Find script containing meadow-plant
+  const match = html.match(/<script>([\s\S]*?meadow-plant[\s\S]*?)<\/script>/i);
+  if (!match) {
+    // Try click-to-plant
+    const m2 = html.match(/<script>([\s\S]*?click.to.plant[\s\S]*?)<\/script>/i);
+    return m2 ? m2[1].trim() : '';
+  }
+  return match[1].trim();
+}
+
+// ── Texture section builder ──
+function buildTextureSection(textures, P) {
+  let html = '<h3 class="bk-asset-subhead">结构纹理</h3>';
+  html += '<p class="bk-asset-subdesc">六种纯 CSS 结构纹理——白底 + 渐变过渡，无背景图、无 WebGL。纹理密度、角度、透明度均可调。"结构即纹理"——1px 边框、网格间隙、渐变线即是装饰。</p>';
+  html += '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden">';
+  for (const tx of textures) {
+    const cls = tx.cssClass;
+    let previewHTML = '';
+    if (cls === 'tx-grid-fade') {
+      previewHTML = '<div class="' + cls + '" style="height:100px;border-radius:var(--radius-sm);overflow:hidden;margin-bottom:16px">' +
+        Array(32).fill('<span></span>').join('') + '</div>';
+    } else {
+      previewHTML = '<div class="' + cls + '" style="height:100px;border-radius:var(--radius-sm);margin-bottom:16px;' +
+        (cls === 'tx-noise-fade' ? 'position:relative;overflow:hidden;' : '') + '"></div>';
+    }
+    html += '<div style="background:var(--surface);padding:28px 24px">';
+    html += previewHTML;
+    html += '<div style="font-size:var(--brand-t-xl);font-weight:600;margin-bottom:6px;color:var(--text)">' + esc(tx.name) + '</div>';
+    html += '<div style="font-family:var(--font-mono);font-size:var(--brand-t-2xs);color:var(--accent);margin-bottom:12px">.' + esc(cls) + '</div>';
+    html += '<div style="font-size:var(--brand-t-sm);color:var(--text-soft);line-height:1.6;margin-bottom:10px">' + esc(tx.usage) + '</div>';
+    html += '<div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);line-height:1.6;background:var(--bg);padding:10px 12px;border-radius:4px;white-space:pre-wrap">' + esc(tx.technique) + '</div>';
+    html += '</div>';
+  }
+  html += '</div>';
+  return html;
+}
+
+// ── Cursor section builder ──
+function buildCursorSection(cursor, P, cursorCSS) {
+  let html = '<h3 class="bk-asset-subhead">自定义光标</h3>';
+  html += '<p class="bk-asset-subdesc">SVG 光标系统——草为杆、花为指。三态光标（默认/悬停/按下）全部由纯 SVG + CSS cursor 实现，不依赖图片资源。</p>';
+
+  // Parse SVG data URIs from cursorCSS
+  const svgDataURIs = [];
+  if (cursorCSS) {
+    const uriRe = /url\("([^"]+)"\)/g;
+    let m;
+    while ((m = uriRe.exec(cursorCSS)) !== null) {
+      const uri = m[1];
+      if (uri.startsWith('data:image/svg+xml;base64,')) {
+        svgDataURIs.push(uri.replace('data:image/svg+xml;base64,', ''));
+      }
+    }
+  }
+  // Decode base64 to SVG markup
+  const svgMarkups = svgDataURIs.map(b64 => Buffer.from(b64, 'base64').toString('utf-8'));
+
+  // Cursor state cards with rendered SVG previews
+  const states = cursor.states || [];
+  if (states.length > 0) {
+    html += '<div style="display:grid;grid-template-columns:repeat(' + states.length + ',1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:24px">';
+    for (let i = 0; i < states.length; i++) {
+      const s = states[i];
+      const svg = svgMarkups[i] || '';
+      html += '<div style="background:var(--surface);padding:28px 24px;text-align:center">';
+      html += '<div style="display:flex;justify-content:center;align-items:center;height:80px;margin-bottom:16px">';
+      html += svg;
+      html += '</div>';
+      html += '<div style="font-size:var(--brand-t-xl);font-weight:600;margin-bottom:4px;color:var(--text)">' + esc(s.name) + '</div>';
+      html += '<div style="font-family:var(--font-mono);font-size:var(--brand-t-2xs);color:var(--text-muted);margin-bottom:10px">hotspot: ' + esc(s.hotspot) + '</div>';
+      html += '<div style="font-size:var(--brand-t-sm);color:var(--text-soft);line-height:1.6">' + esc(s.description) + '</div>';
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+
+  // Meadow note
+  if (cursor.meadow && cursor.meadow.enabled) {
+    html += '<div style="display:flex;gap:20px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px">';
+    html += '<div style="flex-shrink:0;width:56px;height:56px">' + (svgMarkups[0] || '') + '</div>';
+    html += '<div>';
+    html += '<h4 style="font-size:var(--brand-t-xl);font-weight:600;margin-bottom:8px;color:var(--text)">点击种草地</h4>';
+    html += '<p style="font-size:var(--brand-t-base);color:var(--text-soft);line-height:1.7">' + esc(cursor.meadow.description) + '</p>';
+    html += '<div style="display:flex;gap:16px;margin-top:12px;font-family:var(--font-mono);font-size:var(--brand-t-xs);color:var(--text-muted)">';
+    html += '<span>最多: ' + esc(String(cursor.meadow.maxPlants)) + ' 株</span>';
+    html += '<span>寿命: ' + esc(String(cursor.meadow.lifetimeMs)) + 'ms</span>';
+    html += '</div></div></div>';
+  }
+
+  return html;
 }
 
 module.exports = { renderBrandKit };
