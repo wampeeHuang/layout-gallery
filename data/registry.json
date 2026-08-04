@@ -6771,7 +6771,7 @@
     "name": "版式画廊 · Layout Gallery",
     "tagline": "鼠尾草绿 + 衬线标题 + 结构即纹理 —— 画廊自身设计系统，6类20变量DTCG对齐",
     "skill": "frontend-design",
-    "template_type": "single-page",
+    "template_type": "gallery-index",
     "design_style": "editorial",
     "aspect_ratio": "auto",
     "mood": [

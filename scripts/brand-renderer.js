@@ -1,4 +1,4 @@
-const fs = require('fs');
+﻿const fs = require('fs');
 const path = require('path');
 
 // ── Token contract fallback lookup ──────────────────────────────
@@ -103,7 +103,9 @@ function renderBrandKit(entry, projectDir) {
     out = out.replace(/\{\{TYPE_SCALE_VARS\}\}/g, brandKit.typeScale.map(t => t.name + ':' + (t.size || t.value)).join(';') + ';');
   }
   if (brandKit.spacingScale) {
-    out = out.replace(/\{\{SPACING_VARS\}\}/g, brandKit.spacingScale.map(t => t.name + ':' + t.value).join(';') + ';');
+    const bkSpacing = brandKit.spacingScale.map(t => t.name + ':' + t.value).join(';');
+    const tokenSpacing = (tokensByGroup.Spacing || tokensByGroup.spacing || []).map(t => t.name + ':' + t.value).join(';');
+    out = out.replace(/\{\{SPACING_VARS\}\}/g, bkSpacing + ';' + tokenSpacing + ';');
   }
   if (brandKit.components) {
     out = out.replace(/\{\{BRAND_COMPONENT_VARS\}\}/g, Object.entries(brandKit.components).map(([k, v]) => k + ':' + v).join(';') + ';');
@@ -312,7 +314,7 @@ function extractTemplateAssets(html, P, vars) {
   }
   for (const [, val] of cssBody.matchAll(/gap\s*:\s*([^;]+);/g)) {
     const v = cleanSpacingVal(val);
-    if (v && !v.includes('var(--')) rawSpacing.push({ prop: 'gap', val: v });
+    if (v && v !== '0' && !v.includes('var(--')) rawSpacing.push({ prop: 'gap', val: v });
   }
 
   // Classify spacing values: deduplicate and group by property type
@@ -846,41 +848,44 @@ function buildComponentPanels(P, T, radius, vars, assets) {
   const solidShadow = (assets.implicit.shadow || []).find(s => /^\d+px\s+\d+px\s+0\s/.test(s));
   const isBrutalist = !!solidShadow;
 
-  // Reverse-map hex values → CSS var names for token-notes
+  // Reverse-map hex values → CSS var names
   const vn = {};
   for (const [k, v] of Object.entries(vars)) { vn[v] = k; }
   function varRef(val) { return vn[val] ? '<span>' + esc(vn[val]) + '</span>' : '<span>' + esc(val) + '</span>'; }
+  // Map a hex value to var(--token) if known, otherwise return value as-is
+  function varStyle(val) { return vn[val] ? 'var(' + vn[val] + ')' : val; }
+  function varBgc(val) { return vn[val] ? 'background-color:var(' + vn[val] + ')' : 'background:' + val; }
 
   // ── Buttons ──
-  const btnRadius = isBrutalist ? R : '9999px';
-  const btnShadow = solidShadow ? 'box-shadow:' + esc(solidShadow) + ';' : '';
+  const btnRadiusVal = isBrutalist ? 'var(--radius)' : 'var(--radius-pill,9999px)';
+  const btnShadow = solidShadow ? 'box-shadow:var(--shadow-solid,' + esc(solidShadow) + ');' : '';
   out.push(
     '<div class="comp-panel"><h4>按钮</h4>' +
-    '<div class="comp-row" style="gap:8px">' +
-    '<button style="background:' + esc(P.accent) + ';color:#fff;border:none;border-radius:' + btnRadius + ';' + btnShadow + 'padding:10px 24px;font-size:14px;font-weight:500;cursor:default">主要按钮</button>' +
-    '<button style="background:transparent;color:' + esc(P.text) + ';border:1px solid ' + esc(P.border) + ';border-radius:' + btnRadius + ';' + btnShadow + 'padding:10px 24px;font-size:14px;cursor:default">次要按钮</button>' +
+    '<div class="comp-row" style="gap:var(--space-xs)">' +
+    '<button style="' + varBgc(P.accent) + ';color:#fff;border:none;border-radius:' + btnRadiusVal + ';' + btnShadow + 'padding:var(--space-sm) var(--space-lg);font-size:14px;font-weight:500;cursor:default">主要按钮</button>' +
+    '<button style="background:transparent;color:' + varStyle(P.text) + ';border:var(--hairline,1px) solid ' + varStyle(P.border) + ';border-radius:' + btnRadiusVal + ';' + btnShadow + 'padding:var(--space-sm) var(--space-lg);font-size:14px;cursor:default">次要按钮</button>' +
     '</div>' +
     '<div class="token-note">使用 Token：' + varRef(P.accent) + ' ' + varRef(P.border) + ' <span>--radius</span></div></div>'
   );
 
   // ── Card ──
-  const cardShadow = solidShadow ? 'box-shadow:' + esc(solidShadow) + ';' : '';
+  const cardShadow = solidShadow ? 'box-shadow:var(--shadow-solid,' + esc(solidShadow) + ');' : 'box-shadow:var(--shadow-md)';
   out.push(
     '<div class="comp-panel"><h4>卡片</h4><div class="comp-row">' +
-    '<div style="width:220px;background:' + esc(P.bgCard) + ';border:1px solid ' + esc(P.border) + ';border-radius:' + esc(R) + ';overflow:hidden;' + cardShadow + '">' +
-    '<div style="height:100px;background:linear-gradient(135deg,' + esc(P.bg) + ',' + esc(P.border) + ');display:flex;align-items:center;justify-content:center;font-size:24px;color:' + esc(P.textMuted) + '">&#x25A1;</div>' +
-    '<div style="padding:14px 16px"><div style="font-size:15px;font-weight:700;margin-bottom:4px">Template Name</div>' +
-    '<div style="font-size:13px;color:' + esc(P.textSecondary) + ';line-height:1.4">Tagline description here.</div></div></div></div>' +
+    '<div style="width:220px;' + varBgc(P.bgCard) + ';border:var(--hairline,1px) solid ' + varStyle(P.border) + ';border-radius:var(--radius);overflow:hidden;' + cardShadow + '">' +
+    '<div style="height:100px;background:linear-gradient(135deg,' + varStyle(P.bg) + ',' + varStyle(P.border) + ');display:flex;align-items:center;justify-content:center;font-size:24px;color:' + varStyle(P.textMuted) + '">&#x25A1;</div>' +
+    '<div style="padding:var(--space-sm) var(--space-md)"><div style="font-size:var(--text-base,15px);font-weight:700;margin-bottom:var(--space-2xs)">Template Name</div>' +
+    '<div style="font-size:var(--text-sm,13px);color:' + varStyle(P.textSecondary) + ';line-height:1.4">Tagline description here.</div></div></div></div>' +
     '<div class="token-note">使用 Token：' + varRef(P.bgCard) + ' ' + varRef(P.border) + ' <span>--radius</span> ' + varRef(P.textSecondary) + '</div></div>'
   );
 
   // ── Input ──
-  const inputRadius = isBrutalist ? R : '10px';
+  const inputRadiusVal = isBrutalist ? 'var(--radius)' : 'var(--radius-sm,10px)';
   out.push(
     '<div class="comp-panel"><h4>输入框</h4><div class="comp-row">' +
-    '<div style="display:flex;align-items:center;background:' + esc(P.bgCard) + ';border:1px solid ' + esc(P.border) + ';border-radius:' + inputRadius + ';overflow:hidden">' +
-    '<input style="border:none;outline:none;font-size:15px;font-family:inherit;color:' + esc(P.text) + ';padding:11px 16px;width:160px;background:transparent" placeholder="搜索...">' +
-    '<button style="padding:11px 18px;border:none;background:' + esc(P.bg) + ';border-left:1px solid ' + esc(P.border) + ';font-size:16px;cursor:default;font-family:inherit;color:' + esc(P.textSecondary) + '">&#x2315;</button>' +
+    '<div style="display:flex;align-items:center;' + varBgc(P.bgCard) + ';border:var(--hairline,1px) solid ' + varStyle(P.border) + ';border-radius:' + inputRadiusVal + ';overflow:hidden">' +
+    '<input style="border:none;outline:none;font-size:var(--text-base,15px);font-family:inherit;color:' + varStyle(P.text) + ';padding:var(--space-sm) var(--space-md);width:160px;background:transparent" placeholder="搜索...">' +
+    '<button style="padding:var(--space-sm) var(--space-md);border:none;' + varBgc(P.bg) + ';border-left:var(--hairline,1px) solid ' + varStyle(P.border) + ';font-size:16px;cursor:default;font-family:inherit;color:' + varStyle(P.textSecondary) + '">&#x2315;</button>' +
     '</div></div>' +
     '<div class="token-note">使用 Token：' + varRef(P.bgCard) + ' ' + varRef(P.border) + ' ' + varRef(P.text) + '</div></div>'
   );
@@ -1231,6 +1236,10 @@ function cleanSpacingVal(val) {
   let v = val.trim();
   v = v.replace(/}$/, '').trim();
   if (!v || v.includes('{') || v.includes('\n')) return '';
+  // Skip clamp() — responsive design formulas, not hardcoded spacings
+  if (v.startsWith('clamp(')) return '';
+  // Skip zero values and multi-value shorthands starting with 0
+  if (v === '0' || /^0\s/.test(v)) return '';
   return v;
 }
 
@@ -1348,7 +1357,7 @@ function extractCursorCSS(html) {
   let m;
   const rules = [];
   while ((m = cursorRe.exec(css)) !== null) {
-    if (m.index < cursorCommentStart) continue;
+    if (m.index + m[0].length <= cursorCommentStart) continue;
     rules.push({ selector: (m[1] || '').trim(), data: m[2], x: m[3], y: m[4] });
   }
   if (rules.length < 3) return '';

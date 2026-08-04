@@ -1,4 +1,4 @@
-// template-renderer.js — tokens.json → template.html
+﻿// template-renderer.js — tokens.json → template.html
 //
 // Pipeline:
 //   1. Read tokens.json from template dir
@@ -49,6 +49,13 @@ function matchSkeleton(entry) {
   }
   if (type === 'native-swiss-web') {
     const fp = path.join(SKELETONS_DIR, 'native-swiss-web.html');
+    if (fs.existsSync(fp)) return fp;
+    return path.join(SKELETONS_DIR, 'editorial-single-page.html');
+  }
+
+  // gallery-index → hand-crafted gallery page
+  if (type === 'gallery-index') {
+    const fp = path.join(SKELETONS_DIR, 'gallery-index.html');
     if (fs.existsSync(fp)) return fp;
     return path.join(SKELETONS_DIR, 'editorial-single-page.html');
   }
@@ -241,6 +248,13 @@ function esc(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+// ── Gallery-index content builder ──────────────────────────────────────
+
+function buildGalleryContent(entry) {
+  const name = esc(entry.name || 'Template Gallery');
+  return { PAGE_TITLE: name };
+}
+
 // ── Editorial content builder ────────────────────────────────────────
 
 function buildEditorialContent(entry) {
@@ -337,7 +351,7 @@ function buildProductContent(entry) {
 
 // ── CSS :root block builder ────────────────────────────────────────
 
-function buildTokenCSS(roles, typo, radius, shadow, pageW, gutter, tokensData) {
+function buildTokenCSS(roles, typo, radius, shadow, pageW, gutter, tokensData, skeletonType) {
   const accentHover = lighten(roles.primary, 30);
   const vars = flattenTokens(tokensData);
   const easeDefault = vars['--ease-default'] || '0.18s ease';
@@ -359,9 +373,10 @@ function buildTokenCSS(roles, typo, radius, shadow, pageW, gutter, tokensData) {
     '--radius', '--shadow-sm', '--shadow-md',
     '--ease-default', '--duration-base',
     '--page-wmax', '--page-pad', '--gap', '--gutter',
+    '--space-2xl', '--space-lg', '--space-sm', '--space-2xs',
   ]);
 
-  ['typography', 'spacing', 'radius', 'shadow', 'motion'].forEach(cat => {
+  ['color', 'typography', 'spacing', 'radius', 'shadow', 'motion'].forEach(cat => {
     (tokensData.tokens[cat] || []).forEach(t => {
       if (!alreadyDeclared.has(t.name)) {
         extraLines.push('  ' + t.name + ': ' + t.value + ';');
@@ -370,10 +385,12 @@ function buildTokenCSS(roles, typo, radius, shadow, pageW, gutter, tokensData) {
     });
   });
 
+  const isGallery = skeletonType === 'gallery-index.html';
+  const accentAltLine = isGallery ? '' : '\n  --accent-alt: ' + roles.secondary + ';';
+
   return `:root {
   --accent: ${roles.primary};
-  --accent-hover: ${accentHover};
-  --accent-alt: ${roles.secondary};
+  --accent-hover: ${accentHover};${accentAltLine}
   --bg: ${roles.background};
   --text: ${roles.text};
   --text-soft: ${roles.textSecondary};
@@ -394,6 +411,10 @@ function buildTokenCSS(roles, typo, radius, shadow, pageW, gutter, tokensData) {
   --page-pad: 32px;
   --gap: 24px;
   --gutter: ${gutter};
+  --space-2xl: 48px;
+  --space-lg: 24px;
+  --space-sm: 12px;
+  --space-2xs: 4px;
 ${extraLines.join('\n')}
 }`;
 }
@@ -813,6 +834,7 @@ function buildContent(entry, skeletonType) {
     case 'capsule.html': return buildCapsuleContent(entry);
     case 'retro-windows.html': return buildRetroWindowsContent(entry);
     case 'product-listing.html': return buildProductContent(entry);
+    case 'gallery-index.html': return buildGalleryContent(entry);
     case 'editorial-single-page.html':
     default: return buildEditorialContent(entry);
   }
@@ -844,7 +866,7 @@ function renderTemplate(entry, projectDir, overrideTokensData, contentOverrides)
   const pageW = extractPageWidth(tokensData);
   const gutter = extractGutter(tokensData);
 
-  const tokenCSS = buildTokenCSS(roles, typo, radius, shadow, pageW, gutter, tokensData);
+  const tokenCSS = buildTokenCSS(roles, typo, radius, shadow, pageW, gutter, tokensData, skeletonType);
   let content;
   if (contentOverrides && typeof contentOverrides === 'object' && Object.keys(contentOverrides).length > 0) {
     content = contentOverrides;
@@ -856,6 +878,9 @@ function renderTemplate(entry, projectDir, overrideTokensData, contentOverrides)
   out = out.replace('{{TOKEN_CSS}}', tokenCSS);
   const fontImports = buildFontImports(tokensData);
   out = out.replace('{{FONT_IMPORTS}}', fontImports);
+  const extraCssPath = path.join(tmplDir, 'extra.css');
+  const extraCss = fs.existsSync(extraCssPath) ? fs.readFileSync(extraCssPath, 'utf-8') : '';
+  out = out.replace('{{EXTRA_CSS}}', extraCss);
 
   for (const [key, val] of Object.entries(content)) {
     // Values containing HTML tags are intentional markup (e.g. <br> in headlines)
