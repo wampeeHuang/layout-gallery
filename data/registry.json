@@ -5917,338 +5917,9 @@
     "template_path": "templates/codebase-to-course/warm-paper-course/template.html"
   },
   {
-    "slug": "layout-gallery",
-    "name": "版式画廊",
-    "tagline": "多风格 CSS 模板画廊 · Swiss-minimal 平台设计 · 设计基因三件套",
-    "skill": "frontend-design",
-    "template_type": "single-page",
-    "design_style": "swiss",
-    "aspect_ratio": "auto",
-    "mood": [
-      "理性",
-      "系统",
-      "克制",
-      "工具感"
-    ],
-    "formality": "medium",
-    "scheme": "light",
-    "palette": [
-      {
-        "name": "Canvas",
-        "color": "#fafafa"
-      },
-      {
-        "name": "Card",
-        "color": "#ffffff"
-      },
-      {
-        "name": "Ink",
-        "color": "#1a1a1a"
-      },
-      {
-        "name": "Ink Muted",
-        "color": "#666666"
-      },
-      {
-        "name": "Ink Faint",
-        "color": "#999999"
-      },
-      {
-        "name": "Border",
-        "color": "#e8e8e8"
-      },
-      {
-        "name": "Accent",
-        "color": "#2563eb"
-      },
-      {
-        "name": "Accent Deep",
-        "color": "#1d4ed8"
-      }
-    ],
-    "displayFont": "Inter, Noto Sans SC, sans-serif",
-    "bodyFont": "Inter, Noto Sans SC, sans-serif",
-    "typography_style": "Sans-serif 统一字体 · 字重驱动层级 · 紧凑行高",
-    "best_for": "多模板展示、设计系统参考、前端开发工具",
-    "avoid_for": "内容密集型阅读、传统出版排版",
-    "slide_count": 0,
-    "css_variables": [
-      {
-        "name": "--bg",
-        "default": "#fafafa",
-        "description": "页面底色",
-        "role": "surface-bg",
-        "group": "color"
-      },
-      {
-        "name": "--bg-card",
-        "default": "#fff",
-        "description": "卡片/面板背景",
-        "role": "surface-card",
-        "group": "color"
-      },
-      {
-        "name": "--text",
-        "default": "#1a1a1a",
-        "description": "主文字色",
-        "role": "text-primary",
-        "group": "color"
-      },
-      {
-        "name": "--text-secondary",
-        "default": "#666",
-        "description": "次级文字色",
-        "role": "text-secondary",
-        "group": "color"
-      },
-      {
-        "name": "--text-muted",
-        "default": "#999",
-        "description": "最弱文字/占位符",
-        "role": "",
-        "group": "color"
-      },
-      {
-        "name": "--border",
-        "default": "#e8e8e8",
-        "description": "默认边框色",
-        "role": "border-default",
-        "group": "color"
-      },
-      {
-        "name": "--accent",
-        "default": "#2563eb",
-        "description": "强调色/链接/按钮",
-        "role": "accent",
-        "group": "color"
-      },
-      {
-        "name": "--accent-hover",
-        "default": "#1d4ed8",
-        "description": "强调色 hover 态",
-        "role": "accent-hover",
-        "group": "color"
-      },
-      {
-        "name": "--font-sans",
-        "default": "Inter, Noto Sans SC, sans-serif",
-        "description": "正文字体栈",
-        "role": "body-font",
-        "group": "typography"
-      },
-      {
-        "name": "--font-mono",
-        "default": "SF Mono, Cascadia Code, Consolas, monospace",
-        "description": "等宽字体栈",
-        "role": "mono-font",
-        "group": "typography"
-      },
-      {
-        "name": "--text-3xl",
-        "default": "32px",
-        "description": "页面主标题",
-        "role": "display-size",
-        "group": "typography"
-      },
-      {
-        "name": "--text-2xl",
-        "default": "24px",
-        "description": "二级标题",
-        "role": "h2-size",
-        "group": "typography"
-      },
-      {
-        "name": "--text-xl",
-        "default": "18px",
-        "description": "三级标题",
-        "role": "h3-size",
-        "group": "typography"
-      },
-      {
-        "name": "--text-lg",
-        "default": "15px",
-        "description": "卡片标题",
-        "role": "",
-        "group": "typography"
-      },
-      {
-        "name": "--text-base",
-        "default": "16px",
-        "description": "正文基础字号",
-        "role": "body-size",
-        "group": "typography"
-      },
-      {
-        "name": "--text-sm",
-        "default": "13px",
-        "description": "辅助文字",
-        "role": "",
-        "group": "typography"
-      },
-      {
-        "name": "--text-xs",
-        "default": "12px",
-        "description": "标签/小字",
-        "role": "small-size",
-        "group": "typography"
-      },
-      {
-        "name": "--text-2xs",
-        "default": "11px",
-        "description": "最小字号",
-        "role": "",
-        "group": "typography"
-      },
-      {
-        "name": "--space-3xl",
-        "default": "48px",
-        "description": "页面顶部留白",
-        "role": "hero-spacing",
-        "group": "spacing"
-      },
-      {
-        "name": "--space-2xl",
-        "default": "32px",
-        "description": "区段间距",
-        "role": "section-spacing",
-        "group": "spacing"
-      },
-      {
-        "name": "--space-xl",
-        "default": "24px",
-        "description": "页面两侧留白/卡片间距",
-        "role": "page-padding",
-        "group": "spacing"
-      },
-      {
-        "name": "--space-lg",
-        "default": "20px",
-        "description": "卡片内边距",
-        "role": "card-padding",
-        "group": "spacing"
-      },
-      {
-        "name": "--space-md",
-        "default": "14px",
-        "description": "元素间距",
-        "role": "element-gap",
-        "group": "spacing"
-      },
-      {
-        "name": "--space-sm",
-        "default": "8px",
-        "description": "紧凑间距",
-        "role": "",
-        "group": "spacing"
-      },
-      {
-        "name": "--space-xs",
-        "default": "4px",
-        "description": "图标-文字间距",
-        "role": "tight-gap",
-        "group": "spacing"
-      },
-      {
-        "name": "--radius-lg",
-        "default": "16px",
-        "description": "大圆角/modal",
-        "role": "card",
-        "group": "radius"
-      },
-      {
-        "name": "--radius",
-        "default": "12px",
-        "description": "默认卡片圆角",
-        "role": "card",
-        "group": "radius"
-      },
-      {
-        "name": "--radius-md",
-        "default": "10px",
-        "description": "中等圆角",
-        "role": "card",
-        "group": "radius"
-      },
-      {
-        "name": "--radius-sm",
-        "default": "6px",
-        "description": "小圆角/按钮",
-        "role": "subtle",
-        "group": "radius"
-      },
-      {
-        "name": "--radius-xs",
-        "default": "4px",
-        "description": "细微圆角",
-        "role": "sharp",
-        "group": "radius"
-      },
-      {
-        "name": "--radius-pill",
-        "default": "9999px",
-        "description": "胶囊圆角/chip",
-        "role": "",
-        "group": "radius"
-      },
-      {
-        "name": "--shadow-sm",
-        "default": "0 1px 3px rgba(0,0,0,0.04)",
-        "description": "默认阴影",
-        "role": "default",
-        "group": "shadow"
-      },
-      {
-        "name": "--shadow-md",
-        "default": "0 8px 30px rgba(0,0,0,0.08)",
-        "description": "卡片hover阴影",
-        "role": "card-hover",
-        "group": "shadow"
-      },
-      {
-        "name": "--ease-default",
-        "default": "cubic-bezier(0.4,0,0.2,1)",
-        "description": "标准缓动曲线",
-        "role": "standard-easing",
-        "group": "motion"
-      },
-      {
-        "name": "--duration-fast",
-        "default": "140ms",
-        "description": "瞬态/hover/click",
-        "role": "duration-fast",
-        "group": "motion"
-      },
-      {
-        "name": "--duration-base",
-        "default": "150ms",
-        "description": "标准过渡",
-        "role": "duration-base",
-        "group": "motion"
-      },
-      {
-        "name": "--duration-slow",
-        "default": "200ms",
-        "description": "慢过渡/展开",
-        "role": "",
-        "group": "motion"
-      },
-      {
-        "name": "--duration-slower",
-        "default": "350ms",
-        "description": "最慢过渡/入场动画",
-        "role": "",
-        "group": "motion"
-      }
-    ],
-    "visibility": "public",
-    "status": "active",
-    "preview_type": "iframe",
-    "template_path": "templates/frontend-design/layout-gallery/template.html"
-  },
-  {
-    "slug": "pinterest-gestalt",
-    "name": "Pinterest Gestalt",
-    "tagline": "Pinterest 设计系统 — 暖红强调色，4px 基座，9色相×12阶，系统字体栈",
+    "slug": "warm-red",
+    "name": "暖红设计",
+    "tagline": "暖红设计系统 — 暖红强调色，4px 基座，9色相×12阶，系统字体栈",
     "skill": "design-systems",
     "template_type": "brand_kit",
     "design_style": "minimalist",
@@ -6529,12 +6200,12 @@
     ],
     "visibility": "public",
     "preview_type": "iframe",
-    "template_path": "templates/design-systems/pinterest-gestalt/template.html"
+    "template_path": "templates/design-systems/warm-red/template.html"
   },
   {
-    "slug": "vercel-geist",
-    "name": "Vercel Geist",
-    "tagline": "Vercel 设计系统 — 冷蓝强调色，边框代阴影，极简工具美学",
+    "slug": "minimal-blue",
+    "name": "极简蓝",
+    "tagline": "极简蓝设计系统 — 冷蓝强调色，边框代阴影，极简工具美学",
     "skill": "design-systems",
     "template_type": "brand_kit",
     "design_style": "minimalist",
@@ -6805,10 +6476,10 @@
     ],
     "visibility": "public",
     "preview_type": "iframe",
-    "template_path": "templates/design-systems/vercel-geist/template.html"
+    "template_path": "templates/design-systems/minimal-blue/template.html"
   },
   {
-    "slug": "dribbble",
+    "slug": "tao-design",
     "name": "淘设计",
     "tagline": "经典粉色系电商卡片，粗体标题字，重阴影大圆角，产品展示页。",
     "skill": "design-systems",
@@ -7093,6 +6764,197 @@
     ],
     "visibility": "public",
     "preview_type": "iframe",
-    "template_path": "templates/design-systems/dribbble/template.html"
+    "template_path": "templates/design-systems/tao-design/template.html"
+  },
+  {
+    "slug": "layout-gallery",
+    "name": "版式画廊 · Layout Gallery",
+    "tagline": "鼠尾草绿 + 衬线标题 + 结构即纹理 —— 画廊自身设计系统，6类20变量DTCG对齐",
+    "skill": "frontend-design",
+    "template_type": "single-page",
+    "design_style": "editorial",
+    "aspect_ratio": "auto",
+    "mood": [
+      "克制",
+      "通透",
+      "留白",
+      "文学感"
+    ],
+    "formality": "medium",
+    "scheme": "light",
+    "palette": [
+      {
+        "name": "Sage",
+        "color": "#3D6B4A"
+      },
+      {
+        "name": "Sage Dark",
+        "color": "#2E5238"
+      },
+      {
+        "name": "Sage Soft",
+        "color": "#EEF4EF"
+      },
+      {
+        "name": "Ink",
+        "color": "#18181B"
+      },
+      {
+        "name": "Stone",
+        "color": "#71717A"
+      }
+    ],
+    "displayFont": "Noto Serif SC / Source Han Serif SC / Songti SC",
+    "bodyFont": "Helvetica Neue / PingFang SC / Microsoft YaHei UI",
+    "typography_style": "衬线标题(Noto Serif SC) + 无衬线正文(Helvetica Neue)，大字重标题，高行距正文，letter-spacing收紧",
+    "best_for": "设计系统展示、品牌页、个人作品集、知识平台",
+    "avoid_for": "电商促销页、数据仪表盘、游戏界面",
+    "slide_count": 0,
+    "css_variables": [
+      {
+        "name": "--accent",
+        "default": "#3D6B4A",
+        "role": "accent",
+        "group": "color",
+        "description": "鼠尾草绿强调色"
+      },
+      {
+        "name": "--accent-hover",
+        "default": "#2E5238",
+        "role": "accent-hover",
+        "group": "color",
+        "description": "悬停加深"
+      },
+      {
+        "name": "--accent-soft",
+        "default": "#EEF4EF",
+        "role": "accent-subtle",
+        "group": "color",
+        "description": "强调色10%淡底"
+      },
+      {
+        "name": "--bg",
+        "default": "#FFFFFF",
+        "role": "surface-bg",
+        "group": "color",
+        "description": "页面背景白"
+      },
+      {
+        "name": "--surface",
+        "default": "#F4F4F5",
+        "role": "surface-card",
+        "group": "color",
+        "description": "卡片灰底"
+      },
+      {
+        "name": "--surface-alt",
+        "default": "#E4E4E7",
+        "role": "surface-alt",
+        "group": "color",
+        "description": "代码块深底"
+      },
+      {
+        "name": "--text",
+        "default": "#18181B",
+        "role": "text-primary",
+        "group": "color",
+        "description": "主文字墨色AAA"
+      },
+      {
+        "name": "--text-soft",
+        "default": "#71717A",
+        "role": "text-secondary",
+        "group": "color",
+        "description": "次级岩灰色AA"
+      },
+      {
+        "name": "--text-muted",
+        "default": "#A1A1AA",
+        "role": "text-muted",
+        "group": "color",
+        "description": "最弱文字"
+      },
+      {
+        "name": "--line",
+        "default": "#D4D4D8",
+        "role": "border-default",
+        "group": "color",
+        "description": "边框分割线"
+      },
+      {
+        "name": "--line-soft",
+        "default": "#E8E8EC",
+        "role": "border-subtle",
+        "group": "color",
+        "description": "浅边框"
+      },
+      {
+        "name": "--heading",
+        "default": "#3F3F46",
+        "role": "text-heading",
+        "group": "color",
+        "description": "标题深灰"
+      },
+      {
+        "name": "--font-display",
+        "default": "\"Noto Serif SC\",\"Source Han Serif SC\",\"Songti SC\",\"SimSun\",serif",
+        "role": "display-font",
+        "group": "typography",
+        "description": "衬线展示字体"
+      },
+      {
+        "name": "--font-body",
+        "default": "\"Helvetica Neue\",\"Helvetica\",\"PingFang SC\",\"Microsoft YaHei UI\",\"Arial\",system-ui,sans-serif",
+        "role": "body-font",
+        "group": "typography",
+        "description": "无衬线正文"
+      },
+      {
+        "name": "--font-mono",
+        "default": "\"SF Mono\",\"Consolas\",\"Cascadia Code\",\"IBM Plex Mono\",ui-monospace,monospace",
+        "role": "mono-font",
+        "group": "typography",
+        "description": "等宽字体"
+      },
+      {
+        "name": "--page-wmax",
+        "default": "1040px",
+        "role": "content-max-width",
+        "group": "spacing",
+        "description": "内容最大宽度"
+      },
+      {
+        "name": "--page-pad",
+        "default": "48px",
+        "role": "page-padding",
+        "group": "spacing",
+        "description": "页面水平内边距"
+      },
+      {
+        "name": "--gap",
+        "default": "16px",
+        "role": "element-gap",
+        "group": "spacing",
+        "description": "元素间距"
+      },
+      {
+        "name": "--space-3xl",
+        "default": "64px",
+        "role": "section-gap",
+        "group": "spacing",
+        "description": "区段间距"
+      },
+      {
+        "name": "--radius",
+        "default": "12px",
+        "role": "radius-card",
+        "group": "radius",
+        "description": "卡片圆角"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "brand_kit_ready": true,
+    "template_path": "templates/frontend-design/layout-gallery/template.html"
   }
 ]

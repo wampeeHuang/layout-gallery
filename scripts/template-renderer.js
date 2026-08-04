@@ -340,37 +340,25 @@ function buildProductContent(entry) {
 function buildTokenCSS(roles, typo, radius, shadow, pageW, gutter, tokensData) {
   const accentHover = lighten(roles.primary, 30);
   const vars = flattenTokens(tokensData);
-  const lineSoft = vars['--line-soft'] || (roles.border.startsWith('#') ? hexToRgba(roles.border, 0.5) : roles.border);
+  const easeDefault = vars['--ease-default'] || '0.18s ease';
+  const fontDisplay = typo.display || vars['--font-display'] || 'Georgia, serif';
+  const fontBody = typo.body || vars['--font-body'] || 'Inter, sans-serif';
+  const fontMono = vars['--font-mono'] || '"SF Mono", Consolas, monospace';
 
-  // Editorial skeleton extras
-  const accentDark = vars['--oxide-dark'] || vars['--accent-dark'] || darken(roles.primary, 20);
-  const shadowSolid = vars['--shadow-solid'] || vars['--shadow-sm'] || ('4px 4px 0 ' + roles.primary);
-  const shadowBlock = vars['--shadow-block'] || vars['--shadow-md'] || ('10px 10px 0 ' + roles.primary);
-  const bgSoft = hexToRgba(roles.background, 0.75);
-  const easeDefault = vars['--ease-default'] || vars['--duration-fast'] || '0.18s ease';
-  const easeHover = vars['--ease-hover'] || vars['--duration-base'] || '0.2s ease';
+  // RGB components for rgba() usage in templates — standard vars don't cover this
   const textRgb = hexToRgbParts(roles.text);
   const bgRgb = hexToRgbParts(roles.background);
   const accentRgb = hexToRgbParts(roles.primary);
-  const fontDisplay = typo.display || vars['--font-display'] || 'Georgia, serif';
-  const fontBody = typo.body || vars['--font-body'] || 'Inter, sans-serif';
-  const fontMono = vars['--font-mono'] || vars['--mono'] || '"SF Mono", Consolas, monospace';
-
-  // Skeleton extension vars (pre-existing, used without fallbacks in some skeletons)
-  const bgAlt = vars['--bg-alt'] || roles.surface;
-  const textOnAccent = vars['--text-on-accent'] || (isLightColor(roles.primary) ? '#1a1a1a' : '#ffffff');
-
-  // Collect non-color tokens from tokens.json to pass through
   const extraLines = [];
+
   const alreadyDeclared = new Set([
-    '--accent', '--accent-hover', '--accent-dark', '--accent-alt',
-    '--bg', '--bg-soft', '--text', '--text-soft', '--line', '--line-soft', '--surface',
+    '--accent', '--accent-hover', '--accent-alt',
+    '--bg', '--text', '--text-soft', '--line', '--surface',
     '--text-rgb', '--bg-rgb', '--accent-rgb',
     '--font-display', '--font-body', '--font-mono',
-    '--radius', '--shadow-sm', '--shadow-md', '--shadow-solid', '--shadow-block',
-    '--ease-default', '--ease-hover', '--duration-base',
+    '--radius', '--shadow-sm', '--shadow-md',
+    '--ease-default', '--duration-base',
     '--page-wmax', '--page-pad', '--gap', '--gutter',
-    '--bg-alt', '--text-on-accent'
   ]);
 
   ['typography', 'spacing', 'radius', 'shadow', 'motion'].forEach(cat => {
@@ -385,17 +373,12 @@ function buildTokenCSS(roles, typo, radius, shadow, pageW, gutter, tokensData) {
   return `:root {
   --accent: ${roles.primary};
   --accent-hover: ${accentHover};
-  --accent-dark: ${accentDark};
   --accent-alt: ${roles.secondary};
   --bg: ${roles.background};
-  --bg-soft: ${bgSoft};
   --text: ${roles.text};
   --text-soft: ${roles.textSecondary};
   --line: ${roles.border};
-  --line-soft: ${lineSoft};
   --surface: ${roles.surface};
-  --bg-alt: ${bgAlt};
-  --text-on-accent: ${textOnAccent};
   --text-rgb: ${textRgb};
   --bg-rgb: ${bgRgb};
   --accent-rgb: ${accentRgb};
@@ -405,10 +388,7 @@ function buildTokenCSS(roles, typo, radius, shadow, pageW, gutter, tokensData) {
   --radius: ${radius};
   --shadow-sm: ${shadow.sm};
   --shadow-md: ${shadow.md};
-  --shadow-solid: ${shadowSolid};
-  --shadow-block: ${shadowBlock};
   --ease-default: ${easeDefault};
-  --ease-hover: ${easeHover};
   --duration-base: 150ms;
   --page-wmax: ${pageW};
   --page-pad: 32px;
@@ -840,7 +820,7 @@ function buildContent(entry, skeletonType) {
 
 // ── Main render function ───────────────────────────────────────────
 
-function renderTemplate(entry, projectDir, overrideTokensData) {
+function renderTemplate(entry, projectDir, overrideTokensData, contentOverrides) {
   const tmplDir = path.join(projectDir, path.dirname(entry.template_path));
   const tokensPath = path.join(tmplDir, 'tokens.json');
 
@@ -865,7 +845,12 @@ function renderTemplate(entry, projectDir, overrideTokensData) {
   const gutter = extractGutter(tokensData);
 
   const tokenCSS = buildTokenCSS(roles, typo, radius, shadow, pageW, gutter, tokensData);
-  const content = buildContent(entry, skeletonType);
+  let content;
+  if (contentOverrides && typeof contentOverrides === 'object' && Object.keys(contentOverrides).length > 0) {
+    content = contentOverrides;
+  } else {
+    content = buildContent(entry, skeletonType);
+  }
 
   let out = skeleton;
   out = out.replace('{{TOKEN_CSS}}', tokenCSS);
@@ -875,7 +860,7 @@ function renderTemplate(entry, projectDir, overrideTokensData) {
   for (const [key, val] of Object.entries(content)) {
     // Values containing HTML tags are intentional markup (e.g. <br> in headlines)
     const escaped = /<[a-z][\s\S]*>/i.test(val) ? val : esc(val);
-    out = out.replace(new RegExp('{{' + key + '}}', 'g'), escaped);
+    out = out.replace(new RegExp('{{' + key + '}}', 'g'), () => escaped);
   }
 
   return out;
@@ -940,5 +925,3 @@ if (require.main === module) {
 }
 
 module.exports = { renderTemplate, loadEntry, matchSkeleton, extractColorRoles, extractTypography, extractRadius, extractShadow, extractPageWidth, extractGutter, buildTokenCSS, buildFontImports, buildContent };
-
-module.exports = { renderTemplate };

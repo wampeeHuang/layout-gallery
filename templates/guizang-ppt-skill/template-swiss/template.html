@@ -6,42 +6,49 @@
 <title>归藏PPT · Style B 瑞士国际主义 · Template Gallery</title>
 
 <style>
-:root{
-  /* Color */
-  --paper:#fafaf8; --ink:#0a0a0a; --grey-1:#f0f0ee; --grey-2:#d4d4d2; --grey-3:#737373;
-  --accent:#002FA7; --accent-on:#ffffff; --accent-bright:#5B7BFF; --text-primary:#0a0a0a; --text-secondary:#525252;
-  --text-helper:#737373; --text-placeholder:#a3a3a3; --text-on-color:#ffffff; --border-subtle:#e0e0e0; --border-strong:#a3a3a3;
-  --accent-alt:#525252; --accent-hover:#001F80; --bg:#fafaf8; --surface:#fafaf8; --text:#0a0a0a;
-  --text-soft:#525252; --line:rgba(10,10,10,0.15);
-
-  /* Typography */
-  --font-display:"Inter","Helvetica Neue","Helvetica","Arial","Segoe UI Variable","Segoe UI",system-ui,-apple-system,sans-serif;
-  --font-body:"Inter","Helvetica Neue","Helvetica","Arial","Segoe UI Variable","Segoe UI",system-ui,-apple-system,sans-serif;
-  --font-mono:"JetBrains Mono","IBM Plex Mono","SF Mono","Cascadia Code","Consolas","Courier New",ui-monospace,monospace;
-  --sans:"Inter","Helvetica Neue","Helvetica","Arial","Segoe UI Variable","Segoe UI",system-ui,-apple-system,sans-serif; --sans-zh:"PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans SC","Microsoft YaHei UI","Microsoft YaHei","微软雅黑",sans-serif; --mono:"JetBrains Mono","IBM Plex Mono","SF Mono","Cascadia Code","Consolas","Courier New",ui-monospace,monospace;
-
-  /* Spacing */
-  --sp-3:8px; --sp-4:12px; --sp-5:16px; --sp-6:24px;
-  --sp-7:32px; --sp-8:40px; --sp-9:48px; --sp-10:64px;
-  --sp-11:80px; --sp-12:96px; --sp-13:160px; --nav-safe-bottom:8vh;
-  --page-wmax:1200px; --page-pad:32px; --gap:24px; --gutter:24px;
-
-  /* Radius */
-  --radius:4px;
-
-  /* Shadow */
-  --shadow-sm:0 1px 3px rgba(0,0,0,0.06); --shadow-md:0 8px 30px rgba(0,0,0,0.1);
-
-  /* Motion */
-  --ease-prod:cubic-bezier(.2,0,.38,.9);
-  --ease-exp:cubic-bezier(.4,.14,.3,1);
-  --ease-entry-prod:cubic-bezier(0,0,.38,.9);
-  --ease-entry-exp:cubic-bezier(0,0,.3,1);
-  --ease-default:0.18s ease;
-  --duration-base:150ms;
-
-  font-family:var(--font-body); color:var(--text); background:var(--bg);
-  font-size:var(--text-base); line-height:1.5;
+:root {
+  --accent: #002FA7;
+  --accent-hover: #1e4dc5;
+  --accent-alt: #525252;
+  --bg: #fafaf8;
+  --text: #0a0a0a;
+  --text-soft: #525252;
+  --line: rgba(10,10,10,0.15);
+  --surface: #fafaf8;
+  --text-rgb: 10,10,10;
+  --bg-rgb: 250,250,248;
+  --accent-rgb: 0,47,167;
+  --font-display: "Inter","Helvetica Neue","Helvetica","Arial","Segoe UI Variable","Segoe UI",system-ui,-apple-system,sans-serif;
+  --font-body: "Inter","Helvetica Neue","Helvetica","Arial","Segoe UI Variable","Segoe UI",system-ui,-apple-system,sans-serif;
+  --font-mono: "JetBrains Mono","IBM Plex Mono","SF Mono","Cascadia Code","Consolas","Courier New",ui-monospace,monospace;
+  --radius: 4px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 8px 30px rgba(0,0,0,0.1);
+  --ease-default: 0.18s ease;
+  --duration-base: 150ms;
+  --page-wmax: 1200px;
+  --page-pad: 32px;
+  --gap: 24px;
+  --gutter: 24px;
+  --sans: "Inter","Helvetica Neue","Helvetica","Arial","Segoe UI Variable","Segoe UI",system-ui,-apple-system,sans-serif;
+  --sans-zh: "PingFang SC","Hiragino Sans GB","Source Han Sans SC","Noto Sans SC","Microsoft YaHei UI","Microsoft YaHei","微软雅黑",sans-serif;
+  --mono: "JetBrains Mono","IBM Plex Mono","SF Mono","Cascadia Code","Consolas","Courier New",ui-monospace,monospace;
+  --sp-3: 8px;
+  --sp-4: 12px;
+  --sp-5: 16px;
+  --sp-6: 24px;
+  --sp-7: 32px;
+  --sp-8: 40px;
+  --sp-9: 48px;
+  --sp-10: 64px;
+  --sp-11: 80px;
+  --sp-12: 96px;
+  --sp-13: 160px;
+  --nav-safe-bottom: 8vh;
+  --ease-prod: cubic-bezier(.2,0,.38,.9);
+  --ease-exp: cubic-bezier(.4,.14,.3,1);
+  --ease-entry-prod: cubic-bezier(0,0,.38,.9);
+  --ease-entry-exp: cubic-bezier(0,0,.3,1);
 }
 
   
@@ -1310,7 +1317,7 @@
           <i data-lucide="database" class="lucide"></i>
           <div class="nb-corner" style="font-family:var(--font-body);font-weight:200;font-size:min(5.6vw,10vh);line-height:.9;color:var(--accent);margin-bottom:1.6vh">03</div>
           <div class="ttl">单一真相源</div>
-          <div class="desc">Design Token 是唯一的视觉事实。从设计工具到 React 到 SwiftUI，一套 Token 驱动所有平台，杜绝漂移。</div>
+          <div class="desc">Design Token 是唯一的视觉事实。从 Figma 到 React 到 SwiftUI，一套 Token 驱动所有平台，杜绝漂移。</div>
         </div>
       </div>
     </div>

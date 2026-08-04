@@ -358,12 +358,19 @@ app.post('/api/grow/approve', (req, res) => {
   const spacings = tokens.tokens?.spacing || [];
   const density = spacings.length <= 3 ? 'low' : spacings.length <= 5 ? 'medium' : 'high';
 
+  // Read pipeline metadata (written by Step 7)
+  const metaPath = path.join(growthDir, '.growth-meta.json');
+  let growthMeta = { template_type: 'single-page', design_style: 'editorial' };
+  if (fs.existsSync(metaPath)) {
+    try { growthMeta = { ...growthMeta, ...JSON.parse(fs.readFileSync(metaPath, 'utf-8')) }; } catch (_) {}
+  }
+
   const entry = {
     slug,
     name: slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
     tagline: '生长 Agent 自动提取 · ' + new Date().toISOString().slice(0, 10),
-    template_type: 'brand',
-    design_style: 'editorial',
+    template_type: growthMeta.template_type,
+    design_style: growthMeta.design_style,
     scheme,
     formality: 'medium',
     density,

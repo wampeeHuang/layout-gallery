@@ -32,6 +32,11 @@
       "module": "validate-templates",
       "function": "validateStandardVars",
       "description": "强制标准 CSS 变量名 — 模板必须使用 token-contract.json 定义的标准词汇，方言零容忍"
+    },
+    "google_fonts": {
+      "module": "validate-templates",
+      "function": "validateGoogleFonts",
+      "description": "Google Fonts 零容忍扫描 — template.html 和 tokens.json 双端检查"
     }
   }
 }

@@ -259,9 +259,8 @@ scripts/
   validate-templates.js     ← CLI 审计（文件完整性 + :root 同步）
   brand-renderer.js         ← 品牌套件页运行时渲染（/brand/:slug）
   sync-roots.js             ← tokens.json → :root 同步到 template.html
-  growth-agent.js           ← 生长 Agent（URL→萃取→tokens.json→注册）
-  extract-external-tokens.js← 外部网站 token 萃取（Puppeteer）
-  generate-demo-page.js     ← tokens.json + layout.json → template.html 生成
+  growth-agent.js           ← 生长 Agent（URL→Puppeteer 抓取→DeepSeek 结构化→tokens.json）— 唯一萃取管线
+  _archived/                ← 退役脚本（extract-external-tokens.js 手写版、generate-demo-page.js 通用模板）
   audit-tokens.js           ← Token 角色覆盖审计
   extract-css-vars.js       ← 批量提取 CSS 变量
   build-registry.js         ← 一次性迁移脚本（已退役）

@@ -4,7 +4,7 @@
 //
 // Usage:
 //   node scripts/validate-templates.js             # 全量审计，仅报告
-//   node scripts/validate-templates.js --strict     # 缺 required 文件 → exit 1
+//   node scripts/validate-templates.js --strict     # (已废弃 — 默认即硬门禁)
 //   node scripts/validate-templates.js --verbose    # 逐模板明细
 //   node scripts/validate-templates.js --dir templates/frontend-design/layout-gallery
 
@@ -108,6 +108,47 @@ function validateRootSync(tmplDir, tokensData) {
     } else if (rootVal !== expectedVal) {
       mismatchCount++;
       if (mismatchCount <= 3) errors.push(name + ': :root=' + rootVal + ' ≠ tokens.json=' + expectedVal);
+    }
+  }
+
+  return errors;
+}
+
+// ── Google Fonts gate ────────────────────────────────────────────
+// Scans template.html <link>/@import and tokens.json font fields.
+// Any hit = hard fail — Google Fonts blocked in China (GFW).
+
+function validateGoogleFonts(tmplDir, tokensData) {
+  const errors = [];
+  const GOOGLE_FONTS_RE = /fonts\.googleapis\.com/i;
+
+  // Check template.html
+  const tmplPath = path.join(tmplDir, 'template.html');
+  if (fs.existsSync(tmplPath)) {
+    const html = fs.readFileSync(tmplPath, 'utf-8');
+    if (/<link[^>]*fonts\.googleapis\.com[^>]*\/?>/i.test(html)) {
+      errors.push('template.html: 包含 Google Fonts <link> 标签');
+    }
+    if (/@import\s+url\(['"]?https?:\/\/fonts\.googleapis\.com[^)]*\)/i.test(html)) {
+      errors.push('template.html: 包含 Google Fonts @import');
+    }
+  }
+
+  // Check tokens.json font fields
+  const fontFields = ['fontImports', 'googleFonts', 'brandKit.googleFonts'];
+  for (const field of fontFields) {
+    let val;
+    if (field.includes('.')) {
+      const parts = field.split('.');
+      val = tokensData[parts[0]] && tokensData[parts[0]][parts[1]];
+    } else {
+      val = tokensData[field];
+    }
+    if (val) {
+      const str = typeof val === 'string' ? val : JSON.stringify(val);
+      if (GOOGLE_FONTS_RE.test(str)) {
+        errors.push('tokens.json: ' + field + ' 引用 Google Fonts');
+      }
     }
   }
 
@@ -270,7 +311,7 @@ function reportSummary(results, verbose) {
   const total = results.length;
   const passing = results.filter(r => r.ok).length;
   const failing = total - passing;
-  const hasTokens = results.filter(r => r.optional.present.includes('tokens.json')).length;
+  const hasTokens = results.filter(r => r.required.present.includes('tokens.json') || r.optional.present.includes('tokens.json')).length;
 
   console.log('registry.json: ' + total + ' entries');
   console.log('  合约合规:  ' + passing + '/' + total + ' (required 文件齐全)');
@@ -300,7 +341,6 @@ function reportSummary(results, verbose) {
 
 function main() {
   const args = process.argv.slice(2);
-  const strict = args.includes('--strict');
   const verbose = args.includes('--verbose');
   const targetDir = args.find(a => a.startsWith('--dir='));
 
@@ -332,18 +372,18 @@ function main() {
     console.log('── 全部模板 ──');
     for (const r of results) {
       const status = r.ok ? '✓' : '✗';
-      const tokenStatus = r.optional.present.includes('tokens.json') ? ' [tokens.json]' : '';
+      const tokenStatus = (r.required.present.includes('tokens.json') || r.optional.present.includes('tokens.json')) ? ' [tokens.json]' : '';
       console.log('  ' + status + ' ' + r.slug + tokenStatus);
     }
   }
 
-  if (strict && summary.failing > 0) {
-    console.error('--strict: ' + summary.failing + ' 模板不合规，exit 1');
+  if (summary.failing > 0) {
+    console.error(summary.failing + ' 模板不合规，exit 1');
     process.exit(1);
   }
 }
 
-module.exports = { validateAll, reportSummary, validateTokensSchema, validateRootSync, validateStandardVars };
+module.exports = { validateAll, reportSummary, validateTokensSchema, validateRootSync, validateStandardVars, validateGoogleFonts };
 
 if (require.main === module) {
   main();
