@@ -1,6 +1,7 @@
 node_modules/
 .env
 _runtime/
-_archive-*
+_archive/
+inbox/
 
 .vercel

@@ -121,7 +121,7 @@ function main() {
 
   // Infer template_path
   if (!meta.template_path) {
-    meta.template_path = `templates/${meta.skill}/${meta.slug}/template.html`;
+    meta.template_path = `templates/${meta.slug}/template.html`;
   }
 
   const tmplPath = path.join(PROJECT_DIR, meta.template_path);

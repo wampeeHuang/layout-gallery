@@ -37,6 +37,11 @@
       "module": "validate-templates",
       "function": "validateGoogleFonts",
       "description": "Google Fonts 零容忍扫描 — template.html 和 tokens.json 双端检查"
+    },
+    "hardcoded": {
+      "module": "validate-templates",
+      "function": "validateHardcoded",
+      "description": "硬编码审计 — 检测颜色/字体/圆角/动效是否应改为 var(--*) 引用"
     }
   }
 }

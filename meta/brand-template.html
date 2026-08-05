@@ -97,7 +97,7 @@ body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit
 .bk-hero{text-align:center;padding:var(--brand-hero-pt) var(--brand-pad) var(--brand-hero-pb)}
 .bk-eyebrow{display:inline-flex;align-items:center;gap:var(--brand-sp-sm);font-family:var(--font-mono);font-size:var(--brand-t-xs);font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);border:1px solid var(--line);border-radius:9999px;padding:var(--brand-sp-xs) var(--brand-sp-xl);margin-bottom:var(--brand-sp-4xl)}
 .bk-eyebrow::before{content:"";display:inline-block;width:var(--brand-icon-sm);height:var(--brand-icon-sm);border-radius:2px;background:var(--accent)}
-.bk-hero h1{font-family:var(--font-display, var(--font-body));font-size:clamp(32px,5vw,56px);font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--text);margin-bottom:22px;text-wrap:balance}
+.bk-hero h1{font-family:var(--font-display, var(--font-body));font-size:clamp(40px,6vw,96px);font-weight:700;letter-spacing:-.02em;line-height:1.1;color:var(--text);margin-bottom:22px;text-wrap:balance}
 .bk-hero .bk-sub{font-size:var(--brand-t-2xl);font-weight:400;color:var(--text-soft);max-width:var(--brand-content-max);margin:0 auto;line-height:1.65;text-wrap:pretty}
 .bk-meta{display:flex;justify-content:center;gap:var(--brand-sp-md);flex-wrap:wrap;margin-top:var(--brand-sp-4xl)}
 .bk-chip{padding:var(--brand-sp-xs) var(--brand-sp-xl);border-radius:9999px;font-size:var(--brand-t-sm);font-weight:500;border:1px solid var(--line);background:var(--surface)}
@@ -248,7 +248,7 @@ body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit
 .copy-body.active{display:block}
 .copy-body h3{font-size:var(--brand-t-3xl);font-weight:600;margin-bottom:var(--brand-sp-xs)}
 .copy-body .cp-desc{font-size:var(--brand-t-md);color:var(--text-muted);margin-bottom:18px;line-height:1.6}
-.copy-body pre{background:var(--chrome-code-bg);padding:var(--brand-sp-2xl);border-radius:4px;font-family:var(--font-mono);font-size:var(--brand-t-xs);line-height:1.7;overflow-x:auto;color:var(--chrome-code-text);max-height:var(--brand-code-maxh);overflow-y:auto}
+.copy-body pre{background:#1a1a1e;padding:var(--brand-sp-2xl);border-radius:4px;font-family:var(--font-mono);font-size:var(--brand-t-xs);line-height:1.7;overflow-x:auto;color:#e0e0e0;max-height:var(--brand-code-maxh);overflow-y:auto}
 .copy-body .copy-btn{display:inline-flex;align-items:center;gap:var(--brand-sp-xs);padding:var(--brand-sp-md) 22px;background:var(--accent);color:var(--chrome-white);border:none;border-radius:9999px;font-size:var(--brand-t-md);font-weight:500;cursor:pointer;font-family:var(--font-body);margin-top:14px;transition:all .15s}
 .copy-body .copy-btn:hover{background:var(--accent-hover)}
 .copy-body .copy-btn.copied{background:var(--chrome-success)}
@@ -448,15 +448,23 @@ body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit
 <!-- COPY SECTION -->
 <section class="bk-section" id="copy">
   <h2>复制设计套件</h2>
-  <p class="bk-desc">三格式导出——CSS :root 给人用，JSON 给 AI 用，AI 提示词给 Cursor/Claude Code 用。</p>
+  <p class="bk-desc">四格式导出——design.md 是唯一真相源，CSS :root 和 JSON 是其机器可读投影，设计简报将三者打包为可粘贴的 Markdown。</p>
 
   <div class="copy-tabs">
-    <button class="copy-tab active" data-tab="css">CSS :root</button>
-    <button class="copy-tab" data-tab="json">JSON (AI)</button>
-    <button class="copy-tab" data-tab="ai">AI 提示词</button>
+    <button class="copy-tab active" data-tab="design">design.md</button>
+    <button class="copy-tab" data-tab="css">CSS :root</button>
+    <button class="copy-tab" data-tab="json">JSON</button>
+    <button class="copy-tab" data-tab="ai">设计简报</button>
   </div>
 
-  <div class="copy-body active" id="copy-css">
+  <div class="copy-body active" id="copy-design">
+    <h3>design.md</h3>
+    <p class="cp-desc">权威设计规范——颜色的语义别名、排版阶梯、间距规则、设计理念。整个模板的真相源。</p>
+    <pre id="design-block">{{DESIGN_MD_BLOCK}}</pre>
+    <button class="copy-btn" id="btn-design">复制 design.md</button>
+  </div>
+
+  <div class="copy-body" id="copy-css">
     <h3>CSS :root</h3>
     <p class="cp-desc">粘贴到项目 stylesheet，所有 Token 立即可用。</p>
     <pre id="css-block">{{CSS_ROOT_BLOCK}}</pre>
@@ -471,10 +479,10 @@ body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit
   </div>
 
   <div class="copy-body" id="copy-ai">
-    <h3>AI 提示词</h3>
-    <p class="cp-desc">粘贴给 Cursor / Claude Code / Copilot，让 AI 按此设计基因生成页面。</p>
+    <h3>设计简报</h3>
+    <p class="cp-desc">整合 design.md + CSS :root + JSON，粘贴给 Cursor / Claude Code / Copilot 即可复现此模板。</p>
     <pre id="ai-block">{{AI_PROMPT_BLOCK}}</pre>
-    <button class="copy-btn" id="btn-ai">复制 AI 提示词</button>
+    <button class="copy-btn" id="btn-ai">复制设计简报</button>
   </div>
 </section>
 
@@ -509,9 +517,10 @@ body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit
   });
 })();
 (function(){
-  [{btn:'btn-css',block:'css-block',label:'复制 CSS'},
+  [{btn:'btn-design',block:'design-block',label:'复制 design.md'},
+   {btn:'btn-css',block:'css-block',label:'复制 CSS'},
    {btn:'btn-json',block:'json-block',label:'复制 JSON'},
-   {btn:'btn-ai',block:'ai-block',label:'复制 AI 提示词'}]
+   {btn:'btn-ai',block:'ai-block',label:'复制设计简报'}]
   .forEach(function(c){
     var btn=document.getElementById(c.btn);
     btn.addEventListener('click',function(){

@@ -2,96 +2,13 @@
 
 AI 调用的设计风格仓库。模板统一索引 → 按意图发现 → 一行 API 拿到 HTML。
 
-**MANDATORY: 任何模板改动（CSS/token/:root/registry），交付前必须跑 `node scripts/validate-templates.js`，exit 0 才能报完成。局部通过 ≠ 全局完成。**
-
-## 任务分派（收到用户消息后，先判断再执行）
-
-| 用户意图 | 动作 |
-|---------|------|
-| 修改模板 CSS / token / :root | 改 → 跑 `validate-templates.js` → exit 0 报完成 |
-| 新增模板 | 读 §新增模板 → 按工作流执行 → 跑全量验证 |
-| 迁移旧模板 | 读 §存量模板迁移工作流（12 步）→ 逐步执行 |
-| 修 bug / 调参数 | 定位文件 → 改 → 跑全量验证 |
-| 品牌套件问题 | 改 brand-renderer.js / brand-template.html → 重启 server → curl 验证 |
-| 问架构 / 规范 | 读本文档 + `meta/token-contract.json`（MD3 标准） + Obsidian `web-design/md3-color-roles.md` |
-| 收件箱有文件 | 检查 `inbox/`，处理完清空 |
-
-## Token 命名标准
-
-**全部颜色 token 采用 Material Design 3 角色体系（29 角色）。**
-
-- 合约文件：`meta/token-contract.json`（W3C DTCG 格式，v4.0.0）
-- 人类参考：`meta/TOKEN_STANDARD.md`
-- 知识库：`D:\Obsidian\Raw\web-design\md3-color-roles.md`、`design-token-standards.md`
-- 全局标准：`D:\Obsidian\Raw\web-design\design-token-standards.md`（四大体系对比）
-
-**迁移完成（2026-08-05）**：6/6 模板已迁移到 MD3 新名。`migrationMap` 保留至下次合约清理。
-
 ## 架构
 
 ```
 data/registry.json + templates/  ← 唯一真相源（Git 管理）
 本地 :3080 → 读全量
 线上 Vercel → 读 registry，过滤 visibility=public
-inbox/                          ← 人-Agent 交互投料区（不进 git）
-_archive/                       ← 永久留档（不进 git）
-_runtime/                       ← 过程产物（不进 git，可删）
 ```
-
-## P0 交付门禁（阻断交付，必须全部通过）
-
-```
-node scripts/validate-templates.js    # exit 0 = 全部通过，exit 1 = 阻断
-```
-
-| 门禁 | 检查什么 | 阈值 |
-|------|----------|------|
-| `tokens_schema` | tokens.json 六分类 + brandKit 字段完整 | 0 缺失 |
-| `root_sync` | template.html `:root` 值 = tokens.json 值 | 0 漂移 |
-| `standard_vars` | token 命名使用 token-contract.json 标准词汇 | 0 方言 |
-| `google_fonts` | template.html + tokens.json 无 Google Fonts 引用 | 0 引用 |
-| `hardcoded` | CSS 颜色/字体/圆角/动效使用 var(--*) | 颜色≤10, 其余=0 |
-
-**任何一项不通过 → 不算完成。不允许"局部通过=全局完成"。**
-
-当前状态（2026-08-05）：
-
-| 模板 | 通过 | 备注 |
-|------|------|------|
-| brutalist-paper | ✅ | — |
-| template-swiss | ✅ | — |
-| layout-gallery | ✅ | — |
-| template | ✅ | — |
-| 8-bit-orbit | ✅ | — |
-| soft-editorial | ✅ | — |
-
-**6/6 模板全部通过 5 道 P0 门禁。MD3 迁移已完成。**
-
-## 目录
-
-```
-data/registry.json          ← 模板注册表（唯一真相源，Git）
-schemas/registry.schema.json ← JSON Schema 合约
-config/template-manifest.json ← 模板文件合约 + validator 注册
-templates/                  ← 模板（扁平目录，每目录一个模板）
-runtime/                    ← 共享运行时（deck-stage.js，生产代码）
-_runtime/                   ← 过程产物（不进 git，任务结束删除）
-meta/                       ← Token 合约 + AI 操作文件 + 品牌套件模板
-prototype/                  ← 原型文件
-inbox/                      ← 人-Agent 投料区（不进 git，会话启动检查，用完清空）
-_archive/                   ← 永久留档（不进 git，退役脚本/旧合约/废弃模板版本）
-_runtime/                   ← 过程产物（不进 git，任务结束删除）
-scripts/                    ← 工具脚本
-```
-
-| 目录 | 性质 | 生命周期 | Git |
-|------|------|----------|-----|
-| `inbox/` | 用户投料 | 处理完清空 | ❌ |
-| `_runtime/` | 过程产物 | 任务结束删除 | ❌ |
-| `_archive/` | 历史留档 | 永久 | ❌ |
-| `meta/` | AI 操作文件 | 永久 | ✅ |
-| `templates/` | 模板源码 | 永久 | ✅ |
-| `scripts/` | 工具脚本 | 永久 | ✅ |
 
 ## 启动
 
@@ -307,40 +224,26 @@ GET /api/design-styles → 风格大类 + 模板数
 
 ## 新增模板（标准工作流）
 
-### 有上游源（beautiful-html-templates）
-
 ```
-1. 从 D:\tools\beautiful-html-templates\templates\{slug}\ 取 template.html + template.json + design.md
-2. 复制到 D:\workspace\layout-gallery\templates\{slug}\
-3. 如需翻页：改 template.html 引用 ../runtime/deck-stage.js
-4. node scripts/extract-tokens.js {slug} --force → tokens.json
-5. 更新 registry：中文 name/tagline + design_style + 扁平 template_path
-6. 重启 server
+1. 把 template.html 放到 templates/{skill}/{slug}/template.html
+2. 写元数据 JSON（参考 registry.schema.json 字段定义）
+3. node scripts/add-template.js <元数据.json>
+   → 自动提取 CSS 变量 → 校验 schema → 原子写入 registry.json
 ```
 
-### 无上游源（自制模板）
-
+元数据 JSON 最小示例：
+```json
+{
+  "slug": "my-template",
+  "name": "我的模板",
+  "skill": "beautiful-html-templates",
+  "template_type": "slide-deck",
+  "design_style": "editorial",
+  "scheme": "light"
+}
 ```
-1. 把 template.html 放到 templates/{slug}/template.html
-2. 写 design.md（YAML 头定义颜色/排版/间距）
-3. 写 template.json（元数据，参考上游格式）
-4. node scripts/extract-tokens.js {slug} --force → tokens.json
-5. node scripts/add-template.js templates/{slug}/template.json
-6. 重启 server
-```
 
-## 模板四文件标准
-
-每个模板目录含 4 个文件：
-
-| 文件 | 性质 | 说明 |
-|------|------|------|
-| `template.html` | 实现 | HTML 成品，按 design.md 施工 |
-| `template.json` | 元数据 | 画廊分类/搜索用，name/tagline/mood/palette/typography |
-| `design.md` | 权威源 | 设计规范（YAML 头），定义颜色/排版/间距/规则 |
-| `tokens.json` | 派生品 | 从 design.md YAML 头自动生成，画廊 UI 消费 |
-
-`deck-stage.js` 翻页器提到 `runtime/` 共享，不每模板复制。模板需要时引用 `../../runtime/deck-stage.js`。
+Schema 权威定义：`schemas/registry.schema.json`。所有字段、枚举值、必填项以它为准。
 
 ## 目录
 
@@ -348,8 +251,7 @@ GET /api/design-styles → 风格大类 + 模板数
 data/registry.json          ← 模板注册表（唯一真相源，Git 管理）
 schemas/registry.schema.json ← JSON Schema 合约（字段+枚举+必填项）
 config/template-manifest.json ← 模板文件合约（required/optional + validator 注册）
-templates/                  ← 模板（扁平目录，每目录一个模板）
-runtime/                    ← 共享运行时（deck-stage.js）
+templates/                  ← 模板 HTML（按来源分目录，数量见 registry.json）
 meta/                       ← AI 操作文件 + 品牌套件模板 + nav
 prototype/                  ← 原型文件
 scripts/

@@ -79,20 +79,10 @@ function validateRootSync(tmplDir, tokensData) {
     rootVars[m[1]] = m[2].trim();
   }
 
-  // Build expected :root values from tokens.json
-  const cr = (tokensData.brandKit && tokensData.brandKit.colorRoles) ? tokensData.brandKit.colorRoles : {};
+  // Build expected :root values directly from ALL tokens.json categories.
+  // No intermediary mapping — every token should have a 1:1 :root counterpart.
   const expected = {};
-
-  if (cr.primary) expected['--accent'] = cr.primary;
-  if (cr.secondary) expected['--accent-alt'] = cr.secondary;
-  if (cr.background) expected['--bg'] = cr.background;
-  if (cr.text) expected['--text'] = cr.text;
-  if (cr.textSecondary) expected['--text-soft'] = cr.textSecondary;
-  if (cr.border) expected['--line'] = cr.border;
-  if (cr.surface) expected['--surface'] = cr.surface;
-
-  // Typography/spacing/radius/shadow/motion — direct injection
-  for (const cat of ['typography', 'spacing', 'radius', 'shadow', 'motion']) {
+  for (const cat of ['color', 'typography', 'spacing', 'radius', 'shadow', 'motion']) {
     const items = tokensData.tokens[cat] || [];
     for (const t of items) {
       expected[t.name] = t.value;
@@ -156,9 +146,8 @@ function validateGoogleFonts(tmplDir, tokensData) {
 }
 
 // ── Standard vocabulary gate ─────────────────────────────────────
-// Checks that template tokens.json uses standard CSS var names defined
-// in token-contract.json standardVars. This is the "普通话" enforcement —
-// templates that use domain names (--ink, --oxide) fail this check.
+// v4: 适配 MD3 29 角色合约。嵌套 color 子分组 → 展平。迁移模式下
+// migrationMap 命中 → 警告（需迁移），非标准名 + 不在迁移表 + 不在豁免 → 报错。
 
 function loadContract() {
   const contractPath = path.join(PROJECT_DIR, 'meta', 'token-contract.json');
@@ -166,39 +155,102 @@ function loadContract() {
   return contract;
 }
 
-function validateStandardVars(tmplDir, tokensData) {
-  const errors = [];
-  const contract = loadContract();
-  const standardVars = contract.standardVars;
-  if (!standardVars) {
-    errors.push('token-contract.json 缺少 standardVars 定义');
-    return errors;
-  }
+function flattenStandardVars(standardVars) {
+  const allowedNames = new Set();
+  const requiredNames = [];
 
-  // Flatten all token names from tokens.json
-  const tokenNames = new Set();
-  for (const tokens of Object.values(tokensData.tokens)) {
-    for (const t of tokens) {
-      tokenNames.add(t.name);
-    }
-  }
-
-  // Check each category's standard vars
-  let missingCount = 0;
   for (const [category, vars] of Object.entries(standardVars)) {
-    if (category.startsWith('_')) continue; // skip convention comments
-    for (const [stdName, def] of Object.entries(vars)) {
-      if (!tokenNames.has(stdName)) {
-        missingCount++;
-        if (missingCount <= 8) {
-          errors.push('缺标准变量 ' + stdName + ' (' + def.role + ')');
+    if (category.startsWith('_')) continue;
+
+    for (const [key, val] of Object.entries(vars)) {
+      // Detect nesting: if val has 'md3' or 'role' → direct token def
+      if (val && typeof val === 'object' && (val.md3 !== undefined || val.role !== undefined)) {
+        allowedNames.add(key);
+        if (val.required) requiredNames.push(key);
+      } else if (val && typeof val === 'object') {
+        // Sub-group (e.g. color.primary, color.secondary)
+        for (const [subKey, subVal] of Object.entries(val)) {
+          if (subVal && typeof subVal === 'object') {
+            allowedNames.add(subKey);
+            if (subVal.required) requiredNames.push(subKey);
+          }
         }
       }
     }
   }
 
-  if (missingCount > 8) {
-    errors.push('... 共缺 ' + missingCount + ' 个标准变量');
+  return { allowedNames, requiredNames };
+}
+
+function validateStandardVars(tmplDir, tokensData) {
+  const errors = [];
+  const contract = loadContract();
+  const standardVars = contract.standardVars;
+  const templateSpecific = contract.templateSpecific || {};
+  const migrationMap = contract.migrationMap || {};
+
+  if (!standardVars) {
+    errors.push('token-contract.json 缺少 standardVars 定义');
+    return errors;
+  }
+
+  // Flatten standard vocabulary (handles nested color sub-groups)
+  const { allowedNames, requiredNames } = flattenStandardVars(standardVars);
+
+  // Add template-specific exemptions
+  const slug = tokensData.slug;
+  const tmplSpecific = templateSpecific[slug];
+  if (tmplSpecific) {
+    for (const [category, names] of Object.entries(tmplSpecific)) {
+      if (category.startsWith('_')) continue;
+      for (const name of names) {
+        allowedNames.add(name);
+      }
+    }
+  }
+
+  // Build migration lookup: all old→new mappings flattened
+  const migrationLookup = {};
+  for (const [cat, map] of Object.entries(migrationMap)) {
+    if (cat.startsWith('_')) continue;
+    for (const [oldName, newName] of Object.entries(map)) {
+      migrationLookup[oldName] = newName;
+    }
+  }
+
+  // Flatten all token names from tokens.json
+  const tokenNames = [];
+  for (const tokens of Object.values(tokensData.tokens)) {
+    for (const t of tokens) {
+      tokenNames.push(t.name);
+    }
+  }
+
+  const tokenNameSet = new Set(tokenNames);
+
+  // Check: every token name must be in allowed set OR migrationMap OR templateSpecific
+  for (const name of tokenNames) {
+    if (allowedNames.has(name)) continue;
+    if (migrationLookup[name]) {
+      errors.push('需迁移: ' + name + ' → ' + migrationLookup[name]);
+      continue;
+    }
+    // Already in templateSpecific → skip (already added to allowedNames above)
+    errors.push('非标准 token 名: ' + name + ' — 不在标准词汇表、迁移表或豁免清单');
+  }
+
+  // Check: required standard names must be present (or their migration source)
+  for (const req of requiredNames) {
+    if (tokenNameSet.has(req)) continue;
+    // Check if any old name maps to this required name
+    const hasMigrationSource = Object.entries(migrationLookup).some(([old, nu]) =>
+      nu === req && tokenNameSet.has(old)
+    );
+    if (hasMigrationSource) {
+      errors.push('需迁移: 缺标准变量 ' + req + '（当前通过旧名提供）');
+      continue;
+    }
+    errors.push('缺必需标准变量 ' + req);
   }
 
   // Check colorRoles in brandKit
@@ -215,6 +267,69 @@ function validateStandardVars(tmplDir, tokensData) {
   }
 
   return errors;
+}
+
+// ── Hardcoded values audit ────────────────────────────────────────
+// Scans template.html CSS for values that SHOULD be var(--*) but aren't.
+// Hardcoded font-size / line-height / position / letter-spacing are exempt.
+//
+// Return: { score, vars, hardcoded, violations }
+//   score = var(--*) references / (var + hardcoded) * 100
+//   violations = list of hardcoded values that should be tokens
+
+function validateHardcoded(tmplDir, tokensData) {
+  const warnings = [];
+  const tmplPath = path.join(tmplDir, 'template.html');
+  if (!fs.existsSync(tmplPath)) return warnings;
+
+  const html = fs.readFileSync(tmplPath, 'utf-8');
+
+  // Extract CSS, strip :root blocks
+  const rootRegex = /:root\s*\{[^}]*\}/g;
+  const css = html.replace(rootRegex, '');
+
+  // Count var(--*) references
+  const varRefs = (css.match(/var\(--[\w-]+\)/g) || []).length;
+
+  // ── Hardcoded hex/rgba colors (NOT in :root, NOT var()) ──
+  const hexMatches = css.match(/(?<!var\([^)]{0,200})(?<![-])\b#[0-9a-fA-F]{3,8}\b/g) || [];
+  const hardHex = hexMatches.filter(h => h !== '#1a1a1a').length; // exclude stage bg
+
+  // ── Hardcoded font-family with named fonts ──
+  const fontMatches = css.match(/font-family\s*:\s*(?!var\()[^;"]*"[^"]+"[^;]*;/g) || [];
+  const hardFonts = fontMatches.length;
+
+  // ── Hardcoded border-radius (px only, not %) ──
+  const radiusMatches = css.match(/border-radius\s*:\s*[\d.]+px/g) || [];
+  const hardRadius = radiusMatches.length;
+
+  // ── Hardcoded transition/animation (value contains no var() and is not "none") ──
+  const transMatches = css.match(/transition\s*:\s*[^;]+;/g) || [];
+  const hardMotion = transMatches.filter(t => !t.includes('var(--') && !t.includes(':none')).length;
+
+  // ── Score ──
+  const hardTotal = hardHex + hardFonts + hardRadius + hardMotion;
+  const total = varRefs + hardTotal;
+  const score = total > 0 ? Math.round((varRefs / total) * 100) : 100;
+
+  if (hardHex > 0) {
+    warnings.push('模板含 ' + hardHex + ' 处硬编码颜色（应为 var(--*)）：应 ≤ 10');
+  }
+  if (hardFonts > 0) {
+    warnings.push('模板含 ' + hardFonts + ' 处硬编码 font-family（应为 var(--font-*)）：应 = 0');
+  }
+  if (hardRadius > 0) {
+    warnings.push('模板含 ' + hardRadius + ' 处硬编码 border-radius（应为 var(--radius-*)）：应 = 0');
+  }
+  if (hardMotion > 0) {
+    warnings.push('模板含 ' + hardMotion + ' 处硬编码 transition（应为 var(--ease-*)）：应 = 0');
+  }
+
+  if (score < 80) {
+    warnings.push('Token 化率 ' + score + '% — 低于 80%，建议提升');
+  }
+
+  return warnings;
 }
 
 // ── Audit logic ───────────────────────────────────────────────────
@@ -383,7 +498,7 @@ function main() {
   }
 }
 
-module.exports = { validateAll, reportSummary, validateTokensSchema, validateRootSync, validateStandardVars, validateGoogleFonts };
+module.exports = { validateAll, reportSummary, validateTokensSchema, validateRootSync, validateStandardVars, validateGoogleFonts, validateHardcoded };
 
 if (require.main === module) {
   main();

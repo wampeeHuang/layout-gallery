@@ -159,8 +159,8 @@ tokens.json                    ← 你创建的，唯一数据源
 
 **渲染器的行为：**
 1. 读 registry.json 找到模板的 `template_type`
-2. 匹配对应骨架（`templates/skeletons/` 目录）
-3. 用 brandKit.colorRoles 填充骨架的 `:root` 块
+2. 从模板目录读 `design.md` YAML 头获取设计令牌（颜色/排版/间距）
+3. 用 tokens.json 填充品牌页 `:root` 块
 4. 将 typography / spacing / radius / shadow / motion 也注入 `:root`
 5. 填充内容占位符（模板名、标题、描述等）
 

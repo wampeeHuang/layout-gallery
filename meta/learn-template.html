@@ -3,52 +3,170 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233D6B4A'/%3E%3Crect x='10' y='15' width='12' height='34' rx='3' fill='%23fff'/%3E%3Crect x='26' y='19' width='12' height='26' rx='3' fill='%23fff' opacity='.7'/%3E%3Crect x='42' y='24' width='12' height='16' rx='3' fill='%23fff' opacity='.4'/%3E%3C/svg%3E">
 <title>设计原理 · 版式画廊</title>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+/* ═══════════════════════════════════════════════════════════════
+   TOKENS — injected by server from tokens.json
+   ═══════════════════════════════════════════════════════════════ */
 <!-- ROOT_INJECT -->
-:root{
-  --font-display:Georgia, 'Noto Serif SC', 'Source Han Serif SC', serif;
+
+/* ═══════════════════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body {
+  overflow-x: clip;
+  background: var(--color-surface);
+  color: var(--color-on-surface);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
-body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.6}
-a{color:var(--accent);text-decoration:none}
-a:hover{color:var(--accent-hover)}
 
-/* === HEADER === */
-.learn-header{text-align:center;padding:60px var(--page-pad, 32px) 48px}
-.learn-header h1{font-family:var(--font-display);font-size:clamp(40px,7vw,64px);font-weight:700;letter-spacing:-.03em;line-height:1.1;color:var(--text);margin-bottom:16px}
-.learn-header .lead{font-size:18px;color:var(--text-soft);max-width:560px;margin:0 auto;line-height:1.65}
+a { color: inherit; text-decoration: none; }
 
-/* === NAV === */
-.learn-nav{position:sticky;top:56px;z-index:99;background:var(--bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:10px var(--page-pad, 32px);display:flex;justify-content:center;flex-wrap:wrap;gap:4px}
-.learn-nav a{font-size:12px;color:var(--text-soft);text-decoration:none;padding:6px 14px;border-radius:9999px;border:1px solid transparent;transition:all .15s;white-space:nowrap}
-.learn-nav a:hover,.learn-nav a.active{color:var(--text);background:var(--surface);border-color:var(--line);font-weight:500}
+/* ═══════════════════════════════════════════════════════════════
+   PAGE HEADER
+   ═══════════════════════════════════════════════════════════════ */
+.learn-header {
+  text-align: center;
+  padding: clamp(40px, 6vw, 72px) clamp(20px, 4vw, 48px) var(--space-xl);
+  border-bottom: var(--hairline) solid var(--color-outline);
+}
 
-/* === MAIN === */
-.learn-main{max-width:var(--page-wmax, 1200px);margin:0 auto;padding:0 var(--page-pad, 32px) 120px}
-.learn-section{margin-top:90px;scroll-margin-top:130px}
-.learn-section:first-of-type{margin-top:60px}
-.learn-section h2{font-family:var(--font-display);font-size:30px;font-weight:700;letter-spacing:-.02em;color:var(--text);margin-bottom:8px}
-.learn-section > .desc{font-size:15px;color:var(--text-soft);line-height:1.7;margin-bottom:36px;max-width:540px}
+.learn-header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 7vw, 64px);
+  font-weight: 700; letter-spacing: -0.03em; line-height: 1.1;
+  color: var(--heading);
+  margin-bottom: var(--space-md);
+}
 
-/* === CARDS === */
-.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
-.card h3{font-size:16px;font-weight:600;margin-bottom:8px;color:var(--text)}
-.card p{font-size:14px;color:var(--text-soft);line-height:1.6;margin-bottom:16px}
-.card .card-note{font-size:12px;color:var(--text-muted);padding:8px 12px;background:var(--bg);border-radius:4px;border:1px solid var(--line);font-family:var(--font-mono)}
+.learn-header .lead {
+  font-size: var(--text-xl); color: var(--text-soft);
+  max-width: 560px; margin: 0 auto; line-height: 1.65;
+}
 
-/* === MISC === */
-.coming-soon{display:flex;align-items:center;justify-content:center;flex-direction:column;padding:60px 20px;text-align:center;border:2px dashed var(--line);border-radius:var(--radius);background:var(--bg);color:var(--text-muted)}
-.coming-soon .icon{font-size:36px;margin-bottom:12px}
-.coming-soon h3{font-size:16px;color:var(--text-soft);margin-bottom:6px}
-.coming-soon p{font-size:13px}
+/* ═══════════════════════════════════════════════════════════════
+   SUB NAV
+   ═══════════════════════════════════════════════════════════════ */
+.learn-nav {
+  position: sticky; top: 56px; z-index: 99;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: var(--hairline) solid var(--color-outline-variant);
+  padding: var(--space-sm) clamp(20px, 4vw, 48px);
+  display: flex; justify-content: center; flex-wrap: wrap;
+  gap: var(--space-2xs);
+}
 
-@media(max-width:640px){
-  :root{--page-pad:24px}
-  .learn-header{padding:60px var(--page-pad, 32px) 40px}
-  .learn-header h1{font-size:36px}
-  .learn-section{margin-top:60px}
+.learn-nav a {
+  font-size: var(--text-sm); color: var(--text-soft);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-pill);
+  border: var(--hairline) solid transparent;
+  transition: all var(--duration-fast); white-space: nowrap;
+}
+.learn-nav a:hover,
+.learn-nav a.active {
+  color: var(--color-on-surface); background: var(--color-surface-container-low);
+  border-color: var(--color-outline); font-weight: 500;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MAIN CONTENT
+   ═══════════════════════════════════════════════════════════════ */
+.learn-main {
+  max-width: var(--space-page-wmax); margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 48px) var(--space-3xl);
+}
+
+.learn-section {
+  margin-top: var(--space-3xl);
+  scroll-margin-top: 130px;
+}
+.learn-section:first-of-type { margin-top: var(--space-2xl); }
+
+.learn-section h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl); font-weight: 700;
+  letter-spacing: -0.02em; color: var(--heading);
+  margin-bottom: var(--space-xs);
+}
+
+.learn-section > .desc {
+  font-size: var(--text-base); color: var(--text-soft);
+  line-height: 1.7; margin-bottom: var(--space-xl);
+  max-width: 560px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CARDS
+   ═══════════════════════════════════════════════════════════════ */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-xl);
+}
+
+.card {
+  background: var(--color-surface-container-low);
+  border: var(--hairline) solid var(--color-outline);
+  border-radius: var(--radius-base);
+  padding: var(--space-xl);
+  transition: box-shadow var(--duration-slow);
+}
+.card:hover { box-shadow: var(--elevation-sm); }
+
+.card h3 {
+  font-size: var(--text-xl); font-weight: 600;
+  margin-bottom: var(--space-xs); color: var(--color-on-surface);
+}
+
+.card p {
+  font-size: var(--text-sm); color: var(--text-soft);
+  line-height: 1.6; margin-bottom: var(--space-md);
+}
+
+.card .card-note {
+  font-size: var(--text-xs); color: var(--color-on-surface-variant);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--color-surface);
+  border-radius: var(--radius-sm);
+  border: var(--hairline) solid var(--color-outline);
+  font-family: var(--font-mono);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   COMING SOON
+   ═══════════════════════════════════════════════════════════════ */
+.coming-soon {
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column;
+  padding: var(--space-3xl) var(--space-lg);
+  text-align: center;
+  border: 2px dashed var(--color-outline);
+  border-radius: var(--radius-base);
+  background: var(--color-surface);
+  color: var(--color-on-surface-variant);
+}
+.coming-soon .icon { font-size: 36px; margin-bottom: var(--space-sm); }
+.coming-soon h3 { font-size: var(--text-xl); color: var(--text-soft); margin-bottom: var(--space-xs); }
+.coming-soon p { font-size: var(--text-sm); }
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 680px) {
+  .learn-header h1 { font-size: clamp(32px, 10vw, 48px); }
+  .learn-section { margin-top: var(--space-2xl); }
+  .card-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -76,7 +194,7 @@ a:hover{color:var(--accent-hover)}
   <h2>图像规范</h2>
   <p class="desc">模板中图片占位的统一约定——比例、加载、缩放。45 个模板遵守同一套规则。</p>
 
-  <div class="card-grid" style="margin-top:24px">
+  <div class="card-grid">
     <div class="card">
       <h3>画幅比例 16:10</h3>
       <p>比 16:9 多 6% 纵高，中文排版不局促；比 4:3 更接近现代屏幕。MacBook 原生比例，mockup 事实标准（1440×900、1920×1200）。</p>
@@ -84,12 +202,12 @@ a:hover{color:var(--accent-hover)}
     </div>
     <div class="card">
       <h3>骨架屏占位</h3>
-      <p>图片加载前用纯 CSS 骨架屏占位，避免布局偏移（CLS）。<code>@keyframes</code> 驱动 opacity 脉冲，零 JS 依赖。骨架条宽度递减模拟真实行长分布。</p>
+      <p>图片加载前用纯 CSS 骨架屏占位，避免布局偏移（CLS）。@keyframes 驱动 opacity 脉冲，零 JS 依赖。骨架条宽度递减模拟真实行长分布。</p>
       <div class="card-note">CSS only · 1.5s pulse</div>
     </div>
     <div class="card">
       <h3>transform scale 缩放</h3>
-      <p>hover 缩放用 <code>transform: scale()</code>，不走 width/height。transform 在 GPU 合成层执行，不触发 reflow，60fps 平滑。配合 <code>overflow: hidden</code> 裁切边缘。</p>
+      <p>hover 缩放用 transform: scale()，不走 width/height。transform 在 GPU 合成层执行，不触发 reflow，60fps 平滑。配合 overflow: hidden 裁切边缘。</p>
       <div class="card-note">GPU 合成 · 不重排</div>
     </div>
   </div>
@@ -122,7 +240,7 @@ a:hover{color:var(--accent-hover)}
   <h2>设计原则</h2>
   <p class="desc">版式画廊的 7+5+0 原则体系——7 条通用设计原则、5 条 AI 输出约束、0 容忍硬伤。</p>
 
-  <div class="card-grid" style="margin-top:24px">
+  <div class="card-grid">
     <div class="card">
       <h3>视觉及格线</h3>
       <p>用可量化的视觉标准定义"合格"。排版四要素（字号、行高、字距、行长）必须落在可读区间内，颜色对比度 ≥ AA 级。</p>
@@ -151,7 +269,7 @@ a:hover{color:var(--accent-hover)}
   <h2>推荐资源</h2>
   <p class="desc">设计工程领域的经典书籍与常用工具——覆盖排版、配色、设计系统、CSS 工程。</p>
 
-  <div class="card-grid" style="margin-top:24px">
+  <div class="card-grid">
     <div class="card">
       <h3>《The Elements of Typographic Style》</h3>
       <p>Robert Bringhurst 著。排版圣经，网页排版的底层逻辑都在这本书里。</p>
@@ -189,23 +307,31 @@ a:hover{color:var(--accent-hover)}
 
 <script>
 (function(){
-  var nav=document.getElementById('learn-nav');
-  if(!nav)return;
-  var links=nav.querySelectorAll('a');
-  var sections=[].slice.call(document.querySelectorAll('.learn-section'));
-  function update(){
-    var id=sections[0].id;
-    var atBottom=window.innerHeight+window.scrollY>=document.body.offsetHeight-120;
-    if(atBottom)id=sections[sections.length-1].id;
-    else for(var i=sections.length-1;i>=0;i--)if(sections[i].getBoundingClientRect().top<=150){id=sections[i].id;break}
-    links.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+id)});
+  var nav = document.getElementById('learn-nav');
+  if (!nav) return;
+  var links = nav.querySelectorAll('a');
+  var sections = [].slice.call(document.querySelectorAll('.learn-section'));
+  function update() {
+    var id = sections[0].id;
+    var atBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 120;
+    if (atBottom) id = sections[sections.length-1].id;
+    else for (var i = sections.length-1; i >= 0; i--) if (sections[i].getBoundingClientRect().top <= 150) { id = sections[i].id; break; }
+    links.forEach(function(a) { a.classList.toggle('active', a.getAttribute('href') === '#' + id); });
   }
-  // Remove previous listener if re-initialized via Turbo
-  if(window._learnScrollHandler)window.removeEventListener('scroll',window._learnScrollHandler);
-  window._learnScrollHandler=update;
-  window.addEventListener('scroll',update,{passive:true});
+  if (window._learnScrollHandler) window.removeEventListener('scroll', window._learnScrollHandler);
+  window._learnScrollHandler = update;
+  window.addEventListener('scroll', update, {passive: true});
   update();
+
+  // Sync sub-nav top with site-nav height
+  var siteNav = document.querySelector('.site-nav');
+  var learnNav = document.getElementById('learn-nav');
+  function syncNavTop() { if (siteNav && learnNav) learnNav.style.top = siteNav.offsetHeight + 'px'; }
+  syncNavTop();
+  window.addEventListener('resize', syncNavTop);
 })();
 </script>
+
+<!-- FOOTER_INJECT -->
 </body>
 </html>

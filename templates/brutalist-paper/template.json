@@ -1,0 +1,26 @@
+{
+  "slug": "brutalist-paper",
+  "name": "纸媒宣言 · Paper Manifesto",
+  "tagline": "Raw brutalist paper aesthetic — rust terracotta on warm cream, Georgia serif, zero-radius corners with solid block shadows.",
+  "mood": ["raw", "bold", "print-like", "handcrafted"],
+  "occasion": ["manifesto", "artist statement", "brand declaration", "creative portfolio"],
+  "tone": ["bold", "raw", "unpolished", "letterpress"],
+  "formality": "medium-low",
+  "density": "medium",
+  "palette": {
+    "accent": "#b84f35",
+    "bg": "#f4efe7",
+    "text": "#1b1916",
+    "description": "rust terracotta on warm cream paper — like a hand-cranked letterpress print"
+  },
+  "typography": {
+    "display": "Georgia",
+    "body": "Inter",
+    "style": "serif headline + clean sans body, zero-radius brutalist"
+  },
+  "scheme": "light",
+  "best_for": "Anything that should feel raw, printed, and intentionally unpolished — artist manifestos, brand declarations, creative portfolios, anti-corporate pitch decks.",
+  "avoid_for": "Formal corporate contexts where the rough edges and solid shadows read as unprofessional rather than intentional.",
+  "slide_count": 1,
+  "navigation": "static single-page"
+}

@@ -7,15 +7,23 @@ const path = require('path');
 // never hardcodes.
 
 function loadFallbackMap(projectDir) {
-  const contractPath = path.join(projectDir, 'meta', 'token-contract.json');
-  const contract = JSON.parse(fs.readFileSync(contractPath, 'utf-8'));
-  const map = {};
-  for (const cat of Object.values(contract.categories)) {
-    for (const role of cat.roles) {
-      map[role.role] = role.fallback;
-    }
-  }
-  return map;
+  // Sensible fallbacks when a template lacks a token. Not derived from
+  // contract (MD3 defines roles, not values). These are last-resort defaults.
+  return {
+    'sharp': '0px',
+    'default': '0 2px 8px rgba(0,0,0,0.1)',
+    'card-hover': '0 4px 16px rgba(0,0,0,0.15)',
+    'surface-bg': '#ffffff',
+    'surface-card': '#f5f5f5',
+    'text-primary': '#1a1a1a',
+    'text-secondary': '#666666',
+    'border-default': 'rgba(0,0,0,0.12)',
+    'accent': '#333333',
+    'accent-hover': '#555555',
+    'display-font': 'Georgia, serif',
+    'body-font': 'system-ui, sans-serif',
+    'mono-font': 'monospace',
+  };
 }
 
 // Standard CSS variable vocabulary — enforced by validate-templates.js.
@@ -24,19 +32,19 @@ function loadFallbackMap(projectDir) {
 // for unmigrated templates.
 const STD = {
   color: {
-    bg: '--bg', surface: '--surface', text: '--text',
-    textSecondary: '--text-soft', border: '--line',
-    accent: '--accent', accentAlt: '--accent-alt', accentHover: '--accent-hover'
+    bg: '--color-surface', surface: '--color-surface-container-low', text: '--color-on-surface',
+    textSecondary: '--color-on-surface-variant', border: '--color-outline',
+    accent: '--color-primary', accentAlt: '--color-secondary', accentHover: '--color-primary'
   },
   typography: {
     display: '--font-display', body: '--font-body', mono: '--font-mono'
   },
   spacing: {
-    pageW: '--page-wmax', pagePad: '--page-pad', gap: '--gap', gutter: '--gutter'
+    pageW: '--space-page-wmax', pagePad: '--space-page-pad', gap: '--space-gap', gutter: '--space-gutter'
   },
-  radius: { default: '--radius' },
-  shadow: { sm: '--shadow-sm', md: '--shadow-md' },
-  motion: { ease: '--ease-default', duration: '--duration-base' }
+  radius: { default: '--radius-base' },
+  shadow: { sm: '--elevation-sm', md: '--elevation-md' },
+  motion: { ease: '--ease-standard', duration: '--duration-base' }
 };
 
 function renderBrandKit(entry, projectDir) {
@@ -55,14 +63,14 @@ function renderBrandKit(entry, projectDir) {
 
   // ── Layer 2: Auto-derive standard aliases from brandKit.colorRoles ──
   // Templates define domain tokens (--ink, --paper). Renderer injects standard
-  // names (--accent, --bg) so brand page :root and buildPalette() resolve
+  // names (--color-primary, --color-surface) so brand page :root and buildPalette() resolve
   // without requiring duplicate alias entries in tokens.json.
   // colorRoles → CSS var mapping is the standard contract. Single source of truth.
   const cr = (tokensData.brandKit && tokensData.brandKit.colorRoles) ? tokensData.brandKit.colorRoles : {};
   const ROLE_TO_VAR = {
-    primary: '--accent', secondary: '--accent-alt',
-    background: '--bg', text: '--text',
-    textSecondary: '--text-soft', border: '--line', surface: '--surface'
+    primary: '--color-primary', secondary: '--color-secondary',
+    background: '--color-surface', text: '--color-on-surface',
+    textSecondary: '--color-on-surface-variant', border: '--color-outline', surface: '--color-surface-container-low'
   };
   for (const [role, varName] of Object.entries(ROLE_TO_VAR)) {
     if (cr[role] && !vars[varName]) vars[varName] = cr[role];
@@ -87,12 +95,12 @@ function renderBrandKit(entry, projectDir) {
   out = out.replace(/\{\{ACCENT\}\}/g, P.accent);
   out = out.replace(/\{\{ACCENT_HOVER\}\}/g, P.accentHover);
   // Derive radius from template: explicit token → hardcoded CSS → contract fallback (sharp=0px)
-  const radius = vars['--radius']
+  const radius = vars['--radius-base']
     || (assets.implicit.radius.length > 0 ? assets.implicit.radius[0] : null)
     || fb['sharp'];
   out = out.replace(/\{\{RADIUS\}\}/g, radius);
-  out = out.replace(/\{\{SHADOW_SM\}\}/g, vars['--shadow-sm'] || fb['default']);
-  out = out.replace(/\{\{SHADOW_MD\}\}/g, vars['--shadow-md'] || fb['card-hover']);
+  out = out.replace(/\{\{SHADOW_SM\}\}/g, vars['--elevation-sm'] || fb['default']);
+  out = out.replace(/\{\{SHADOW_MD\}\}/g, vars['--elevation-md'] || fb['card-hover']);
   // accent at 10% opacity for token-note backgrounds (brand-page UI constant, not a token)
   const accent10 = hexToRgba(P.accent, 0.1);
   out = out.replace(/\{\{ACCENT_10\}\}/g, accent10);
@@ -113,7 +121,7 @@ function renderBrandKit(entry, projectDir) {
 
   // ── Inject template domain color tokens into brand page :root ──
   // So var(--ink), var(--paper) etc. resolve natively in browser.
-  // Standard aliases (--accent, --bg) already handled by colorRoles augmentation.
+  // Standard aliases (--color-primary, --color-surface) already handled by colorRoles augmentation.
   const colorVars = (tokensByGroup.Color || []).map(t => t.name + ':' + t.value).join(';');
   out = out.replace(/\{\{TEMPLATE_COLOR_VARS\}\}/g, colorVars ? colorVars + ';' : '');
 
@@ -217,9 +225,10 @@ function renderBrandKit(entry, projectDir) {
   out = out.replace(/\{\{DECISION_ITEMS\}\}/g, buildDecisions(entry, P, T, vars, assets));
 
   // ── Copy blocks ──
+  out = out.replace(/\{\{DESIGN_MD_BLOCK\}\}/g, esc(buildDesignMdBlock(tmplPath)));
   out = out.replace(/\{\{CSS_ROOT_BLOCK\}\}/g, esc(buildCssBlock(tokensByGroup)));
   out = out.replace(/\{\{JSON_BLOCK\}\}/g, esc(buildJsonBlock(entry, tokensByGroup)));
-  out = out.replace(/\{\{AI_PROMPT_BLOCK\}\}/g, esc(buildAiBlock()));
+  out = out.replace(/\{\{AI_PROMPT_BLOCK\}\}/g, esc(buildAiBlock(entry, tokensByGroup, tmplPath)));
 
   return out;
 }
@@ -227,7 +236,7 @@ function renderBrandKit(entry, projectDir) {
 // ── Template asset extraction (background textures, pseudo-elements, heading styles) ──
 function extractTemplateAssets(html, P, vars) {
   const styleMatch = html.match(/<style>([\s\S]*?)<\/style>/i);
-  if (!styleMatch) return { bodyBg: 'background:var(--bg)', before: '', h1Style: '', h2Style: '',
+  if (!styleMatch) return { bodyBg: 'background:var(--color-surface)', before: '', h1Style: '', h2Style: '',
     implicit: { spacing: { padding: [], margin: [], gap: [] }, radius: [], shadow: [], motion: [] } };
 
   const css = styleMatch[1];
@@ -240,13 +249,13 @@ function extractTemplateAssets(html, P, vars) {
       const map = { '--paper': P.bg, '--ink': P.text, '--oxide': P.accent,
                     '--sun': P.accentHover, '--paper-deep': P.bgCard,
                     '--ink-soft': P.textSecondary, '--card-bg': P.bgCard,
-                    '--line': P.border, '--line-soft': hexToRgba(P.text, 0.1) };
+                    '--color-outline': P.border, '--color-outline-variant': hexToRgba(P.text, 0.1) };
       return map[name] || name;
     });
   }
 
   // Extract body { ... } background
-  let bodyBg = 'background:var(--bg)';
+  let bodyBg = 'background:var(--color-surface)';
   const bodyMatch = css.match(/body\s*\{([^}]*)\}/);
   if (bodyMatch) {
     const bgMatch = bodyMatch[1].match(/background\s*:\s*([^;]+);/m);
@@ -341,10 +350,10 @@ function extractTemplateAssets(html, P, vars) {
     return groups;
   }
 
-  const implicit = { spacing: classifySpacing(rawSpacing), radius: new Set(), shadow: new Set(), motion: new Set() };
+  const implicit = { spacing: classifySpacing(rawSpacing), radius: [], shadow: new Set(), motion: new Set() };
 
   for (const [, val] of css.matchAll(/border-radius\s*:\s*([^;]+);/g))
-    if (!val.includes('var(--')) implicit.radius.add(val.trim());
+    if (!val.includes('var(--') && !val.includes('%')) implicit.radius.push(val.trim());
 
   for (const [, val] of css.matchAll(/box-shadow\s*:\s*([^;]+);/g))
     if (val.trim() !== 'none') implicit.shadow.add(resolveVarRefs(val.trim()));
@@ -358,11 +367,18 @@ function extractTemplateAssets(html, P, vars) {
     bodyBg, before, h1Style, h2Style,
     implicit: {
       spacing: implicit.spacing,
-      radius: [...implicit.radius],
+      radius: freqSort(implicit.radius),
       shadow: [...implicit.shadow],
       motion: [...implicit.motion]
     }
   };
+}
+
+// Sort by frequency descending, break ties by value (px values first)
+function freqSort(arr) {
+  const count = new Map();
+  for (const v of arr) count.set(v, (count.get(v) || 0) + 1);
+  return [...new Set(arr)].sort((a, b) => count.get(b) - count.get(a) || a.localeCompare(b));
 }
 
 // ── Palette ──
@@ -390,12 +406,12 @@ function buildPalette(entry, vars, fb) {
   const bg = find(STD.color.bg, ['--paper', '--bg-color', '--color-bg', '--background']);
   const bgCard = find(STD.color.surface, ['--bg-card', '--card-bg', '--paper-deep', '--color-surface']);
   const text = find(STD.color.text, ['--ink', '--color-text', '--text-primary', '--foreground']);
-  const textSecondary = find(STD.color.textSecondary, ['--text-secondary', '--ink-soft', '--color-text-secondary']);
-  const _textMuted = find(null, ['--text-muted', '--text-tertiary', '--color-text-muted']);
+  const textSecondary = find(STD.color.textSecondary, ['--color-on-surface-variant', '--ink-soft', '--color-text-secondary']);
+  const _textMuted = find(null, ['--color-on-surface-variant', '--text-tertiary', '--color-text-muted']);
   const textMuted = _textMuted || hexToRgba(text || fb['text-primary'], 0.4);
-  const border = find(STD.color.border, ['--border', '--border-color', '--color-border', '--line-soft']);
+  const border = find(STD.color.border, ['--border', '--border-color', '--color-border', '--color-outline-variant']);
   const accent = find(STD.color.accent, ['--oxide', '--primary', '--color-accent', '--color-primary']);
-  const accentHover = find(STD.color.accentHover, ['--accent-hover', '--sun', '--primary-hover', '--color-accent-hover']);
+  const accentHover = find(STD.color.accentHover, ['--color-primary', '--sun', '--primary-hover', '--color-accent-hover']);
 
   return {
     colors,
@@ -550,7 +566,7 @@ function buildColorPreviewCards(P) {
 
 function buildColorTokenGrid(groups) {
   const items = groups.Color || [];
-  if (items.length === 0) return '<p style="color:var(--text-muted);text-align:center;padding:40px">无颜色 Token</p>';
+  if (items.length === 0) return '<p style="color:var(--color-on-surface-variant);text-align:center;padding:40px">无颜色 Token</p>';
   return items.map(t => {
     const hex = extractHex(t.value);
     const isDark = hex ? isDarkColor(hex) : false;
@@ -595,7 +611,7 @@ function buildTypeSpecimens(T, P) {
     rows.push({
       label: 'Mono', name: extractFontName(T.mono) || 'Mono',
       spec: fontShortName(T.mono) + ' / 11px / 500',
-      text: '--accent: ' + P.accent + '; // token names & code',
+      text: '--color-primary: ' + P.accent + '; // token names & code',
       style: 'font-family:' + T.mono + ';font-size:11px;color:' + mt
     });
   }
@@ -624,7 +640,7 @@ function buildTypeScaleTable(groups, brandKit) {
 
   const items = groups.Typography || [];
   if (items.length === 0) {
-    return '<tr><td colspan="4" style="color:var(--text-muted)">排版变量待补充</td></tr>';
+    return '<tr><td colspan="4" style="color:var(--color-on-surface-variant)">排版变量待补充</td></tr>';
   }
   return items.filter(t => !t.name.includes('font')).map(t => {
     const label = t.name.replace('--', '').replace('text-', '').replace(/-/g, ' ');
@@ -674,7 +690,7 @@ function buildSpacingBars(groups, implicit, P, brandKit) {
 
   if (items.length === 0) {
     if (hasImplicit) return buildClassifiedSpacing(implicit, P);
-    return '<p style="color:var(--text-soft);font-size:14px;padding:32px;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)">间距未 Token 化 — 此模板在组件内直接使用 px 值，未抽象为 CSS 自定义属性。</p>';
+    return '<p style="color:var(--color-on-surface-variant);font-size:14px;padding:32px;text-align:center;background:var(--color-surface-container-low);border:1px solid var(--color-outline);border-radius:var(--radius-base)">间距未 Token 化 — 此模板在组件内直接使用 px 值，未抽象为 CSS 自定义属性。</p>';
   }
   const maxPx = Math.max(...items.map(t => parseInt(t.value) || 0), 1);
   let html = items.map(t => {
@@ -692,7 +708,7 @@ function buildSpacingBars(groups, implicit, P, brandKit) {
 
 function buildClassifiedSpacing(implicit, P) {
   const labels = { padding: '内边距 Padding', margin: '外边距 Margin', gap: '间距 Gap' };
-  let html = '<div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted);margin:28px 0 12px;padding-top:16px;border-top:1px dashed var(--line);letter-spacing:.04em;text-transform:uppercase">CSS 硬编码（未 Token 化）</div>';
+  let html = '<div style="font-size:11px;font-family:var(--font-mono);color:var(--color-on-surface-variant);margin:28px 0 12px;padding-top:16px;border-top:1px dashed var(--color-outline);letter-spacing:.04em;text-transform:uppercase">CSS 硬编码（未 Token 化）</div>';
   for (const [prop, vals] of Object.entries(implicit)) {
     if (!vals || vals.length === 0) continue;
     const distinct = [...new Set(vals.map(v => {
@@ -701,12 +717,12 @@ function buildClassifiedSpacing(implicit, P) {
       return m ? m[1] : v;
     }))];
     html += '<div style="margin-bottom:14px">';
-    html += '<div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:6px">' + esc(labels[prop] || prop) + ' · ' + vals.length + ' 处</div>';
+    html += '<div style="font-size:13px;font-weight:500;color:var(--color-on-surface);margin-bottom:6px">' + esc(labels[prop] || prop) + ' · ' + vals.length + ' 处</div>';
     html += '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">';
     for (const v of distinct.slice(0, 15)) {
-      html += '<span style="padding:4px 10px;background:var(--bg);border:1px solid var(--line);border-radius:4px;font-family:var(--font-mono);font-size:11px;color:var(--text);white-space:nowrap">' + esc(v) + '</span>';
+      html += '<span style="padding:4px 10px;background:var(--color-surface);border:1px solid var(--color-outline);border-radius:4px;font-family:var(--font-mono);font-size:11px;color:var(--color-on-surface);white-space:nowrap">' + esc(v) + '</span>';
     }
-    if (distinct.length > 15) html += '<span style="font-size:12px;color:var(--text-muted)">+ ' + (distinct.length - 15) + ' more</span>';
+    if (distinct.length > 15) html += '<span style="font-size:12px;color:var(--color-on-surface-variant)">+ ' + (distinct.length - 15) + ' more</span>';
     html += '</div></div>';
   }
   return html;
@@ -725,10 +741,10 @@ function buildRadiusCards(groups, implicit, P) {
   const items = groups.Radius || [];
   if (items.length === 0) {
     if (implicit && implicit.length > 0) return buildImplicitChips(implicit, '圆角', P);
-    return '<p style="color:var(--text-soft);font-size:14px;padding:32px;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)">圆角未 Token 化 — 此模板在各组件内直接使用 px 值。</p>';
+    return '<p style="color:var(--color-on-surface-variant);font-size:14px;padding:32px;text-align:center;background:var(--color-surface-container-low);border:1px solid var(--color-outline);border-radius:var(--radius-base)">圆角未 Token 化 — 此模板在各组件内直接使用 px 值。</p>';
   }
   return items.map(t => {
-    const label = t.name.replace('--radius-', '').replace('--radius', 'default');
+    const label = t.name.replace('--radius-', '').replace('--radius-base', 'default');
     return '<div class="radius-card"><div class="r-box" style="border-radius:' + esc(t.value) + '"></div>' +
       '<div class="r-label">' + esc(label) + '</div><div class="r-val">' + esc(t.value) + (t.role ? ' · ' + esc(t.role) : '') + '</div></div>';
   }).join('\n    ');
@@ -781,7 +797,7 @@ function buildShadowCards(groups, implicit, vars) {
         '<div class="sh-desc">' + label + '</div></div>';
       }).join('\n    ') + '</div>';
     }
-    return '<p style="color:var(--text-soft);font-size:14px;padding:32px;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)">阴影未 Token 化 — 此模板的阴影效果直接写入组件样式。</p>';
+    return '<p style="color:var(--color-on-surface-variant);font-size:14px;padding:32px;text-align:center;background:var(--color-surface-container-low);border:1px solid var(--color-outline);border-radius:var(--radius-base)">阴影未 Token 化 — 此模板的阴影效果直接写入组件样式。</p>';
   }
   return items.map(t => {
     const resolved = resolveVarRefs(t.value, vars || {});
@@ -815,7 +831,7 @@ function buildMotionChips(groups, implicit, P) {
           '<div class="m-bar"></div></div>';
       }).join('\n    ') + '</div>';
     }
-    return '<p style="color:var(--text-soft);font-size:14px;padding:32px;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)">动效未 Token 化 — 此模板的 transition/animation 属性内联在组件样式中，未抽象为 --duration-* / --ease-* 变量。</p>';
+    return '<p style="color:var(--color-on-surface-variant);font-size:14px;padding:32px;text-align:center;background:var(--color-surface-container-low);border:1px solid var(--color-outline);border-radius:var(--radius-base)">动效未 Token 化 — 此模板的 transition/animation 属性内联在组件样式中，未抽象为 --duration-* / --ease-* 变量。</p>';
   }
   return items.map(t => {
     const isEase = t.name.includes('ease');
@@ -833,10 +849,10 @@ function buildMotionChips(groups, implicit, P) {
 }
 
 function buildImplicitChips(values, label, P) {
-  return '<div style="padding:28px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)">' +
-    '<div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted);margin-bottom:14px;letter-spacing:.04em;text-transform:uppercase">CSS 硬编码（未 Token 化）</div>' +
+  return '<div style="padding:28px;background:var(--color-surface-container-low);border:1px solid var(--color-outline);border-radius:var(--radius-base)">' +
+    '<div style="font-size:11px;font-family:var(--font-mono);color:var(--color-on-surface-variant);margin-bottom:14px;letter-spacing:.04em;text-transform:uppercase">CSS 硬编码（未 Token 化）</div>' +
     '<div style="display:flex;gap:12px;flex-wrap:wrap">' +
-    values.map(v => '<div style="padding:12px 20px;background:var(--bg);border:1px dashed var(--line);border-radius:6px;font-family:var(--font-mono);font-size:13px;color:var(--text)">' + esc(v) + '</div>').join('') +
+    values.map(v => '<div style="padding:12px 20px;background:var(--color-surface);border:1px dashed var(--color-outline);border-radius:6px;font-family:var(--font-mono);font-size:13px;color:var(--color-on-surface)">' + esc(v) + '</div>').join('') +
     '</div></div>';
 }
 
@@ -857,7 +873,7 @@ function buildComponentPanels(P, T, radius, vars, assets) {
   function varBgc(val) { return vn[val] ? 'background-color:var(' + vn[val] + ')' : 'background:' + val; }
 
   // ── Buttons ──
-  const btnRadiusVal = isBrutalist ? 'var(--radius)' : 'var(--radius-pill,9999px)';
+  const btnRadiusVal = isBrutalist ? 'var(--radius-base)' : 'var(--radius-pill,9999px)';
   const btnShadow = solidShadow ? 'box-shadow:var(--shadow-solid,' + esc(solidShadow) + ');' : '';
   out.push(
     '<div class="comp-panel"><h4>按钮</h4>' +
@@ -865,22 +881,22 @@ function buildComponentPanels(P, T, radius, vars, assets) {
     '<button style="' + varBgc(P.accent) + ';color:#fff;border:none;border-radius:' + btnRadiusVal + ';' + btnShadow + 'padding:var(--space-sm) var(--space-lg);font-size:14px;font-weight:500;cursor:default">主要按钮</button>' +
     '<button style="background:transparent;color:' + varStyle(P.text) + ';border:var(--hairline,1px) solid ' + varStyle(P.border) + ';border-radius:' + btnRadiusVal + ';' + btnShadow + 'padding:var(--space-sm) var(--space-lg);font-size:14px;cursor:default">次要按钮</button>' +
     '</div>' +
-    '<div class="token-note">使用 Token：' + varRef(P.accent) + ' ' + varRef(P.border) + ' <span>--radius</span></div></div>'
+    '<div class="token-note">使用 Token：' + varRef(P.accent) + ' ' + varRef(P.border) + ' <span>--radius-base</span></div></div>'
   );
 
   // ── Card ──
-  const cardShadow = solidShadow ? 'box-shadow:var(--shadow-solid,' + esc(solidShadow) + ');' : 'box-shadow:var(--shadow-md)';
+  const cardShadow = solidShadow ? 'box-shadow:var(--shadow-solid,' + esc(solidShadow) + ');' : 'box-shadow:var(--elevation-md)';
   out.push(
     '<div class="comp-panel"><h4>卡片</h4><div class="comp-row">' +
-    '<div style="width:220px;' + varBgc(P.bgCard) + ';border:var(--hairline,1px) solid ' + varStyle(P.border) + ';border-radius:var(--radius);overflow:hidden;' + cardShadow + '">' +
+    '<div style="width:220px;' + varBgc(P.bgCard) + ';border:var(--hairline,1px) solid ' + varStyle(P.border) + ';border-radius:var(--radius-base);overflow:hidden;' + cardShadow + '">' +
     '<div style="height:100px;background:linear-gradient(135deg,' + varStyle(P.bg) + ',' + varStyle(P.border) + ');display:flex;align-items:center;justify-content:center;font-size:24px;color:' + varStyle(P.textMuted) + '">&#x25A1;</div>' +
     '<div style="padding:var(--space-sm) var(--space-md)"><div style="font-size:var(--text-base,15px);font-weight:700;margin-bottom:var(--space-2xs)">Template Name</div>' +
     '<div style="font-size:var(--text-sm,13px);color:' + varStyle(P.textSecondary) + ';line-height:1.4">Tagline description here.</div></div></div></div>' +
-    '<div class="token-note">使用 Token：' + varRef(P.bgCard) + ' ' + varRef(P.border) + ' <span>--radius</span> ' + varRef(P.textSecondary) + '</div></div>'
+    '<div class="token-note">使用 Token：' + varRef(P.bgCard) + ' ' + varRef(P.border) + ' <span>--radius-base</span> ' + varRef(P.textSecondary) + '</div></div>'
   );
 
   // ── Input ──
-  const inputRadiusVal = isBrutalist ? 'var(--radius)' : 'var(--radius-sm,10px)';
+  const inputRadiusVal = isBrutalist ? 'var(--radius-base)' : 'var(--radius-sm,10px)';
   out.push(
     '<div class="comp-panel"><h4>输入框</h4><div class="comp-row">' +
     '<div style="display:flex;align-items:center;' + varBgc(P.bgCard) + ';border:var(--hairline,1px) solid ' + varStyle(P.border) + ';border-radius:' + inputRadiusVal + ';overflow:hidden">' +
@@ -911,7 +927,7 @@ function buildTokenGroups(groups) {
     html += '<div class="token-group"><h3>' + esc(labels[cat] || cat) + ' · ' + esc(cat) + '</h3>';
     if (!items || items.length === 0) {
       html += '<div class="tg-desc">未 Token 化</div>';
-      html += '<p style="color:var(--text-muted);font-size:13px;padding:16px 0">此模板未定义 ' + esc(labels[cat] || cat) + ' 相关 CSS 变量。' + (cat === 'Other' ? '' : '相应设计值在 CSS 中硬编码。') + '</p>';
+      html += '<p style="color:var(--color-on-surface-variant);font-size:13px;padding:16px 0">此模板未定义 ' + esc(labels[cat] || cat) + ' 相关 CSS 变量。' + (cat === 'Other' ? '' : '相应设计值在 CSS 中硬编码。') + '</p>';
     } else {
       html += '<div class="tg-desc">' + items.length + ' tokens</div>' +
         '<table class="token-table"><tr><th>变量</th><th>值</th><th>角色</th><th>说明</th></tr>';
@@ -932,8 +948,8 @@ function buildTokenGroups(groups) {
 }
 
 function buildBgTextureSpecimen(assets, P, accent10) {
-  if (!assets.bodyBg || assets.bodyBg === 'background:var(--bg)') {
-    return '<p style="color:var(--text-soft);font-size:14px;padding:32px;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)">此模板未定义特殊背景纹理。使用纯色 var(--bg) 作为背景。</p>';
+  if (!assets.bodyBg || assets.bodyBg === 'background:var(--color-surface)') {
+    return '<p style="color:var(--color-on-surface-variant);font-size:14px;padding:32px;text-align:center;background:var(--color-surface-container-low);border:1px solid var(--color-outline);border-radius:var(--radius-base)">此模板未定义特殊背景纹理。使用纯色 var(--color-surface) 作为背景。</p>';
   }
 
   const bodyBgCss = assets.bodyBg; // "background:radial-gradient(...), linear-gradient(...), #f4efe7"
@@ -960,29 +976,29 @@ function buildBgTextureSpecimen(assets, P, accent10) {
 
   // Left: body background only
   html += '<div>';
-  html += '<div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted);margin-bottom:8px">body 背景层</div>';
-  html += '<div style="height:140px;border-radius:2px;border:1px solid var(--line);' + bodyBgCss + '"></div>';
+  html += '<div style="font-size:11px;font-family:var(--font-mono);color:var(--color-on-surface-variant);margin-bottom:8px">body 背景层</div>';
+  html += '<div style="height:140px;border-radius:2px;border:1px solid var(--color-outline);' + bodyBgCss + '"></div>';
   html += '</div>';
 
   // Right: combined (body bg + ::before overlay)
   if (dotOverlay) {
     html += '<div>';
-    html += '<div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted);margin-bottom:8px">+ body::before 纹理（完整效果）</div>';
-    html += '<div style="height:140px;border-radius:2px;border:1px solid var(--line);position:relative;overflow:hidden">';
+    html += '<div style="font-size:11px;font-family:var(--font-mono);color:var(--color-on-surface-variant);margin-bottom:8px">+ body::before 纹理（完整效果）</div>';
+    html += '<div style="height:140px;border-radius:2px;border:1px solid var(--color-outline);position:relative;overflow:hidden">';
     html += '<div style="position:absolute;inset:0;' + bodyBgCss + '"></div>';
     html += '<div style="position:absolute;inset:0;' + dotOverlay + '"></div>';
     html += '</div>';
     html += '</div>';
   } else {
     html += '<div>';
-    html += '<div style="font-size:11px;font-family:var(--font-mono);color:var(--text-muted);margin-bottom:8px">纹理层</div>';
-    html += '<div style="height:140px;border-radius:2px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:13px;background:var(--surface)">无 ::before 伪元素</div>';
+    html += '<div style="font-size:11px;font-family:var(--font-mono);color:var(--color-on-surface-variant);margin-bottom:8px">纹理层</div>';
+    html += '<div style="height:140px;border-radius:2px;border:1px solid var(--color-outline);display:flex;align-items:center;justify-content:center;color:var(--color-on-surface-variant);font-size:13px;background:var(--color-surface-container-low)">无 ::before 伪元素</div>';
     html += '</div>';
   }
   html += '</div>';
 
   // CSS snippet
-  html += '<pre style="background:var(--text);color:var(--bg);padding:20px;border-radius:var(--radius);font-family:var(--font-mono);font-size:11px;line-height:1.7;overflow-x:auto;margin:0;max-height:200px;overflow-y:auto">';
+  html += '<pre style="background:var(--color-on-surface);color:var(--color-surface);padding:20px;border-radius:var(--radius-base);font-family:var(--font-mono);font-size:11px;line-height:1.7;overflow-x:auto;margin:0;max-height:200px;overflow-y:auto">';
   // Strip "background:" prefix for cleaner display
   const bgVal = bodyBgCss.replace(/^background:/, '');
   html += esc('body {\n  background: ' + bgVal + ';\n}');
@@ -991,8 +1007,8 @@ function buildBgTextureSpecimen(assets, P, accent10) {
   }
   html += '</pre>';
 
-  html += '<p style="font-size:13px;color:var(--accent);margin-top:12px;padding:12px 16px;background:' + accent10 + ';border-radius:6px;line-height:1.6">';
-  html += '消费 Token：--bg（纸色底色）· --text（点阵 22% 透明度 + 中线 2.5% 透明度）· --accent-hover（径向渐变暖光 18% 透明度）';
+  html += '<p style="font-size:13px;color:var(--color-primary);margin-top:12px;padding:12px 16px;background:' + accent10 + ';border-radius:6px;line-height:1.6">';
+  html += '消费 Token：--color-surface（纸色底色）· --color-on-surface（点阵 22% 透明度 + 中线 2.5% 透明度）· --color-primary（径向渐变暖光 18% 透明度）';
   html += '</p>';
 
   return html;
@@ -1001,19 +1017,19 @@ function buildBgTextureSpecimen(assets, P, accent10) {
 function buildLogoAsset(P, T, accent10) {
   let html = '';
   html += '<div style="display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start">';
-  html += '<div style="background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:32px;display:flex;align-items:center;justify-content:center;min-width:120px">';
+  html += '<div style="background:var(--color-surface-container-low);border:1px solid var(--color-outline);border-radius:var(--radius-base);padding:32px;display:flex;align-items:center;justify-content:center;min-width:120px">';
   html += '<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">';
   html += '<rect width="64" height="64" rx="14" fill="' + esc(P.text) + '"/>';
   html += '<rect x="7" y="14" width="22" height="28" rx="3" fill="' + esc(P.accent) + '"/>';
   html += '<rect x="32" y="20" width="24" height="18" rx="3" fill="' + esc(P.bgCard) + '"/>';
   html += '<rect x="36" y="26" width="16" height="18" rx="3" fill="' + esc(P.accentHover) + '"/>';
   html += '</svg></div>';
-  html += '<pre style="background:var(--text);color:var(--bg);padding:20px;border-radius:var(--radius);font-family:var(--font-mono);font-size:11px;line-height:1.7;overflow-x:auto;margin:0;max-height:220px;overflow-y:auto">';
+  html += '<pre style="background:var(--color-on-surface);color:var(--color-surface);padding:20px;border-radius:var(--radius-base);font-family:var(--font-mono);font-size:11px;line-height:1.7;overflow-x:auto;margin:0;max-height:220px;overflow-y:auto">';
   html += esc('<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">\n  <rect width="64" height="64" rx="14" fill="' + P.text + '"/>\n  <rect x="7" y="14" width="22" height="28" rx="3" fill="' + P.accent + '"/>\n  <rect x="32" y="20" width="24" height="18" rx="3" fill="' + P.bgCard + '"/>\n  <rect x="36" y="26" width="16" height="18" rx="3" fill="' + P.accentHover + '"/>\n</svg>');
   html += '</pre></div>';
 
-  html += '<p style="font-size:13px;color:var(--accent);margin-top:12px;padding:12px 16px;background:' + accent10 + ';border-radius:6px;line-height:1.6">';
-  html += '消费 Token：--text（Logo 底色）· --accent（主色块）· --bg-card（辅色块）· --accent-hover（点缀色块）';
+  html += '<p style="font-size:13px;color:var(--color-primary);margin-top:12px;padding:12px 16px;background:' + accent10 + ';border-radius:6px;line-height:1.6">';
+  html += '消费 Token：--color-on-surface（Logo 底色）· --color-primary（主色块）· --bg-card（辅色块）· --color-primary（点缀色块）';
   html += '</p>';
 
   return html;
@@ -1027,44 +1043,44 @@ function buildOverlayDemos(P) {
   let html = '';
 
   // Hover card demo
-  html += '<h4 style="font-size:16px;font-weight:600;margin-bottom:12px;color:var(--text)">卡片 Hover · 半透明叠加</h4>';
+  html += '<h4 style="font-size:16px;font-weight:600;margin-bottom:12px;color:var(--color-on-surface)">卡片 Hover · 半透明叠加</h4>';
   html += '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:12px">';
   html += '<div class="asset-hover-card" style="padding:20px 24px;text-align:center">';
   html += '<div style="font-size:14px;font-weight:500;margin-bottom:4px">Template Card</div>';
-  html += '<div style="font-size:12px;color:var(--text-soft)">悬停查看效果</div>';
+  html += '<div style="font-size:12px;color:var(--color-on-surface-variant)">悬停查看效果</div>';
   html += '<div class="hover-overlay" style="background:' + esc(hoverOverlay) + ';display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff">' + esc(hoverOverlay) + '</div></div>';
-  html += '<div style="font-size:13px;color:var(--text-soft);line-height:1.6;padding:8px 0">';
-  html += '消费 Token：<span style="font-family:var(--font-mono);font-size:11px;color:var(--accent)">--text</span> → ' + esc(hoverOverlay) + '<br>';
+  html += '<div style="font-size:13px;color:var(--color-on-surface-variant);line-height:1.6;padding:8px 0">';
+  html += '消费 Token：<span style="font-family:var(--font-mono);font-size:11px;color:var(--color-primary)">--color-on-surface</span> → ' + esc(hoverOverlay) + '<br>';
   html += '保持预览可见的同时传达"可点击"。比 modal 遮罩浅 2.5 倍。';
   html += '</div></div>';
 
   // Modal overlay demo
-  html += '<h4 style="font-size:16px;font-weight:600;margin:28px 0 12px;color:var(--text)">弹窗 Overlay · 聚焦遮罩</h4>';
+  html += '<h4 style="font-size:16px;font-weight:600;margin:28px 0 12px;color:var(--color-on-surface)">弹窗 Overlay · 聚焦遮罩</h4>';
   html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:12px">';
   html += '<div class="asset-modal-demo" style="height:160px">';
   html += '<div style="position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:16px">';
-  for (let i = 0; i < 3; i++) html += '<div style="background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text-muted)">card</div>';
+  for (let i = 0; i < 3; i++) html += '<div style="background:var(--color-surface);border:1px solid var(--color-outline);border-radius:var(--radius-base);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--color-on-surface-variant)">card</div>';
   html += '</div>';
   html += '<div class="modal-backdrop" style="background:' + esc(modalOverlay) + '">';
-  html += '<div class="modal-dialog" style="background:var(--surface);border:1px solid var(--line)">';
+  html += '<div class="modal-dialog" style="background:var(--color-surface-container-low);border:1px solid var(--color-outline)">';
   html += '<div style="font-size:14px;font-weight:600;margin-bottom:4px">Modal Title</div>';
-  html += '<div style="font-size:12px;color:var(--text-soft)">' + esc(modalOverlay) + '</div></div></div></div>';
-  html += '<div style="font-size:13px;color:var(--text-soft);line-height:1.6;padding:8px 0">';
-  html += '消费 Token：<span style="font-family:var(--font-mono);font-size:11px;color:var(--accent)">--text</span> → ' + esc(modalOverlay) + '<br>';
+  html += '<div style="font-size:12px;color:var(--color-on-surface-variant)">' + esc(modalOverlay) + '</div></div></div></div>';
+  html += '<div style="font-size:13px;color:var(--color-on-surface-variant);line-height:1.6;padding:8px 0">';
+  html += '消费 Token：<span style="font-family:var(--font-mono);font-size:11px;color:var(--color-primary)">--color-on-surface</span> → ' + esc(modalOverlay) + '<br>';
   html += '比 hover 深 2.5 倍，区分"浏览"和"聚焦"两个信息层级。';
   html += '</div></div>';
 
   // Glass button demo
-  html += '<h4 style="font-size:16px;font-weight:600;margin:28px 0 12px;color:var(--text)">毛玻璃按钮 · Glassmorphism</h4>';
+  html += '<h4 style="font-size:16px;font-weight:600;margin:28px 0 12px;color:var(--color-on-surface)">毛玻璃按钮 · Glassmorphism</h4>';
   html += '<div style="display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;margin-bottom:12px">';
-  html += '<div style="position:relative;height:90px;border-radius:var(--radius);overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,' + esc(P.accent) + ',' + esc(P.accentHover) + ')">';
+  html += '<div style="position:relative;height:90px;border-radius:var(--radius-base);overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,' + esc(P.accent) + ',' + esc(P.accentHover) + ')">';
   html += '<div style="position:absolute;top:12px;right:16px;width:40px;height:40px;border-radius:50%;background:' + esc(P.bg) + ';opacity:.3"></div>';
   html += '<div style="position:absolute;bottom:8px;left:20px;width:60px;height:60px;border-radius:50%;background:' + esc(P.accentHover) + ';opacity:.4"></div>';
   html += '<button class="asset-glass-btn" style="background:' + esc(glassBg) + ';color:' + esc(P.text) + '">查看详情</button>';
   html += '</div>';
-  html += '<div style="font-size:13px;color:var(--text-soft);line-height:1.6">';
-  html += '消费 Token：<span style="font-family:var(--font-mono);font-size:11px;color:var(--accent)">--bg</span> → ' + esc(glassBg) + '<br>';
-  html += '<span style="font-family:var(--font-mono);font-size:11px;color:var(--accent)">backdrop-filter: blur(8px)</span><br>';
+  html += '<div style="font-size:13px;color:var(--color-on-surface-variant);line-height:1.6">';
+  html += '消费 Token：<span style="font-family:var(--font-mono);font-size:11px;color:var(--color-primary)">--color-surface</span> → ' + esc(glassBg) + '<br>';
+  html += '<span style="font-family:var(--font-mono);font-size:11px;color:var(--color-primary)">backdrop-filter: blur(8px)</span><br>';
   html += '按钮可读，不遮挡预览内容。依赖背景层提供视觉深度线索。';
   html += '</div></div>';
 
@@ -1074,7 +1090,7 @@ function buildOverlayDemos(P) {
 function findTokenName(vars, hex, preferred) {
   if (preferred && vars[preferred]) return preferred;
   for (const [k, v] of Object.entries(vars)) {
-    if (v === hex && k.startsWith('--') && !k.startsWith('--font-') && !k.startsWith('--shadow-') && !k.startsWith('--radius') && !k.startsWith('--ease-')) return k;
+    if (v === hex && k.startsWith('--') && !k.startsWith('--font-') && !k.startsWith('--shadow-') && !k.startsWith('--radius-base') && !k.startsWith('--ease-')) return k;
   }
   return '';
 }
@@ -1093,7 +1109,7 @@ function buildDecisions(entry, P, T, vars, assets) {
     const h1Clamp = h1FontSize ? h1FontSize[1].trim() : '';
     const h1LS = h1LetterSpacing ? h1LetterSpacing[1].trim() : '';
     const h1LH = h1LineHeight ? h1LineHeight[1].trim() : '';
-    let typeA = '展示字体 <span style="font-family:var(--font-mono);font-size:11px;color:var(--accent)">--display</span> 选用 ' + T.displayName + '，正文 <span style="font-family:var(--font-mono);font-size:11px;color:var(--accent)">--body</span> 选用 ' + T.bodyName + '。';
+    let typeA = '展示字体 <span style="font-family:var(--font-mono);font-size:11px;color:var(--color-primary)">--display</span> 选用 ' + T.displayName + '，正文 <span style="font-family:var(--font-mono);font-size:11px;color:var(--color-primary)">--body</span> 选用 ' + T.bodyName + '。';
     if (h1Clamp) typeA += ' h1 字号 ' + h1Clamp;
     if (h1LH) typeA += '，行高 ' + h1LH;
     if (h1LS) typeA += '，字间距 ' + h1LS;
@@ -1106,13 +1122,13 @@ function buildDecisions(entry, P, T, vars, assets) {
 
   // 2. Color: dynamic from actual tokens
   if (P.colors.length > 0) {
-    const accentName = findTokenName(vars, P.accent, '--accent');
-    const bgName = findTokenName(vars, P.bg, '--bg');
+    const accentName = findTokenName(vars, P.accent, '--color-primary');
+    const bgName = findTokenName(vars, P.bg, '--color-surface');
     const accentHex = P.accent;
     const bgHex = P.bg;
     let colorA = '';
     if (accentName && bgName) {
-      colorA = '主强调色 <span style="font-family:var(--font-mono);font-size:11px;color:var(--accent)">' + esc(accentName) + '</span> ' + accentHex + ' 与底色 <span style="font-family:var(--font-mono);font-size:11px;color:var(--accent)">' + esc(bgName) + '</span> ' + bgHex + ' 构成本模板的色彩基调。';
+      colorA = '主强调色 <span style="font-family:var(--font-mono);font-size:11px;color:var(--color-primary)">' + esc(accentName) + '</span> ' + accentHex + ' 与底色 <span style="font-family:var(--font-mono);font-size:11px;color:var(--color-primary)">' + esc(bgName) + '</span> ' + bgHex + ' 构成本模板的色彩基调。';
       if (assets.bodyBg && assets.bodyBg.includes('radial-gradient')) {
         colorA += ' 背景层叠加 radial-gradient 和点阵纹理模拟纸张纤维质感。';
       }
@@ -1123,13 +1139,13 @@ function buildDecisions(entry, P, T, vars, assets) {
   }
 
   // 3. Spacing: why these specific values
-  const spacingItems = (vars['--page-w'] || vars['--gutter']) ? true : false;
+  const spacingItems = (vars['--page-w'] || vars['--space-gutter']) ? true : false;
   const padVals = (implicit.spacing.padding || []).length;
   const marginVals = (implicit.spacing.margin || []).length;
   if (spacingItems || padVals + marginVals > 0) {
     let spA = '';
     if (vars['--page-w']) spA += '--page-w: ' + vars['--page-w'] + ' 定义内容最大宽度——单栏宣言不需要多列网格，一行文字太长会丢失阅读节奏，太窄则浪费 screen real estate。';
-    if (vars['--gutter']) spA += ' --gutter: ' + vars['--gutter'] + ' 作为全局间距基准。';
+    if (vars['--space-gutter']) spA += ' --space-gutter: ' + vars['--space-gutter'] + ' 作为全局间距基准。';
     if (!spacingItems && padVals + marginVals > 0) {
       spA += '间距未 Token 化，通过 ' + padVals + ' 处内边距 + ' + marginVals + ' 处外边距硬编码实现。低密度宣言式版面天然需要大量留白——硬编码的 clamp 大间距（如 clamp(68px, 10vw, 132px)）确保 section 之间呼吸感随视口缩放。';
     }
@@ -1147,7 +1163,7 @@ function buildDecisions(entry, P, T, vars, assets) {
   }
 
   // 5. Radius: flat/brutalist intent
-  if ((implicit.radius || []).length === 0 && !vars['--radius']) {
+  if ((implicit.radius || []).length === 0 && !vars['--radius-base']) {
     items.push({
       q: '为什么没有圆角？',
       a: '粗野主义 = 拒绝装饰性圆角。所有元素 border-radius 保持 0 或极微小值——版面应像"从印刷机上切下来的"，不是"从手机屏幕里弹出来的"。圆角暗示柔软和 digital-native，直角暗示坚硬和 print-native。',
@@ -1212,13 +1228,57 @@ function buildJsonBlock(entry, groups) {
   return JSON.stringify(obj, null, 2);
 }
 
-function buildAiBlock() {
-  const promptPath = path.join(__dirname, '..', 'meta', 'ai-system-prompt.md');
-  try {
-    return fs.readFileSync(promptPath, 'utf-8');
-  } catch (e) {
-    return '# 版式画廊 · 模板生成规范\n\n(ai-system-prompt.md 未找到)';
+function buildDesignMdBlock(tmplPath) {
+  const tmplDir = path.dirname(tmplPath);
+  const designPath = path.join(tmplDir, 'design.md');
+  if (fs.existsSync(designPath)) {
+    return fs.readFileSync(designPath, 'utf-8');
   }
+  return '# (无 design.md)\n';
+}
+
+function buildAiBlock(entry, groups, tmplPath) {
+  const tmplDir = path.dirname(tmplPath);
+  const designPath = path.join(tmplDir, 'design.md');
+  let designMd = '';
+  if (fs.existsSync(designPath)) {
+    designMd = fs.readFileSync(designPath, 'utf-8');
+  }
+
+  const cssBlock = buildCssBlock(groups);
+  const jsonBlock = buildJsonBlock(entry, groups);
+
+  return `# ${entry.name} · 设计简报
+
+## 设计规范 (design.md)
+
+${designMd || '(无 design.md)'}
+
+---
+
+## CSS :root
+
+\`\`\`css
+${cssBlock}
+\`\`\`
+
+---
+
+## AI 可用 Token (JSON)
+
+\`\`\`json
+${jsonBlock}
+\`\`\`
+
+---
+
+## 使用说明
+
+复制以上内容粘贴给 AI，AI 即可：
+1. 按 design.md 的设计规范复现/扩展此模板
+2. 用 CSS :root 变量直接套用配色和字体
+3. 用 JSON token 做程序化调用
+`;
 }
 
 // ── Helpers ──
@@ -1387,7 +1447,7 @@ function extractMeadowJS(html) {
 function buildTextureSection(textures, P) {
   let html = '<h3 class="bk-asset-subhead">结构纹理</h3>';
   html += '<p class="bk-asset-subdesc">六种纯 CSS 结构纹理——白底 + 渐变过渡，无背景图、无 WebGL。纹理密度、角度、透明度均可调。"结构即纹理"——1px 边框、网格间隙、渐变线即是装饰。</p>';
-  html += '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden">';
+  html += '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--color-outline);border:1px solid var(--color-outline);border-radius:var(--radius-base);overflow:hidden">';
   for (const tx of textures) {
     const cls = tx.cssClass;
     let previewHTML = '';
@@ -1398,12 +1458,12 @@ function buildTextureSection(textures, P) {
       previewHTML = '<div class="' + cls + '" style="height:100px;border-radius:var(--radius-sm);margin-bottom:16px;' +
         (cls === 'tx-noise-fade' ? 'position:relative;overflow:hidden;' : '') + '"></div>';
     }
-    html += '<div style="background:var(--surface);padding:28px 24px">';
+    html += '<div style="background:var(--color-surface-container-low);padding:28px 24px">';
     html += previewHTML;
-    html += '<div style="font-size:var(--brand-t-xl);font-weight:600;margin-bottom:6px;color:var(--text)">' + esc(tx.name) + '</div>';
-    html += '<div style="font-family:var(--font-mono);font-size:var(--brand-t-2xs);color:var(--accent);margin-bottom:12px">.' + esc(cls) + '</div>';
-    html += '<div style="font-size:var(--brand-t-sm);color:var(--text-soft);line-height:1.6;margin-bottom:10px">' + esc(tx.usage) + '</div>';
-    html += '<div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);line-height:1.6;background:var(--bg);padding:10px 12px;border-radius:4px;white-space:pre-wrap">' + esc(tx.technique) + '</div>';
+    html += '<div style="font-size:var(--brand-t-xl);font-weight:600;margin-bottom:6px;color:var(--color-on-surface)">' + esc(tx.name) + '</div>';
+    html += '<div style="font-family:var(--font-mono);font-size:var(--brand-t-2xs);color:var(--color-primary);margin-bottom:12px">.' + esc(cls) + '</div>';
+    html += '<div style="font-size:var(--brand-t-sm);color:var(--color-on-surface-variant);line-height:1.6;margin-bottom:10px">' + esc(tx.usage) + '</div>';
+    html += '<div style="font-family:var(--font-mono);font-size:10px;color:var(--color-on-surface-variant);line-height:1.6;background:var(--color-surface);padding:10px 12px;border-radius:4px;white-space:pre-wrap">' + esc(tx.technique) + '</div>';
     html += '</div>';
   }
   html += '</div>';
@@ -1433,17 +1493,17 @@ function buildCursorSection(cursor, P, cursorCSS) {
   // Cursor state cards with rendered SVG previews
   const states = cursor.states || [];
   if (states.length > 0) {
-    html += '<div style="display:grid;grid-template-columns:repeat(' + states.length + ',1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:24px">';
+    html += '<div style="display:grid;grid-template-columns:repeat(' + states.length + ',1fr);gap:1px;background:var(--color-outline);border:1px solid var(--color-outline);border-radius:var(--radius-base);overflow:hidden;margin-bottom:24px">';
     for (let i = 0; i < states.length; i++) {
       const s = states[i];
       const svg = svgMarkups[i] || '';
-      html += '<div style="background:var(--surface);padding:28px 24px;text-align:center">';
+      html += '<div style="background:var(--color-surface-container-low);padding:28px 24px;text-align:center">';
       html += '<div style="display:flex;justify-content:center;align-items:center;height:80px;margin-bottom:16px">';
       html += svg;
       html += '</div>';
-      html += '<div style="font-size:var(--brand-t-xl);font-weight:600;margin-bottom:4px;color:var(--text)">' + esc(s.name) + '</div>';
-      html += '<div style="font-family:var(--font-mono);font-size:var(--brand-t-2xs);color:var(--text-muted);margin-bottom:10px">hotspot: ' + esc(s.hotspot) + '</div>';
-      html += '<div style="font-size:var(--brand-t-sm);color:var(--text-soft);line-height:1.6">' + esc(s.description) + '</div>';
+      html += '<div style="font-size:var(--brand-t-xl);font-weight:600;margin-bottom:4px;color:var(--color-on-surface)">' + esc(s.name) + '</div>';
+      html += '<div style="font-family:var(--font-mono);font-size:var(--brand-t-2xs);color:var(--color-on-surface-variant);margin-bottom:10px">hotspot: ' + esc(s.hotspot) + '</div>';
+      html += '<div style="font-size:var(--brand-t-sm);color:var(--color-on-surface-variant);line-height:1.6">' + esc(s.description) + '</div>';
       html += '</div>';
     }
     html += '</div>';
@@ -1451,12 +1511,12 @@ function buildCursorSection(cursor, P, cursorCSS) {
 
   // Meadow note
   if (cursor.meadow && cursor.meadow.enabled) {
-    html += '<div style="display:flex;gap:20px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px">';
+    html += '<div style="display:flex;gap:20px;align-items:flex-start;background:var(--color-surface-container-low);border:1px solid var(--color-outline);border-radius:var(--radius-base);padding:28px">';
     html += '<div style="flex-shrink:0;width:56px;height:56px">' + (svgMarkups[0] || '') + '</div>';
     html += '<div>';
-    html += '<h4 style="font-size:var(--brand-t-xl);font-weight:600;margin-bottom:8px;color:var(--text)">点击种草地</h4>';
-    html += '<p style="font-size:var(--brand-t-base);color:var(--text-soft);line-height:1.7">' + esc(cursor.meadow.description) + '</p>';
-    html += '<div style="display:flex;gap:16px;margin-top:12px;font-family:var(--font-mono);font-size:var(--brand-t-xs);color:var(--text-muted)">';
+    html += '<h4 style="font-size:var(--brand-t-xl);font-weight:600;margin-bottom:8px;color:var(--color-on-surface)">点击种草地</h4>';
+    html += '<p style="font-size:var(--brand-t-base);color:var(--color-on-surface-variant);line-height:1.7">' + esc(cursor.meadow.description) + '</p>';
+    html += '<div style="display:flex;gap:16px;margin-top:12px;font-family:var(--font-mono);font-size:var(--brand-t-xs);color:var(--color-on-surface-variant)">';
     html += '<span>最多: ' + esc(String(cursor.meadow.maxPlants)) + ' 株</span>';
     html += '<span>寿命: ' + esc(String(cursor.meadow.lifetimeMs)) + 'ms</span>';
     html += '</div></div></div>';

@@ -1,49 +1,44 @@
 # HANDOFF — 版式画廊
 
-date: 2026-08-04
+date: 2026-08-05
 
 ## 当前状态
 
-- 服务器 `localhost:3080` 运行中（PID 48624）
-- template.html UI 重设计完成，已验证生效
-- **管线修通完成** — 全部 6 步已实现并验证
+MD3 迁移全部完成，遗留兼容层已清理。6/6 模板通过 5 道 P0 门禁。
+服务器 `localhost:3080` 运行中，全页面正常。
 
 ## 本次完成
 
-- [x] 模板 UI 重设计 — 导航栏 56→72px，section spacing 对齐参考站，clamp 水平内边距统一
-- [x] 三个 UI 缺陷修复 — :focus-visible、卡片 cursor pointer、text-overflow ellipsis
-- [x] **管线修通**（plan：`C:\Users\Administrator\.claude\plans\kind-tinkering-clover.md`）
-  - [x] template-renderer.js 三个 bug 修复（extraLines 声明、$ 转义、module.exports 合并）→ 验证通过
-  - [x] template-renderer.js contentOverrides 参数 → 已加，CLI 模式向后兼容
-  - [x] growth-agent.js extractTextContent → 已加，所有 fetchSiteStyles 返回路径含 textContent
-  - [x] growth-agent.js extractPlaceholders / buildContentGenerationPrompt / generateTemplateContent → 已加
-  - [x] growth-agent.js Step 6-7（AI 内容生成 + 模板渲染）→ 已加，含 .growth-meta.json 写入
-  - [x] server.js approve 端点 → 读 .growth-meta.json，默认 'single-page'
-- [x] `node scripts/template-renderer.js --all` 重跑 → **49/49 OK, 0 失败**
-- [x] module.exports 验证 → renderTemplate/loadEntry/matchSkeleton/buildContent 全部 function
+- [x] MD3 29 角色体系迁移（color/typography/spacing/radius/shadow/motion）
+- [x] 3 处同步迁移（tokens.json :root + template :root + CSS var() 引用）
+- [x] 6/6 模板 + 4/4 网站页面逐页验证
+- [x] 令牌合约标准化（token-contract.json v4.0.0 + TOKEN_STANDARD.md）
+- [x] validate-templates.js 适配嵌套 color 子分组 + migrationMap 过渡
+- [x] migrate-tokens.js 三处同步迁移脚本
+- [x] archive/ → _archive/，runtime/ → _runtime/ 命名标准化
+- [x] legacy aliases 摘除（19 行）
+- [x] migrationMap 清理（46 行）
+- [x] library 卡片预览不显示——根因 Turbo 合并 <head> 导致首页 CSS 污染
+  - server.js: 页面 CSS 标记 data-turbo-track="dynamic"
+  - nav.html: 导航状态同步器只注册一次，避免重复绑定
+  - index.html: 移除跨页残留的首页 init 监听器
+  - library.html: iframe 改用根路径、先绑回调再设 src、窗口 resize 重新缩放
 
 ## 待办
 
-- [ ] git commit 本次所有变更（65 files changed）
+- [ ] Derived accent colors 用 CSS color-mix() 恢复（可选）
+- [ ] 确认推公网时机
 
 ## 关键文件
 
 | 文件 | 作用 |
 |------|------|
-| `templates/frontend-design/layout-gallery/template.html` | 预览模板 UI（上次改动） |
-| `templates/frontend-design/layout-gallery/tokens.json` | 设计 token 唯一真相源 |
-| `scripts/brand-renderer.js` | 品牌页渲染 |
-| `scripts/template-renderer.js` | 模板渲染（已修） |
-| `scripts/growth-agent.js` | 生长管线（已加 Step 6-7） |
-| `server.js` | Express 服务（approve 端点已修） |
-| `meta/brand-template.html` | 品牌页 HTML 模板 |
-
-## 复盘
-
-上次：`D:\workspace\_output\retrospectives\2026-08-03-layout-gallery-template-redesign.md`
-
-## 设计决策备忘
-
-- **横向内边距**：统一 `clamp(24px, 5vw, var(--page-pad))`，min=参考站移动端 24px，max=tokens.json 48px
-- **clamp 优于固定值 + 媒体查询**：无级缩放比两档切换平滑，不依赖断点
-- **navbar-brand 加了 `text-decoration: none` 和 `color: var(--text)`**：之前继承浏览器默认
+| `meta/token-contract.json` | Token 命名合约 v4.0.0（MD3 29 角色，migrationMap 已清理） |
+| `meta/TOKEN_STANDARD.md` | Token 命名标准（人类参考） |
+| `scripts/validate-templates.js` | 5 道 P0 门禁 CLI |
+| `scripts/migrate-tokens.js` | MD3 迁移脚本（可复用） |
+| `scripts/sync-roots.js` | tokens.json → :root 生成器 |
+| `scripts/brand-renderer.js` | 品牌套件页渲染器 |
+| `templates/*/tokens.json` | 各模板设计 token（已全部 MD3 迁移） |
+| `templates/*/template.html` | 各模板 HTML（已全部 MD3 迁移） |
+| `server.js` | Express 服务器，Turbo data-turbo-track="dynamic" 标记 |

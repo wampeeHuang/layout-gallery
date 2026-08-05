@@ -490,14 +490,14 @@ ${fmt(candidates.hardcodedHexColors.slice(0, 10))}
 
 {
   "--slug": "${slug}",
-  "--accent": "#hex",
-  "--accent-hover": "#hex",
-  "--accent-alt": "#hex",
-  "--bg": "#hex",
-  "--surface": "#hex",
-  "--text": "#hex",
-  "--text-soft": "#hex",
-  "--line": "#hex",
+  "--color-primary": "#hex",
+  "--color-primary": "#hex",
+  "--color-secondary": "#hex",
+  "--color-surface": "#hex",
+  "--color-surface-container-low": "#hex",
+  "--color-on-surface": "#hex",
+  "--color-on-surface-variant": "#hex",
+  "--color-outline": "#hex",
   "--line-soft": "rgba(...)",
   "--font-display": "'Font',sans-serif",
   "--font-body": "'Font',sans-serif",
@@ -528,14 +528,14 @@ ${fmt(candidates.hardcodedHexColors.slice(0, 10))}
 function assembleTokens(mapping, siteData, slug) {
   // Build tokens.color section
   const colorTokens = [
-    { name: '--accent', value: mapping['--accent'], role: 'accent', description: '主强调色' },
-    { name: '--accent-hover', value: mapping['--accent-hover'], role: 'accent', description: '强调色悬停态' },
-    { name: '--accent-alt', value: mapping['--accent-alt'], role: 'accent', description: '辅强调色' },
-    { name: '--bg', value: mapping['--bg'], role: 'surface-bg', description: '页面背景色' },
-    { name: '--surface', value: mapping['--surface'], role: 'surface-card', description: '卡片/面板背景' },
-    { name: '--text', value: mapping['--text'], role: 'text-primary', description: '主文字色' },
-    { name: '--text-soft', value: mapping['--text-soft'], role: 'text-secondary', description: '次级文字色' },
-    { name: '--line', value: mapping['--line'], role: 'border-default', description: '边框色' },
+    { name: '--color-primary', value: mapping['--color-primary'], role: 'accent', description: '主强调色' },
+    { name: '--color-primary', value: mapping['--color-primary'], role: 'accent', description: '强调色悬停态' },
+    { name: '--color-secondary', value: mapping['--color-secondary'], role: 'accent', description: '辅强调色' },
+    { name: '--color-surface', value: mapping['--color-surface'], role: 'surface-bg', description: '页面背景色' },
+    { name: '--color-surface-container-low', value: mapping['--color-surface-container-low'], role: 'surface-card', description: '卡片/面板背景' },
+    { name: '--color-on-surface', value: mapping['--color-on-surface'], role: 'text-primary', description: '主文字色' },
+    { name: '--color-on-surface-variant', value: mapping['--color-on-surface-variant'], role: 'text-secondary', description: '次级文字色' },
+    { name: '--color-outline', value: mapping['--color-outline'], role: 'border-default', description: '边框色' },
     { name: '--line-soft', value: mapping['--line-soft'], role: 'border', description: '浅边框色' },
   ].filter(t => t.value);
 
@@ -615,13 +615,13 @@ function assembleTokens(mapping, siteData, slug) {
 
   // ── Build colorRoles ──
   const colorRoles = {
-    primary: mapping['--accent'] || '',
-    secondary: mapping['--accent-alt'] || mapping['--accent'] || '',
-    background: mapping['--bg'] || '',
-    text: mapping['--text'] || '',
-    textSecondary: mapping['--text-soft'] || '',
-    border: mapping['--line'] || '',
-    surface: mapping['--surface'] || '',
+    primary: mapping['--color-primary'] || '',
+    secondary: mapping['--color-secondary'] || mapping['--color-primary'] || '',
+    background: mapping['--color-surface'] || '',
+    text: mapping['--color-on-surface'] || '',
+    textSecondary: mapping['--color-on-surface-variant'] || '',
+    border: mapping['--color-outline'] || '',
+    surface: mapping['--color-surface-container-low'] || '',
   };
 
   return {
@@ -685,7 +685,7 @@ async function structureTokensFromCSS(siteData, hostname) {
   }
 
   // Validate: check we got at least the core keys
-  const requiredKeys = ['--accent', '--bg', '--text', '--line'];
+  const requiredKeys = ['--color-primary', '--color-surface', '--color-on-surface', '--color-outline'];
   const missing = requiredKeys.filter(k => !mapping[k]);
   if (missing.length > 0) {
     return { ok: false, error: 'AI 映射缺少关键 token: ' + missing.join(', '), raw: text.slice(0, 500) };
@@ -754,7 +754,7 @@ ${siteData.screenshot ? '(A screenshot of the website is also provided for visua
 ## Output format — respond ONLY with valid JSON, no markdown:
 {
   "colors": [
-    {"name": "--bg", "value": "#hex", "role": "surface-bg", "description": "页面底色"},
+    {"name": "--color-surface", "value": "#hex", "role": "surface-bg", "description": "页面底色"},
     ...
   ],
   "typography": [
@@ -967,7 +967,7 @@ function writeAndSync(tokensData, slug) {
 
   // Verify :root was written
   const html = fs.readFileSync(tmplPath, 'utf-8');
-  if (!html.includes(':root{') || !html.includes('--bg')) {
+  if (!html.includes(':root{') || !html.includes('--color-surface')) {
     return { ok: false, error: ':root 生成验证失败 — template.html 未包含 :root 块' };
   }
 
@@ -1190,7 +1190,7 @@ async function runPipeline(inputUrl, callbacks = {}) {
     let contentResult = { ok: false, content: null, template_type: 'single-page', design_style: 'editorial' };
     try {
       emit(6, 'running', { message: 'DeepSeek 生成页面内容...' });
-      const skeletonPath = path.join(PROJECT_DIR, 'templates', 'skeletons', 'editorial-single-page.html');
+      const skeletonPath = null; // skeletons removed — design.md drives rendering now
       contentResult = await generateTemplateContent(siteData, structured.data, validated.hostname, skeletonPath);
       if (contentResult.ok) {
         emit(6, 'done', {

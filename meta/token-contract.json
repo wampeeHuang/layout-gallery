@@ -1,123 +1,160 @@
 {
-  "version": "2.0.0",
-  "description": "版式画廊 Token 命名契约 — 标准 CSS 变量名是唯一合法词汇。模板必须使用标准名，方言已废除。",
+  "$schema": "https://tr.designtokens.org/format/2025-10/",
+  "version": "4.0.0",
+  "description": "版式画廊 Token 命名合约 — 基于 Material Design 3 颜色角色体系（29 角色），W3C DTCG 格式。所有模板 tokens.json 的 name 字段必须使用本标准名。",
+  "source": "https://m3.material.io/styles/color/roles",
+  "knowledgeBase": "D:\\Obsidian\\Raw\\web-design\\md3-color-roles.md",
+
+  "naming": {
+    "convention": "CSS 自定义属性 kebab-case",
+    "prefix": "--color-",
+    "pattern": "--color-{group}-{variant}",
+    "example": "--color-primary, --color-on-primary, --color-primary-container"
+  },
 
   "standardVars": {
-    "_convention": "所有模板必须使用这些 CSS 变量名。值是示例，每个模板在 tokens.json 中填自己的值。",
+    "_convention": "required=true 的每个模板必须声明。required=false 的按需使用。",
+
     "color": {
-      "--accent":       {"role": "主强调色", "fallback": "#d4684e"},
-      "--accent-alt":   {"role": "辅强调色", "fallback": "#e8d4c0"},
-      "--accent-hover": {"role": "强调色悬停态", "fallback": "#c05a42"},
-      "--bg":           {"role": "页面底色", "fallback": "#fafaf8"},
-      "--surface":      {"role": "卡片/面板背景", "fallback": "#ffffff"},
-      "--text":         {"role": "主文字色", "fallback": "#1a1a1a"},
-      "--text-soft":    {"role": "次级文字色", "fallback": "#5c5c5c"},
-      "--line":         {"role": "边框色", "fallback": "#e5e3df"}
+      "primary": {
+        "--color-primary":                    {"md3": "primary",              "role": "主强调色 — 按钮、活跃态、FAB",                           "required": true},
+        "--color-on-primary":                {"md3": "on-primary",           "role": "primary 上的文字/图标",                                 "required": false},
+        "--color-primary-container":         {"md3": "primary-container",    "role": "primary 浅色容器背景",                                  "required": false},
+        "--color-on-primary-container":      {"md3": "on-primary-container", "role": "primary-container 上的文字",                             "required": false}
+      },
+      "secondary": {
+        "--color-secondary":                 {"md3": "secondary",              "role": "辅强调色 — 筛选标签、次要按钮",                          "required": true},
+        "--color-on-secondary":              {"md3": "on-secondary",           "role": "secondary 上的文字/图标",                               "required": false},
+        "--color-secondary-container":       {"md3": "secondary-container",    "role": "secondary 浅色容器背景",                                "required": false},
+        "--color-on-secondary-container":    {"md3": "on-secondary-container", "role": "secondary-container 上的文字",                           "required": false}
+      },
+      "tertiary": {
+        "--color-tertiary":                  {"md3": "tertiary",              "role": "第三强调色 — 对比平衡 primary/secondary",                "required": false},
+        "--color-on-tertiary":               {"md3": "on-tertiary",           "role": "tertiary 上的文字/图标",                                "required": false},
+        "--color-tertiary-container":        {"md3": "tertiary-container",    "role": "tertiary 浅色容器背景",                                "required": false},
+        "--color-on-tertiary-container":     {"md3": "on-tertiary-container", "role": "tertiary-container 上的文字",                           "required": false}
+      },
+      "error": {
+        "--color-error":                     {"md3": "error",              "role": "错误色 — 错误提示、删除按钮",                             "required": false},
+        "--color-on-error":                  {"md3": "on-error",           "role": "error 上的文字/图标",                                   "required": false},
+        "--color-error-container":           {"md3": "error-container",    "role": "error 浅色容器背景",                                    "required": false},
+        "--color-on-error-container":        {"md3": "on-error-container", "role": "error-container 上的文字",                               "required": false}
+      },
+      "surface": {
+        "--color-surface":                   {"md3": "surface",                   "role": "页面默认背景 — body 底色",                         "required": true},
+        "--color-on-surface":                {"md3": "on-surface",                "role": "surface 上的主文字 — 正文色",                       "required": true},
+        "--color-on-surface-variant":        {"md3": "on-surface-variant",        "role": "surface 上的次级文字 — 说明、标签",                  "required": true},
+        "--color-surface-dim":               {"md3": "surface-dim",               "role": "暗色模式表面",                                      "required": false},
+        "--color-surface-bright":            {"md3": "surface-bright",            "role": "亮色模式表面",                                      "required": false},
+        "--color-surface-container-lowest":  {"md3": "surface-container-lowest",  "role": "最低强调容器",                                      "required": false},
+        "--color-surface-container-low":     {"md3": "surface-container-low",     "role": "低强调容器 — 卡片默认背景",                          "required": false},
+        "--color-surface-container":         {"md3": "surface-container",         "role": "默认容器 — 面板背景",                               "required": false},
+        "--color-surface-container-high":    {"md3": "surface-container-high",    "role": "高强调容器 — 弹出层",                               "required": false},
+        "--color-surface-container-highest": {"md3": "surface-container-highest", "role": "最高强调容器 — 对话框",                              "required": false}
+      },
+      "outline": {
+        "--color-outline":                   {"md3": "outline",         "role": "主边框 — 输入框边框、分割线",                             "required": true},
+        "--color-outline-variant":           {"md3": "outline-variant", "role": "次级边框 — 装饰线、轻分割",                               "required": false}
+      },
+      "extended": {
+        "--color-success":                   {"md3": "—", "role": "成功反馈色 — 确认、已复制",                                   "required": false},
+        "--color-background":                {"md3": "background (legacy)", "role": "body 级硬底色 — 幻灯片容器/深色外框",             "required": false},
+        "--color-shadow":                    {"md3": "shadow",           "role": "阴影色 — elevation shadow",                        "required": false}
+      }
     },
+
     "typography": {
-      "--font-display": {"role": "标题字体栈", "fallback": "Georgia, 'Noto Serif SC', serif"},
-      "--font-body":    {"role": "正文字体栈", "fallback": "Inter, system-ui, sans-serif"},
-      "--font-mono":    {"role": "等宽字体栈", "fallback": "'SF Mono', Consolas, monospace"}
+      "--font-display":  {"role": "标题字体栈 — 展示/封面用",       "required": true},
+      "--font-body":     {"role": "正文字体栈 — 段落/UI 用",        "required": true},
+      "--font-mono":     {"role": "等宽字体栈 — 代码/标签/KPI 用",  "required": false}
     },
+
     "spacing": {
-      "--page-wmax":    {"role": "内容最大宽度", "fallback": "1200px"},
-      "--page-pad":     {"role": "页面水平内边距", "fallback": "32px"},
-      "--gap":          {"role": "元素/网格间距", "fallback": "24px"},
-      "--gutter":       {"role": "列间距/留白基准", "fallback": "24px"}
+      "--space-page-wmax":  {"role": "内容最大宽度",      "required": true},
+      "--space-page-pad":   {"role": "页面水平内边距",     "required": true},
+      "--space-gap":        {"role": "元素/网格基准间距",  "required": true},
+      "--space-gutter":     {"role": "列间距/留白基准",    "required": true}
     },
+
     "radius": {
-      "--radius":       {"role": "圆角基准值", "fallback": "4px"}
+      "--radius-base":  {"role": "圆角基准值",  "required": true}
     },
+
     "shadow": {
-      "--shadow-sm":    {"role": "轻阴影（卡片默认）", "fallback": "0 1px 3px rgba(0,0,0,0.06)"},
-      "--shadow-md":    {"role": "中阴影（卡片悬浮）", "fallback": "0 8px 30px rgba(0,0,0,0.1)"}
+      "--elevation-sm": {"role": "轻阴影 — 卡片默认",  "required": true},
+      "--elevation-md": {"role": "中阴影 — 卡片悬浮",  "required": false}
     },
+
     "motion": {
-      "--ease-default":  {"role": "标准缓动曲线", "fallback": "0.18s ease"},
-      "--duration-base": {"role": "基础过渡时长", "fallback": "150ms"}
+      "--ease-standard":    {"role": "标准缓动曲线",  "required": true},
+      "--duration-base":    {"role": "基础过渡时长",  "required": true}
     }
   },
 
-  "categories": {
-    "color": {
-      "label": "颜色",
-      "required": true,
-      "roles": [
-        {"role": "surface-bg", "description": "页面底色", "type": "color", "fallback": "#fafaf8"},
-        {"role": "surface-card", "description": "卡片/面板背景", "type": "color", "fallback": "#ffffff"},
-        {"role": "text-primary", "description": "主文字色", "type": "color", "fallback": "#1a1a1a"},
-        {"role": "text-secondary", "description": "次级文字色", "type": "color", "fallback": "#5c5c5c"},
-        {"role": "border-default", "description": "默认边框色", "type": "color", "fallback": "#e5e3df"},
-        {"role": "accent", "description": "品牌强调色", "type": "color", "fallback": "#d4684e"},
-        {"role": "accent-hover", "description": "强调色悬停态", "type": "color", "fallback": "#c05a42"}
-      ]
+  "templateSpecific": {
+    "_convention": "以下 token 不属于标准合约，是模板特有的渲染技法或领域词汇。不在 standardVars 检查范围内。",
+    "8-bit-orbit": {
+      "rendering": ["--win-highlight", "--win-shadow", "--win-dark-shadow", "--win-bg", "--win-face"],
+      "chrome": ["--win-blue", "--win-blue-bright", "--deep-navy"],
+      "palette": ["--neon-yellow", "--soft-lavender", "--neon-cyan", "--neon-pink", "--dark-void"],
+      "spacing": ["--pixel-size"],
+      "note": "Win95 3D bevel 是浮雕渲染技法。chrome accent 是与 --color-primary 并存的第二强调体系。"
     },
-    "typography": {
-      "label": "排版",
-      "required": true,
-      "roles": [
-        {"role": "display-font", "description": "标题字体栈", "type": "font-stack", "fallback": "Georgia, 'Noto Serif SC', serif"},
-        {"role": "body-font", "description": "正文字体栈", "type": "font-stack", "fallback": "Inter, system-ui, sans-serif"},
-        {"role": "mono-font", "description": "等宽字体栈", "type": "font-stack", "fallback": "'SF Mono', Consolas, monospace"},
-        {"role": "display-size", "description": "主标题字号", "type": "size", "fallback": "clamp(40px, 7vw, 64px)"},
-        {"role": "body-size", "description": "正文基础字号", "type": "size", "fallback": "16px"},
-        {"role": "small-size", "description": "辅助/标签字号", "type": "size", "fallback": "12px"}
-      ]
+    "soft-editorial": {
+      "palette": ["--blush", "--sage", "--lilac", "--paper-2", "--pink", "--lemon", "--paper", "--ink"],
+      "color": ["--ink-soft"],
+      "spacing": ["--page-w", "--page-margin"],
+      "radius": ["--radius-sm", "--radius-pill", "--radius-lg", "--radius-md", "--radius-xs", "--radius-14", "--radius-16", "--radius-18", "--radius-22"],
+      "shadow": ["--shadow-card"],
+      "note": "MD3 container 体系覆盖：blush→tertiary, sage→secondary-container, lilac→tertiary-container。半径命名空间扩展为视觉探索需要。"
     },
-    "spacing": {
-      "label": "间距",
-      "required": true,
-      "roles": [
-        {"role": "hero-spacing", "description": "Hero 区顶部留白", "type": "size", "fallback": "100px"},
-        {"role": "section-spacing", "description": "区段间距", "type": "size", "fallback": "90px"},
-        {"role": "page-padding", "description": "页面两侧留白", "type": "size", "fallback": "48px"},
-        {"role": "card-padding", "description": "卡片内边距", "type": "size", "fallback": "28px"},
-        {"role": "element-gap", "description": "元素间距", "type": "size", "fallback": "24px"},
-        {"role": "tight-gap", "description": "紧凑间距", "type": "size", "fallback": "8px"}
-      ]
+    "template-swiss": {
+      "palette": ["--grey-1", "--grey-2", "--grey-3", "--border-strong", "--border-subtle"],
+      "color": ["--paper", "--ink", "--text-primary", "--text-secondary", "--text-helper", "--text-placeholder", "--text-on-color"],
+      "spacing": ["--sp-3", "--sp-4", "--sp-5", "--sp-6", "--sp-7", "--sp-8", "--sp-9", "--sp-10", "--sp-11", "--sp-12", "--sp-13", "--nav-safe-bottom"],
+      "motion": ["--ease-prod", "--ease-exp", "--ease-entry-prod", "--ease-entry-exp", "--ease-page", "--ease-draw", "--dur-fast-1", "--dur-fast-2", "--dur-mod-1", "--dur-mod-2", "--dur-slow-1", "--dur-slow-2", "--dur-page", "--dur-draw"],
+      "note": "Swiss 排版体系命名自成一体。paper/ink 语义 + 模块化 duration 量表。不映射到 MD3。"
     },
-    "radius": {
-      "label": "圆角",
-      "required": true,
-      "roles": [
-        {"role": "sharp", "description": "直角（默认）", "type": "size", "fallback": "0px"},
-        {"role": "subtle", "description": "细微圆角", "type": "size", "fallback": "4px"},
-        {"role": "card", "description": "卡片/按钮圆角", "type": "size", "fallback": "6px"}
-      ]
+    "template": {
+      "palette": ["--paper-tint", "--paper", "--ink"],
+      "color": ["--ink-tint"],
+      "spacing": ["--page-w"],
+      "radius": ["--radius-sm", "--radius-pill"],
+      "motion": ["--dur-page", "--dur-slow-1", "--dur-mod-2", "--dur-fast-1", "--dur-slow-2", "--ease-page", "--ease-draw"],
+      "note": "paper-tint → surface-container-low 覆盖。duration 量表为动画探索。"
     },
-    "shadow": {
-      "label": "阴影",
-      "required": true,
-      "roles": [
-        {"role": "default", "description": "默认状态阴影", "type": "shadow", "fallback": "0 1px 3px rgba(0,0,0,0.06)"},
-        {"role": "card-hover", "description": "卡片悬浮阴影", "type": "shadow", "fallback": "0 8px 30px rgba(0,0,0,0.1)"}
-      ]
+    "brutalist-paper": {
+      "spacing": ["--page-w"],
+      "shadow": ["--shadow", "--shadow-solid", "--shadow-block"],
+      "motion": ["--ease-hover"],
+      "note": "brutalist 粗野主义阴影系统：硬阴影、块状阴影是视觉语言核心。"
     },
-    "motion": {
-      "label": "动效",
-      "required": true,
-      "roles": [
-        {"role": "standard-easing", "description": "标准缓动曲线", "type": "easing", "fallback": "0.18s ease"},
-        {"role": "duration-fast", "description": "瞬态时长", "type": "duration", "fallback": "150ms"},
-        {"role": "duration-base", "description": "标准过渡时长", "type": "duration", "fallback": "300ms"}
-      ]
+    "layout-gallery": {
+      "color": ["--heading"],
+      "typography": ["--text-3xl", "--text-2xl", "--text-xl", "--text-base", "--text-sm", "--text-xs"],
+      "spacing": ["--space-3xl", "--space-2xl", "--space-xl", "--space-lg", "--space-md", "--space-sm", "--space-xs", "--space-2xs", "--hairline"],
+      "radius": ["--radius-sm", "--radius-pill"],
+      "motion": ["--duration-fast", "--duration-slow"],
+      "note": "Gallery UI 自身的字号量表 + 间距量表。与 MD3 template tokens 是不同层级。"
     }
   },
 
-  "colorRoles": {
-    "_convention": "brandKit.colorRoles → CSS 变量映射。模板 tokens.json 的 brandKit.colorRoles 必须包含这 7 个 key。",
-    "primary":      "--accent",
-    "secondary":    "--accent-alt",
-    "background":   "--bg",
-    "text":         "--text",
-    "textSecondary":"--text-soft",
-    "border":       "--line",
-    "surface":      "--surface"
+  "brandKit": {
+    "_convention": "brandKit.colorRoles 将标准颜色角色映射到 CSS 变量。所有模板必须包含这 7 个 key。",
+    "colorRoles": {
+      "primary":       "--color-primary",
+      "secondary":     "--color-secondary",
+      "background":    "--color-surface",
+      "text":          "--color-on-surface",
+      "textSecondary": "--color-on-surface-variant",
+      "border":        "--color-outline",
+      "surface":       "--color-surface-container-low"
+    }
   },
 
   "compliance": {
-    "full": "全部模板通过 standardVars 校验 — 标准名全覆盖",
-    "partial": "模板缺少部分标准名 — 品牌页可渲染但不完整",
-    "noncompliant": "模板使用非标准名 — validator 报错，不通过合约"
+    "full": "所有 token name 来自本标准词汇表 + colorRoles 7 键完整",
+    "migration": "token name 在 migrationMap 中 → 需迁移到新名",
+    "violation": "token name 不在标准词汇表、不在 migrationMap、不在 templateSpecific → 报错"
   }
 }

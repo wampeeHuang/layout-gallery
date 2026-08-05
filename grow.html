@@ -3,83 +3,222 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>版式画廊 · 生长 Agent</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233D6B4A'/%3E%3Crect x='10' y='15' width='12' height='34' rx='3' fill='%23fff'/%3E%3Crect x='26' y='19' width='12' height='26' rx='3' fill='%23fff' opacity='.7'/%3E%3Crect x='42' y='24' width='12' height='16' rx='3' fill='%23fff' opacity='.4'/%3E%3C/svg%3E">
+<title>生长 Agent · 版式画廊</title>
 <style>
+/* ═══════════════════════════════════════════════════════════════
+   TOKENS — injected by server from tokens.json
+   ═══════════════════════════════════════════════════════════════ */
 <!-- ROOT_INJECT -->
-:root{
-  --danger:#dc2626; --success:#16a34a;
-  font-family:var(--font-body); color:var(--text); background:var(--bg);
-  font-size:15px; line-height:1.5;
+
+/* ═══════════════════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body {
+  overflow-x: clip;
+  background: var(--color-surface);
+  color: var(--color-on-surface);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
-*{box-sizing:border-box; margin:0; padding:0;}
 
-body{ padding:0; }
-.page-wrap{ max-width:var(--page-wmax, 1200px); margin:0 auto; padding:24px var(--page-pad, 32px) 48px; }
+a { color: inherit; text-decoration: none; }
 
-h1{ font-size:28px; font-weight:700; margin-bottom:4px; }
-.subtitle{ color:var(--text-soft); font-size:14px; margin-bottom:32px; }
+/* ═══════════════════════════════════════════════════════════════
+   PAGE HEADER
+   ═══════════════════════════════════════════════════════════════ */
+.page-header {
+  padding: clamp(32px, 5vw, 56px) clamp(20px, 4vw, 48px) var(--space-xl);
+  border-bottom: var(--hairline) solid var(--color-outline);
+  max-width: var(--space-page-wmax); margin: 0 auto;
+}
 
-/* URL input */
-.url-bar{ display:flex; gap:10px; margin-bottom:32px; }
-.url-bar input{ flex:1; padding:12px 16px; border:1.5px solid var(--line); border-radius:10px; font-size:15px; outline:none; transition:border-color .15s; font-family:var(--font-body); }
-.url-bar input:focus{ border-color:var(--accent); }
-.url-bar button{ padding:12px 24px; background:var(--accent); color:#fff; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; transition:background .15s; white-space:nowrap; }
-.url-bar button:hover{ background:var(--accent-hover); }
-.url-bar button:disabled{ opacity:.5; pointer-events:none; }
+.page-header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 700; line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: var(--heading);
+  margin-bottom: var(--space-xs);
+}
 
-/* Pipeline */
-.pipeline{ display:flex; gap:6px; margin-bottom:28px; }
-.step{ flex:1; padding:12px 8px; text-align:center; border-radius:8px; font-size:12px; font-weight:500; background:#f0f0f0; color:var(--text-muted); transition:all .3s; position:relative; }
-.step .step-num{ display:block; font-size:18px; font-weight:700; margin-bottom:2px; }
-.step.running{ background:#dbeafe; color:var(--accent); animation:pulse 1.2s ease-in-out infinite; }
-.step.done{ background:#dcfce7; color:var(--success); }
-.step.error{ background:#fee2e2; color:var(--danger); }
-@keyframes pulse{ 0%,100%{opacity:1}50%{opacity:.65} }
+.page-header .subtitle {
+  font-size: var(--text-base); color: var(--color-on-surface-variant);
+  max-width: 600px;
+}
 
-/* Progress log */
-.log{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px; margin-bottom:24px; max-height:200px; overflow-y:auto; font-size:13px; font-family:"SF Mono","Consolas",monospace; }
-.log .line{ padding:3px 0; border-bottom:1px solid #f5f5f5; }
-.log .line:last-child{ border-bottom:none; }
-.log .ts{ color:var(--text-muted); margin-right:8px; }
-.log .err{ color:var(--danger); }
-.log .ok{ color:var(--success); }
+/* ═══════════════════════════════════════════════════════════════
+   MAIN CONTENT
+   ═══════════════════════════════════════════════════════════════ */
+.page-wrap {
+  max-width: var(--space-page-wmax); margin: 0 auto;
+  padding: var(--space-xl) clamp(20px, 4vw, 48px) var(--space-3xl);
+}
 
-/* Results */
-.results{ display:none; }
-.results.visible{ display:block; }
-.tabs{ display:flex; gap:4px; margin-bottom:16px; }
-.tab{ padding:8px 16px; border:none; background:#f0f0f0; border-radius:8px 8px 0 0; font-size:13px; cursor:pointer; color:var(--text-soft); font-family:var(--font-body); }
-.tab.active{ background:var(--surface); color:var(--text); font-weight:600; box-shadow:0 -1px 4px rgba(0,0,0,.04); }
-.tab-content{ display:none; background:var(--surface); border-radius:0 12px 12px 12px; padding:20px; border:1px solid var(--line); max-height:480px; overflow:auto; }
-.tab-content.active{ display:block; }
-.tab-content pre{ font-family:"SF Mono","Consolas",monospace; font-size:13px; white-space:pre-wrap; word-break:break-all; margin:0; }
+/* ═══════════════════════════════════════════════════════════════
+   URL INPUT
+   ═══════════════════════════════════════════════════════════════ */
+.url-bar {
+  display: flex; gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+}
+.url-bar input {
+  flex: 1; padding: var(--space-sm) var(--space-md);
+  border: var(--hairline) solid var(--color-outline);
+  border-radius: var(--radius-base);
+  font-size: var(--text-base); outline: none;
+  transition: border-color var(--duration-fast);
+  font-family: var(--font-body);
+}
+.url-bar input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-container);
+}
+.url-bar button {
+  padding: var(--space-sm) var(--space-xl);
+  background: var(--color-primary); color: #fff;
+  border: none; border-radius: var(--radius-base);
+  font-size: var(--text-base); font-weight: 600; cursor: pointer;
+  transition: background var(--duration-fast); white-space: nowrap;
+  font-family: var(--font-body);
+}
+.url-bar button:hover { background: var(--color-primary); }
+.url-bar button:disabled { opacity: 0.5; pointer-events: none; }
 
-/* Action bar */
-.actions{ display:none; gap:10px; margin-top:20px; }
-.actions.visible{ display:flex; }
-.actions button{ padding:10px 24px; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; border:none; }
-.btn-approve{ background:var(--success); color:#fff; }
-.btn-reject{ background:var(--bg); color:var(--danger); border:1.5px solid var(--danger)!important; }
-.btn-preview{ background:var(--bg); color:var(--accent); border:1.5px solid var(--accent)!important; }
+/* ═══════════════════════════════════════════════════════════════
+   PIPELINE STEPS
+   ═══════════════════════════════════════════════════════════════ */
+.pipeline {
+  display: flex; gap: var(--space-2xs);
+  margin-bottom: var(--space-xl);
+}
 
-/* Error box */
-.error-box{ display:none; background:#fef2f2; border:1.5px solid #fecaca; border-radius:10px; padding:16px; margin-bottom:20px; }
-.error-box.visible{ display:block; }
-.error-box h3{ color:var(--danger); font-size:15px; margin-bottom:8px; }
-.error-box p{ font-size:13px; color:var(--text-soft); }
+.step {
+  flex: 1; padding: var(--space-sm) var(--space-xs);
+  text-align: center; border-radius: var(--radius-base);
+  font-size: var(--text-xs); font-weight: 500;
+  background: var(--color-surface-container-low); color: var(--color-on-surface-variant);
+  transition: all 0.3s; position: relative;
+}
+.step .step-num {
+  display: block; font-size: var(--text-xl); font-weight: 700;
+  margin-bottom: 2px;
+}
+.step.running {
+  background: var(--color-primary-container); color: var(--color-primary);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+.step.done { background: #dcfce7; color: var(--color-success); }
+.step.error { background: #fee2e2; color: var(--color-error); }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.65} }
 
-/* Status badge */
-.status-badge{ display:inline-block; padding:2px 8px; border-radius:99px; font-size:11px; font-weight:600; }
-.status-badge.ok{ background:#dcfce7; color:var(--success); }
-.status-badge.err{ background:#fee2e2; color:var(--danger); }
+/* ═══════════════════════════════════════════════════════════════
+   LOG
+   ═══════════════════════════════════════════════════════════════ */
+.log {
+  background: var(--color-surface-container-low);
+  border: var(--hairline) solid var(--color-outline);
+  border-radius: var(--radius-base);
+  padding: var(--space-md);
+  margin-bottom: var(--space-xl);
+  max-height: 200px; overflow-y: auto;
+  font-size: var(--text-sm);
+  font-family: var(--font-mono);
+}
+.log .line { padding: 3px 0; border-bottom: var(--hairline) solid var(--color-outline-variant); }
+.log .line:last-child { border-bottom: none; }
+.log .ts { color: var(--color-on-surface-variant); margin-right: var(--space-xs); }
+.log .err { color: var(--color-error); }
+.log .ok { color: var(--color-success); }
+
+/* ═══════════════════════════════════════════════════════════════
+   RESULTS TABS
+   ═══════════════════════════════════════════════════════════════ */
+.results { display: none; }
+.results.visible { display: block; }
+
+.tabs {
+  display: flex; gap: var(--space-2xs);
+  margin-bottom: -1px;
+}
+.tab {
+  padding: var(--space-xs) var(--space-md);
+  border: var(--hairline) solid transparent;
+  background: var(--color-surface-container-low);
+  border-radius: var(--radius-base) var(--radius-base) 0 0;
+  font-size: var(--text-sm); cursor: pointer;
+  color: var(--color-on-surface-variant); font-family: var(--font-body);
+}
+.tab.active {
+  background: var(--color-surface); color: var(--color-on-surface);
+  font-weight: 600;
+  border-color: var(--color-outline) var(--color-outline) var(--color-surface);
+}
+
+.tab-content {
+  display: none;
+  background: var(--color-surface);
+  border-radius: 0 var(--radius-base) var(--radius-base) var(--radius-base);
+  padding: var(--space-lg);
+  border: var(--hairline) solid var(--color-outline);
+  max-height: 480px; overflow: auto;
+}
+.tab-content.active { display: block; }
+.tab-content pre {
+  font-family: var(--font-mono); font-size: var(--text-sm);
+  white-space: pre-wrap; word-break: break-all; margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ACTIONS
+   ═══════════════════════════════════════════════════════════════ */
+.actions { display: none; gap: var(--space-sm); margin-top: var(--space-lg); }
+.actions.visible { display: flex; }
+.actions button {
+  padding: var(--space-sm) var(--space-xl);
+  border-radius: var(--radius-base);
+  font-size: var(--text-sm); font-weight: 600;
+  cursor: pointer; border: none;
+  font-family: var(--font-body);
+}
+.btn-approve { background: var(--color-success); color: #fff; }
+.btn-approve:hover { opacity: 0.9; }
+.btn-reject { background: var(--color-surface); color: var(--color-error); border: var(--hairline) solid var(--color-error); }
+.btn-reject:hover { background: #fee2e2; }
+.btn-preview { background: var(--color-surface); color: var(--color-primary); border: var(--hairline) solid var(--color-primary); }
+.btn-preview:hover { background: var(--color-primary-container); }
+
+/* ═══════════════════════════════════════════════════════════════
+   ERROR BOX
+   ═══════════════════════════════════════════════════════════════ */
+.error-box {
+  display: none;
+  background: #fef2f2;
+  border: var(--hairline) solid #fecaca;
+  border-radius: var(--radius-base);
+  padding: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+.error-box.visible { display: block; }
+.error-box h3 { color: var(--color-error); font-size: var(--text-base); margin-bottom: var(--space-xs); }
+.error-box p { font-size: var(--text-sm); color: var(--color-on-surface-variant); }
 </style>
 </head>
 <body>
 <!-- NAV_INJECT -->
 
+<div class="page-header">
+  <h1>生长 Agent</h1>
+  <p class="subtitle">输入目标网站 URL → DeepSeek 提取设计 token → 生成 tokens.json + :root → 品牌套件预览</p>
+</div>
+
 <div class="page-wrap">
-<h1>生长 Agent</h1>
-<p class="subtitle">输入目标网站 URL → DeepSeek 提取设计 token → 生成 tokens.json + :root → 品牌套件预览</p>
 
 <div class="url-bar">
   <input type="url" id="urlInput" placeholder="https://example.com — 输入网站 URL" autofocus>
@@ -119,13 +258,13 @@ h1{ font-size:28px; font-weight:700; margin-bottom:4px; }
 </div>
 
 <script>
-const STEP_NAMES = {1:'验证URL',2:'抓取样式',3:'DeepSeek提取',4:'Schema校验',5:'写入+同步'};
-let currentSlug = null;
-let currentBrandUrl = null;
+var STEP_NAMES = {1:'验证URL',2:'抓取样式',3:'DeepSeek提取',4:'Schema校验',5:'写入+同步'};
+var currentSlug = null;
+var currentBrandUrl = null;
 
 function log(ts, msg, cls) {
-  const box = document.getElementById('logBox');
-  const div = document.createElement('div');
+  var box = document.getElementById('logBox');
+  var div = document.createElement('div');
   div.className = 'line';
   div.innerHTML = '<span class="ts">' + ts + '</span>' + (cls ? '<span class="' + cls + '">' + msg + '</span>' : msg);
   box.appendChild(div);
@@ -133,8 +272,7 @@ function log(ts, msg, cls) {
 }
 
 function setStep(n, state) {
-  const el = document.getElementById('step' + n);
-  el.className = 'step ' + state;
+  document.getElementById('step' + n).className = 'step ' + state;
 }
 
 function now() {
@@ -152,7 +290,7 @@ function hideError() {
 }
 
 async function startGrow() {
-  const url = document.getElementById('urlInput').value.trim();
+  var url = document.getElementById('urlInput').value.trim();
   if (!url) return;
 
   hideError();
@@ -161,50 +299,50 @@ async function startGrow() {
   document.getElementById('actions').classList.remove('visible');
   document.getElementById('logBox').innerHTML = '';
 
-  // Reset steps
-  for (let i = 1; i <= 5; i++) {
+  for (var i = 1; i <= 5; i++) {
     document.getElementById('step' + i).className = 'step';
   }
 
   log(now(), '开始: ' + url);
 
   try {
-    const resp = await fetch('/api/grow', {
+    var resp = await fetch('/api/grow', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({url}),
+      body: JSON.stringify({url: url}),
     });
 
     if (!resp.ok) {
-      const err = await resp.json().catch(() => ({error: resp.statusText}));
+      var err = await resp.json().catch(function() { return {error: resp.statusText}; });
       throw new Error(err.error || 'HTTP ' + resp.status);
     }
 
-    const reader = resp.body.getReader();
-    const decoder = new TextDecoder();
-    let buf = '';
-    let resultData = null;
+    var reader = resp.body.getReader();
+    var decoder = new TextDecoder();
+    var buf = '';
+    var resultData = null;
 
     while (true) {
-      const {done, value} = await reader.read();
-      if (done) break;
+      var chunk = await reader.read();
+      if (chunk.done) break;
 
-      buf += decoder.decode(value, {stream: true});
-      const lines = buf.split('\n');
-      buf = lines.pop(); // incomplete line
+      buf += decoder.decode(chunk.value, {stream: true});
+      var lines = buf.split('\n');
+      buf = lines.pop();
 
-      for (const line of lines) {
-        if (!line.startsWith('data:')) continue;
-        const json = line.slice(5).trim();
+      for (var li = 0; li < lines.length; li++) {
+        var line = lines[li];
+        if (line.indexOf('data:') !== 0) continue;
+        var json = line.slice(5).trim();
         if (!json) continue;
 
         try {
-          const ev = JSON.parse(json);
+          var ev = JSON.parse(json);
           handleSSE(ev);
           if (ev.step === 'complete' && ev.status === 'done') {
             resultData = ev;
           }
-        } catch (_) {}
+        } catch(_) {}
       }
     }
 
@@ -214,25 +352,24 @@ async function startGrow() {
       currentSlug = resultData.slug;
       currentBrandUrl = resultData.brandUrl;
 
-      // Load preview tabs
       if (resultData.slug) {
         fetch('/api/template/' + resultData.slug + '/tokens')
-          .then(r => r.json())
-          .then(d => { document.getElementById('preview-tokens').textContent = JSON.stringify(d, null, 2); })
-          .catch(() => { document.getElementById('preview-tokens').textContent = '加载失败'; });
+          .then(function(r) { return r.json(); })
+          .then(function(d) { document.getElementById('preview-tokens').textContent = JSON.stringify(d, null, 2); })
+          .catch(function() { document.getElementById('preview-tokens').textContent = '加载失败'; });
 
         fetch('/api/template/' + resultData.slug + '/html')
-          .then(r => r.text())
-          .then(html => {
-            const m = html.match(/:root\s*\{([^}]*)\}/s);
+          .then(function(r) { return r.text(); })
+          .then(function(html) {
+            var m = html.match(/:root\s*\{([^}]*)\}/s);
             document.getElementById('preview-root').textContent = m ? ':root {\n' + m[1].trim().replace(/;/g, ';\n').replace(/\n\s*\n/g, '\n') + '\n}' : '未找到 :root 块';
           })
-          .catch(() => { document.getElementById('preview-root').textContent = '加载失败'; });
+          .catch(function() { document.getElementById('preview-root').textContent = '加载失败'; });
 
         document.getElementById('brandFrame').src = resultData.brandUrl;
       }
     }
-  } catch (e) {
+  } catch(e) {
     log(now(), '管线异常: ' + e.message, 'err');
     showError('管线异常', e.message);
   } finally {
@@ -241,14 +378,14 @@ async function startGrow() {
 }
 
 function handleSSE(ev) {
-  const s = ev.step;
+  var s = ev.step;
   if (typeof s === 'number') {
     setStep(s, ev.status);
-    const name = STEP_NAMES[s] || '步骤' + s;
+    var name = STEP_NAMES[s] || '步骤' + s;
     if (ev.status === 'running') {
       log(now(), '[' + name + '] ' + (ev.message || '执行中...'));
     } else if (ev.status === 'done') {
-      const details = [];
+      var details = [];
       if (ev.url) details.push('URL=' + ev.url);
       if (ev.hostname) details.push('host=' + ev.hostname);
       if (ev.slug) details.push('slug=' + ev.slug);
@@ -270,8 +407,8 @@ function handleSSE(ev) {
 }
 
 function switchTab(name) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
   document.querySelector('.tab[onclick*="' + name + '"]').classList.add('active');
   document.getElementById('tab-' + name).classList.add('active');
 }
@@ -288,15 +425,12 @@ function approve() {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({slug: currentSlug}),
   })
-  .then(r => r.json())
-  .then(d => {
-    if (d.ok) {
-      log(now(), '已注册到 registry.json, 可在首页查看', 'ok');
-    } else {
-      log(now(), '注册失败: ' + (d.error || '未知'), 'err');
-    }
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    if (d.ok) log(now(), '已注册到 registry.json, 可在首页查看', 'ok');
+    else log(now(), '注册失败: ' + (d.error || '未知'), 'err');
   })
-  .catch(e => log(now(), '注册失败: ' + e.message, 'err'));
+  .catch(function(e) { log(now(), '注册失败: ' + e.message, 'err'); });
 }
 
 function reject() {
@@ -307,14 +441,16 @@ function reject() {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({slug: currentSlug}),
   })
-  .then(r => r.json())
-  .then(d => {
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
     if (d.ok) log(now(), '已清理临时文件', 'ok');
     else log(now(), '清理失败: ' + (d.error || ''), 'err');
   })
-  .catch(e => log(now(), '清理失败: ' + e.message, 'err'));
+  .catch(function(e) { log(now(), '清理失败: ' + e.message, 'err'); });
 }
 </script>
+
+<!-- FOOTER_INJECT -->
 </div>
 </body>
 </html>

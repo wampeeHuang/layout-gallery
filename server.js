@@ -217,50 +217,6 @@ app.get('/api/template/:slug/tokens', (req, res) => {
   res.json(tokens);
 });
 
-// GET /api/swap-test — Token 替换检验：源 token 注入目标骨架，风格跟随了吗？
-app.get('/api/swap-test', (req, res) => {
-  const { source, target } = req.query;
-  if (!source || !target) return res.status(400).json({ error: 'need source and target slugs' });
-
-  try {
-    const { renderTemplate: rt, loadEntry: le } = require('./scripts/template-renderer');
-    const items = loadRegistry();
-
-    const srcEntry = items.find(e => e.slug === source);
-    const tgtEntry = items.find(e => e.slug === target);
-    if (!srcEntry) return res.status(404).json({ error: 'source not found: ' + source });
-    if (!tgtEntry) return res.status(404).json({ error: 'target not found: ' + target });
-
-    // Read source tokens
-    const srcDir = path.join(PROJECT_DIR, path.dirname(srcEntry.template_path));
-    const srcTokensPath = path.join(srcDir, 'tokens.json');
-    if (!fs.existsSync(srcTokensPath)) return res.status(400).json({ error: 'source has no tokens.json' });
-    const srcTokens = JSON.parse(fs.readFileSync(srcTokensPath, 'utf-8'));
-
-    // Read target tokens (for side-by-side)
-    const tgtDir = path.join(PROJECT_DIR, path.dirname(tgtEntry.template_path));
-    const tgtTokensPath = path.join(tgtDir, 'tokens.json');
-    const tgtTokens = fs.existsSync(tgtTokensPath) ? JSON.parse(fs.readFileSync(tgtTokensPath, 'utf-8')) : null;
-
-    // Render target skeleton with source tokens
-    const swappedHtml = rt(tgtEntry, PROJECT_DIR, srcTokens);
-
-    // Render target with its own tokens (for comparison)
-    const originalHtml = tgtTokens ? rt(tgtEntry, PROJECT_DIR, tgtTokens) : null;
-
-    res.json({
-      ok: true,
-      source: { slug: srcEntry.slug, name: srcEntry.name, design_style: srcEntry.design_style },
-      target: { slug: tgtEntry.slug, name: tgtEntry.name, design_style: tgtEntry.design_style },
-      swapped_html: swappedHtml,
-      original_html: originalHtml,
-    });
-  } catch (err) {
-    console.error('Swap test error:', err);
-    res.status(500).json({ error: err.message });
-  }
-});
-
 // GET /brand/:slug — 品牌套件 HTML 页
 app.get('/brand/:slug', (req, res) => {
   const items = loadRegistry();
@@ -270,6 +226,7 @@ app.get('/brand/:slug', (req, res) => {
   try {
     const html = renderBrandKit(entry, PROJECT_DIR);
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-cache');
     res.send(html);
   } catch (err) {
     console.error('Brand kit render error:', err);
@@ -385,7 +342,7 @@ app.post('/api/grow/approve', (req, res) => {
     css_variables: cssVars,
     visibility: 'public',
     status: 'active',
-    template_path: 'templates/_growth/' + slug + '/template.html',
+    template_path: 'templates/' + slug + '/template.html',
     skill: '_growth',
   };
 
@@ -418,11 +375,19 @@ app.post('/api/grow/reject', (req, res) => {
 // ── Page serving with injection ─────────────────────────────
 
 const { generateRoot } = require('./scripts/sync-roots');
-const galleryTokensPath = path.join(PROJECT_DIR, 'templates', 'frontend-design', 'layout-gallery', 'tokens.json');
+const galleryTokensPath = path.join(PROJECT_DIR, 'templates', 'layout-gallery', 'tokens.json');
 const navHTML = fs.readFileSync(path.join(PROJECT_DIR, 'meta', 'nav.html'), 'utf-8');
+const footerHTML = fs.readFileSync(path.join(PROJECT_DIR, 'meta', 'footer.html'), 'utf-8');
+const turboScript = '<script src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.12/dist/turbo.es2017-umd.js" defer data-turbo-track="reload"></script>';
 
 function servePage(res, filePath, tokensPath, activeNav) {
   let html = fs.readFileSync(filePath, 'utf-8');
+  // Turbo merges <head> across visits. Mark the page stylesheet as dynamic so
+  // rules from the previous page cannot leak into the next one.
+  html = html.replace('<style>', '<style data-turbo-track="dynamic">');
+  // Application scripts belong in <head>; body scripts are evaluated again on
+  // every Turbo visit and would install duplicate navigation lifecycles.
+  html = html.replace('</head>', turboScript + '\n</head>');
   // Inject :root from tokens.json
   if (tokensPath) {
     const tokens = JSON.parse(fs.readFileSync(tokensPath, 'utf-8'));
@@ -430,6 +395,8 @@ function servePage(res, filePath, tokensPath, activeNav) {
   }
   // Inject nav
   html = html.replace('<!-- NAV_INJECT -->', navHTML);
+  // Inject footer
+  html = html.replace('<!-- FOOTER_INJECT -->', footerHTML);
   // Mark active nav item
   if (activeNav) {
     html = html.replace('data-nav="' + activeNav + '"', 'data-nav="' + activeNav + '" class="active"');
