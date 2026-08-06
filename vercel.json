@@ -1,20 +1,20 @@
 {
   "version": 2,
   "builds": [
-    { "src": "server.js", "use": "@vercel/node" },
+    { "src": "server/server.js", "use": "@vercel/node" },
     { "src": "templates/**/*.html", "use": "@vercel/static" },
-    { "src": "index.html", "use": "@vercel/static" },
-    { "src": "library.html", "use": "@vercel/static" },
-    { "src": "grow.html", "use": "@vercel/static" }
+    { "src": "public/index.html", "use": "@vercel/static" },
+    { "src": "public/library.html", "use": "@vercel/static" },
+    { "src": "public/grow.html", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "server.js" },
-    { "src": "/brand/(.*)", "dest": "server.js" },
+    { "src": "/api/(.*)", "dest": "server/server.js" },
+    { "src": "/brand/(.*)", "dest": "server/server.js" },
     { "src": "/templates/(.*)", "dest": "/templates/$1" },
-    { "src": "/", "dest": "server.js" },
-    { "src": "/library", "dest": "server.js" },
-    { "src": "/learn", "dest": "server.js" },
-    { "src": "/grow", "dest": "server.js" },
+    { "src": "/", "dest": "server/server.js" },
+    { "src": "/library", "dest": "server/server.js" },
+    { "src": "/learn", "dest": "server/server.js" },
+    { "src": "/grow", "dest": "server/server.js" },
     { "src": "/(.*)", "dest": "/$1" }
   ]
 }

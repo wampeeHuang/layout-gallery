@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233D6B4A'/%3E%3Crect x='10' y='15' width='12' height='34' rx='3' fill='%23fff'/%3E%3Crect x='26' y='19' width='12' height='26' rx='3' fill='%23fff' opacity='.7'/%3E%3Crect x='42' y='24' width='12' height='16' rx='3' fill='%23fff' opacity='.4'/%3E%3C/svg%3E">
+<title>生长 Agent · 版式画廊</title>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   TOKENS — injected by server from tokens.json
+   ═══════════════════════════════════════════════════════════════ */
+<!-- ROOT_INJECT -->
+
+/* ═══════════════════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body {
+  overflow-x: clip;
+  background: var(--color-surface);
+  color: var(--color-on-surface);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE HEADER
+   ═══════════════════════════════════════════════════════════════ */
+.page-header {
+  padding: clamp(32px, 5vw, 56px) clamp(20px, 4vw, 48px) var(--space-xl);
+  border-bottom: var(--hairline) solid var(--color-outline);
+  max-width: var(--space-page-wmax); margin: 0 auto;
+}
+
+.page-header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 700; line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: var(--heading);
+  margin-bottom: var(--space-xs);
+}
+
+.page-header .subtitle {
+  font-size: var(--text-base); color: var(--color-on-surface-variant);
+  max-width: 600px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MAIN CONTENT
+   ═══════════════════════════════════════════════════════════════ */
+.page-wrap {
+  max-width: var(--space-page-wmax); margin: 0 auto;
+  padding: var(--space-xl) clamp(20px, 4vw, 48px) var(--space-3xl);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   URL INPUT
+   ═══════════════════════════════════════════════════════════════ */
+.url-bar {
+  display: flex; gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+}
+.url-bar input {
+  flex: 1; padding: var(--space-sm) var(--space-md);
+  border: var(--hairline) solid var(--color-outline);
+  border-radius: var(--radius-base);
+  font-size: var(--text-base); outline: none;
+  transition: border-color var(--duration-fast);
+  font-family: var(--font-body);
+}
+.url-bar input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-container);
+}
+.url-bar button {
+  padding: var(--space-sm) var(--space-xl);
+  background: var(--color-primary); color: #fff;
+  border: none; border-radius: var(--radius-base);
+  font-size: var(--text-base); font-weight: 600; cursor: pointer;
+  transition: background var(--duration-fast); white-space: nowrap;
+  font-family: var(--font-body);
+}
+.url-bar button:hover { background: var(--color-primary); }
+.url-bar button:disabled { opacity: 0.5; pointer-events: none; }
+
+/* ═══════════════════════════════════════════════════════════════
+   PIPELINE STEPS
+   ═══════════════════════════════════════════════════════════════ */
+.pipeline {
+  display: flex; gap: var(--space-2xs);
+  margin-bottom: var(--space-xl);
+}
+
+.step {
+  flex: 1; padding: var(--space-sm) var(--space-xs);
+  text-align: center; border-radius: var(--radius-base);
+  font-size: var(--text-xs); font-weight: 500;
+  background: var(--color-surface-container-low); color: var(--color-on-surface-variant);
+  transition: all 0.3s; position: relative;
+}
+.step .step-num {
+  display: block; font-size: var(--text-xl); font-weight: 700;
+  margin-bottom: 2px;
+}
+.step.running {
+  background: var(--color-primary-container); color: var(--color-primary);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+.step.done { background: #dcfce7; color: var(--color-success); }
+.step.error { background: #fee2e2; color: var(--color-error); }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.65} }
+
+/* ═══════════════════════════════════════════════════════════════
+   LOG
+   ═══════════════════════════════════════════════════════════════ */
+.log {
+  background: var(--color-surface-container-low);
+  border: var(--hairline) solid var(--color-outline);
+  border-radius: var(--radius-base);
+  padding: var(--space-md);
+  margin-bottom: var(--space-xl);
+  max-height: 200px; overflow-y: auto;
+  font-size: var(--text-sm);
+  font-family: var(--font-mono);
+}
+.log .line { padding: 3px 0; border-bottom: var(--hairline) solid var(--color-outline-variant); }
+.log .line:last-child { border-bottom: none; }
+.log .ts { color: var(--color-on-surface-variant); margin-right: var(--space-xs); }
+.log .err { color: var(--color-error); }
+.log .ok { color: var(--color-success); }
+
+/* ═══════════════════════════════════════════════════════════════
+   RESULTS TABS
+   ═══════════════════════════════════════════════════════════════ */
+.results { display: none; }
+.results.visible { display: block; }
+
+.tabs {
+  display: flex; gap: var(--space-2xs);
+  margin-bottom: -1px;
+}
+.tab {
+  padding: var(--space-xs) var(--space-md);
+  border: var(--hairline) solid transparent;
+  background: var(--color-surface-container-low);
+  border-radius: var(--radius-base) var(--radius-base) 0 0;
+  font-size: var(--text-sm); cursor: pointer;
+  color: var(--color-on-surface-variant); font-family: var(--font-body);
+}
+.tab.active {
+  background: var(--color-surface); color: var(--color-on-surface);
+  font-weight: 600;
+  border-color: var(--color-outline) var(--color-outline) var(--color-surface);
+}
+
+.tab-content {
+  display: none;
+  background: var(--color-surface);
+  border-radius: 0 var(--radius-base) var(--radius-base) var(--radius-base);
+  padding: var(--space-lg);
+  border: var(--hairline) solid var(--color-outline);
+  max-height: 480px; overflow: auto;
+}
+.tab-content.active { display: block; }
+.tab-content pre {
+  font-family: var(--font-mono); font-size: var(--text-sm);
+  white-space: pre-wrap; word-break: break-all; margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ACTIONS
+   ═══════════════════════════════════════════════════════════════ */
+.actions { display: none; gap: var(--space-sm); margin-top: var(--space-lg); }
+.actions.visible { display: flex; }
+.actions button {
+  padding: var(--space-sm) var(--space-xl);
+  border-radius: var(--radius-base);
+  font-size: var(--text-sm); font-weight: 600;
+  cursor: pointer; border: none;
+  font-family: var(--font-body);
+}
+.btn-approve { background: var(--color-success); color: #fff; }
+.btn-approve:hover { opacity: 0.9; }
+.btn-reject { background: var(--color-surface); color: var(--color-error); border: var(--hairline) solid var(--color-error); }
+.btn-reject:hover { background: #fee2e2; }
+.btn-preview { background: var(--color-surface); color: var(--color-primary); border: var(--hairline) solid var(--color-primary); }
+.btn-preview:hover { background: var(--color-primary-container); }
+
+/* ═══════════════════════════════════════════════════════════════
+   ERROR BOX
+   ═══════════════════════════════════════════════════════════════ */
+.error-box {
+  display: none;
+  background: #fef2f2;
+  border: var(--hairline) solid #fecaca;
+  border-radius: var(--radius-base);
+  padding: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+.error-box.visible { display: block; }
+.error-box h3 { color: var(--color-error); font-size: var(--text-base); margin-bottom: var(--space-xs); }
+.error-box p { font-size: var(--text-sm); color: var(--color-on-surface-variant); }
+</style>
+</head>
+<body>
+<!-- NAV_INJECT -->
+
+<div class="page-header">
+  <h1>生长 Agent</h1>
+  <p class="subtitle">输入目标网站 URL → DeepSeek 提取设计 token → 生成 tokens.json + :root → 品牌套件预览</p>
+</div>
+
+<div class="page-wrap">
+
+<div class="url-bar">
+  <input type="url" id="urlInput" placeholder="https://example.com — 输入网站 URL" autofocus>
+  <button id="startBtn" onclick="startGrow()">开始生长</button>
+</div>
+
+<div class="error-box" id="errorBox">
+  <h3 id="errorTitle">错误</h3>
+  <p id="errorMsg"></p>
+</div>
+
+<div class="pipeline" id="pipeline">
+  <div class="step" id="step1"><span class="step-num">1</span>验证 URL</div>
+  <div class="step" id="step2"><span class="step-num">2</span>抓取样式</div>
+  <div class="step" id="step3"><span class="step-num">3</span>DeepSeek 提取</div>
+  <div class="step" id="step4"><span class="step-num">4</span>Schema 校验</div>
+  <div class="step" id="step5"><span class="step-num">5</span>写入+同步</div>
+</div>
+
+<div class="log" id="logBox"><div class="line"><span class="ts">--:--:--</span>等待输入 URL...</div></div>
+
+<div class="results" id="results">
+  <div class="tabs" id="tabs">
+    <button class="tab active" onclick="switchTab('tokens')">tokens.json</button>
+    <button class="tab" onclick="switchTab('root')">:root CSS</button>
+    <button class="tab" onclick="switchTab('brand')">品牌预览</button>
+  </div>
+  <div class="tab-content active" id="tab-tokens"><pre id="preview-tokens">等待生成...</pre></div>
+  <div class="tab-content" id="tab-root"><pre id="preview-root">等待生成...</pre></div>
+  <div class="tab-content" id="tab-brand"><iframe id="brandFrame" style="width:100%;height:420px;border:none;"></iframe></div>
+</div>
+
+<div class="actions" id="actions">
+  <button class="btn-approve" onclick="approve()">批准写入 registry</button>
+  <button class="btn-preview" onclick="openBrand()">新窗口预览品牌页</button>
+  <button class="btn-reject" onclick="reject()">丢弃</button>
+</div>
+
+<script>
+var STEP_NAMES = {1:'验证URL',2:'抓取样式',3:'DeepSeek提取',4:'Schema校验',5:'写入+同步'};
+var currentSlug = null;
+var currentBrandUrl = null;
+
+function log(ts, msg, cls) {
+  var box = document.getElementById('logBox');
+  var div = document.createElement('div');
+  div.className = 'line';
+  div.innerHTML = '<span class="ts">' + ts + '</span>' + (cls ? '<span class="' + cls + '">' + msg + '</span>' : msg);
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+
+function setStep(n, state) {
+  document.getElementById('step' + n).className = 'step ' + state;
+}
+
+function now() {
+  return new Date().toLocaleTimeString('zh-CN', {hour12:false});
+}
+
+function showError(title, msg) {
+  document.getElementById('errorTitle').textContent = title;
+  document.getElementById('errorMsg').textContent = msg;
+  document.getElementById('errorBox').classList.add('visible');
+}
+
+function hideError() {
+  document.getElementById('errorBox').classList.remove('visible');
+}
+
+async function startGrow() {
+  var url = document.getElementById('urlInput').value.trim();
+  if (!url) return;
+
+  hideError();
+  document.getElementById('startBtn').disabled = true;
+  document.getElementById('results').classList.remove('visible');
+  document.getElementById('actions').classList.remove('visible');
+  document.getElementById('logBox').innerHTML = '';
+
+  for (var i = 1; i <= 5; i++) {
+    document.getElementById('step' + i).className = 'step';
+  }
+
+  log(now(), '开始: ' + url);
+
+  try {
+    var resp = await fetch('/api/grow', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({url: url}),
+    });
+
+    if (!resp.ok) {
+      var err = await resp.json().catch(function() { return {error: resp.statusText}; });
+      throw new Error(err.error || 'HTTP ' + resp.status);
+    }
+
+    var reader = resp.body.getReader();
+    var decoder = new TextDecoder();
+    var buf = '';
+    var resultData = null;
+
+    while (true) {
+      var chunk = await reader.read();
+      if (chunk.done) break;
+
+      buf += decoder.decode(chunk.value, {stream: true});
+      var lines = buf.split('\n');
+      buf = lines.pop();
+
+      for (var li = 0; li < lines.length; li++) {
+        var line = lines[li];
+        if (line.indexOf('data:') !== 0) continue;
+        var json = line.slice(5).trim();
+        if (!json) continue;
+
+        try {
+          var ev = JSON.parse(json);
+          handleSSE(ev);
+          if (ev.step === 'complete' && ev.status === 'done') {
+            resultData = ev;
+          }
+        } catch(_) {}
+      }
+    }
+
+    if (resultData) {
+      document.getElementById('results').classList.add('visible');
+      document.getElementById('actions').classList.add('visible');
+      currentSlug = resultData.slug;
+      currentBrandUrl = resultData.brandUrl;
+
+      if (resultData.slug) {
+        fetch('/api/template/' + resultData.slug + '/tokens')
+          .then(function(r) { return r.json(); })
+          .then(function(d) { document.getElementById('preview-tokens').textContent = JSON.stringify(d, null, 2); })
+          .catch(function() { document.getElementById('preview-tokens').textContent = '加载失败'; });
+
+        fetch('/api/template/' + resultData.slug + '/html')
+          .then(function(r) { return r.text(); })
+          .then(function(html) {
+            var m = html.match(/:root\s*\{([^}]*)\}/s);
+            document.getElementById('preview-root').textContent = m ? ':root {\n' + m[1].trim().replace(/;/g, ';\n').replace(/\n\s*\n/g, '\n') + '\n}' : '未找到 :root 块';
+          })
+          .catch(function() { document.getElementById('preview-root').textContent = '加载失败'; });
+
+        document.getElementById('brandFrame').src = resultData.brandUrl;
+      }
+    }
+  } catch(e) {
+    log(now(), '管线异常: ' + e.message, 'err');
+    showError('管线异常', e.message);
+  } finally {
+    document.getElementById('startBtn').disabled = false;
+  }
+}
+
+function handleSSE(ev) {
+  var s = ev.step;
+  if (typeof s === 'number') {
+    setStep(s, ev.status);
+    var name = STEP_NAMES[s] || '步骤' + s;
+    if (ev.status === 'running') {
+      log(now(), '[' + name + '] ' + (ev.message || '执行中...'));
+    } else if (ev.status === 'done') {
+      var details = [];
+      if (ev.url) details.push('URL=' + ev.url);
+      if (ev.hostname) details.push('host=' + ev.hostname);
+      if (ev.slug) details.push('slug=' + ev.slug);
+      if (ev.cssVarCount !== undefined) details.push('CSS变量=' + ev.cssVarCount);
+      if (ev.colorCount !== undefined) details.push('颜色=' + ev.colorCount);
+      if (ev.fontCount !== undefined) details.push('字体=' + ev.fontCount);
+      if (ev.tier) details.push('抓取层=' + ev.tier);
+      if (ev.styleSignals) details.push('风格=' + JSON.stringify(ev.styleSignals));
+      if (ev.categories) details.push('分类数=' + ev.categories);
+      if (ev.dir) details.push('目录=' + ev.dir);
+      if (ev.warning) details.push('⚠ ' + ev.warning);
+      log(now(), '[' + name + '] 完成 — ' + details.join(', '), 'ok');
+    } else if (ev.status === 'error') {
+      log(now(), '[' + name + '] 失败: ' + (ev.error || ev.errors?.join('; ') || '未知'), 'err');
+    }
+  } else if (s === 'complete') {
+    log(now(), '全部完成 → ' + ev.slug + ' | 品牌页: ' + ev.brandUrl, 'ok');
+  }
+}
+
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelector('.tab[onclick*="' + name + '"]').classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+function openBrand() {
+  if (currentBrandUrl) window.open(currentBrandUrl, '_blank');
+}
+
+function approve() {
+  if (!currentSlug) return;
+  log(now(), '批准写入 registry.json...');
+  fetch('/api/grow/approve', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({slug: currentSlug}),
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    if (d.ok) log(now(), '已注册到 registry.json, 可在首页查看', 'ok');
+    else log(now(), '注册失败: ' + (d.error || '未知'), 'err');
+  })
+  .catch(function(e) { log(now(), '注册失败: ' + e.message, 'err'); });
+}
+
+function reject() {
+  if (!currentSlug) return;
+  log(now(), '丢弃: ' + currentSlug);
+  fetch('/api/grow/reject', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({slug: currentSlug}),
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(d) {
+    if (d.ok) log(now(), '已清理临时文件', 'ok');
+    else log(now(), '清理失败: ' + (d.error || ''), 'err');
+  })
+  .catch(function(e) { log(now(), '清理失败: ' + e.message, 'err'); });
+}
+</script>
+
+<!-- FOOTER_INJECT -->
+</div>
+</body>
+</html>

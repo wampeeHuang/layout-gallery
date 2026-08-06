@@ -7,14 +7,28 @@
 
 <style>
 :root {
+
   /* ── Color Roles ── */
   --color-primary: #002FA7;
+  --color-on-primary: #ffffff;
   --color-secondary: #525252;
   --color-surface: #fafaf8;
   --color-on-surface: #0a0a0a;
   --color-on-surface-variant: #525252;
   --color-outline: rgba(10,10,10,0.15);
   --color-surface-container-low: #fafaf8;
+  --paper: #fafaf8;
+  --ink: #0a0a0a;
+  --grey-1: #f0f0ee;
+  --grey-2: #d4d4d2;
+  --grey-3: #737373;
+  --text-primary: #0a0a0a;
+  --text-secondary: #525252;
+  --text-helper: #737373;
+  --text-placeholder: #a3a3a3;
+  --text-on-color: #ffffff;
+  --border-subtle: #e0e0e0;
+  --border-strong: #a3a3a3;
   --text-rgb: 10,10,10;
   --bg-rgb: 250,250,248;
   --accent-rgb: 0,47,167;
@@ -24,36 +38,8 @@
   --font-body: "Inter","Helvetica Neue","Helvetica","Arial","Segoe UI Variable","Segoe UI",system-ui,-apple-system,sans-serif;
   --font-mono: "JetBrains Mono","IBM Plex Mono","SF Mono","Cascadia Code","Consolas","Courier New",ui-monospace,monospace;
 
-  /* ── Radius & Shadow ── */
+  /* ── Dimensions — Radius, Spacing & Page Layout ── */
   --radius-base: 4px;
-  --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
-  --elevation-md: 0 8px 30px rgba(0,0,0,0.1);
-
-  /* ── Motion — Base ── */
-  --ease-standard: 0.18s ease;
-  --duration-base: 150ms;
-
-  /* ── Motion — Carbon Easing ── */
-  --ease-prod: cubic-bezier(.2,0,.38,.9);
-  --ease-exp: cubic-bezier(.4,.14,.3,1);
-  --ease-entry-prod: cubic-bezier(0,0,.38,.9);
-  --ease-entry-exp: cubic-bezier(0,0,.3,1);
-
-  /* ── Motion — Carbon Duration ── */
-  --dur-fast-1: .07s;
-  --dur-fast-2: .11s;
-  --dur-mod-1: .15s;
-  --dur-mod-2: .24s;
-  --dur-slow-1: .4s;
-  --dur-slow-2: .7s;
-
-  /* ── Motion — Page/Draw ── */
-  --dur-page: .9s;
-  --dur-draw: 1s;
-  --ease-page: cubic-bezier(.77,0,.175,1);
-  --ease-draw: cubic-bezier(.5,0,.2,1);
-
-  /* ── Spacing Scale ── */
   --sp-3: 8px;
   --sp-4: 12px;
   --sp-5: 16px;
@@ -65,27 +51,35 @@
   --sp-11: 80px;
   --sp-12: 96px;
   --sp-13: 160px;
-
-  /* ── Page Layout ── */
   --space-page-wmax: 1200px;
   --space-page-pad: 32px;
   --space-gap: 24px;
   --space-gutter: 24px;
   --nav-safe-bottom: 8vh;
 
-  --paper: #fafaf8;
-  --ink: #0a0a0a;
-  --grey-1: #f0f0ee;
-  --grey-2: #d4d4d2;
-  --grey-3: #737373;
-  --color-on-primary: #ffffff;
-  --text-primary: #0a0a0a;
-  --text-secondary: #525252;
-  --text-helper: #737373;
-  --text-placeholder: #a3a3a3;
-  --text-on-color: #ffffff;
-  --border-subtle: #e0e0e0;
-  --border-strong: #a3a3a3;
+  /* ── Shadow ── */
+  --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --elevation-md: 0 8px 30px rgba(0,0,0,0.1);
+
+  /* ── Motion — Easing ── */
+  --ease-standard: 0.18s ease;
+  --ease-prod: cubic-bezier(0.2,0,0.38,0.9);
+  --ease-exp: cubic-bezier(0.4,0.14,0.3,1);
+  --ease-entry-prod: cubic-bezier(0,0,0.38,0.9);
+  --ease-entry-exp: cubic-bezier(0,0,0.3,1);
+  --ease-page: cubic-bezier(0.77,0,0.175,1);
+  --ease-draw: cubic-bezier(0.5,0,0.2,1);
+
+  /* ── Motion — Duration ── */
+  --duration-base: 150ms;
+  --dur-fast-1: .07s;
+  --dur-fast-2: .11s;
+  --dur-mod-1: .15s;
+  --dur-mod-2: .24s;
+  --dur-slow-1: .4s;
+  --dur-slow-2: .7s;
+  --dur-page: .9s;
+  --dur-draw: 1s;
 }
 *{box-sizing:border-box;margin:0;padding:0}
   html,body{

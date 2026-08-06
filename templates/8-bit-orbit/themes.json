@@ -1,0 +1,19 @@
+{
+  "template": "8-bit-orbit",
+  "description": "主题色预设 — 从 tokens.json 派生",
+  "presets": [
+    {
+      "id": "default",
+      "name": "默认",
+      "emoji": "🎨",
+      "description": "模板默认配色",
+      "recommend": [
+        "通用"
+      ],
+      "css": {}
+    }
+  ],
+  "rules": [
+    "一份 deck 只用一套主题"
+  ]
+}
