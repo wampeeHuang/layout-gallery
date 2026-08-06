@@ -82,8 +82,8 @@
   .foot .title{font-family:var(--font-display);font-weight:400;letter-spacing:.05em;text-transform:none;opacity:.75;font-size:13px}
 
   .tag{display:inline-block;font-family:var(--font-mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;padding:6px 14px;border:1px solid currentColor;opacity:.85}
-  .rule{width:100%;height:1px;background:currentColor;opacity:.25;margin:3vh 0}
-  .rule.v{width:1px;height:100%;margin:0}
+  .hr{width:100%;height:1px;background:currentColor;opacity:.25;margin:3vh 0}
+  .hr.v{width:1px;height:100%;margin:0}
 
   /* ============ 字体规则 ============
      · 衬线（Noto Serif SC / Playfair）：大标题、重点金句、数字
@@ -460,6 +460,21 @@
     .pipeline{grid-template-columns:repeat(2,1fr)}
     .grid-2-7-5,.grid-2-6-6,.grid-2-8-4{grid-template-columns:1fr}
   }
+
+  /* ============ Design System Slides ============ */
+  .s-ds-rules .rules{display:grid;grid-template-columns:1fr 1fr;gap:2.4vh 2vw;flex:1;align-content:center}
+  .s-ds-rules .rule{padding:2.4vh 0 0 0;border-top:2px solid var(--paper);display:flex;flex-direction:column;gap:1vh}
+  .s-ds-rules .rule .n{font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.5}
+  .s-ds-rules .rule .t{font-family:var(--font-display);font-weight:700;font-size:1.6vw;line-height:1.2}
+  .s-ds-rules .rule .d{font-family:var(--font-body);font-size:max(13px,1vw);line-height:1.5;opacity:.7}
+  .s-ds-type .tr{display:grid;grid-template-columns:180px 1fr 100px;align-items:baseline;gap:2vw;padding:1.2vh 0;border-top:1px solid var(--color-outline)}
+  .s-ds-type .tr .label{font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.55}
+  .s-ds-type .tr .spec{font-family:var(--font-mono);font-size:10px;opacity:.45;text-align:right}
+  .s-ds-palette .swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6vh 1.4vw;flex:1;align-content:center}
+  .s-ds-palette .swatch{display:flex;flex-direction:column;gap:1vh;padding:1.6vh 1.2vw}
+  .s-ds-palette .swatch .chip{width:100%;height:6vh}
+  .s-ds-palette .swatch .name{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.6}
+  .s-ds-palette .swatch .hex{font-family:var(--font-mono);font-size:12px;opacity:.8}
 </style>
 </head>
 <body>
@@ -628,6 +643,96 @@
   <div class="foot">
     <div>Page 04 · 金句收束</div>
     <div>— · —</div>
+  </div>
+</section>
+
+<!-- ═══════════ P5 · Design Principles · 设计原则 ═══════════ -->
+<section class="slide dark s-ds-rules">
+  <div class="chrome">
+    <div>Design System · 设计系统</div>
+    <div>05 / 07</div>
+  </div>
+  <div class="frame">
+    <div class="kicker" data-anim>Principles · 设计原则</div>
+    <h2 class="h-xl" data-anim>六大设计原则</h2>
+    <div class="rules">
+      <div class="rule" data-anim><div class="n">01</div><div class="t">Ink & Paper</div><div class="d">墨色文字覆于纸色底上，单一明度差创造阅读纵深</div></div>
+      <div class="rule" data-anim><div class="n">02</div><div class="t">Serif Authority</div><div class="d">Playfair Display + Source Serif 4 衬线族构建知识权威感</div></div>
+      <div class="rule" data-anim><div class="n">03</div><div class="t">Mono Chrome</div><div class="d">IBM Plex Mono 承载元数据、标签、页码，等宽字体建立秩序感</div></div>
+      <div class="rule" data-anim><div class="n">04</div><div class="t">Zero Radius</div><div class="d">全局圆角归零，直角边框强化印刷品诚实感</div></div>
+      <div class="rule" data-anim><div class="n">05</div><div class="t">WebGL Dual BG</div><div class="d">深色页全息色散 · 浅色页旋转涡流，双 Canvas 平滑过渡</div></div>
+      <div class="rule" data-anim><div class="n">06</div><div class="t">Motion One</div><div class="d">声明式动效系统，cascade / directional / quote 三种叙事节奏</div></div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Page 05 · 设计原则</div>
+    <div>Principles</div>
+  </div>
+</section>
+
+<!-- ═══════════ P6 · Type Scale · 字号层级 ═══════════ -->
+<section class="slide light s-ds-type">
+  <div class="chrome">
+    <div>Design System · 设计系统</div>
+    <div>06 / 07</div>
+  </div>
+  <div class="frame">
+    <div class="kicker" data-anim>Type Scale · 字号层级</div>
+    <h2 class="h-xl" data-anim>排版尺度</h2>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:0">
+      <div class="tr" data-anim><div class="label">Display</div><div class="display" style="font-size:8vw;line-height:1">11vw · Playfair 700</div><div class="spec">.display</div></div>
+      <div class="tr" data-anim><div class="label">Heading 1</div><div class="h1-zh" style="line-height:1">4.6vw · Serif 700</div><div class="spec">.h1-zh</div></div>
+      <div class="tr" data-anim><div class="label">Heading 2</div><div class="h2-zh" style="line-height:1">3.2vw · Serif 600</div><div class="spec">.h2-zh</div></div>
+      <div class="tr" data-anim><div class="label">Lead</div><div class="lead" style="line-height:1;opacity:1">1.9vw · Serif 400</div><div class="spec">.lead</div></div>
+      <div class="tr" data-anim><div class="label">Body</div><div class="body-zh" style="line-height:1;opacity:1">1.22vw · Serif 400</div><div class="spec">.body-zh</div></div>
+      <div class="tr" data-anim><div class="label">Mono</div><div style="font-family:var(--font-mono);font-size:max(11px,.88vw);line-height:1;letter-spacing:.16em">.88vw · Mono 400</div><div class="spec">.meta</div></div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Page 06 · 字号层级</div>
+    <div>Type Scale</div>
+  </div>
+</section>
+
+<!-- ═══════════ P7 · Palette · 配色系统 ═══════════ -->
+<section class="slide dark s-ds-palette">
+  <div class="chrome">
+    <div>Design System · 设计系统</div>
+    <div>07 / 07</div>
+  </div>
+  <div class="frame">
+    <div class="kicker" data-anim>Palette · 配色</div>
+    <h2 class="h-xl" data-anim>六色墨水系统</h2>
+    <div class="swatches">
+      <div class="swatch" data-anim>
+        <div class="chip" style="background:var(--ink)"></div>
+        <div class="name">Ink</div><div class="hex">#0A0A0B</div>
+      </div>
+      <div class="swatch" data-anim>
+        <div class="chip" style="background:var(--ink-tint)"></div>
+        <div class="name">Ink Tint</div><div class="hex">#18181A</div>
+      </div>
+      <div class="swatch" data-anim>
+        <div class="chip" style="background:var(--paper)"></div>
+        <div class="name">Paper</div><div class="hex">#F1EFEA</div>
+      </div>
+      <div class="swatch" data-anim>
+        <div class="chip" style="background:var(--paper-tint)"></div>
+        <div class="name">Paper Tint</div><div class="hex">#E8E5DE</div>
+      </div>
+      <div class="swatch" data-anim>
+        <div class="chip" style="background:var(--color-primary)"></div>
+        <div class="name">Accent</div><div class="hex">#333333</div>
+      </div>
+      <div class="swatch" data-anim>
+        <div class="chip" style="background:transparent;border:1px dashed rgba(241,239,234,.25)"></div>
+        <div class="name">Outline</div><div class="hex">18% opacity</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Page 07 · 配色系统</div>
+    <div>Palette</div>
   </div>
 </section>
 

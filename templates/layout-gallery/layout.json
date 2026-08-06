@@ -1,0 +1,194 @@
+{
+  "slug": "layout-gallery",
+  "kind": "layout",
+  "version": 1,
+  "source": "Extracted from layout-gallery tokens.json — 布局层拆分 v1",
+  "tokens": {
+    "typography": [
+      {
+        "name": "--text-3xl",
+        "value": "clamp(28px, 2.5vw, 36px)",
+        "role": "section-heading-size",
+        "description": "区段标题 — 响应式缩放"
+      },
+      {
+        "name": "--text-2xl",
+        "value": "20px",
+        "role": "card-title-size",
+        "description": "卡片标题"
+      },
+      {
+        "name": "--text-xl",
+        "value": "17px",
+        "role": "lead-size",
+        "description": "正文大"
+      },
+      {
+        "name": "--text-base",
+        "value": "15px",
+        "role": "body-size",
+        "description": "正文小"
+      },
+      {
+        "name": "--text-sm",
+        "value": "13px",
+        "role": "small-size",
+        "description": "辅助文字"
+      },
+      {
+        "name": "--text-xs",
+        "value": "11px",
+        "role": "label-size",
+        "description": "标签/眉题"
+      }
+    ],
+    "spacing": [
+      {
+        "name": "--space-page-wmax",
+        "value": "1732px",
+        "role": "content-max-width",
+        "description": "内容最大宽度"
+      },
+      {
+        "name": "--space-page-pad",
+        "value": "48px",
+        "role": "page-padding",
+        "description": "页面水平内边距"
+      },
+      {
+        "name": "--space-gap",
+        "value": "16px",
+        "role": "element-gap",
+        "description": "元素间距"
+      },
+      {
+        "name": "--space-gutter",
+        "value": "24px",
+        "role": "column-gutter",
+        "description": "列间距"
+      },
+      {
+        "name": "--space-3xl",
+        "value": "64px",
+        "role": "section-gap",
+        "description": "区段底部间距"
+      },
+      {
+        "name": "--space-xl",
+        "value": "32px",
+        "role": "component-gap",
+        "description": "组件/时间线间距"
+      },
+      {
+        "name": "--space-md",
+        "value": "16px",
+        "role": "tight-gap",
+        "description": "副标题间距"
+      },
+      {
+        "name": "--space-xs",
+        "value": "8px",
+        "role": "micro-gap",
+        "description": "标签内边距"
+      },
+      {
+        "name": "--space-2xl",
+        "value": "48px",
+        "role": "large-section-gap",
+        "description": "大区段间距"
+      },
+      {
+        "name": "--space-lg",
+        "value": "24px",
+        "role": "card-padding",
+        "description": "卡片/元素内边距"
+      },
+      {
+        "name": "--space-sm",
+        "value": "12px",
+        "role": "small-gap",
+        "description": "小间距"
+      },
+      {
+        "name": "--space-2xs",
+        "value": "4px",
+        "role": "micro-padding",
+        "description": "微内边距"
+      },
+      {
+        "name": "--hairline",
+        "value": "1px",
+        "role": "hairline-stroke",
+        "description": "网格线/极细边框"
+      }
+    ]
+  },
+  "typeScale": [
+    { "name": "--sz-display", "value": "clamp(48px,6vw,80px)", "usage": "首屏标题" },
+    { "name": "--sz-section", "value": "40px", "usage": "区段标题 (h2)" },
+    { "name": "--sz-card", "value": "28px", "usage": "卡片标题" },
+    { "name": "--sz-lead", "value": "17px", "usage": "正文大" },
+    { "name": "--sz-body", "value": "15px", "usage": "正文" },
+    { "name": "--sz-label", "value": "11px", "usage": "标签/眉题" }
+  ],
+  "spacingScale": [
+    { "name": "--sp-lg", "value": "64px", "usage": "区段间距" },
+    { "name": "--sp-md", "value": "32px", "usage": "组件间距" },
+    { "name": "--sp-sm", "value": "8px", "usage": "微间距" }
+  ],
+  "components": {
+    "--chip-label-dark": "rgba(0,0,0,0.25)",
+    "--chip-label-light": "rgba(255,255,255,0.7)"
+  },
+  "textures": [
+    {
+      "name": "渐变点阵",
+      "cssClass": "tx-dots-fade",
+      "technique": "radial-gradient(circle, --text-muted 0.8px, transparent) / 14px + linear-gradient 边缘融解",
+      "usage": "数据卡片底纹、hover 高亮区"
+    },
+    {
+      "name": "渐变斜纹",
+      "cssClass": "tx-diagonal-fade",
+      "technique": "repeating-linear-gradient(-37deg) + linear-gradient 上下边缘淡出",
+      "usage": "区段分隔、动效轨道背景"
+    },
+    {
+      "name": "渐变网格",
+      "cssClass": "tx-grid-fade",
+      "technique": "8×4 CSS Grid gap 1px + parent gradient 代替 solid border",
+      "usage": "卡片列表、色板、logo 展示"
+    },
+    {
+      "name": "渐变横线",
+      "cssClass": "tx-hlines-fade",
+      "technique": "repeating-linear-gradient(0deg) 间距 7px 线宽 1px + 边缘融解",
+      "usage": "表格行背景、长列表分隔"
+    },
+    {
+      "name": "渐变竖线",
+      "cssClass": "tx-vlines-fade",
+      "technique": "repeating-linear-gradient(90deg) 间距 16px 线宽 1px + 边缘融解",
+      "usage": "代码块侧栏、时间线背景"
+    },
+    {
+      "name": "渐变噪点",
+      "cssClass": "tx-noise-fade",
+      "technique": "SVG feTurbulence + 渐变背景 opacity 0.12 叠加",
+      "usage": "卡片覆盖层、图片遮罩"
+    }
+  ],
+  "cursor": {
+    "states": [
+      { "name": "默认", "description": "4 片鼠尾草绿渐变草叶，热点在叶尖（24, 0）", "hotspot": "24, 0" },
+      { "name": "悬停", "description": "短草 + 白色 5 瓣小花，花心为热点（24, 12）", "hotspot": "24, 12" },
+      { "name": "按下", "description": "8 片茂密草叶 + 4 朵迷你白花，热点在叶尖 — 最茂盛", "hotspot": "24, 0" }
+    ],
+    "meadow": {
+      "enabled": true,
+      "description": "点击空白处长出迷你草或小花，弹性生长 + 持续摇曳，8-12 秒后渐隐",
+      "maxPlants": 80,
+      "lifetimeMs": "4000-6000"
+    }
+  }
+}

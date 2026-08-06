@@ -1,0 +1,195 @@
+{
+  "slug": "creative-mode",
+  "kind": "brand",
+  "version": 1,
+  "source": "导入自 beautiful-html-templates/creative-mode — Cream paper canvas with confident multi-color (green, pink, orange, yellow) accents and Archivo Black display.",
+  "tokens": {
+    "color": [
+      {
+        "name": "--cream",
+        "value": "#EFE9D9",
+        "role": "surface-bg",
+        "description": ""
+      },
+      {
+        "name": "--cream-2",
+        "value": "#E4DCC4",
+        "role": "surface-card",
+        "description": ""
+      },
+      {
+        "name": "--green-dark",
+        "value": "#136636",
+        "role": "text-primary",
+        "description": ""
+      },
+      {
+        "name": "--pink",
+        "value": "#F06CA8",
+        "role": "text-primary",
+        "description": ""
+      },
+      {
+        "name": "--pink-dark",
+        "value": "#D14E8B",
+        "role": "text-primary",
+        "description": ""
+      },
+      {
+        "name": "--ink",
+        "value": "#0F0F0F",
+        "role": "text-primary",
+        "description": ""
+      },
+      {
+        "name": "--ink-2",
+        "value": "#2A2A2A",
+        "role": "text-secondary",
+        "description": ""
+      },
+      {
+        "name": "--rule",
+        "value": "#0F0F0F",
+        "role": "border-default",
+        "description": ""
+      },
+      {
+        "name": "--color-primary",
+        "value": "#1F8A4C",
+        "role": "accent",
+        "description": "主强调色"
+      },
+      {
+        "name": "--color-secondary",
+        "value": "#666666",
+        "role": "accent-alt",
+        "description": "辅强调色"
+      },
+      {
+        "name": "--color-surface",
+        "value": "#EFE9D9",
+        "role": "surface-bg",
+        "description": "默认表面"
+      },
+      {
+        "name": "--color-on-surface",
+        "value": "#F06CA8",
+        "role": "text-primary",
+        "description": "主文字色"
+      },
+      {
+        "name": "--color-on-surface-variant",
+        "value": "#666666",
+        "role": "text-secondary",
+        "description": "次级文字"
+      },
+      {
+        "name": "--color-outline",
+        "value": "#0F0F0F",
+        "role": "border-default",
+        "description": "主边框"
+      },
+      {
+        "name": "--color-surface-container-low",
+        "value": "#EFE9D9",
+        "role": "surface-card",
+        "description": "卡片容器"
+      },
+      {
+        "name": "--green",
+        "value": "#1F8A4C",
+        "role": "color-palette",
+        "description": ""
+      },
+      {
+        "name": "--orange",
+        "value": "#E85A1F",
+        "role": "color-palette",
+        "description": ""
+      },
+      {
+        "name": "--yellow",
+        "value": "#F5C518",
+        "role": "color-palette",
+        "description": ""
+      }
+    ],
+    "typography": [
+      {
+        "name": "--font-display",
+        "value": "'Archivo Black', sans-serif",
+        "role": "display-font",
+        "description": "标题字体"
+      },
+      {
+        "name": "--font-body",
+        "value": "'JetBrains Mono', monospace",
+        "role": "body-font",
+        "description": "正文字体"
+      },
+      {
+        "name": "--font-mono",
+        "value": "'JetBrains Mono', monospace",
+        "role": "mono-font",
+        "description": "等宽字体"
+      }
+    ],
+    "radius": [
+      {
+        "name": "--radius-base",
+        "value": "4px",
+        "role": "radius",
+        "description": "基础圆角"
+      },
+      {
+        "name": "--radius-sm",
+        "value": "2px",
+        "role": "radius",
+        "description": "小圆角"
+      },
+      {
+        "name": "--radius-pill",
+        "value": "999px",
+        "role": "radius",
+        "description": "药丸圆角"
+      }
+    ],
+    "shadow": [
+      {
+        "name": "--elevation-sm",
+        "value": "0 1px 3px rgba(0,0,0,0.06)",
+        "role": "shadow",
+        "description": "低阴影"
+      },
+      {
+        "name": "--elevation-md",
+        "value": "0 8px 30px rgba(0,0,0,0.1)",
+        "role": "shadow",
+        "description": "中阴影"
+      }
+    ],
+    "motion": [
+      {
+        "name": "--ease-standard",
+        "value": "0.18s ease",
+        "role": "easing",
+        "description": "标准缓动"
+      },
+      {
+        "name": "--duration-base",
+        "value": "150ms",
+        "role": "duration",
+        "description": "基础时长"
+      }
+    ]
+  },
+  "colorRoles": {
+    "primary": "#1F8A4C",
+    "secondary": "#666666",
+    "background": "#EFE9D9",
+    "surface": "#EFE9D9",
+    "text": "#F06CA8",
+    "textSecondary": "#666666",
+    "border": "#0F0F0F"
+  }
+}

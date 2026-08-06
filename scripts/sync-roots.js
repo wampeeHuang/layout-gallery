@@ -11,7 +11,7 @@ const path = require('path');
 const projectDir = path.resolve(__dirname, '..');
 const templatesDir = path.join(projectDir, 'templates');
 
-module.exports = { generateRoot };
+module.exports = { generateRoot, loadMergedTokens };
 
 // Known template-specific variable patterns — these may legitimately exist
 // outside the standard contract and should not trigger --preserve failure.
@@ -83,6 +83,41 @@ function generateRoot(tokensData) {
   return lines.join('\n');
 }
 
+// ── Token loading with brand/layout split support ──────────────
+
+function loadMergedTokens(tmplDir) {
+  const brandPath = path.join(tmplDir, 'brand.json');
+  const layoutPath = path.join(tmplDir, 'layout.json');
+  const tokensPath = path.join(tmplDir, 'tokens.json');
+
+  // v2 split structure: brand.json + layout.json
+  if (fs.existsSync(brandPath) && fs.existsSync(layoutPath)) {
+    const brand = JSON.parse(fs.readFileSync(brandPath, 'utf-8'));
+    const layout = JSON.parse(fs.readFileSync(layoutPath, 'utf-8'));
+    const merged = { slug: brand.slug, version: brand.version, tokens: {}, brandKit: {} };
+
+    for (const cat of ['color', 'typography', 'spacing', 'radius', 'shadow', 'motion']) {
+      merged.tokens[cat] = [
+        ...(brand.tokens[cat] || []),
+        ...(layout.tokens[cat] || [])
+      ];
+    }
+
+    if (brand.colorRoles) merged.brandKit.colorRoles = brand.colorRoles;
+    if (layout.typeScale) merged.brandKit.typeScale = layout.typeScale;
+    if (layout.spacingScale) merged.brandKit.spacingScale = layout.spacingScale;
+
+    return merged;
+  }
+
+  // v1 fallback: single tokens.json
+  if (fs.existsSync(tokensPath)) {
+    return JSON.parse(fs.readFileSync(tokensPath, 'utf-8'));
+  }
+
+  return null;
+}
+
 // ── extract CSS variable names from a :root string ──────────────
 
 function extractVarNames(rootStr) {
@@ -102,15 +137,13 @@ function isKnownPreserve(name) {
 // ── sync logic ────────────────────────────────────────────────
 
 function syncOne(dirPath, opts = {}) {
-  const tokensPath = path.join(dirPath, 'tokens.json');
+  const tokensData = loadMergedTokens(dirPath);
+  if (!tokensData) return null;
   const tmplPath = path.join(dirPath, 'template.html');
-
-  if (!fs.existsSync(tokensPath)) return null;
   if (!fs.existsSync(tmplPath)) {
     return { dir: dirPath, error: 'template.html not found' };
   }
 
-  const tokensData = JSON.parse(fs.readFileSync(tokensPath, 'utf-8'));
   const newRoot = generateRoot(tokensData);
 
   let html = fs.readFileSync(tmplPath, 'utf-8');

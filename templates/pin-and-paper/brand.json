@@ -1,0 +1,201 @@
+{
+  "slug": "pin-and-paper",
+  "kind": "brand",
+  "version": 1,
+  "source": "导入自 beautiful-html-templates/pin-and-paper — Yellow paper with safety-pin illustrations, ink-blue handwritten Caveat, paper-grain texture.",
+  "tokens": {
+    "color": [
+      {
+        "name": "--paper",
+        "value": "#EFE56A",
+        "role": "surface-bg",
+        "description": ""
+      },
+      {
+        "name": "--paper-2",
+        "value": "#F5ECA0",
+        "role": "surface-card",
+        "description": ""
+      },
+      {
+        "name": "--paper-3",
+        "value": "#E8D85A",
+        "role": "surface-bg",
+        "description": ""
+      },
+      {
+        "name": "--cream",
+        "value": "#F8F1D6",
+        "role": "surface-bg",
+        "description": ""
+      },
+      {
+        "name": "--ink",
+        "value": "#1F3A8A",
+        "role": "text-primary",
+        "description": ""
+      },
+      {
+        "name": "--ink-soft",
+        "value": "#2D4FB8",
+        "role": "text-secondary",
+        "description": ""
+      },
+      {
+        "name": "--ink-line",
+        "value": "#3457C4",
+        "role": "text-primary",
+        "description": ""
+      },
+      {
+        "name": "--black",
+        "value": "#0E1430",
+        "role": "text-primary",
+        "description": ""
+      },
+      {
+        "name": "--color-primary",
+        "value": "#C2342B",
+        "role": "accent",
+        "description": "主强调色"
+      },
+      {
+        "name": "--color-secondary",
+        "value": "#2D4FB8",
+        "role": "accent-alt",
+        "description": "辅强调色"
+      },
+      {
+        "name": "--color-surface",
+        "value": "#EFE56A",
+        "role": "surface-bg",
+        "description": "默认表面"
+      },
+      {
+        "name": "--color-on-surface",
+        "value": "#1F3A8A",
+        "role": "text-primary",
+        "description": "主文字色"
+      },
+      {
+        "name": "--color-on-surface-variant",
+        "value": "#2D4FB8",
+        "role": "text-secondary",
+        "description": "次级文字"
+      },
+      {
+        "name": "--color-outline",
+        "value": "#3457C4",
+        "role": "border-default",
+        "description": "主边框"
+      },
+      {
+        "name": "--color-surface-container-low",
+        "value": "#EFE56A",
+        "role": "surface-card",
+        "description": "卡片容器"
+      },
+      {
+        "name": "--kraft",
+        "value": "#C9A66B",
+        "role": "color-palette",
+        "description": ""
+      },
+      {
+        "name": "--red",
+        "value": "#C2342B",
+        "role": "color-palette",
+        "description": ""
+      },
+      {
+        "name": "--olive",
+        "value": "#6B7A2E",
+        "role": "color-palette",
+        "description": ""
+      },
+      {
+        "name": "--orange",
+        "value": "#D8702A",
+        "role": "color-palette",
+        "description": ""
+      }
+    ],
+    "typography": [
+      {
+        "name": "--font-display",
+        "value": "'Caveat', cursive",
+        "role": "display-font",
+        "description": "标题字体"
+      },
+      {
+        "name": "--font-body",
+        "value": "'DM Mono', monospace",
+        "role": "body-font",
+        "description": "正文字体"
+      },
+      {
+        "name": "--font-mono",
+        "value": "'Space Grotesk', sans-serif",
+        "role": "mono-font",
+        "description": "等宽字体"
+      }
+    ],
+    "radius": [
+      {
+        "name": "--radius-base",
+        "value": "4px",
+        "role": "radius",
+        "description": "基础圆角"
+      },
+      {
+        "name": "--radius-sm",
+        "value": "2px",
+        "role": "radius",
+        "description": "小圆角"
+      },
+      {
+        "name": "--radius-pill",
+        "value": "999px",
+        "role": "radius",
+        "description": "药丸圆角"
+      }
+    ],
+    "shadow": [
+      {
+        "name": "--elevation-sm",
+        "value": "0 1px 3px rgba(0,0,0,0.06)",
+        "role": "shadow",
+        "description": "低阴影"
+      },
+      {
+        "name": "--elevation-md",
+        "value": "0 8px 30px rgba(0,0,0,0.1)",
+        "role": "shadow",
+        "description": "中阴影"
+      }
+    ],
+    "motion": [
+      {
+        "name": "--ease-standard",
+        "value": "0.18s ease",
+        "role": "easing",
+        "description": "标准缓动"
+      },
+      {
+        "name": "--duration-base",
+        "value": "150ms",
+        "role": "duration",
+        "description": "基础时长"
+      }
+    ]
+  },
+  "colorRoles": {
+    "primary": "#C2342B",
+    "secondary": "#2D4FB8",
+    "background": "#EFE56A",
+    "surface": "#EFE56A",
+    "text": "#1F3A8A",
+    "textSecondary": "#2D4FB8",
+    "border": "#3457C4"
+  }
+}

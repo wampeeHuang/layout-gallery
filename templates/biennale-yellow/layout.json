@@ -1,0 +1,45 @@
+{
+  "slug": "biennale-yellow",
+  "kind": "layout",
+  "version": 1,
+  "source": "拆分自 tokens.json — 布局层：字号刻度 + 间距系统。124px-240px 展示级大字体系。",
+  "tokens": {
+    "typography": [
+      { "name": "--text-3xl",  "value": "clamp(120px, min(14.6vw, 22vh), 240px)", "role": "cover-title-size",   "description": "封面级展示标题" },
+      { "name": "--text-2xl",  "value": "clamp(56px, min(7vw, 11vh), 120px)",      "role": "quote-size",         "description": "引用/宣言文字" },
+      { "name": "--text-xl",   "value": "clamp(40px, min(4.6vw, 7vh), 88px)",      "role": "headline-size",      "description": "主标题/章节标题" },
+      { "name": "--text-base", "value": "clamp(14px, 0.95vw, 16px)",               "role": "body-size",          "description": "正文" },
+      { "name": "--text-sm",   "value": "clamp(13px, 0.95vw, 15px)",               "role": "small-body-size",    "description": "辅助正文" },
+      { "name": "--text-xs",   "value": "clamp(11px, 0.85vw, 14px)",               "role": "label-size",         "description": "标签/眉题/大写标注" }
+    ],
+    "spacing": [
+      { "name": "--space-page-wmax", "value": "1920px",                       "role": "content-max-width",  "description": "内容最大宽度" },
+      { "name": "--space-page-pad",  "value": "clamp(40px, 4vw, 76px)",       "role": "page-padding",       "description": "页面水平内边距" },
+      { "name": "--space-gap",       "value": "clamp(20px, 2.4vw, 44px)",     "role": "element-gap",        "description": "元素/网格间距" },
+      { "name": "--space-gutter",    "value": "clamp(20px, 2.5vw, 48px)",     "role": "column-gutter",      "description": "列间距" },
+      { "name": "--space-3xl",       "value": "clamp(80px, 8vw, 120px)",      "role": "section-gap",        "description": "区段间距" },
+      { "name": "--space-2xl",       "value": "clamp(56px, 5.6vw, 88px)",     "role": "large-section-gap",  "description": "大区段间距" },
+      { "name": "--space-xl",        "value": "clamp(36px, 3.6vw, 56px)",     "role": "component-gap",      "description": "组件间距" },
+      { "name": "--space-lg",        "value": "clamp(24px, 2.4vw, 44px)",     "role": "card-padding",       "description": "卡片内边距" },
+      { "name": "--space-md",        "value": "clamp(16px, 1.6vw, 28px)",     "role": "tight-gap",          "description": "副标题间距" },
+      { "name": "--space-sm",        "value": "clamp(10px, 1vw, 18px)",       "role": "small-gap",          "description": "小间距" },
+      { "name": "--space-xs",        "value": "clamp(6px, 0.6vw, 12px)",      "role": "micro-gap",          "description": "标签内边距" },
+      { "name": "--space-2xs",       "value": "clamp(4px, 0.4vw, 6px)",       "role": "micro-padding",      "description": "微内边距" },
+      { "name": "--hairline",        "value": "1px",                          "role": "hairline-stroke",    "description": "极细线宽" }
+    ]
+  },
+  "typeScale": [
+    { "name": "--sz-display",    "value": "clamp(120px, min(14.6vw, 22vh), 240px)", "usage": "封面级展示标题" },
+    { "name": "--sz-display-sm", "value": "clamp(110px, min(11vw, 18vh), 200px)",   "usage": "面板内编辑展示" },
+    { "name": "--sz-display-md", "value": "clamp(80px, min(10vw, 16vh), 200px)",   "usage": "结束语展示" },
+    { "name": "--sz-headline",   "value": "clamp(40px, min(4.6vw, 7vh), 88px)",    "usage": "主标题" },
+    { "name": "--sz-body",       "value": "clamp(14px, 0.95vw, 16px)",             "usage": "正文" },
+    { "name": "--sz-micro-label","value": "clamp(11px, 0.85vw, 14px)",             "usage": "大写标签" }
+  ],
+  "spacingScale": [
+    { "name": "--space-page-wmax", "value": "1920px" },
+    { "name": "--space-page-pad",  "value": "clamp(40px, 4vw, 76px)" },
+    { "name": "--space-gap",       "value": "clamp(20px, 2.4vw, 44px)" },
+    { "name": "--space-gutter",    "value": "clamp(20px, 2.5vw, 48px)" }
+  ]
+}

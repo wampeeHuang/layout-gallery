@@ -238,28 +238,63 @@ a { color: inherit; text-decoration: none; }
 <!-- ==================== PRINCIPLES ==================== -->
 <section class="learn-section" id="principles">
   <h2>设计原则</h2>
-  <p class="desc">版式画廊的 7+5+0 原则体系——7 条通用设计原则、5 条 AI 输出约束、0 容忍硬伤。</p>
+  <p class="desc">版式画廊遵循 7 条通用设计原则 + 5 条 AI 输出约束。不是宣言，是每个模板通过 P0 门禁前的检查清单。</p>
+
+  <h3 style="margin-top:var(--space-xl);font-family:var(--font-display);color:var(--heading)">通用设计原则 · 7 条</h3>
 
   <div class="card-grid">
     <div class="card">
-      <h3>视觉及格线</h3>
-      <p>用可量化的视觉标准定义"合格"。排版四要素（字号、行高、字距、行长）必须落在可读区间内，颜色对比度 ≥ AA 级。</p>
-      <div class="card-note">量化指标 → 工具自动检测 → 不通过不发版</div>
+      <h3>唯一真相源</h3>
+      <p>每条数据只有一个家。tokens.json 是视觉属性的唯一权威，所有视图从它派生。不因展示需要建冗余数据副本。</p>
     </div>
     <div class="card">
-      <h3>技术及格线</h3>
-      <p>CSS 必须通过三关：无硬编码值、无 Google Fonts、无未压缩图片。Token 化率 100%，所有视觉属性从 :root 变量派生。</p>
-      <div class="card-note">CI 门禁 → 静态扫描 → 阻断不合规提交</div>
+      <h3>语义优先</h3>
+      <p>命名表达意图而非数值。--color-primary 而非 --blue-500。变量名自述其设计角色，读者无需查色值表。</p>
     </div>
     <div class="card">
-      <h3>Token 优先</h3>
-      <p>设计决策表达为 CSS 自定义属性，不是硬编码值。颜色、间距、阴影、圆角全部从 :root 变量注入，保证换肤只需换 token。</p>
-      <div class="card-note">约束 → 模板必须声明 CSS 变量 → registry 校验</div>
+      <h3>少即是多</h3>
+      <p>不添加未请求的功能。三个一样的才算模式。不处理不可能发生的错误。200 行能压到 50 行则不压。</p>
     </div>
     <div class="card">
-      <h3>渐进增强</h3>
-      <p>基础体验用纯 CSS + 语义 HTML，增强体验用少量 JS。骨架屏、动画、交互均检测 prefers-reduced-motion。</p>
-      <div class="card-note">无 JS 仍可用 → 有 JS 更流畅</div>
+      <h3>工具退后</h3>
+      <p>设计工具服务于设计系统，不是反过来。token 文件是人类可读的 JSON，不是某个工具的专有格式。</p>
+    </div>
+    <div class="card">
+      <h3>静态优先</h3>
+      <p>默认交付纯 CSS + 语义 HTML。JS 是增强层，不是依赖项。无 JS 环境下页面核心体验不受损。</p>
+    </div>
+    <div class="card">
+      <h3>诚实</h3>
+      <p>不把推测包装成事实，不把个案包装成规律。不确定的说"不确定"。数字断言必须跑程序验证。</p>
+    </div>
+    <div class="card">
+      <h3>精确到底</h3>
+      <p>字号、行高、字距、对比度——每个视觉决策有可量化依据。设计审查不看"感觉"，看数据。</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:var(--space-2xl);font-family:var(--font-display);color:var(--heading)">AI 输出约束 · 5 条</h3>
+
+  <div class="card-grid">
+    <div class="card">
+      <h3>可审计性</h3>
+      <p>所有 CSS 值从 :root 变量派生。任何视觉属性可沿变量链追溯到 tokens.json 源值。审计路径完整、机械、不可绕行。</p>
+    </div>
+    <div class="card">
+      <h3>确定性</h3>
+      <p>同一份 tokens.json + 同一份 template.html = 逐像素一致的输出。消除环境差异、时间差异、模型随机性。</p>
+    </div>
+    <div class="card">
+      <h3>排版即编辑</h3>
+      <p>版式的第一职责是传达内容结构。标题、正文、标注之间的层级关系依靠字号和间距，不依靠颜色或装饰。</p>
+    </div>
+    <div class="card">
+      <h3>CSS 是接口协议</h3>
+      <p>模板通过 CSS 自定义属性声明自己的视觉合约。外部工具（验证器、品牌渲染器、对比度检查器）通过读 tokens.json 与模板通信。</p>
+    </div>
+    <div class="card">
+      <h3>按面分级</h3>
+      <p>颜色、间距、圆角、阴影、动效——每层独立声明，不耦合。换色不碰间距，调间距不染半径。分层即分责。</p>
     </div>
   </div>
 </section>

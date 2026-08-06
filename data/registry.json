@@ -146,7 +146,8 @@
     "visibility": "public",
     "status": "active",
     "brand_kit_ready": true,
-    "template_path": "templates/brutalist-paper/template.html"
+    "template_path": "templates/brutalist-paper/template.html",
+    "design_philosophy": "粗野主义纸媒美学——铁锈赤陶（#B84F35）在暖奶油纸（#F4EFE7）上，Georgia 衬线大字报 + Inter 正文。零圆角、实心块状阴影、未涂布纸纹理。手摇印刷机印出的宣言——不精致、有态度。"
   },
   {
     "slug": "template",
@@ -190,7 +191,7 @@
     "typography_style": "Serif标题 + Sans-serif正文 + Monospace元数据，有衬线/无衬线对比",
     "best_for": "品牌形象、杂志风内容、文化/艺术类PPT、有质感的叙事",
     "avoid_for": "数据密集报告、纯商务白底PPT",
-    "slide_count": 0,
+    "slide_count": 7,
     "css_variables": [
       {
         "name": "--ink",
@@ -250,7 +251,8 @@
     ],
     "visibility": "public",
     "preview_type": "iframe",
-    "template_path": "templates/template/template.html"
+    "template_path": "templates/template/template.html",
+    "design_philosophy": "电子杂志美学——近黑墨色（#1A1A1A）落在暖灰纸上，Playfair Display + Source Serif 4 双衬线排版。WebGL 双层画布背景，亮/暗模式过渡。编辑长文布局、充裕留白、细微阴影。平板上的数字季刊。"
   },
   {
     "slug": "template-swiss",
@@ -290,7 +292,7 @@
     "typography_style": "全无衬线，极端字重对比(200→900)，12列模数网格",
     "best_for": "商业报告、数据密集展示、架构图、严谨提案",
     "avoid_for": "情感化叙事、文艺/手作风格",
-    "slide_count": 0,
+    "slide_count": 7,
     "css_variables": [
       {
         "name": "--paper-rgb",
@@ -510,21 +512,22 @@
     ],
     "visibility": "public",
     "preview_type": "iframe",
-    "template_path": "templates/template-swiss/template.html"
+    "template_path": "templates/template-swiss/template.html",
+    "design_philosophy": "瑞士国际主义——克莱因蓝（#002FA7）在近白纸上，Inter/Helvetica 无衬线全家。网格非对称布局、模数化间距、等宽数据标签。干净、理性、严格系统化。包豪斯展览图录的美学。"
   },
   {
     "slug": "8-bit-orbit",
-    "name": "8-Bit Orbit",
-    "tagline": "Pixel-art neon arcade aesthetic on a deep navy void.",
+    "name": "像素轨道 · 8-Bit Orbit",
+    "tagline": "深海军蓝虚空 × 像素霓虹街机 — Tektur 几何展示字体 + Chakra Petch 科幻正文，10 页 CRT 屏保风幻灯片",
     "skill": "beautiful-html-templates",
     "template_type": "slide-deck",
     "design_style": "retro",
     "aspect_ratio": "16:9",
     "mood": [
-      "retro-tech",
-      "playful",
-      "cyberpunk",
-      "energetic"
+      "复古科技",
+      "玩趣",
+      "赛博朋克",
+      "高能量"
     ],
     "formality": "low",
     "scheme": "light",
@@ -556,10 +559,10 @@
     ],
     "displayFont": "Tektur",
     "bodyFont": "Chakra Petch",
-    "typography_style": "boxy display sans paired with technical mono, all unmistakably digital and pixel-flavored",
+    "typography_style": "方块展示无衬线 + 技术等宽 — 纯正数码像素风味，steps() 阶梯过渡动画",
     "best_for": "凌晨两点 CRT 屏幕的质感：赛博朋克、游戏、Web3、独立开发工具、黑客松演示。同样适合想借复古数码工艺表达的技术演讲、合成波品牌提案、或想做成游戏机感觉的创意复盘。",
     "avoid_for": "暗霓虹调色会适得其反的场合——安静的机构金融披露、面向患者的医疗材料、传统奢侈品牌。",
-    "slide_count": 10,
+    "slide_count": 13,
     "css_variables": [
       {
         "name": "--neon-pink",
@@ -622,7 +625,8 @@
       "三霓虹色系（青/粉/黄）+ Win95 经典灰面板",
       "Chart.js 像素风数据图表",
       "steps() 阶梯过渡动画"
-    ]
+    ],
+    "design_philosophy": "复古未来主义像素艺术——Tektur 几何展示体 + Chakra Petch 科幻正文，深宇宙海军蓝（#0F1B3D）底 × 青/粉/黄三霓虹。4px 像素单元堆叠硬阴影、CRT 扫描线、星空粒子、暗角。街机机柜与 Tron 时代董事会的交界处。"
   },
   {
     "slug": "layout-gallery",
@@ -813,7 +817,8 @@
     "visibility": "public",
     "status": "active",
     "brand_kit_ready": true,
-    "template_path": "templates/layout-gallery/template.html"
+    "template_path": "templates/layout-gallery/template.html",
+    "design_philosophy": "机构画廊美学——鼠尾草绿（#3D6B4A）在白底上，Noto Serif SC 衬线标题 + 系统无衬线正文。结构即纹理：网格本身就是装饰。充裕留白、12px 圆角、克制阴影、单一强调色惜墨如金。设计机构的永久馆藏图录。"
   },
   {
     "slug": "soft-editorial",
@@ -862,7 +867,7 @@
     "typography_style": "high-contrast garalde serif headlines paired with a clean humanist sans body",
     "best_for": "文学气质的内容：编辑专题、长篇品牌故事、画廊/博物馆提案、咨询交付物、婚礼/生活方式媒体、创始人随笔。同样适合想用周日增刊的温暖替代企业冷感的科技、研究或商业提案。",
     "avoid_for": "需要视觉冲击力的场合——暖纸色盘和 Cormorant 衬线有意保持安静克制。不适合销售轰击型、霓虹冲刺型的页面。",
-    "slide_count": 12,
+    "slide_count": 15,
     "css_variables": [],
     "visibility": "public",
     "status": "active",
@@ -876,6 +881,2379 @@
       "全幅背景色区分区段",
       "纯 CSS 图表（保留曲线 SVG）",
       "引用/矩阵/数字/流程 多内容骨架"
-    ]
+    ],
+    "design_philosophy": "温暖杂志跨页美学——Cormorant Garamond 衬线主宰标题与装饰时刻（罗马体+斜体混排），Work Sans 退为正文。奶油纸底 × 四色粉彩糖果强调（灰粉/荨麻绿/蜜桃/丁香），24-36px 大圆角卡片浮在奶油场上。编辑的沉静 + 一丝 riso 印刷色——文学研究笔记而非企业幻灯片。"
+  },
+  {
+    "slug": "pink-script",
+    "name": "深夜剧本 · Pink Script",
+    "tagline": "暗夜黑底 × 亮粉强调 × 珍珠纸色 — 衬线大字排印，9 页奢华编辑幻灯片",
+    "skill": "beautiful-html-templates",
+    "template_type": "slide-deck",
+    "design_style": "editorial",
+    "aspect_ratio": "16:9",
+    "mood": [
+      "暗夜",
+      "情绪",
+      "奢华",
+      "表达",
+      "文学"
+    ],
+    "formality": "medium-high",
+    "scheme": "dark",
+    "palette": [
+      {
+        "name": "Ink",
+        "color": "#060507"
+      },
+      {
+        "name": "Paper",
+        "color": "#F5EDF1"
+      },
+      {
+        "name": "Pink",
+        "color": "#ED3D8C"
+      },
+      {
+        "name": "Pink 2",
+        "color": "#FF66A8"
+      },
+      {
+        "name": "Pink Deep",
+        "color": "#B81D67"
+      }
+    ],
+    "displayFont": "Noto Serif SC / Songti SC / Georgia",
+    "bodyFont": "PingFang SC / Microsoft YaHei UI",
+    "typography_style": "衬线展示标题 + 人文无衬线正文 + 等宽标签，暗底粉单强调色体系",
+    "best_for": "暗夜气质：时尚品牌、创作者个人品牌、夜生活/烈酒发布、奢侈品发布、编辑专题",
+    "avoid_for": "日常企业办公、传统 B2B —— 暗底粉强调在保守场景中过于风格化",
+    "slide_count": 12,
+    "css_variables": [],
+    "visibility": "public",
+    "status": "active",
+    "brand_kit_ready": false,
+    "preview_type": "iframe",
+    "template_path": "templates/pink-script/template.html",
+    "design_philosophy": "深夜高定时装编辑系统——热品红墨（#FF2D78）落在暖黑纸底上，胶片颗粒覆盖 + 发丝内框。DM Serif Display 承载全部编辑时刻（高达 600px），Inter 300 字重为正文声部，JetBrains Mono 为精品目录元数据。光泽时尚杂志跨页 × 深夜香水广告 × 高端独立杂志——Maison 的季节画册。"
+  },
+  {
+    "slug": "biennale-yellow",
+    "name": "双年展黄 · Biennale Yellow",
+    "tagline": "暖羊皮纸底 × 靛蓝衬线 — 太阳能黄辐射渐变，8 页艺术展册式幻灯片",
+    "skill": "beautiful-html-templates",
+    "template_type": "slide-deck",
+    "design_style": "editorial",
+    "aspect_ratio": "16:9",
+    "mood": [
+      "编辑",
+      "氛围感",
+      "温暖",
+      "文化机构",
+      "海报感"
+    ],
+    "formality": "high",
+    "scheme": "light",
+    "palette": [
+      {
+        "name": "Paper",
+        "color": "#E9E5DB"
+      },
+      {
+        "name": "Ink",
+        "color": "#1B2566"
+      },
+      {
+        "name": "Sun",
+        "color": "#F1EE2E"
+      },
+      {
+        "name": "Ember",
+        "color": "#E26B4A"
+      },
+      {
+        "name": "Haze",
+        "color": "#F0DA7C"
+      }
+    ],
+    "displayFont": "Noto Serif SC / Songti SC / Georgia",
+    "bodyFont": "PingFang SC / Microsoft YaHei UI",
+    "typography_style": "高对比衬线展示 + 宽距大写无衬线标签 + 等宽数据",
+    "best_for": "艺术展册、双年展/博物馆公告、设计会议、文学出版、策展提案",
+    "avoid_for": "需要多色视觉冲击的场合——暖纸+单黄调色板有意克制安静",
+    "slide_count": 11,
+    "css_variables": [],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/biennale-yellow/template.html",
+    "design_philosophy": "暖羊皮纸底（#E9E5DB）上泼洒太阳能黄（#F1EE2E），靛蓝墨（#1B2566）书写一切。灵感来自双年展海报的印刷传统——纸张的温暖、墨水的深度、以及一抹不可忽视的黄色。零圆角、零阴影是刻意的——这是一个完全平面的世界，深度通过黄色光晕的透叠来制造。"
+  },
+  {
+    "slug": "studio",
+    "name": "机构工作室 · Studio",
+    "tagline": "黑色画布 × 电黄色字体 — Barlow 900 大写标题即图形块，零圆角零阴影，二元调色板，机构工作室美学",
+    "skill": "beautiful-html-templates",
+    "template_type": "slide-deck",
+    "design_style": "swiss",
+    "aspect_ratio": "16:9",
+    "mood": [
+      "电动",
+      "大胆",
+      "图形感",
+      "高对比",
+      "设计驱动"
+    ],
+    "formality": "medium",
+    "scheme": "dark",
+    "palette": [
+      {
+        "name": "Near Black",
+        "color": "#1C1C1C"
+      },
+      {
+        "name": "Near Black Alt",
+        "color": "#242422"
+      },
+      {
+        "name": "Acid Yellow",
+        "color": "#F5D200"
+      },
+      {
+        "name": "Acid Yellow Alt",
+        "color": "#F0CC00"
+      }
+    ],
+    "displayFont": "Barlow / Noto Sans SC",
+    "bodyFont": "Barlow / IBM Plex Mono",
+    "typography_style": "Barlow 900 大写所有标题 — 字体即图形块。IBM Plex Mono 仅用于元数据 chrome。零圆角、零阴影、零渐变。",
+    "best_for": "设计工作室凭证、创意机构提案、品牌展示、艺术指导评审、任何需要电动感和设计主导的场合。技术/研究/商业提案中也可作为品牌宣言的意外选择。",
+    "avoid_for": "需要安静或机构感的语境——黑底电黄是库里最响亮的调色板。",
+    "slide_count": 11,
+    "css_variables": [
+      {
+        "name": "--near-black",
+        "default": "#1C1C1C",
+        "description": "暖黑表面"
+      },
+      {
+        "name": "--acid-yellow",
+        "default": "#F5D200",
+        "description": "酸黄 — 亮表面 + 暗面文字色"
+      },
+      {
+        "name": "--text-on-dark-2",
+        "default": "rgba(245,210,0,0.58)",
+        "description": "次级文字 — 黄 58% 透明"
+      },
+      {
+        "name": "--text-on-dark-3",
+        "default": "rgba(245,210,0,0.32)",
+        "description": "三级文字 — 黄 32% 透明"
+      },
+      {
+        "name": "--border-dark",
+        "default": "#2E2E2C",
+        "description": "暗面发丝边框"
+      },
+      {
+        "name": "--font-display",
+        "default": "Barlow, Noto Sans SC, system-ui, sans-serif",
+        "description": "Barlow 900 大写展示字体"
+      },
+      {
+        "name": "--font-mono",
+        "default": "IBM Plex Mono, ui-monospace, monospace",
+        "description": "元数据专用等宽"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/studio/template.html",
+    "design_philosophy": "字体即图形块（type-as-graphic-mass）。整个系统运行在单一字体 Barlow、单一字重 900、严格大写——在展示级尺寸下，字体不再像字体，而是黑色或黄色的几何块。标题就是设计，没有装饰元素、没有强调色、没有点缀。如果去掉幻灯片上其他所有元素只剩标题，它仍然读作 Studio。"
+  },
+  {
+    "slug": "block-frame",
+    "name": "BlockFrame · 色块画框",
+    "tagline": "粉蓝绿黄奶油五色粉彩 × 4px 粗黑边框 × 8px 硬偏移阴影 — 新粗野主义幻灯片，Inter 900 大字报标题，倾斜几何装饰破框而出，zine 拼贴 × 玩具包装 × 90 年代贴纸书美学",
+    "template_type": "single-page",
+    "design_style": "confident",
+    "scheme": "light",
+    "formality": "medium-low",
+    "density": "high",
+    "mood": [
+      "大胆",
+      "玩趣",
+      "图形感",
+      "新鲜"
+    ],
+    "palette": [
+      {
+        "name": "粉",
+        "color": "#FE90E8"
+      },
+      {
+        "name": "蓝",
+        "color": "#C0F7FE"
+      },
+      {
+        "name": "绿",
+        "color": "#99E885"
+      },
+      {
+        "name": "黄",
+        "color": "#F7CB46"
+      },
+      {
+        "name": "奶油",
+        "color": "#FFDC8B"
+      },
+      {
+        "name": "黑",
+        "color": "#000000"
+      }
+    ],
+    "displayFont": "Inter",
+    "bodyFont": "Inter",
+    "typography_style": "Inter 900/800 超粗大写标题 + Inter 500 正文，Space Grotesk 等宽标签与计数器。字重极化：最重处 900，最轻处 500，无中间层级",
+    "best_for": [
+      "独立 SaaS 发布页、设计机构资质展示、创意评审、品牌重塑提案。也适合科技/金融/调研场景中想显得自信当代而非拘谨的演讲者"
+    ],
+    "avoid_for": [
+      "需要安静克制或传统庄重的场景（合规披露、正式法律简报）"
+    ],
+    "features": [],
+    "css_variables": [
+      {
+        "name": "--pink",
+        "value": "#FE90E8"
+      },
+      {
+        "name": "--blue",
+        "value": "#C0F7FE"
+      },
+      {
+        "name": "--green",
+        "value": "#99E885"
+      },
+      {
+        "name": "--yellow",
+        "value": "#F7CB46"
+      },
+      {
+        "name": "--cream",
+        "value": "#FFDC8B"
+      },
+      {
+        "name": "--black",
+        "value": "#000000"
+      },
+      {
+        "name": "--white",
+        "value": "#FFFFFF"
+      },
+      {
+        "name": "--offwhite",
+        "value": "#FFFDF5"
+      },
+      {
+        "name": "--border",
+        "value": "4px solid var(--black)"
+      },
+      {
+        "name": "--shadow",
+        "value": "8px 8px 0px var(--black)"
+      },
+      {
+        "name": "--shadow-sm",
+        "value": "4px 4px 0px var(--black)"
+      },
+      {
+        "name": "--radius",
+        "value": "0px"
+      },
+      {
+        "name": "--radius-sm",
+        "value": "4px"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/block-frame/template.html",
+    "skill": "_growth",
+    "slide_count": 13,
+    "design_philosophy": "极繁新粗野主义——五条铁律：每区 4px 纯黑边框、8px 硬偏移阴影、全直角、饱和粉彩强调色、布局允许歪斜。Inter 800-900 大写标题 × 五色粉彩（粉/蓝/绿/黄/奶油）+ 纯黑白。倾斜几何装饰刺破网格。Zine 拼贴 × 90 年代贴纸书 × 玩具包装——大胆、欢快、微乱、不胆小。"
+  },
+  {
+    "slug": "bold-poster",
+    "name": "粗野海报 · Bold Poster",
+    "tagline": "Shrikhand 巨幅展示体 × 番茄红单色强调 — 1970 年代意大利体育杂志般的民粹编辑海报，Libre Baskerville 衬线正文，少即是多的海报宣言",
+    "template_type": "single-page",
+    "design_style": "dramatic",
+    "scheme": "light",
+    "formality": "medium",
+    "density": "low",
+    "mood": [
+      "bold",
+      "editorial",
+      "loud",
+      "confident"
+    ],
+    "palette": [
+      {
+        "name": "bg",
+        "color": "#FFFFFF"
+      },
+      {
+        "name": "dark",
+        "color": "#1C1410"
+      },
+      {
+        "name": "red",
+        "color": "#D8000F"
+      },
+      {
+        "name": "light",
+        "color": "#F5F2EF"
+      }
+    ],
+    "displayFont": "Shrikhand",
+    "bodyFont": "Space Grotesk",
+    "typography_style": "groovy display + editorial serif + grotesk body; very high typographic contrast",
+    "best_for": "品牌宣言、创始人愿景、编辑/文化提案、创意评审——需要寥寥几句产生海报冲击力的场景。也适合想让内容可引用的科技主题演讲或金融宣言",
+    "avoid_for": "需要承载密集信息、逐段详述的场景——布局围绕少数大字声明构建，不适合段落级细节堆叠",
+    "features": [],
+    "css_variables": [
+      {
+        "name": "--bg",
+        "value": "#FFFFFF"
+      },
+      {
+        "name": "--dark",
+        "value": "#1C1410"
+      },
+      {
+        "name": "--red",
+        "value": "#D8000F"
+      },
+      {
+        "name": "--light",
+        "value": "#F5F2EF"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/bold-poster/template.html",
+    "skill": "_growth",
+    "slide_count": 10,
+    "design_philosophy": "巨大 Shrikhand 展示字体以 200-320px 海报级尺寸倾斜排布，消防红（#D8000F）是唯一强调色。美学来自 1970 年代意大利体育杂志——粗壮衬线/手写混合体、粗黑边框、堆叠偏移阴影。白色画布 × 深棕黑墨 × 饱和番茄红的三角调色板，不妥协的印刷海报能量。",
+    "design_principles": "单色强调——仅一个强调色贯穿全模板，其余用灰度收束\n高对比度——文字与背景对比强烈，确保远距离可读性\n海报级大字——标题以 100-320px 超大尺寸倾斜排布，字体即图像\n内容优先——UI 退后，让内容占据视觉主导\n充裕留白——大量负空间制造呼吸感，不拥挤",
+    "typography_scale": "11px: 11px; 10px: 10px; clamp(10px, 0.9vw, 12px): clamp(10px, 0.9vw, 12px); clamp(11px, 1vw, 14px): clamp(11px, 1vw, 14px); clamp(72px, 16vw, 220px): clamp(72px, 16vw, 220px); clamp(84px, 18vw, 260px): clamp(84px, 18vw, 260px); clamp(64px, 14vw, 200px): clamp(64px, 14vw, 200px); clamp(13px, 1.2vw, 16px): clamp(13px, 1.2vw, 16px); clamp(32px, 7vw, 90px): clamp(32px, 7vw, 90px); clamp(13px, 1.3vw, 16px): clamp(13px, 1.3vw, 16px); clamp(32px, 5vw, 64px): clamp(32px, 5vw, 64px); 0.95em: 0.95em; clamp(28px, 3.5vw, 48px): clamp(28px, 3.5vw, 48px); clamp(11px, 1vw, 13px): clamp(11px, 1vw, 13px); clamp(36px, 6vw, 72px): clamp(36px, 6vw, 72px); clamp(28px, 3.5vw, 52px): clamp(28px, 3.5vw, 52px); clamp(120px, 26vw, 320px): clamp(120px, 26vw, 320px); clamp(28px, 4vw, 56px): clamp(28px, 4vw, 56px); clamp(22px, 3vw, 36px): clamp(22px, 3vw, 36px); clamp(12px, 1.1vw, 14px): clamp(12px, 1.1vw, 14px); 9px: 9px; clamp(18px, 2.5vw, 32px): clamp(18px, 2.5vw, 32px); clamp(10px, 0.85vw, 11px): clamp(10px, 0.85vw, 11px); clamp(36px, 5vw, 64px): clamp(36px, 5vw, 64px); clamp(18px, 2.2vw, 28px): clamp(18px, 2.2vw, 28px); clamp(20px, 2.5vw, 32px): clamp(20px, 2.5vw, 32px); clamp(18px, 2vw, 28px): clamp(18px, 2vw, 28px); clamp(80px, 18vw, 260px): clamp(80px, 18vw, 260px); clamp(14px, 1.5vw, 18px): clamp(14px, 1.5vw, 18px)",
+    "color_system": "color-primary: #D8000F; color-secondary: #666666; color-surface: #FFFFFF; color-on-surface: #1C1410"
+  },
+  {
+    "slug": "broadside",
+    "name": "大字报 · Broadside",
+    "tagline": "暗黑画布 × 焰橙单色强调 — Barlow 900 小写标题撑满 13vw，1px 发丝分割线，双语中英文排版堆栈，传单式宣言美学",
+    "template_type": "single-page",
+    "design_style": "graphic",
+    "scheme": "dark",
+    "formality": "medium-high",
+    "density": "medium",
+    "mood": [
+      "editorial",
+      "dramatic",
+      "loud",
+      "newspaper"
+    ],
+    "palette": [
+      {
+        "name": "bg",
+        "color": "#111111"
+      },
+      {
+        "name": "bg_alt",
+        "color": "#1a1a18"
+      },
+      {
+        "name": "fg",
+        "color": "#f0ece5"
+      },
+      {
+        "name": "accent",
+        "color": "#e85d26"
+      },
+      {
+        "name": "border",
+        "color": "#282826"
+      },
+      {
+        "name": "muted",
+        "color": "#888880"
+      }
+    ],
+    "displayFont": "Barlow",
+    "bodyFont": "Barlow",
+    "typography_style": "broadside-newspaper grotesk pairing with technical mono captions and Simplified Chinese support",
+    "best_for": "品牌宣言、杂志/文化提案、设计讲座、中英双语演示、创始人愿景——想让幻灯片读起来像大报头版的任何场景。也适合想以戏剧化单强调色出场的科技/调研/商业演示",
+    "avoid_for": "需要安静、温暖或传统机构感的场景——暗黑底配焰橙天然偏向戏剧性，不适合温和克制的表达",
+    "features": [],
+    "css_variables": [
+      {
+        "name": "--c-bg",
+        "value": "#111111"
+      },
+      {
+        "name": "--c-bg-alt",
+        "value": "#1a1a18"
+      },
+      {
+        "name": "--c-bg-light",
+        "value": "#111111"
+      },
+      {
+        "name": "--c-bg-light-alt",
+        "value": "#1a1a18"
+      },
+      {
+        "name": "--c-bg-orange",
+        "value": "#e85d26"
+      },
+      {
+        "name": "--c-fg",
+        "value": "#f0ece5"
+      },
+      {
+        "name": "--c-fg-2",
+        "value": "#888880"
+      },
+      {
+        "name": "--c-fg-3",
+        "value": "#505048"
+      },
+      {
+        "name": "--c-fg-light",
+        "value": "#111111"
+      },
+      {
+        "name": "--c-fg-light-2",
+        "value": "#2a1810"
+      },
+      {
+        "name": "--c-fg-light-3",
+        "value": "rgba(\r\n          17,\r\n          17,\r\n          17,\r\n          0.55\r\n        )"
+      },
+      {
+        "name": "--c-accent",
+        "value": "#e85d26"
+      },
+      {
+        "name": "--c-border",
+        "value": "#282826"
+      },
+      {
+        "name": "--c-border-light",
+        "value": "#282826"
+      },
+      {
+        "name": "--f-display",
+        "value": "\"Barlow\", \"Noto Sans SC\", sans-serif"
+      },
+      {
+        "name": "--f-heading",
+        "value": "\"Barlow\", \"Noto Sans SC\", sans-serif"
+      },
+      {
+        "name": "--f-body",
+        "value": "\"Barlow\", \"Noto Sans SC\", system-ui, sans-serif"
+      },
+      {
+        "name": "--f-mono",
+        "value": "\"IBM Plex Mono\", monospace"
+      },
+      {
+        "name": "--sz-display",
+        "value": "13vw"
+      },
+      {
+        "name": "--sz-h1",
+        "value": "7.5vw"
+      },
+      {
+        "name": "--sz-h2",
+        "value": "4.5vw"
+      },
+      {
+        "name": "--sz-h3",
+        "value": "2.8vw"
+      },
+      {
+        "name": "--sz-lead",
+        "value": "1.6vw"
+      },
+      {
+        "name": "--sz-body",
+        "value": "1.2vw"
+      },
+      {
+        "name": "--sz-caption",
+        "value": "0.9vw"
+      },
+      {
+        "name": "--sz-label",
+        "value": "0.72vw"
+      },
+      {
+        "name": "--pad-x",
+        "value": "5.5vw"
+      },
+      {
+        "name": "--pad-y",
+        "value": "5.5vh"
+      },
+      {
+        "name": "--gap-lg",
+        "value": "3.5vh"
+      },
+      {
+        "name": "--gap-md",
+        "value": "2vh"
+      },
+      {
+        "name": "--gap-sm",
+        "value": "1vh"
+      },
+      {
+        "name": "--ease-slide",
+        "value": "cubic-bezier(0.77, 0, 0.175, 1)"
+      },
+      {
+        "name": "--dur-slide",
+        "value": "0.8s"
+      },
+      {
+        "name": "--ease-enter",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)"
+      },
+      {
+        "name": "--dur-enter",
+        "value": "0.5s"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/broadside/template.html",
+    "skill": "_growth",
+    "slide_count": 20,
+    "design_philosophy": "暗黑编辑画布（#111111）× 火焰橙（#FF5722）单色强调 × 双语拉丁/中文字体栈。设计语言来自大字报报纸头条——高对比、大声量、单色强调。深色背景制造戏剧性，火焰橙在暗底上如灯塔信号。",
+    "design_principles": "深色底戏剧性——暗色画布制造视觉张力，强调色如灯塔信号\n单色强调——仅一个强调色贯穿全模板，其余用灰度收束\n展示字体优先——标题使用 `Barlow`，正文退为系统字体\nvw 响应式排版——字号跟随视口宽度自动缩放，适配全屏演示\n高对比度——文字与背景对比强烈，确保远距离可读性\n海报级大字——标题以 100-320px 超大尺寸倾斜排布，字体即图像",
+    "typography_scale": "display: 13vw; h1: 7.5vw; h2: 4.5vw; h3: 2.8vw; lead: 1.6vw; body: 1.2vw; caption: 0.9vw; label: 0.72vw",
+    "color_system": "color-primary: #e85d26; color-secondary: #666666; color-surface: #111111; color-on-surface: #f0ece5"
+  },
+  {
+    "slug": "capsule",
+    "name": "胶囊药丸 · Capsule",
+    "tagline": "9999px 圆角胶囊容器 × 九色糖果粉彩 — Bodoni Moda 衬线 + Space Grotesk 无衬线，奶油底色，Memphis 遇上编辑排版的可玩模块系统",
+    "template_type": "single-page",
+    "design_style": "upbeat",
+    "scheme": "light",
+    "formality": "medium-low",
+    "density": "medium",
+    "mood": [
+      "playful",
+      "modern",
+      "warm",
+      "fresh",
+      "fun"
+    ],
+    "palette": [
+      {
+        "name": "bg",
+        "color": "#F5F5F0"
+      },
+      {
+        "name": "fg",
+        "color": "#1A1A1A"
+      },
+      {
+        "name": "coral",
+        "color": "#E85D4E"
+      },
+      {
+        "name": "lime",
+        "color": "#C4D94E"
+      },
+      {
+        "name": "lavender",
+        "color": "#C5B5E0"
+      },
+      {
+        "name": "sky",
+        "color": "#8BB4F7"
+      }
+    ],
+    "displayFont": "Bodoni Moda",
+    "bodyFont": "Space Grotesk",
+    "typography_style": "high-contrast didone serif paired with a friendly geometric sans",
+    "best_for": "生活品牌、创作者作品集、DTC 产品发布、美妆/健康、机构资质展示——需要模块感、现代感和一点 Y2K 气质的场景。也适合想以波普清晰度代替庄重感的科技演示或调研报告",
+    "avoid_for": "需要传统机构分量感的语境——胶囊形状和粉彩色调主动柔化了权威感，不适合正式严肃场合",
+    "features": [],
+    "css_variables": [
+      {
+        "name": "--bg",
+        "value": "#F5F5F0"
+      },
+      {
+        "name": "--fg",
+        "value": "#1A1A1A"
+      },
+      {
+        "name": "--coral",
+        "value": "#E85D4E"
+      },
+      {
+        "name": "--lime",
+        "value": "#C4D94E"
+      },
+      {
+        "name": "--lavender",
+        "value": "#C5B5E0"
+      },
+      {
+        "name": "--sky",
+        "value": "#8BB4F7"
+      },
+      {
+        "name": "--violet",
+        "value": "#A06CE8"
+      },
+      {
+        "name": "--yellow",
+        "value": "#F2D160"
+      },
+      {
+        "name": "--peach",
+        "value": "#F5B895"
+      },
+      {
+        "name": "--mint",
+        "value": "#A8E6CF"
+      },
+      {
+        "name": "--outline",
+        "value": "#1E1E1E"
+      },
+      {
+        "name": "--shadow",
+        "value": "rgba(26, 26, 26, 0.08)"
+      },
+      {
+        "name": "--font-display",
+        "value": "'Bodoni Moda', serif"
+      },
+      {
+        "name": "--font-body",
+        "value": "'Space Grotesk', sans-serif"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/capsule/template.html",
+    "skill": "_growth",
+    "slide_count": 10,
+    "design_philosophy": "暖骨白底（#F9F6F0）× 药丸形模块卡片 × 全粉彩调色板（珊瑚/青柠/薰衣草/天空/紫罗兰/黄/桃/薄荷）。Y2K 复兴美学——圆润药丸形状 + 柔和粉彩 + 模块化网格。卡片像药丸一样浮动在暖白底上，每个 pill 承载一个信息单元。",
+    "design_principles": "单色强调——仅一个强调色贯穿全模板，其余用灰度收束\n展示字体优先——标题使用 `Bodoni Moda`，正文退为系统字体\n硬阴影语言——使用高不透明度偏移阴影，不用轻柔弥散阴影\n高对比度——文字与背景对比强烈，确保远距离可读性",
+    "typography_scale": "0.75rem: 0.75rem; 0.65rem: 0.65rem; clamp(3rem, 8vw, 7rem): clamp(3rem, 8vw, 7rem); clamp(0.8rem, 1.5vw, 1.1rem): clamp(0.8rem, 1.5vw, 1.1rem); 0.85rem: 0.85rem; clamp(2rem, 4vw, 3.5rem): clamp(2rem, 4vw, 3.5rem); clamp(0.95rem, 1.2vw, 1.15rem): clamp(0.95rem, 1.2vw, 1.15rem); 2.5rem: 2.5rem; clamp(1.8rem, 3.5vw, 3rem): clamp(1.8rem, 3.5vw, 3rem); 0.7rem: 0.7rem; 1.5rem: 1.5rem; 0.9rem: 0.9rem; 8rem: 8rem; clamp(1.6rem, 3.5vw, 3rem): clamp(1.6rem, 3.5vw, 3rem); 1.3rem: 1.3rem; 0.8rem: 0.8rem; clamp(2rem, 3.5vw, 3rem): clamp(2rem, 3.5vw, 3rem); clamp(0.9rem, 1.1vw, 1.05rem): clamp(0.9rem, 1.1vw, 1.05rem); clamp(2.5rem, 6vw, 5rem): clamp(2.5rem, 6vw, 5rem); 0.6rem: 0.6rem; 0.55rem: 0.55rem",
+    "color_system": "color-primary: #F2D160; color-secondary: #666666; color-surface: #F5F5F0; color-on-surface: #0A0A0A"
+  },
+  {
+    "slug": "cobalt-grid",
+    "name": "钴蓝网格 · Cobalt Grid",
+    "tagline": "奶油纸底 × 电光钴蓝单色 — 永久坐标纸网格、像素故障装饰、QR 块图案、Newsreader 衬线，日本杂志式的设计研究公报与趋势报告美学",
+    "template_type": "single-page",
+    "design_style": "considered",
+    "scheme": "light",
+    "formality": "high",
+    "density": "medium",
+    "mood": [
+      "editorial",
+      "design-research",
+      "studious",
+      "modernist",
+      "tech-print",
+      "monochrome"
+    ],
+    "palette": [
+      {
+        "name": "paper",
+        "color": "#F0EBDE"
+      },
+      {
+        "name": "ink",
+        "color": "#1F2BE0"
+      },
+      {
+        "name": "ink-soft",
+        "color": "#5560E5"
+      },
+      {
+        "name": "grid",
+        "color": "rgba(31,43,224,0.10)"
+      }
+    ],
+    "displayFont": "Newsreader",
+    "bodyFont": "Hanken Grotesk",
+    "typography_style": "transitional serif for hero type and section heads, paired with a neutral grotesk for body and a clean mono for tabular data and micro-captions; strictly cobalt-on-cream",
+    "best_for": "设计研究公报、艺术出版物、策展趋势报告、工作室年报、建筑/学术演示——需要单一强调色和印刷账簿般冷静气质的场景。也适合想用二色 Risograph 代替企业多色的提案",
+    "avoid_for": "需要温暖感、多色能量或轻松口气的场景——严格的钴蓝+奶油+网格体系刻意保持简朴，不适合活泼表达",
+    "features": [],
+    "css_variables": [
+      {
+        "name": "--paper",
+        "value": "#F0EBDE"
+      },
+      {
+        "name": "--paper-2",
+        "value": "#E6E0CE"
+      },
+      {
+        "name": "--ink",
+        "value": "#1F2BE0"
+      },
+      {
+        "name": "--ink-soft",
+        "value": "#5560E5"
+      },
+      {
+        "name": "--grid",
+        "value": "rgba(31, 43, 224, 0.10)"
+      },
+      {
+        "name": "--rule",
+        "value": "#1F2BE0"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/cobalt-grid/template.html",
+    "skill": "_growth",
+    "slide_count": 8,
+    "design_philosophy": "电光钴蓝衬线（#1A5FEB）× 坐标纸画布（#F5F1EB）× 阶梯像素故障装饰。设计来自设计研究公报美学——严格单色强调（钴蓝）、坐标纸网格背景、极细 hairline 分割线。安静、严谨、印刷账簿般的克制。",
+    "design_principles": "高对比度——文字与背景对比强烈，确保远距离可读性\n网格结构即装饰——模数化网格作为视觉骨架，不依赖额外装饰\n内容优先——UI 退后，让内容占据视觉主导\n充裕留白——大量负空间制造呼吸感，不拥挤",
+    "typography_scale": "clamp(11px, 0.82vw, 13px): clamp(11px, 0.82vw, 13px); clamp(10px, 0.75vw, 12px): clamp(10px, 0.75vw, 12px); clamp(100px, min(11vw, 18vh), 200px): clamp(100px, min(11vw, 18vh), 200px); clamp(13px, 1vw, 16px): clamp(13px, 1vw, 16px); clamp(28px, min(2.8vw, 4.6vh), 50px): clamp(28px, min(2.8vw, 4.6vh), 50px); clamp(12px, 0.9vw, 15px): clamp(12px, 0.9vw, 15px); clamp(14px, 0.92vw, 15px): clamp(14px, 0.92vw, 15px); clamp(11px, 0.78vw, 13px): clamp(11px, 0.78vw, 13px); clamp(56px, min(6.4vw, 11vh), 120px): clamp(56px, min(6.4vw, 11vh), 120px); clamp(12px, 0.85vw, 14px): clamp(12px, 0.85vw, 14px); clamp(12px, 0.82vw, 14px): clamp(12px, 0.82vw, 14px); clamp(48px, min(5vw, 8.5vh), 100px): clamp(48px, min(5vw, 8.5vh), 100px); clamp(12px, 0.9vw, 14px): clamp(12px, 0.9vw, 14px); clamp(13px, 0.9vw, 15px): clamp(13px, 0.9vw, 15px); clamp(26px, 2vw, 40px): clamp(26px, 2vw, 40px); clamp(14px, 0.95vw, 15px): clamp(14px, 0.95vw, 15px); clamp(13px, 0.92vw, 15px): clamp(13px, 0.92vw, 15px); clamp(56px, min(6vw, 10vh), 130px): clamp(56px, min(6vw, 10vh), 130px); clamp(15px, 1vw, 18px): clamp(15px, 1vw, 18px); clamp(46px, min(4.8vw, 8.2vh), 92px): clamp(46px, min(4.8vw, 8.2vh), 92px); clamp(110px, min(11vw, 18vh), 240px): clamp(110px, min(11vw, 18vh), 240px); clamp(13px, 0.95vw, 15px): clamp(13px, 0.95vw, 15px); clamp(15px, 1vw, 17px): clamp(15px, 1vw, 17px); clamp(50px, min(5.6vw, 9vh), 110px): clamp(50px, min(5.6vw, 9vh), 110px); clamp(11px, 0.75vw, 12px): clamp(11px, 0.75vw, 12px); clamp(20px, 1.6vw, 28px): clamp(20px, 1.6vw, 28px); clamp(72px, min(8.4vw, 14vh), 180px): clamp(72px, min(8.4vw, 14vh), 180px); clamp(72px, min(7vw, 11vh), 150px): clamp(72px, min(7vw, 11vh), 150px)",
+    "color_system": "color-primary: #333333; color-secondary: #5560E5; color-surface: #F0EBDE; color-on-surface: #1F2BE0"
+  },
+  {
+    "slug": "creative-mode",
+    "name": "创作模式 · Creative Mode",
+    "tagline": "奶油画布 × 四色强调 — Archivo Black 大写标题、4px 墨水边框、绿粉橙黄四色点缀、硬偏移阴影，1920x1080 固定画布的新粗野主义编辑排版",
+    "template_type": "single-page",
+    "design_style": "graphic",
+    "scheme": "light",
+    "formality": "medium",
+    "density": "medium-high",
+    "mood": [
+      "creative",
+      "confident",
+      "playful",
+      "design-led"
+    ],
+    "palette": [
+      {
+        "name": "cream",
+        "color": "#EFE9D9"
+      },
+      {
+        "name": "cream_2",
+        "color": "#E4DCC4"
+      },
+      {
+        "name": "green",
+        "color": "#1F8A4C"
+      },
+      {
+        "name": "pink",
+        "color": "#F06CA8"
+      },
+      {
+        "name": "orange",
+        "color": "#E85A1F"
+      },
+      {
+        "name": "yellow",
+        "color": "#F5C518"
+      }
+    ],
+    "displayFont": "Archivo Black",
+    "bodyFont": "Space Grotesk",
+    "typography_style": "ultra-heavy poster sans + clean grotesk + technical mono",
+    "best_for": "创意机构提案、设计工作室演示、广告提案、品牌创意评审——需要以设计感和自信出场的场景。也适合想以品味引领而非惯例打底的科技演讲、调研发现或金融回顾",
+    "avoid_for": "需要机构克制和安静权威的场景——饱和的四色强调体系读出来的是表现力，不是正式感",
+    "features": [],
+    "css_variables": [
+      {
+        "name": "--cream",
+        "value": "#EFE9D9"
+      },
+      {
+        "name": "--cream-2",
+        "value": "#E4DCC4"
+      },
+      {
+        "name": "--green",
+        "value": "#1F8A4C"
+      },
+      {
+        "name": "--green-dark",
+        "value": "#136636"
+      },
+      {
+        "name": "--pink",
+        "value": "#F06CA8"
+      },
+      {
+        "name": "--pink-dark",
+        "value": "#D14E8B"
+      },
+      {
+        "name": "--orange",
+        "value": "#E85A1F"
+      },
+      {
+        "name": "--yellow",
+        "value": "#F5C518"
+      },
+      {
+        "name": "--ink",
+        "value": "#0F0F0F"
+      },
+      {
+        "name": "--ink-2",
+        "value": "#2A2A2A"
+      },
+      {
+        "name": "--rule",
+        "value": "#0F0F0F"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/creative-mode/template.html",
+    "skill": "_growth",
+    "slide_count": 8,
+    "design_philosophy": "奶油纸底（#F8F4ED）× 四色自信强调（绿#2E7D32/粉#C2185B/橙#EF6C00/黄#F9A825）× Archivo Black 展示字体。设计主导的自信美学——多色但每个颜色有明确分工：绿=成功指标、粉=强调文字、橙=CTA、黄=高亮面板。",
+    "design_principles": "单色强调——仅一个强调色贯穿全模板，其余用灰度收束\n内容优先——UI 退后，让内容占据视觉主导\n充裕留白——大量负空间制造呼吸感，不拥挤\n克制配色——颜色用于传达信息层级，非装饰",
+    "typography_scale": "24px: 24px; 160px: 160px; 32px: 32px; 140px: 140px; 28px: 28px; 46px: 46px; 72px: 72px; 96px: 96px; 100px: 100px; 84px: 84px; 30px: 30px; 34px: 34px; 220px: 220px; 64px: 64px",
+    "color_system": "color-primary: #1F8A4C; color-secondary: #666666; color-surface: #EFE9D9; color-on-surface: #F06CA8"
+  },
+  {
+    "slug": "daisy-days",
+    "name": "雏菊日 · Daisy Days",
+    "tagline": "Fredoka One 圆润展示体 × 粉彩花园色系 — 炭黑 2D 描边、硬偏移阴影、手绘雏菊/星星/彩虹/太阳 SVG，童趣手作感的明快儿童系统",
+    "template_type": "single-page",
+    "design_style": "friendly",
+    "scheme": "light",
+    "formality": "low",
+    "density": "medium",
+    "mood": [
+      "cheerful",
+      "playful",
+      "warm",
+      "sunny",
+      "wholesome"
+    ],
+    "palette": [
+      {
+        "name": "cream",
+        "color": "#F5F0E6"
+      },
+      {
+        "name": "turquoise",
+        "color": "#7ECDC0"
+      },
+      {
+        "name": "soft_pink",
+        "color": "#F7C8D4"
+      },
+      {
+        "name": "butter",
+        "color": "#FDE68A"
+      },
+      {
+        "name": "mint",
+        "color": "#A8E6CF"
+      },
+      {
+        "name": "lavender",
+        "color": "#D4A5E8"
+      }
+    ],
+    "displayFont": "Fredoka One",
+    "bodyFont": "Quicksand",
+    "typography_style": "rounded sans display + friendly geometric sans body; warm and informal",
+    "best_for": "教育内容、儿童/家庭、身心健康项目、社区工作坊、手工/插画创作者——需要友好、柔和、欢乐氛围的场景。也适合想以温暖而非权威出场的内部启动会、婚礼策划或跨行业轻松演示",
+    "avoid_for": "听众明确期待权威和精确的场合——手绘粉彩 SVG 装饰与严谨正式是天然对立，不适合严肃商业环境",
+    "features": [],
+    "css_variables": [
+      {
+        "name": "--cream",
+        "value": "#F5F0E6"
+      },
+      {
+        "name": "--turquoise",
+        "value": "#7ECDC0"
+      },
+      {
+        "name": "--soft-pink",
+        "value": "#F7C8D4"
+      },
+      {
+        "name": "--butter",
+        "value": "#FDE68A"
+      },
+      {
+        "name": "--mint",
+        "value": "#A8E6CF"
+      },
+      {
+        "name": "--lavender",
+        "value": "#D4A5E8"
+      },
+      {
+        "name": "--peach",
+        "value": "#FFCBA4"
+      },
+      {
+        "name": "--sky",
+        "value": "#A8D8F0"
+      },
+      {
+        "name": "--coral",
+        "value": "#F8635F"
+      },
+      {
+        "name": "--text-dark",
+        "value": "#2D2D2D"
+      },
+      {
+        "name": "--text-muted",
+        "value": "#6B6B6B"
+      },
+      {
+        "name": "--border",
+        "value": "#2D2D2D"
+      },
+      {
+        "name": "--border-width",
+        "value": "3px"
+      },
+      {
+        "name": "--radius",
+        "value": "20px"
+      },
+      {
+        "name": "--radius-lg",
+        "value": "28px"
+      },
+      {
+        "name": "--shadow",
+        "value": "6px 6px 0 var(--border)"
+      },
+      {
+        "name": "--shadow-sm",
+        "value": "4px 4px 0 var(--border)"
+      },
+      {
+        "name": "--font-display",
+        "value": "'Fredoka One',cursive"
+      },
+      {
+        "name": "--font-body",
+        "value": "'Quicksand',sans-serif"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/daisy-days/template.html",
+    "skill": "_growth",
+    "slide_count": 10,
+    "design_philosophy": "手绘雏菊、星星、彩虹 SVG 装饰 × 柔和粉彩调色板。友好、柔软、温暖——教育/儿童/社区内容的首选。手绘插图是核心设计特征（不是点缀），线条故意不完美以保持手工感。",
+    "design_principles": "展示字体优先——标题使用 `Fredoka One`，正文退为系统字体\n硬阴影语言——使用高不透明度偏移阴影，不用轻柔弥散阴影\n高对比度——文字与背景对比强烈，确保远距离可读性\n内容优先——UI 退后，让内容占据视觉主导\n充裕留白——大量负空间制造呼吸感，不拥挤",
+    "typography_scale": "clamp(2.5rem,5vw,4.5rem): clamp(2.5rem,5vw,4.5rem); clamp(1.8rem,3.5vw,3rem): clamp(1.8rem,3.5vw,3rem); clamp(1.3rem,2vw,1.8rem): clamp(1.3rem,2vw,1.8rem); clamp(1rem,1.5vw,1.3rem): clamp(1rem,1.5vw,1.3rem); clamp(.95rem,1.3vw,1.15rem): clamp(.95rem,1.3vw,1.15rem); .85rem: .85rem; .8rem: .8rem; clamp(1rem,1.8vw,1.4rem): clamp(1rem,1.8vw,1.4rem); clamp(1.4rem,2.5vw,2rem): clamp(1.4rem,2.5vw,2rem); clamp(.95rem,1.4vw,1.15rem): clamp(.95rem,1.4vw,1.15rem); clamp(.85rem,1.3vw,1.1rem): clamp(.85rem,1.3vw,1.1rem); clamp(.8rem,1.1vw,.95rem): clamp(.8rem,1.1vw,.95rem); 1.1rem: 1.1rem; 1.1rem}.timeline-card p{font-size:.9rem: 1.1rem}.timeline-card p{font-size:.9rem; .9rem}\r\n.legend-swatch{width:18px: .9rem}\r\n.legend-swatch{width:18px; 1.2rem: 1.2rem; 1.15rem}.info-card p{font-size:.88rem: 1.15rem}.info-card p{font-size:.88rem; 4rem: 4rem; clamp(1.3rem,2.5vw,2rem): clamp(1.3rem,2.5vw,2rem); 1rem: 1rem; 2rem: 2rem; 1.1rem}\r\n.step-desc{font-size:.85rem: 1.1rem}\r\n.step-desc{font-size:.85rem; .95rem}\r\n.d-legend-swatch{width:22px: .95rem}\r\n.d-legend-swatch{width:22px",
+    "color_system": "color-primary: #333333; color-secondary: #6B6B6B; color-surface: #F5F0E6; color-on-surface: #2D2D2D"
+  },
+  {
+    "slug": "editorial-forest",
+    "name": "森林编辑 · Editorial Forest",
+    "tagline": "森林绿 × 灰粉 × 燕麦奶油 — Source Serif 4 文学衬线（字重 500、光学尺寸）、JetBrains Mono 元数据，零阴影平面纸感，文学季刊式的安静编辑排版",
+    "template_type": "single-page",
+    "design_style": "literary",
+    "scheme": "mixed",
+    "formality": "medium",
+    "density": "medium",
+    "mood": [
+      "editorial",
+      "quiet",
+      "considered",
+      "warm",
+      "intentional"
+    ],
+    "palette": [
+      {
+        "name": "forest_green",
+        "color": "#2e4a2a"
+      },
+      {
+        "name": "pink",
+        "color": "#e89cb1"
+      },
+      {
+        "name": "cream",
+        "color": "#efe7d4"
+      },
+      {
+        "name": "ink",
+        "color": "#1a1a17"
+      }
+    ],
+    "displayFont": "Inter",
+    "bodyFont": "Noto Sans SC",
+    "typography_style": "humanist editorial serif with a technical mono for kickers and labels; restrained typographic hierarchy",
+    "best_for": "季度回顾、内部报告、工作室近况、创意机构演示——需要温暖不赶不急而非企业冷感的内容。同样适合书籍/项目公告、团队复盘等任何想以沉静代替焦虑的场景",
+    "avoid_for": "需要紧迫感、冲击力或销售驱动的场景——调色板和节奏有意保持沉静，不适合快节奏营销",
+    "features": [],
+    "css_variables": [
+      {
+        "name": "--green",
+        "value": "#2e4a2a"
+      },
+      {
+        "name": "--green-deep",
+        "value": "#243a21"
+      },
+      {
+        "name": "--green-lite",
+        "value": "#3a5a36"
+      },
+      {
+        "name": "--pink",
+        "value": "#e89cb1"
+      },
+      {
+        "name": "--pink-deep",
+        "value": "#d27e96"
+      },
+      {
+        "name": "--cream",
+        "value": "#efe7d4"
+      },
+      {
+        "name": "--cream-2",
+        "value": "#e6dcc4"
+      },
+      {
+        "name": "--ink",
+        "value": "#1a1a17"
+      },
+      {
+        "name": "--serif",
+        "value": "\"Source Serif 4\", \"Source Serif Pro\", Georgia, serif"
+      },
+      {
+        "name": "--mono",
+        "value": "\"JetBrains Mono\", ui-monospace, Menlo, monospace"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/editorial-forest/template.html",
+    "skill": "_growth",
+    "slide_count": 8,
+    "design_philosophy": "森林绿（#2E5A3B）× 灰粉（#C4958A）× 暖奶油（#F3EFE8）× Source Serif 4 衬线。安静克制的季度回顾美学——绿色不是霓虹是林间，粉色不是糖果是暮霭。节奏刻意放慢，留给阅读呼吸空间。",
+    "design_principles": "单色强调——仅一个强调色贯穿全模板，其余用灰度收束\n展示字体优先——标题使用 `Source Serif 4`，正文退为系统字体\n高对比度——文字与背景对比强烈，确保远距离可读性\n内容优先——UI 退后，让内容占据视觉主导\n充裕留白——大量负空间制造呼吸感，不拥挤",
+    "typography_scale": "26px: 26px; 28px: 28px; 220px: 220px; 96px: 96px; 56px: 56px; 84px: 84px; 24px: 24px; 140px: 140px; 44px: 44px; 30px: 30px; 32px: 32px; 68px: 68px; 80px: 80px; 110px: 110px",
+    "color_system": "color-primary: #2e4a2a; color-secondary: #666666; color-surface: #efe7d4; color-on-surface: #1a1a17"
+  },
+  {
+    "slug": "editorial-tri-tone",
+    "name": "三色调 · Editorial Tri-Tone",
+    "tagline": "仅三个色值的编辑系统 — 灰粉 × 金黄油 × 深酒红，Bricolage Grotesque 可变无衬线 + Instrument Serif 对线，章节符标记，文学杂志式的三色纪律",
+    "template_type": "single-page",
+    "design_style": "literary",
+    "scheme": "mixed",
+    "formality": "medium-high",
+    "density": "medium",
+    "mood": [
+      "editorial",
+      "warm",
+      "intentional",
+      "moody"
+    ],
+    "palette": [
+      {
+        "name": "pink",
+        "color": "#F2B6C6"
+      },
+      {
+        "name": "cream_yellow",
+        "color": "#F2D86A"
+      },
+      {
+        "name": "burgundy",
+        "color": "#7A1F35"
+      }
+    ],
+    "displayFont": "Bricolage Grotesque",
+    "bodyFont": "Noto Sans SC",
+    "typography_style": "expressive variable grotesk + literary serif + technical mono; magazine-page typographic system",
+    "best_for": "时尚杂志风格排版：编辑提案、时尚品牌、生活媒体、艺术指导评审——需要三色调纪律和衬线/无衬线对比而非全套中性色的场景。科技、调研、商业演示中也能作为独特风格选择",
+    "avoid_for": "需要柔和或安抚感的内容——酒红/粉/奶油的高对比组合有意保持风格化，不适合温和中性表达",
+    "features": [],
+    "css_variables": [
+      {
+        "name": "--pink",
+        "value": "#F2B6C6"
+      },
+      {
+        "name": "--pink-deep",
+        "value": "#F2B6C6"
+      },
+      {
+        "name": "--cream",
+        "value": "#F2D86A"
+      },
+      {
+        "name": "--navy",
+        "value": "#7A1F35"
+      },
+      {
+        "name": "--forest",
+        "value": "#7A1F35"
+      },
+      {
+        "name": "--burgundy",
+        "value": "#7A1F35"
+      },
+      {
+        "name": "--lime",
+        "value": "#F2D86A"
+      },
+      {
+        "name": "--sky",
+        "value": "#F2B6C6"
+      },
+      {
+        "name": "--terracotta",
+        "value": "#F2D86A"
+      },
+      {
+        "name": "--butter",
+        "value": "#F2D86A"
+      },
+      {
+        "name": "--ink",
+        "value": "#7A1F35"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/editorial-tri-tone/template.html",
+    "skill": "_growth",
+    "slide_count": 8,
+    "design_philosophy": "三色编辑系统：灰粉（#C4958A）× 芥末奶油（#F3EFE8）× 深勃艮第（#4A1625）。Bricolage Grotesque + Instrument Serif 双字体。时尚杂志跨页美学——三色调纪律、衬线/无衬线对比、高对比度排版。",
+    "design_principles": "单色强调——仅一个强调色贯穿全模板，其余用灰度收束\n高对比度——文字与背景对比强烈，确保远距离可读性\n内容优先——UI 退后，让内容占据视觉主导\n充裕留白——大量负空间制造呼吸感，不拥挤",
+    "typography_scale": "24px: 24px; 16px: 16px; 44px: 44px; 300px: 300px; 240px: 240px; 0.35em: 0.35em; 56px: 56px; 28px: 28px; 64px: 64px; 76px: 76px; 40px: 40px; 540px: 540px; 220px: 220px; 30px: 30px; 84px: 84px; 200px: 200px; 26px: 26px; 320px: 320px; 22px: 22px; 48px: 48px",
+    "color_system": "color-primary: #F2B6C6; color-secondary: #666666; color-surface: #F2D86A; color-on-surface: #7A1F35"
+  },
+  {
+    "slug": "emerald-editorial",
+    "name": "翡翠编辑 · Emerald Editorial",
+    "tagline": "Bodoni Moda 900 超粗衬线 × 翡翠绿+海军蓝+纸色 — 双线饰框、4px 墨水分割线、零圆角，复古时尚杂志封面般的编辑排版",
+    "template_type": "single-page",
+    "design_style": "literary",
+    "scheme": "mixed",
+    "formality": "medium-high",
+    "density": "medium",
+    "mood": [
+      "editorial",
+      "considered",
+      "confident",
+      "magazine-cover"
+    ],
+    "palette": [
+      {
+        "name": "emerald",
+        "color": "#3CD896"
+      },
+      {
+        "name": "navy",
+        "color": "#0F1A5C"
+      },
+      {
+        "name": "paper",
+        "color": "#F1E9D6"
+      }
+    ],
+    "displayFont": "Bodoni Moda",
+    "bodyFont": "Noto Sans SC",
+    "typography_style": "heavy Bodoni-style display serif paired with a wide geometric sans for chrome and body",
+    "best_for": "领导层报告、战略简报、产品发布、调研回顾——需要像严肃杂志封面一样出场的内容。双线饰框自带编辑分量感，也适合想以沉淀感代替企业感的任何场景",
+    "avoid_for": "需要安静、中性或机构克制的场景——翡翠色块过于饱和，无法融入背景，不适合低调表达",
+    "features": [],
+    "css_variables": [
+      {
+        "name": "--bg",
+        "value": "#3CD896"
+      },
+      {
+        "name": "--bg-2",
+        "value": "#2DC684"
+      },
+      {
+        "name": "--bg-3",
+        "value": "#25B377"
+      },
+      {
+        "name": "--ink",
+        "value": "#0F1A5C"
+      },
+      {
+        "name": "--ink-2",
+        "value": "#1B2774"
+      },
+      {
+        "name": "--ink-3",
+        "value": "#3A4593"
+      },
+      {
+        "name": "--paper",
+        "value": "#F1E9D6"
+      },
+      {
+        "name": "--rule",
+        "value": "rgba(15, 26, 92, 0.22)"
+      },
+      {
+        "name": "--rule-strong",
+        "value": "rgba(15, 26, 92, 0.85)"
+      },
+      {
+        "name": "--display-font",
+        "value": "'Bodoni Moda', serif"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/emerald-editorial/template.html",
+    "skill": "_growth",
+    "slide_count": 8,
+    "design_philosophy": "杂志封面级商务——翡翠绿（#0A5F4A）× 海军蓝（#1B2A4A）× 纸白（#F8F6F2）。双线刊头装饰（double-rule masthead）是签名设计元素。Bodoni 风格展示衬线 + Inter 正文，编辑权威感。",
+    "design_principles": "单色强调——仅一个强调色贯穿全模板，其余用灰度收束\n展示字体优先——标题使用 `Bodoni Moda`，正文退为系统字体\n高对比度——文字与背景对比强烈，确保远距离可读性\n内容优先——UI 退后，让内容占据视觉主导\n充裕留白——大量负空间制造呼吸感，不拥挤",
+    "typography_scale": "0.42em: 0.42em; 26px: 26px; 76px: 76px; 184px: 184px; 68px: 68px; 28px: 28px; 200px: 200px; 64px: 64px; 460px: 460px; 128px: 128px; 24px: 24px; 130px: 130px; 84px: 84px; 44px: 44px; 104px: 104px; 30px: 30px; 48px: 48px; 92px: 92px; 120px: 120px; 80px: 80px; 40px: 40px; 144px: 144px; 60px: 60px; 180px: 180px; 38px: 38px",
+    "color_system": "color-primary: #333333; color-secondary: #666666; color-surface: #F1E9D6; color-on-surface: #0F1A5C"
+  },
+  {
+    "slug": "long-table",
+    "name": "长桌 · Long Table",
+    "tagline": "单一铁锈陶红油墨 × 奶油纸底 — Bricolage Grotesque 大写标题 + Fraunces 斜体正文，药丸描边按钮、版本徽章、4px 纸纹点阵，晚餐俱乐部/Risograph 小志美学",
+    "template_type": "single-page",
+    "design_style": "warm",
+    "scheme": "light",
+    "formality": "medium",
+    "density": "medium",
+    "mood": [
+      "warm",
+      "intimate",
+      "modern",
+      "friendly",
+      "small-batch",
+      "social",
+      "hospitality"
+    ],
+    "palette": [
+      {
+        "name": "paper",
+        "color": "#FAF1E2"
+      },
+      {
+        "name": "ink",
+        "color": "#B53D2A"
+      },
+      {
+        "name": "ink-deep",
+        "color": "#8E2D1F"
+      }
+    ],
+    "displayFont": "Bricolage Grotesque",
+    "bodyFont": "Fraunces",
+    "typography_style": "bold uppercase Bricolage Grotesque for hero / chapter titles paired with Fraunces for body, captions, button labels, and tagline — a contemporary mix-and-match modern editorial pairing",
+    "best_for": "晚餐俱乐部、小型餐厅、创意工作室活动、会员制品牌、生活/酒类品牌——需要温暖私密、现代社交感的内容。也适合任何想以单一暖色强调和混字重排版的场景",
+    "avoid_for": "需要企业润饰、技术密集或冷感极简的场景——铁锈红调色板和大胆衬线混排有意温暖亲民，不适合冷静专业语境",
+    "features": [],
+    "css_variables": [
+      {
+        "name": "--paper",
+        "value": "#FAF1E2"
+      },
+      {
+        "name": "--paper-d",
+        "value": "#F2E5CF"
+      },
+      {
+        "name": "--paper-vd",
+        "value": "#E8D7B6"
+      },
+      {
+        "name": "--ink",
+        "value": "#B53D2A"
+      },
+      {
+        "name": "--ink-dp",
+        "value": "#8E2D1F"
+      },
+      {
+        "name": "--rule",
+        "value": "#B53D2A"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/long-table/template.html",
+    "skill": "_growth",
+    "slide_count": 8,
+    "design_philosophy": "暖奶油（#FAF6F0）× 铁锈红（#C25A3C）晚宴美学。粗体大写 grotesk 标题 + Fraunces 衬线 + 药丸形轮廓按钮。灵感来自私房菜/晚宴俱乐部——温暖、亲密、现代 hospitality 品牌感。",
+    "design_principles": "单色强调——仅一个强调色贯穿全模板，其余用灰度收束\n高对比度——文字与背景对比强烈，确保远距离可读性\n内容优先——UI 退后，让内容占据视觉主导\n充裕留白——大量负空间制造呼吸感，不拥挤",
+    "typography_scale": "clamp(14px, 0.95vw, 16px): clamp(14px, 0.95vw, 16px); clamp(11px, 0.78vw, 13px): clamp(11px, 0.78vw, 13px); clamp(15px, 1.1vw, 20px): clamp(15px, 1.1vw, 20px); clamp(18px, 1.4vw, 24px): clamp(18px, 1.4vw, 24px); clamp(15px, 1.05vw, 18px): clamp(15px, 1.05vw, 18px); clamp(20px, 1.6vw, 30px): clamp(20px, 1.6vw, 30px); clamp(82px, min(8.8vw, 15vh), 180px): clamp(82px, min(8.8vw, 15vh), 180px); clamp(17px, 1.2vw, 22px): clamp(17px, 1.2vw, 22px); clamp(18px, 1.4vw, 26px): clamp(18px, 1.4vw, 26px); clamp(180px, min(22vw, 38vh), 480px): clamp(180px, min(22vw, 38vh), 480px); clamp(15px, 1.1vw, 18px): clamp(15px, 1.1vw, 18px); clamp(72px, min(7.6vw, 13vh), 160px): clamp(72px, min(7.6vw, 13vh), 160px); clamp(20px, 1.5vw, 28px): clamp(20px, 1.5vw, 28px); clamp(16px, 1.2vw, 20px): clamp(16px, 1.2vw, 20px); clamp(56px, min(6vw, 10vh), 120px): clamp(56px, min(6vw, 10vh), 120px); clamp(28px, 2.4vw, 44px): clamp(28px, 2.4vw, 44px); clamp(15px, 1vw, 17px): clamp(15px, 1vw, 17px); clamp(18px, 1.3vw, 22px): clamp(18px, 1.3vw, 22px); clamp(60px, min(6.4vw, 10.5vh), 140px): clamp(60px, min(6.4vw, 10.5vh), 140px); clamp(20px, 1.6vw, 28px): clamp(20px, 1.6vw, 28px); clamp(20px, 1.5vw, 26px): clamp(20px, 1.5vw, 26px); clamp(48px, min(5vw, 8.4vh), 100px): clamp(48px, min(5vw, 8.4vh), 100px); clamp(16px, 1.1vw, 20px): clamp(16px, 1.1vw, 20px); clamp(40px, min(4.4vw, 7.4vh), 96px): clamp(40px, min(4.4vw, 7.4vh), 96px); clamp(13px, 0.92vw, 15px): clamp(13px, 0.92vw, 15px); clamp(18px, 1.3vw, 24px): clamp(18px, 1.3vw, 24px); clamp(15px, 1.05vw, 17px): clamp(15px, 1.05vw, 17px); clamp(13px, 0.95vw, 16px): clamp(13px, 0.95vw, 16px); clamp(60px, min(6.4vw, 10vh), 130px): clamp(60px, min(6.4vw, 10vh), 130px)",
+    "color_system": "color-primary: #333333; color-secondary: #666666; color-surface: #FAF1E2; color-on-surface: #B53D2A"
+  },
+  {
+    "slug": "mat",
+    "name": "衬垫 · Mat",
+    "tagline": "暗森林绿画布 × 木棕径向辉光 — Bricolage 展示体 + DM Sans 正文 + DM Mono 元数据，暖橙强调、1px 发丝线，中古现代主义的材质触感系统",
+    "template_type": "single-page",
+    "design_style": "warm",
+    "scheme": "mixed",
+    "formality": "medium",
+    "density": "medium",
+    "mood": [
+      "warm-modern",
+      "considered",
+      "tactile",
+      "mid-century"
+    ],
+    "palette": [
+      {
+        "name": "bg",
+        "color": "#232e26"
+      },
+      {
+        "name": "bg_alt",
+        "color": "#2e3d30"
+      },
+      {
+        "name": "fg",
+        "color": "#f0e8d2"
+      },
+      {
+        "name": "accent",
+        "color": "#c07030"
+      },
+      {
+        "name": "bg_light",
+        "color": "#ede6d0"
+      },
+      {
+        "name": "wood",
+        "color": "#7a4e24"
+      }
+    ],
+    "displayFont": "Bricolage Grotesque",
+    "bodyFont": "DM Sans",
+    "typography_style": "expressive variable grotesk display + clean DM body + DM Mono captions",
+    "best_for": "设计工作室资质、建筑/室内品牌、陶瓷/手工艺/家具、咨询报告——需要中古质感、触觉和意图感的内容。也适合想以有机模拟感代替数字冷感的科技/调研/商业演示",
+    "avoid_for": "需要快速科技能量或机构克制的场景——哑鼠尾草+焦橙体系有意温暖缓慢，不适合快节奏表达",
+    "features": [],
+    "css_variables": [
+      {
+        "name": "--c-bg",
+        "value": "#232e26"
+      },
+      {
+        "name": "--c-bg-alt",
+        "value": "#2e3d30"
+      },
+      {
+        "name": "--c-bg-light",
+        "value": "#ede6d0"
+      },
+      {
+        "name": "--c-bg-light-alt",
+        "value": "#e4dac4"
+      },
+      {
+        "name": "--c-fg",
+        "value": "#f0e8d2"
+      },
+      {
+        "name": "--c-fg-2",
+        "value": "rgba(240, 232, 210, 0.58)"
+      },
+      {
+        "name": "--c-fg-3",
+        "value": "rgba(240, 232, 210, 0.3)"
+      },
+      {
+        "name": "--c-fg-light",
+        "value": "#1e2820"
+      },
+      {
+        "name": "--c-fg-light-2",
+        "value": "rgba(30, 40, 32, 0.6)"
+      },
+      {
+        "name": "--c-fg-light-3",
+        "value": "rgba(30, 40, 32, 0.3)"
+      },
+      {
+        "name": "--c-accent",
+        "value": "#c07030"
+      },
+      {
+        "name": "--c-border",
+        "value": "rgba(240, 232, 210, 0.12)"
+      },
+      {
+        "name": "--c-border-light",
+        "value": "rgba(30, 40, 32, 0.14)"
+      },
+      {
+        "name": "--c-wood",
+        "value": "#7a4e24"
+      },
+      {
+        "name": "--f-display",
+        "value": "\"Bricolage Grotesque\", \"Noto Sans SC\", sans-serif"
+      },
+      {
+        "name": "--f-heading",
+        "value": "\"Bricolage Grotesque\", \"Noto Sans SC\", sans-serif"
+      },
+      {
+        "name": "--f-body",
+        "value": "\"DM Sans\", \"Noto Sans SC\", system-ui, sans-serif"
+      },
+      {
+        "name": "--f-mono",
+        "value": "\"DM Mono\", monospace"
+      },
+      {
+        "name": "--sz-display",
+        "value": "12vw"
+      },
+      {
+        "name": "--sz-h1",
+        "value": "7vw"
+      },
+      {
+        "name": "--sz-h2",
+        "value": "4vw"
+      },
+      {
+        "name": "--sz-h3",
+        "value": "2.4vw"
+      },
+      {
+        "name": "--sz-lead",
+        "value": "1.5vw"
+      },
+      {
+        "name": "--sz-body",
+        "value": "1.05vw"
+      },
+      {
+        "name": "--sz-caption",
+        "value": "0.82vw"
+      },
+      {
+        "name": "--sz-label",
+        "value": "0.7vw"
+      },
+      {
+        "name": "--pad-x",
+        "value": "5.5vw"
+      },
+      {
+        "name": "--pad-y",
+        "value": "5.5vh"
+      },
+      {
+        "name": "--gap-lg",
+        "value": "4.5vh"
+      },
+      {
+        "name": "--gap-md",
+        "value": "2.8vh"
+      },
+      {
+        "name": "--gap-sm",
+        "value": "1.4vh"
+      },
+      {
+        "name": "--ease-slide",
+        "value": "cubic-bezier(0.77, 0, 0.175, 1)"
+      },
+      {
+        "name": "--dur-slide",
+        "value": "0s"
+      },
+      {
+        "name": "--ease-enter",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)"
+      },
+      {
+        "name": "--dur-enter",
+        "value": "0s"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/mat/template.html",
+    "skill": "_growth",
+    "slide_count": 9,
+    "design_philosophy": "深鼠尾草画布（#232E26）× 骨白纸（#F7F4ED）× 焦橙强调（#C2653A）。中世纪现代 × 木质感——触感、有意的、温暖的。设计来自陶瓷/家具/建筑工作室的 credential 美学，muted 但不沉闷。",
+    "design_principles": "深色底戏剧性——暗色画布制造视觉张力，强调色如灯塔信号\n单色强调——仅一个强调色贯穿全模板，其余用灰度收束\n展示字体优先——标题使用 `Bricolage Grotesque`，正文退为系统字体\nvw 响应式排版——字号跟随视口宽度自动缩放，适配全屏演示\n高对比度——文字与背景对比强烈，确保远距离可读性",
+    "typography_scale": "display: 12vw; h1: 7vw; h2: 4vw; h3: 2.4vw; lead: 1.5vw; body: 1.05vw; caption: 0.82vw; label: 0.7vw",
+    "color_system": "color-primary: #c07030; color-secondary: #666666; color-surface: #232e26; color-on-surface: #f0e8d2"
+  },
+  {
+    "slug": "neo-grid-bold",
+    "name": "新网格粗体 · Neo-Grid Bold",
+    "tagline": "12 列 × 8 行 CSS 网格 × 霓虹黄单色强调 — Space Grotesk 700 大写标题、40px 内缩、零圆角零阴影、JetBrains Mono 元数据，编辑型新粗野主义",
+    "template_type": "single-page",
+    "design_style": "bold",
+    "scheme": "light",
+    "formality": "medium",
+    "density": "high",
+    "mood": [
+      "confident",
+      "punchy",
+      "editorial",
+      "modern"
+    ],
+    "palette": [
+      {
+        "name": "bg",
+        "color": "#ECECE8"
+      },
+      {
+        "name": "ink",
+        "color": "#0A0A0A"
+      },
+      {
+        "name": "paper",
+        "color": "#F5F4EF"
+      },
+      {
+        "name": "accent",
+        "color": "#E6FF3D"
+      },
+      {
+        "name": "muted",
+        "color": "#8A8A85"
+      }
+    ],
+    "displayFont": "Space Grotesk",
+    "bodyFont": "Space Grotesk",
+    "typography_style": "geometric sans paired with technical mono captions; uppercase display weight",
+    "best_for": "设计主导的提案、品牌作品、创始人演讲、会议主题演讲——数据密集幻灯片、对比、流程图尤其出色。也适合想以设计感而非企业感出场的科技、调研或金融演示",
+    "avoid_for": "需要安静、传统或温暖的场景——霓虹黄强调和大写展示天然偏向自信的编辑调性，不适合保守表达",
+    "features": [],
+    "css_variables": [
+      {
+        "name": "--bg",
+        "value": "#ECECE8"
+      },
+      {
+        "name": "--ink",
+        "value": "#0A0A0A"
+      },
+      {
+        "name": "--paper",
+        "value": "#F5F4EF"
+      },
+      {
+        "name": "--accent",
+        "value": "#E6FF3D"
+      },
+      {
+        "name": "--line",
+        "value": "#0A0A0A"
+      },
+      {
+        "name": "--muted",
+        "value": "#8A8A85"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/neo-grid-bold/template.html",
+    "skill": "_growth",
+    "slide_count": 13,
+    "design_philosophy": "编辑新粗野主义 × 霓虹黄（#E5FF00）单色强调 × 米白纸（#F9F7F1）。自信的编辑图形语言——大写展示标题、数据大字、对比网格。单一霓虹黄在克制的中性色板上是绝对主角。",
+    "design_principles": "高对比度——文字与背景对比强烈，确保远距离可读性\n网格结构即装饰——模数化网格作为视觉骨架，不依赖额外装饰\n内容优先——UI 退后，让内容占据视觉主导\n充裕留白——大量负空间制造呼吸感，不拥挤",
+    "typography_scale": "24px: 24px; 16px: 16px; 132px: 132px; 88px: 88px; 56px: 56px; 28px: 28px; 156px: 156px; 96px: 96px; 13px: 13px; 92px: 92px; 22px: 22px; 36px: 36px; 20px: 20px; 48px: 48px; 76px: 76px; 240px: 240px; 30px: 30px; 84px: 84px; 14px: 14px; 320px: 320px; 18px: 18px; 38px: 38px; 124px: 124px; 44px: 44px; 32px: 32px; 21px: 21px; 15px: 15px; 17px: 17px; 26px: 26px; 11px: 11px; 12px: 12px",
+    "color_system": "color-primary: #E6FF3D; color-secondary: #8A8A85; color-surface: #F5F4EF; color-on-surface: #0A0A0A"
+  },
+  {
+    "slug": "peoples-platform",
+    "name": "人民讲台 · People's Platform",
+    "tagline": "WPA 海报 × 政治竞选美学 — Alfa Slab One 压缩厚板 + Caveat Brush 手写打断 + DM Mono，电光钴蓝+琥珀橙+炽红、堆叠 text-shadow、6px 墨水边框、纸纹叠加",
+    "template_type": "single-page",
+    "design_style": "punchy",
+    "scheme": "light",
+    "formality": "medium-low",
+    "density": "medium-high",
+    "mood": [
+      "activist",
+      "loud",
+      "graphic",
+      "honest"
+    ],
+    "palette": [
+      {
+        "name": "blue",
+        "color": "#2C2CDC"
+      },
+      {
+        "name": "orange",
+        "color": "#F2A03A"
+      },
+      {
+        "name": "red",
+        "color": "#E83A2A"
+      },
+      {
+        "name": "cream",
+        "color": "#F4E9D6"
+      },
+      {
+        "name": "ink",
+        "color": "#0E0E14"
+      }
+    ],
+    "displayFont": "Alfa Slab One",
+    "bodyFont": "Noto Sans SC",
+    "typography_style": "heavy slab display + narrow grotesk + brush script + mono; protest-poster typographic stack",
+    "best_for": "文化评论、宣言、公民/社区演示、设计讲座、竞选提案、创始人愿景——需要抗议海报般诚实、响亮、图形感的内容。也适合任何想以表达性能量代替企业润饰的跨行业演示",
+    "avoid_for": "机构克制是实际目标的场景——饱和的政治海报调色板坚决投向表达性能量，不适合温和中性语境",
+    "features": [],
+    "css_variables": [
+      {
+        "name": "--blue",
+        "value": "#2C2CDC"
+      },
+      {
+        "name": "--blue-deep",
+        "value": "#1B1BB0"
+      },
+      {
+        "name": "--orange",
+        "value": "#F2A03A"
+      },
+      {
+        "name": "--orange-deep",
+        "value": "#E89321"
+      },
+      {
+        "name": "--red",
+        "value": "#E83A2A"
+      },
+      {
+        "name": "--red-deep",
+        "value": "#B7281C"
+      },
+      {
+        "name": "--cream",
+        "value": "#F4E9D6"
+      },
+      {
+        "name": "--paper",
+        "value": "#F5F2EA"
+      },
+      {
+        "name": "--ink",
+        "value": "#0E0E14"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/peoples-platform/template.html",
+    "skill": "_growth",
+    "slide_count": 10,
+    "design_philosophy": "Activist 海报能量——蓝（#2B5FBF）× 橙（#E86A2C）× 红（#D03A2C）× 奶油底（#F7F3EB）。Alfa Slab One + Caveat Brush 双展示字体。抗议海报/社区运动/文化评论的视觉语言——诚实、大声、图形化。",
+    "design_principles": "单色强调——仅一个强调色贯穿全模板，其余用灰度收束\n高对比度——文字与背景对比强烈，确保远距离可读性\n内容优先——UI 退后，让内容占据视觉主导\n充裕留白——大量负空间制造呼吸感，不拥挤",
+    "typography_scale": "24px: 24px; 240px: 240px; 96px: 96px; 72px: 72px; 26px: 26px; 140px: 140px; 32px: 32px; 54px: 54px; 36px: 36px; 108px: 108px; 104px: 104px; 120px: 120px; 28px: 28px; 180px: 180px; 540px: 540px; 130px: 130px; 64px: 64px; 30px: 30px; 60px: 60px; 300px: 300px; 78px: 78px; 38px: 38px; 88px: 88px; 260px: 260px; 48px: 48px; 46px: 46px",
+    "color_system": "color-primary: #E83A2A; color-secondary: #666666; color-surface: #F5F2EA; color-on-surface: #0E0E14"
+  },
+  {
+    "slug": "pin-and-paper",
+    "name": "别针便笺 · Pin & Paper",
+    "tagline": "黄色记事本 × 钴蓝墨水 — 安全别针 SVG 插画、纸纹噪声肌理、Caveat 手写体 + Space Grotesk + DM Mono、朱砂红印章，田野笔记式的编辑美学",
+    "template_type": "single-page",
+    "design_style": "literary",
+    "scheme": "light",
+    "formality": "medium",
+    "density": "medium",
+    "mood": [
+      "crafted",
+      "handmade",
+      "warm",
+      "thoughtful",
+      "literary"
+    ],
+    "palette": [
+      {
+        "name": "paper",
+        "color": "#EFE56A"
+      },
+      {
+        "name": "cream",
+        "color": "#F8F1D6"
+      },
+      {
+        "name": "ink",
+        "color": "#1F3A8A"
+      },
+      {
+        "name": "red",
+        "color": "#C2342B"
+      }
+    ],
+    "displayFont": "Caveat",
+    "bodyFont": "Space Grotesk",
+    "typography_style": "handwritten script for warmth + grotesk for legibility + mono for captions; textbook annotation feel",
+    "best_for": "质性调研发现、创始人反思、长文品牌叙事、工作坊复盘——需要手作温暖和个性而非机器感的内容。也适合任何想以人格和温度出场的科技或商业演示",
+    "avoid_for": "需要数字原生精致感或严格数据驱动的场景——Caveat 手写体有意非正式，不适合严谨企业环境",
+    "features": [],
+    "css_variables": [
+      {
+        "name": "--paper",
+        "value": "#EFE56A"
+      },
+      {
+        "name": "--paper-2",
+        "value": "#F5ECA0"
+      },
+      {
+        "name": "--paper-3",
+        "value": "#E8D85A"
+      },
+      {
+        "name": "--cream",
+        "value": "#F8F1D6"
+      },
+      {
+        "name": "--kraft",
+        "value": "#C9A66B"
+      },
+      {
+        "name": "--ink",
+        "value": "#1F3A8A"
+      },
+      {
+        "name": "--ink-soft",
+        "value": "#2D4FB8"
+      },
+      {
+        "name": "--ink-line",
+        "value": "#3457C4"
+      },
+      {
+        "name": "--black",
+        "value": "#0E1430"
+      },
+      {
+        "name": "--red",
+        "value": "#C2342B"
+      },
+      {
+        "name": "--olive",
+        "value": "#6B7A2E"
+      },
+      {
+        "name": "--orange",
+        "value": "#D8702A"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/pin-and-paper/template.html",
+    "skill": "_growth",
+    "slide_count": 11,
+    "design_philosophy": "黄纸底（#F7F3E0）× 安全别针 SVG 插画 × 墨水蓝手写 Caveat Brush × 纸纹肌理。手工制作的文学感——安全别针是签名图形元素（不是装饰），纸纹叠加层制造触觉。Caveat Brush 手写体让每页像手写笔记。",
+    "design_principles": "高对比度——文字与背景对比强烈，确保远距离可读性\n纸纹理——叠加噪点/颗粒质感，模拟印刷品的触感\n内容优先——UI 退后，让内容占据视觉主导\n充裕留白——大量负空间制造呼吸感，不拥挤",
+    "typography_scale": "18px: 18px; 15px: 15px; 16px: 16px; 196px: 196px; 38px: 38px; 96px: 96px; 22px: 22px; 44px: 44px; 84px: 84px; 20px: 20px; 32px: 32px; 168px: 168px; 36px: 36px; 50px: 50px; 28px: 28px; 19px: 19px; 14px: 14px; 110px: 110px; 21px: 21px; 88px: 88px; 70px: 70px; 24px: 24px; 92px: 92px; 60px: 60px; 26px: 26px; 360px: 360px; 130px: 130px",
+    "color_system": "color-primary: #C2342B; color-secondary: #2D4FB8; color-surface: #EFE56A; color-on-surface: #1F3A8A"
+  },
+  {
+    "slug": "playful",
+    "name": "手创 · Playful",
+    "tagline": "蜜桃陶土画布 × 炭墨单色 — Syne 700-800 展示体 + Space Grotesk 正文、双线偏移边框、脚手架 SVG 线稿、±3° 卡片旋转、有机气泡形，手工编辑的独立发布美学",
+    "template_type": "single-page",
+    "design_style": "upbeat",
+    "scheme": "light",
+    "formality": "low",
+    "density": "medium",
+    "mood": [
+      "warm",
+      "approachable",
+      "indie",
+      "friendly"
+    ],
+    "palette": [
+      {
+        "name": "bg",
+        "color": "#F0C8A0"
+      },
+      {
+        "name": "bg_alt",
+        "color": "#E8B88E"
+      },
+      {
+        "name": "text",
+        "color": "#1A1A1A"
+      },
+      {
+        "name": "light",
+        "color": "#F7DEC6"
+      }
+    ],
+    "displayFont": "Syne",
+    "bodyFont": "Space Grotesk",
+    "typography_style": "geometric variable display with personality + clean grotesk body",
+    "best_for": "创作者作品集、独立产品发布、生活品牌、小型商业提案、通讯/社区演示——需要友好亲民而非企业冷感的内容。也适合任何想以人味和温暖出场的科技或调研演示",
+    "avoid_for": "机构可信度比温暖感更重要的场景——蜜桃色板有意非正式，不适合需要传统权威的场合",
+    "features": [],
+    "css_variables": [
+      {
+        "name": "--bg",
+        "value": "#F0C8A0"
+      },
+      {
+        "name": "--bg-alt",
+        "value": "#E8B88E"
+      },
+      {
+        "name": "--text",
+        "value": "#1A1A1A"
+      },
+      {
+        "name": "--accent",
+        "value": "#1A1A1A"
+      },
+      {
+        "name": "--light",
+        "value": "#F7DEC6"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/playful/template.html",
+    "skill": "_growth",
+    "slide_count": 10,
+    "design_philosophy": "阳光蜜桃底（#F0C8A0）× Syne 展示字体。友好的独立发布美学——暖调、人性化、非正式。单色强调（#E85D3A 焦橙）在蜜桃底上保持温暖而非攻击性。",
+    "design_principles": "单色强调——仅一个强调色贯穿全模板，其余用灰度收束\n展示字体优先——标题使用 `#1A1A1A`，正文退为系统字体\n高对比度——文字与背景对比强烈，确保远距离可读性\n内容优先——UI 退后，让内容占据视觉主导\n充裕留白——大量负空间制造呼吸感，不拥挤",
+    "typography_scale": "1.2rem: 1.2rem; 0.9rem: 0.9rem; clamp(4rem, 10vw, 9rem): clamp(4rem, 10vw, 9rem); clamp(2.5rem, 6vw, 5rem): clamp(2.5rem, 6vw, 5rem); 1.1rem: 1.1rem; 1.5rem: 1.5rem; 0.85rem: 0.85rem; clamp(2rem, 4vw, 3.5rem): clamp(2rem, 4vw, 3.5rem); 2.5rem: 2.5rem; 1rem: 1rem; clamp(2.5rem, 5vw, 4.5rem): clamp(2.5rem, 5vw, 4.5rem); clamp(2rem, 4vw, 3rem): clamp(2rem, 4vw, 3rem); 0.8rem: 0.8rem; 0.75rem: 0.75rem; 1.3rem: 1.3rem; 2rem: 2rem; clamp(1.8rem, 3vw, 2.5rem): clamp(1.8rem, 3vw, 2.5rem); clamp(4rem, 8vw, 7rem): clamp(4rem, 8vw, 7rem); clamp(3rem, 8vw, 7rem): clamp(3rem, 8vw, 7rem)",
+    "color_system": "color-primary: #1A1A1A; color-secondary: #666666; color-surface: #F0C8A0; color-on-surface: #1A1A1A"
+  },
+  {
+    "slug": "signal",
+    "name": "信号 · Signal",
+    "tagline": "深海军蓝 × 骨白纸双面系统 — Source Serif 4 标题中罗马体+斜体黄金混排、DM Sans 正文、IBM Plex Mono 元数据、古金色单强调、80px 网格纹理，文学编辑的机构分量感",
+    "template_type": "single-page",
+    "design_style": "sober",
+    "scheme": "mixed",
+    "formality": "high",
+    "density": "high",
+    "mood": [
+      "institutional",
+      "trustworthy",
+      "considered",
+      "weighty"
+    ],
+    "palette": [
+      {
+        "name": "bg",
+        "color": "#1c2644"
+      },
+      {
+        "name": "bg_alt",
+        "color": "#232f55"
+      },
+      {
+        "name": "fg",
+        "color": "#e2dcd0"
+      },
+      {
+        "name": "accent",
+        "color": "#c8a870"
+      },
+      {
+        "name": "bg_light",
+        "color": "#f0ece3"
+      }
+    ],
+    "displayFont": "Source Serif 4",
+    "bodyFont": "DM Sans",
+    "typography_style": "transitional serif headlines + clean sans body + technical mono captions; full Chinese serif/sans support",
+    "best_for": "投资人演示、董事会报告、咨询交付物、法律/政策简报、顾问提案——需要分量感、审慎和可靠机构气质的内容。也适合任何想以安静权威而非大声出场的品牌或调研工作",
+    "avoid_for": "需要热烈、快速或玩趣的场景——海军蓝+金的克制天然偏向冷静严肃，不适合活泼或高能量表达",
+    "features": [],
+    "css_variables": [
+      {
+        "name": "--c-bg",
+        "value": "#1c2644"
+      },
+      {
+        "name": "--c-bg-alt",
+        "value": "#232f55"
+      },
+      {
+        "name": "--c-bg-light",
+        "value": "#f0ece3"
+      },
+      {
+        "name": "--c-bg-light-alt",
+        "value": "#e6e0d4"
+      },
+      {
+        "name": "--c-fg",
+        "value": "#e2dcd0"
+      },
+      {
+        "name": "--c-fg-2",
+        "value": "#8a96a8"
+      },
+      {
+        "name": "--c-fg-3",
+        "value": "#4e5a6e"
+      },
+      {
+        "name": "--c-fg-light",
+        "value": "#1a2030"
+      },
+      {
+        "name": "--c-fg-light-2",
+        "value": "#5a6270"
+      },
+      {
+        "name": "--c-fg-light-3",
+        "value": "#9aa0a8"
+      },
+      {
+        "name": "--c-accent",
+        "value": "#c8a870"
+      },
+      {
+        "name": "--c-border",
+        "value": "#2e3d5c"
+      },
+      {
+        "name": "--c-border-light",
+        "value": "#cac4b4"
+      },
+      {
+        "name": "--f-display",
+        "value": "\"Source Serif 4\", \"Noto Serif SC\", Georgia, serif"
+      },
+      {
+        "name": "--f-heading",
+        "value": "\"Source Serif 4\", \"Noto Serif SC\", Georgia, serif"
+      },
+      {
+        "name": "--f-body",
+        "value": "\"DM Sans\", \"Noto Sans SC\", system-ui, sans-serif"
+      },
+      {
+        "name": "--f-mono",
+        "value": "\"IBM Plex Mono\", \"JetBrains Mono\", monospace"
+      },
+      {
+        "name": "--sz-display",
+        "value": "9.5vw"
+      },
+      {
+        "name": "--sz-h1",
+        "value": "5.2vw"
+      },
+      {
+        "name": "--sz-h2",
+        "value": "3vw"
+      },
+      {
+        "name": "--sz-h3",
+        "value": "1.9vw"
+      },
+      {
+        "name": "--sz-lead",
+        "value": "1.4vw"
+      },
+      {
+        "name": "--sz-body",
+        "value": "1.05vw"
+      },
+      {
+        "name": "--sz-caption",
+        "value": "0.82vw"
+      },
+      {
+        "name": "--sz-label",
+        "value": "0.7vw"
+      },
+      {
+        "name": "--pad-x",
+        "value": "7.5vw"
+      },
+      {
+        "name": "--pad-y",
+        "value": "5.5vh"
+      },
+      {
+        "name": "--gap-lg",
+        "value": "4vh"
+      },
+      {
+        "name": "--gap-md",
+        "value": "2.5vh"
+      },
+      {
+        "name": "--gap-sm",
+        "value": "1.2vh"
+      },
+      {
+        "name": "--ease-slide",
+        "value": "cubic-bezier(0.77, 0, 0.175, 1)"
+      },
+      {
+        "name": "--dur-slide",
+        "value": "0.85s"
+      },
+      {
+        "name": "--ease-enter",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)"
+      },
+      {
+        "name": "--dur-enter",
+        "value": "0.65s"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/signal/template.html",
+    "skill": "_growth",
+    "slide_count": 18,
+    "design_philosophy": "深海军蓝画布（#1C2644）× 骨白纸（#F5F1EB）× 哑金单色强调（#C4A24E）。机构的安静重量——投资者/董事会/咨询交付物的首选。海军蓝 + 金色的克制搭配传递\"可信\"而非\"张扬\"。",
+    "design_principles": "深色底戏剧性——暗色画布制造视觉张力，强调色如灯塔信号\n单色强调——仅一个强调色贯穿全模板，其余用灰度收束\n展示字体优先——标题使用 `Source Serif 4`，正文退为系统字体\nvw 响应式排版——字号跟随视口宽度自动缩放，适配全屏演示\n高对比度——文字与背景对比强烈，确保远距离可读性",
+    "typography_scale": "display: 9.5vw; h1: 5.2vw; h2: 3vw; h3: 1.9vw; lead: 1.4vw; body: 1.05vw; caption: 0.82vw; label: 0.7vw",
+    "color_system": "color-primary: #c8a870; color-secondary: #666666; color-surface: #1c2644; color-on-surface: #e2dcd0"
+  },
+  {
+    "slug": "stencil-tablet",
+    "name": "模板泥板 · Stencil & Tablet",
+    "tagline": "漏字模板 × 七色复古印刷 — Stardos Stencil 油墨断裂字体 + Barlow Condensed + Inter、22-26px 卡片牌匾、最高 540px 数字，西海岸滑板海报/市政模板式的档案现场手册",
+    "template_type": "single-page",
+    "design_style": "weighty",
+    "scheme": "light",
+    "formality": "medium-high",
+    "density": "medium",
+    "mood": [
+      "archival",
+      "earthy",
+      "tactile",
+      "considered",
+      "graphic"
+    ],
+    "palette": [
+      {
+        "name": "bone",
+        "color": "#E2DCC9"
+      },
+      {
+        "name": "ink",
+        "color": "#0A0A0A"
+      },
+      {
+        "name": "paper",
+        "color": "#F4EFE0"
+      },
+      {
+        "name": "sienna",
+        "color": "#A06A3C"
+      },
+      {
+        "name": "magenta",
+        "color": "#C73B7A"
+      },
+      {
+        "name": "orange",
+        "color": "#EE7A2E"
+      }
+    ],
+    "displayFont": "Bowlby One",
+    "bodyFont": "Inter",
+    "typography_style": "ultra-heavy display + stencil + tall condensed + clean body; reads like an archaeological field manual",
+    "best_for": "博物馆/文化机构演示、艺术/建筑品牌、长篇调研、遗产/手工艺品牌、宣言——需要像现场手册或考古档案而非幻灯片的内容。也适合任何想以有机档案感出场的跨行业演示",
+    "avoid_for": "需要数字原生精致感或玩趣流行的场景——模板字体和土色调色板坚决投向有机档案感，不适合现代数字风格",
+    "features": [],
+    "css_variables": [
+      {
+        "name": "--bone",
+        "value": "#E2DCC9"
+      },
+      {
+        "name": "--black",
+        "value": "#000000"
+      },
+      {
+        "name": "--ink",
+        "value": "#0A0A0A"
+      },
+      {
+        "name": "--paper",
+        "value": "#F4EFE0"
+      },
+      {
+        "name": "--sienna",
+        "value": "#A06A3C"
+      },
+      {
+        "name": "--magenta",
+        "value": "#C73B7A"
+      },
+      {
+        "name": "--orange",
+        "value": "#EE7A2E"
+      },
+      {
+        "name": "--teal",
+        "value": "#2D7E73"
+      },
+      {
+        "name": "--blue",
+        "value": "#3F73B7"
+      },
+      {
+        "name": "--mustard",
+        "value": "#D8A93B"
+      },
+      {
+        "name": "--olive",
+        "value": "#6F7A2E"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/stencil-tablet/template.html",
+    "skill": "_growth",
+    "slide_count": 11,
+    "design_philosophy": "骨白纸（#F5F0E8）× 模板切割标题 × 六色大地调色板。考古学遇见品牌——模板字体让人想起文物标签和档案盒，大地色系（赭石/洋红/橙/青/蓝/芥末/橄榄）来自出土颜料。像田野手册而非幻灯片。",
+    "design_principles": "单色强调——仅一个强调色贯穿全模板，其余用灰度收束\n高对比度——文字与背景对比强烈，确保远距离可读性\n内容优先——UI 退后，让内容占据视觉主导\n充裕留白——大量负空间制造呼吸感，不拥挤",
+    "typography_scale": "32px: 32px; 24px: 24px; 22px: 22px; 220px: 220px; 30px: 30px; 28px: 28px; 36px: 36px; 240px: 240px; 540px: 540px; 120px: 120px; 34px: 34px; 20px: 20px; 18px: 18px; min(110px, 12vh): min(110px, 12vh); 92px: 92px; 64px: 64px; 26px: 26px; 160px: 160px; 40px: 40px; 320px: 320px; 60px: 60px; 130px: 130px; 56px: 56px",
+    "color_system": "color-primary: #3F73B7; color-secondary: #666666; color-surface: #F4EFE0; color-on-surface: #0A0A0A"
+  },
+  {
+    "slug": "vellum",
+    "name": "羊皮纸 · Vellum",
+    "tagline": "深长春花蓝画布 × 黄绿暖字 — Cormorant Garamond 斜体标题、DM Sans 正文、Courier Prime 青绿便签批注，居中稀疏排版、零动效零阴影，学术独白般的沉静美学",
+    "template_type": "single-page",
+    "design_style": "literary",
+    "scheme": "dark",
+    "formality": "high",
+    "density": "low",
+    "mood": [
+      "scholarly",
+      "literary",
+      "considered",
+      "quiet",
+      "intellectual"
+    ],
+    "palette": [
+      {
+        "name": "bg",
+        "color": "#2a3870"
+      },
+      {
+        "name": "bg_alt",
+        "color": "#343f80"
+      },
+      {
+        "name": "fg",
+        "color": "#E8D85C"
+      },
+      {
+        "name": "accent",
+        "color": "#3a7878"
+      }
+    ],
+    "displayFont": "Cormorant Garamond",
+    "bodyFont": "DM Sans",
+    "typography_style": "transitional serif as the structural display face, paired with clean DM Sans body and Courier Prime mono for attributions and labels; bilingual EN/CN support",
+    "best_for": "研究综述、白皮书、学术/政策简报、顾问报告、长篇编辑专题、创始人反思——需要安静沉着知识分子气质而非视觉冲击的场景。也适合任何想以冷静审慎代替能量感出场的科技/商业/创作者内容",
+    "avoid_for": "需要视觉热度或爆点的场景——深蓝+黄绿 Cormorant 美学有意保持低节奏，不适合高能量表达",
+    "features": [],
+    "css_variables": [
+      {
+        "name": "--c-bg",
+        "value": "#2a3870"
+      },
+      {
+        "name": "--c-bg-alt",
+        "value": "#343f80"
+      },
+      {
+        "name": "--c-bg-light",
+        "value": "#2a3870"
+      },
+      {
+        "name": "--c-bg-light-alt",
+        "value": "#343f80"
+      },
+      {
+        "name": "--c-fg",
+        "value": "#E8D85C"
+      },
+      {
+        "name": "--c-fg-2",
+        "value": "rgba(232, 216, 92, 0.62)"
+      },
+      {
+        "name": "--c-fg-3",
+        "value": "rgba(232, 216, 92, 0.32)"
+      },
+      {
+        "name": "--c-fg-light",
+        "value": "#E8D85C"
+      },
+      {
+        "name": "--c-fg-light-2",
+        "value": "rgba(232, 216, 92, 0.62)"
+      },
+      {
+        "name": "--c-fg-light-3",
+        "value": "rgba(232, 216, 92, 0.32)"
+      },
+      {
+        "name": "--c-accent",
+        "value": "#3a7878"
+      },
+      {
+        "name": "--c-emphasis",
+        "value": "#F5E168"
+      },
+      {
+        "name": "--c-border",
+        "value": "rgba(232, 216, 92, 0.20)"
+      },
+      {
+        "name": "--c-border-light",
+        "value": "rgba(232, 216, 92, 0.20)"
+      },
+      {
+        "name": "--f-display",
+        "value": "\"Cormorant Garamond\", \"Noto Serif SC\", Georgia, serif"
+      },
+      {
+        "name": "--f-heading",
+        "value": "\"Cormorant Garamond\", \"Noto Serif SC\", Georgia, serif"
+      },
+      {
+        "name": "--f-body",
+        "value": "\"DM Sans\", \"Noto Sans SC\", system-ui, sans-serif"
+      },
+      {
+        "name": "--f-mono",
+        "value": "\"Courier Prime\", \"Courier New\", monospace"
+      },
+      {
+        "name": "--f-annotation",
+        "value": "\"Courier Prime\", \"Courier New\", monospace"
+      },
+      {
+        "name": "--sz-display",
+        "value": "11vw"
+      },
+      {
+        "name": "--sz-h1",
+        "value": "7vw"
+      },
+      {
+        "name": "--sz-h2",
+        "value": "4vw"
+      },
+      {
+        "name": "--sz-h3",
+        "value": "2.4vw"
+      },
+      {
+        "name": "--sz-lead",
+        "value": "1.5vw"
+      },
+      {
+        "name": "--sz-body",
+        "value": "1.05vw"
+      },
+      {
+        "name": "--sz-caption",
+        "value": "0.85vw"
+      },
+      {
+        "name": "--sz-label",
+        "value": "0.72vw"
+      },
+      {
+        "name": "--pad-x",
+        "value": "6vw"
+      },
+      {
+        "name": "--pad-y",
+        "value": "6vh"
+      },
+      {
+        "name": "--gap-lg",
+        "value": "5vh"
+      },
+      {
+        "name": "--gap-md",
+        "value": "3vh"
+      },
+      {
+        "name": "--gap-sm",
+        "value": "1.5vh"
+      },
+      {
+        "name": "--ease-slide",
+        "value": "cubic-bezier(0.77, 0, 0.175, 1)"
+      },
+      {
+        "name": "--dur-slide",
+        "value": "0s"
+      },
+      {
+        "name": "--ease-enter",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)"
+      },
+      {
+        "name": "--dur-enter",
+        "value": "0s"
+      }
+    ],
+    "visibility": "public",
+    "status": "active",
+    "template_path": "templates/vellum/template.html",
+    "skill": "_growth",
+    "slide_count": 9,
+    "design_philosophy": "深海军蓝画布（#2A3870）× 暖黄 Cormorant 衬线 × 灰绿单色强调（#4A8070）。安静学者美学——研究综合/白皮书/学术简报的首选。Cormorant 衬线在暗底上像羊皮纸手稿的烫金文字。",
+    "design_principles": "深色底戏剧性——暗色画布制造视觉张力，强调色如灯塔信号\n单色强调——仅一个强调色贯穿全模板，其余用灰度收束\n展示字体优先——标题使用 `Cormorant Garamond`，正文退为系统字体\nvw 响应式排版——字号跟随视口宽度自动缩放，适配全屏演示\n高对比度——文字与背景对比强烈，确保远距离可读性\n纸纹理——叠加噪点/颗粒质感，模拟印刷品的触感",
+    "typography_scale": "display: 11vw; h1: 7vw; h2: 4vw; h3: 2.4vw; lead: 1.5vw; body: 1.05vw; caption: 0.85vw; label: 0.72vw",
+    "color_system": "color-primary: #3a7878; color-secondary: #666666; color-surface: #2a3870; color-on-surface: #E8D85C"
   }
 ]

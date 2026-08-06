@@ -1,0 +1,29 @@
+{
+  "slug": "template",
+  "kind": "layout",
+  "version": 1,
+  "source": "拆分自 tokens.json — 布局层：中性间距系统 + 衬线友好字号刻度。",
+  "tokens": {
+    "typography": [],
+    "spacing": [
+      { "name": "--space-page-wmax", "value": "1200px", "role": "page-width", "description": "内容最大宽度" },
+      { "name": "--space-page-pad",  "value": "32px",   "role": "page-pad",   "description": "页面水平内边距" },
+      { "name": "--space-gap",       "value": "24px",   "role": "grid-gap",   "description": "元素间距" },
+      { "name": "--space-gutter",    "value": "24px",   "role": "gutter",     "description": "列间距" }
+    ]
+  },
+  "typeScale": [
+    { "name": "--sz-hero",    "value": "clamp(40px, 7vw, 64px)",    "usage": "主标题" },
+    { "name": "--sz-section", "value": "clamp(28px, 4vw, 40px)",    "usage": "段落标题" },
+    { "name": "--sz-lead",    "value": "clamp(18px, 2.5vw, 22px)",  "usage": "导语/摘要" },
+    { "name": "--sz-body",    "value": "16px",                      "usage": "正文" },
+    { "name": "--sz-caption", "value": "13px",                      "usage": "说明/注释" }
+  ],
+  "spacingScale": [
+    { "name": "--sp-xs", "value": "4px",  "usage": "紧凑间距" },
+    { "name": "--sp-sm", "value": "8px",  "usage": "小间距" },
+    { "name": "--sp-md", "value": "16px", "usage": "标准间距" },
+    { "name": "--sp-lg", "value": "24px", "usage": "区块间距" },
+    { "name": "--sp-xl", "value": "32px", "usage": "段落间距" }
+  ]
+}

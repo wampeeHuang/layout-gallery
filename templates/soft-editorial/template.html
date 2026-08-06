@@ -78,9 +78,9 @@
     --ease-standard:  0.2s ease;
     --duration-base: 200ms;
   }
-  html, body { margin:0; padding:0; background:#1a1a1a; }
+  html, body { margin:0; padding:0; background: var(--color-surface); }
   body { font-family: var(--font-body); color: var(--ink); }
-  deck-stage { background: #1a1a1a; }
+  deck-stage { background: var(--color-surface); }
 
   section.slide {
     background: var(--paper);
@@ -850,11 +850,96 @@
   .s-system .corners .box.r1 { border-radius: var(--radius-14); background: var(--lemon); }
   .s-system .corners .box.r2 { border-radius: var(--radius-22); background: var(--blush); }
   .s-system .corners .box.r3 { border-radius: 50%; background: var(--sage); }
+
+  /* ══════════════════════════════════════════════════════
+     SLIDES 13–15 — DESIGN SYSTEM SHOWCASE
+     ══════════════════════════════════════════════════════ */
+  .s-ds-rules .stack {
+    position: absolute;
+    left: 80px; right: 80px; top: 140px; bottom: 100px;
+    display: flex; flex-direction: column;
+  }
+  .s-ds-rules .kicker {
+    font-family: var(--font-display);
+    font-size: 28px;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+  .s-ds-rules h2 {
+    font-family: var(--font-display); font-weight: 500;
+    font-size: 88px; line-height: 0.98;
+    letter-spacing: -0.01em; margin-bottom: 36px;
+  }
+  .s-ds-rules .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; flex: 1; align-content: center; }
+  .s-ds-rules .rule {
+    background: rgba(255,255,255,0.55); border-radius: var(--radius-md);
+    padding: 20px 24px; display: flex; flex-direction: column; gap: 6px;
+  }
+  .s-ds-rules .rule .rn {
+    font-family: var(--font-display); font-weight: 500;
+    font-size: 22px; color: var(--ink);
+  }
+  .s-ds-rules .rule .rb {
+    font-size: 18px; line-height: 1.4; color: var(--ink-soft);
+  }
+
+  .s-ds-type .stack {
+    position: absolute;
+    left: 80px; right: 80px; top: 140px; bottom: 100px;
+    display: flex; flex-direction: column;
+  }
+  .s-ds-type h2 {
+    font-family: var(--font-display); font-weight: 500;
+    font-size: 88px; line-height: 0.98;
+    letter-spacing: -0.01em; margin-bottom: 32px;
+  }
+  .s-ds-type .type-rows { display: flex; flex-direction: column; flex: 1; justify-content: center; gap: 0; }
+  .s-ds-type .tr {
+    display: flex; align-items: baseline; gap: 24px;
+    padding: 14px 0; border-bottom: 1px dashed rgba(42,36,27,.15);
+  }
+  .s-ds-type .tr:last-child { border-bottom: none; }
+  .s-ds-type .tr .tn {
+    font-family: var(--font-body); font-size: 13px; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--ink-soft); min-width: 140px; white-space: nowrap;
+  }
+
+  .s-ds-palette .stack {
+    position: absolute;
+    left: 80px; right: 80px; top: 140px; bottom: 100px;
+    display: flex; flex-direction: column;
+  }
+  .s-ds-palette .kicker {
+    font-family: var(--font-display);
+    font-size: 22px; color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+  .s-ds-palette h2 {
+    font-family: var(--font-display); font-weight: 500;
+    font-size: 88px; line-height: 0.98;
+    letter-spacing: -0.01em; margin-bottom: 32px;
+  }
+  .s-ds-palette .swatches {
+    display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr 1fr; gap: 12px;
+    flex: 1; min-height: 0;
+  }
+  .s-ds-palette .sw {
+    background: rgba(255,255,255,0.55); border-radius: var(--radius-md);
+    padding: 12px; text-align: center; display: flex; flex-direction: column; gap: 4px;
+    min-height: 0;
+  }
+  .s-ds-palette .sw .box { flex: 1; width: 100%; min-height: 0; border-radius: var(--radius-sm); }
+  .s-ds-palette .sw .nm {
+    font-family: var(--font-display); font-weight: 500; font-size: 14px; color: var(--ink);
+  }
+  .s-ds-palette .sw .hex {
+    font-size: 11px; color: var(--ink-soft);
+  }
 </style>
 </head>
 <body>
 
-<deck-stage width="1920" height="1080" no-controls>
+<deck-stage width="1920" height="1080">
 
   <!-- 1. COVER -->
   <section class="slide s-cover" data-label="01 Cover">
@@ -1235,7 +1320,66 @@
     </div>
   </section>
 
-  <!-- 13. DESIGN SYSTEM -->
+  <!-- 13. DESIGN SYSTEM — Principles -->
+  <section class="slide s-ds-rules" data-label="13 Design Principles">
+    <div class="eyebrow">设计系统</div>
+    <div class="pagedot">xiii</div>
+    <div class="stack">
+      <div class="kicker">设计法则</div>
+      <h2>田野笔记<br>六项设计律。</h2>
+      <div class="rules">
+        <div class="rule"><div class="rn">01 / 暖纸底色</div><div class="rb">#F2EEDF 奶油色为全局底色。永不用纯白——温暖感先于内容抵达，是第一印象。</div></div>
+        <div class="rule"><div class="rn">02 / 五色粉彩系统</div><div class="rb">粉黛、柠檬、绯红、鼠尾草、丁香。五色按序使用——同一视图中不超过三色。</div></div>
+        <div class="rule"><div class="rn">03 / 衬线常重不粗</div><div class="rb">Garamond/Georgia 标题用 500 字重，斜体强调用 400。层级仅由字号建立，不以粗细分。</div></div>
+        <div class="rule"><div class="rn">04 / 宽圆角·大留白</div><div class="rb">卡片 36px 圆角，元素间距 28px。柔软形态 + 开阔呼吸感 = 编辑温度。</div></div>
+        <div class="rule"><div class="rn">05 / 白卡叠层</div><div class="rb">rgba(255,255,255,0.55) 半透卡片覆于奶油纸上。层次感来自透明度，不来自投影。</div></div>
+        <div class="rule"><div class="rn">06 / 斜体即降调</div><div class="rb">斜体表示轻声旁白，非强调。500 正体 = 权威，400 斜体 = 低语。永不粗体配斜体。</div></div>
+      </div>
+    </div>
+    <div class="footer"><span>2026 年 4 月 29 日</span><span>田野笔记 · 第三卷</span></div>
+  </section>
+
+  <!-- 14. DESIGN SYSTEM — Type Scale -->
+  <section class="slide s-ds-type" data-label="14 Type Scale">
+    <div class="eyebrow">设计系统</div>
+    <div class="pagedot">xiv</div>
+    <div class="stack">
+      <div class="kicker">Type Scale</div>
+      <h2>字号<br>刻度。</h2>
+      <div class="type-rows">
+        <div class="tr"><span class="tn">display · 232px</span><span class="serif" style="font-size:80px;line-height:0.92">田野笔记</span></div>
+        <div class="tr"><span class="tn">hero · 188px</span><span class="serif" style="font-size:64px;line-height:0.95">信任即上手</span></div>
+        <div class="tr"><span class="tn">h1 · 124px</span><span class="serif" style="font-size:44px;line-height:0.98">Section Title</span></div>
+        <div class="tr"><span class="tn">h2 · 88px</span><span class="serif" style="font-size:34px;line-height:1">Subsection Heading</span></div>
+        <div class="tr"><span class="tn">lead · 28px</span><span class="serif" style="font-size:28px;font-weight:400;line-height:1.1">Lead paragraph introducing the section</span></div>
+        <div class="tr"><span class="tn">body · 24px</span><span class="body" style="font-size:24px">Primary body copy — Helvetica Neue / PingFang SC at 24px — the baseline reading size</span></div>
+        <div class="tr"><span class="tn">small · 18px</span><span style="font-size:18px;line-height:1.45;color:var(--ink-soft)">Small annotations and footnotes at 18px</span></div>
+      </div>
+    </div>
+    <div class="footer"><span>2026 年 4 月 29 日</span><span>田野笔记 · 第三卷</span></div>
+  </section>
+
+  <!-- 15. DESIGN SYSTEM — Palette -->
+  <section class="slide s-ds-palette" data-label="15 Palette">
+    <div class="eyebrow">设计系统</div>
+    <div class="pagedot">xv</div>
+    <div class="stack">
+      <div class="kicker">配色系统</div>
+      <h2>五色<br>尘粉。</h2>
+      <div class="swatches">
+        <div class="sw"><div class="box" style="background:var(--paper)"></div><div class="nm">纸色</div><div class="hex">#F2EEDF</div></div>
+        <div class="sw"><div class="box" style="background:var(--pink)"></div><div class="nm">粉黛</div><div class="hex">#E1A4C2</div></div>
+        <div class="sw"><div class="box" style="background:var(--lemon)"></div><div class="nm">柠檬</div><div class="hex">#D6DD63</div></div>
+        <div class="sw"><div class="box" style="background:var(--blush)"></div><div class="nm">绯红</div><div class="hex">#E8C9B6</div></div>
+        <div class="sw"><div class="box" style="background:var(--sage)"></div><div class="nm">鼠尾草</div><div class="hex">#B7C7A8</div></div>
+        <div class="sw"><div class="box" style="background:var(--lilac)"></div><div class="nm">丁香</div><div class="hex">#C9BEDC</div></div>
+        <div class="sw"><div class="box" style="background:var(--paper-2)"></div><div class="nm">纸色·深</div><div class="hex">#ECE6D2</div></div>
+        <div class="sw"><div class="box" style="background:var(--ink)"></div><div class="nm">墨色</div><div class="hex">#2A241B</div></div>
+      </div>
+    </div>
+    <div class="footer"><span>2026 年 4 月 29 日</span><span>田野笔记 · 第三卷</span></div>
+  </section>
+
 </deck-stage>
 
 </body>

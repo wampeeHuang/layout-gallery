@@ -1,0 +1,55 @@
+{
+  "slug": "8-bit-orbit",
+  "kind": "brand",
+  "version": 1,
+  "source": "拆分自 tokens.json — 品牌层：Win95 像素美学 + 霓虹强调色。2px 微圆角、硬边投影、steps() 阶梯动效。",
+  "tokens": {
+    "color": [
+      { "name": "--color-primary",              "value": "#5EDCF4", "role": "accent",               "description": "标准: 主强调色 → --neon-cyan" },
+      { "name": "--color-secondary",            "value": "#F0A6CA", "role": "accent-alt",           "description": "标准: 辅强调色 → --neon-pink" },
+      { "name": "--color-surface",              "value": "#c0c0c0", "role": "surface-bg",           "description": "标准: 页面底色 → --win-bg" },
+      { "name": "--color-surface-container-low","value": "#d4d0c8", "role": "surface-card",         "description": "标准: 卡片背景 → --win-face" },
+      { "name": "--color-on-surface",           "value": "#0A0E27", "role": "text-primary",         "description": "标准: 主文字色 → --dark-void" },
+      { "name": "--color-on-surface-variant",   "value": "#404040", "role": "text-secondary",       "description": "标准: 次级文字色 → --win-shadow" },
+      { "name": "--color-outline",              "value": "#000000", "role": "border",               "description": "标准: 边框色 → --win-dark-shadow" },
+      { "name": "--win-bg",                     "value": "#c0c0c0", "role": "surface-bg",           "description": "Win95 经典灰 — 页面实际底色" },
+      { "name": "--win-face",                   "value": "#d4d0c8", "role": "surface-card",         "description": "Win95 面板色 — 窗口/卡片实际表面" },
+      { "name": "--win-highlight",              "value": "#ffffff", "role": "border-light",         "description": "Win95 凸起边框高亮侧（左上）" },
+      { "name": "--win-shadow",                 "value": "#404040", "role": "border-dark",          "description": "Win95 凸起边框阴影侧（右下）" },
+      { "name": "--win-dark-shadow",            "value": "#000000", "role": "border",               "description": "Win95 最暗边框 — 像素级边缘" },
+      { "name": "--win-blue",                   "value": "#000080", "role": "chrome-accent",        "description": "Win95 经典蓝 — 标题栏渐变起点" },
+      { "name": "--win-blue-bright",            "value": "#0000a0", "role": "chrome-accent-bright", "description": "标题栏渐变终点 — 亮蓝" },
+      { "name": "--neon-cyan",                  "value": "#5EDCF4", "role": "accent",               "description": "霓虹青 — 主强调色，像素发光感" },
+      { "name": "--neon-pink",                  "value": "#F0A6CA", "role": "accent-alt",           "description": "霓虹粉 — 辅强调色" },
+      { "name": "--neon-yellow",                "value": "#F4D03F", "role": "accent-warm",          "description": "霓虹黄 — 数据高亮/警示" },
+      { "name": "--dark-void",                  "value": "#0A0E27", "role": "text-primary",         "description": "深空底色 — 主文字 / 深色区域" },
+      { "name": "--deep-navy",                  "value": "#0F1B3D", "role": "chrome-accent-dark",   "description": "深海军蓝 — 标题栏暗端/次级深色" },
+      { "name": "--soft-lavender",              "value": "#E2D5F2", "role": "surface-alt",          "description": "淡薰衣草 — 备选浅色面" }
+    ],
+    "typography": [
+      { "name": "--font-display", "value": "'Tektur', 'Courier New', 'SimHei', monospace",                    "role": "display-font", "description": "像素几何展示字体" },
+      { "name": "--font-body",    "value": "'Chakra Petch', 'Microsoft YaHei', 'PingFang SC', sans-serif",   "role": "body-font",    "description": "科幻人文正文字体" },
+      { "name": "--font-mono",    "value": "'Space Mono', 'Consolas', 'SF Mono', 'Courier New', monospace",  "role": "mono-font",    "description": "等宽代码/标签字体" }
+    ],
+    "radius": [
+      { "name": "--radius-base", "value": "2px", "role": "radius-base", "description": "像素风微圆角 — Win95 窗口近乎直角" }
+    ],
+    "shadow": [
+      { "name": "--elevation-sm", "value": "inset 1px 1px 0 #ffffff, inset -1px -1px 0 #404040", "role": "card-shadow",  "description": "Win95 凸起面板 — 左上白/右下灰 bevel" },
+      { "name": "--elevation-md", "value": "2px 2px 0 #000000",                                   "role": "card-hover",   "description": "像素偏移投影 — 硬边无模糊" }
+    ],
+    "motion": [
+      { "name": "--ease-standard", "value": "0.12s steps(4)", "role": "transition", "description": "像素阶梯过渡 — 4 帧 steps()" },
+      { "name": "--duration-base", "value": "120ms",           "role": "duration",   "description": "基础过渡时长" }
+    ]
+  },
+  "colorRoles": {
+    "primary": "#5EDCF4",
+    "secondary": "#F0A6CA",
+    "background": "#c0c0c0",
+    "text": "#0A0E27",
+    "textSecondary": "#404040",
+    "border": "#000000",
+    "surface": "#d4d0c8"
+  }
+}

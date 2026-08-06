@@ -1,0 +1,1030 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>双年展黄 · Biennale Yellow</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  /* TOKENS — 与 brand.json + layout.json 同步 */
+
+  :root {
+    /* ── 域名颜色 — 品牌视觉语言 ── */
+    --paper:      #E9E5DB;
+    --paper-deep: #DCD6C4;
+    --sun:        #F1EE2E;
+    --sun-soft:   #F8F39B;
+    --ink:        #1B2566;
+    --ember:      #E26B4A;
+    --haze:       #F0DA7C;
+    --line:       #1B2566;
+
+    /* ── 透明度变体 — 光晕层叠 ── */
+    --sun-95:      rgba(241,238,46,0.95);
+    --sun-85:      rgba(241,238,46,0.85);
+    --sun-70:      rgba(241,238,46,0.7);
+    --sun-65:      rgba(241,238,46,0.65);
+    --sun-55:      rgba(241,238,46,0.55);
+    --sun-50:      rgba(241,238,46,0.5);
+    --sun-45:      rgba(241,238,46,0.45);
+    --sun-40:      rgba(241,238,46,0.4);
+    --sun-soft-42: rgba(248,243,155,0.42);
+    --ember-22:    rgba(226,107,74,0.22);
+    --ember-18:    rgba(226,107,74,0.18);
+    --ember-15:    rgba(226,107,74,0.15);
+    --haze-22:     rgba(240,218,124,0.22);
+    --haze-18:     rgba(240,218,124,0.18);
+    --ink-20:      rgba(27,37,102,0.20);
+    --ink-18:      rgba(27,37,102,0.18);
+
+    /* ── 标准颜色角色 (MD3) ── */
+    --color-primary: #F1EE2E;
+    --color-on-primary: #1B2566;
+    --color-secondary: #E26B4A;
+    --color-surface: #E9E5DB;
+    --color-on-surface: #1B2566;
+    --color-on-surface-variant: rgba(27,37,102,0.60);
+    --color-outline: #1B2566;
+    --color-outline-variant: rgba(27,37,102,0.30);
+    --color-surface-container-low: #DCD6C4;
+    --color-background: #E9E5DB;
+
+    /* ── 字体家族 ── */
+    --font-display: "Noto Serif SC", "Songti SC", "Times New Roman", "Georgia", "SimSun", serif;
+    --font-body: "PingFang SC", "Microsoft YaHei UI", "Segoe UI", "Helvetica Neue", "Arial", system-ui, sans-serif;
+    --font-mono: "Cascadia Code", "Consolas", "SF Mono", "JetBrains Mono", "Courier New", ui-monospace, monospace;
+
+    /* ── 圆角 + 阴影 ── */
+    --radius-base: 0px;
+    --radius-sm: 0px;
+    --radius-pill: 0px;
+    --elevation-sm: none;
+    --elevation-md: none;
+
+    /* ── 动效 ── */
+    --ease-standard: ease;
+    --duration-base: 0.28s;
+    --duration-fast: 0.15s;
+    --duration-slow: 0.6s;
+
+    /* ── 间距 ── */
+    --space-page-wmax: 1920px;
+    --space-page-pad: clamp(40px, 4vw, 76px);
+    --space-gap: clamp(20px, 2.4vw, 44px);
+    --space-gutter: clamp(20px, 2.5vw, 48px);
+    --space-3xl: clamp(80px, 8vw, 120px);
+    --space-2xl: clamp(56px, 5.6vw, 88px);
+    --space-xl: clamp(36px, 3.6vw, 56px);
+    --space-lg: clamp(24px, 2.4vw, 44px);
+    --space-md: clamp(16px, 1.6vw, 28px);
+    --space-sm: clamp(10px, 1vw, 18px);
+    --space-xs: clamp(6px, 0.6vw, 12px);
+    --space-2xs: clamp(4px, 0.4vw, 6px);
+    --hairline: 1px;
+
+    /* ── 字号刻度 ── */
+    --text-3xl: clamp(120px, min(14.6vw, 22vh), 240px);
+    --text-2xl: clamp(56px, min(7vw, 11vh), 120px);
+    --text-xl: clamp(40px, min(4.6vw, 7vh), 88px);
+    --text-base: clamp(14px, 0.95vw, 16px);
+    --text-sm: clamp(13px, 0.95vw, 15px);
+    --text-xs: clamp(11px, 0.85vw, 14px);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; background: var(--color-surface); }
+  body {
+    font-family: var(--font-body);
+    color: var(--ink);
+    overflow: hidden;
+  }
+
+  /* deck wrapper — fills the viewport, centers a stage */
+  .deck { position: fixed; inset: 0; display: grid; place-items: center; }
+  .stage {
+    position: relative;
+    width: 100vw; height: 100vh;
+    overflow: hidden;
+    background: var(--paper);
+  }
+
+  /* one slide at a time, soft cross-fade */
+  .slide {
+    position: absolute; inset: 0;
+    opacity: 0; pointer-events: none;
+    transition: opacity var(--duration-base) var(--ease-standard);
+  }
+  .slide.active { opacity: 1; pointer-events: auto; }
+
+  /* Type system — kept on a small set of utility classes */
+  .display      { font-family: var(--font-display); font-weight: 400; line-height: 0.9; letter-spacing: -0.012em; }
+  .display-it   { font-family: var(--font-display); font-weight: 400; line-height: 1.04; letter-spacing: -0.005em; }
+  .micro-label  { font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em; }
+  .body-text    { font-family: var(--font-body); font-weight: 400; line-height: 1.5; }
+  .mono-tab     { font-family: var(--font-mono); font-weight: 400; }
+
+  /* Page number — single, bottom-right, on every slide */
+  .pagenum {
+    position: absolute;
+    right: clamp(24px, 2.4vw, 48px);
+    bottom: clamp(22px, 2.4vh, 42px);
+    font-family: var(--font-mono);
+    font-size: clamp(11px, 0.85vw, 13px);
+    color: var(--ink);
+    letter-spacing: 0.08em;
+    z-index: 8;
+    opacity: 0.75;
+  }
+
+  /* Persistent navigation hint — bottom-left, single appearance */
+  .nav-hint {
+    position: fixed;
+    left: clamp(20px, 2vw, 36px);
+    bottom: clamp(16px, 2vh, 28px);
+    font-family: var(--font-mono);
+    font-size: clamp(10px, 0.75vw, 12px);
+    color: var(--ink);
+    letter-spacing: 0.08em;
+    opacity: 0.4;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────
+     SLIDE 1 — COVER (poster echo)
+     ────────────────────────────────────────────────────────────────── */
+  .s-cover { background: var(--paper); }
+  /* abstract block grid behind, gives the layered yellow feeling */
+  .s-cover .blocks {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(8, 1fr);
+  }
+  .s-cover .blocks div { background: transparent; }
+  .s-cover .blocks .b1 { background: var(--sun-55); grid-column: 1; grid-row: 3 / 6; }
+  .s-cover .blocks .b2 { background: var(--sun-40);  grid-column: 4; grid-row: 1 / 4; }
+  .s-cover .blocks .b3 { background: var(--sun-70);  grid-column: 1 / 3; grid-row: 6 / 9; }
+  .s-cover .blocks .b4 { background: var(--sun-45); grid-column: 3 / 5; grid-row: 6 / 8; }
+
+  /* central sun-bloom + corner peach edge */
+  .s-cover .sunglow {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 42% 38% at 52% 42%, var(--sun-95) 0%, var(--sun-65) 38%, var(--haze-22) 65%, transparent 88%),
+      radial-gradient(ellipse 28% 30% at 88% 16%, var(--ember-22) 0%, transparent 70%);
+  }
+
+  .s-cover .date-rail {
+    position: absolute;
+    top: clamp(28px, 3.2vh, 56px);
+    right: clamp(40px, 4vw, 76px);
+    font-family: var(--font-display);
+    font-size: clamp(48px, min(5.2vw, 9vh), 96px);
+    color: var(--ink);
+    line-height: 0.96;
+    text-align: right;
+    letter-spacing: -0.005em;
+    z-index: 5;
+  }
+
+  .s-cover .titlewrap {
+    position: absolute;
+    left: clamp(40px, 4vw, 76px);
+    bottom: clamp(132px, 16vh, 220px);
+    z-index: 5;
+    max-width: 88%;
+  }
+  .s-cover .title {
+    font-family: var(--font-display);
+    font-size: clamp(120px, min(14.6vw, 22vh), 240px);
+    line-height: 0.86;
+    color: var(--ink);
+    letter-spacing: -0.018em;
+  }
+  .s-cover .title em { }
+  .s-cover .subline {
+    margin-top: clamp(8px, 1vh, 18px);
+    font-family: var(--font-body);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: clamp(11px, 0.85vw, 13px);
+    color: var(--ink);
+  }
+
+  .s-cover .footer-row {
+    position: absolute;
+    left: clamp(40px, 4vw, 76px);
+    right: clamp(40px, 4vw, 76px);
+    bottom: clamp(28px, 3vh, 52px);
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1.4fr 2fr;
+    gap: clamp(20px, 2.4vw, 44px);
+    z-index: 5;
+  }
+  .s-cover .footer-row > div {
+    border-top: 1px solid var(--ink);
+    padding-top: clamp(10px, 1.2vh, 16px);
+  }
+  .s-cover .footer-row .ftag {
+    text-transform: uppercase; letter-spacing: 0.16em; font-weight: 600;
+    font-size: clamp(10px, 0.72vw, 12px);
+    margin-bottom: 6px;
+  }
+  .s-cover .footer-row .ftxt {
+    font-family: var(--font-body);
+    font-size: clamp(11px, 0.78vw, 13px);
+    line-height: 1.45;
+  }
+  .s-cover .footer-row .fdesc {
+    font-family: var(--font-body);
+    font-size: clamp(11px, 0.74vw, 12px);
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  /* ──────────────────────────────────────────────────────────────────
+     SLIDE 2 — MANIFESTO (single italic statement, atmospheric)
+     ────────────────────────────────────────────────────────────────── */
+  .s-manifesto { background: var(--paper); display: flex; align-items: center; justify-content: center; }
+  .s-manifesto .haze {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 50%, var(--sun-70) 0%, var(--sun-soft-42) 32%, var(--haze-18) 56%, transparent 80%),
+      radial-gradient(circle 600px at 12% 88%, var(--ember-15) 0%, transparent 70%);
+  }
+  .s-manifesto .quote {
+    position: relative; z-index: 4;
+    max-width: min(86%, 1480px);
+    padding: 0 clamp(40px, 6vw, 120px);
+    font-family: var(--font-display);
+    
+    font-weight: 400;
+    font-size: clamp(56px, min(7vw, 11vh), 120px);
+    line-height: 1.04;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    text-align: left;
+  }
+  .s-manifesto .attr {
+    position: absolute;
+    left: clamp(40px, 4vw, 76px);
+    bottom: clamp(56px, 6vh, 96px);
+    font-family: var(--font-body);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: clamp(11px, 0.85vw, 13px);
+    color: var(--ink);
+    z-index: 4;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────
+     SLIDE 3 — PROGRAMME (split editorial spread)
+     ────────────────────────────────────────────────────────────────── */
+  .s-programme { background: var(--paper); display: grid; grid-template-columns: 1fr 1fr; }
+  .s-programme .left {
+    background: var(--sun);
+    position: relative;
+    padding: clamp(40px, 4.2vw, 80px);
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .s-programme .left .kicker {
+    font-family: var(--font-body);
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em;
+    font-size: clamp(11px, 0.85vw, 14px);
+    color: var(--ink);
+  }
+  .s-programme .left .word {
+    font-family: var(--font-display);
+    font-size: clamp(110px, min(11vw, 18vh), 200px);
+    line-height: 0.86;
+    color: var(--ink);
+    letter-spacing: -0.018em;
+  }
+  .s-programme .left .meta {
+    font-family: var(--font-body);
+    font-size: clamp(13px, 0.95vw, 16px);
+    line-height: 1.5;
+    max-width: 88%;
+    color: var(--ink);
+  }
+  .s-programme .right {
+    background: var(--paper);
+    position: relative;
+    padding: clamp(40px, 4.2vw, 80px) clamp(40px, 4.2vw, 80px) clamp(56px, 5vh, 88px);
+    display: flex; flex-direction: column; gap: clamp(18px, 2.2vh, 32px);
+  }
+  .s-programme .right .head {
+    font-family: var(--font-body);
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em;
+    font-size: clamp(11px, 0.85vw, 14px);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 14px;
+  }
+  .s-programme .strands {
+    display: flex; flex-direction: column;
+    gap: clamp(14px, 1.8vh, 22px);
+  }
+  .s-programme .strand {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: clamp(14px, 1.4vw, 24px);
+    border-bottom: 1px solid var(--ink-18);
+    padding-bottom: clamp(12px, 1.6vh, 22px);
+  }
+  .s-programme .strand .num {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 2vw, 38px);
+    color: var(--ink);
+    line-height: 1;
+  }
+  .s-programme .strand h3 {
+    margin: 0 0 4px 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(22px, 1.7vw, 32px);
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  .s-programme .strand p {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: clamp(14px, 0.95vw, 15px);
+    line-height: 1.5;
+    color: var(--ink);
+    max-width: 92%;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────
+     SLIDE 4 — CHAPTER DIVIDER (huge serif numeral)
+     ────────────────────────────────────────────────────────────────── */
+  .s-chapter { background: var(--paper); }
+  .s-chapter .glow {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(circle 720px at -10% -10%, var(--sun-70) 0%, transparent 65%),
+      radial-gradient(circle 540px at 110% 110%, var(--ember-18) 0%, transparent 70%);
+  }
+  .s-chapter .vrail {
+    position: absolute;
+    left: clamp(40px, 4vw, 76px);
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    transform-origin: 0 50%;
+    font-family: var(--font-body);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.32em;
+    font-size: clamp(11px, 0.85vw, 13px);
+    color: var(--ink);
+    white-space: nowrap;
+    z-index: 4;
+  }
+  .s-chapter .stack {
+    position: absolute;
+    left: clamp(120px, 12vw, 220px);
+    top: clamp(40px, 5vh, 96px);
+    bottom: clamp(80px, 9vh, 130px);
+    right: clamp(40px, 4vw, 76px);
+    display: flex; flex-direction: column; justify-content: center;
+    z-index: 4;
+  }
+  .s-chapter .nm {
+    font-family: var(--font-display);
+    font-size: clamp(220px, min(28vw, 64vh), 720px);
+    line-height: 0.84;
+    color: var(--ink);
+    letter-spacing: -0.04em;
+  }
+  .s-chapter .ttl {
+    margin-top: clamp(12px, 1.6vh, 28px);
+    font-family: var(--font-display);
+    
+    font-size: clamp(40px, min(4.4vw, 7vh), 90px);
+    line-height: 1.05;
+    color: var(--ink);
+    max-width: 78%;
+  }
+  .s-chapter .lede {
+    margin-top: clamp(18px, 2.2vh, 36px);
+    font-family: var(--font-body);
+    font-size: clamp(15px, 1.05vw, 18px);
+    line-height: 1.55;
+    color: var(--ink);
+    max-width: 56ch;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────
+     SLIDE 5 — DATA: ATTENDANCE BARS
+     ────────────────────────────────────────────────────────────────── */
+  .s-data { background: var(--paper); }
+  .s-data .glow {
+    position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 50% 40% at 92% 8%, var(--sun-55) 0%, transparent 70%);
+  }
+  .s-data .frame {
+    position: absolute; inset: clamp(40px, 4vw, 76px) clamp(40px, 4vw, 76px) clamp(70px, 7vh, 120px);
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    grid-template-rows: auto 1fr;
+    gap: clamp(20px, 2.5vw, 48px);
+    z-index: 4;
+  }
+  .s-data .head { grid-column: 1 / 3; display: flex; align-items: end; justify-content: space-between; gap: 32px; border-bottom: 1px solid var(--ink); padding-bottom: clamp(14px, 1.6vh, 24px); }
+  .s-data .head .lab { font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; font-size: clamp(11px, 0.85vw, 13px); color: var(--ink); }
+  .s-data .head .h { font-family: var(--font-display); font-size: clamp(32px, min(3.6vw, 6vh), 56px); line-height: 1; color: var(--ink); }
+
+  .s-data .col-a { display: flex; flex-direction: column; justify-content: center; gap: clamp(18px, 2vh, 32px); }
+  .s-data .stat { display: flex; flex-direction: column; gap: 4px; }
+  .s-data .stat .v { font-family: var(--font-display); font-size: clamp(72px, min(7vw, 12vh), 144px); line-height: 0.92; color: var(--ink); letter-spacing: -0.01em; }
+  .s-data .stat .v sup { font-size: 0.42em; vertical-align: super; opacity: 0.7; }
+  .s-data .stat .lab2 { font-family: var(--font-body); font-weight: 500; text-transform: uppercase; letter-spacing: 0.18em; font-size: clamp(11px, 0.8vw, 13px); color: var(--ink); }
+  .s-data .stat .desc { font-family: var(--font-body); font-size: clamp(14px, 0.95vw, 15px); line-height: 1.45; color: var(--ink); max-width: 32ch; margin-top: 4px; }
+
+  .s-data .chart { display: flex; flex-direction: column; gap: clamp(8px, 1vh, 14px); justify-content: center; }
+  .s-data .row { display: grid; grid-template-columns: 64px 1fr 80px; align-items: center; gap: clamp(12px, 1vw, 22px); }
+  .s-data .row .yr { font-family: var(--font-mono); font-size: clamp(12px, 0.85vw, 14px); color: var(--ink); letter-spacing: 0.04em; }
+  .s-data .row .val { font-family: var(--font-mono); font-size: clamp(12px, 0.85vw, 14px); color: var(--ink); text-align: right; letter-spacing: 0.02em; }
+  .s-data .bar { height: clamp(14px, 1.6vh, 22px); background: var(--ink); position: relative; }
+  .s-data .bar.lit { background: var(--sun); border: 1px solid var(--ink); }
+
+  /* ──────────────────────────────────────────────────────────────────
+     SLIDE 6 — QUOTE SPREAD
+     ────────────────────────────────────────────────────────────────── */
+  .s-quote { background: var(--paper); }
+  .s-quote .yblock {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 32%;
+    background: var(--sun);
+  }
+  .s-quote .glow {
+    position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(circle 600px at 8% 92%, var(--sun-40) 0%, transparent 70%);
+  }
+  .s-quote .qwrap {
+    position: absolute;
+    left: clamp(40px, 4vw, 76px);
+    right: 36%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 4;
+  }
+  .s-quote .qkicker {
+    font-family: var(--font-body); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    font-size: clamp(11px, 0.82vw, 13px);
+    color: var(--ink);
+    margin-bottom: clamp(14px, 1.8vh, 26px);
+  }
+  .s-quote .qbody {
+    font-family: var(--font-display);
+    
+    font-size: clamp(40px, min(4.6vw, 7vh), 88px);
+    line-height: 1.06;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .s-quote .qattr {
+    margin-top: clamp(20px, 2.4vh, 36px);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: clamp(14px, 1.4vw, 24px);
+    align-items: end;
+    border-top: 1px solid var(--ink);
+    padding-top: clamp(10px, 1.4vh, 18px);
+  }
+  .s-quote .qattr .who { font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.16em; font-size: clamp(11px, 0.85vw, 13px); color: var(--ink); }
+  .s-quote .qattr .role { font-family: var(--font-body); font-size: clamp(11px, 0.78vw, 13px); color: var(--ink); opacity: 0.75; }
+  .s-quote .y-mark {
+    position: absolute;
+    right: clamp(40px, 4vw, 76px);
+    bottom: clamp(70px, 8vh, 130px);
+    font-family: var(--font-display);
+    font-size: clamp(120px, min(15vw, 22vh), 280px);
+    line-height: 0.9;
+    color: var(--ink);
+    letter-spacing: -0.04em;
+    z-index: 4;
+  }
+
+  /* ──────────────────────────────────────────────────────────────────
+     SLIDE 7 — CALENDAR (dense tabular)
+     ────────────────────────────────────────────────────────────────── */
+  .s-cal { background: var(--paper); }
+  .s-cal .glow {
+    position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(circle 700px at 105% 0%, var(--sun-45) 0%, transparent 65%);
+  }
+  .s-cal .frame {
+    position: absolute;
+    inset: clamp(40px, 4vw, 76px) clamp(40px, 4vw, 76px) clamp(70px, 7vh, 120px);
+    display: flex; flex-direction: column;
+    z-index: 4;
+  }
+  .s-cal .frame .topbar {
+    display: flex; align-items: end; justify-content: space-between;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: clamp(12px, 1.4vh, 22px);
+    margin-bottom: clamp(16px, 1.8vh, 26px);
+  }
+  .s-cal .frame .topbar .h {
+    font-family: var(--font-display);
+    font-size: clamp(40px, min(4.4vw, 7vh), 80px);
+    line-height: 1;
+    color: var(--ink);
+  }
+  .s-cal .frame .topbar .lab { font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; font-size: clamp(11px, 0.82vw, 13px); color: var(--ink); }
+  .s-cal .ledger { flex: 1; display: flex; flex-direction: column; gap: 0; }
+  .s-cal .row {
+    display: grid;
+    grid-template-columns: 92px 1.6fr 0.9fr 80px;
+    gap: clamp(14px, 1.4vw, 28px);
+    align-items: center;
+    padding: clamp(10px, 1.3vh, 18px) 0;
+    border-bottom: 1px solid var(--ink-20);
+  }
+  .s-cal .row .date { font-family: var(--font-mono); font-size: clamp(13px, 0.95vw, 16px); color: var(--ink); letter-spacing: 0.02em; }
+  .s-cal .row .ttl  { font-family: var(--font-display); font-size: clamp(20px, 1.6vw, 30px); line-height: 1.15; color: var(--ink); }
+  .s-cal .row .ttl em { }
+  .s-cal .row .ven  { font-family: var(--font-body); font-size: clamp(14px, 0.92vw, 15px); color: var(--ink); }
+  .s-cal .row .dur  { font-family: var(--font-mono); font-size: clamp(12px, 0.84vw, 14px); color: var(--ink); text-align: right; letter-spacing: 0.04em; opacity: 0.78; }
+  .s-cal .row.headrow { border-bottom: 1px solid var(--ink); padding-bottom: 8px; }
+  .s-cal .row.headrow > div { font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em; font-size: clamp(10px, 0.7vw, 12px); color: var(--ink); }
+
+  /* ──────────────────────────────────────────────────────────────────
+     SLIDE 8 — COLOPHON (mirror of cover, inverted)
+     ────────────────────────────────────────────────────────────────── */
+  .s-colophon { background: var(--paper); }
+  .s-colophon .glow {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 55% 50% at 50% 110%, var(--sun-85) 0%, var(--sun-50) 35%, var(--haze-18) 60%, transparent 84%),
+      radial-gradient(ellipse 30% 30% at 12% 18%, var(--ember-18) 0%, transparent 70%);
+  }
+  .s-colophon .blocks {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; grid-template-rows: repeat(8, 1fr);
+  }
+  .s-colophon .blocks .b1 { background: var(--sun-55); grid-column: 1 / 3; grid-row: 1 / 3; }
+  .s-colophon .blocks .b2 { background: var(--sun-40);  grid-column: 4; grid-row: 5 / 8; }
+  .s-colophon .titlewrap {
+    position: absolute;
+    left: clamp(40px, 4vw, 76px);
+    top: clamp(36px, 4vh, 72px);
+    z-index: 5;
+    max-width: 92%;
+  }
+  .s-colophon .ktag {
+    font-family: var(--font-body); font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.22em; font-size: clamp(11px, 0.82vw, 13px); color: var(--ink); margin-bottom: clamp(12px, 1.4vh, 22px);
+  }
+  .s-colophon .ttl {
+    font-family: var(--font-display);
+    font-size: clamp(80px, min(10vw, 16vh), 200px);
+    line-height: 0.86;
+    color: var(--ink);
+    letter-spacing: -0.018em;
+  }
+  .s-colophon .ttl em { }
+
+  .s-colophon .colofo {
+    position: absolute;
+    left: clamp(40px, 4vw, 76px);
+    bottom: clamp(70px, 8vh, 120px);
+    right: clamp(40px, 4vw, 76px);
+    display: grid;
+    grid-template-columns: 1.2fr 1.1fr 1fr 1.4fr;
+    gap: clamp(20px, 2.4vw, 44px);
+    z-index: 5;
+  }
+  .s-colophon .colofo > div {
+    border-top: 1px solid var(--ink);
+    padding-top: clamp(10px, 1.2vh, 16px);
+  }
+  .s-colophon .colofo .ftag { text-transform: uppercase; letter-spacing: 0.16em; font-weight: 600; font-size: clamp(10px, 0.72vw, 12px); margin-bottom: 6px; color: var(--ink); }
+  .s-colophon .colofo .ftxt { font-family: var(--font-body); font-size: clamp(11px, 0.78vw, 13px); line-height: 1.5; color: var(--ink); }
+
+/* ══════════════════════════════════════════════════════
+   SLIDES 9–11 — DESIGN SYSTEM SHOWCASE
+   ══════════════════════════════════════════════════════ */
+.s-ds-rules { background: var(--paper); display: flex; flex-direction: column; }
+.s-ds-rules .glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(circle 600px at 90% 10%, var(--sun-45) 0%, transparent 65%);
+}
+.s-ds-rules .frame {
+  position: absolute;
+  inset: clamp(40px, 4vw, 76px);
+  display: flex; flex-direction: column;
+  z-index: 4;
+}
+.s-ds-rules .rules { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2.2vh, 28px); flex: 1; min-height: 0; align-content: center; }
+.s-ds-rules .rule { border-top: 2px solid var(--sun); padding: clamp(12px, 1.6vh, 20px) clamp(14px, 1.6vw, 24px) 0 0; min-height: 0; }
+.s-ds-rules .rule .rn {
+  font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em;
+  font-size: clamp(10px, 0.72vw, 12px); color: var(--ink); margin-bottom: 4px;
+}
+.s-ds-rules .rule .rb {
+  font-family: var(--font-body); font-size: clamp(13px, 0.9vw, 15px); line-height: 1.5; color: var(--ink);
+}
+
+.s-ds-type { background: var(--sun); }
+.s-ds-type .frame {
+  position: absolute;
+  inset: clamp(40px, 4vw, 76px);
+  display: flex; flex-direction: column;
+  z-index: 4;
+}
+.s-ds-type .type-rows { display: flex; flex-direction: column; flex: 1; min-height: 0; justify-content: center; }
+.s-ds-type .tr {
+  display: grid; grid-template-columns: 140px 1fr; align-items: baseline; gap: clamp(14px, 1.6vw, 28px);
+  padding: clamp(5px, 0.7vh, 8px) 0; border-bottom: 1px solid var(--ink-20);
+}
+.s-ds-type .tr:last-child { border-bottom: none; }
+.s-ds-type .tr .tn {
+  font-family: var(--font-mono); font-size: clamp(10px, 0.7vw, 12px); letter-spacing: 0.04em; color: var(--ink);
+  opacity: 0.65;
+}
+.s-ds-type .tr .ts {
+  font-family: var(--font-display); font-weight: 400; line-height: 1; letter-spacing: -0.005em; color: var(--ink);
+}
+
+.s-ds-palette { background: var(--paper); }
+.s-ds-palette .glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(circle 500px at 10% 90%, var(--sun-40) 0%, transparent 65%);
+}
+.s-ds-palette .frame {
+  position: absolute;
+  inset: clamp(40px, 4vw, 76px);
+  display: flex; flex-direction: column;
+  z-index: 4;
+}
+.s-ds-palette .swatches { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr 1fr; gap: clamp(12px, 1.4vw, 20px); flex: 1; min-height: 0; }
+.s-ds-palette .sw { text-align: center; display: flex; flex-direction: column; min-height: 0; }
+.s-ds-palette .sw .box {
+  flex: 1; width: 100%; min-height: 0; margin-bottom: clamp(4px, 0.5vh, 8px);
+  border: 1px solid var(--ink-20);
+}
+.s-ds-palette .sw .nm {
+  font-family: var(--font-mono); font-size: clamp(10px, 0.7vw, 12px); font-weight: 400;
+  letter-spacing: 0.04em; color: var(--ink);
+}
+.s-ds-palette .sw .hex {
+  font-family: var(--font-mono); font-size: clamp(10px, 0.7vw, 12px); color: var(--ink);
+  opacity: 0.55; margin-top: 2px;
+}
+</style>
+</head>
+<body>
+
+<div class="deck">
+  <div class="stage">
+
+    <!-- 1. 封面 ──────────────────────────────────────────────────── -->
+    <section class="slide s-cover active">
+      <div class="blocks" aria-hidden="true">
+        <div class="b1"></div><div class="b2"></div><div class="b3"></div><div class="b4"></div>
+      </div>
+      <div class="sunglow" aria-hidden="true"></div>
+
+      <div class="date-rail">02.05—<br/>11.10.2026</div>
+
+      <div class="titlewrap">
+        <h1 class="title">极光<br/>计划</h1>
+        <div class="caption subline">年度综览 · 第四期</div>
+      </div>
+
+      <div class="footer-row">
+        <div>
+          <div class="caption ftag">主办</div>
+          <div class="caption ftxt">极光公共形态<br/>研究所</div>
+        </div>
+        <div>
+          <div class="caption ftag">期数</div>
+          <div class="caption ftxt">第四届年度<br/>开放计划</div>
+        </div>
+        <div>
+          <div class="caption ftag">阅读</div>
+          <div class="caption ftxt">一场关于光线、物质<br/>与氛围的田野研究</div>
+        </div>
+        <div>
+          <div class="caption ftag">附注</div>
+          <div class="caption fdesc">为期六个月，横跨三座展馆的展览、驻留与公开讲座，伴随黄色调的缓慢推移展开。</div>
+        </div>
+      </div>
+
+      <div class="pagenum">01 / 08</div>
+    </section>
+
+    <!-- 2. 宣言 ──────────────────────────────────────────────── -->
+    <section class="slide s-manifesto">
+      <div class="haze" aria-hidden="true"></div>
+      <p class="quote">房间是与太阳的一场缓慢辩论。我们花了四年时间，倾听它的回答。</p>
+      <div class="attr">摘自《极光宪章》，2023</div>
+      <div class="pagenum">02 / 08</div>
+    </section>
+
+    <!-- 3. 计划总纲 ──────────────────────────────────────────────── -->
+    <section class="slide s-programme">
+      <div class="left">
+        <div class="kicker">线索 · 2026</div>
+        <div>
+          <div class="word">计划总纲</div>
+        </div>
+        <div class="meta">六条交织的线索贯穿全年。每条独立策展，但都回答同一个问题：光知道什么我们不知道的事？</div>
+      </div>
+      <div class="right">
+        <div class="head caption">线索 · 标题 · 锚点</div>
+        <div class="strands">
+          <div class="strand">
+            <div class="num">01</div>
+            <div>
+              <h3>缓慢氛围</h3>
+              <p>一间陈列着长篇散文、素描和天气笔记的阅览室，围绕午后变幻的黄色调展开。</p>
+            </div>
+          </div>
+          <div class="strand">
+            <div class="num">02</div>
+            <div>
+              <h3>公共形态</h3>
+              <p>三座展馆中的三件委托作品，各自审视一座公共广场如何在一个季节中承载自己的光线。</p>
+            </div>
+          </div>
+          <div class="strand">
+            <div class="num">03</div>
+            <div>
+              <h3>田野笔记</h3>
+              <p>一项驻地计划，将艺术家、建筑师与气象学家聚集在一起，进行一百天的记录、绘制与争论。</p>
+            </div>
+          </div>
+          <div class="strand">
+            <div class="num">04</div>
+            <div>
+              <h3>静默版本</h3>
+              <p>一条排版出版线索，只印刷那些请求在日光下、在温暖纸张上、被缓慢阅读的文字。</p>
+            </div>
+          </div>
+          <div class="strand">
+            <div class="num">05</div>
+            <div>
+              <h3>开放对话</h3>
+              <p>十二个夜晚的公开对谈，配一顿饭和一个问题：你作品中的天气是什么样的？</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pagenum">03 / 08</div>
+    </section>
+
+    <!-- 4. 章节分隔 ────────────────────────────────────────── -->
+    <section class="slide s-chapter">
+      <div class="glow" aria-hidden="true"></div>
+      <div class="caption vrail">第一章 — 缓慢氛围</div>
+      <div class="stack">
+        <div class="nm">01</div>
+        <div class="ttl">阅读这个季节最安静的时刻</div>
+        <p class="lede">极光计划第一章围绕一年中最缓慢的光线展开：太阳已落、房间尚未承认黑暗的那些漫长分钟。三月启幕，三座城市，三个房间，三盏灯亮过闭馆之后。</p>
+      </div>
+      <div class="pagenum">04 / 08</div>
+    </section>
+
+    <!-- 5. 数据 ──────────────────────────────────────────────────── -->
+    <section class="slide s-data">
+      <div class="glow" aria-hidden="true"></div>
+      <div class="frame">
+        <div class="head">
+          <div class="h">公众参与</div>
+          <div class="caption lab">开放计划 · 2022—2026</div>
+        </div>
+        <div class="col-a">
+          <div class="stat">
+            <div class="v">182<sup>k</sup></div>
+            <div class="caption lab2">访客 · 第四年</div>
+            <div class="desc">较首年增长 2.4 倍，来自一个比观众增长得更慢的计划。</div>
+          </div>
+          <div class="stat">
+            <div class="v">7<sup>4%</sup></div>
+            <div class="caption lab2">回头客比例</div>
+            <div class="desc">去年四分之三的访客再次回来；近半数回来过两次。</div>
+          </div>
+        </div>
+        <div class="chart">
+          <div class="row"><div class="caption yr">2022</div><div class="bar" style="width: 32%"></div><div class="caption val">76,400</div></div>
+          <div class="row"><div class="caption yr">2023</div><div class="bar" style="width: 48%"></div><div class="caption val">112,800</div></div>
+          <div class="row"><div class="caption yr">2024</div><div class="bar" style="width: 62%"></div><div class="caption val">141,200</div></div>
+          <div class="row"><div class="caption yr">2025</div><div class="bar" style="width: 72%"></div><div class="caption val">164,900</div></div>
+          <div class="row"><div class="caption yr">2026</div><div class="bar lit" style="width: 86%"></div><div class="caption val">182,300</div></div>
+        </div>
+      </div>
+      <div class="pagenum">05 / 08</div>
+    </section>
+
+    <!-- 6. 引述 ──────────────────────────────────────────────────── -->
+    <section class="slide s-quote">
+      <div class="yblock" aria-hidden="true"></div>
+      <div class="glow" aria-hidden="true"></div>
+      <div class="qwrap">
+        <div class="caption qkicker">策展人手记</div>
+        <p class="qbody">我们使用的黄色，并非我们意指的黄色。它是我们离开建筑十分钟后才抵达的那种黄。</p>
+        <div class="qattr">
+          <div class="caption who">Idun Reijners</div>
+          <div class="caption role">极光研究所特邀策展人 · 致编辑委员会的信，2026 年 1 月</div>
+        </div>
+      </div>
+      <div class="y-mark" aria-hidden="true">¨</div>
+      <div class="pagenum">06 / 08</div>
+    </section>
+
+    <!-- 7. 日程 ──────────────────────────────────────────────── -->
+    <section class="slide s-cal">
+      <div class="glow" aria-hidden="true"></div>
+      <div class="frame">
+        <div class="topbar">
+          <div class="h">公开日程</div>
+          <div class="caption lab">精选日期 · 五月—十月</div>
+        </div>
+        <div class="ledger">
+          <div class="row headrow"><div class="caption">日期</div><div class="caption">标题</div><div class="caption">场地</div><div class="caption">时长</div></div>
+          <div class="row">
+            <div class="caption date">02.05</div>
+            <div class="ttl">《漫长的黄》，开幕演讲</div>
+            <div class="ven">静默形态展馆，鹿特丹</div>
+            <div class="caption dur">90 min</div>
+          </div>
+          <div class="row">
+            <div class="caption date">17.05</div>
+            <div class="ttl">漫步本季第一间展厅</div>
+            <div class="ven">阅读花园，北展馆</div>
+            <div class="caption dur">2 hr</div>
+          </div>
+          <div class="row">
+            <div class="caption date">06.06</div>
+            <div class="ttl">公共形态 01 — 开幕</div>
+            <div class="ven">慢日广场，安特卫普</div>
+            <div class="caption dur">全天</div>
+          </div>
+          <div class="row">
+            <div class="caption date">28.06</div>
+            <div class="ttl">田野笔记驻地，第一周晚宴</div>
+            <div class="ven">半窗之屋</div>
+            <div class="caption dur">3 hr</div>
+          </div>
+          <div class="row">
+            <div class="caption date">19.07</div>
+            <div class="ttl">《致太阳的信》，晚间朗读会</div>
+            <div class="ven">极光图书馆，3 号室</div>
+            <div class="caption dur">75 min</div>
+          </div>
+          <div class="row">
+            <div class="caption date">14.08</div>
+            <div class="ttl">静默版本 — 印刷市集暨新书发布</div>
+            <div class="ven">字体花园，南展馆</div>
+            <div class="caption dur">2 天</div>
+          </div>
+          <div class="row">
+            <div class="caption date">22.09</div>
+            <div class="ttl">开放对话 · 气象学与绘画</div>
+            <div class="ven">阅览室，一层</div>
+            <div class="caption dur">2 hr</div>
+          </div>
+          <div class="row">
+            <div class="caption date">11.10</div>
+            <div class="ttl">《最后一扇窗》，闭幕演出</div>
+            <div class="ven">静默形态展馆，鹿特丹</div>
+            <div class="caption dur">60 min</div>
+          </div>
+        </div>
+      </div>
+      <div class="pagenum">07 / 08</div>
+    </section>
+
+    <!-- 8. 版权页 ──────────────────────────────────────────────── -->
+    <section class="slide s-colophon">
+      <div class="blocks" aria-hidden="true">
+        <div class="b1"></div><div class="b2"></div>
+      </div>
+      <div class="glow" aria-hidden="true"></div>
+
+      <div class="titlewrap">
+        <div class="caption ktag">版权页 · 第四期</div>
+        <h2 class="ttl">致那些<br/>缓慢的<br/>读者。</h2>
+      </div>
+
+      <div class="colofo">
+        <div>
+          <div class="caption ftag">策展</div>
+          <div class="caption ftxt">Idun Reijners<br/>与编辑委员会</div>
+        </div>
+        <div>
+          <div class="caption ftag">设计</div>
+          <div class="caption ftxt">在日光下，在温暖纸张上，<br/>历时十四个星期</div>
+        </div>
+        <div>
+          <div class="caption ftag">主办场地</div>
+          <div class="caption ftxt">极光研究所<br/>静默形态展馆<br/>阅读花园</div>
+        </div>
+        <div>
+          <div class="caption ftag">明年再会</div>
+          <div class="caption ftxt">第五期计划将于 2027 年 5 月开幕。请留意门上的那抹黄色。</div>
+        </div>
+      </div>
+
+      <div class="pagenum">08 / 08</div>
+    </section>
+
+    <!-- 9. DESIGN SYSTEM — Principles ──────────────────────────────── -->
+    <section class="slide s-ds-rules">
+      <div class="glow" aria-hidden="true"></div>
+      <div class="frame">
+        <div class="caption micro-label" style="border-bottom:1px solid var(--ink);padding-bottom:12px;margin-bottom:clamp(18px,2.4vh,32px);">设计系统</div>
+        <h2 class="display" style="font-size:clamp(40px,min(4.4vw,7vh),80px);line-height:1.05;margin-bottom:clamp(14px,1.8vh,26px);">设计原则</h2>
+        <div class="rules">
+          <div class="rule"><div class="rn">01 / 暖羊皮纸底色</div><div class="rb">#E9E5DB 作为全域画布。每页幻灯片都落于纸上，永不用纯白。温暖本身就是品牌。</div></div>
+          <div class="rule"><div class="rn">02 / 日光辐射体系</div><div class="rb">日光黄（#F1EE2E）7 级透明度构成光阶。径向渐变营造深度——无投影，光自有体积。</div></div>
+          <div class="rule"><div class="rn">03 / 靛蓝墨水权威</div><div class="rb">所有文字用 #1B2566——深靛蓝色，不是黑色。高对比却无 #000 的刺目感。</div></div>
+          <div class="rule"><div class="rn">04 / 零装饰主义</div><div class="rb">圆角归零、阴影禁用、禁止 border-radius。视觉趣味全来自字体排印与黄色辉光。</div></div>
+          <div class="rule"><div class="rn">05 / 衬线常重不粗</div><div class="rb">所有标题由 Noto Serif SC 以常重承载。层级仅由字号建立——不加粗，不加斜。</div></div>
+          <div class="rule"><div class="rn">06 / 破折号文法</div><div class="rb">每个列表、标签、署名统一使用 —— 不用圆点，不用方块。破折号是本屋的标点。</div></div>
+        </div>
+      </div>
+      <div class="pagenum">09 / 11</div>
+    </section>
+
+    <!-- 10. DESIGN SYSTEM — Type Scale ──────────────────────────────── -->
+    <section class="slide s-ds-type">
+      <div class="frame">
+        <div class="caption micro-label" style="border-bottom:1px solid var(--ink);padding-bottom:12px;margin-bottom:clamp(18px,2.4vh,32px);">设计系统</div>
+        <h2 class="display" style="font-size:clamp(40px,min(4.4vw,7vh),80px);line-height:1.05;margin-bottom:clamp(14px,1.8vh,26px);">字号刻度</h2>
+        <div class="type-rows">
+          <div class="tr"><span class="tn">3xl · 14.6vw</span><span class="ts" style="font-size:clamp(32px,min(14.6vw,12vh),100px)">极光</span></div>
+          <div class="tr"><span class="tn">2xl · 7vw</span><span class="ts" style="font-size:clamp(24px,min(7vw,8vh),48px)">缓慢读者</span></div>
+          <div class="tr"><span class="tn">xl · 4.6vw</span><span class="ts" style="font-size:clamp(18px,min(4.6vw,7vh),40px)">公共形态</span></div>
+          <div class="tr"><span class="tn">base · 0.95vw</span><span class="ts" style="font-size:clamp(14px,0.95vw,16px);font-family:var(--font-body);font-weight:400;line-height:1.5">Body copy in PingFang SC — the primary reading face for all continuous text</span></div>
+          <div class="tr"><span class="tn">sm · 0.95vw</span><span class="ts" style="font-size:clamp(13px,0.95vw,15px);font-family:var(--font-body);font-weight:400;line-height:1.5">Secondary body and field descriptions</span></div>
+          <div class="tr"><span class="tn">xs · 0.85vw</span><span class="ts" style="font-size:clamp(11px,0.85vw,14px);font-family:var(--font-body);font-weight:600;text-transform:uppercase;letter-spacing:0.16em">CAPTION LABEL</span></div>
+        </div>
+      </div>
+      <div class="pagenum">10 / 11</div>
+    </section>
+
+    <!-- 11. DESIGN SYSTEM — Palette ──────────────────────────────── -->
+    <section class="slide s-ds-palette">
+      <div class="glow" aria-hidden="true"></div>
+      <div class="frame">
+        <div class="caption micro-label" style="border-bottom:1px solid var(--ink);padding-bottom:12px;margin-bottom:clamp(18px,2.4vh,32px);">设计系统</div>
+        <h2 class="display" style="font-size:clamp(40px,min(4.4vw,7vh),80px);line-height:1.05;margin-bottom:clamp(14px,1.8vh,26px);">日光色板</h2>
+        <div class="swatches">
+          <div class="sw"><div class="box" style="background:var(--paper)"></div><div class="nm">纸色</div><div class="hex">#E9E5DB</div></div>
+          <div class="sw"><div class="box" style="background:var(--paper-deep)"></div><div class="nm">纸色·深</div><div class="hex">#DCD6C4</div></div>
+          <div class="sw"><div class="box" style="background:var(--sun)"></div><div class="nm">日光</div><div class="hex">#F1EE2E</div></div>
+          <div class="sw"><div class="box" style="background:var(--sun-soft)"></div><div class="nm">日光·柔</div><div class="hex">#F8F39B</div></div>
+          <div class="sw"><div class="box" style="background:var(--ink)"></div><div class="nm">墨色</div><div class="hex">#1B2566</div></div>
+          <div class="sw"><div class="box" style="background:var(--ember)"></div><div class="nm">余烬</div><div class="hex">#E26B4A</div></div>
+          <div class="sw"><div class="box" style="background:var(--haze)"></div><div class="nm">薄雾</div><div class="hex">#F0DA7C</div></div>
+          <div class="sw"><div class="box" style="background:var(--line);display:flex;align-items:center;justify-content:center"><span style="color:var(--paper);font-size:clamp(10px,0.7vw,12px)">1px</span></div><div class="nm">边线</div><div class="hex">#1B2566</div></div>
+        </div>
+      </div>
+      <div class="pagenum">11 / 11</div>
+    </section>
+
+  </div>
+</div>
+
+<div class="caption nav-hint">← / → · 空格</div>
+
+<script>
+  // 键盘导航：方向键、空格、Home/End、触屏滑动
+  // 通过 class 切换显示当前幻灯片
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  let current = 0;
+  function show(i) {
+    if (i < 0) i = 0;
+    if (i > slides.length - 1) i = slides.length - 1;
+    slides[current].classList.remove('active');
+    slides[i].classList.add('active');
+    current = i;
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); show(current + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(current - 1); }
+    else if (e.key === 'Home') { e.preventDefault(); show(0); }
+    else if (e.key === 'End') { e.preventDefault(); show(slides.length - 1); }
+  });
+  // 触屏滑动 — 基础水平识别
+  let tx = null;
+  document.addEventListener('touchstart', (e) => { tx = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    if (tx == null) return;
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 40) show(current + (dx < 0 ? 1 : -1));
+    tx = null;
+  });
+</script>
+
+</body>
+</html>

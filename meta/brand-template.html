@@ -21,6 +21,11 @@
   --radius:{{RADIUS}};
   --shadow-sm:{{SHADOW_SM}};
   --shadow-md:{{SHADOW_MD}};
+
+  /* Standard spacing fallbacks — overwritten by {{SPACING_VARS}} when template defines them.
+     Prevents component panel collapse when template spacingScale is incomplete. */
+  --space-2xs:4px;--space-xs:8px;--space-sm:12px;--space-md:16px;--space-lg:24px;--hairline:1px;
+
   /* ── Template domain tokens (auto-injected from tokens.json) ── */
   {{TEMPLATE_COLOR_VARS}}
   {{TYPE_SCALE_VARS}}
@@ -124,11 +129,11 @@ body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit
 
 /* === COLOR (MD3-style) === */
 .color-hero{display:grid;grid-template-columns:var(--brand-col-seed) 1fr;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);overflow:hidden}
-.color-hero .seed-panel{background:var(--text);color:var(--bg);padding:var(--brand-sp-6xl) var(--brand-sp-5xl);display:flex;flex-direction:column;justify-content:center}
-.seed-panel .seed-label{font-family:var(--font-mono);font-size:var(--brand-t-2xs);letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--brand-sp-xl)}
+.color-hero .seed-panel{background:var(--accent);color:#fff;padding:var(--brand-sp-6xl) var(--brand-sp-5xl);display:flex;flex-direction:column;justify-content:center}
+.seed-panel .seed-label{font-family:var(--font-mono);font-size:var(--brand-t-2xs);letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:var(--brand-sp-xl)}
 .seed-panel .seed-name{font-size:var(--brand-t-5xl);font-weight:700;margin-bottom:var(--brand-sp-sm)}
-.seed-panel .seed-hex{font-family:var(--font-mono);font-size:var(--brand-t-md);color:var(--accent)}
-.seed-panel .seed-role{font-size:var(--brand-t-base);color:var(--text-muted);margin-top:var(--brand-sp-xs)}
+.seed-panel .seed-hex{font-family:var(--font-mono);font-size:var(--brand-t-md);color:rgba(255,255,255,0.85)}
+.seed-panel .seed-role{font-size:var(--brand-t-base);color:rgba(255,255,255,0.7);margin-top:var(--brand-sp-xs)}
 .color-hero .preview-panel{display:flex;align-items:center;justify-content:center;gap:var(--brand-sp-3xl);padding:var(--brand-sp-6xl);flex-wrap:wrap}
 .preview-panel .prev-card{border:1px solid var(--line);border-radius:var(--radius);padding:var(--brand-sp-2xl) var(--brand-sp-3xl);background:var(--bg);min-width:var(--brand-card-min)}
 .prev-card .prev-title{font-size:var(--brand-t-2xl);font-weight:600;margin-bottom:var(--brand-sp-2xs)}
@@ -244,6 +249,38 @@ body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit
 .copy-tab{padding:var(--brand-sp-lg) var(--brand-sp-3xl);font-size:var(--brand-t-base);font-weight:400;color:var(--text-soft);cursor:pointer;border:none;background:none;font-family:var(--font-body);border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
 .copy-tab:hover{color:var(--text)}
 .copy-tab.active{color:var(--text);font-weight:500;border-bottom-color:var(--accent)}
+
+/* Tooltip — speech bubble */
+.copy-tab[data-tooltip]{position:relative}
+.copy-tab[data-tooltip]::after{
+  content:attr(data-tooltip);
+  position:absolute;bottom:calc(100% + 14px);left:50%;
+  transform:translateX(-50%) translateY(4px);
+  background:var(--color-on-surface);color:var(--color-surface);
+  font-family:var(--font-body);font-size:var(--brand-t-sm);font-weight:400;
+  line-height:1.55;padding:10px 14px;
+  border-radius:6px;
+  box-shadow:var(--elevation-md);
+  white-space:normal;max-width:260px;width:max-content;text-align:left;
+  pointer-events:none;opacity:0;
+  transition:opacity var(--duration-fast) var(--ease-standard),
+             transform var(--duration-fast) var(--ease-standard);
+  z-index:100
+}
+.copy-tab[data-tooltip]::before{
+  content:'';position:absolute;bottom:calc(100% + 4px);left:50%;
+  transform:translateX(-50%) translateY(4px);
+  border:10px solid transparent;border-top-color:var(--color-on-surface);
+  pointer-events:none;opacity:0;
+  transition:opacity var(--duration-fast) var(--ease-standard),
+             transform var(--duration-fast) var(--ease-standard);
+  z-index:101
+}
+.copy-tab[data-tooltip]:hover::after,
+.copy-tab[data-tooltip]:hover::before{
+  opacity:1;transform:translateX(-50%) translateY(0)
+}
+
 .copy-body{background:var(--text);color:var(--bg);padding:36px;display:none}
 .copy-body.active{display:block}
 .copy-body h3{font-size:var(--brand-t-3xl);font-weight:600;margin-bottom:var(--brand-sp-xs)}
@@ -265,6 +302,7 @@ body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit
   .color-hero{grid-template-columns:1fr}
   .type-row{grid-template-columns:1fr}
   .type-row .type-meta{border-right:none;border-bottom:1px solid var(--line)}
+  .copy-tab[data-tooltip]::after{max-width:200px;font-size:var(--brand-t-xs)}
 }
 {{TEXTURE_CSS}}
 {{CURSOR_CSS}}
@@ -431,6 +469,7 @@ body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit
   </p>
   {{OVERLAY_DEMOS}}
 
+  {{LAYOUT_ASSETS_LABEL}}
   {{TEXTURE_SECTION}}
 
   {{CURSOR_SECTION}}
@@ -448,13 +487,13 @@ body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit
 <!-- COPY SECTION -->
 <section class="bk-section" id="copy">
   <h2>复制设计套件</h2>
-  <p class="bk-desc">四格式导出——design.md 是唯一真相源，CSS :root 和 JSON 是其机器可读投影，设计简报将三者打包为可粘贴的 Markdown。</p>
+  <p class="bk-desc">三格式导出——design.md 是唯一真相源，CSS :root 是其机器可读投影，设计简报将二者打包为可粘贴的 Markdown。</p>
 
   <div class="copy-tabs">
-    <button class="copy-tab active" data-tab="design">design.md</button>
-    <button class="copy-tab" data-tab="css">CSS :root</button>
-    <button class="copy-tab" data-tab="json">JSON</button>
-    <button class="copy-tab" data-tab="ai">设计简报</button>
+    <button class="copy-tab active" data-tab="design" data-tooltip="设计理念、颜色语义、排版规则 — 人读的设计真相源">design.md</button>
+    {{COPY_TABS_V2}}
+    <button class="copy-tab" data-tab="css" data-tooltip="合并后的 :root CSS 变量 — 复制到样式表直接使用，含品牌层+布局层全部 Token">CSS :root</button>
+    <button class="copy-tab" data-tab="ai" data-tooltip="design.md + CSS :root 二合一 Markdown — 粘贴给 Cursor / Claude Code 即可复现此模板">设计简报</button>
   </div>
 
   <div class="copy-body active" id="copy-design">
@@ -471,19 +510,13 @@ body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit
     <button class="copy-btn" id="btn-css">复制 CSS</button>
   </div>
 
-  <div class="copy-body" id="copy-json">
-    <h3>JSON (AI 可读)</h3>
-    <p class="cp-desc">结构化 Token 数据，AI Agent 直接解析。</p>
-    <pre id="json-block">{{JSON_BLOCK}}</pre>
-    <button class="copy-btn" id="btn-json">复制 JSON</button>
-  </div>
-
   <div class="copy-body" id="copy-ai">
     <h3>设计简报</h3>
-    <p class="cp-desc">整合 design.md + CSS :root + JSON，粘贴给 Cursor / Claude Code / Copilot 即可复现此模板。</p>
+    <p class="cp-desc">整合 design.md + CSS :root，粘贴给 Cursor / Claude Code / Copilot 即可复现此模板。</p>
     <pre id="ai-block">{{AI_PROMPT_BLOCK}}</pre>
     <button class="copy-btn" id="btn-ai">复制设计简报</button>
   </div>
+  {{COPY_BODIES_V2}}
 </section>
 
 </main>
@@ -519,9 +552,8 @@ body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit
 (function(){
   [{btn:'btn-design',block:'design-block',label:'复制 design.md'},
    {btn:'btn-css',block:'css-block',label:'复制 CSS'},
-   {btn:'btn-json',block:'json-block',label:'复制 JSON'},
-   {btn:'btn-ai',block:'ai-block',label:'复制设计简报'}]
-  .forEach(function(c){
+   {btn:'btn-ai',block:'ai-block',label:'复制设计简报'},
+   {{COPY_JS_V2}}]  .forEach(function(c){
     var btn=document.getElementById(c.btn);
     btn.addEventListener('click',function(){
       navigator.clipboard.writeText(document.getElementById(c.block).textContent).then(function(){

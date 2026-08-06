@@ -1,0 +1,57 @@
+{
+  "slug": "studio",
+  "kind": "brand",
+  "version": 1,
+  "source": "导入自 bold-template-pack/studio — 二进制黑/黄调色板，Barlow 900 大写标题，IBM Plex Mono 元数据。零圆角、零阴影、无渐变。",
+  "tokens": {
+    "color": [
+      { "name": "--near-black",           "value": "#1C1C1C",                       "role": "surface-dark",        "description": "暗色表面 — 暖黑，非冷中性" },
+      { "name": "--near-black-alt",       "value": "#242422",                       "role": "surface-dark-alt",    "description": "暗色表面变体 — 图片占位符/次暗面" },
+      { "name": "--acid-yellow",          "value": "#F5D200",                       "role": "surface-light",       "description": "酸黄 — 亮表面 + 暗面上的文字色" },
+      { "name": "--acid-yellow-alt",      "value": "#F0CC00",                       "role": "surface-light-alt",   "description": "酸黄变体 — 亮面相邻区分" },
+      { "name": "--text-on-dark-2",       "value": "rgba(245,210,0,0.58)",          "role": "text-secondary",      "description": "暗面上次级文字 — 黄色 58% 透明度" },
+      { "name": "--text-on-dark-3",       "value": "rgba(245,210,0,0.32)",          "role": "text-tertiary",       "description": "暗面上三级文字 — 黄色 32% 透明度" },
+      { "name": "--text-on-light-2",      "value": "rgba(28,28,28,0.62)",           "role": "text-secondary-alt",  "description": "亮面上次级文字 — 近黑 62% 透明度" },
+      { "name": "--text-on-light-3",      "value": "rgba(28,28,28,0.35)",           "role": "text-tertiary-alt",   "description": "亮面上三级文字 — 近黑 35% 透明度" },
+      { "name": "--border-dark",          "value": "#2E2E2C",                       "role": "border-on-dark",      "description": "暗面 1px 发丝边框" },
+      { "name": "--border-light",         "value": "rgba(28,28,28,0.18)",           "role": "border-on-light",     "description": "亮面 1px 发丝边框" },
+
+      { "name": "--color-primary",           "value": "#F5D200",                    "role": "accent",              "description": "主强调色 → --acid-yellow" },
+      { "name": "--color-secondary",         "value": "#1C1C1C",                    "role": "accent-alt",          "description": "辅强调色 → --near-black" },
+      { "name": "--color-surface",           "value": "#1C1C1C",                    "role": "surface-bg",          "description": "默认表面 → --near-black" },
+      { "name": "--color-on-surface",        "value": "#F5D200",                    "role": "text-primary",        "description": "主文字色 → --acid-yellow" },
+      { "name": "--color-on-surface-variant","value": "rgba(245,210,0,0.58)",       "role": "text-secondary",      "description": "次级文字 → --text-on-dark-2" },
+      { "name": "--color-outline",           "value": "#2E2E2C",                    "role": "border-default",      "description": "主边框 → --border-dark" },
+      { "name": "--color-surface-container-low","value": "#242422",                 "role": "surface-card",        "description": "卡片容器 → --near-black-alt" }
+    ],
+    "typography": [
+      { "name": "--font-display", "value": "\"Barlow\",\"Noto Sans SC\",system-ui,sans-serif", "role": "display-font", "description": "Barlow 900 大写标题 — 字体即图形块" },
+      { "name": "--font-body",    "value": "\"Barlow\",\"Noto Sans SC\",system-ui,sans-serif", "role": "body-font",    "description": "Barlow 400/500 正文" },
+      { "name": "--font-mono",    "value": "\"IBM Plex Mono\",\"Noto Sans Mono CJK SC\",ui-monospace,monospace", "role": "mono-font", "description": "IBM Plex Mono — 仅用于元数据标签" }
+    ],
+    "radius": [
+      { "name": "--radius-base", "value": "0px", "role": "radius-zero", "description": "零圆角 — 严格直角体系" },
+      { "name": "--radius-sm",   "value": "0px", "role": "radius-zero", "description": "零圆角" },
+      { "name": "--radius-pill", "value": "0px", "role": "radius-zero", "description": "零圆角" }
+    ],
+    "shadow": [
+      { "name": "--elevation-sm", "value": "none", "role": "shadow-none", "description": "无阴影 — 平面设计" },
+      { "name": "--elevation-md", "value": "none", "role": "shadow-none", "description": "无阴影" }
+    ],
+    "motion": [
+      { "name": "--ease-standard", "value": "cubic-bezier(0.4,0,0.2,1)", "role": "easing",        "description": "标准缓动 — 机构紧迫感" },
+      { "name": "--duration-base", "value": "0.5s",                          "role": "duration-base", "description": "基础过渡 — 元素入场" },
+      { "name": "--duration-fast", "value": "0.25s",                         "role": "duration-fast", "description": "快速过渡 — hover" },
+      { "name": "--duration-slow", "value": "0.75s",                         "role": "duration-slow", "description": "慢速过渡 — 幻灯切换" }
+    ]
+  },
+  "colorRoles": {
+    "primary": "#F5D200",
+    "secondary": "#1C1C1C",
+    "background": "#1C1C1C",
+    "surface": "#242422",
+    "text": "#F5D200",
+    "textSecondary": "rgba(245,210,0,0.58)",
+    "border": "#2E2E2C"
+  }
+}

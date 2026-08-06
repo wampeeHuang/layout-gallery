@@ -1,0 +1,249 @@
+{
+  "slug": "daisy-days",
+  "kind": "brand",
+  "version": 1,
+  "source": "导入自 beautiful-html-templates/daisy-days — Cheerful pastel deck with hand-drawn daisies, stars, and rainbows. Friendly, soft, and warm.",
+  "tokens": {
+    "color": [
+      {
+        "name": "--cream",
+        "value": "#F5F0E6",
+        "role": "surface-bg",
+        "description": ""
+      },
+      {
+        "name": "--soft-pink",
+        "value": "#F7C8D4",
+        "role": "text-secondary",
+        "description": ""
+      },
+      {
+        "name": "--text-dark",
+        "value": "#2D2D2D",
+        "role": "text-primary",
+        "description": ""
+      },
+      {
+        "name": "--text-muted",
+        "value": "#6B6B6B",
+        "role": "text-secondary",
+        "description": ""
+      },
+      {
+        "name": "--border",
+        "value": "#2D2D2D",
+        "role": "border-default",
+        "description": ""
+      },
+      {
+        "name": "--border-width",
+        "value": "3px",
+        "role": "border-default",
+        "description": ""
+      },
+      {
+        "name": "--color-primary",
+        "value": "#333333",
+        "role": "accent",
+        "description": "主强调色"
+      },
+      {
+        "name": "--color-secondary",
+        "value": "#6B6B6B",
+        "role": "accent-alt",
+        "description": "辅强调色"
+      },
+      {
+        "name": "--color-surface",
+        "value": "#F5F0E6",
+        "role": "surface-bg",
+        "description": "默认表面"
+      },
+      {
+        "name": "--color-on-surface",
+        "value": "#2D2D2D",
+        "role": "text-primary",
+        "description": "主文字色"
+      },
+      {
+        "name": "--color-on-surface-variant",
+        "value": "#666666",
+        "role": "text-secondary",
+        "description": "次级文字"
+      },
+      {
+        "name": "--color-outline",
+        "value": "#2D2D2D",
+        "role": "border-default",
+        "description": "主边框"
+      },
+      {
+        "name": "--color-surface-container-low",
+        "value": "#F5F0E6",
+        "role": "surface-card",
+        "description": "卡片容器"
+      },
+      {
+        "name": "--turquoise",
+        "value": "#7ECDC0",
+        "role": "color-palette",
+        "description": ""
+      },
+      {
+        "name": "--butter",
+        "value": "#FDE68A",
+        "role": "color-palette",
+        "description": ""
+      },
+      {
+        "name": "--mint",
+        "value": "#A8E6CF",
+        "role": "color-palette",
+        "description": ""
+      },
+      {
+        "name": "--lavender",
+        "value": "#D4A5E8",
+        "role": "color-palette",
+        "description": ""
+      },
+      {
+        "name": "--peach",
+        "value": "#FFCBA4",
+        "role": "color-palette",
+        "description": ""
+      },
+      {
+        "name": "--sky",
+        "value": "#A8D8F0",
+        "role": "color-palette",
+        "description": ""
+      },
+      {
+        "name": "--coral",
+        "value": "#F8635F",
+        "role": "color-palette",
+        "description": ""
+      },
+      {
+        "name": "--radius",
+        "value": "20px",
+        "role": "color-palette",
+        "description": ""
+      },
+      {
+        "name": "--shadow",
+        "value": "6px 6px 0 var(--border)",
+        "role": "color-palette",
+        "description": ""
+      },
+      {
+        "name": "--shadow-sm",
+        "value": "4px 4px 0 var(--border)",
+        "role": "color-palette",
+        "description": ""
+      }
+    ],
+    "typography": [
+      {
+        "name": "--font-display",
+        "value": "'Fredoka One',cursive",
+        "role": "display-font",
+        "description": ""
+      },
+      {
+        "name": "--font-body",
+        "value": "'Quicksand',sans-serif",
+        "role": "body-font",
+        "description": ""
+      },
+      {
+        "name": "--font-mono",
+        "value": "ui-monospace, SF Mono, Consolas, monospace",
+        "role": "mono-font",
+        "description": "等宽字体"
+      }
+    ],
+    "radius": [
+      {
+        "name": "--radius",
+        "value": "20px",
+        "role": "radius",
+        "description": ""
+      },
+      {
+        "name": "--radius-lg",
+        "value": "28px",
+        "role": "radius",
+        "description": ""
+      },
+      {
+        "name": "--radius-base",
+        "value": "20px",
+        "role": "radius",
+        "description": "基础圆角"
+      },
+      {
+        "name": "--radius-sm",
+        "value": "2px",
+        "role": "radius",
+        "description": "小圆角"
+      },
+      {
+        "name": "--radius-pill",
+        "value": "999px",
+        "role": "radius",
+        "description": "药丸圆角"
+      }
+    ],
+    "shadow": [
+      {
+        "name": "--shadow",
+        "value": "6px 6px 0 var(--border)",
+        "role": "shadow",
+        "description": ""
+      },
+      {
+        "name": "--shadow-sm",
+        "value": "4px 4px 0 var(--border)",
+        "role": "shadow",
+        "description": ""
+      },
+      {
+        "name": "--elevation-sm",
+        "value": "4px 4px 0 var(--border)",
+        "role": "shadow",
+        "description": "低阴影"
+      },
+      {
+        "name": "--elevation-md",
+        "value": "6px 6px 0 var(--border)",
+        "role": "shadow",
+        "description": "中阴影"
+      }
+    ],
+    "motion": [
+      {
+        "name": "--ease-standard",
+        "value": "0.18s ease",
+        "role": "easing",
+        "description": "标准缓动"
+      },
+      {
+        "name": "--duration-base",
+        "value": "150ms",
+        "role": "duration",
+        "description": "基础时长"
+      }
+    ]
+  },
+  "colorRoles": {
+    "primary": "#333333",
+    "secondary": "#6B6B6B",
+    "background": "#F5F0E6",
+    "surface": "#F5F0E6",
+    "text": "#2D2D2D",
+    "textSecondary": "#6B6B6B",
+    "border": "#2D2D2D"
+  }
+}

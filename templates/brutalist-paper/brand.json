@@ -1,0 +1,48 @@
+{
+  "slug": "brutalist-paper",
+  "kind": "brand",
+  "version": 1,
+  "source": "拆分自 tokens.json — 品牌层：粗野主义。陶土红（#b84f35）实色偏移阴影、零圆角、Georgia 衬线。",
+  "tokens": {
+    "color": [
+      { "name": "--color-primary",              "value": "#b84f35",                     "role": "accent",         "description": "陶土红 — 主强调色" },
+      { "name": "--color-secondary",            "value": "#d89a57",                     "role": "accent-alt",     "description": "暖橙 — 辅助强调色" },
+      { "name": "--color-surface",              "value": "#f4efe7",                     "role": "surface-bg",     "description": "暖纸底 — 页面背景" },
+      { "name": "--color-surface-container",    "value": "rgba(244,239,231,0.75)",      "role": "surface-glass",  "description": "半透纸面" },
+      { "name": "--color-on-surface",           "value": "#1b1916",                     "role": "text-primary",   "description": "主文字色" },
+      { "name": "--color-on-surface-variant",   "value": "#5f5951",                     "role": "text-secondary", "description": "次级文字色" },
+      { "name": "--color-outline",              "value": "rgba(27, 25, 22, 0.18)",      "role": "border",         "description": "边框色" },
+      { "name": "--color-outline-variant",      "value": "rgba(27, 25, 22, 0.1)",       "role": "border-light",   "description": "淡边框" },
+      { "name": "--color-surface-container-low","value": "rgba(255, 253, 248, 0.62)",   "role": "surface-card",   "description": "卡片/面板背景" }
+    ],
+    "typography": [
+      { "name": "--font-display", "value": "Georgia, \"Times New Roman\", \"Noto Serif SC\", \"Songti SC\", serif",                 "role": "display-font", "description": "衬线展示字体" },
+      { "name": "--font-body",    "value": "Inter, \"PingFang SC\", \"Microsoft YaHei\", \"Hiragino Sans GB\", ui-sans-serif, system-ui, sans-serif", "role": "body-font", "description": "无衬线正文 — Inter 优先" },
+      { "name": "--font-mono",    "value": "\"SF Mono\", Consolas, \"Courier New\", monospace",                                   "role": "mono-font", "description": "等宽字体" }
+    ],
+    "radius": [
+      { "name": "--radius-base", "value": "0px", "role": "radius-base", "description": "零圆角 — 粗野主义硬边" }
+    ],
+    "shadow": [
+      { "name": "--elevation-sm", "value": "0px 4px 15px 0px rgba(0,0,0,0.1)", "role": "card-shadow",  "description": "轻阴影" },
+      { "name": "--elevation-md", "value": "4px 4px 0 #b84f35",                "role": "card-hover",   "description": "实色偏移阴影 — 粗野主义标志" },
+      { "name": "--shadow",       "value": "0px 4px 15px 0px rgba(0,0,0,0.1)", "role": "card-shadow",  "description": "别名 → --elevation-sm" },
+      { "name": "--shadow-solid", "value": "4px 4px 0 #b84f35",                "role": "accent-shadow","description": "实色偏移阴影" },
+      { "name": "--shadow-block", "value": "10px 10px 0 #b84f35",              "role": "hero-shadow",  "description": "大块偏移阴影 — hero 级" }
+    ],
+    "motion": [
+      { "name": "--ease-standard", "value": "0.18s ease", "role": "transition", "description": "标准缓动" },
+      { "name": "--duration-base", "value": "150ms",      "role": "duration",   "description": "基础过渡时长" },
+      { "name": "--ease-hover",    "value": "0.2s ease",  "role": "transition", "description": "悬浮缓动" }
+    ]
+  },
+  "colorRoles": {
+    "primary": "#b84f35",
+    "secondary": "#d89a57",
+    "background": "#f4efe7",
+    "text": "#1b1916",
+    "textSecondary": "#5f5951",
+    "border": "rgba(27, 25, 22, 0.18)",
+    "surface": "rgba(255, 253, 248, 0.62)"
+  }
+}

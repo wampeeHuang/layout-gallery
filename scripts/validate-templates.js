@@ -159,21 +159,17 @@ function flattenStandardVars(standardVars) {
   const allowedNames = new Set();
   const requiredNames = [];
 
-  for (const [category, vars] of Object.entries(standardVars)) {
-    if (category.startsWith('_')) continue;
+  for (const [layer, groups] of Object.entries(standardVars)) {
+    if (layer.startsWith('_')) continue;
 
-    for (const [key, val] of Object.entries(vars)) {
-      // Detect nesting: if val has 'md3' or 'role' → direct token def
-      if (val && typeof val === 'object' && (val.md3 !== undefined || val.role !== undefined)) {
-        allowedNames.add(key);
-        if (val.required) requiredNames.push(key);
-      } else if (val && typeof val === 'object') {
-        // Sub-group (e.g. color.primary, color.secondary)
-        for (const [subKey, subVal] of Object.entries(val)) {
-          if (subVal && typeof subVal === 'object') {
-            allowedNames.add(subKey);
-            if (subVal.required) requiredNames.push(subKey);
-          }
+    for (const [group, vars] of Object.entries(groups)) {
+      if (group.startsWith('_')) continue;
+
+      for (const [key, val] of Object.entries(vars)) {
+        if (val && typeof val === 'object' && (val.md3 !== undefined || val.role !== undefined)) {
+          // Direct token def (leaf level)
+          allowedNames.add(key);
+          if (val.required) requiredNames.push(key);
         }
       }
     }
@@ -197,14 +193,19 @@ function validateStandardVars(tmplDir, tokensData) {
   // Flatten standard vocabulary (handles nested color sub-groups)
   const { allowedNames, requiredNames } = flattenStandardVars(standardVars);
 
-  // Add template-specific exemptions
+  // Add template-specific exemptions (v5: nested brand/layout → category → names[])
   const slug = tokensData.slug;
   const tmplSpecific = templateSpecific[slug];
   if (tmplSpecific) {
-    for (const [category, names] of Object.entries(tmplSpecific)) {
-      if (category.startsWith('_')) continue;
-      for (const name of names) {
-        allowedNames.add(name);
+    for (const [layer, groups] of Object.entries(tmplSpecific)) {
+      if (layer.startsWith('_') || layer === 'note') continue;
+      if (typeof groups === 'object' && !Array.isArray(groups)) {
+        for (const [category, names] of Object.entries(groups)) {
+          if (category.startsWith('_')) continue;
+          if (Array.isArray(names)) {
+            for (const name of names) allowedNames.add(name);
+          }
+        }
       }
     }
   }
@@ -264,6 +265,87 @@ function validateStandardVars(tmplDir, tokensData) {
     }
   } else {
     errors.push('brandKit.colorRoles 缺失 — 无法推导标准颜色别名');
+  }
+
+  return errors;
+}
+
+// ── ColorRoles value type gate ────────────────────────────────────
+// colorRoles values must be CSS color values (hex, rgb, rgba, hsl, named),
+// NOT CSS shorthands like "4px solid #000000". brand-renderer uses them as
+// colors in patterns like `border: Xpx solid var(--color-outline)`.
+// A shorthand value produces invalid CSS.
+//
+// Bug reference: BlockFrame brand page — border:1px solid 4px solid #000000
+
+function validateColorRolesValues(tmplDir, tokensData) {
+  const errors = [];
+  if (!tokensData.brandKit || !tokensData.brandKit.colorRoles) return errors;
+
+  const cr = tokensData.brandKit.colorRoles;
+  // Matches anything that looks like a CSS shorthand: multiple tokens
+  // separated by spaces, where at least one token is a length/width keyword.
+  const SHORTHAND_RE = /\d+(?:px|em|rem|%|vh|vw|pt|cm|mm|in|pc|ex|ch|vmin|vmax)\b|solid|dashed|dotted|double|groove|ridge|inset|outset|none|hidden/i;
+
+  for (const [role, value] of Object.entries(cr)) {
+    if (typeof value !== 'string') {
+      errors.push('colorRoles.' + role + ': 值必须是字符串，收到 ' + typeof value);
+      continue;
+    }
+    if (SHORTHAND_RE.test(value.trim())) {
+      errors.push('colorRoles.' + role + ': 值 "' + value + '" 疑似 CSS shorthand — 必须为纯颜色值（hex/rgb/rgba/hsl/命名色），不接受 border/padding 等复合写法');
+    }
+  }
+
+  return errors;
+}
+
+// ── SpacingScale minimum gate ──────────────────────────────────────
+// brand-renderer component inline styles depend on these spacing tokens.
+// If missing, var(--space-xs) etc. produce invalid declarations → zero
+// padding/gap → buttons squeeze, cards collapse.
+//
+// Bug reference: BlockFrame brand page — spacingScale only had --sp-pad-x
+// and --sp-gap, missing all --space-* variables.
+
+const SPACING_SCALE_MINIMUM = [
+  '--space-2xs', '--space-xs', '--space-sm', '--space-md', '--space-lg', '--hairline'
+];
+
+function validateSpacingScaleMinimum(tmplDir, tokensData) {
+  const errors = [];
+  if (!tokensData.brandKit || !tokensData.brandKit.spacingScale) return errors;
+
+  const names = new Set(tokensData.brandKit.spacingScale.map(t => t.name));
+
+  for (const required of SPACING_SCALE_MINIMUM) {
+    if (!names.has(required)) {
+      errors.push('spacingScale 缺 ' + required + ' — 品牌套件组件渲染依赖此变量');
+    }
+  }
+
+  return errors;
+}
+
+// ── deck-stage.js path gate ─────────────────────────────────────
+// Legacy templates reference deck-stage.js with relative path
+// (src="deck-stage.js"). When loaded from templates/<slug>/, the
+// browser resolves it to templates/<slug>/deck-stage.js → 404.
+// The custom element never registers, slides collapse to zero height,
+// and the dark body background shows → black screen.
+//
+// Bug reference: 8 legacy templates had src="deck-stage.js" instead
+// of src="/runtime/deck-stage.js".
+
+function validateDeckStageScript(tmplDir, tokensData) {
+  const errors = [];
+  const tmplPath = path.join(tmplDir, 'template.html');
+  if (!fs.existsSync(tmplPath)) return errors;
+
+  const html = fs.readFileSync(tmplPath, 'utf-8');
+  // Match relative-path deck-stage.js reference (no leading /)
+  if (/<script\s+[^>]*src\s*=\s*["'](?!\/|https?:\/\/)deck-stage\.js["']/i.test(html)) {
+    errors.push('deck-stage.js 使用相对路径，应为 src="/runtime/deck-stage.js"');
   }
 
   return errors;
@@ -368,14 +450,35 @@ function auditTemplate(entry, manifest, options) {
     }
   }
 
-  // Run validators (only if tokens.json exists)
+  // brand_kit post-check: must have tokens.json (v1) or brand.json+layout.json (v2)
+  const hasTokens = fs.existsSync(path.join(tmplDir, 'tokens.json'));
+  const hasV2 = fs.existsSync(path.join(tmplDir, 'brand.json')) && fs.existsSync(path.join(tmplDir, 'layout.json'));
+  if (type === 'brand_kit' && !hasTokens && !hasV2) {
+    result.validatorErrors.push('brand_kit 模板必须有 tokens.json (v1) 或 brand.json + layout.json (v2)');
+    result.ok = false;
+    return result;
+  }
+
+  // Run validators
   const tokensPath = path.join(tmplDir, 'tokens.json');
-  if (fs.existsSync(tokensPath) && manifest.validators) {
+  if ((hasTokens || hasV2) && manifest.validators) {
     let tokensData;
     try {
-      tokensData = JSON.parse(fs.readFileSync(tokensPath, 'utf-8'));
+      if (hasV2) {
+        const brandData = JSON.parse(fs.readFileSync(path.join(tmplDir, 'brand.json'), 'utf-8'));
+        const layoutData = JSON.parse(fs.readFileSync(path.join(tmplDir, 'layout.json'), 'utf-8'));
+        tokensData = { slug: brandData.slug, version: brandData.version, tokens: {}, brandKit: {} };
+        for (const cat of ['color', 'typography', 'spacing', 'radius', 'shadow', 'motion']) {
+          tokensData.tokens[cat] = [...(brandData.tokens[cat] || []), ...(layoutData.tokens[cat] || [])];
+        }
+        if (brandData.colorRoles) tokensData.brandKit.colorRoles = brandData.colorRoles;
+        if (layoutData.typeScale) tokensData.brandKit.typeScale = layoutData.typeScale;
+        if (layoutData.spacingScale) tokensData.brandKit.spacingScale = layoutData.spacingScale;
+      } else {
+        tokensData = JSON.parse(fs.readFileSync(tokensPath, 'utf-8'));
+      }
     } catch (e) {
-      result.validatorErrors.push('tokens.json: JSON 解析失败 — ' + e.message);
+      result.validatorErrors.push('token 文件 JSON 解析失败 — ' + e.message);
       result.ok = false;
       return result;
     }
@@ -391,7 +494,7 @@ function auditTemplate(entry, manifest, options) {
         const errors = mod[vDef.function](tmplDir, tokensData);
         if (errors.length > 0) {
           result.validatorErrors.push(...errors.map(e => '[' + vName + '] ' + e));
-          result.ok = false;
+          if (vDef.blocking !== false) result.ok = false;
         }
       } catch (e) {
         result.validatorErrors.push('Validator 加载失败: ' + vName + ' — ' + e.message);
@@ -498,7 +601,7 @@ function main() {
   }
 }
 
-module.exports = { validateAll, reportSummary, validateTokensSchema, validateRootSync, validateStandardVars, validateGoogleFonts, validateHardcoded };
+module.exports = { validateAll, reportSummary, validateTokensSchema, validateRootSync, validateStandardVars, validateGoogleFonts, validateColorRolesValues, validateSpacingScaleMinimum, validateDeckStageScript, validateHardcoded };
 
 if (require.main === module) {
   main();

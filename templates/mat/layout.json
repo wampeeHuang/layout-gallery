@@ -1,0 +1,246 @@
+{
+  "slug": "mat",
+  "kind": "layout",
+  "version": 1,
+  "source": "导入自 beautiful-html-templates/mat",
+  "tokens": {
+    "typography": [
+      {
+        "name": "--sz-display",
+        "value": "12vw",
+        "role": "display-size",
+        "description": ""
+      },
+      {
+        "name": "--sz-h1",
+        "value": "7vw",
+        "role": "h1-size",
+        "description": ""
+      },
+      {
+        "name": "--sz-h2",
+        "value": "4vw",
+        "role": "h2-size",
+        "description": ""
+      },
+      {
+        "name": "--sz-h3",
+        "value": "2.4vw",
+        "role": "size-token",
+        "description": ""
+      },
+      {
+        "name": "--sz-lead",
+        "value": "1.5vw",
+        "role": "size-token",
+        "description": ""
+      },
+      {
+        "name": "--sz-body",
+        "value": "1.05vw",
+        "role": "body-size",
+        "description": ""
+      },
+      {
+        "name": "--sz-caption",
+        "value": "0.82vw",
+        "role": "caption-size",
+        "description": ""
+      },
+      {
+        "name": "--sz-label",
+        "value": "0.7vw",
+        "role": "label-size",
+        "description": ""
+      }
+    ],
+    "spacing": [
+      {
+        "name": "--pad-x",
+        "value": "5.5vw",
+        "role": "page-padding",
+        "description": ""
+      },
+      {
+        "name": "--pad-y",
+        "value": "5.5vh",
+        "role": "page-padding",
+        "description": ""
+      },
+      {
+        "name": "--gap-lg",
+        "value": "4.5vh",
+        "role": "element-gap",
+        "description": ""
+      },
+      {
+        "name": "--gap-md",
+        "value": "2.8vh",
+        "role": "element-gap",
+        "description": ""
+      },
+      {
+        "name": "--gap-sm",
+        "value": "1.4vh",
+        "role": "element-gap",
+        "description": ""
+      },
+      {
+        "name": "--space-page-wmax",
+        "value": "1200px",
+        "role": "content-max-width",
+        "description": "内容最大宽度"
+      },
+      {
+        "name": "--space-page-pad",
+        "value": "5.5vw",
+        "role": "page-padding",
+        "description": "页面内边距"
+      },
+      {
+        "name": "--space-gap",
+        "value": "4.5vh",
+        "role": "element-gap",
+        "description": "元素间距"
+      },
+      {
+        "name": "--space-gutter",
+        "value": "4.5vh",
+        "role": "column-gutter",
+        "description": "列间距"
+      },
+      {
+        "name": "--space-2xs",
+        "value": "4px",
+        "role": "spacing",
+        "description": ""
+      },
+      {
+        "name": "--space-xs",
+        "value": "8px",
+        "role": "spacing",
+        "description": ""
+      },
+      {
+        "name": "--space-sm",
+        "value": "12px",
+        "role": "spacing",
+        "description": ""
+      },
+      {
+        "name": "--space-md",
+        "value": "16px",
+        "role": "spacing",
+        "description": ""
+      },
+      {
+        "name": "--space-lg",
+        "value": "24px",
+        "role": "spacing",
+        "description": ""
+      },
+      {
+        "name": "--hairline",
+        "value": "1px",
+        "role": "spacing",
+        "description": ""
+      }
+    ]
+  },
+  "typeScale": [
+    {
+      "name": "--sz-display",
+      "value": "12vw",
+      "role": "display-size",
+      "description": ""
+    },
+    {
+      "name": "--sz-h1",
+      "value": "7vw",
+      "role": "h1-size",
+      "description": ""
+    },
+    {
+      "name": "--sz-h2",
+      "value": "4vw",
+      "role": "h2-size",
+      "description": ""
+    },
+    {
+      "name": "--sz-h3",
+      "value": "2.4vw",
+      "role": "size-token",
+      "description": ""
+    },
+    {
+      "name": "--sz-lead",
+      "value": "1.5vw",
+      "role": "size-token",
+      "description": ""
+    },
+    {
+      "name": "--sz-body",
+      "value": "1.05vw",
+      "role": "body-size",
+      "description": ""
+    },
+    {
+      "name": "--sz-caption",
+      "value": "0.82vw",
+      "role": "caption-size",
+      "description": ""
+    },
+    {
+      "name": "--sz-label",
+      "value": "0.7vw",
+      "role": "label-size",
+      "description": ""
+    }
+  ],
+  "spacingScale": [
+    {
+      "name": "--pad-x",
+      "value": "5.5vw"
+    },
+    {
+      "name": "--pad-y",
+      "value": "5.5vh"
+    },
+    {
+      "name": "--gap-lg",
+      "value": "4.5vh"
+    },
+    {
+      "name": "--gap-md",
+      "value": "2.8vh"
+    },
+    {
+      "name": "--gap-sm",
+      "value": "1.4vh"
+    },
+    {
+      "name": "--space-2xs",
+      "value": "4px"
+    },
+    {
+      "name": "--space-xs",
+      "value": "8px"
+    },
+    {
+      "name": "--space-sm",
+      "value": "12px"
+    },
+    {
+      "name": "--space-md",
+      "value": "16px"
+    },
+    {
+      "name": "--space-lg",
+      "value": "24px"
+    },
+    {
+      "name": "--hairline",
+      "value": "1px"
+    }
+  ]
+}

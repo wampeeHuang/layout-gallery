@@ -297,6 +297,21 @@ h1 {
 
 .community-links { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-xl); }
 
+/* ============ Design System Sections ============ */
+.s-ds-rules .rules{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-lg)}
+.s-ds-rules .rule{padding:var(--space-lg) var(--space-lg) 0 0;border-top:3px solid var(--color-primary)}
+.s-ds-rules .rule .n{font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--color-primary)}
+.s-ds-rules .rule .t{font-family:var(--font-display);font-weight:700;font-size:1.4rem;line-height:1.2;margin-top:.4em}
+.s-ds-rules .rule .d{font-size:.95rem;line-height:1.55;color:var(--color-on-surface-variant);margin-top:.5em}
+.s-ds-type .tr{display:grid;grid-template-columns:140px 1fr 90px;align-items:baseline;gap:var(--space-lg);padding:var(--space-sm) 0;border-top:1px solid var(--color-outline)}
+.s-ds-type .tr .label{font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--color-on-surface-variant)}
+.s-ds-type .tr .spec{font-family:var(--font-mono);font-size:10px;color:var(--color-on-surface-variant);text-align:right}
+.s-ds-palette .swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-sm)}
+.s-ds-palette .swatch{padding:var(--space-sm);border:2px solid var(--color-on-surface)}
+.s-ds-palette .swatch .chip{width:100%;height:80px;margin-bottom:var(--space-sm)}
+.s-ds-palette .swatch .name{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.s-ds-palette .swatch .hex{font-family:var(--font-mono);font-size:13px;margin-top:4px}
+
 /* ── Responsive ────────────────────────────────────────────────── */
 @media (max-width: 920px) {
   .card-grid, .two-column { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -413,6 +428,54 @@ h1 {
     <div class="community-links">
       <a href="#" class="button primary">Primary CTA</a>
       <a href="#" class="button secondary">Secondary Link</a>
+    </div>
+  </section>
+
+  <!-- ═══════════ Design Principles · 设计原则 ═══════════ -->
+  <section class="grid-section s-ds-rules">
+    <div class="section-heading">
+      <h2>Design<br>Principles</h2>
+      <p>Six rules that define the brutalist-paper visual language.</p>
+    </div>
+    <div class="rules">
+      <div class="rule"><div class="n">01</div><div class="t">Hard Shadows Only</div><div class="d">No blur, no gradient. Every shadow is a solid offset block — 4px/4px for cards, 10px/10px for hero blocks.</div></div>
+      <div class="rule"><div class="n">02</div><div class="t">Raw Paper Canvas</div><div class="d">#F4EFE7 unbleached paper base. No subtle gradients, no glass morphism — texture comes from typography.</div></div>
+      <div class="rule"><div class="n">03</div><div class="t">Serif + Sans + Mono</div><div class="d">Georgia for editorial weight. Inter for body and interface. SF Mono for code, labels, and metadata.</div></div>
+      <div class="rule"><div class="n">04</div><div class="t">Zero Radius</div><div class="d">No rounded corners anywhere. The rectangle is the most honest shape. Sharp edges convey precision.</div></div>
+      <div class="rule"><div class="n">05</div><div class="t">Terracotta & Gold</div><div class="d">#B84F35 rust accent against #D89A57 warm gold. Industrial palette — brick, iron, paper, ink.</div></div>
+      <div class="rule"><div class="n">06</div><div class="t">Declare, Don't Decorate</div><div class="d">No icons without information. Borders are structural, not ornamental. Every element earns its place.</div></div>
+    </div>
+  </section>
+
+  <!-- ═══════════ Type Scale · 字号层级 ═══════════ -->
+  <section class="grid-section s-ds-type">
+    <div class="section-heading">
+      <h2>Type<br>Scale</h2>
+      <p>Typography hierarchy — Georgia display, Inter body, Mono meta.</p>
+    </div>
+    <div style="flex:1">
+      <div class="tr"><div class="label">Display</div><div style="font-family:var(--font-display);font-weight:700;font-size:clamp(2.6rem,5.5vw,5rem);line-height:.94;letter-spacing:-.06em">5rem · Georgia 700</div><div class="spec">.manifesto h2</div></div>
+      <div class="tr"><div class="label">Heading</div><div style="font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,4vw,3.2rem);line-height:1">3.2rem · Georgia 700</div><div class="spec">.section-heading h2</div></div>
+      <div class="tr"><div class="label">Card Title</div><div style="font-family:var(--font-display);font-weight:700;font-size:1.5rem;line-height:1">1.5rem · Georgia 700</div><div class="spec">.card h3</div></div>
+      <div class="tr"><div class="label">Body</div><div style="font-family:var(--font-body);font-size:1rem;line-height:1">1rem · Inter 400</div><div class="spec">body</div></div>
+      <div class="tr"><div class="label">Small</div><div style="font-family:var(--font-body);font-size:.85rem;line-height:1">.85rem · Inter 400</div><div class="spec">.tag .note</div></div>
+      <div class="tr"><div class="label">Mono</div><div style="font-family:var(--font-mono);font-size:.78rem;line-height:1">.78rem · Mono 400</div><div class="spec">.mono</div></div>
+    </div>
+  </section>
+
+  <!-- ═══════════ Palette · 配色系统 ═══════════ -->
+  <section class="grid-section s-ds-palette">
+    <div class="section-heading">
+      <h2>Color<br>Palette</h2>
+      <p>Six-token industrial palette — brick, iron, paper, ink.</p>
+    </div>
+    <div class="swatches">
+      <div class="swatch"><div class="chip" style="background:var(--color-primary)"></div><div class="name">Primary</div><div class="hex">#B84F35</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-secondary)"></div><div class="name">Secondary</div><div class="hex">#D89A57</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-surface);border:2px solid var(--color-outline)"></div><div class="name">Surface</div><div class="hex">#F4EFE7</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-on-surface)"></div><div class="name">On Surface</div><div class="hex">#1B1916</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-on-surface-variant)"></div><div class="name">Variant</div><div class="hex">#5F5951</div></div>
+      <div class="swatch"><div class="chip" style="background:transparent;border:2px dashed var(--color-outline)"></div><div class="name">Outline</div><div class="hex">18%</div></div>
     </div>
   </section>
 

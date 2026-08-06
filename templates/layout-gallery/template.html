@@ -449,6 +449,21 @@ body:active {
   50%      { transform: translate(-50%, -50%) rotate(calc(var(--rot) + 3deg)); }
 }
 .meadow-plant svg { display: block; filter: drop-shadow(0 1px 2px rgba(0,0,0,.08)); }
+
+/* ============ Design System Sections ============ */
+.s-ds-rules .rules{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl)}
+.s-ds-rules .rule{padding:var(--space-lg) var(--space-lg) 0 0;border-top:3px solid var(--color-primary)}
+.s-ds-rules .rule .n{font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--color-primary)}
+.s-ds-rules .rule .t{font-family:var(--font-display);font-weight:700;font-size:1.2rem;line-height:1.2;margin-top:.4em}
+.s-ds-rules .rule .d{font-size:.92rem;line-height:1.6;color:var(--color-on-surface-variant);margin-top:.4em}
+.s-ds-type .tr{display:grid;grid-template-columns:140px 1fr 100px;align-items:baseline;gap:var(--space-lg);padding:var(--space-sm) 0;border-top:1px solid var(--color-outline)}
+.s-ds-type .tr .label{font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--color-on-surface-variant)}
+.s-ds-type .tr .spec{font-family:var(--font-mono);font-size:10px;color:var(--color-on-surface-variant);text-align:right}
+.s-ds-palette .swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-sm)}
+.s-ds-palette .swatch{padding:var(--space-md);border:1px solid var(--color-outline)}
+.s-ds-palette .swatch .chip{width:100%;height:72px;margin-bottom:var(--space-sm)}
+.s-ds-palette .swatch .name{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-on-surface-variant)}
+.s-ds-palette .swatch .hex{font-family:var(--font-mono);font-size:13px;margin-top:4px}
 </style>
 </head>
 <body>
@@ -672,6 +687,54 @@ body:active {
     <a href="#" class="btn btn-ghost">开始生长</a>
   </div>
 </footer>
+
+<!-- ═══════════ Design Principles · 设计原则 ═══════════ -->
+<section class="section s-ds-rules" style="padding:var(--space-3xl) var(--space-page-pad);max-width:var(--space-page-wmax);margin:0 auto">
+  <div style="margin-bottom:var(--space-2xl)">
+    <p style="font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--color-primary);margin-bottom:var(--space-sm)">Design Principles</p>
+    <h2 style="font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,4vw,3rem);line-height:1.1;letter-spacing:-.04em">六大设计原则</h2>
+  </div>
+  <div class="rules">
+    <div class="rule"><div class="n">01</div><div class="t">Sage Green Authority</div><div class="d">#3D6B4A 鼠尾草绿作为唯一品牌色。克制配色让内容成为焦点，色彩只做引导不做装饰。</div></div>
+    <div class="rule"><div class="n">02</div><div class="t">Serif + Sans Dual Font</div><div class="d">Noto Serif SC 承载标题与品牌温度，Noto Sans SC 负责正文与界面。衬线/非衬线各司其职。</div></div>
+    <div class="rule"><div class="n">03</div><div class="t">Token-Driven Everything</div><div class="d">每套模板的 tokens.json 是唯一真相源。颜色、字体、间距、圆角全部 token 驱动，换 token 即换主题。</div></div>
+    <div class="rule"><div class="n">04</div><div class="t">Editorial White Space</div><div class="d">最大宽度 1732px，宽松内边距。留白不是浪费，是阅读节奏的呼吸标记。</div></div>
+    <div class="rule"><div class="n">05</div><div class="t">Six CSS Textures</div><div class="d">纯 CSS 纹理系统 — 网格纸、横线本、点阵、噪点、渐变噪点、对角线。零图片依赖。</div></div>
+    <div class="rule"><div class="n">06</div><div class="t">Growth Pipeline</div><div class="d">POST /api/grow — 输入网页 URL，AI 提取设计 token，生成完整模板。从网页到模板，一源两端。</div></div>
+  </div>
+</section>
+
+<!-- ═══════════ Type Scale · 字号层级 ═══════════ -->
+<section class="section s-ds-type" style="padding:var(--space-3xl) var(--space-page-pad);max-width:var(--space-page-wmax);margin:0 auto;background:var(--color-surface-container-low)">
+  <div style="margin-bottom:var(--space-2xl)">
+    <p style="font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--color-primary);margin-bottom:var(--space-sm)">Type Scale</p>
+    <h2 style="font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,4vw,3rem);line-height:1.1;letter-spacing:-.04em">排版尺度</h2>
+  </div>
+  <div>
+    <div class="tr"><div class="label">3XL</div><div style="font-family:var(--font-display);font-weight:700;font-size:var(--text-3xl);line-height:1">2.5vw / 36px · Serif 700</div><div class="spec">--text-3xl</div></div>
+    <div class="tr"><div class="label">2XL</div><div style="font-family:var(--font-display);font-weight:700;font-size:var(--text-2xl);line-height:1">20px · Serif 700</div><div class="spec">--text-2xl</div></div>
+    <div class="tr"><div class="label">XL</div><div style="font-family:var(--font-body);font-weight:600;font-size:var(--text-xl);line-height:1">17px · Sans 600</div><div class="spec">--text-xl</div></div>
+    <div class="tr"><div class="label">Base</div><div style="font-family:var(--font-body);font-weight:400;font-size:var(--text-base);line-height:1">15px · Sans 400</div><div class="spec">--text-base</div></div>
+    <div class="tr"><div class="label">SM</div><div style="font-family:var(--font-body);font-weight:400;font-size:var(--text-sm);line-height:1">13px · Sans 400</div><div class="spec">--text-sm</div></div>
+    <div class="tr"><div class="label">XS</div><div style="font-family:var(--font-mono);font-size:var(--text-xs);line-height:1">11px · Mono 400</div><div class="spec">--text-xs</div></div>
+  </div>
+</section>
+
+<!-- ═══════════ Palette · 配色系统 ═══════════ -->
+<section class="section s-ds-palette" style="padding:var(--space-3xl) var(--space-page-pad);max-width:var(--space-page-wmax);margin:0 auto">
+  <div style="margin-bottom:var(--space-2xl)">
+    <p style="font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--color-primary);margin-bottom:var(--space-sm)">Color Palette</p>
+    <h2 style="font-family:var(--font-display);font-weight:700;font-size:clamp(2rem,4vw,3rem);line-height:1.1;letter-spacing:-.04em">六色系统</h2>
+  </div>
+  <div class="swatches">
+    <div class="swatch"><div class="chip" style="background:var(--color-primary)"></div><div class="name">Primary</div><div class="hex">#3D6B4A</div></div>
+    <div class="swatch"><div class="chip" style="background:var(--color-surface);border:1px solid var(--color-outline)"></div><div class="name">Surface</div><div class="hex">#FFFFFF</div></div>
+    <div class="swatch"><div class="chip" style="background:var(--color-on-surface)"></div><div class="name">On Surface</div><div class="hex">#18181B</div></div>
+    <div class="swatch"><div class="chip" style="background:var(--color-on-surface-variant)"></div><div class="name">Variant</div><div class="hex">#52525B</div></div>
+    <div class="swatch"><div class="chip" style="background:var(--color-surface-container-low)"></div><div class="name">Container Low</div><div class="hex">#F4F4F5</div></div>
+    <div class="swatch"><div class="chip" style="background:var(--color-outline)"></div><div class="name">Outline</div><div class="hex">#D4D4D8</div></div>
+  </div>
+</section>
 
 <script>
 /* ═══════════════════════════════════════════════════════════════

@@ -1,0 +1,52 @@
+{
+  "slug": "playful",
+  "kind": "layout",
+  "version": 1,
+  "source": "导入自 beautiful-html-templates/playful",
+  "tokens": {
+    "typography": [],
+    "spacing": [
+      {
+        "name": "--space-page-wmax",
+        "value": "1200px",
+        "role": "content-max-width",
+        "description": "内容最大宽度"
+      },
+      {
+        "name": "--space-page-pad",
+        "value": "32px",
+        "role": "page-padding",
+        "description": "页面内边距"
+      },
+      {
+        "name": "--space-gap",
+        "value": "24px",
+        "role": "element-gap",
+        "description": "元素间距"
+      },
+      {
+        "name": "--space-gutter",
+        "value": "24px",
+        "role": "column-gutter",
+        "description": "列间距"
+      }
+    ]
+  },
+  "typeScale": [
+    {
+      "name": "--text-base",
+      "value": "16px",
+      "usage": "默认正文字号"
+    }
+  ],
+  "spacingScale": [
+    {
+      "name": "--sp-pad-x",
+      "value": "32px"
+    },
+    {
+      "name": "--sp-gap",
+      "value": "24px"
+    }
+  ]
+}

@@ -1,22 +1,43 @@
 <style>
-.site-footer{margin-top:var(--space-3xl);border-top:var(--hairline) solid var(--color-outline);padding:var(--space-2xl) clamp(20px,4vw,48px);color:var(--color-on-surface-variant);font-size:var(--text-sm);line-height:1.7;background:var(--color-primary-container)}
-.site-footer-inner{width:100%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-sm)}
-.site-footer-brand{font-family:var(--font-display);font-weight:600;color:var(--color-on-surface-variant);font-size:var(--text-base)}
-.site-footer-links{display:flex;gap:var(--space-lg)}
-.site-footer-links a{color:var(--color-on-surface-variant);text-decoration:none;transition:color var(--duration-fast)}
-.site-footer-links a:hover{color:var(--color-primary)}
-.site-footer-copy{color:var(--color-on-surface-variant)}
-@media(max-width:640px){.site-footer-inner{flex-direction:column;text-align:center}}
+/* ═══════════════════════════════════════════════════════════════
+   FOOTER — 干净底部
+   ═══════════════════════════════════════════════════════════════ */
+.site-footer {
+  margin-top: var(--space-3xl);
+  padding: var(--space-xl) clamp(20px, 4vw, 48px);
+  background: var(--color-surface-container-low);
+  color: var(--color-on-surface-variant);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  line-height: 1.7;
+}
+
+.site-footer-inner {
+  max-width: var(--space-page-wmax);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.site-footer a {
+  color: var(--color-on-surface-variant);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.site-footer a:hover { color: var(--color-primary); }
+
+@media (max-width: 680px) {
+  .site-footer-inner {
+    flex-direction: column;
+  }
+}
 </style>
+
 <footer class="site-footer">
   <div class="site-footer-inner">
-    <span class="site-footer-brand">版式画廊</span>
-    <nav class="site-footer-links">
-      <a href="/">画廊</a>
-      <a href="/library">版式库</a>
-      <a href="/learn">知识库</a>
-      <a href="/grow">AI 萃取</a>
-    </nav>
-    <span class="site-footer-copy">模板即页面 · 配置即皮肤</span>
+    <span>基于 <a href="https://tr.designtokens.org/" target="_blank" rel="noopener">DTCG 2025.10</a>（W3C Community Group Report）与 <a href="https://m3.material.io/" target="_blank" rel="noopener">Material Design 3</a> 构建</span>
+    <span>© 2026 EvoPearl</span>
   </div>
 </footer>

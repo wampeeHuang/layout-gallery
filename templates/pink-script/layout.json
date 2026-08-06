@@ -1,0 +1,31 @@
+{
+  "slug": "pink-script",
+  "kind": "layout",
+  "version": 1,
+  "source": "拆分自 tokens.json — 布局层：超大展示字号（540px 极值）+ 宽松间距。",
+  "tokens": {
+    "typography": [],
+    "spacing": [
+      { "name": "--space-page-wmax", "value": "1920px", "role": "page-width",  "description": "内容最大宽度" },
+      { "name": "--space-page-pad",  "value": "60px",   "role": "page-pad",    "description": "页面水平内边距" },
+      { "name": "--space-gap",       "value": "16px",   "role": "grid-gap",    "description": "元素间距" },
+      { "name": "--space-gutter",    "value": "24px",   "role": "gutter",      "description": "列间距" }
+    ]
+  },
+  "typeScale": [
+    { "name": "--sz-huge",    "value": "540px", "usage": "超大强调数字" },
+    { "name": "--sz-giant",   "value": "360px", "usage": "巨标题" },
+    { "name": "--sz-large",   "value": "220px", "usage": "大标题" },
+    { "name": "--sz-med",     "value": "140px", "usage": "中标题" },
+    { "name": "--sz-sm",      "value": "88px",  "usage": "小标题" },
+    { "name": "--sz-body-lg", "value": "28px",  "usage": "大正文/引言" },
+    { "name": "--sz-body",    "value": "24px",  "usage": "正文" },
+    { "name": "--sz-caption", "value": "22px",  "usage": "标签/脚注" }
+  ],
+  "spacingScale": [
+    { "name": "--sp-page-wmax", "value": "1920px", "usage": "内容最大宽度" },
+    { "name": "--sp-page-pad",  "value": "60px",   "usage": "页面水平内边距" },
+    { "name": "--sp-gap",       "value": "16px",   "usage": "元素间距" },
+    { "name": "--sp-gutter",    "value": "24px",   "usage": "列间距" }
+  ]
+}

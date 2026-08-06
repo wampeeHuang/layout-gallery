@@ -1,0 +1,183 @@
+{
+  "slug": "peoples-platform",
+  "kind": "brand",
+  "version": 1,
+  "source": "导入自 beautiful-html-templates/peoples-platform — Activist poster energy: blue, orange, red on cream, with Alfa Slab + Caveat Brush.",
+  "tokens": {
+    "color": [
+      {
+        "name": "--cream",
+        "value": "#F4E9D6",
+        "role": "surface-bg",
+        "description": ""
+      },
+      {
+        "name": "--paper",
+        "value": "#F5F2EA",
+        "role": "surface-bg",
+        "description": ""
+      },
+      {
+        "name": "--ink",
+        "value": "#0E0E14",
+        "role": "text-primary",
+        "description": ""
+      },
+      {
+        "name": "--color-primary",
+        "value": "#E83A2A",
+        "role": "accent",
+        "description": "主强调色"
+      },
+      {
+        "name": "--color-secondary",
+        "value": "#666666",
+        "role": "accent-alt",
+        "description": "辅强调色"
+      },
+      {
+        "name": "--color-surface",
+        "value": "#F5F2EA",
+        "role": "surface-bg",
+        "description": "默认表面"
+      },
+      {
+        "name": "--color-on-surface",
+        "value": "#0E0E14",
+        "role": "text-primary",
+        "description": "主文字色"
+      },
+      {
+        "name": "--color-on-surface-variant",
+        "value": "#666666",
+        "role": "text-secondary",
+        "description": "次级文字"
+      },
+      {
+        "name": "--color-outline",
+        "value": "rgba(10,10,10,0.15)",
+        "role": "border-default",
+        "description": "主边框"
+      },
+      {
+        "name": "--color-surface-container-low",
+        "value": "#F5F2EA",
+        "role": "surface-card",
+        "description": "卡片容器"
+      },
+      {
+        "name": "--blue",
+        "value": "#2C2CDC",
+        "role": "color-palette",
+        "description": ""
+      },
+      {
+        "name": "--blue-deep",
+        "value": "#1B1BB0",
+        "role": "color-palette",
+        "description": ""
+      },
+      {
+        "name": "--orange",
+        "value": "#F2A03A",
+        "role": "color-palette",
+        "description": ""
+      },
+      {
+        "name": "--orange-deep",
+        "value": "#E89321",
+        "role": "color-palette",
+        "description": ""
+      },
+      {
+        "name": "--red",
+        "value": "#E83A2A",
+        "role": "color-palette",
+        "description": ""
+      },
+      {
+        "name": "--red-deep",
+        "value": "#B7281C",
+        "role": "color-palette",
+        "description": ""
+      }
+    ],
+    "typography": [
+      {
+        "name": "--font-display",
+        "value": "'Caveat Brush', cursive",
+        "role": "display-font",
+        "description": "标题字体"
+      },
+      {
+        "name": "--font-body",
+        "value": "'Alfa Slab One', cursive",
+        "role": "body-font",
+        "description": "正文字体"
+      },
+      {
+        "name": "--font-mono",
+        "value": "ui-monospace, SF Mono, Consolas, monospace",
+        "role": "mono-font",
+        "description": "等宽字体"
+      }
+    ],
+    "radius": [
+      {
+        "name": "--radius-base",
+        "value": "4px",
+        "role": "radius",
+        "description": "基础圆角"
+      },
+      {
+        "name": "--radius-sm",
+        "value": "2px",
+        "role": "radius",
+        "description": "小圆角"
+      },
+      {
+        "name": "--radius-pill",
+        "value": "999px",
+        "role": "radius",
+        "description": "药丸圆角"
+      }
+    ],
+    "shadow": [
+      {
+        "name": "--elevation-sm",
+        "value": "0 1px 3px rgba(0,0,0,0.06)",
+        "role": "shadow",
+        "description": "低阴影"
+      },
+      {
+        "name": "--elevation-md",
+        "value": "0 8px 30px rgba(0,0,0,0.1)",
+        "role": "shadow",
+        "description": "中阴影"
+      }
+    ],
+    "motion": [
+      {
+        "name": "--ease-standard",
+        "value": "0.18s ease",
+        "role": "easing",
+        "description": "标准缓动"
+      },
+      {
+        "name": "--duration-base",
+        "value": "150ms",
+        "role": "duration",
+        "description": "基础时长"
+      }
+    ]
+  },
+  "colorRoles": {
+    "primary": "#E83A2A",
+    "secondary": "#666666",
+    "background": "#F5F2EA",
+    "surface": "#F5F2EA",
+    "text": "#0E0E14",
+    "textSecondary": "#666666",
+    "border": "rgba(10,10,10,0.15)"
+  }
+}

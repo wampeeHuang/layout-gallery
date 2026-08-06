@@ -46,10 +46,10 @@ node scripts/validate-templates.js    # exit 0 = 全部通过，exit 1 = 阻断
 
 | 门禁 | 检查什么 | 阈值 |
 |------|----------|------|
-| `tokens_schema` | tokens.json 六分类 + brandKit 字段完整 | 0 缺失 |
-| `root_sync` | template.html `:root` 值 = tokens.json 值 | 0 漂移 |
-| `standard_vars` | token 命名使用 token-contract.json 标准词汇 | 0 方言 |
-| `google_fonts` | template.html + tokens.json 无 Google Fonts 引用 | 0 引用 |
+| `tokens_schema` | brand/layout JSON 六分类 + brandKit 字段完整（v1 tokens.json 兼容） | 0 缺失 |
+| `root_sync` | template.html `:root` 值 = brand+layout 合并值（或 tokens.json） | 0 漂移 |
+| `standard_vars` | token 命名使用 token-contract.json 标准词汇（brand/layout 分区分检） | 0 方言 |
+| `google_fonts` | template.html + token 文件无 Google Fonts 引用 | 0 引用 |
 | `hardcoded` | CSS 颜色/字体/圆角/动效使用 var(--*) | 颜色≤10, 其余=0 |
 
 **任何一项不通过 → 不算完成。不允许"局部通过=全局完成"。**
@@ -66,32 +66,6 @@ node scripts/validate-templates.js    # exit 0 = 全部通过，exit 1 = 阻断
 | soft-editorial | ✅ | — |
 
 **6/6 模板全部通过 5 道 P0 门禁。MD3 迁移已完成。**
-
-## 目录
-
-```
-data/registry.json          ← 模板注册表（唯一真相源，Git）
-schemas/registry.schema.json ← JSON Schema 合约
-config/template-manifest.json ← 模板文件合约 + validator 注册
-templates/                  ← 模板（扁平目录，每目录一个模板）
-runtime/                    ← 共享运行时（deck-stage.js，生产代码）
-_runtime/                   ← 过程产物（不进 git，任务结束删除）
-meta/                       ← Token 合约 + AI 操作文件 + 品牌套件模板
-prototype/                  ← 原型文件
-inbox/                      ← 人-Agent 投料区（不进 git，会话启动检查，用完清空）
-_archive/                   ← 永久留档（不进 git，退役脚本/旧合约/废弃模板版本）
-_runtime/                   ← 过程产物（不进 git，任务结束删除）
-scripts/                    ← 工具脚本
-```
-
-| 目录 | 性质 | 生命周期 | Git |
-|------|------|----------|-----|
-| `inbox/` | 用户投料 | 处理完清空 | ❌ |
-| `_runtime/` | 过程产物 | 任务结束删除 | ❌ |
-| `_archive/` | 历史留档 | 永久 | ❌ |
-| `meta/` | AI 操作文件 | 永久 | ✅ |
-| `templates/` | 模板源码 | 永久 | ✅ |
-| `scripts/` | 工具脚本 | 永久 | ✅ |
 
 ## 启动
 
@@ -329,16 +303,44 @@ GET /api/design-styles → 风格大类 + 模板数
 6. 重启 server
 ```
 
-## 模板四文件标准
+## 模板文件命名约定
 
-每个模板目录含 4 个文件：
+每个模板目录含 5 个文件（v5 brand/layout 拆分后，tokens.json 过渡期保留）：
+
+### 品牌层（brand.json）
+
+**定义"长什么样"** — 跨站点可复用的视觉语言。迁移时逐值对齐上游 :root。
+
+| 分类 | 变量前缀 | 例子 |
+|------|----------|------|
+| 颜色角色 | `--color-*` | `--color-primary`, `--color-surface`, `--color-on-surface` |
+| 字体家族 | `--font-*` | `--font-display`, `--font-body`, `--font-mono` |
+| 动效 | `--ease-*`, `--duration-*` | `--ease-standard`, `--duration-base` |
+| 阴影 | `--elevation-*` | `--elevation-sm` |
+| 圆角 | `--radius-*` | `--radius-base` |
+| 自定义调色板 | 模板特有 | `--paper`, `--ink`, `--sun`（在 token-contract.json templateSpecific 注册） |
+
+### 布局层（layout.json）
+
+**定义"怎么排列"** — 站点自主定义，迁移时不强制对齐上游。改布局不会崩塌品牌。
+
+| 分类 | 变量前缀 | 例子 |
+|------|----------|------|
+| 字号刻度 | `--text-*` | `--text-3xl`, `--text-base`, `--text-xs` |
+| 间距刻度 | `--space-*` | `--space-page-wmax`, `--space-gap`, `--space-3xl` |
+| typeScale | `--sz-*` | `--sz-display`, `--sz-body` |
+| 纹理/光标 | — | `textures[]`, `cursor{}`（画廊专属） |
+
+### 其他文件
 
 | 文件 | 性质 | 说明 |
 |------|------|------|
-| `template.html` | 实现 | HTML 成品，按 design.md 施工 |
-| `template.json` | 元数据 | 画廊分类/搜索用，name/tagline/mood/palette/typography |
-| `design.md` | 权威源 | 设计规范（YAML 头），定义颜色/排版/间距/规则 |
-| `tokens.json` | 派生品 | 从 design.md YAML 头自动生成，画廊 UI 消费 |
+| `template.html` | 实现 | HTML 成品，引用 `var(--color-*)` 和 `var(--space-*)` |
+| `template.json` | 元数据 | 画廊分类/搜索用 |
+| `design.md` | 设计意图 | 上游设计规范，迁移时的视觉参考 |
+| `tokens.json` | **过渡期保留** | v1 单文件结构，待全部模板拆分后删除 |
+
+**为什么拆：** tokens.json 把品牌和布局混在一起 → 跨站点复用品牌时要从 tokens.json 里扒 → 布局改动了可能误伤品牌。拆开后 brand.json 只管视觉语言，layout.json 只管页面配置，互不干扰。
 
 `deck-stage.js` 翻页器提到 `runtime/` 共享，不每模板复制。模板需要时引用 `../../runtime/deck-stage.js`。
 

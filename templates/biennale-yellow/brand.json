@@ -1,0 +1,75 @@
+{
+  "slug": "biennale-yellow",
+  "kind": "brand",
+  "version": 1,
+  "source": "拆分自 tokens.json — 品牌层：暖羊皮纸底 + 太阳能黄 + 靛蓝墨。零圆角、零阴影是设计特征。",
+  "tokens": {
+    "color": [
+      { "name": "--paper",       "value": "#E9E5DB",  "role": "surface-bg",    "description": "暖羊皮纸底 — 页面默认背景" },
+      { "name": "--paper-deep",  "value": "#DCD6C4",  "role": "surface-card",  "description": "深羊皮纸 — 卡片/面板背景" },
+      { "name": "--sun",         "value": "#F1EE2E",  "role": "accent-sun",    "description": "太阳能黄 — 签名强调色" },
+      { "name": "--sun-soft",    "value": "#F8F39B",  "role": "accent-sun-soft","description": "柔黄 — sun 浅变体" },
+      { "name": "--ink",         "value": "#1B2566",  "role": "text-primary",  "description": "靛蓝墨 — 所有文字色" },
+      { "name": "--ember",       "value": "#E26B4A",  "role": "accent-ember",  "description": "余烬橙 — 暖色点缀" },
+      { "name": "--haze",        "value": "#F0DA7C",  "role": "accent-haze",   "description": "薄雾金 — 渐变过渡色" },
+      { "name": "--line",        "value": "#1B2566",  "role": "border",        "description": "边框线色 — 与 ink 同色" },
+
+      { "name": "--sun-95",      "value": "rgba(241,238,46,0.95)", "role": "sun-opacity", "description": "太阳能黄 95% — 光晕中心" },
+      { "name": "--sun-85",      "value": "rgba(241,238,46,0.85)", "role": "sun-opacity", "description": "太阳能黄 85%" },
+      { "name": "--sun-70",      "value": "rgba(241,238,46,0.7)",  "role": "sun-opacity", "description": "太阳能黄 70%" },
+      { "name": "--sun-65",      "value": "rgba(241,238,46,0.65)", "role": "sun-opacity", "description": "太阳能黄 65% — 光晕中层" },
+      { "name": "--sun-55",      "value": "rgba(241,238,46,0.55)", "role": "sun-opacity", "description": "太阳能黄 55%" },
+      { "name": "--sun-50",      "value": "rgba(241,238,46,0.5)",  "role": "sun-opacity", "description": "太阳能黄 50%" },
+      { "name": "--sun-45",      "value": "rgba(241,238,46,0.45)", "role": "sun-opacity", "description": "太阳能黄 45%" },
+      { "name": "--sun-40",      "value": "rgba(241,238,46,0.4)",  "role": "sun-opacity", "description": "太阳能黄 40% — 光晕边缘" },
+      { "name": "--sun-soft-42", "value": "rgba(248,243,155,0.42)", "role": "sun-soft-opacity", "description": "柔黄 42%" },
+      { "name": "--ember-22",    "value": "rgba(226,107,74,0.22)", "role": "ember-opacity", "description": "余烬橙 22%" },
+      { "name": "--ember-18",    "value": "rgba(226,107,74,0.18)", "role": "ember-opacity", "description": "余烬橙 18%" },
+      { "name": "--ember-15",    "value": "rgba(226,107,74,0.15)", "role": "ember-opacity", "description": "余烬橙 15%" },
+      { "name": "--haze-22",     "value": "rgba(240,218,124,0.22)", "role": "haze-opacity", "description": "薄雾金 22%" },
+      { "name": "--haze-18",     "value": "rgba(240,218,124,0.18)", "role": "haze-opacity", "description": "薄雾金 18%" },
+      { "name": "--ink-20",      "value": "rgba(27,37,102,0.20)",  "role": "ink-opacity", "description": "靛蓝墨 20% — 弱分割线" },
+      { "name": "--ink-18",      "value": "rgba(27,37,102,0.18)",  "role": "ink-opacity", "description": "靛蓝墨 18% — 极弱分割线" },
+
+      { "name": "--color-primary",           "value": "#F1EE2E", "role": "accent",          "description": "主强调色 → --sun" },
+      { "name": "--color-on-primary",        "value": "#1B2566", "role": "on-accent",       "description": "primary 上的文字色" },
+      { "name": "--color-secondary",         "value": "#E26B4A", "role": "accent-alt",      "description": "辅强调色 → --ember" },
+      { "name": "--color-surface",           "value": "#E9E5DB", "role": "surface-bg",      "description": "页面默认背景 → --paper" },
+      { "name": "--color-on-surface",        "value": "#1B2566", "role": "text-primary",    "description": "主文字色 → --ink" },
+      { "name": "--color-on-surface-variant","value": "rgba(27,37,102,0.60)", "role": "text-secondary", "description": "次级文字色" },
+      { "name": "--color-outline",           "value": "#1B2566", "role": "border-default",  "description": "主边框色 → --ink" },
+      { "name": "--color-outline-variant",   "value": "rgba(27,37,102,0.30)", "role": "border-subtle", "description": "次级边框" },
+      { "name": "--color-surface-container-low","value": "#DCD6C4","role": "surface-card",  "description": "卡片容器底 → --paper-deep" },
+      { "name": "--color-background",        "value": "#E9E5DB", "role": "surface-bg",      "description": "body 硬底色 → --paper" }
+    ],
+    "typography": [
+      { "name": "--font-display", "value": "\"Noto Serif SC\", \"Songti SC\", \"Times New Roman\", \"Georgia\", \"SimSun\", serif", "role": "display-font", "description": "衬线标题 — 文学感" },
+      { "name": "--font-body",    "value": "\"PingFang SC\", \"Microsoft YaHei UI\", \"Segoe UI\", \"Helvetica Neue\", \"Arial\", system-ui, sans-serif", "role": "body-font", "description": "无衬线正文" },
+      { "name": "--font-mono",    "value": "\"Cascadia Code\", \"Consolas\", \"SF Mono\", \"JetBrains Mono\", \"Courier New\", ui-monospace, monospace", "role": "mono-font", "description": "等宽 — 数字/标签" }
+    ],
+    "radius": [
+      { "name": "--radius-base", "value": "0px",   "role": "radius-zero",  "description": "零圆角 — 方正硬边是设计特征" },
+      { "name": "--radius-sm",   "value": "0px",   "role": "radius-zero",  "description": "小圆角 — 与 base 一致，零圆角体系" },
+      { "name": "--radius-pill", "value": "0px",   "role": "radius-zero",  "description": "胶囊圆角 — 零圆角体系不使用" }
+    ],
+    "shadow": [
+      { "name": "--elevation-sm", "value": "none", "role": "shadow-none",  "description": "无阴影 — 平面设计特征" },
+      { "name": "--elevation-md", "value": "none", "role": "shadow-none",  "description": "无阴影 — 平面设计特征" }
+    ],
+    "motion": [
+      { "name": "--ease-standard", "value": "ease",  "role": "easing",           "description": "标准缓动" },
+      { "name": "--duration-base", "value": "0.28s", "role": "duration-base",    "description": "基础过渡 — 幻灯切换" },
+      { "name": "--duration-fast", "value": "0.15s", "role": "duration-fast",    "description": "快速过渡" },
+      { "name": "--duration-slow", "value": "0.6s",  "role": "duration-slow",    "description": "慢速过渡" }
+    ]
+  },
+  "colorRoles": {
+    "primary": "#F1EE2E",
+    "secondary": "#E26B4A",
+    "background": "#E9E5DB",
+    "surface": "#DCD6C4",
+    "text": "#1B2566",
+    "textSecondary": "rgba(27,37,102,0.60)",
+    "border": "#1B2566"
+  }
+}

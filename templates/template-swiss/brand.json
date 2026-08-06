@@ -1,0 +1,69 @@
+{
+  "slug": "template-swiss",
+  "kind": "brand",
+  "version": 1,
+  "source": "拆分自 tokens.json — 品牌层：瑞士风格极简。YK 蓝（#002FA7）单一强调色，Inter 系统字体，精密缓动曲线。",
+  "tokens": {
+    "color": [
+      { "name": "--paper",                      "value": "#fafaf8",                 "role": "surface-bg",     "description": "页面背景色 — 近乎白" },
+      { "name": "--ink",                        "value": "#0a0a0a",                 "role": "text-primary",   "description": "主文字色 — 近乎黑" },
+      { "name": "--grey-1",                     "value": "#f0f0ee",                 "role": "surface-alt",    "description": "浅灰表面" },
+      { "name": "--grey-2",                     "value": "#d4d4d2",                 "role": "border-light",   "description": "中浅灰" },
+      { "name": "--grey-3",                     "value": "#737373",                 "role": "text-helper",    "description": "辅助灰" },
+      { "name": "--color-primary",              "value": "#002FA7",                 "role": "accent",         "description": "YK 蓝 — 主强调色" },
+      { "name": "--color-on-primary",           "value": "#ffffff",                 "role": "text-on-accent", "description": "强调色上的文字" },
+      { "name": "--text-primary",               "value": "#0a0a0a",                 "role": "text-primary",   "description": "主文字色" },
+      { "name": "--text-secondary",             "value": "#525252",                 "role": "text-secondary", "description": "次级文字色" },
+      { "name": "--text-helper",                "value": "#737373",                 "role": "text-helper",    "description": "辅助文字" },
+      { "name": "--text-placeholder",           "value": "#a3a3a3",                 "role": "text-placeholder","description": "占位符文字" },
+      { "name": "--text-on-color",              "value": "#ffffff",                 "role": "text-on-accent", "description": "有色背景上的文字" },
+      { "name": "--border-subtle",              "value": "#e0e0e0",                 "role": "border",         "description": "细边框" },
+      { "name": "--border-strong",              "value": "#a3a3a3",                 "role": "border-strong",  "description": "强调边框" },
+      { "name": "--color-secondary",            "value": "#525252",                 "role": "accent-alt",     "description": "标准: 辅强调色" },
+      { "name": "--color-surface",              "value": "#fafaf8",                 "role": "surface-bg",     "description": "标准: 页面底色" },
+      { "name": "--color-surface-container-low","value": "#fafaf8",                 "role": "surface-card",   "description": "标准: 卡片背景" },
+      { "name": "--color-on-surface",           "value": "#0a0a0a",                 "role": "text-primary",   "description": "标准: 主文字色" },
+      { "name": "--color-on-surface-variant",   "value": "#525252",                 "role": "text-secondary", "description": "标准: 次级文字色" },
+      { "name": "--color-outline",              "value": "rgba(10,10,10,0.15)",     "role": "border",         "description": "标准: 边框色" }
+    ],
+    "typography": [
+      { "name": "--font-display", "value": "\"Inter\",\"Helvetica Neue\",\"Helvetica\",\"Arial\",\"Segoe UI Variable\",\"Segoe UI\",system-ui,-apple-system,sans-serif", "role": "display-font", "description": "标题字体 — Inter 优先" },
+      { "name": "--font-body",    "value": "\"Inter\",\"Helvetica Neue\",\"Helvetica\",\"Arial\",\"Segoe UI Variable\",\"Segoe UI\",system-ui,-apple-system,sans-serif", "role": "body-font",    "description": "正文字体 — Inter 优先" },
+      { "name": "--font-mono",    "value": "\"JetBrains Mono\",\"IBM Plex Mono\",\"SF Mono\",\"Cascadia Code\",\"Consolas\",\"Courier New\",ui-monospace,monospace", "role": "mono-font", "description": "等宽字体" }
+    ],
+    "radius": [
+      { "name": "--radius-base", "value": "4px", "role": "radius-base", "description": "基准圆角 — 微圆" }
+    ],
+    "shadow": [
+      { "name": "--elevation-sm", "value": "0 1px 3px rgba(0,0,0,0.06)",  "role": "card-shadow",  "description": "轻阴影" },
+      { "name": "--elevation-md", "value": "0 8px 30px rgba(0,0,0,0.1)",  "role": "card-hover",   "description": "中阴影" }
+    ],
+    "motion": [
+      { "name": "--ease-standard",    "value": "0.18s ease",                   "role": "transition", "description": "标准缓动" },
+      { "name": "--duration-base",    "value": "150ms",                        "role": "duration",   "description": "基础过渡时长" },
+      { "name": "--ease-prod",        "value": "cubic-bezier(.2,0,.38,.9)",   "role": "easing",     "description": "生产级缓出" },
+      { "name": "--ease-exp",         "value": "cubic-bezier(.4,.14,.3,1)",   "role": "easing",     "description": "表现级缓出" },
+      { "name": "--ease-entry-prod",  "value": "cubic-bezier(0,0,.38,.9)",    "role": "easing",     "description": "生产级入场" },
+      { "name": "--ease-entry-exp",   "value": "cubic-bezier(0,0,.3,1)",      "role": "easing",     "description": "表现级入场" },
+      { "name": "--ease-page",        "value": "cubic-bezier(.77,0,.175,1)",   "role": "easing",     "description": "翻页缓动" },
+      { "name": "--ease-draw",        "value": "cubic-bezier(.5,0,.2,1)",      "role": "easing",     "description": "绘制缓动" },
+      { "name": "--dur-fast-1",       "value": ".07s",                         "role": "duration",   "description": "极快过渡" },
+      { "name": "--dur-fast-2",       "value": ".11s",                         "role": "duration",   "description": "快过渡" },
+      { "name": "--dur-mod-1",        "value": ".15s",                         "role": "duration",   "description": "中速过渡 1" },
+      { "name": "--dur-mod-2",        "value": ".24s",                         "role": "duration",   "description": "中速过渡 2" },
+      { "name": "--dur-slow-1",       "value": ".4s",                          "role": "duration",   "description": "慢过渡 1" },
+      { "name": "--dur-slow-2",       "value": ".7s",                          "role": "duration",   "description": "慢过渡 2" },
+      { "name": "--dur-page",         "value": ".9s",                          "role": "duration",   "description": "翻页动画时长" },
+      { "name": "--dur-draw",         "value": "1s",                           "role": "duration",   "description": "绘制动画时长" }
+    ]
+  },
+  "colorRoles": {
+    "primary": "#002FA7",
+    "secondary": "#525252",
+    "background": "#fafaf8",
+    "text": "#0a0a0a",
+    "textSecondary": "#525252",
+    "border": "rgba(10,10,10,0.15)",
+    "surface": "#fafaf8"
+  }
+}

@@ -1,160 +1,1445 @@
 {
   "$schema": "https://tr.designtokens.org/format/2025-10/",
-  "version": "4.0.0",
-  "description": "版式画廊 Token 命名合约 — 基于 Material Design 3 颜色角色体系（29 角色），W3C DTCG 格式。所有模板 tokens.json 的 name 字段必须使用本标准名。",
+  "version": "5.0.0",
+  "description": "版式画廊 Token 命名合约 — 基于 Material Design 3 颜色角色体系。v5: brand/layout 分层，品牌套件跨站点可复用，布局令牌站点自治。",
   "source": "https://m3.material.io/styles/color/roles",
-  "knowledgeBase": "D:\\Obsidian\\Raw\\web-design\\md3-color-roles.md",
-
-  "naming": {
-    "convention": "CSS 自定义属性 kebab-case",
-    "prefix": "--color-",
-    "pattern": "--color-{group}-{variant}",
-    "example": "--color-primary, --color-on-primary, --color-primary-container"
+  "layers": {
+    "brand": "设计语言层 — 颜色角色 + 字体家族 + 动效 + 阴影 + 圆角。跨站点可复用，迁移时逐值对齐上游 :root。",
+    "layout": "页面配置层 — 字号刻度 + 间距刻度 + 页面宽度。每个站点自己定义，迁移时不强制对齐。"
   },
-
   "standardVars": {
-    "_convention": "required=true 的每个模板必须声明。required=false 的按需使用。",
-
-    "color": {
-      "primary": {
-        "--color-primary":                    {"md3": "primary",              "role": "主强调色 — 按钮、活跃态、FAB",                           "required": true},
-        "--color-on-primary":                {"md3": "on-primary",           "role": "primary 上的文字/图标",                                 "required": false},
-        "--color-primary-container":         {"md3": "primary-container",    "role": "primary 浅色容器背景",                                  "required": false},
-        "--color-on-primary-container":      {"md3": "on-primary-container", "role": "primary-container 上的文字",                             "required": false}
+    "_convention": "每个变量有 type(品牌/布局) + level(required/optional)。required 的每个模板必须声明。",
+    "brand": {
+      "_description": "品牌套件 — 定义视觉语言，跨站点一致。",
+      "color": {
+        "--color-primary": {
+          "type": "brand",
+          "md3": "primary",
+          "role": "主强调色",
+          "required": true
+        },
+        "--color-on-primary": {
+          "type": "brand",
+          "md3": "on-primary",
+          "role": "primary 上的文字/图标",
+          "required": false
+        },
+        "--color-primary-container": {
+          "type": "brand",
+          "md3": "primary-container",
+          "role": "primary 浅色容器背景",
+          "required": false
+        },
+        "--color-on-primary-container": {
+          "type": "brand",
+          "md3": "on-primary-container",
+          "role": "primary-container 上的文字",
+          "required": false
+        },
+        "--color-secondary": {
+          "type": "brand",
+          "md3": "secondary",
+          "role": "辅强调色",
+          "required": true
+        },
+        "--color-on-secondary": {
+          "type": "brand",
+          "md3": "on-secondary",
+          "role": "secondary 上的文字/图标",
+          "required": false
+        },
+        "--color-secondary-container": {
+          "type": "brand",
+          "md3": "secondary-container",
+          "role": "secondary 浅色容器背景",
+          "required": false
+        },
+        "--color-on-secondary-container": {
+          "type": "brand",
+          "md3": "on-secondary-container",
+          "role": "secondary-container 上的文字",
+          "required": false
+        },
+        "--color-tertiary": {
+          "type": "brand",
+          "md3": "tertiary",
+          "role": "第三强调色",
+          "required": false
+        },
+        "--color-on-tertiary": {
+          "type": "brand",
+          "md3": "on-tertiary",
+          "role": "tertiary 上的文字/图标",
+          "required": false
+        },
+        "--color-tertiary-container": {
+          "type": "brand",
+          "md3": "tertiary-container",
+          "role": "tertiary 浅色容器背景",
+          "required": false
+        },
+        "--color-on-tertiary-container": {
+          "type": "brand",
+          "md3": "on-tertiary-container",
+          "role": "tertiary-container 上的文字",
+          "required": false
+        },
+        "--color-error": {
+          "type": "brand",
+          "md3": "error",
+          "role": "错误色",
+          "required": false
+        },
+        "--color-on-error": {
+          "type": "brand",
+          "md3": "on-error",
+          "role": "error 上的文字/图标",
+          "required": false
+        },
+        "--color-error-container": {
+          "type": "brand",
+          "md3": "error-container",
+          "role": "error 浅色容器背景",
+          "required": false
+        },
+        "--color-on-error-container": {
+          "type": "brand",
+          "md3": "on-error-container",
+          "role": "error-container 上的文字",
+          "required": false
+        },
+        "--color-surface": {
+          "type": "brand",
+          "md3": "surface",
+          "role": "页面默认背景",
+          "required": true
+        },
+        "--color-on-surface": {
+          "type": "brand",
+          "md3": "on-surface",
+          "role": "主文字色",
+          "required": true
+        },
+        "--color-on-surface-variant": {
+          "type": "brand",
+          "md3": "on-surface-variant",
+          "role": "次级文字色",
+          "required": true
+        },
+        "--color-surface-dim": {
+          "type": "brand",
+          "md3": "surface-dim",
+          "role": "暗色模式表面",
+          "required": false
+        },
+        "--color-surface-bright": {
+          "type": "brand",
+          "md3": "surface-bright",
+          "role": "亮色模式表面",
+          "required": false
+        },
+        "--color-surface-container-lowest": {
+          "type": "brand",
+          "md3": "surface-container-lowest",
+          "role": "最低强调容器",
+          "required": false
+        },
+        "--color-surface-container-low": {
+          "type": "brand",
+          "md3": "surface-container-low",
+          "role": "低强调容器 — 卡片默认背景",
+          "required": false
+        },
+        "--color-surface-container": {
+          "type": "brand",
+          "md3": "surface-container",
+          "role": "默认容器",
+          "required": false
+        },
+        "--color-surface-container-high": {
+          "type": "brand",
+          "md3": "surface-container-high",
+          "role": "高强调容器",
+          "required": false
+        },
+        "--color-surface-container-highest": {
+          "type": "brand",
+          "md3": "surface-container-highest",
+          "role": "最高强调容器",
+          "required": false
+        },
+        "--color-outline": {
+          "type": "brand",
+          "md3": "outline",
+          "role": "主边框/分割线",
+          "required": true
+        },
+        "--color-outline-variant": {
+          "type": "brand",
+          "md3": "outline-variant",
+          "role": "次级边框",
+          "required": false
+        },
+        "--color-success": {
+          "type": "brand",
+          "md3": "—",
+          "role": "成功反馈色",
+          "required": false
+        },
+        "--color-background": {
+          "type": "brand",
+          "md3": "background (legacy)",
+          "role": "body 硬底色",
+          "required": false
+        },
+        "--color-shadow": {
+          "type": "brand",
+          "md3": "shadow",
+          "role": "阴影色",
+          "required": false
+        },
+        "--heading": {
+          "type": "brand",
+          "md3": "—",
+          "role": "标题专用色",
+          "required": false
+        }
       },
-      "secondary": {
-        "--color-secondary":                 {"md3": "secondary",              "role": "辅强调色 — 筛选标签、次要按钮",                          "required": true},
-        "--color-on-secondary":              {"md3": "on-secondary",           "role": "secondary 上的文字/图标",                               "required": false},
-        "--color-secondary-container":       {"md3": "secondary-container",    "role": "secondary 浅色容器背景",                                "required": false},
-        "--color-on-secondary-container":    {"md3": "on-secondary-container", "role": "secondary-container 上的文字",                           "required": false}
+      "typography": {
+        "_description": "字体家族 — 只有字体栈，不含字号。字号属于 layout。",
+        "--font-display": {
+          "type": "brand",
+          "role": "标题字体栈",
+          "required": true
+        },
+        "--font-body": {
+          "type": "brand",
+          "role": "正文字体栈",
+          "required": true
+        },
+        "--font-mono": {
+          "type": "brand",
+          "role": "等宽字体栈",
+          "required": false
+        }
       },
-      "tertiary": {
-        "--color-tertiary":                  {"md3": "tertiary",              "role": "第三强调色 — 对比平衡 primary/secondary",                "required": false},
-        "--color-on-tertiary":               {"md3": "on-tertiary",           "role": "tertiary 上的文字/图标",                                "required": false},
-        "--color-tertiary-container":        {"md3": "tertiary-container",    "role": "tertiary 浅色容器背景",                                "required": false},
-        "--color-on-tertiary-container":     {"md3": "on-tertiary-container", "role": "tertiary-container 上的文字",                           "required": false}
+      "radius": {
+        "--radius-base": {
+          "type": "brand",
+          "role": "圆角基准",
+          "required": true
+        },
+        "--radius-sm": {
+          "type": "brand",
+          "role": "小圆角 — 按钮/代码块",
+          "required": false
+        },
+        "--radius-pill": {
+          "type": "brand",
+          "role": "胶囊圆角 — 标签/眉题",
+          "required": false
+        }
       },
-      "error": {
-        "--color-error":                     {"md3": "error",              "role": "错误色 — 错误提示、删除按钮",                             "required": false},
-        "--color-on-error":                  {"md3": "on-error",           "role": "error 上的文字/图标",                                   "required": false},
-        "--color-error-container":           {"md3": "error-container",    "role": "error 浅色容器背景",                                    "required": false},
-        "--color-on-error-container":        {"md3": "on-error-container", "role": "error-container 上的文字",                               "required": false}
+      "shadow": {
+        "--elevation-sm": {
+          "type": "brand",
+          "role": "轻阴影 — 卡片默认",
+          "required": true
+        },
+        "--elevation-md": {
+          "type": "brand",
+          "role": "中阴影 — 卡片悬浮",
+          "required": false
+        }
       },
-      "surface": {
-        "--color-surface":                   {"md3": "surface",                   "role": "页面默认背景 — body 底色",                         "required": true},
-        "--color-on-surface":                {"md3": "on-surface",                "role": "surface 上的主文字 — 正文色",                       "required": true},
-        "--color-on-surface-variant":        {"md3": "on-surface-variant",        "role": "surface 上的次级文字 — 说明、标签",                  "required": true},
-        "--color-surface-dim":               {"md3": "surface-dim",               "role": "暗色模式表面",                                      "required": false},
-        "--color-surface-bright":            {"md3": "surface-bright",            "role": "亮色模式表面",                                      "required": false},
-        "--color-surface-container-lowest":  {"md3": "surface-container-lowest",  "role": "最低强调容器",                                      "required": false},
-        "--color-surface-container-low":     {"md3": "surface-container-low",     "role": "低强调容器 — 卡片默认背景",                          "required": false},
-        "--color-surface-container":         {"md3": "surface-container",         "role": "默认容器 — 面板背景",                               "required": false},
-        "--color-surface-container-high":    {"md3": "surface-container-high",    "role": "高强调容器 — 弹出层",                               "required": false},
-        "--color-surface-container-highest": {"md3": "surface-container-highest", "role": "最高强调容器 — 对话框",                              "required": false}
-      },
-      "outline": {
-        "--color-outline":                   {"md3": "outline",         "role": "主边框 — 输入框边框、分割线",                             "required": true},
-        "--color-outline-variant":           {"md3": "outline-variant", "role": "次级边框 — 装饰线、轻分割",                               "required": false}
-      },
-      "extended": {
-        "--color-success":                   {"md3": "—", "role": "成功反馈色 — 确认、已复制",                                   "required": false},
-        "--color-background":                {"md3": "background (legacy)", "role": "body 级硬底色 — 幻灯片容器/深色外框",             "required": false},
-        "--color-shadow":                    {"md3": "shadow",           "role": "阴影色 — elevation shadow",                        "required": false}
+      "motion": {
+        "--ease-standard": {
+          "type": "brand",
+          "role": "标准缓动曲线",
+          "required": true
+        },
+        "--duration-base": {
+          "type": "brand",
+          "role": "基础过渡时长",
+          "required": true
+        },
+        "--duration-fast": {
+          "type": "brand",
+          "role": "快速过渡",
+          "required": false
+        },
+        "--duration-slow": {
+          "type": "brand",
+          "role": "慢速过渡",
+          "required": false
+        }
       }
     },
-
-    "typography": {
-      "--font-display":  {"role": "标题字体栈 — 展示/封面用",       "required": true},
-      "--font-body":     {"role": "正文字体栈 — 段落/UI 用",        "required": true},
-      "--font-mono":     {"role": "等宽字体栈 — 代码/标签/KPI 用",  "required": false}
-    },
-
-    "spacing": {
-      "--space-page-wmax":  {"role": "内容最大宽度",      "required": true},
-      "--space-page-pad":   {"role": "页面水平内边距",     "required": true},
-      "--space-gap":        {"role": "元素/网格基准间距",  "required": true},
-      "--space-gutter":     {"role": "列间距/留白基准",    "required": true}
-    },
-
-    "radius": {
-      "--radius-base":  {"role": "圆角基准值",  "required": true}
-    },
-
-    "shadow": {
-      "--elevation-sm": {"role": "轻阴影 — 卡片默认",  "required": true},
-      "--elevation-md": {"role": "中阴影 — 卡片悬浮",  "required": false}
-    },
-
-    "motion": {
-      "--ease-standard":    {"role": "标准缓动曲线",  "required": true},
-      "--duration-base":    {"role": "基础过渡时长",  "required": true}
+    "layout": {
+      "_description": "布局配置 — 页面宽度 + 字号刻度 + 间距刻度。站点自主定义。",
+      "typography": {
+        "_description": "字号刻度 — 从品牌字体家族派生具体尺寸。",
+        "--text-3xl": {
+          "type": "layout",
+          "role": "区段标题",
+          "required": false
+        },
+        "--text-2xl": {
+          "type": "layout",
+          "role": "卡片标题",
+          "required": false
+        },
+        "--text-xl": {
+          "type": "layout",
+          "role": "正文大",
+          "required": false
+        },
+        "--text-base": {
+          "type": "layout",
+          "role": "正文",
+          "required": false
+        },
+        "--text-sm": {
+          "type": "layout",
+          "role": "辅助文字",
+          "required": false
+        },
+        "--text-xs": {
+          "type": "layout",
+          "role": "标签/眉题",
+          "required": false
+        }
+      },
+      "spacing": {
+        "--space-page-wmax": {
+          "type": "layout",
+          "role": "内容最大宽度",
+          "required": true
+        },
+        "--space-page-pad": {
+          "type": "layout",
+          "role": "页面水平内边距",
+          "required": true
+        },
+        "--space-gap": {
+          "type": "layout",
+          "role": "元素/网格基准间距",
+          "required": true
+        },
+        "--space-gutter": {
+          "type": "layout",
+          "role": "列间距/留白基准",
+          "required": true
+        },
+        "--space-3xl": {
+          "type": "layout",
+          "role": "区段间距",
+          "required": false
+        },
+        "--space-2xl": {
+          "type": "layout",
+          "role": "大区段间距",
+          "required": false
+        },
+        "--space-xl": {
+          "type": "layout",
+          "role": "组件间距",
+          "required": false
+        },
+        "--space-lg": {
+          "type": "layout",
+          "role": "卡片内边距",
+          "required": false
+        },
+        "--space-md": {
+          "type": "layout",
+          "role": "副标题间距",
+          "required": false
+        },
+        "--space-sm": {
+          "type": "layout",
+          "role": "小间距",
+          "required": false
+        },
+        "--space-xs": {
+          "type": "layout",
+          "role": "标签内边距",
+          "required": false
+        },
+        "--space-2xs": {
+          "type": "layout",
+          "role": "微内边距",
+          "required": false
+        },
+        "--hairline": {
+          "type": "layout",
+          "role": "极细线宽",
+          "required": false
+        }
+      }
     }
   },
-
   "templateSpecific": {
-    "_convention": "以下 token 不属于标准合约，是模板特有的渲染技法或领域词汇。不在 standardVars 检查范围内。",
+    "_convention": "以下 token 不在标准 brand/layout 词汇表中，是模板特有的渲染技法或领域词汇。",
     "8-bit-orbit": {
-      "rendering": ["--win-highlight", "--win-shadow", "--win-dark-shadow", "--win-bg", "--win-face"],
-      "chrome": ["--win-blue", "--win-blue-bright", "--deep-navy"],
-      "palette": ["--neon-yellow", "--soft-lavender", "--neon-cyan", "--neon-pink", "--dark-void"],
-      "spacing": ["--pixel-size"],
-      "note": "Win95 3D bevel 是浮雕渲染技法。chrome accent 是与 --color-primary 并存的第二强调体系。"
+      "brand": {
+        "color": [
+          "--win-bg",
+          "--win-face",
+          "--win-highlight",
+          "--win-shadow",
+          "--win-dark-shadow",
+          "--win-blue",
+          "--win-blue-bright",
+          "--neon-cyan",
+          "--neon-pink",
+          "--neon-yellow",
+          "--dark-void",
+          "--deep-navy",
+          "--soft-lavender"
+        ]
+      },
+      "layout": {
+        "spacing": [
+          "--pixel-size"
+        ]
+      },
+      "note": "Win95 3D bevel 浮雕渲染 + 三霓虹色体系。chrome accent 与 --color-primary 并存。"
     },
     "soft-editorial": {
-      "palette": ["--blush", "--sage", "--lilac", "--paper-2", "--pink", "--lemon", "--paper", "--ink"],
-      "color": ["--ink-soft"],
-      "spacing": ["--page-w", "--page-margin"],
-      "radius": ["--radius-sm", "--radius-pill", "--radius-lg", "--radius-md", "--radius-xs", "--radius-14", "--radius-16", "--radius-18", "--radius-22"],
-      "shadow": ["--shadow-card"],
-      "note": "MD3 container 体系覆盖：blush→tertiary, sage→secondary-container, lilac→tertiary-container。半径命名空间扩展为视觉探索需要。"
+      "brand": {
+        "palette": [
+          "--paper",
+          "--ink",
+          "--paper-2",
+          "--ink-soft",
+          "--pink",
+          "--lemon",
+          "--blush",
+          "--sage",
+          "--lilac"
+        ],
+        "radius": [
+          "--radius-xs",
+          "--radius-md",
+          "--radius-lg",
+          "--radius-14",
+          "--radius-16",
+          "--radius-18",
+          "--radius-22"
+        ],
+        "shadow": [
+          "--shadow-card"
+        ]
+      },
+      "layout": {
+        "spacing": [
+          "--page-w",
+          "--page-margin"
+        ]
+      },
+      "note": "六色尘粉体系 + 扩展半径。MD3 container 体系覆盖：blush→tertiary, sage→secondary-container。"
     },
     "template-swiss": {
-      "palette": ["--grey-1", "--grey-2", "--grey-3", "--border-strong", "--border-subtle"],
-      "color": ["--paper", "--ink", "--text-primary", "--text-secondary", "--text-helper", "--text-placeholder", "--text-on-color"],
-      "spacing": ["--sp-3", "--sp-4", "--sp-5", "--sp-6", "--sp-7", "--sp-8", "--sp-9", "--sp-10", "--sp-11", "--sp-12", "--sp-13", "--nav-safe-bottom"],
-      "motion": ["--ease-prod", "--ease-exp", "--ease-entry-prod", "--ease-entry-exp", "--ease-page", "--ease-draw", "--dur-fast-1", "--dur-fast-2", "--dur-mod-1", "--dur-mod-2", "--dur-slow-1", "--dur-slow-2", "--dur-page", "--dur-draw"],
-      "note": "Swiss 排版体系命名自成一体。paper/ink 语义 + 模块化 duration 量表。不映射到 MD3。"
+      "brand": {
+        "color": [
+          "--paper",
+          "--ink",
+          "--text-primary",
+          "--text-secondary",
+          "--text-helper",
+          "--text-placeholder",
+          "--text-on-color",
+          "--grey-1",
+          "--grey-2",
+          "--grey-3",
+          "--border-strong",
+          "--border-subtle"
+        ],
+        "motion": [
+          "--ease-prod",
+          "--ease-exp",
+          "--ease-entry-prod",
+          "--ease-entry-exp",
+          "--ease-page",
+          "--ease-draw",
+          "--dur-fast-1",
+          "--dur-fast-2",
+          "--dur-mod-1",
+          "--dur-mod-2",
+          "--dur-slow-1",
+          "--dur-slow-2",
+          "--dur-page",
+          "--dur-draw"
+        ]
+      },
+      "layout": {
+        "spacing": [
+          "--sp-3",
+          "--sp-4",
+          "--sp-5",
+          "--sp-6",
+          "--sp-7",
+          "--sp-8",
+          "--sp-9",
+          "--sp-10",
+          "--sp-11",
+          "--sp-12",
+          "--sp-13",
+          "--nav-safe-bottom"
+        ]
+      },
+      "note": "Swiss 排版体系命名自成一体。paper/ink+模块化duration量表。不映射到 MD3。"
     },
     "template": {
-      "palette": ["--paper-tint", "--paper", "--ink"],
-      "color": ["--ink-tint"],
-      "spacing": ["--page-w"],
-      "radius": ["--radius-sm", "--radius-pill"],
-      "motion": ["--dur-page", "--dur-slow-1", "--dur-mod-2", "--dur-fast-1", "--dur-slow-2", "--ease-page", "--ease-draw"],
-      "note": "paper-tint → surface-container-low 覆盖。duration 量表为动画探索。"
+      "brand": {
+        "color": [
+          "--paper",
+          "--ink",
+          "--ink-tint",
+          "--paper-tint"
+        ],
+        "radius": [
+          "--radius-sm",
+          "--radius-pill"
+        ],
+        "motion": [
+          "--dur-page",
+          "--dur-slow-1",
+          "--dur-mod-2",
+          "--dur-fast-1",
+          "--dur-slow-2",
+          "--ease-page",
+          "--ease-draw"
+        ]
+      },
+      "layout": {
+        "spacing": [
+          "--page-w"
+        ]
+      },
+      "note": "paper-tint→surface-container-low, ink-tint 覆盖。"
     },
     "brutalist-paper": {
-      "spacing": ["--page-w"],
-      "shadow": ["--shadow", "--shadow-solid", "--shadow-block"],
-      "motion": ["--ease-hover"],
-      "note": "brutalist 粗野主义阴影系统：硬阴影、块状阴影是视觉语言核心。"
+      "brand": {
+        "color": [
+          "--color-surface-container",
+          "--color-outline-variant"
+        ],
+        "shadow": [
+          "--shadow",
+          "--shadow-solid",
+          "--shadow-block"
+        ],
+        "motion": [
+          "--ease-hover"
+        ]
+      },
+      "layout": {
+        "spacing": [
+          "--page-w"
+        ]
+      },
+      "note": "粗野主义阴影系统：硬阴影、块状阴影是视觉语言核心。"
+    },
+    "biennale-yellow": {
+      "brand": {
+        "color": [
+          "--paper",
+          "--paper-deep",
+          "--ink",
+          "--line",
+          "--sun",
+          "--sun-soft",
+          "--haze",
+          "--ember",
+          "--sun-95",
+          "--sun-85",
+          "--sun-70",
+          "--sun-65",
+          "--sun-55",
+          "--sun-50",
+          "--sun-45",
+          "--sun-40",
+          "--sun-soft-42",
+          "--ember-22",
+          "--ember-18",
+          "--ember-15",
+          "--haze-22",
+          "--haze-18",
+          "--ink-20",
+          "--ink-18"
+        ],
+        "radius": [
+          "--radius-base",
+          "--radius-sm",
+          "--radius-pill"
+        ],
+        "shadow": [
+          "--elevation-sm",
+          "--elevation-md"
+        ]
+      },
+      "note": "暖羊皮纸底 + 太阳能黄 + 靛蓝墨。radius=0+shadow=none 是设计特征。透明度变体 token 用于渐变光晕层叠。"
+    },
+    "pink-script": {
+      "brand": {
+        "color": [
+          "--paper",
+          "--ink",
+          "--ink-2",
+          "--pink",
+          "--pink-2",
+          "--pink-deep",
+          "--mute",
+          "--hair",
+          "--line"
+        ]
+      },
+      "note": "黑底+亮粉单强调色体系。paper 是珍珠奶油色，line 是粉色半透明。"
+    },
+    "studio": {
+      "brand": {
+        "color": [
+          "--near-black",
+          "--near-black-alt",
+          "--acid-yellow",
+          "--acid-yellow-alt",
+          "--text-on-dark-2",
+          "--text-on-dark-3",
+          "--text-on-light-2",
+          "--text-on-light-3",
+          "--border-dark",
+          "--border-light"
+        ]
+      },
+      "layout": {
+        "typography": [
+          "--sz-display",
+          "--sz-h1",
+          "--sz-stat",
+          "--sz-h2",
+          "--sz-quote",
+          "--sz-h3",
+          "--sz-lead",
+          "--sz-body",
+          "--sz-caption",
+          "--sz-label"
+        ],
+        "spacing": [
+          "--sp-pad-x",
+          "--sp-pad-y",
+          "--sp-gap-lg",
+          "--sp-gap-md",
+          "--sp-gap-sm"
+        ]
+      },
+      "note": "二进制黑/黄调色板 + Barlow 900 大写标题即图形块。零圆角零阴影零渐变。IBM Plex Mono 仅用于元数据 chrome。MD3 映射：primary→acid-yellow, secondary→near-black。"
     },
     "layout-gallery": {
-      "color": ["--heading"],
-      "typography": ["--text-3xl", "--text-2xl", "--text-xl", "--text-base", "--text-sm", "--text-xs"],
-      "spacing": ["--space-3xl", "--space-2xl", "--space-xl", "--space-lg", "--space-md", "--space-sm", "--space-xs", "--space-2xs", "--hairline"],
-      "radius": ["--radius-sm", "--radius-pill"],
-      "motion": ["--duration-fast", "--duration-slow"],
-      "note": "Gallery UI 自身的字号量表 + 间距量表。与 MD3 template tokens 是不同层级。"
+      "brand": {
+        "color": []
+      },
+      "note": "已完全标准化——无模板特有变量。textures + cursor 在 layout.json 中管理。"
+    },
+    "block-frame": {
+      "brand": {
+        "color": [
+          "--pink",
+          "--cream",
+          "--black",
+          "--white",
+          "--offwhite",
+          "--border",
+          "--shadow",
+          "--shadow-sm"
+        ],
+        "radius": [
+          "--radius"
+        ],
+        "shadow": [
+          "--shadow",
+          "--shadow-sm"
+        ],
+        "other": [
+          "--blue",
+          "--green",
+          "--yellow"
+        ]
+      },
+      "layout": {}
+    },
+    "blue-professional": {
+      "brand": {
+        "color": [
+          "--bg",
+          "--primary",
+          "--text",
+          "--text-muted",
+          "--text-light",
+          "--accent-light",
+          "--accent-medium",
+          "--border",
+          "--card-bg"
+        ]
+      },
+      "layout": {}
+    },
+    "bold-poster": {
+      "brand": {
+        "color": [
+          "--bg",
+          "--dark",
+          "--light"
+        ],
+        "other": [
+          "--red"
+        ]
+      },
+      "layout": {}
+    },
+    "broadside": {
+      "brand": {
+        "color": [
+          "--c-bg",
+          "--c-bg-alt",
+          "--c-bg-light",
+          "--c-bg-light-alt",
+          "--c-bg-orange",
+          "--c-fg-light",
+          "--c-fg-light-2",
+          "--c-fg-light-3",
+          "--c-accent",
+          "--c-border",
+          "--c-border-light"
+        ],
+        "typography": [
+          "--f-display",
+          "--f-body",
+          "--f-mono",
+          "--sz-display",
+          "--sz-body"
+        ],
+        "motion": [
+          "--ease-slide",
+          "--ease-enter"
+        ],
+        "other": [
+          "--c-fg",
+          "--c-fg-2",
+          "--c-fg-3",
+          "--f-heading",
+          "--dur-slide",
+          "--dur-enter"
+        ]
+      },
+      "layout": {
+        "spacing": [
+          "--pad-x",
+          "--pad-y",
+          "--gap-lg",
+          "--gap-md",
+          "--gap-sm"
+        ],
+        "typography": [
+          "--sz-display",
+          "--sz-h1",
+          "--sz-h2",
+          "--sz-h3",
+          "--sz-lead",
+          "--sz-body",
+          "--sz-caption",
+          "--sz-label"
+        ]
+      }
+    },
+    "capsule": {
+      "brand": {
+        "color": [
+          "--bg",
+          "--sky",
+          "--outline",
+          "--shadow"
+        ],
+        "shadow": [
+          "--shadow"
+        ],
+        "other": [
+          "--fg",
+          "--coral",
+          "--lime",
+          "--lavender",
+          "--violet",
+          "--yellow",
+          "--peach",
+          "--mint"
+        ]
+      },
+      "layout": {}
+    },
+    "cartesian": {
+      "brand": {
+        "color": [
+          "--bg-primary",
+          "--bg-secondary",
+          "--text-primary",
+          "--text-secondary",
+          "--accent",
+          "--line"
+        ]
+      },
+      "layout": {}
+    },
+    "cobalt-grid": {
+      "brand": {
+        "color": [
+          "--paper",
+          "--paper-2",
+          "--ink",
+          "--ink-soft",
+          "--rule"
+        ],
+        "other": [
+          "--grid"
+        ]
+      },
+      "layout": {}
+    },
+    "coral": {
+      "brand": {
+        "color": [
+          "--coral-dark",
+          "--cream",
+          "--cream-dark",
+          "--black",
+          "--gray",
+          "--light-gray"
+        ],
+        "other": [
+          "--coral"
+        ]
+      },
+      "layout": {}
+    },
+    "creative-mode": {
+      "brand": {
+        "color": [
+          "--cream",
+          "--cream-2",
+          "--green-dark",
+          "--pink",
+          "--pink-dark",
+          "--ink",
+          "--ink-2",
+          "--rule"
+        ],
+        "other": [
+          "--green",
+          "--orange",
+          "--yellow"
+        ]
+      },
+      "layout": {}
+    },
+    "daisy-days": {
+      "brand": {
+        "color": [
+          "--cream",
+          "--soft-pink",
+          "--sky",
+          "--text-dark",
+          "--text-muted",
+          "--border",
+          "--border-width",
+          "--shadow",
+          "--shadow-sm"
+        ],
+        "radius": [
+          "--radius",
+          "--radius-lg"
+        ],
+        "shadow": [
+          "--shadow",
+          "--shadow-sm"
+        ],
+        "other": [
+          "--turquoise",
+          "--butter",
+          "--mint",
+          "--lavender",
+          "--peach",
+          "--coral"
+        ]
+      },
+      "layout": {}
+    },
+    "editorial-forest": {
+      "brand": {
+        "color": [
+          "--green-deep",
+          "--pink",
+          "--pink-deep",
+          "--cream",
+          "--cream-2",
+          "--ink"
+        ],
+        "typography": [
+          "--serif",
+          "--mono"
+        ],
+        "other": [
+          "--green",
+          "--green-lite"
+        ]
+      },
+      "layout": {}
+    },
+    "editorial-tri-tone": {
+      "brand": {
+        "color": [
+          "--pink",
+          "--pink-deep",
+          "--cream",
+          "--sky",
+          "--ink"
+        ],
+        "other": [
+          "--navy",
+          "--forest",
+          "--burgundy",
+          "--lime",
+          "--terracotta",
+          "--butter"
+        ]
+      },
+      "layout": {}
+    },
+    "emerald-editorial": {
+      "brand": {
+        "color": [
+          "--bg",
+          "--bg-2",
+          "--bg-3",
+          "--ink",
+          "--ink-2",
+          "--ink-3",
+          "--paper",
+          "--rule",
+          "--rule-strong"
+        ],
+        "typography": [
+          "--display-font"
+        ]
+      },
+      "layout": {}
+    },
+    "grove": {
+      "brand": {
+        "color": [
+          "--c-bg",
+          "--c-bg-alt",
+          "--c-bg-light",
+          "--c-bg-light-alt",
+          "--c-fg-light",
+          "--c-fg-light-2",
+          "--c-fg-light-3",
+          "--c-accent",
+          "--c-border",
+          "--c-border-light"
+        ],
+        "typography": [
+          "--f-display",
+          "--f-body",
+          "--f-mono",
+          "--sz-display",
+          "--sz-body"
+        ],
+        "motion": [
+          "--ease-slide",
+          "--ease-enter"
+        ],
+        "other": [
+          "--c-fg",
+          "--c-fg-2",
+          "--c-fg-3",
+          "--f-heading",
+          "--dur-slide",
+          "--dur-enter"
+        ]
+      },
+      "layout": {
+        "spacing": [
+          "--pad-x",
+          "--pad-y",
+          "--gap-lg",
+          "--gap-md",
+          "--gap-sm"
+        ],
+        "typography": [
+          "--sz-display",
+          "--sz-h1",
+          "--sz-h2",
+          "--sz-h3",
+          "--sz-lead",
+          "--sz-body",
+          "--sz-caption",
+          "--sz-label"
+        ]
+      }
+    },
+    "long-table": {
+      "brand": {
+        "color": [
+          "--paper",
+          "--paper-d",
+          "--paper-vd",
+          "--ink",
+          "--ink-dp",
+          "--rule"
+        ]
+      },
+      "layout": {}
+    },
+    "mat": {
+      "brand": {
+        "color": [
+          "--c-bg",
+          "--c-bg-alt",
+          "--c-bg-light",
+          "--c-bg-light-alt",
+          "--c-fg-light",
+          "--c-fg-light-2",
+          "--c-fg-light-3",
+          "--c-accent",
+          "--c-border",
+          "--c-border-light"
+        ],
+        "typography": [
+          "--f-display",
+          "--f-body",
+          "--f-mono",
+          "--sz-display",
+          "--sz-body"
+        ],
+        "motion": [
+          "--ease-slide",
+          "--ease-enter"
+        ],
+        "other": [
+          "--c-fg",
+          "--c-fg-2",
+          "--c-fg-3",
+          "--c-wood",
+          "--f-heading",
+          "--dur-slide",
+          "--dur-enter"
+        ]
+      },
+      "layout": {
+        "spacing": [
+          "--pad-x",
+          "--pad-y",
+          "--gap-lg",
+          "--gap-md",
+          "--gap-sm"
+        ],
+        "typography": [
+          "--sz-display",
+          "--sz-h1",
+          "--sz-h2",
+          "--sz-h3",
+          "--sz-lead",
+          "--sz-body",
+          "--sz-caption",
+          "--sz-label"
+        ]
+      }
+    },
+    "monochrome": {
+      "brand": {
+        "color": [
+          "--c-bg",
+          "--c-bg-alt",
+          "--c-bg-light",
+          "--c-bg-light-alt",
+          "--c-bg-cream",
+          "--c-fg-light",
+          "--c-fg-light-2",
+          "--c-fg-light-3",
+          "--c-accent",
+          "--c-border",
+          "--c-border-light"
+        ],
+        "typography": [
+          "--f-display",
+          "--f-body",
+          "--f-serif",
+          "--f-mono",
+          "--sz-display",
+          "--sz-body"
+        ],
+        "motion": [
+          "--ease-slide",
+          "--ease-enter"
+        ],
+        "other": [
+          "--c-fg",
+          "--c-fg-2",
+          "--c-fg-3",
+          "--c-card-a",
+          "--c-card-b",
+          "--c-card-c",
+          "--f-heading",
+          "--dur-slide",
+          "--dur-enter"
+        ]
+      },
+      "layout": {
+        "spacing": [
+          "--pad-x",
+          "--pad-y",
+          "--gap-lg",
+          "--gap-md",
+          "--gap-sm"
+        ],
+        "typography": [
+          "--sz-display",
+          "--sz-h1",
+          "--sz-h2",
+          "--sz-h3",
+          "--sz-lead",
+          "--sz-body",
+          "--sz-caption",
+          "--sz-label"
+        ]
+      }
+    },
+    "neo-grid-bold": {
+      "brand": {
+        "color": [
+          "--bg",
+          "--ink",
+          "--paper",
+          "--accent",
+          "--line",
+          "--muted"
+        ]
+      },
+      "layout": {}
+    },
+    "peoples-platform": {
+      "brand": {
+        "color": [
+          "--blue-deep",
+          "--orange-deep",
+          "--red-deep",
+          "--cream",
+          "--paper",
+          "--ink"
+        ],
+        "other": [
+          "--blue",
+          "--orange",
+          "--red"
+        ]
+      },
+      "layout": {}
+    },
+    "pin-and-paper": {
+      "brand": {
+        "color": [
+          "--paper",
+          "--paper-2",
+          "--paper-3",
+          "--cream",
+          "--ink",
+          "--ink-soft",
+          "--ink-line",
+          "--black"
+        ],
+        "other": [
+          "--kraft",
+          "--red",
+          "--olive",
+          "--orange"
+        ]
+      },
+      "layout": {}
+    },
+    "playful": {
+      "brand": {
+        "color": [
+          "--bg",
+          "--bg-alt",
+          "--text",
+          "--accent",
+          "--light"
+        ]
+      },
+      "layout": {}
+    },
+    "raw-grid": {
+      "brand": {
+        "color": [
+          "--black",
+          "--white",
+          "--pink",
+          "--gray",
+          "--darkgray",
+          "--border",
+          "--shadow",
+          "--shadow-sm"
+        ],
+        "shadow": [
+          "--shadow",
+          "--shadow-sm"
+        ],
+        "other": [
+          "--green"
+        ]
+      },
+      "layout": {}
+    },
+    "retro-windows": {
+      "brand": {
+        "color": [
+          "--bg-gray",
+          "--bg-light",
+          "--bg-dark",
+          "--blue-bright",
+          "--blue-light",
+          "--white",
+          "--black",
+          "--text-dark",
+          "--btn-highlight",
+          "--btn-shadow",
+          "--btn-dark-shadow"
+        ],
+        "shadow": [
+          "--btn-shadow",
+          "--btn-dark-shadow"
+        ],
+        "other": [
+          "--blue-navy",
+          "--btn-face",
+          "--green-retro",
+          "--red-retro",
+          "--yellow-retro",
+          "--cyan-retro"
+        ]
+      },
+      "layout": {}
+    },
+    "retro-zine": {
+      "brand": {
+        "color": [
+          "--bg",
+          "--bg-dark",
+          "--green-light",
+          "--black",
+          "--white",
+          "--line"
+        ],
+        "other": [
+          "--green"
+        ]
+      },
+      "layout": {}
+    },
+    "sakura-chroma": {
+      "brand": {
+        "color": [
+          "--paper",
+          "--paper-dk",
+          "--ink",
+          "--pink",
+          "--line"
+        ],
+        "other": [
+          "--red",
+          "--orange",
+          "--green",
+          "--blue",
+          "--yellow"
+        ]
+      },
+      "layout": {}
+    },
+    "scatterbrain": {
+      "brand": {
+        "color": [
+          "--yellow-deep",
+          "--blue-deep",
+          "--pink",
+          "--pink-deep",
+          "--green-deep",
+          "--cream",
+          "--paper",
+          "--ink",
+          "--ink-light",
+          "--shadow",
+          "--shadow-deep"
+        ],
+        "shadow": [
+          "--shadow",
+          "--shadow-deep"
+        ],
+        "other": [
+          "--yellow",
+          "--blue",
+          "--green",
+          "--orange",
+          "--purple"
+        ]
+      },
+      "layout": {}
+    },
+    "signal": {
+      "brand": {
+        "color": [
+          "--c-bg",
+          "--c-bg-alt",
+          "--c-bg-light",
+          "--c-bg-light-alt",
+          "--c-fg-light",
+          "--c-fg-light-2",
+          "--c-fg-light-3",
+          "--c-accent",
+          "--c-border",
+          "--c-border-light"
+        ],
+        "typography": [
+          "--f-display",
+          "--f-body",
+          "--f-mono",
+          "--sz-display",
+          "--sz-body"
+        ],
+        "motion": [
+          "--ease-slide",
+          "--ease-enter"
+        ],
+        "other": [
+          "--c-fg",
+          "--c-fg-2",
+          "--c-fg-3",
+          "--f-heading",
+          "--dur-slide",
+          "--dur-enter"
+        ]
+      },
+      "layout": {
+        "spacing": [
+          "--pad-x",
+          "--pad-y",
+          "--gap-lg",
+          "--gap-md",
+          "--gap-sm"
+        ],
+        "typography": [
+          "--sz-display",
+          "--sz-h1",
+          "--sz-h2",
+          "--sz-h3",
+          "--sz-lead",
+          "--sz-body",
+          "--sz-caption",
+          "--sz-label"
+        ]
+      }
+    },
+    "stencil-tablet": {
+      "brand": {
+        "color": [
+          "--black",
+          "--ink",
+          "--paper"
+        ],
+        "other": [
+          "--bone",
+          "--sienna",
+          "--magenta",
+          "--orange",
+          "--teal",
+          "--blue",
+          "--mustard",
+          "--olive"
+        ]
+      },
+      "layout": {}
+    },
+    "vellum": {
+      "brand": {
+        "color": [
+          "--c-bg",
+          "--c-bg-alt",
+          "--c-bg-light",
+          "--c-bg-light-alt",
+          "--c-fg-light",
+          "--c-fg-light-2",
+          "--c-fg-light-3",
+          "--c-accent",
+          "--c-border",
+          "--c-border-light"
+        ],
+        "typography": [
+          "--f-display",
+          "--f-body",
+          "--f-mono",
+          "--sz-display",
+          "--sz-body"
+        ],
+        "motion": [
+          "--ease-slide",
+          "--ease-enter"
+        ],
+        "other": [
+          "--c-fg",
+          "--c-fg-2",
+          "--c-fg-3",
+          "--c-emphasis",
+          "--f-heading",
+          "--f-annotation",
+          "--dur-slide",
+          "--dur-enter"
+        ]
+      },
+      "layout": {
+        "spacing": [
+          "--pad-x",
+          "--pad-y",
+          "--gap-lg",
+          "--gap-md",
+          "--gap-sm"
+        ],
+        "typography": [
+          "--sz-display",
+          "--sz-h1",
+          "--sz-h2",
+          "--sz-h3",
+          "--sz-lead",
+          "--sz-body",
+          "--sz-caption",
+          "--sz-label"
+        ]
+      }
     }
   },
-
   "brandKit": {
-    "_convention": "brandKit.colorRoles 将标准颜色角色映射到 CSS 变量。所有模板必须包含这 7 个 key。",
+    "_convention": "brandKit.colorRoles 将标准颜色角色映射到 CSS 变量。所有品牌套件必须包含这 7 个 key。",
     "colorRoles": {
-      "primary":       "--color-primary",
-      "secondary":     "--color-secondary",
-      "background":    "--color-surface",
-      "text":          "--color-on-surface",
+      "primary": "--color-primary",
+      "secondary": "--color-secondary",
+      "background": "--color-surface",
+      "text": "--color-on-surface",
       "textSecondary": "--color-on-surface-variant",
-      "border":        "--color-outline",
-      "surface":       "--color-surface-container-low"
+      "border": "--color-outline",
+      "surface": "--color-surface-container-low"
     }
   },
-
   "compliance": {
-    "full": "所有 token name 来自本标准词汇表 + colorRoles 7 键完整",
-    "migration": "token name 在 migrationMap 中 → 需迁移到新名",
-    "violation": "token name 不在标准词汇表、不在 migrationMap、不在 templateSpecific → 报错"
+    "full": "所有 token name 来自本标准词汇表 + colorRoles 7键完整",
+    "migration": "token name 在 templateSpecific → 逐步标准化到 standardVars",
+    "violation": "token name 不在标准词汇表、不在 templateSpecific → 报错"
   }
 }

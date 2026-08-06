@@ -51,8 +51,9 @@ function loadRegistry() {
 
 function isBrandKitReady(entry) {
   if (!entry.template_path) return false;
-  const tokensPath = path.join(PROJECT_DIR, path.dirname(entry.template_path), 'tokens.json');
-  return fs.existsSync(tokensPath);
+  const dir = path.join(PROJECT_DIR, path.dirname(entry.template_path));
+  return fs.existsSync(path.join(dir, 'tokens.json'))
+      || (fs.existsSync(path.join(dir, 'brand.json')) && fs.existsSync(path.join(dir, 'layout.json')));
 }
 
 // GET /api/registry — query + filter
@@ -217,7 +218,6 @@ app.get('/api/template/:slug/tokens', (req, res) => {
   res.json(tokens);
 });
 
-// GET /brand/:slug — 品牌套件 HTML 页
 app.get('/brand/:slug', (req, res) => {
   const items = loadRegistry();
   const entry = items.find(e => e.slug === req.params.slug);
@@ -236,12 +236,12 @@ app.get('/brand/:slug', (req, res) => {
 
 // GET /learn — 知识库
 app.get('/learn', (req, res) => {
-  servePage(res, path.join(PROJECT_DIR, 'meta', 'learn-template.html'), galleryTokensPath, 'learn');
+  servePage(res, path.join(PROJECT_DIR, 'meta', 'learn-template.html'), galleryTokensDir, 'learn');
 });
 
 // GET /grow — AI 萃取
 app.get('/grow', (req, res) => {
-  servePage(res, path.join(PROJECT_DIR, 'grow.html'), galleryTokensPath, 'grow');
+  servePage(res, path.join(PROJECT_DIR, 'grow.html'), galleryTokensDir, 'grow');
 });
 
 // POST /api/grow — SSE 生长管线
@@ -374,13 +374,13 @@ app.post('/api/grow/reject', (req, res) => {
 
 // ── Page serving with injection ─────────────────────────────
 
-const { generateRoot } = require('./scripts/sync-roots');
-const galleryTokensPath = path.join(PROJECT_DIR, 'templates', 'layout-gallery', 'tokens.json');
+const { generateRoot, loadMergedTokens } = require('./scripts/sync-roots');
+const galleryTokensDir = path.join(PROJECT_DIR, 'templates', 'layout-gallery');
 const navHTML = fs.readFileSync(path.join(PROJECT_DIR, 'meta', 'nav.html'), 'utf-8');
 const footerHTML = fs.readFileSync(path.join(PROJECT_DIR, 'meta', 'footer.html'), 'utf-8');
 const turboScript = '<script src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.12/dist/turbo.es2017-umd.js" defer data-turbo-track="reload"></script>';
 
-function servePage(res, filePath, tokensPath, activeNav) {
+function servePage(res, filePath, tokensDir, activeNav) {
   let html = fs.readFileSync(filePath, 'utf-8');
   // Turbo merges <head> across visits. Mark the page stylesheet as dynamic so
   // rules from the previous page cannot leak into the next one.
@@ -388,10 +388,10 @@ function servePage(res, filePath, tokensPath, activeNav) {
   // Application scripts belong in <head>; body scripts are evaluated again on
   // every Turbo visit and would install duplicate navigation lifecycles.
   html = html.replace('</head>', turboScript + '\n</head>');
-  // Inject :root from tokens.json
-  if (tokensPath) {
-    const tokens = JSON.parse(fs.readFileSync(tokensPath, 'utf-8'));
-    html = html.replace('<!-- ROOT_INJECT -->', generateRoot(tokens));
+  // Inject :root from brand.json + layout.json (v2) or tokens.json (v1 fallback)
+  if (tokensDir) {
+    const tokens = loadMergedTokens(tokensDir);
+    if (tokens) html = html.replace('<!-- ROOT_INJECT -->', generateRoot(tokens));
   }
   // Inject nav
   html = html.replace('<!-- NAV_INJECT -->', navHTML);
@@ -407,12 +407,12 @@ function servePage(res, filePath, tokensPath, activeNav) {
 
 // GET / — 画廊 landing
 app.get('/', (req, res) => {
-  servePage(res, path.join(PROJECT_DIR, 'index.html'), galleryTokensPath, 'home');
+  servePage(res, path.join(PROJECT_DIR, 'index.html'), galleryTokensDir, 'home');
 });
 
 // GET /library — 版式库
 app.get('/library', (req, res) => {
-  servePage(res, path.join(PROJECT_DIR, 'library.html'), galleryTokensPath, 'library');
+  servePage(res, path.join(PROJECT_DIR, 'library.html'), galleryTokensDir, 'library');
 });
 
 // ── Static Files ─────────────────────────────────────────────

@@ -124,9 +124,9 @@
   .slide.hero.dark{background:rgba(var(--text-rgb),.92);color:var(--color-surface)}
 
   /* ============ 装饰: 极细分隔线 + 点阵矩阵 ============ */
-  .rule{width:100%;height:1px;background:currentColor;opacity:.18;margin:0}
-  .rule.thick{height:2px;opacity:.85}
-  .rule.accent{background:var(--color-primary);opacity:1;height:2px}
+  .hr{width:100%;height:1px;background:currentColor;opacity:.18;margin:0}
+  .hr.thick{height:2px;opacity:.85}
+  .hr.accent{background:var(--color-primary);opacity:1;height:2px}
   .rule.v{width:1px;height:100%;margin:0}
 
   /* 点阵矩阵 (dot matrix) - 用 radial-gradient */
@@ -575,7 +575,7 @@
   .nav-safe-bottom{padding-bottom:var(--nav-safe-bottom)}
   .nav-safe-bottom-tight{padding-bottom:calc(var(--nav-safe-bottom) * .65)}
   .swiss-img-copy{display:flex;flex-direction:column;gap:var(--sp-6);min-width:0}
-  .swiss-img-copy .rule{margin:0}
+  .swiss-img-copy .hr{margin:0}
   .swiss-img-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-5);align-items:start;margin-top:var(--sp-7)}
   .swiss-img-grid.two{grid-template-columns:repeat(2,1fr)}
   .swiss-img-grid.tight{margin-top:0}
@@ -1194,6 +1194,21 @@
     .grid-2-7-5,.grid-2-6-6,.grid-2-8-4,.grid-2-4-8{grid-template-columns:1fr}
     .grid-12{grid-template-columns:repeat(6,1fr)}
   }
+
+  /* ============ Design System Slides ============ */
+  .s-ds-rules .rules{display:grid;grid-template-columns:1fr 1fr;gap:2.4vh 2vw;flex:1;align-content:center}
+  .s-ds-rules .rule{padding:2.2vh 0 0 0;border-top:2px solid var(--color-primary);display:flex;flex-direction:column;gap:.8vh}
+  .s-ds-rules .rule .n{font-family:var(--font-mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--color-primary);opacity:.8}
+  .s-ds-rules .rule .t{font-weight:600;font-size:1.4vw;line-height:1.2;letter-spacing:-.01em}
+  .s-ds-rules .rule .d{font-size:max(12px,.92vw);line-height:1.5;color:var(--color-secondary)}
+  .s-ds-type .tr{display:grid;grid-template-columns:160px 1fr 100px;align-items:baseline;gap:2vw;padding:2vh 0;border-top:1px solid var(--color-outline)}
+  .s-ds-type .tr .label{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-secondary)}
+  .s-ds-type .tr .spec{font-family:var(--font-mono);font-size:10px;color:var(--color-secondary);text-align:right}
+  .s-ds-palette .swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6vh 1.4vw;flex:1;align-content:center}
+  .s-ds-palette .swatch{display:flex;flex-direction:column;gap:1vh;padding:1.6vh 1.2vw}
+  .s-ds-palette .swatch .chip{width:100%;height:6vh}
+  .s-ds-palette .swatch .name{font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+  .s-ds-palette .swatch .hex{font-family:var(--font-mono);font-size:12px}
 </style>
 </head>
 <body class="canvas-mode">
@@ -1385,6 +1400,78 @@
           </div>
         </div>
         <div data-anim="foot" class="t-meta" style="color:var(--color-on-surface-variant);text-align:right">→ 完 · END OF FIELD NOTE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ P5 · Design Principles · 设计原则 ═══════════ -->
+<section class="slide light s-ds-rules" data-layout="DS1" data-animate="grid-reveal">
+  <div class="canvas-card">
+    <div class="chrome-min">
+      <div class="l">设计系统 · Design Systems</div>
+      <div class="r">05 / 07</div>
+    </div>
+    <div style="flex:1;padding:0;display:grid;grid-template-rows:auto 1fr;gap:4vh">
+      <div data-anim="head" style="display:flex;flex-direction:column;gap:1.4vh">
+        <div class="t-meta">PRINCIPLES · 六大设计原则</div>
+        <h2 style="font-family:var(--font-body);font-weight:200;font-size:min(5.8vw,10.2vh);line-height:.96;letter-spacing:-.035em">瑞士设计<br>六项铁律</h2>
+      </div>
+      <div class="rules" data-anim="up">
+        <div class="rule"><div class="n">01</div><div class="t">Grid First</div><div class="d">所有布局始于网格，12 列系统提供无限组合可能</div></div>
+        <div class="rule"><div class="n">02</div><div class="t">IKB Accent</div><div class="d">International Klein Blue 作为唯一强调色，克制即力量</div></div>
+        <div class="rule"><div class="n">03</div><div class="t">Typography as Structure</div><div class="d">字体即布局，字号层级替代装饰元素构建信息架构</div></div>
+        <div class="rule"><div class="n">04</div><div class="t">Asymmetric Balance</div><div class="d">非对称但精确平衡，负空间是主动设计元素不是留白</div></div>
+        <div class="rule"><div class="n">05</div><div class="t">ASCII Canvas</div><div class="d">ASCII 字符作为纹理呼吸场，给严谨网格注入有机生命</div></div>
+        <div class="rule"><div class="n">06</div><div class="t">Motion with Purpose</div><div class="d">Carbon 缓动曲线，动效服务于信息层次揭示，不为动而动</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ P6 · Type Scale · 字号层级 ═══════════ -->
+<section class="slide light s-ds-type" data-layout="DS2" data-animate="cascade">
+  <div class="canvas-card">
+    <div class="chrome-min">
+      <div class="l">设计系统 · Design Systems</div>
+      <div class="r">06 / 07</div>
+    </div>
+    <div style="flex:1;padding:0;display:grid;grid-template-rows:auto 1fr;gap:4vh">
+      <div data-anim="head" style="display:flex;flex-direction:column;gap:1.4vh">
+        <div class="t-meta">TYPE SCALE · 字号层级</div>
+        <h2 style="font-family:var(--font-body);font-weight:200;font-size:min(5.8vw,10.2vh);line-height:.96;letter-spacing:-.035em">排版尺度</h2>
+      </div>
+      <div data-anim="up" style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:0">
+        <div class="tr"><div class="label">Hero</div><div style="font-weight:200;font-size:min(8vw,12vh);line-height:1;letter-spacing:-.025em">11.6vw · Thin 200</div><div class="spec">.h-hero</div></div>
+        <div class="tr"><div class="label">Heading</div><div style="font-weight:200;font-size:min(5.8vw,10vh);line-height:1;letter-spacing:-.035em">5.8vw · Thin 200</div><div class="spec">h2</div></div>
+        <div class="tr"><div class="label">Subhead</div><div style="font-weight:400;font-size:min(2.2vw,4vh);line-height:1;letter-spacing:-.01em">2.2vw · Regular 400</div><div class="spec">h3</div></div>
+        <div class="tr"><div class="label">Lead</div><div style="font-weight:300;font-size:min(1.6vw,2.8vh);line-height:1">1.6vw · Light 300</div><div class="spec">.lead</div></div>
+        <div class="tr"><div class="label">Body</div><div style="font-weight:350;font-size:min(1.1vw,2.2vh);line-height:1">1.1vw · 350</div><div class="spec">.t-body</div></div>
+        <div class="tr"><div class="label">Mono</div><div style="font-family:var(--font-mono);font-size:max(10px,.82vw);line-height:1">.82vw · Mono 400</div><div class="spec">.t-meta</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ P7 · Palette · 配色系统 ═══════════ -->
+<section class="slide accent s-ds-palette" data-layout="DS3" data-animate="cascade">
+  <div class="canvas-card">
+    <div class="chrome-min">
+      <div class="l">设计系统 · Design Systems</div>
+      <div class="r">07 / 07</div>
+    </div>
+    <div style="flex:1;padding:0;display:grid;grid-template-rows:auto 1fr;gap:4vh">
+      <div data-anim="head" style="display:flex;flex-direction:column;gap:1.4vh">
+        <div class="t-meta" style="color:rgba(255,255,255,.78)">PALETTE · 配色系统</div>
+        <h2 style="font-family:var(--font-body);font-weight:200;font-size:min(5.8vw,10.2vh);line-height:.96;letter-spacing:-.035em;color:#fff">六色瑞士<br>调色板</h2>
+      </div>
+      <div class="swatches" data-anim="up">
+        <div class="swatch"><div class="chip" style="background:var(--color-primary)"></div><div class="name" style="color:rgba(255,255,255,.7)">IKB Blue</div><div class="hex" style="color:rgba(255,255,255,.9)">#002FA7</div></div>
+        <div class="swatch"><div class="chip" style="background:var(--ink)"></div><div class="name" style="color:rgba(255,255,255,.7)">Ink</div><div class="hex" style="color:rgba(255,255,255,.9)">#0A0A0A</div></div>
+        <div class="swatch"><div class="chip" style="background:var(--paper)"></div><div class="name" style="color:rgba(255,255,255,.7)">Paper</div><div class="hex" style="color:rgba(255,255,255,.9)">#FAFAF8</div></div>
+        <div class="swatch"><div class="chip" style="background:var(--grey-1)"></div><div class="name" style="color:rgba(255,255,255,.7)">Grey 1</div><div class="hex" style="color:rgba(255,255,255,.9)">#F0F0EE</div></div>
+        <div class="swatch"><div class="chip" style="background:var(--grey-2)"></div><div class="name" style="color:rgba(255,255,255,.7)">Grey 2</div><div class="hex" style="color:rgba(255,255,255,.9)">#D4D4D2</div></div>
+        <div class="swatch"><div class="chip" style="background:var(--grey-3)"></div><div class="name" style="color:rgba(255,255,255,.7)">Grey 3</div><div class="hex" style="color:rgba(255,255,255,.9)">#737373</div></div>
       </div>
     </div>
   </div>

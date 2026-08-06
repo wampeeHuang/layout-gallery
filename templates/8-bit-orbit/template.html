@@ -346,6 +346,53 @@ table.retro-table tr:nth-child(even) td { background: #f0f0f0; }
   .grid-4 { grid-template-columns: 1fr 1fr; }
   .slide { padding: 15px 20px 40px 20px; }
 }
+
+/* ══════════════════════════════════════════════════════
+   SLIDES 11–13 — DESIGN SYSTEM SHOWCASE
+   ══════════════════════════════════════════════════════ */
+.s-ds-rules .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.s-ds-rules .rule {
+  border: 2px solid var(--win-highlight);
+  border-right-color: var(--win-dark-shadow);
+  border-bottom-color: var(--win-dark-shadow);
+  padding: 14px 16px; background: var(--win-highlight);
+}
+.s-ds-rules .rule .rn {
+  font-family: var(--font-mono); font-size: 11px; font-weight: bold;
+  color: var(--color-primary); letter-spacing: 0.04em; margin-bottom: 6px;
+}
+.s-ds-rules .rule .rb {
+  font-family: var(--font-body); font-size: 13px; line-height: 1.5; color: var(--color-on-surface);
+}
+
+.s-ds-type .type-rows { display: flex; flex-direction: column; }
+.s-ds-type .tr {
+  display: grid; grid-template-columns: 140px 1fr; align-items: baseline; gap: 16px;
+  padding: 10px 0; border-bottom: 1px solid var(--win-shadow);
+}
+.s-ds-type .tr:last-child { border-bottom: none; }
+.s-ds-type .tr .tn {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--color-on-surface-variant);
+}
+.s-ds-type .tr .ts {
+  font-family: var(--font-display); font-weight: 700; line-height: 1.1; color: var(--color-on-surface);
+}
+
+.s-ds-palette .swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.s-ds-palette .sw {
+  border: 2px solid var(--win-highlight);
+  border-right-color: var(--win-dark-shadow);
+  border-bottom-color: var(--win-dark-shadow);
+  padding: 12px; text-align: center; background: var(--win-face);
+}
+.s-ds-palette .sw .box { width: 100%; aspect-ratio: 1.4; margin-bottom: 8px; border: 1px solid var(--win-dark-shadow); }
+.s-ds-palette .sw .nm {
+  font-family: var(--font-mono); font-size: 10px; font-weight: bold;
+  letter-spacing: 0.04em; color: var(--color-on-surface);
+}
+.s-ds-palette .sw .hex {
+  font-family: var(--font-mono); font-size: 10px; color: var(--color-on-surface-variant);
+}
 </style>
 </head>
 <body>
@@ -851,9 +898,88 @@ table.retro-table tr:nth-child(even) td { background: #f0f0f0; }
   </div>
 </div>
 
+<!-- SLIDE 11: DESIGN PRINCIPLES -->
+<div class="slide" id="slide-10">
+  <div class="win-window">
+    <div class="win-titlebar">
+      <div class="win-title-left"><div class="win-icon">D</div><span>DS_PRINCIPLES.EXE</span></div>
+      <div class="win-buttons"><div class="win-btn">_</div><div class="win-btn">[]</div><div class="win-btn">X</div></div>
+    </div>
+    <div class="win-body s-ds-rules">
+      <div class="shrink-0">
+        <p class="text-lg text-accent" style="font-weight: bold;">Design Principles</p>
+        <p class="text-sm text-gray mb-1">The pixel philosophy behind the 8-Bit Orbit system.</p>
+        <hr class="retro">
+      </div>
+      <div class="rules flex-1 mt-2">
+        <div class="rule"><div class="rn">01 / Pixel Precision</div><div class="rb">4px base unit. steps(4) animation timing. Everything snaps to the pixel grid — no sub-pixel blur.</div></div>
+        <div class="rule"><div class="rn">02 / CRT Nostalgia</div><div class="rb">Scanline overlay across every slide. Phosphor-like neon glow on dark void. Win95 chrome is real chrome.</div></div>
+        <div class="rule"><div class="rn">03 / Neon Triad</div><div class="rb">Cyan #5EDCF4, Pink #F0A6CA, Yellow #F4D03F. Three neons on deep navy/void — no fourth accent.</div></div>
+        <div class="rule"><div class="rn">04 / Tektur + Chakra Petch</div><div class="rb">Tektur geometric display with pixel DNA. Chakra Petch sci-fi body. Space Mono for terminal moments.</div></div>
+        <div class="rule"><div class="rn">05 / Binary Depth</div><div class="rb">Raised/sunken 3D bevels only. No gradients, no blur, no transparency layers. Depth from light source illusion.</div></div>
+        <div class="rule"><div class="rn">06 / Win95 Honesty</div><div class="rb">Real titlebars, real buttons, real scrollbars. Not imitation — the actual Windows 95 widget language.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 12: TYPE SCALE -->
+<div class="slide" id="slide-11">
+  <div class="win-window">
+    <div class="win-titlebar">
+      <div class="win-title-left"><div class="win-icon">F</div><span>DS_TYPE.FON</span></div>
+      <div class="win-buttons"><div class="win-btn">_</div><div class="win-btn">[]</div><div class="win-btn">X</div></div>
+    </div>
+    <div class="win-body s-ds-type">
+      <div class="shrink-0">
+        <p class="text-lg text-accent" style="font-weight: bold;">Type Scale</p>
+        <p class="text-sm text-gray mb-1">Tektur display + Chakra Petch body + Space Mono terminal.</p>
+        <hr class="retro">
+      </div>
+      <div class="type-rows flex-1 mt-2" style="overflow: auto;">
+        <div class="tr"><span class="tn">display · 8vw</span><span class="ts" style="font-size:clamp(3rem,8vw,128px)">PIXEL GIANT</span></div>
+        <div class="tr"><span class="tn">h1 · 32px</span><span class="ts" style="font-size:32px">HEADLINE TITLE</span></div>
+        <div class="tr"><span class="tn">h2 · 26px</span><span class="ts" style="font-size:26px">Section Heading</span></div>
+        <div class="tr"><span class="tn">h3 · 19px</span><span class="ts" style="font-size:19px">Subsection Title Here</span></div>
+        <div class="tr"><span class="tn">lead · 16px</span><span class="ts" style="font-size:16px;font-family:var(--font-body);font-weight:400">Lead paragraph introducing a section</span></div>
+        <div class="tr"><span class="tn">body · 13px</span><span class="ts" style="font-size:13px;font-family:var(--font-body);font-weight:400">Body copy in Chakra Petch, the primary reading typeface</span></div>
+        <div class="tr"><span class="tn">caption · 12px</span><span class="ts" style="font-size:12px;font-family:var(--font-body);font-weight:400">Caption and annotation text</span></div>
+        <div class="tr"><span class="tn">label · 10px</span><span class="ts" style="font-size:10px;font-family:var(--font-mono);font-weight:400;text-transform:uppercase">MONO LABEL TEXT</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 13: PALETTE -->
+<div class="slide" id="slide-12">
+  <div class="win-window">
+    <div class="win-titlebar">
+      <div class="win-title-left"><div class="win-icon">C</div><span>DS_PALETTE.PAL</span></div>
+      <div class="win-buttons"><div class="win-btn">_</div><div class="win-btn">[]</div><div class="win-btn">X</div></div>
+    </div>
+    <div class="win-body s-ds-palette">
+      <div class="shrink-0">
+        <p class="text-lg text-accent" style="font-weight: bold;">Neon + Win95 Palette</p>
+        <p class="text-sm text-gray mb-1">Three neons, two darks, one lavender, two Win95 chromes.</p>
+        <hr class="retro">
+      </div>
+      <div class="swatches flex-1 mt-2" style="align-content: center;">
+        <div class="sw"><div class="box" style="background:var(--neon-cyan)"></div><div class="nm">neon-cyan</div><div class="hex">#5EDCF4</div></div>
+        <div class="sw"><div class="box" style="background:var(--neon-pink)"></div><div class="nm">neon-pink</div><div class="hex">#F0A6CA</div></div>
+        <div class="sw"><div class="box" style="background:var(--neon-yellow)"></div><div class="nm">neon-yellow</div><div class="hex">#F4D03F</div></div>
+        <div class="sw"><div class="box" style="background:var(--soft-lavender)"></div><div class="nm">soft-lavender</div><div class="hex">#E2D5F2</div></div>
+        <div class="sw"><div class="box" style="background:var(--dark-void)"></div><div class="nm">dark-void</div><div class="hex">#0A0E27</div></div>
+        <div class="sw"><div class="box" style="background:var(--deep-navy)"></div><div class="nm">deep-navy</div><div class="hex">#0F1B3D</div></div>
+        <div class="sw"><div class="box" style="background:var(--win-face)"></div><div class="nm">win-face</div><div class="hex">#D4D0C8</div></div>
+        <div class="sw"><div class="box" style="background:var(--win-bg)"></div><div class="nm">win-bg</div><div class="hex">#C0C0C0</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Navigation -->
 <div class="nav-dots" id="navDots"></div>
-<div class="slide-counter" id="slideCounter">1 / 10</div>
+<div class="slide-counter" id="slideCounter">1 / 13</div>
 <div class="nav-hint">&lt;-- ARROW KEYS to navigate --&gt;</div>
 
 <script>

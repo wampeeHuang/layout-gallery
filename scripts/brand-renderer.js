@@ -52,12 +52,37 @@ function renderBrandKit(entry, projectDir) {
   const tmplPath = path.join(projectDir, entry.template_path);
   const html = fs.readFileSync(tmplPath, 'utf-8');
 
-  // ── Token data: tokens.json required (一源双端, no fallback) ──
-  const tokensPath = path.join(path.dirname(tmplPath), 'tokens.json');
-  if (!fs.existsSync(tokensPath)) {
-    throw new Error('Missing tokens.json for template: ' + entry.slug + '\n  Expected: ' + tokensPath + '\n  Every template MUST have tokens.json — 一源双端 hard requirement.');
+  // ── Token data: v2 (brand.json + layout.json) or v1 (tokens.json) ──
+  const tmplDir = path.dirname(tmplPath);
+  const brandPath = path.join(tmplDir, 'brand.json');
+  const layoutPath = path.join(tmplDir, 'layout.json');
+  const tokensPath = path.join(tmplDir, 'tokens.json');
+  const isV2 = fs.existsSync(brandPath) && fs.existsSync(layoutPath);
+
+  let brandData = null;
+  let layoutData = null;
+  let tokensData;
+
+  if (isV2) {
+    brandData = JSON.parse(fs.readFileSync(brandPath, 'utf-8'));
+    layoutData = JSON.parse(fs.readFileSync(layoutPath, 'utf-8'));
+    tokensData = { slug: brandData.slug, version: brandData.version, tokens: {}, brandKit: {} };
+    for (const cat of ['color', 'typography', 'spacing', 'radius', 'shadow', 'motion']) {
+      tokensData.tokens[cat] = [
+        ...(brandData.tokens[cat] || []),
+        ...(layoutData.tokens[cat] || [])
+      ];
+    }
+    if (brandData.colorRoles) tokensData.brandKit.colorRoles = brandData.colorRoles;
+    if (layoutData.typeScale) tokensData.brandKit.typeScale = layoutData.typeScale;
+    if (layoutData.spacingScale) tokensData.brandKit.spacingScale = layoutData.spacingScale;
+    if (layoutData.components) tokensData.brandKit.components = layoutData.components;
+  } else if (fs.existsSync(tokensPath)) {
+    tokensData = JSON.parse(fs.readFileSync(tokensPath, 'utf-8'));
+  } else {
+    throw new Error('Missing token files for template: ' + entry.slug + '\n  Expected: ' + brandPath + ' + ' + layoutPath + ' (v2) or ' + tokensPath + ' (v1)');
   }
-  const tokensData = JSON.parse(fs.readFileSync(tokensPath, 'utf-8'));
+
   const vars = flattenTokens(tokensData);
   const tokensByGroup = groupTokensFromData(tokensData);
 
@@ -197,8 +222,8 @@ function renderBrandKit(entry, projectDir) {
   out = out.replace(/\{\{ASSET_LOGO\}\}/g, buildLogoAsset(P, T, accent10));
   out = out.replace(/\{\{OVERLAY_DEMOS\}\}/g, buildOverlayDemos(P));
 
-  // ── Texture system (optional, from tokens.json) ──
-  const textures = tokensData.textures || [];
+  // ── Texture system (v1 only — v2 textures live in layout.json, not shown on brand page) ──
+  const textures = (!isV2 && tokensData.textures) ? tokensData.textures : [];
   if (textures.length > 0) {
     const textureCSS = extractTextureCSS(html, textures.map(t => t.cssClass));
     out = out.replace(/\{\{TEXTURE_CSS\}\}/g, textureCSS);
@@ -208,8 +233,8 @@ function renderBrandKit(entry, projectDir) {
     out = out.replace(/\{\{TEXTURE_SECTION\}\}/g, '');
   }
 
-  // ── Cursor system (optional, from tokens.json) ──
-  const cursor = tokensData.cursor || null;
+  // ── Cursor system (v1 only — v2 cursor lives in layout.json, not shown on brand page) ──
+  const cursor = (!isV2 && tokensData.cursor) ? tokensData.cursor : null;
   if (cursor) {
     const cursorCSS = extractCursorCSS(html);
     out = out.replace(/\{\{CURSOR_CSS\}\}/g, cursorCSS);
@@ -221,6 +246,9 @@ function renderBrandKit(entry, projectDir) {
     out = out.replace(/\{\{MEADOW_JS\}\}/g, '');
   }
 
+  // ── Layout assets label (removed — v2 layout assets stay in layout.json copy tab) ──
+  out = out.replace(/\{\{LAYOUT_ASSETS_LABEL\}\}/g, '');
+
   // ── Decisions ──
   out = out.replace(/\{\{DECISION_ITEMS\}\}/g, buildDecisions(entry, P, T, vars, assets));
 
@@ -229,6 +257,38 @@ function renderBrandKit(entry, projectDir) {
   out = out.replace(/\{\{CSS_ROOT_BLOCK\}\}/g, esc(buildCssBlock(tokensByGroup)));
   out = out.replace(/\{\{JSON_BLOCK\}\}/g, esc(buildJsonBlock(entry, tokensByGroup)));
   out = out.replace(/\{\{AI_PROMPT_BLOCK\}\}/g, esc(buildAiBlock(entry, tokensByGroup, tmplPath)));
+
+  // ── V2 copy blocks: brand.json + layout.json raw content ──
+  if (isV2) {
+    const brandRaw = JSON.stringify(brandData, null, 2);
+    const layoutRaw = JSON.stringify(layoutData, null, 2);
+    out = out.replace(/\{\{COPY_TABS_V2\}\}/g,
+      '<button class="copy-tab" data-tab="brand-json" data-tooltip="品牌层 brand.json — 颜色角色、字体家族、动效曲线、阴影。跨站点可复用，定义视觉语言而非页面布局">品牌变量</button>\n' +
+      '    <button class="copy-tab" data-tab="layout-json" data-tooltip="布局层 layout.json — 字号刻度、间距系统、纹理、光标。站点自主定义，换一个站点换一套布局">布局配置</button>');
+    out = out.replace(/\{\{COPY_BODIES_V2\}\}/g,
+      '<div class="copy-body" id="copy-brand-json">\n' +
+      '    <h3>品牌变量 · brand.json</h3>\n' +
+      '    <p class="cp-desc">品牌层源文件。含颜色角色（MD3 29 色）、字体家族、动效曲线、阴影层级、圆角。跨站点可复用 — 复制到其他项目即可获得相同视觉语言。与 layout.json 配合使用。</p>\n' +
+      '    <pre id="brand-json-block">' + esc(brandRaw) + '</pre>\n' +
+      '    <button class="copy-btn" id="btn-brand-json">复制品牌变量</button>\n' +
+      '  </div>\n' +
+      '  <div class="copy-body" id="copy-layout-json">\n' +
+      '    <h3>布局配置 · layout.json</h3>\n' +
+      '    <p class="cp-desc">布局层源文件。含字号刻度（6 级）、间距系统（13 级）、CSS 纹理（6 种）、自定义光标。站点自主定义 — 每个站点按内容密度独立配置。品牌变量 + 布局配置 + template.html = 完整模板复原。</p>\n' +
+      '    <pre id="layout-json-block">' + esc(layoutRaw) + '</pre>\n' +
+      '    <button class="copy-btn" id="btn-layout-json">复制布局配置</button>\n' +
+      '  </div>');
+    out = out.replace(/\{\{COPY_JS_V2\}\}/g,
+      '{btn:"btn-brand-json",block:"brand-json-block",label:"复制品牌变量"},\n' +
+      '   {btn:"btn-layout-json",block:"layout-json-block",label:"复制布局配置"}');
+    // Update copy kit description
+    out = out.replace('三格式导出——design.md 是唯一真相源，CSS :root 是其机器可读投影，设计简报将二者打包为可粘贴的 Markdown。',
+      '五格式导出：源文件（设计规范 · 品牌变量 · 布局配置）→ 派生格式（CSS 变量 · 设计简报）。品牌变量跨站点复用，布局配置站点自治。完整复原 = 品牌变量 + 布局配置 + template.html。');
+  } else {
+    out = out.replace(/\{\{COPY_TABS_V2\}\}/g, '');
+    out = out.replace(/\{\{COPY_BODIES_V2\}\}/g, '');
+    out = out.replace(/\{\{COPY_JS_V2\}\}/g, '');
+  }
 
   return out;
 }
@@ -552,13 +612,13 @@ function buildColorPreviewCards(P) {
   if (samples.length === 0) {
     return '<div class="prev-card"><div class="prev-title">—</div><div class="prev-body">配色数据待补充</div></div>';
   }
-  return samples.map((c, i) => {
+  return samples.map((c) => {
     const isDark = isDarkColor(c.hex);
     const tc = isDark ? '#fff' : '#1a1a1a';
     const btnBg = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.06)';
-    return '<div class="prev-card"' + (i === 0 ? ' style="background:' + esc(c.hex) + ';color:' + tc + '"' : '') + '>' +
-      '<div class="prev-title"' + (i === 0 ? ' style="color:' + tc + '"' : '') + '>' + esc(c.name) + '</div>' +
-      '<div class="prev-body"' + (i === 0 ? ' style="color:' + tc + ';opacity:0.8"' : '') + '>' + esc(c.hex) + '</div>' +
+    return '<div class="prev-card" style="background:' + esc(c.hex) + ';color:' + tc + '">' +
+      '<div class="prev-title" style="color:' + tc + '">' + esc(c.name) + '</div>' +
+      '<div class="prev-body" style="color:' + tc + ';opacity:0.8">' + esc(c.hex) + '</div>' +
       (c.role ? '<div class="prev-btn" style="background:' + btnBg + ';color:' + tc + '">' + esc(c.role) + '</div>' : '') +
       '</div>';
   }).join('\n      ');
