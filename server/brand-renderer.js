@@ -444,8 +444,12 @@ function freqSort(arr) {
 // ── Palette ──
 function buildPalette(entry, vars, fb) {
   const colors = [];
-  if (entry.palette) {
-    entry.palette.forEach(p => colors.push({ name: p.name, hex: p.color, role: p.role || guessRole(p.name) }));
+  if (entry.palette && entry.palette.length > 0) {
+    // Only the first palette entry — it's the default/active theme.
+    // registry.json palette[] lists all theme variants (for library card dots),
+    // but the brand page should only show the one this template actually uses.
+    const p = entry.palette[0];
+    colors.push({ name: p.name, hex: p.color, role: p.role || guessRole(p.name) });
   }
   if (colors.length === 0) {
     // fallback: build from css_variables
@@ -625,17 +629,35 @@ function buildColorPreviewCards(P) {
 }
 
 function buildColorTokenGrid(groups) {
-  const items = groups.Color || [];
+  const items = (groups.Color || []).filter(t => t.role !== 'rgb-helper');
   if (items.length === 0) return '<p style="color:var(--color-on-surface-variant);text-align:center;padding:40px">无颜色 Token</p>';
-  return items.map(t => {
+
+  // Deduplicate by hex value — tokens with same hex share one swatch
+  const byHex = new Map();
+  for (const t of items) {
     const hex = extractHex(t.value);
+    const key = hex || t.value; // fallback to raw value for non-hex colors like rgba()
+    if (!byHex.has(key)) {
+      byHex.set(key, { names: [], roles: [], value: t.value, hex });
+    }
+    const entry = byHex.get(key);
+    entry.names.push(t.name);
+    if (t.role) entry.roles.push(t.role);
+  }
+
+  return [...byHex.values()].map(entry => {
+    const { names, roles, value, hex } = entry;
     const isDark = hex ? isDarkColor(hex) : false;
     const labelClass = isDark ? '' : ' light';
-    const use = t.desc || t.role || '';
+    const primaryName = names[0];
+    const aliasNames = names.length > 1 ? names.slice(1).join(', ') : '';
+    const roleLabel = [...new Set(roles)].slice(0, 2).join(', ');
     return '<div class="color-token">' +
-      '<div class="c-chip" style="background:' + esc(t.value) + '"><span class="c-label' + labelClass + '">' + esc(t.role || '') + '</span></div>' +
-      '<div class="c-info"><div class="c-var">' + esc(t.name) + '</div><div class="c-hex">' + esc(hex || t.value) + '</div>' +
-      '<div class="c-role">' + esc(t.role || '') + '</div><div class="c-use">' + esc(use) + '</div></div></div>';
+      '<div class="c-chip" style="background:' + esc(value) + '"><span class="c-label' + labelClass + '">' + esc(roleLabel || '') + '</span></div>' +
+      '<div class="c-info"><div class="c-var">' + esc(primaryName) + '</div>' +
+      (aliasNames ? '<div class="c-var" style="opacity:.55;font-size:11px">' + esc(aliasNames) + '</div>' : '') +
+      '<div class="c-hex">' + esc(hex || value) + '</div>' +
+      '<div class="c-role">' + esc(roleLabel) + '</div></div></div>';
   }).join('\n    ');
 }
 
@@ -1401,7 +1423,7 @@ function hexToRgba(hex, alpha) {
 }
 
 function extractHex(val) {
-  if (!val) return '';
+  if (!val || typeof val !== 'string') return '';
   const m = val.match(/#[0-9a-fA-F]{3,8}/);
   return m ? m[0] : '';
 }

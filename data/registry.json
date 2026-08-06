@@ -255,6 +255,222 @@
     "design_philosophy": "电子杂志美学——近黑墨色（#1A1A1A）落在暖灰纸上，Playfair Display + Source Serif 4 双衬线排版。WebGL 双层画布背景，亮/暗模式过渡。编辑长文布局、充裕留白、细微阴影。平板上的数字季刊。"
   },
   {
+    "slug": "template-indigo",
+    "name": "归藏PPT · 靛蓝瓷",
+    "tagline": "电子杂志 靛蓝瓷配色 — 深靛蓝+瓷白，冷静理性，学术期刊质感",
+    "template_type": "native-editorial-web",
+    "template_path": "templates/template-indigo/template.html",
+    "design_style": "editorial",
+    "aspect_ratio": "16:9",
+    "mood": [
+      "冷静",
+      "学术",
+      "深度"
+    ],
+    "formality": "medium",
+    "scheme": "mixed",
+    "palette": [
+      {
+        "name": "Indigo Porcelain",
+        "color": "#2c3e6b"
+      }
+    ],
+    "displayFont": "Noto Serif SC / Playfair Display",
+    "bodyFont": "Noto Sans SC / IBM Plex Mono",
+    "typography_style": "Serif标题 + Sans-serif正文 + Monospace元数据",
+    "best_for": "AI/技术/产品发布、工程师文化、深度内容",
+    "slide_count": 10,
+    "css_variables": [
+      {
+        "name": "--ink",
+        "default": "#2c3e6b",
+        "group": "color",
+        "role": "accent"
+      },
+      {
+        "name": "--paper",
+        "default": "#f1f3f5",
+        "group": "color",
+        "role": "surface"
+      },
+      {
+        "name": "--paper-tint",
+        "default": "#e4e8ec",
+        "group": "color",
+        "role": "surface-alt"
+      },
+      {
+        "name": "--ink-tint",
+        "default": "#233052",
+        "group": "color",
+        "role": "text-secondary"
+      }
+    ],
+    "visibility": "public"
+  },
+  {
+    "slug": "template-forest",
+    "name": "归藏PPT · 森林墨",
+    "tagline": "电子杂志 森林墨配色 — 深森林绿+象牙，沉稳呼吸感，国家地理风",
+    "template_type": "native-editorial-web",
+    "template_path": "templates/template-forest/template.html",
+    "design_style": "editorial",
+    "aspect_ratio": "16:9",
+    "mood": [
+      "自然",
+      "沉稳",
+      "人文"
+    ],
+    "formality": "medium",
+    "scheme": "mixed",
+    "palette": [
+      {
+        "name": "Forest Ink",
+        "color": "#2d4a3e"
+      }
+    ],
+    "displayFont": "Noto Serif SC / Playfair Display",
+    "bodyFont": "Noto Sans SC / IBM Plex Mono",
+    "typography_style": "Serif标题 + Sans-serif正文 + Monospace元数据",
+    "best_for": "自然/可持续/文化、非虚构内容、户外品牌",
+    "slide_count": 10,
+    "css_variables": [
+      {
+        "name": "--ink",
+        "default": "#2d4a3e",
+        "group": "color",
+        "role": "accent"
+      },
+      {
+        "name": "--paper",
+        "default": "#f5f1e8",
+        "group": "color",
+        "role": "surface"
+      },
+      {
+        "name": "--paper-tint",
+        "default": "#ece7da",
+        "group": "color",
+        "role": "surface-alt"
+      },
+      {
+        "name": "--ink-tint",
+        "default": "#233a2f",
+        "group": "color",
+        "role": "text-secondary"
+      }
+    ],
+    "visibility": "public"
+  },
+  {
+    "slug": "template-kraft",
+    "name": "归藏PPT · 牛皮纸",
+    "tagline": "电子杂志 牛皮纸配色 — 深棕+暖米，牛皮信封质感，温暖年代感",
+    "template_type": "native-editorial-web",
+    "template_path": "templates/template-kraft/template.html",
+    "design_style": "editorial",
+    "aspect_ratio": "16:9",
+    "mood": [
+      "怀旧",
+      "温暖",
+      "手作"
+    ],
+    "formality": "medium",
+    "scheme": "mixed",
+    "palette": [
+      {
+        "name": "Kraft Paper",
+        "color": "#c4a35a"
+      }
+    ],
+    "displayFont": "Noto Serif SC / Playfair Display",
+    "bodyFont": "Noto Sans SC / IBM Plex Mono",
+    "typography_style": "Serif标题 + Sans-serif正文 + Monospace元数据",
+    "best_for": "怀旧/人文/阅读、历史/文学分享、独立杂志",
+    "slide_count": 10,
+    "css_variables": [
+      {
+        "name": "--ink",
+        "default": "#2a1e13",
+        "group": "color",
+        "role": "accent"
+      },
+      {
+        "name": "--paper",
+        "default": "#eedfc7",
+        "group": "color",
+        "role": "surface"
+      },
+      {
+        "name": "--paper-tint",
+        "default": "#e0d0b6",
+        "group": "color",
+        "role": "surface-alt"
+      },
+      {
+        "name": "--ink-tint",
+        "default": "#3a2a1d",
+        "group": "color",
+        "role": "text-secondary"
+      }
+    ],
+    "visibility": "public"
+  },
+  {
+    "slug": "template-dune",
+    "name": "归藏PPT · 沙丘",
+    "tagline": "电子杂志 沙丘配色 — 炭灰+沙色，高级克制，沙漠黄昏质感",
+    "template_type": "native-editorial-web",
+    "template_path": "templates/template-dune/template.html",
+    "design_style": "editorial",
+    "aspect_ratio": "16:9",
+    "mood": [
+      "克制",
+      "高级",
+      "艺术"
+    ],
+    "formality": "medium",
+    "scheme": "mixed",
+    "palette": [
+      {
+        "name": "Dune",
+        "color": "#d4a574"
+      }
+    ],
+    "displayFont": "Noto Serif SC / Playfair Display",
+    "bodyFont": "Noto Sans SC / IBM Plex Mono",
+    "typography_style": "Serif标题 + Sans-serif正文 + Monospace元数据",
+    "best_for": "艺术/设计/创意/时尚、画廊手册、审美优先的私享会",
+    "slide_count": 10,
+    "css_variables": [
+      {
+        "name": "--ink",
+        "default": "#1f1a14",
+        "group": "color",
+        "role": "accent"
+      },
+      {
+        "name": "--paper",
+        "default": "#f0e6d2",
+        "group": "color",
+        "role": "surface"
+      },
+      {
+        "name": "--paper-tint",
+        "default": "#e3d7bf",
+        "group": "color",
+        "role": "surface-alt"
+      },
+      {
+        "name": "--ink-tint",
+        "default": "#2d2620",
+        "group": "color",
+        "role": "text-secondary"
+      }
+    ],
+    "visibility": "public"
+  },
+  {
     "slug": "template-swiss",
     "name": "归藏PPT · Style B 瑞士国际主义",
     "tagline": "瑞士国际主义 — 全屏滑动网页，Carbon网格系统，22+布局，Canvas背景，4色强调",
@@ -514,6 +730,204 @@
     "preview_type": "iframe",
     "template_path": "templates/template-swiss/template.html",
     "design_philosophy": "瑞士国际主义——克莱因蓝（#002FA7）在近白纸上，Inter/Helvetica 无衬线全家。网格非对称布局、模数化间距、等宽数据标签。干净、理性、严格系统化。包豪斯展览图录的美学。"
+  },
+  {
+    "slug": "template-swiss-lemon",
+    "name": "归藏PPT · 柠檬黄",
+    "tagline": "瑞士国际主义 柠檬黄 — 鲜亮活力，IKEA式视觉语言，警示感强",
+    "template_type": "native-swiss-web",
+    "template_path": "templates/template-swiss-lemon/template.html",
+    "design_style": "swiss",
+    "aspect_ratio": "16:9",
+    "mood": [
+      "鲜亮",
+      "活力",
+      "年轻"
+    ],
+    "formality": "high",
+    "scheme": "light",
+    "palette": [
+      {
+        "name": "Lemon Yellow",
+        "color": "#FFD700"
+      }
+    ],
+    "displayFont": "Inter / Noto Sans SC",
+    "bodyFont": "Inter / JetBrains Mono",
+    "typography_style": "全无衬线，极端字重对比(200→900)，12列模数网格",
+    "best_for": "年轻/运动/零售、消费品、Y2K复古",
+    "slide_count": 22,
+    "css_variables": [
+      {
+        "name": "--accent",
+        "default": "#FFD700",
+        "group": "color",
+        "role": "accent"
+      },
+      {
+        "name": "--paper",
+        "default": "#fafaf8",
+        "group": "color",
+        "role": "surface"
+      },
+      {
+        "name": "--ink",
+        "default": "#0a0a0a",
+        "group": "color",
+        "role": "text"
+      },
+      {
+        "name": "--grey-1",
+        "default": "#f0f0ee",
+        "group": "color",
+        "role": "surface-alt"
+      },
+      {
+        "name": "--grey-2",
+        "default": "#d4d4d2",
+        "group": "color",
+        "role": "border"
+      },
+      {
+        "name": "--grey-3",
+        "default": "#737373",
+        "group": "color",
+        "role": "text-helper"
+      }
+    ],
+    "visibility": "public"
+  },
+  {
+    "slug": "template-swiss-neon",
+    "name": "归藏PPT · 柠檬绿",
+    "tagline": "瑞士国际主义 荧光柠檬绿 — 未来感，年轻当代，Acne Studios风",
+    "template_type": "native-swiss-web",
+    "template_path": "templates/template-swiss-neon/template.html",
+    "design_style": "swiss",
+    "aspect_ratio": "16:9",
+    "mood": [
+      "未来",
+      "当代",
+      "科技"
+    ],
+    "formality": "high",
+    "scheme": "light",
+    "palette": [
+      {
+        "name": "Lemon Green",
+        "color": "#00FF41"
+      }
+    ],
+    "displayFont": "Inter / Noto Sans SC",
+    "bodyFont": "Inter / JetBrains Mono",
+    "typography_style": "全无衬线，极端字重对比(200→900)，12列模数网格",
+    "best_for": "生态/可持续/健康、新兴科技、Z世代品牌",
+    "slide_count": 22,
+    "css_variables": [
+      {
+        "name": "--accent",
+        "default": "#00FF41",
+        "group": "color",
+        "role": "accent"
+      },
+      {
+        "name": "--paper",
+        "default": "#fafaf8",
+        "group": "color",
+        "role": "surface"
+      },
+      {
+        "name": "--ink",
+        "default": "#0a0a0a",
+        "group": "color",
+        "role": "text"
+      },
+      {
+        "name": "--grey-1",
+        "default": "#f0f0ee",
+        "group": "color",
+        "role": "surface-alt"
+      },
+      {
+        "name": "--grey-2",
+        "default": "#d4d4d2",
+        "group": "color",
+        "role": "border"
+      },
+      {
+        "name": "--grey-3",
+        "default": "#737373",
+        "group": "color",
+        "role": "text-helper"
+      }
+    ],
+    "visibility": "public"
+  },
+  {
+    "slug": "template-swiss-orange",
+    "name": "归藏PPT · 安全橙",
+    "tagline": "瑞士国际主义 安全橙 — 工业感，紧迫感，Saul Bass海报风",
+    "template_type": "native-swiss-web",
+    "template_path": "templates/template-swiss-orange/template.html",
+    "design_style": "swiss",
+    "aspect_ratio": "16:9",
+    "mood": [
+      "工业",
+      "醒目",
+      "力量"
+    ],
+    "formality": "high",
+    "scheme": "light",
+    "palette": [
+      {
+        "name": "Safety Orange",
+        "color": "#FF6B35"
+      }
+    ],
+    "displayFont": "Inter / Noto Sans SC",
+    "bodyFont": "Inter / JetBrains Mono",
+    "typography_style": "全无衬线，极端字重对比(200→900)，12列模数网格",
+    "best_for": "工业/警示/运动、技术发布会重点页",
+    "slide_count": 22,
+    "css_variables": [
+      {
+        "name": "--accent",
+        "default": "#FF6B35",
+        "group": "color",
+        "role": "accent"
+      },
+      {
+        "name": "--paper",
+        "default": "#fafaf8",
+        "group": "color",
+        "role": "surface"
+      },
+      {
+        "name": "--ink",
+        "default": "#0a0a0a",
+        "group": "color",
+        "role": "text"
+      },
+      {
+        "name": "--grey-1",
+        "default": "#f0f0ee",
+        "group": "color",
+        "role": "surface-alt"
+      },
+      {
+        "name": "--grey-2",
+        "default": "#d4d4d2",
+        "group": "color",
+        "role": "border"
+      },
+      {
+        "name": "--grey-3",
+        "default": "#737373",
+        "group": "color",
+        "role": "text-helper"
+      }
+    ],
+    "visibility": "public"
   },
   {
     "slug": "8-bit-orbit",

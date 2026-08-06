@@ -1,73 +1,80 @@
 {
   "template": "template-swiss",
-  "style": "swiss-international",
-  "description": "瑞士国际主义风格 · 4 套单锚点高亮色预设。灰阶跨主题统一，只换 accent。",
-  "principle": "高反差灰白底 + 单一高饱和高亮色。禁止混搭，禁止渐变，禁止阴影/圆角给 accent。",
-  "presets": [
-    {
-      "id": "ikb",
-      "name": "克莱因蓝",
-      "emoji": "🔵",
-      "description": "IKB · International Klein Blue。最经典的瑞士风配色，AI/科技/设计绝不出错。",
-      "recommend": ["AI", "科技", "设计", "商业", "通用"],
-      "css": {
-        "--accent": "#002FA7",
-        "--accent-rgb": "0,47,167",
-        "--accent-on": "#ffffff"
-      }
-    },
-    {
-      "id": "lemon-yellow",
-      "name": "柠檬黄",
-      "emoji": "🟡",
-      "description": "Lemon · Cadmium Yellow。鲜亮有活力，IKEA/Beck Design 视觉语言。",
-      "recommend": ["年轻", "运动", "零售", "消费品", "Y2K"],
-      "css": {
-        "--accent": "#FFD500",
-        "--accent-rgb": "255,213,0",
-        "--accent-on": "#0a0a0a"
-      }
-    },
-    {
-      "id": "lemon-green",
-      "name": "柠檬绿",
-      "emoji": "🟢",
-      "description": "Lemon Green · Highlighter Green。荧光未来感，Z世代/Acne Studios 风格。",
-      "recommend": ["生态", "可持续", "健康", "新兴科技", "Z世代"],
-      "css": {
-        "--accent": "#C5E803",
-        "--accent-rgb": "197,232,3",
-        "--accent-on": "#0a0a0a"
-      }
-    },
-    {
-      "id": "safety-orange",
-      "name": "安全橙",
-      "emoji": "🟠",
-      "description": "Safety Orange。工业感、紧迫感，Saul Bass 海报 / Highway Gothic 标识系统。",
-      "recommend": ["工业", "汽车", "施工", "警告", "技术发布会"],
-      "css": {
-        "--accent": "#FF6B35",
-        "--accent-rgb": "255,107,53",
-        "--accent-on": "#ffffff"
-      }
-    }
-  ],
+  "style": "Style B · 瑞士国际主义 (Swiss International Style)",
+  "description": "4 套基于瑞士国际主义风格的高反差配色。每套遵循'高级灰白底 + 单一高饱和高亮色'极简原则——这是瑞士风的灵魂，不允许混搭多个高亮色。",
+  "mechanism": "替换 template.html :root 块中标有'主题色'注释的变量：--accent / --accent-rgb / --accent-on。灰阶（--paper / --ink / --grey-1/2/3）跨主题统一，不换。",
   "greyScale": {
-    "_note": "跨 4 套主题统一，不随 accent 变化",
     "--paper": "#fafaf8",
     "--paper-rgb": "250,250,248",
     "--ink": "#0a0a0a",
     "--ink-rgb": "10,10,10",
     "--grey-1": "#f0f0ee",
     "--grey-2": "#d4d4d2",
-    "--grey-3": "#737373"
+    "--grey-3": "#737373",
+    "note": "灰阶经过校色，在任何 accent 色下都不抢戏。不要改成纯白(#fff)或纯黑(#000)——会损失瑞士风的'克制'质感。"
   },
+  "presets": [
+    {
+      "id": "ikb",
+      "name": "克莱因蓝 (IKB)",
+      "emoji": "🔵",
+      "description": "纯白底 + IKB 克莱因蓝。极致冷静、理性、有学术感，像 Helvetica Forever 或 Massimo Vignelli 作品集。",
+      "recommend": ["通用场合", "AI/科技/设计", "商业发布", "第一次用/默认"],
+      "css": {
+        "--accent": "#002FA7",
+        "--accent-rgb": "0,47,167",
+        "--accent-on": "#ffffff"
+      },
+      "usage": "IKB 是高饱和深蓝，在大色块(.accent-block)上极有视觉冲击。KPI 数字加 .accent 类用蓝色，但不要满屏蓝——IKB 泛滥即掉档。推荐配合 dark 主题页交替使用，黑底高亮 IKB 同样高级。"
+    },
+    {
+      "id": "lemon",
+      "name": "柠檬黄 (Cadmium Yellow)",
+      "emoji": "🟡",
+      "description": "浅米白底 + 柠檬黄。鲜亮、有活力、警示感强，像 IKEA 或 Beck Design 视觉语言。",
+      "recommend": ["年轻/运动/零售", "消费品", "活力主题", "Y2K 复古"],
+      "css": {
+        "--accent": "#FFD500",
+        "--accent-rgb": "255,213,0",
+        "--accent-on": "#0a0a0a"
+      },
+      "usage": "柠檬黄属于浅色高饱和，--accent-on 必须用纯黑(#0a0a0a)才能保证可读性。黄色色块上不要放白字——会糊掉。做单字符高亮(.mark / .underline-accent)效果最强。"
+    },
+    {
+      "id": "lime",
+      "name": "柠檬绿 (Highlighter Green)",
+      "emoji": "🟢",
+      "description": "浅米白底 + 荧光柠檬绿。有未来感、年轻、当代，像 Acne Studios 或 Off-White 视觉。",
+      "recommend": ["生态/可持续/健康", "新兴科技", "Z 世代品牌", "AI 创业项目"],
+      "css": {
+        "--accent": "#C5E803",
+        "--accent-rgb": "197,232,3",
+        "--accent-on": "#0a0a0a"
+      },
+      "usage": "荧光绿和黄色一样属于浅色，--accent-on 必须用纯黑。屏幕显色比印刷漂亮，适合演讲投影场景。推荐用于'新兴技术'、'未来'主题。"
+    },
+    {
+      "id": "orange",
+      "name": "安全橙 (Safety Orange)",
+      "emoji": "🟠",
+      "description": "浅米白底 + 安全橙。工业感、紧迫感、视觉锚点感，像 Saul Bass 海报或 Highway Gothic 标识系统。",
+      "recommend": ["工业/警示/运动", "施工/汽车", "技术发布会'警告/重点'页"],
+      "css": {
+        "--accent": "#FF6B35",
+        "--accent-rgb": "255,107,53",
+        "--accent-on": "#ffffff"
+      },
+      "usage": "橙色介于浅色和深色之间，白字勉强能读但建议加粗(font-weight:600+)。工业感强，适合涉及'警告'、'决策'、'转折点'的内容。不建议整页 .accent 模式，橙色满屏过于刺眼，做局部高亮即可。"
+    }
+  ],
   "rules": [
-    "一份 deck 只用一套主题，不中途换 accent",
-    "灰阶变量跨主题统一，只换 --accent / --accent-rgb / --accent-on",
-    "浅色 accent（黄、绿）必须用纯黑 --accent-on",
-    "不给 accent 加阴影、圆角、渐变、透明度",
-    "IKB 大色块有冲击力但别满屏蓝——泛滥即掉档"
+    "一份 deck 只用一套主题，不中途换 accent 色",
+    "不允许混搭（IKB 蓝 + 柠檬黄同时出现作高亮）——违反瑞士风'单一锚点色'原则",
+    "不允许用户自定义任意 hex 值——展示 4 套预设让选",
+    "不要改灰阶变量——只换 --accent / --accent-rgb / --accent-on",
+    "不要用渐变——瑞士风拒绝任何渐变，所有色块必须纯色",
+    "不要给 accent 加阴影/圆角/透明度——直角、纯色、不透明",
+    "浅色 accent（黄、绿）的 --accent-on 必须用纯黑",
+    "封面强制 .slide.accent 满屏 IKB + ascii-bg canvas；封底 .slide.split 左 IKB + 右 paper takeaway"
   ]
 }

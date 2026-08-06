@@ -1,47 +1,54 @@
 # HANDOFF — 版式画廊
 
-date: 2026-08-05
+date: 2026-08-06
 
 ## 当前状态
 
-v2 架构迁移全部完成 + studio 模板导入 + 模板展示页上线。9/9 模板 v2 合规，P0 全通过。
-服务器 `localhost:3080` 运行中。
-Git: master ahead of origin（未 push）。
+v3 架构迁移完成。tokens.json 是唯一真相源，platform/ 工具链替代 scripts/。
+28 模板全部通过 validate.mjs，服务器运行中。
+Git commit ac73491（master, ahead of origin, 未 push）。
 
-## 本次完成
+## 本次完成（Phase 1-7）
 
-### studio 模板导入
-- [x] brand.json + layout.json + design.md + template.html（11 页幻灯）
-- [x] registry.json 注册 + token-contract.json templateSpecific 豁免
-- [x] P0 验证通过
+- [x] platform/compile.mjs — tokens.json → :root CSS + body 硬编码扫描
+- [x] platform/validate.mjs — DTCG 类型校验（28/28 PASS）
+- [x] platform/recipe-generator.mjs — 27 模板 batch 迁移 brand+layout → tokens.json
+- [x] template-swiss 完整配方（hand-crafted tokens.json, themes.json, recipes.md, components.md）
+- [x] server/ + public/ 目录迁移，server.js 内联 token 逻辑（去掉 sync-roots 依赖）
+- [x] SKILL.md + guides/（how-to-pick, image-conventions, color-systems, checklist）
+- [x] brand.json + layout.json 归档到 _archive/templates/
+- [x] 旧 scripts/ 归档到 _archive/scripts/（仅保留 growth-agent.js）
+- [x] token-contract.json 移入 schemas/
+- [x] config/template-manifest.json 归档
+- [x] AGENTS.md 删除
 
-### 模板展示页 `/template/:slug`
-- [x] `scripts/render-markdown.js` — 零依赖 Markdown→HTML 转换器
-- [x] `meta/showcase.html` — 展示页模板（design.md + 调色板 + 字号刻度 + iframe 预览）
-- [x] `server.js` — `GET /template/:slug` 路由，注入模板自有 token
-- [x] `library.html` — 卡片点击改为跳转 `/template/:slug`，底部双链接（设计详情 + 品牌套件）
+## 未完成
 
-展示页功能：
-- 用模板自己的 brand.json + layout.json token 渲染整页
-- design.md 渲染为 HTML（标题、表格、列表、代码）
-- 调色板色块（仅域名颜色，过滤 MD3 标准角色）
-- 字号刻度实时演示（用实际 font-size 渲染）
-- 左侧 sticky iframe 预览模板实际效果
-
-## 待办
-
-- [ ] Google Fonts 检查：studio (Barlow, IBM Plex Mono) 中国网络可能加载失败
-- [ ] 确认推公网 + git push
-- [ ] 继续导入下一个上游模板（bold-poster 等 ~29 个）
-- [ ] brutalist-paper design.md 是 YAML 格式，可转换为 gallery markdown 格式
+- [ ] 4 个模板 body CSS 清理：8-bit-orbit(17)、brutalist-paper(97)、studio(14)、layout-gallery(3) — var() fallback 陷阱
+- [ ] 模板 design.md 仍引用 brand.json/layout.json 旧架构，需批量更新「真相源」描述
+- [ ] CLAUDE.md 仍描述 brand.json+layout.json 拆分架构（行 310-343），需更新为 tokens.json 单源
+- [ ] 推公网部署
 
 ## 关键文件
 
 | 文件 | 作用 |
 |------|------|
-| `meta/token-contract.json` | Token 命名合约 |
-| `scripts/validate-templates.js` | P0 门禁 CLI |
-| `scripts/render-markdown.js` | Markdown→HTML 转换器 |
-| `meta/showcase.html` | 模板展示页模板 |
-| `server.js` | Express 服务器 + `/template/:slug` 路由 |
-| `library.html` | 版式库（卡片→展示页） |
+| platform/compile.mjs | 编译器：tokens.json → :root CSS + body 硬编码扫描 |
+| platform/validate.mjs | DTCG 类型校验器 |
+| platform/recipe-generator.mjs | 旧模板迁移工具 |
+| platform/add-template.mjs | 新模板注册 |
+| platform/import-upstream.mjs | 上游同步 |
+| server/server.js | Express 服务器（3080） |
+| server/brand-renderer.js | 品牌套件渲染 |
+| schemas/token-contract.json | Token 命名合约 |
+| guides/checklist.md | P0 通用门禁 |
+
+## 工具链命令
+
+```bash
+node platform/validate.mjs --all          # 全量 token 校验
+node platform/compile.mjs <slug>          # 编译单个模板
+node platform/compile.mjs <slug> --check  # body CSS 扫描
+node platform/recipe-generator.mjs --all  # 批量迁移（跳过已有 tokens.json）
+node server/server.js                     # 启动服务
+```

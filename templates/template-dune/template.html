@@ -3,52 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>归藏PPT · Style A 电子杂志 · Template Gallery</title>
-
+<title>一人公司 · 被 AI 折叠的组织</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
-:root {
-  --color-primary: #333;
-  --color-secondary: #888;
-  --color-surface: #f1efea;
-  --color-on-surface: #0a0a0b;
-  --color-on-surface-variant: #18181a;
-  --color-outline: rgba(10,10,11,0.18);
-  --color-surface-container-low: #f1efea;
-  --text-rgb: 10,10,11;
-  --bg-rgb: 241,239,234;
-  --accent-rgb: 51,51,51;
-  --font-display: "Playfair Display","Source Serif 4",Georgia,serif;
-  --font-body: "Source Serif 4",Georgia,serif;
-  --font-mono: "IBM Plex Mono",ui-monospace,monospace;
-  --radius-base: 0px;
-  --radius-sm: 4px;
-  --radius-pill: 999px;
-  --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
-  --elevation-md: 0 8px 30px rgba(0,0,0,0.1);
-  --ease-standard: 0.18s ease;
-  --duration-base: 150ms;
-  --ease-page: cubic-bezier(.77,0,.175,1);
-  --dur-page: .9s;
-  --dur-slow-1: 1.2s;
-  --dur-slow-2: .7s;
-  --dur-mod-2: .24s;
-  --space-page-wmax: 1200px;
-  --space-page-pad: 32px;
-  --space-gap: 24px;
-  --space-gutter: 24px;
+  :root{
+    /* ============ 主题色(沙丘 · Dune) ============
+	       切换主题:从 references/themes.md 复制对应的 :root 块
+	       整体替换这几行(--ink / --ink-rgb / --paper / --paper-rgb)
+	       其他地方散落的 rgba() 都走 var(--ink-rgb) / var(--paper-rgb),无需逐处改 */
+	    --ink:#1f1a14;
+    --ink-rgb:31,26,20;
+    --paper:#f0e6d2;
+    --paper-rgb:240,230,210;
+    --paper-tint:#e3d7bf;
+    --ink-tint:#2d2620;
 
-  --ink: #0a0a0b;
-  --paper: #f1efea;
-  --paper-tint: #e8e5de;
-  --ink-tint: #18181a;
-}
-
-  
+    /* ============ 字体(跨主题固定) ============ */
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+    --serif-en:"Playfair Display","Source Serif 4",Georgia,serif;
+    --serif-body-en:"Source Serif 4",Georgia,serif;
+    --serif-zh:"Noto Serif SC",source-han-serif-sc,serif;
+    --sans-zh:"Noto Sans SC",source-han-sans-sc,sans-serif;
+  }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{width:100%;height:100%;overflow:hidden;background:var(--color-on-surface);color:var(--color-surface);font-family:var(--font-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var(--paper);font-family:var(--sans-zh);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 
   /* ============ WebGL 双背景 ============ */
-  canvas.bg{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;display:block;transition:opacity var(--dur-slow-1) var(--ease-standard)}
+  canvas.bg{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;display:block;transition:opacity 1.2s ease}
   canvas#bg-light{opacity:0}
   canvas#bg-dark{opacity:1}
   body.light-bg canvas#bg-light{opacity:1}
@@ -57,54 +40,55 @@
 
   /* ============ Deck 容器 + 翻页 ============ */
   /* width: NSLIDES * 100vw，会在 JS 里动态矫正 */
-  #deck{position:fixed;inset:0;width:10000vw;height:100vh;display:flex;flex-wrap:nowrap;transition:transform var(--dur-page) var(--ease-page);z-index:10;will-change:transform}
+  #deck{position:fixed;inset:0;width:10000vw;height:100vh;display:flex;flex-wrap:nowrap;transition:transform .9s cubic-bezier(.77,0,.175,1);z-index:10;will-change:transform}
   .slide{width:100vw;height:100vh;flex:0 0 100vw;position:relative;padding:6vh 6vw 10vh 6vw;display:flex;flex-direction:column;overflow:hidden}
-  .slide.light{color:var(--color-on-surface);background:var(--color-surface)}
-  .slide.dark{color:var(--color-surface);background:var(--color-on-surface)}
+  .slide.light{color:var(--ink);background:var(--paper)}
+  .slide.dark{color:var(--paper);background:var(--ink)}
 
   /* 默认页：遮罩较厚，保证文字可读 */
-  .slide::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;transition:background var(--dur-slow-2) var(--ease-standard)}
-  .slide.light::before{background:rgba(var(--bg-rgb),.78);backdrop-filter:blur(3px)}
-  .slide.dark::before{background:rgba(var(--text-rgb),.78);backdrop-filter:blur(3px)}
+  .slide::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;transition:background .7s ease}
+  .slide.light::before{background:rgba(var(--paper-rgb),.78);backdrop-filter:blur(3px)}
+  .slide.dark::before{background:rgba(var(--ink-rgb),.78);backdrop-filter:blur(3px)}
   /* Hero 页：遮罩大幅降低，让 WebGL 背景明显透出 */
-  .slide.hero.light::before{background:rgba(var(--bg-rgb),.16);backdrop-filter:none}
-  .slide.hero.dark::before{background:rgba(var(--text-rgb),.12);backdrop-filter:none}
+  .slide.hero.light::before{background:rgba(var(--paper-rgb),.16);backdrop-filter:none}
+  .slide.hero.dark::before{background:rgba(var(--ink-rgb),.12);backdrop-filter:none}
   /* Hero 页顶底微弱渐隐，保证 chrome/foot 区域可读 */
   .slide.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none}
-  .slide.hero.light::after{background:linear-gradient(180deg,rgba(var(--bg-rgb),.28) 0%,rgba(var(--bg-rgb),0) 14%,rgba(var(--bg-rgb),0) 86%,rgba(var(--bg-rgb),.28) 100%)}
-  .slide.hero.dark::after{background:linear-gradient(180deg,rgba(var(--text-rgb),.32) 0%,rgba(var(--text-rgb),0) 14%,rgba(var(--text-rgb),0) 86%,rgba(var(--text-rgb),.32) 100%)}
+  .slide.hero.light::after{background:linear-gradient(180deg,rgba(var(--paper-rgb),.28) 0%,rgba(var(--paper-rgb),0) 14%,rgba(var(--paper-rgb),0) 86%,rgba(var(--paper-rgb),.28) 100%)}
+  .slide.hero.dark::after{background:linear-gradient(180deg,rgba(var(--ink-rgb),.32) 0%,rgba(var(--ink-rgb),0) 14%,rgba(var(--ink-rgb),0) 86%,rgba(var(--ink-rgb),.32) 100%)}
 
-  /* ============ Magazine chrome：顶部 meta + 底部 foot ============ */
-  .chrome{display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--font-mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.7}
+  /* ============ Magazine chrome：顶部 meta + 底部 foot ============
+     （v1 布局 + v2 字号在此合并为唯一定义，不要在别处二次定义） */
+  .chrome{display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--mono);font-size:max(11px,.78vw);letter-spacing:.2em;text-transform:uppercase;opacity:.62}
   .chrome .left,.chrome .right{display:flex;gap:2.4em;align-items:center}
   .chrome .sep{width:40px;height:1px;background:currentColor;opacity:.4}
-  .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
-  .foot .title{font-family:var(--font-display);font-weight:400;letter-spacing:.05em;text-transform:none;opacity:.75;font-size:13px}
+  .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:max(11px,.78vw);letter-spacing:.18em;text-transform:uppercase;opacity:.5}
+  .foot .title{font-family:var(--serif-zh);font-weight:400;letter-spacing:.05em;text-transform:none;opacity:.75;font-size:13px}
 
-  .tag{display:inline-block;font-family:var(--font-mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;padding:6px 14px;border:1px solid currentColor;opacity:.85}
-  .hr{width:100%;height:1px;background:currentColor;opacity:.25;margin:3vh 0}
-  .hr.v{width:1px;height:100%;margin:0}
+  .tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;padding:6px 14px;border:1px solid currentColor;opacity:.85}
+  .rule{width:100%;height:1px;background:currentColor;opacity:.25;margin:3vh 0}
+  .rule.v{width:1px;height:100%;margin:0}
 
   /* ============ 字体规则 ============
      · 衬线（Noto Serif SC / Playfair）：大标题、重点金句、数字
      · 非衬线（Noto Sans SC）：正文描述、body、补充说明
      · 等宽（IBM Plex Mono）：kicker、meta 小标签、foot 右侧
   */
-  .kicker{font-family:var(--font-mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;opacity:.6;margin-bottom:2.6vh}
-  .display{font-family:var(--font-display);font-weight:700;font-size:11vw;line-height:.92;letter-spacing:-.025em}
-  .display-zh{font-family:var(--font-display);font-weight:700;font-size:7.8vw;line-height:1.04;letter-spacing:-.005em}
-  .h1-zh{font-family:var(--font-display);font-weight:700;font-size:4.6vw;line-height:1.12;letter-spacing:-.005em}
-  .h2-zh{font-family:var(--font-display);font-weight:600;font-size:3.2vw;line-height:1.2;letter-spacing:0}
-  .h3-zh{font-family:var(--font-display);font-weight:500;font-size:1.9vw;line-height:1.35}
-  .body-zh{font-family:var(--font-body);font-weight:400;font-size:max(15px,1.22vw);line-height:1.75;opacity:.82;letter-spacing:.01em}
-  .body-serif{font-family:var(--font-display);font-weight:400;font-size:max(15px,1.3vw);line-height:1.65;opacity:.88}
-  .lead{font-family:var(--font-display);font-weight:400;font-size:1.9vw;line-height:1.4;opacity:.85}
-  .meta{font-family:var(--font-mono);font-size:max(11px,.88vw);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
-  .big-num{font-family:var(--font-display);font-weight:800;font-size:10vw;line-height:.85;letter-spacing:-.03em;font-feature-settings:"tnum"}
-  .mid-num{font-family:var(--font-display);font-weight:700;font-size:5.5vw;line-height:.88;letter-spacing:-.02em;font-feature-settings:"tnum"}
-  .ghost{font-family:var(--font-display);font-weight:900;font-size:34vw;line-height:.8;opacity:.06;letter-spacing:-.04em;position:absolute;font-feature-settings:"tnum"}
-  em{font-style:italic;font-family:var(--font-display)}
-  .en{font-family:var(--font-display);font-style:italic;font-weight:500}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;opacity:.6;margin-bottom:2.6vh}
+  .display{font-family:var(--serif-en);font-weight:700;font-size:11vw;line-height:.92;letter-spacing:-.025em}
+  .display-zh{font-family:var(--serif-zh);font-weight:700;font-size:7.8vw;line-height:1.04;letter-spacing:-.005em}
+  .h1-zh{font-family:var(--serif-zh);font-weight:700;font-size:4.6vw;line-height:1.12;letter-spacing:-.005em}
+  .h2-zh{font-family:var(--serif-zh);font-weight:600;font-size:3.2vw;line-height:1.2;letter-spacing:0}
+  .h3-zh{font-family:var(--serif-zh);font-weight:500;font-size:1.9vw;line-height:1.35}
+  .body-zh{font-family:var(--sans-zh);font-weight:400;font-size:max(15px,1.22vw);line-height:1.75;opacity:.82;letter-spacing:.01em}
+  .body-serif{font-family:var(--serif-zh);font-weight:400;font-size:max(15px,1.3vw);line-height:1.65;opacity:.88}
+  .lead{font-family:var(--serif-zh);font-weight:400;font-size:1.75vw;line-height:1.5;opacity:.86}
+  .meta{font-family:var(--mono);font-size:max(11px,.88vw);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
+  .big-num{font-family:var(--serif-en);font-weight:800;font-size:10vw;line-height:.85;letter-spacing:-.03em;font-feature-settings:"tnum"}
+  .mid-num{font-family:var(--serif-en);font-weight:700;font-size:5.5vw;line-height:.88;letter-spacing:-.02em;font-feature-settings:"tnum"}
+  .ghost{font-family:var(--serif-en);font-weight:900;font-size:34vw;line-height:.8;opacity:.06;letter-spacing:-.04em;position:absolute;font-feature-settings:"tnum"}
+  em{font-style:italic;font-family:var(--serif-en)}
+  .en{font-family:var(--serif-en);font-style:italic;font-weight:500}
 
   /* ============ 布局工具 ============ */
   .col{display:flex;flex-direction:column;gap:2.4vh}
@@ -123,43 +107,43 @@
 
   /* ============ Stat（数字矩阵） ============ */
   .stat{display:flex;flex-direction:column;gap:1vh;align-items:flex-start}
-  .stat .n{font-family:var(--font-display);font-weight:800;font-size:8vw;line-height:.88;letter-spacing:-.03em;font-feature-settings:"tnum"}
-  .stat .l{font-family:var(--font-body);font-size:max(13px,1.05vw);opacity:.7;margin-top:1vh;font-weight:400;line-height:1.5}
-  .stat .m{font-family:var(--font-mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.5;margin-bottom:.2vh}
+  .stat .n{font-family:var(--serif-en);font-weight:800;font-size:8vw;line-height:.88;letter-spacing:-.03em;font-feature-settings:"tnum"}
+  .stat .l{font-family:var(--sans-zh);font-size:max(13px,1.05vw);opacity:.7;margin-top:1vh;font-weight:400;line-height:1.5}
+  .stat .m{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.5;margin-bottom:.2vh}
 
   /* ============ Callout（引用框） ============ */
-  .callout{padding:3vh 2.4vw;border-left:3px solid currentColor;position:relative;font-family:var(--font-display);font-size:max(15px,1.2vw);line-height:1.55;opacity:.92}
-  .slide.light .callout{background:rgba(var(--text-rgb),.05)}
-  .slide.dark .callout{background:rgba(var(--bg-rgb),.06)}
-  .callout .cite{display:block;margin-top:1.6vh;font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
-  .callout .q-big{font-family:var(--font-display);font-weight:600;font-size:max(17px,1.6vw);line-height:1.42}
+  .callout{padding:3vh 2.4vw;border-left:3px solid currentColor;position:relative;font-family:var(--serif-zh);font-size:max(15px,1.2vw);line-height:1.55;opacity:.92}
+  .slide.light .callout{background:rgba(var(--ink-rgb),.05)}
+  .slide.dark .callout{background:rgba(var(--paper-rgb),.06)}
+  .callout .cite{display:block;margin-top:1.6vh;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+  .callout .q-big{font-family:var(--serif-zh);font-weight:600;font-size:max(17px,1.6vw);line-height:1.42}
 
   /* ============ Platform（平台卡） ============ */
   .plat{display:flex;flex-direction:column;justify-content:flex-end;padding:2vh 0;border-top:1px solid currentColor;border-color:rgba(127,127,127,.35)}
-  .plat .name{font-family:var(--font-display);font-weight:700;font-size:1.8vw;margin-bottom:.6vh}
-  .plat .nb{font-family:var(--font-display);font-weight:700;font-size:3.2vw;letter-spacing:-.02em;line-height:1;font-feature-settings:"tnum"}
-  .plat .sub{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-top:.6vh}
-  .plat .fill{font-family:var(--font-body);font-weight:300;font-size:2.4vw;opacity:.28;letter-spacing:-.01em;line-height:1}
+  .plat .name{font-family:var(--serif-zh);font-weight:700;font-size:1.8vw;margin-bottom:.6vh}
+  .plat .nb{font-family:var(--serif-en);font-weight:700;font-size:3.2vw;letter-spacing:-.02em;line-height:1;font-feature-settings:"tnum"}
+  .plat .sub{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-top:.6vh}
+  .plat .fill{font-family:var(--sans-zh);font-weight:300;font-size:2.4vw;opacity:.28;letter-spacing:-.01em;line-height:1}
 
   /* ============ Rowline（表格行） ============ */
   .rowline{display:grid;grid-template-columns:1fr 2fr 1fr;gap:2vw;padding:2.2vh 0;border-top:1px solid currentColor;align-items:center;border-color:rgba(127,127,127,.25)}
   .rowline:last-child{border-bottom:1px solid currentColor;border-color:rgba(127,127,127,.25)}
-  .rowline .k{font-family:var(--font-display);font-weight:700;font-size:1.7vw}
-  .rowline .v{font-family:var(--font-body);font-weight:400;font-size:max(14px,1.2vw);opacity:.85;line-height:1.55}
-  .rowline .m{font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6;justify-self:end}
+  .rowline .k{font-family:var(--serif-zh);font-weight:700;font-size:1.7vw}
+  .rowline .v{font-family:var(--sans-zh);font-weight:400;font-size:max(14px,1.2vw);opacity:.85;line-height:1.55}
+  .rowline .m{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6;justify-self:end}
 
   /* ============ Pillar（支柱卡片） ============ */
   .pillar{display:flex;flex-direction:column;gap:1.8vh}
-  .pillar .ic{font-family:var(--font-display);font-style:italic;font-size:2.6vw;opacity:.45;font-weight:400}
+  .pillar .ic{font-family:var(--serif-en);font-style:italic;font-size:2.6vw;opacity:.45;font-weight:400}
   .pillar .ic svg{width:2.8vw;height:2.8vw;stroke-width:1.2;opacity:.7}
-  .pillar .t{font-family:var(--font-display);font-weight:700;font-size:2.4vw;line-height:1.1}
-  .pillar .d{font-family:var(--font-body);font-weight:400;font-size:max(14px,1.1vw);opacity:.76;line-height:1.6}
+  .pillar .t{font-family:var(--serif-zh);font-weight:700;font-size:2.4vw;line-height:1.1}
+  .pillar .d{font-family:var(--sans-zh);font-weight:400;font-size:max(14px,1.1vw);opacity:.76;line-height:1.6}
 
   /* ============ Signature / Highlight ============ */
-  .sign{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:2vw;opacity:.7}
+  .sign{font-family:var(--serif-en);font-style:italic;font-weight:500;font-size:2vw;opacity:.7}
   .hi{position:relative;display:inline}
-  .slide.dark .hi::after{content:"";position:absolute;left:-.1em;right:-.1em;bottom:-.05em;height:.28em;background:rgba(var(--bg-rgb),.15);z-index:-1}
-  .slide.light .hi::after{content:"";position:absolute;left:-.1em;right:-.1em;bottom:-.05em;height:.28em;background:rgba(var(--text-rgb),.08);z-index:-1}
+  .slide.dark .hi::after{content:"";position:absolute;left:-.1em;right:-.1em;bottom:-.05em;height:.28em;background:rgba(var(--paper-rgb),.15);z-index:-1}
+  .slide.light .hi::after{content:"";position:absolute;left:-.1em;right:-.1em;bottom:-.05em;height:.28em;background:rgba(var(--ink-rgb),.08);z-index:-1}
 
   /* ============ Icons（Lucide via CDN） ============ */
   .ico{width:1em;height:1em;display:inline-block;vertical-align:-.12em;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
@@ -169,7 +153,7 @@
   .ico-sm{width:1.1vw;height:1.1vw;stroke-width:1.4;display:inline-block;vertical-align:-.15em;opacity:.7}
 
   /* ============ 图片占位（虚线框，提示设计师位置） ============ */
-  .img-slot{border:1.5px dashed rgba(127,127,127,.4);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1vh;padding:2vh 2vw;font-family:var(--font-mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;opacity:.55;position:relative;aspect-ratio:16/9;width:100%;max-height:56vh;margin-inline:auto;box-sizing:border-box}
+  .img-slot{border:1.5px dashed rgba(127,127,127,.4);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1vh;padding:2vh 2vw;font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;opacity:.55;position:relative;aspect-ratio:16/9;width:100%;max-height:56vh;margin-inline:auto;box-sizing:border-box}
   .img-slot::before{content:"";position:absolute;inset:8px;border:1px solid currentColor;opacity:.2}
   .img-slot .plus{font-size:2vw;font-weight:300;opacity:.5;letter-spacing:0}
   .img-slot .label{position:relative;z-index:2;text-align:center}
@@ -181,7 +165,7 @@
      重要约束：高度用内联 height:Nvh 精确控制，不要用 aspect-ratio（会撑破布局）
      object-position:top center 保证严禁裁剪顶部和左右，只裁剪底部
   */
-  .frame-img{overflow:hidden;position:relative;background:rgba(0,0,0,.04);box-sizing:border-box;width:100%;border-radius:var(--radius-sm)}
+  .frame-img{overflow:hidden;position:relative;background:rgba(0,0,0,.04);box-sizing:border-box;width:100%;border-radius:4px}
   .slide.dark .frame-img{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12)}
   .frame-img > img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
   .frame-img.fit-contain > img{object-fit:contain;object-position:center center}
@@ -196,24 +180,24 @@
   .frame-img.h-22{height:22vh}
   .frame-img.h-26{height:26vh}
   .frame-img.h-28{height:28vh}
-  .frame-cap{display:flex;justify-content:space-between;align-items:baseline;gap:1vw;margin-top:.8vh;font-family:var(--font-mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.72}
-  .frame-cap .pf{font-family:var(--font-display);font-weight:600;font-size:max(13px,1vw);letter-spacing:.04em;text-transform:none;opacity:.94}
-  .frame-cap .nb{font-family:var(--font-display);font-style:italic;font-size:max(15px,1.2vw);letter-spacing:.02em;text-transform:none;opacity:.88}
-  .frame-cap .idx{font-family:var(--font-mono);opacity:.5}
+  .frame-cap{display:flex;justify-content:space-between;align-items:baseline;gap:1vw;margin-top:.8vh;font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.72}
+  .frame-cap .pf{font-family:var(--serif-zh);font-weight:600;font-size:max(13px,1vw);letter-spacing:.04em;text-transform:none;opacity:.94}
+  .frame-cap .nb{font-family:var(--serif-en);font-style:italic;font-size:max(15px,1.2vw);letter-spacing:.02em;text-transform:none;opacity:.88}
+  .frame-cap .idx{font-family:var(--mono);opacity:.5}
   figure.tile{display:flex;flex-direction:column;margin:0;min-width:0}
   figure.tile > .frame-img{flex:0 0 auto}
 
   /* ============ 导航 ============ */
-  #nav{position:fixed;left:50%;bottom:2.6vh;transform:translateX(-50%);z-index:30;display:flex;gap:10px;padding:8px 14px;border-radius:var(--radius-pill);background:rgba(0,0,0,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-  #nav .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all var(--dur-mod-2) var(--ease-standard);border:0;padding:0}
+  #nav{position:fixed;left:50%;bottom:2.6vh;transform:translateX(-50%);z-index:30;display:flex;gap:10px;padding:8px 14px;border-radius:999px;background:rgba(0,0,0,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  #nav .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s ease;border:0;padding:0}
   #nav .dot:hover{background:rgba(255,255,255,.5);transform:scale(1.15)}
-  #nav .dot.active{background:rgba(255,255,255,.95);width:22px;border-radius:var(--radius-pill)}
+  #nav .dot.active{background:rgba(255,255,255,.95);width:22px;border-radius:999px}
   body.light-bg #nav{background:rgba(255,255,255,.25)}
-  body.light-bg #nav .dot{background:rgba(var(--text-rgb),.25)}
-  body.light-bg #nav .dot.active{background:rgba(var(--text-rgb),.9)}
-  #hint{position:fixed;bottom:3vh;right:3vw;z-index:30;font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.4;mix-blend-mode:difference;color:#aaa}
-  body.low-power #hint{opacity:.72;color:var(--color-surface);mix-blend-mode:normal}
-  body.light-bg.low-power #hint{color:var(--color-on-surface)}
+  body.light-bg #nav .dot{background:rgba(var(--ink-rgb),.25)}
+  body.light-bg #nav .dot.active{background:rgba(var(--ink-rgb),.9)}
+  #hint{position:fixed;bottom:3vh;right:3vw;z-index:30;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.4;mix-blend-mode:difference;color:#aaa}
+  body.low-power #hint{opacity:.72;color:var(--paper);mix-blend-mode:normal}
+  body.light-bg.low-power #hint{color:var(--ink)}
 
   /* ============================================================
      ============ LAYOUTS API · 面向 agent 的类（v2）============
@@ -232,21 +216,21 @@
 
   /* ---------- 标题层级（API 名称，衬线为主） ---------- */
   .h-hero{
-    font-family:var(--font-display);
+    font-family:var(--serif-zh);
     font-weight:900;
     font-size:10vw;
     line-height:.96;
     letter-spacing:-.02em;
   }
   .h-xl{
-    font-family:var(--font-display);
+    font-family:var(--serif-zh);
     font-weight:700;
     font-size:6.2vw;
     line-height:1.08;
     letter-spacing:-.01em;
   }
   .h-sub{
-    font-family:var(--font-display);
+    font-family:var(--serif-zh);
     font-weight:500;
     font-size:3.1vw;
     line-height:1.25;
@@ -254,22 +238,15 @@
     opacity:.7;
   }
   .h-md{
-    font-family:var(--font-display);
+    font-family:var(--serif-zh);
     font-weight:600;
     font-size:2.3vw;
     line-height:1.3;
   }
   /* 英文标题专用（Playfair 衬线） */
-  .h-hero-en,.h-xl-en{font-family:var(--font-display);letter-spacing:-.025em}
+  .h-hero-en,.h-xl-en{font-family:var(--serif-en);letter-spacing:-.025em}
 
-  /* ---------- lead 引语 ---------- */
-  .lead{
-    font-family:var(--font-display);
-    font-weight:400;
-    font-size:1.75vw;
-    line-height:1.5;
-    opacity:.86;
-  }
+  /* ---------- lead 引语：定义见上方“字体规则”区块（已合并，勿重复定义） ---------- */
 
   /* ---------- meta-row 底部元数据 ---------- */
   .meta-row{
@@ -277,7 +254,7 @@
     gap:1.2em;
     align-items:baseline;
     flex-wrap:wrap;
-    font-family:var(--font-mono);
+    font-family:var(--mono);
     font-size:max(12px,.92vw);
     letter-spacing:.16em;
     text-transform:uppercase;
@@ -295,14 +272,14 @@
     border-color:rgba(127,127,127,.3);
   }
   .stat-card .stat-label{
-    font-family:var(--font-mono);
+    font-family:var(--mono);
     font-size:max(10px,.78vw);
     letter-spacing:.24em;
     text-transform:uppercase;
     opacity:.55;
   }
   .stat-card .stat-nb{
-    font-family:var(--font-display);
+    font-family:var(--serif-en);
     font-weight:800;
     font-size:5.8vw;
     line-height:.9;
@@ -311,7 +288,7 @@
     margin-top:.4vh;
   }
   .stat-card .stat-nb .stat-unit{
-    font-family:var(--font-display);
+    font-family:var(--serif-zh);
     font-weight:500;
     font-size:.38em;
     letter-spacing:0;
@@ -319,7 +296,7 @@
     margin-left:.14em;
   }
   .stat-card .stat-note{
-    font-family:var(--font-body);
+    font-family:var(--sans-zh);
     font-weight:400;
     font-size:max(13px,1.05vw);
     line-height:1.5;
@@ -343,7 +320,7 @@
     margin-top:3vh;
   }
   .pipeline-label{
-    font-family:var(--font-mono);
+    font-family:var(--mono);
     font-size:max(11px,.85vw);
     letter-spacing:.24em;
     text-transform:uppercase;
@@ -367,21 +344,21 @@
     border-color:rgba(127,127,127,.35);
   }
   .step-nb{
-    font-family:var(--font-display);
+    font-family:var(--serif-en);
     font-style:italic;
     font-weight:500;
     font-size:1.15vw;
     opacity:.45;
   }
   .step-title{
-    font-family:var(--font-body);
+    font-family:var(--sans-zh);
     font-weight:700;
     font-size:1.55vw;
     letter-spacing:.01em;
     line-height:1.2;
   }
   .step-desc{
-    font-family:var(--font-body);
+    font-family:var(--sans-zh);
     font-weight:400;
     font-size:max(12px,.95vw);
     line-height:1.45;
@@ -404,10 +381,14 @@
   /* ---------- 图片 frame-img（layouts.md 主命名） ---------- */
   /* 在旧样式里已定义，这里补 img-cap 命名别名与增强 */
   figure.frame-img{margin:0;display:flex;flex-direction:column;min-width:0}
+  /* 有图注时:图片弹性收缩,图注收进固定高度/比例框内部,
+     否则 img 的 height:100% 会把 figcaption 挤出 overflow:hidden 裁掉 */
+  figure.frame-img:has(> .img-cap) > img{flex:1 1 auto;min-height:0;height:auto}
   .img-cap{
     display:block;
-    margin-top:.8vh;
-    font-family:var(--font-mono);
+    flex:0 0 auto;
+    padding:.7vh .9em .9vh;
+    font-family:var(--mono);
     font-size:max(10px,.8vw);
     letter-spacing:.22em;
     text-transform:uppercase;
@@ -417,16 +398,14 @@
   .callout-src{
     display:block;
     margin-top:1.6vh;
-    font-family:var(--font-mono);
+    font-family:var(--mono);
     font-size:11px;
     letter-spacing:.2em;
     text-transform:uppercase;
     opacity:.6;
   }
 
-  /* ---------- chrome & foot 补位（layouts.md 简单写法） ---------- */
-  .chrome{font-family:var(--font-mono);font-size:max(11px,.78vw);letter-spacing:.2em;text-transform:uppercase;opacity:.62}
-  .foot{font-family:var(--font-mono);font-size:max(11px,.78vw);letter-spacing:.18em;text-transform:uppercase;opacity:.5}
+  /* ---------- chrome & foot：定义见上方“Magazine chrome”区块（已合并，勿重复定义） ---------- */
 
   /* ============ 动效系统(Motion One 驱动) ============
      所有 [data-anim] 元素默认隐藏,进入页面时由 JS 逐个揭示。
@@ -449,6 +428,8 @@
   body.low-power *::after{animation:none!important;transition:none!important}
   body.low-power.motion-ready [data-anim],
   body.low-power [data-anim]{opacity:1!important;transform:none!important}
+  /* ESC 索引缩略图：克隆的 slide 不经过动效播放，强制显示所有待动画元素 */
+  #overview [data-anim]{opacity:1!important;transform:none!important}
 
   /* ---------- 响应式降级 ---------- */
   @media (max-width:900px){
@@ -460,21 +441,6 @@
     .pipeline{grid-template-columns:repeat(2,1fr)}
     .grid-2-7-5,.grid-2-6-6,.grid-2-8-4{grid-template-columns:1fr}
   }
-
-  /* ============ Design System Slides ============ */
-  .s-ds-rules .rules{display:grid;grid-template-columns:1fr 1fr;gap:2.4vh 2vw;flex:1;align-content:center}
-  .s-ds-rules .rule{padding:2.4vh 0 0 0;border-top:2px solid var(--paper);display:flex;flex-direction:column;gap:1vh}
-  .s-ds-rules .rule .n{font-family:var(--font-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.5}
-  .s-ds-rules .rule .t{font-family:var(--font-display);font-weight:700;font-size:1.6vw;line-height:1.2}
-  .s-ds-rules .rule .d{font-family:var(--font-body);font-size:max(13px,1vw);line-height:1.5;opacity:.7}
-  .s-ds-type .tr{display:grid;grid-template-columns:180px 1fr 100px;align-items:baseline;gap:2vw;padding:1.2vh 0;border-top:1px solid var(--color-outline)}
-  .s-ds-type .tr .label{font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.55}
-  .s-ds-type .tr .spec{font-family:var(--font-mono);font-size:10px;opacity:.45;text-align:right}
-  .s-ds-palette .swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6vh 1.4vw;flex:1;align-content:center}
-  .s-ds-palette .swatch{display:flex;flex-direction:column;gap:1vh;padding:1.6vh 1.2vw}
-  .s-ds-palette .swatch .chip{width:100%;height:6vh}
-  .s-ds-palette .swatch .name{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.6}
-  .s-ds-palette .swatch .hex{font-family:var(--font-mono);font-size:12px;opacity:.8}
 </style>
 </head>
 <body>
@@ -511,186 +477,146 @@
 <div id="deck">
 
 <!-- ============================================================
-     SLIDES · 10 种布局骨架全量展示 · 见 recipes.md
+     SLIDES 插入区 · 在此处填充所有 <section class="slide ..."> 页面
+     每页模板参考 references/page-patterns.md
+     页面组件参考 references/components.md
      ============================================================ -->
 
-<!-- ═══════════ L1 · Hero Cover · 开场封面 ═══════════ -->
+<!-- ============ 01 · Hero Cover ============ -->
 <section class="slide hero dark">
   <div class="chrome">
-    <div>版式画廊 · Style A</div>
-    <div>01 / 10</div>
+    <div>A Talk · 2026.04.22</div>
+    <div>Vol.01 · 01 / 10</div>
   </div>
   <div class="frame" style="display:grid; gap:4vh; align-content:center; min-height:80vh">
-    <div class="kicker" data-anim>Layout 1 · Hero Cover</div>
-    <h1 class="h-hero" data-anim>电子杂志</h1>
-    <h2 class="h-sub" data-anim>电子墨水 × 衬线权威</h2>
+    <div class="kicker" data-anim>私享会 · 李继刚</div>
+    <h1 class="h-hero" data-anim>一人公司</h1>
+    <h2 class="h-sub" data-anim>被 AI 折叠的组织</h2>
     <p class="lead" style="max-width:60vw" data-anim>
-      Playfair Display + Source Serif 4 构建知识权威感。WebGL 双背景暗底全息色散，亮底旋转涡流。
+      一个 AI 创作者 —— 在 64 天里做了 11 万行代码、在 9 个平台上持续输出，生活节奏几乎没有被改变。
     </p>
     <div class="meta-row" data-anim>
-      <span>Style A</span><span>·</span><span>电子杂志 × 电子墨水 · 10 种布局</span>
+      <span>歸藏 Guizang</span><span>·</span><span>独立创作者 / CodePilot 作者</span>
     </div>
   </div>
   <div class="foot">
-    <div>版式画廊 · 布局骨架全量展示</div>
+    <div>一场关于 AI · 组织 · 个体的分享</div>
     <div>— 2026 —</div>
   </div>
 </section>
 
-<!-- ═══════════ L2 · Act Divider · 章节幕封 ═══════════ -->
-<section class="slide hero light">
-  <div class="chrome">
-    <div>第二页 · 章节过渡</div>
-    <div>02 / 10</div>
-  </div>
-  <div class="frame" style="display:grid; gap:6vh; align-content:center; min-height:80vh">
-    <div class="kicker" data-anim>Layout 2 · Act Divider</div>
-    <h1 class="h-hero" style="font-size:8.5vw" data-anim>章节幕封</h1>
-    <p class="lead" style="max-width:55vw" data-anim>
-      极简过渡页 —— kicker + 大标题 + 一行引语。hero light 与 hero dark 交替制造呼吸节奏。
-    </p>
-  </div>
-  <div class="foot">
-    <div>章节幕封 · 呼吸节奏</div>
-    <div>— · —</div>
-  </div>
-</section>
-
-<!-- ═══════════ L3 · Big Numbers · 数据大字报 ═══════════ -->
+<!-- ============ 02 · Big Numbers ============ -->
 <section class="slide light">
   <div class="chrome">
-    <div>数据篇 · 硬数字</div>
-    <div>03 / 10</div>
+    <div>过去 64 天 · 开发篇</div>
+    <div>Act I / Dev · 02 / 10</div>
   </div>
   <div class="frame" style="padding-top:3vh">
-    <div class="kicker" data-anim>Layout 3 · Big Numbers</div>
-    <h2 class="h-xl" data-anim>数据大字报</h2>
-    <p class="lead" style="margin-bottom:2vh" data-anim>3×2 网格 + stat-card 三段式（标签/数字/注释）。数字 2-3 位，K/M 简写。</p>
+    <div class="kicker" data-anim>一个人，做了什么。</div>
+    <h2 class="h-xl" data-anim>过去 64 天</h2>
+    <p class="lead" style="margin-bottom:2vh" data-anim>从 0 到开源 CodePilot。</p>
 
     <div class="grid-6" style="margin-top:2vh">
       <div class="stat-card" data-anim>
-        <div class="stat-label">Design Tokens</div>
-        <div class="stat-nb">128 <span class="stat-unit">个</span></div>
-        <div class="stat-note">颜色 / 间距 / 字号原子变量</div>
+        <div class="stat-label">Duration</div>
+        <div class="stat-nb">64 <span class="stat-unit">天</span></div>
+        <div class="stat-note">从 0 到现在</div>
       </div>
       <div class="stat-card" data-anim>
-        <div class="stat-label">Components</div>
-        <div class="stat-nb">46</div>
-        <div class="stat-note">原子到复合，全量可复用</div>
+        <div class="stat-label">Lines of Code</div>
+        <div class="stat-nb">110K+</div>
+        <div class="stat-note">一行行写到 11 万+</div>
       </div>
       <div class="stat-card" data-anim>
-        <div class="stat-label">Templates</div>
-        <div class="stat-nb">10</div>
-        <div class="stat-note">10 种布局骨架覆盖全场景</div>
+        <div class="stat-label">GitHub Stars</div>
+        <div class="stat-nb">5,166</div>
+        <div class="stat-note">一个开源仓库</div>
       </div>
       <div class="stat-card" data-anim>
-        <div class="stat-label">Themes</div>
-        <div class="stat-nb">5</div>
-        <div class="stat-note">墨水经典 / 靛蓝瓷 / 森林墨 / 牛皮纸 / 沙丘</div>
+        <div class="stat-label">Downloads</div>
+        <div class="stat-nb">41K+</div>
+        <div class="stat-note">装到了几万台电脑里</div>
       </div>
       <div class="stat-card" data-anim>
-        <div class="stat-label">Motion Recipes</div>
-        <div class="stat-nb">5</div>
-        <div class="stat-note">cascade / hero / quote / directional / pipeline</div>
+        <div class="stat-label">AI Providers</div>
+        <div class="stat-nb">19</div>
+        <div class="stat-note">跨平台接入</div>
       </div>
       <div class="stat-card" data-anim>
-        <div class="stat-label">Grid System</div>
-        <div class="stat-nb">6</div>
-        <div class="stat-note">6 种网格：6-6 / 7-5 / 8-4 / 3-3 / 6 / 3</div>
+        <div class="stat-label">Commits</div>
+        <div class="stat-nb">608+</div>
+        <div class="stat-note">没有协作者</div>
       </div>
     </div>
   </div>
   <div class="foot">
-    <div>Layout 3 · Big Numbers Grid</div>
-    <div>03 / 10</div>
+    <div>项目 · CodePilot　|　github.com/codepilot</div>
+    <div>Act I · Dev Numbers</div>
   </div>
 </section>
 
-<!-- ═══════════ L4 · Quote + Image · 左文右图 ═══════════ -->
+<!-- ============ 03 · Left Text + Right Image ============ -->
 <section class="slide dark">
   <div class="chrome">
-    <div>左文右图 · 杂志主力布局</div>
-    <div>04 / 10</div>
+    <div>身份反差 · The Twist</div>
+    <div>03 / 10</div>
   </div>
   <div class="frame grid-2-7-5" style="padding-top:6vh">
     <div style="display:flex; flex-direction:column; justify-content:space-between; gap:3vh">
       <div>
-        <div class="kicker" data-anim>Layout 4 · Quote + Image</div>
+        <div class="kicker" data-anim>BUT</div>
         <h2 class="h-xl" style="white-space:nowrap; font-size:7.2vw" data-anim>
-          左文右图
+          我不是程序员。
         </h2>
         <p class="lead" style="margin-top:3vh" data-anim>
-          grid-2-7-5（7:5）。左列 flex column + space-between：标题贴顶，callout 贴底。右列图片用标准比例 16:10，不加 align-self:end。
+          大学毕业之后再也没写过一行代码。过去十年做的是 UI 设计和 AI 特效。
         </p>
       </div>
       <div class="callout" data-anim>
-        "左文右图是杂志正文节奏主力 —— 必须 light/dark 交替，不能连续 3 页同色。"
-        <div class="callout-src">— recipes.md § 主题节奏</div>
+        "这东西在三年前，<br>
+        需要一个十人团队做一年。"
+        <div class="callout-src">— 一个观察者的判断</div>
       </div>
     </div>
     <figure class="frame-img r-16x10" data-anim>
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect fill='%23e8e5de' width='800' height='500'/%3E%3Ctext x='400' y='260' text-anchor='middle' font-family='Georgia,serif' font-size='24' fill='%2318181a' opacity='0.5'%3E16:10 图片位%3C/text%3E%3C/svg%3E" alt="16:10 占位图">
-      <figcaption class="img-cap">.frame-img.r-16x10 · 标准比例</figcaption>
+      <img src="images/codepilot.png" alt="CodePilot 产品截图">
+      <figcaption class="img-cap">CodePilot · 产品截图</figcaption>
     </figure>
   </div>
   <div class="foot">
-    <div>Layout 4 · 左文右图</div>
+    <div>Page 03 · 我不是程序员</div>
     <div>— · —</div>
   </div>
 </section>
 
-<!-- ═══════════ L5 · Image Grid · 图片网格 ═══════════ -->
-<section class="slide light">
+<!-- ============ 04 · Act Divider ============ -->
+<section class="slide hero light">
   <div class="chrome">
-    <div>图片网格 · 多图对比</div>
-    <div>05 / 10</div>
+    <div>第二幕 · 工作流</div>
+    <div>Act II · 04 / 10</div>
   </div>
-  <div class="frame" style="padding-top:3vh">
-    <div class="kicker" data-anim>Layout 5 · Image Grid</div>
-    <h2 class="h-xl" data-anim>图片网格 · 3×2</h2>
-
-    <div class="grid-3-3" style="margin-top:3vh">
-      <figure class="frame-img" style="height:26vh" data-anim>
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23f0f0ee' width='400' height='300'/%3E%3Ctext x='200' y='160' text-anchor='middle' font-family='monospace' font-size='14' fill='%23737373'%3E图 1%3C/text%3E%3C/svg%3E" alt="占位图 1">
-        <figcaption class="img-cap">图 1 · 固定高度 26vh</figcaption>
-      </figure>
-      <figure class="frame-img" style="height:26vh" data-anim>
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23e8e5de' width='400' height='300'/%3E%3Ctext x='200' y='160' text-anchor='middle' font-family='monospace' font-size='14' fill='%23737373'%3E图 2%3C/text%3E%3C/svg%3E" alt="占位图 2">
-        <figcaption class="img-cap">图 2 · 同组统一高度</figcaption>
-      </figure>
-      <figure class="frame-img" style="height:26vh" data-anim>
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23f0f0ee' width='400' height='300'/%3E%3Ctext x='200' y='160' text-anchor='middle' font-family='monospace' font-size='14' fill='%23737373'%3E图 3%3C/text%3E%3C/svg%3E" alt="占位图 3">
-        <figcaption class="img-cap">图 3 · object-fit:cover</figcaption>
-      </figure>
-      <figure class="frame-img" style="height:26vh" data-anim>
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23e8e5de' width='400' height='300'/%3E%3Ctext x='200' y='160' text-anchor='middle' font-family='monospace' font-size='14' fill='%23737373'%3E图 4%3C/text%3E%3C/svg%3E" alt="占位图 4">
-        <figcaption class="img-cap">图 4 · 只裁底部</figcaption>
-      </figure>
-      <figure class="frame-img" style="height:26vh" data-anim>
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23f0f0ee' width='400' height='300'/%3E%3Ctext x='200' y='160' text-anchor='middle' font-family='monospace' font-size='14' fill='%23737373'%3E图 5%3C/text%3E%3C/svg%3E" alt="占位图 5">
-        <figcaption class="img-cap">图 5 · top center 对齐</figcaption>
-      </figure>
-      <figure class="frame-img" style="height:26vh" data-anim>
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23e8e5de' width='400' height='300'/%3E%3Ctext x='200' y='160' text-anchor='middle' font-family='monospace' font-size='14' fill='%23737373'%3E图 6%3C/text%3E%3C/svg%3E" alt="占位图 6">
-        <figcaption class="img-cap">图 6 · 3×2 双行上限</figcaption>
-      </figure>
-    </div>
+  <div class="frame" style="display:grid; gap:6vh; align-content:center; min-height:80vh">
+    <div class="kicker" data-anim>Act II</div>
+    <h1 class="h-hero" style="font-size:8.5vw" data-anim>工作流</h1>
+    <p class="lead" style="max-width:55vw" data-anim>
+      一个人如何运转九条内容线，同时维护一个开源项目。
+    </p>
   </div>
   <div class="foot">
-    <div>Layout 5 · 图片网格 3×2</div>
-    <div>05 / 10</div>
+    <div>第二幕引子</div>
+    <div>— · —</div>
   </div>
 </section>
 
-<!-- ═══════════ L6 · Pipeline · 流水线 ═══════════ -->
+<!-- ============ 05 · Pipeline ============ -->
 <section class="slide light" data-animate="pipeline">
   <div class="chrome">
-    <div>工作流 · 分步推进</div>
-    <div>06 / 10</div>
+    <div>我的工作流 · Workflow</div>
+    <div>Act II · 05 / 10</div>
   </div>
   <div class="frame">
-    <div class="kicker">Layout 6 · Pipeline</div>
-    <h2 class="h-xl">流水线 · 按 → 逐步点亮</h2>
+    <div class="kicker">Pipeline · 流水线</div>
+    <h2 class="h-xl">两条流水线</h2>
 
     <div class="pipeline-section">
       <div class="pipeline-label">文本侧 · Text Pipeline</div>
@@ -708,7 +634,7 @@
         <div class="step" data-anim="step">
           <div class="step-nb">03</div>
           <div class="step-title">Morph</div>
-          <div class="step-desc">AI 变形多平台</div>
+          <div class="step-desc">AI 变形适配各平台</div>
         </div>
         <div class="step" data-anim="step">
           <div class="step-nb">04</div>
@@ -724,156 +650,201 @@
     </div>
 
     <div class="pipeline-section">
-      <div class="pipeline-label">视觉侧 · Video Pipeline</div>
+      <div class="pipeline-label">视觉 · 视频侧 · Video Pipeline</div>
       <div class="pipeline">
         <div class="step" data-anim="step">
           <div class="step-nb">06</div>
           <div class="step-title">Cut</div>
-          <div class="step-desc">AI 剪辑</div>
+          <div class="step-desc">AI 剪辑粗剪</div>
         </div>
         <div class="step" data-anim="step">
           <div class="step-nb">07</div>
           <div class="step-title">Wrap</div>
-          <div class="step-desc">AI 包装</div>
+          <div class="step-desc">AI 包装字幕特效</div>
         </div>
         <div class="step" data-anim="step">
           <div class="step-nb">08</div>
           <div class="step-title">Cover</div>
-          <div class="step-desc">AI 生成封面</div>
+          <div class="step-desc">AI 生成封面缩略图</div>
         </div>
       </div>
     </div>
   </div>
   <div class="foot">
-    <div>Layout 6 · 流水线 · 按 → 空格逐步点亮</div>
-    <div>Pipeline</div>
+    <div>Page 05 · 我的内容工厂</div>
+    <div>Workflow</div>
   </div>
 </section>
 
-<!-- ═══════════ L7 · Hero Question · 悬念收束 ═══════════ -->
+<!-- ============ 06 · Image Grid ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div>平台粉丝实证</div>
+    <div>Act II / Ops · 06 / 10</div>
+  </div>
+  <div class="frame" style="padding-top:3vh">
+    <div class="kicker" data-anim>Proof · 粉丝实证</div>
+    <h2 class="h-xl" data-anim>10 个平台 · 6 张截图</h2>
+
+    <div class="grid-3-3" style="margin-top:3vh">
+      <figure class="frame-img" style="height:26vh" data-anim>
+        <img src="images/weibo.png" alt="微博 289K">
+        <figcaption class="img-cap">微博 · 289K</figcaption>
+      </figure>
+      <figure class="frame-img" style="height:26vh" data-anim>
+        <img src="images/twitter.png" alt="推特 137K">
+        <figcaption class="img-cap">推特 · 137K</figcaption>
+      </figure>
+      <figure class="frame-img" style="height:26vh" data-anim>
+        <img src="images/wechat.png" alt="公众号 96K">
+        <figcaption class="img-cap">公众号 · 96K</figcaption>
+      </figure>
+      <figure class="frame-img" style="height:26vh" data-anim>
+        <img src="images/jike.png" alt="即刻 26K">
+        <figcaption class="img-cap">即刻 · 26K</figcaption>
+      </figure>
+      <figure class="frame-img" style="height:26vh" data-anim>
+        <img src="images/xhs.png" alt="小红书 19K">
+        <figcaption class="img-cap">小红书 · 19K</figcaption>
+      </figure>
+      <figure class="frame-img" style="height:26vh" data-anim>
+        <img src="images/douyin.png" alt="抖音 10K">
+        <figcaption class="img-cap">抖音 · 10K</figcaption>
+      </figure>
+    </div>
+  </div>
+  <div class="foot">
+    <div>截图时间 · 2026.04</div>
+    <div>Page 06 · 粉丝实证</div>
+  </div>
+</section>
+
+<!-- ============ 07 · Hero Question ============ -->
 <section class="slide hero dark">
   <div class="chrome">
-    <div>问题页 · 留悬念</div>
+    <div>留给你的问题</div>
     <div>07 / 10</div>
   </div>
   <div class="frame" style="display:grid; gap:8vh; align-content:center; min-height:80vh">
-    <div class="kicker" data-anim>Layout 7 · Hero Question</div>
+    <div class="kicker" data-anim>The Question</div>
     <h1 class="h-hero" style="font-size:7vw; line-height:1.15">
-      <span data-anim style="display:block">留白越多越好，</span>
-      <span data-anim style="display:block">只放一个问题。</span>
-      <span data-anim style="display:block">你的答案是？</span>
+      <span data-anim style="display:block">你的公司里，</span>
+      <span data-anim style="display:block">哪些岗位本来就</span>
+      <span data-anim style="display:block">不该由人来做？</span>
     </h1>
     <p class="lead" style="max-width:50vw" data-anim>
-      Hero 页遮罩 12-16%，WebGL 大幅透出。问题本身即是视觉主体。
+      这个问题，不是技术问题，是架构问题。
     </p>
   </div>
   <div class="foot">
-    <div>Layout 7 · Hero Question</div>
+    <div>Page 07 · The Question</div>
     <div>— · —</div>
   </div>
 </section>
 
-<!-- ═══════════ L8 · Big Quote · 大引用 ═══════════ -->
-<section class="slide dark" data-animate="quote">
-  <div class="chrome">
-    <div>金句页 · 大引用</div>
-    <div>08 / 10</div>
-  </div>
-  <div class="frame" style="display:grid; gap:5vh; align-content:center; min-height:80vh">
-    <div class="kicker" data-anim>Layout 8 · Big Quote</div>
-    <blockquote style="font-family:var(--font-display); font-weight:700; font-size:5.8vw; line-height:1.2; letter-spacing:-.01em; max-width:72vw">
-      <span data-anim="line" style="display:block">"好的设计系统，</span>
-      <span data-anim="line" style="display:block">是活的，不是死的。"</span>
-    </blockquote>
-    <p class="lead" style="max-width:55vw; opacity:.65" data-anim>
-      A good design system is alive, not dead.<br>
-      It grows with the product, not ahead of it.
-    </p>
-    <div class="meta-row" data-anim>
-      <span>— Design Systems Handbook</span><span>·</span><span>2026</span>
-    </div>
-  </div>
-  <div class="foot">
-    <div>Layout 8 · 大引用 · data-animate="quote"</div>
-    <div>— · —</div>
-  </div>
-</section>
-
-<!-- ═══════════ L9 · A vs B · 并列对比 ═══════════ -->
+<!-- ============ 08 · A vs B Compare ============ -->
 <section class="slide light" data-animate="directional">
   <div class="chrome">
-    <div>对比页 · Before / After</div>
-    <div>09 / 10</div>
+    <div>旧 vs 新 · The Shift</div>
+    <div>08 / 10</div>
   </div>
   <div class="frame" style="padding-top:5vh">
-    <div class="kicker" data-anim>Layout 9 · A vs B Compare</div>
-    <h2 class="h-xl" style="margin-bottom:4vh" data-anim>从组件库到设计系统</h2>
+    <div class="kicker" data-anim>Before / After · 范式转变</div>
+    <h2 class="h-xl" style="margin-bottom:4vh" data-anim>从交接到共建</h2>
 
     <div class="grid-2-6-6" style="gap:5vw 4vh">
       <div data-anim="left" style="padding:3vh 2vw; border-left:3px solid currentColor; opacity:.55">
-        <div class="kicker" style="opacity:.9">Before · 组件库</div>
-        <h3 class="h-md" style="margin-top:2vh">UI 零件箱</h3>
-        <ul style="margin-top:3vh; padding-left:1.2em; display:flex; flex-direction:column; gap:1.4vh; font-family:var(--font-body); font-size:max(14px,1.1vw); line-height:1.55">
-          <li>Button / Input / Modal 的集合</li>
-          <li>只解决"看起来一致"</li>
-          <li>缺乏语义与使用规则</li>
-          <li>设计师与开发者各自维护</li>
+        <div class="kicker" style="opacity:.9">Before · 旧模式</div>
+        <h3 class="h-md" style="margin-top:2vh">设计 → 开发 → 交接</h3>
+        <ul style="margin-top:3vh; padding-left:1.2em; display:flex; flex-direction:column; gap:1.4vh; font-family:var(--sans-zh); font-size:max(14px,1.1vw); line-height:1.55">
+          <li>设计师在 Figma 做稿</li>
+          <li>开发者盯着文件翻译像素</li>
+          <li>反复 PR 沟通对齐</li>
+          <li>非技术人员无法触碰代码</li>
         </ul>
       </div>
       <div data-anim="right" style="padding:3vh 2vw; border-left:3px solid currentColor">
-        <div class="kicker" style="opacity:.9">After · 设计系统</div>
-        <h3 class="h-md" style="margin-top:2vh">共享语言与规则引擎</h3>
-        <ul style="margin-top:3vh; padding-left:1.2em; display:flex; flex-direction:column; gap:1.4vh; font-family:var(--font-body); font-size:max(14px,1.1vw); line-height:1.55">
-          <li>Design Token 驱动全平台</li>
-          <li>布局规则 · 交互范式 · 内容语调</li>
-          <li>组件只是最表层</li>
-          <li>组织级协作语言，单一真相源</li>
+        <div class="kicker" style="opacity:.9">After · 新模式</div>
+        <h3 class="h-md" style="margin-top:2vh">同工具 · 并行 · 共建</h3>
+        <ul style="margin-top:3vh; padding-left:1.2em; display:flex; flex-direction:column; gap:1.4vh; font-family:var(--sans-zh); font-size:max(14px,1.1vw); line-height:1.55">
+          <li>三个角色同时在 Intent 工作</li>
+          <li>agents.md 作为共享上下文</li>
+          <li>代理处理对齐 / 冲突 / 动画</li>
+          <li>任何人都能安全贡献代码</li>
         </ul>
       </div>
     </div>
   </div>
   <div class="foot">
-    <div>Layout 9 · 并列对比 · data-animate="directional"</div>
+    <div>Page 08 · 范式转变</div>
     <div>Before / After</div>
   </div>
 </section>
 
-<!-- ═══════════ L10 · Lead Image + Side Text · 图文混排 ═══════════ -->
-<section class="slide dark">
+<!-- ============ 09 · Big Quote ============ -->
+<section class="slide dark" data-animate="quote">
   <div class="chrome">
-    <div>图文混排 · 信息密度</div>
+    <div>The Takeaway · 核心金句</div>
+    <div>09 / 10</div>
+  </div>
+  <div class="frame" style="display:grid; gap:5vh; align-content:center; min-height:80vh">
+    <div class="kicker" data-anim>Quote · 金句</div>
+    <blockquote style="font-family:var(--serif-zh); font-weight:700; font-size:5.8vw; line-height:1.2; letter-spacing:-.01em; max-width:72vw">
+      <span data-anim="line" style="display:block">"没有交接，</span>
+      <span data-anim="line" style="display:block">所有人都在构建。"</span>
+    </blockquote>
+    <p class="lead" style="max-width:55vw; opacity:.65" data-anim>
+      Without the handoff, everyone builds.<br>
+      And that makes all the difference.
+    </p>
+    <div class="meta-row" data-anim>
+      <span>— Luke Wroblewski</span><span>·</span><span>2026.04.16</span>
+    </div>
+  </div>
+  <div class="foot">
+    <div>Page 09 · 金句</div>
+    <div>— · —</div>
+  </div>
+</section>
+
+<!-- ============ 10 · Lead Image + Side Text ============ -->
+<section class="slide light">
+  <div class="chrome">
+    <div>Design First · 设计先行</div>
     <div>10 / 10</div>
   </div>
   <div class="frame grid-2-8-4" style="padding-top:6vh">
     <div>
-      <div class="kicker" data-anim>Layout 10 · Lead Image + Side Text</div>
-      <h2 class="h-xl" style="margin-top:1vh; margin-bottom:3vh" data-anim>图文混排</h2>
+      <div class="kicker" data-anim>Phase 01 · 设计阶段</div>
+      <h2 class="h-xl" style="margin-top:1vh; margin-bottom:3vh" data-anim>设计先行 · 2 周</h2>
 
       <p class="lead" style="margin-bottom:3vh" data-anim>
-        grid-2-8-4（8:4）正文主导，图片辅助。适合页面信息量偏大的场景。
+        在 Figma 中完成视觉探索与设计系统，网格 / 排版 / 颜色变量 / 可复用组件，桌面和移动端稿件几轮反馈迭代。
       </p>
 
-      <p data-anim style="font-family:var(--font-body); font-size:max(14px,1.15vw); line-height:1.75; opacity:.78; margin-bottom:2.4vh">
-        左列包含多层信息：kicker → 大标题 → lead → 正文段落 → callout。右列图片用竖版 3:4，不与正文竞争注意力。
+      <p data-anim style="font-family:var(--sans-zh); font-size:max(14px,1.15vw); line-height:1.75; opacity:.78; margin-bottom:2.4vh">
+        两周之内，视觉风格、粗略结构、方向性内容全部稳定。这是扎实的传统设计流程——在这里还没什么新鲜事。
       </p>
 
       <div class="callout" style="margin-top:3vh" data-anim>
-        "chrome 和 kicker 不写同一句话 —— 这是最常见的内容重复问题。"
-        <div class="callout-src">— recipes.md § chrome vs kicker</div>
+        "This phase was pretty standard.<br>Just a solid Web design process."
+        <div class="callout-src">— Luke Wroblewski</div>
       </div>
     </div>
     <figure class="frame-img r-3x4" data-anim>
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='400'%3E%3Crect fill='%2318181a' width='300' height='400'/%3E%3Ctext x='150' y='210' text-anchor='middle' font-family='Georgia,serif' font-size='18' fill='%23e8e5de' opacity='0.5'%3E3:4 竖版%3C/text%3E%3C/svg%3E" alt="3:4 占位图">
-      <figcaption class="img-cap">.frame-img.r-3x4 · 辅助图</figcaption>
+      <img src="images/figma.png" alt="Figma design system">
+      <figcaption class="img-cap">Figma · Design System</figcaption>
     </figure>
   </div>
   <div class="foot">
-    <div>Layout 10 · 图文混排 · grid-2-8-4</div>
-    <div>8:4 比例</div>
+    <div>Page 10 · Design First</div>
+    <div>约 2 周</div>
   </div>
 </section>
 
-</div><div id="nav"></div>
+</div>
+
+<div id="nav"></div>
 
 <script>
 /* =============== WebGL 双背景 ===============
@@ -1039,7 +1010,7 @@ function go(n){
 let overviewOn=false;
 const ov=document.createElement('div');
 ov.id='overview';
-ov.style.cssText='position:fixed;inset:0;z-index:100;background:rgba(var(--text-rgb),.92);backdrop-filter:blur(12px);display:none;overflow-y:auto;padding:4vh 4vw';
+ov.style.cssText='position:fixed;inset:0;z-index:100;background:rgba(var(--ink-rgb),.92);backdrop-filter:blur(12px);display:none;overflow-y:auto;padding:4vh 4vw';
 document.body.appendChild(ov);
 
 function buildOverview(){
@@ -1048,16 +1019,16 @@ function buildOverview(){
   grid.style.cssText='display:grid;grid-template-columns:repeat(4,1fr);gap:2vh 1.6vw;max-width:90vw;margin:0 auto';
   slides.forEach((s,i)=>{
     const card=document.createElement('div');
-    card.style.cssText='cursor:pointer;border-radius:var(--radius-sm);overflow:hidden;border:2px solid '+(i===idx?'rgba(var(--bg-rgb),.8)':'rgba(var(--bg-rgb),.15)')+';transition:border-color var(--dur-mod-2)';
-    card.onmouseenter=()=>card.style.borderColor='rgba(var(--bg-rgb),.6)';
-    card.onmouseleave=()=>card.style.borderColor=i===idx?'rgba(var(--bg-rgb),.8)':'rgba(var(--bg-rgb),.15)';
+    card.style.cssText='cursor:pointer;border-radius:6px;overflow:hidden;border:2px solid '+(i===idx?'rgba(var(--paper-rgb),.8)':'rgba(var(--paper-rgb),.15)')+';transition:border-color .2s';
+    card.onmouseenter=()=>card.style.borderColor='rgba(var(--paper-rgb),.6)';
+    card.onmouseleave=()=>card.style.borderColor=i===idx?'rgba(var(--paper-rgb),.8)':'rgba(var(--paper-rgb),.15)';
     const wrap=document.createElement('div');
-    wrap.style.cssText='width:100%;aspect-ratio:16/9;overflow:hidden;position:relative;pointer-events:none;background:'+(s.classList.contains('light')?'var(--color-surface)':'var(--color-on-surface)');
+    wrap.style.cssText='width:100%;aspect-ratio:16/9;overflow:hidden;position:relative;pointer-events:none;background:'+(s.classList.contains('light')?'var(--paper)':'var(--ink)');
     const clone=s.cloneNode(true);
     clone.style.cssText='width:100vw;height:100vh;transform:scale('+(1/4.5)+');transform-origin:top left;position:absolute;top:0;left:0;pointer-events:none';
     wrap.appendChild(clone);
     const label=document.createElement('div');
-    label.style.cssText='padding:6px 10px;font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--color-surface);opacity:.7';
+    label.style.cssText='padding:6px 10px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--paper);opacity:.7';
     label.textContent=(i+1)+' / '+total;
     card.appendChild(wrap);
     card.appendChild(label);
@@ -1115,7 +1086,10 @@ addEventListener('touchend',e=>{
   }
 },{passive:true});
 
-go(0);
+/* ?slide=N 直达（1-based），与 Swiss 模板行为一致 */
+const initialSlideParam = new URLSearchParams(location.search).get('slide');
+const initialSlide = initialSlideParam ? Number(initialSlideParam) - 1 : 0;
+go(Number.isFinite(initialSlide) ? initialSlide : 0);
 </script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>lucide.createIcons();</script>
@@ -1235,8 +1209,8 @@ if(motion){
   window.__playSlide = playSlide;
   window.__pipeAdvance = pipeAdvance;
 
-  // 首屏:go(0) 已跑过(同步),没来得及触发动效 → 这里补一下
-  playSlide(0);
+  // 首屏:go() 已跑过(同步),没来得及触发动效 → 这里补一下(尊重 ?slide=N)
+  playSlide(window.__currentSlideIndex || 0);
 }
 </script>
 </body>
