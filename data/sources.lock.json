@@ -1,0 +1,85 @@
+{
+  "$schema": "../schemas/source.schema.json",
+  "lockedAt": "2026-08-07T08:30:00Z",
+  "sources": {
+    "beautiful-html-templates": {
+      "id": "beautiful-html-templates",
+      "repo": "https://github.com/zarazhangrui/beautiful-html-templates.git",
+      "localPath": "D:\\tools\\beautiful-html-templates",
+      "type": "template-source",
+      "version": {
+        "kind": "git",
+        "commit": "e5e204fb1f3b06290846e7dcd7aceddabeceec8c",
+        "message": "Fix YAML front matter errors in design.md files"
+      },
+      "license": "MIT",
+      "syncMethod": "manual-import",
+      "autoSync": false,
+      "lastReviewedAt": "2026-08-07",
+      "notes": "34 source templates. Primary upstream for template HTML/CSS/JS, template.json, design.md.",
+      "stats": {
+        "templates": 34,
+        "screenshots": 102
+      }
+    },
+    "guizang-ppt-skill": {
+      "id": "guizang-ppt-skill",
+      "repo": "https://github.com/op7418/guizang-ppt-skill",
+      "localPath": "D:\\tools\\guizang-ppt-skill-main",
+      "type": "skill-layout-family",
+      "version": {
+        "kind": "snapshot",
+        "retrievedAt": "2026-08-07",
+        "fileCount": 37,
+        "contentHash": "sha256:7e4165dc308c845f26fece5be444de22662711e186e2b86580b2ce62015b0bcf",
+        "note": "No .git directory. Locked by file-level SHA256 of all 37 files."
+      },
+      "license": "MIT",
+      "syncMethod": "manual-import",
+      "autoSync": false,
+      "lastReviewedAt": "2026-08-07",
+      "notes": "Deep design skill: layout families, Swiss system, themes, components, validators. Value is in generation rules + design constraints, not raw template count."
+    },
+    "frontend-slides": {
+      "id": "frontend-slides",
+      "repo": "https://github.com/zarazhangrui/frontend-slides.git",
+      "localPath": "D:\\tools\\frontend-slides",
+      "type": "agent-workflow",
+      "version": {
+        "kind": "git",
+        "commit": "9906a34d640d2111f724544cbc50f7f130569ae1",
+        "message": "docs: add beginner-friendly walkthrough & tutorial video to README"
+      },
+      "license": "MIT",
+      "syncMethod": "manual-import",
+      "autoSync": false,
+      "lastReviewedAt": "2026-08-07",
+      "notes": "Agent-driven discovery + generation + editing workflow. 34 design.md differ from beautiful-html-templates — this is an interpretation layer, not a duplicate template source.",
+      "stats": {
+        "designMdCount": 34,
+        "boldTemplatePackCount": 34
+      }
+    },
+    "layout-gallery": {
+      "id": "layout-gallery",
+      "repo": "https://github.com/wampeeHuang/layout-gallery.git",
+      "localPath": "D:\\workspace\\layout-gallery",
+      "type": "curated-distribution",
+      "version": {
+        "kind": "git",
+        "commit": "c539b0d02b4008ccf9a18ca040d17f0b88345cf8",
+        "message": "fix: update start script path after server.js moved to server/ dir"
+      },
+      "license": "MIT",
+      "syncMethod": "self",
+      "autoSync": false,
+      "lastReviewedAt": "2026-08-07",
+      "notes": "This project. Curated edition — selects, standardizes, and distributes templates from upstream sources. Not a mirror of all source templates.",
+      "stats": {
+        "templates": 35,
+        "passValidation": 28,
+        "failValidation": 7
+      }
+    }
+  }
+}
