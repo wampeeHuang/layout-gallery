@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gallery.evopearl.com/schemas/taxonomy.schema.json",
+  "title": "版式画廊 · 标签体系",
+  "description": "模板三维分类：视觉风格 + 内容类型 + 色调。数据文件 data/taxonomy.json 的校验合约。",
+  "type": "object",
+  "required": ["$schema", "version", "updatedAt", "visual_family", "content_type", "scheme", "tone"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "visual_family": {
+      "type": "object",
+      "required": ["description", "values"],
+      "properties": {
+        "description": { "type": "string" },
+        "values": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "object",
+            "required": ["label", "desc"],
+            "properties": {
+              "label": { "type": "string" },
+              "desc": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "content_type": {
+      "type": "object",
+      "required": ["description", "values"],
+      "properties": {
+        "description": { "type": "string" },
+        "values": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "object",
+            "required": ["label", "desc"],
+            "properties": {
+              "label": { "type": "string" },
+              "desc": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "scheme": {
+      "type": "object",
+      "required": ["description", "values"],
+      "properties": {
+        "description": { "type": "string" },
+        "values": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "object",
+            "required": ["label"],
+            "properties": {
+              "label": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "tone": {
+      "type": "object",
+      "required": ["description", "values"],
+      "properties": {
+        "description": { "type": "string" },
+        "values": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "object",
+            "required": ["label"],
+            "properties": {
+              "label": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

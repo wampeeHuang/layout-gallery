@@ -1,0 +1,53 @@
+{
+  "$schema": "https://gallery.evopearl.com/schemas/taxonomy.schema.json",
+  "version": "1.0.0",
+  "updatedAt": "2026-08-08T09:00:00Z",
+
+  "visual_family": {
+    "description": "视觉风格家族 — 模板长什么样。互斥，每个模板属于唯一家族。",
+    "values": {
+      "editorial":  { "label": "编辑风",   "desc": "衬线标题、大留白、杂志感，以阅读为中心的信息层级" },
+      "swiss":      { "label": "瑞士风",   "desc": "网格系统、无衬线、克制配色、功能优先于装饰" },
+      "brutalist":  { "label": "粗野风",   "desc": "高对比、反精致、视觉冲击力强，宣言式表达" },
+      "retro":      { "label": "复古风",   "desc": "像素、老式终端、怀旧数字美学" },
+      "organic":    { "label": "自然风",   "desc": "暖色、圆润、手作感，友好亲近" },
+      "graphic":    { "label": "图形风",   "desc": "大胆配色、几何图形、插画感，活力年轻" }
+    }
+  },
+
+  "content_type": {
+    "description": "页面用途分类 — 模板适合做什么。互斥，每个模板一个主要用途。",
+    "values": {
+      "landing":    { "label": "营销落地", "desc": "单页、Hero+Section+CTA 结构，说服与转化导向" },
+      "portfolio":  { "label": "作品展示", "desc": "图多字少、网格陈列、视觉冲击优先" },
+      "blog":       { "label": "内容阅读", "desc": "长文友好、信息层级清晰、可读性优先" },
+      "corporate":  { "label": "企业品牌", "desc": "多页结构、专业感、服务/关于/联系页" },
+      "dashboard":  { "label": "数据面板", "desc": "交互密集、数据可视化、工具型界面" },
+      "ecommerce":  { "label": "电商",     "desc": "产品网格、商品详情、购物车流程" },
+      "personal":   { "label": "个人页",   "desc": "简历、个人主页、单人名片式" }
+    }
+  },
+
+  "scheme": {
+    "description": "色调模式。互斥。已有字段，此处仅登记枚举。",
+    "values": {
+      "light":  { "label": "亮色" },
+      "dark":   { "label": "暗色" },
+      "mixed":  { "label": "混合" }
+    }
+  },
+
+  "tone": {
+    "description": "情绪调性标签。非互斥，一个模板可贴多个。",
+    "values": {
+      "dramatic":  { "label": "戏剧" },
+      "playful":   { "label": "玩趣" },
+      "warm":      { "label": "温暖" },
+      "confident": { "label": "自信" },
+      "sober":     { "label": "克制" },
+      "friendly":  { "label": "友好" },
+      "upbeat":    { "label": "活泼" },
+      "punchy":    { "label": "强劲" }
+    }
+  }
+}

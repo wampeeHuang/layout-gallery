@@ -1,8 +1,8 @@
-# HANDOFF — 2026-08-07 Claude Code 会话
+# HANDOFF — 2026-08-09 Claude Code 会话
 
-> 交接时间：2026-08-07 下午
-> 上一位：Claude Code（本会话）
-> Codex 架构审查交接已备份至 inbox/2026-08-07-codex-handoff.md
+> 上次更新：2026-08-09
+> 状态：标签体系整顿完成，品质三级角标上线，library.html 筛选器+tooltip 全部落地，生产服已重启
+> 复盘：D:\workspace\_output\retrospectives\2026-08-09-layout-gallery-taxonomy.md
 
 ---
 
@@ -50,38 +50,60 @@ validate:   35 模板, 28 PASS / 7 FAIL / 77 issues
 
 详细文档：`inbox/quality-tiers.md`（含 35 行进度跟踪表）
 
-### 6. 标签体系整顿计划（未执行）
+### 6. 标签体系整顿 ✅（本会话完成）
 
-design_style 实际 16 种值，schema 只认 10 种，两者只有 4 个重叠。**schema 是虚构的。**
+~~design_style 实际 16 种值，schema 只认 10 种~~ → **已修。**
 
-5 步计划：
-1. 16 种野生值 → 6 个 visual_family + 8 个 tone 标签
-2. 补 type 分类（template / layout-family / theme-variant）
-3. 收紧 density/formality/scheme 枚举
-4. 定义新维度（content_types, motion_level 等，本期不填值）
-5. 写校验脚本 scripts/validate-taxonomy.mjs
+**产出：**
+- `data/taxonomy.json` — 4 维度标签体系：visual_family(6) + content_type(7) + scheme(3) + tone(8)
+- `data/curation.json` — 35 条目全部标注 visual_family / content_type / tone
+- `schemas/taxonomy.schema.json` — JSON Schema 验证
+- `scripts/validate-taxonomy.mjs` — 三步校验（schema→curation→registry cross-check），exit 0 通过
+- `public/library.html` — 筛选器三行改读 taxonomy.json，卡片标签用 taxonomy 中文名，modal 显示分类标签
+- `server/server.js` — 新增 GET /api/taxonomy + GET /api/registry 合并 curation 字段 + vf/ct 筛选参数
 
-详细文档：`inbox/taxonomy-plan.md`（每步带验收标准）
+**分类学要素：**
+| 维度 | 互斥 | 值 | 说明 |
+|------|------|-----|------|
+| visual_family | 是 | editorial/swiss/brutalist/retro/organic/graphic | 长什么样 |
+| content_type | 是 | landing/portfolio/blog/corporate/dashboard/ecommerce/personal | 做什么用 |
+| scheme | 是 | light/dark/mixed | 色调模式 |
+| tone | 否 | dramatic/playful/warm/confident/sober/friendly/upbeat/punchy | 情绪标签 |
+
+**分布：** editorial(17), swiss(5), brutalist(5), graphic(4), organic(3), retro(1) · blog(18), landing(10), corporate(6), portfolio(1)
+
+验证：`node scripts/validate-taxonomy.mjs` → All checks PASS.
+
+### 7. 品质三级角标 ✅
+
+- **SVG 设计** — 取画廊 favicon 三栏 motif，变体表达层级：全实心=精选，两实一虚=可用，一实两虚=原料
+- **卡片角标** — 每个模板卡片右上角显示品质角标（27 可用 + 7 原料）
+- **品质筛选行** — toolbar 第一行"品质"，四种 chip 各带 SVG 图标，充当图例
+- **标签悬停解释** — 四行筛选标签 hover 显示 tooltip（虚线边框 + `::after` 气泡），不用 ? 图标
+- CSS 定制：`.filter-label[data-tip]` → `cursor:help` → `::after` 显示解释
 
 ---
 
 ## 当前文件状态
 
-### 新建文件（本次会话产出）
+### 新建文件（本次+上次会话产出）
 
 | 文件 | 说明 |
 |------|------|
 | `data/sources.lock.json` | 四源头版本锁定 |
-| `data/curation.json` | 45 条精选状态 |
+| `data/curation.json` | 35 条精选状态 + 三维标签 |
+| `data/taxonomy.json` | 4 维度标签体系定义 |
+| `data/ai-system-prompt.md` | 从 meta/ 迁移过来 |
+| `schemas/taxonomy.schema.json` | taxonomy.json 的 JSON Schema |
+| `scripts/validate-taxonomy.mjs` | 三步标签校验脚本 |
+| `public/learn.html` | 从 meta/learn-template.html 迁移 |
+| `_runtime/architecture-overview.html` | 项目架构可视化（品牌页风格） |
 | `inbox/2026-08-07-codex-handoff.md` | Codex 审查交接备份 |
 | `inbox/quality-tiers.md` | 三级质量体系 + 跟踪表 |
-| `inbox/taxonomy-plan.md` | 标签体系整顿计划 |
 
-### 未跟踪文件
+### 删除
 
-```
-CHECKPOINT.md  — Codex 会话产物，保留，不删
-```
+- `meta/` 目录 — learn.html 和 ai-system-prompt.md 均迁出，空目录已删
 
 ### 当前目录结构（仅显示相关）
 
@@ -115,12 +137,15 @@ layout-gallery/
 
 ### Phase 0 剩余
 
-- 步骤 2-5（taxonomy-plan 后续）
-- schemas/ 新建或更新（source, curation, template-package, quality-report, token-contract, taxonomy）
-- guides/standards/ 5 份文档（可选——HANDOFF 规划，但 scope 大，建议 Phase 1 再碰）
+- ⬜ index.html 筛选器也改为读 taxonomy（目前仅 library.html 已改）
+- ⬜ 10 个 excluded 模板仍需逐个评估
+- ⬜ 7 个 repairing 模板（归藏变体）仍需补 token
+- ⬜ grow.html 已下架为"即将开放"预览页（ENABLE_GROW 守卫）
+- ⬜ 校验脚本加入 CI（当前仅手动运行）
 
-### Phase 1（建完账后）
+### Phase 1（精选区开张）
 
+- ~~标签体系整顿~~ → 已完成，taxonomy.json + curation.json + validate-taxonomy.mjs 全部到位
 - 选第一个精选模板（建议 broadside 或 studio）
 - 走完整闭环：manifest → 截图 → 质量报告 → golden task
 - 验证三级体系是否可操作
@@ -167,3 +192,80 @@ beautiful-html-templates / guizang-ppt-skill / frontend-slides / layout-gallery 
 3. 从 taxonomy-plan.md 步骤 1 开始执行
 4. 每步做完验证，通过再下一步
 5. PM 在盯 quality-tiers.md §7 跟踪表
+
+---
+
+## PM 视角：现在什么状态、下一步做什么
+
+> 写给不看代码的人。工程细节在 `inbox/taxonomy-plan.md` 和 `inbox/quality-tiers.md`，这里说人话。
+
+### 现在什么状态
+
+| 维度 | 现状 | 问题 |
+|------|------|------|
+| 模板数量 | 35 个 HTML 模板 | — |
+| 能用的 | 28 个能跑能看 | 缺截图、缺质量报告 |
+| 不能用的 | 7 个归藏变体 | 各缺 11 个颜色 token |
+| 标签 ✅ | 4 维度体系已上线 | 已整顿，16 种野生值 → 6+7+3+8 体系 |
+| 精选 | 0 个 | 没有"Agent 拿去直接用"的模板 |
+| 网站 | gallery.evopearl.com 在线 | 筛选器已更新（library.html） |
+
+**一句话：标签搞定了，下一步是贴等级角标 + 做第一个精选。**
+
+### 分 5 步走（按优先级）
+
+#### 第 1 步：整顿标签体系 ✅ 已完成
+
+**做了什么：** 16 种混乱标签重排成 6 个视觉家族 + 7 个内容类型 + 3 个色调 + 8 个情绪调性。35 个模板全部重新打标签。library.html 筛选器改读 taxonomy.json。
+
+**产出：** `data/taxonomy.json` + `data/curation.json`（更新）+ `schemas/taxonomy.schema.json` + `scripts/validate-taxonomy.mjs`
+**验证：** `node scripts/validate-taxonomy.mjs` → All checks PASS. 35 templates labeled.
+**查看：** http://localhost:3080/library — 三行筛选器（视觉风格/内容类型/色调）
+
+#### 第 2 步：给网站贴等级标签
+
+**做什么：** 每个模板卡片显示 ⭐精选 / 📦可用 / 🔧需Skill 角标。加筛选器。
+
+**PM 怎么看：** 打开 gallery.evopearl.com，每个卡片上有角标，顶部有筛选按钮。点"精选"只显示精选模板。
+
+**产出：** 纯前端改动（index.html + library.html），不改数据库
+**验证：** 浏览器打开，28 个显示 📦，7 个显示 🔧
+**工期：** 半天
+
+#### 第 3 步：做第一个精选模板
+
+**做什么：** 挑 broadside 或 studio，补齐截图、质量报告、人工评分、金标准测试。走通完整流程，产出操作手册。
+
+**PM 怎么看：** 网站上出现第一个 ⭐ 标签，点进去有 3 张截图轮播、质量评分、使用说明。
+
+**产出：** 1 个 ⭐ 模板 + 操作手册（后面 14 个照搬）
+**验证：** `/brand/broadside` 页面显示 3 张截图 + 评分 + 质量报告链接
+**工期：** 1-2 天
+
+#### 第 4 步：批量晋升 10-15 个精选
+
+**做什么：** 用第三步验证过的流程，选最有潜力的模板批量操作。
+
+**PM 怎么看：** 精选区开张，首页置顶 10-15 个 ⭐ 模板。
+
+**产出：** 10-15 个 ⭐ 模板
+**验证：** gallery.evopearl.com 首页置顶区 ≥ 10 个 ⭐ 卡片
+**工期：** 3-5 天
+
+#### 第 5 步：处理剩余欠账
+
+**做什么：** 7 个归藏变体——补 token 升级或用其他方式处理。10 个没入选的模板——逐个评估，好的加入，不好的标注理由。
+
+**PM 怎么看：** 所有 35 个模板都有明确归属，没有"待定"和"未知"。
+
+**产出：** 原料区处理的处理、排除的排除，curation 里没有 Pending review
+**验证：** `data/curation.json` 里 status 字段无一空白
+**工期：** 2-3 天
+
+### 当前进度跟踪
+
+追踪 quality-tiers.md §7 那张表就行。35 行，逐行更新。
+
+### 架构可视化
+
+HTML 架构总览：`_runtime/architecture-overview.html`（浏览器直接打开即可查看完整架构图）

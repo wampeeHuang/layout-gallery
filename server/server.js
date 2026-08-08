@@ -6,6 +6,7 @@ const { renderBrandKit } = require('./brand-renderer');
 const app = express();
 const PORT = process.env.PORT || 3080;
 const PROJECT_DIR = path.resolve(__dirname, '..');
+const ENABLE_GROW = process.env.ENABLE_GROW === 'true';
 
 // ── Startup audit ───────────────────────────────────────────────
 
@@ -37,9 +38,19 @@ app.use(express.json());
 // ── API ──────────────────────────────────────────────────────
 
 const registryPath = path.join(PROJECT_DIR, 'data', 'registry.json');
+const curationPath = path.join(PROJECT_DIR, 'data', 'curation.json');
+const taxonomyPath = path.join(PROJECT_DIR, 'data', 'taxonomy.json');
 
 function loadRegistry() {
   return JSON.parse(fs.readFileSync(registryPath, 'utf-8'));
+}
+
+function loadCuration() {
+  try { return JSON.parse(fs.readFileSync(curationPath, 'utf-8')); } catch (_) { return { entries: {} }; }
+}
+
+function loadTaxonomy() {
+  try { return JSON.parse(fs.readFileSync(taxonomyPath, 'utf-8')); } catch (_) { return null; }
 }
 
 function isBrandKitReady(entry) {
@@ -52,11 +63,14 @@ function isBrandKitReady(entry) {
 // GET /api/registry — query + filter
 app.get('/api/registry', (req, res) => {
   let items = loadRegistry();
+  const curation = loadCuration();
   const isPublic = process.env.VERCEL || process.env.PUBLIC_MODE;
 
   const filters = {
     type: req.query.type,
     design_style: req.query.design_style,
+    visual_family: req.query.visual_family,
+    content_type: req.query.content_type,
     scheme: req.query.scheme,
     formality: req.query.formality,
     density: req.query.density,
@@ -85,12 +99,26 @@ app.get('/api/registry', (req, res) => {
     );
   }
 
-  const enriched = items.map(e => ({
-    ...e,
-    brand_kit_ready: isBrandKitReady(e),
-    html_api: '/api/template/' + e.slug + '/html'
-  }));
-  res.json({ count: enriched.length, items: enriched });
+  // Merge curation taxonomy fields
+  const enriched = items.map(e => {
+    const cur = curation.entries[e.slug];
+    return {
+      ...e,
+      visual_family: cur?.visual_family || null,
+      content_type: cur?.content_type || null,
+      tone: cur?.tone || [],
+      curation_status: cur?.status || null,
+      brand_kit_ready: isBrandKitReady(e),
+      html_api: '/api/template/' + e.slug + '/html'
+    };
+  });
+
+  // Apply taxonomy filters (post-merge)
+  let result = enriched;
+  if (filters.visual_family) result = result.filter(e => e.visual_family === filters.visual_family);
+  if (filters.content_type) result = result.filter(e => e.content_type === filters.content_type);
+
+  res.json({ count: result.length, items: result });
 });
 
 // GET /api/template/:slug — single template detail
@@ -110,6 +138,13 @@ app.get('/api/template/:slug/html', (req, res) => {
   const tmplPath = path.join(PROJECT_DIR, entry.template_path);
   if (!fs.existsSync(tmplPath)) return res.status(404).json({ error: 'template file not found' });
   res.sendFile(tmplPath);
+});
+
+// GET /api/taxonomy — label system
+app.get('/api/taxonomy', (req, res) => {
+  const tx = loadTaxonomy();
+  if (!tx) return res.status(404).json({ error: 'taxonomy.json not found' });
+  res.json(tx);
 });
 
 // GET /api/design-styles — list all design_style values with counts
@@ -162,7 +197,7 @@ app.get('/api/brand/:slug', (req, res) => {
 
 // GET /api/prompt — AI prompt text
 app.get('/api/prompt', (req, res) => {
-  const promptPath = path.join(PROJECT_DIR, 'meta', 'ai-system-prompt.md');
+  const promptPath = path.join(PROJECT_DIR, 'data', 'ai-system-prompt.md');
   if (!fs.existsSync(promptPath)) return res.status(404).json({ error: 'ai-system-prompt.md not found' });
   res.setHeader('Content-Type', 'text/plain; charset=utf-8');
   res.sendFile(promptPath);
@@ -233,7 +268,7 @@ app.get('/brand/:slug', (req, res) => {
 
 // GET /learn — knowledge base
 app.get('/learn', (req, res) => {
-  servePage(res, path.join(PROJECT_DIR, 'meta', 'learn-template.html'), galleryTokensDir, 'learn');
+  servePage(res, path.join(PROJECT_DIR, 'public', 'learn.html'), galleryTokensDir, 'learn');
 });
 
 // GET /grow — AI extraction
@@ -243,6 +278,7 @@ app.get('/grow', (req, res) => {
 
 // POST /api/grow — SSE growth pipeline
 app.post('/api/grow', (req, res) => {
+  if (!ENABLE_GROW) return res.status(503).json({ error: 'Growth pipeline is disabled. Set ENABLE_GROW=true to enable.' });
   const { url } = req.body;
   if (!url) return res.status(400).json({ error: 'URL is empty' });
 
@@ -271,6 +307,7 @@ app.post('/api/grow', (req, res) => {
 
 // POST /api/grow/approve — register to registry.json
 app.post('/api/grow/approve', (req, res) => {
+  if (!ENABLE_GROW) return res.status(503).json({ error: 'Growth pipeline is disabled.' });
   const { slug } = req.body;
   if (!slug) return res.status(400).json({ error: 'slug is empty' });
 
@@ -352,6 +389,7 @@ app.post('/api/grow/approve', (req, res) => {
 
 // POST /api/grow/reject — cleanup temp files
 app.post('/api/grow/reject', (req, res) => {
+  if (!ENABLE_GROW) return res.status(503).json({ error: 'Growth pipeline is disabled.' });
   const { slug } = req.body;
   if (!slug) return res.status(400).json({ error: 'slug is empty' });
 
