@@ -342,8 +342,8 @@ a { color: inherit; text-decoration: none; }
 <div class="toolbar" id="filters">
   <div class="toolbar-inner">
     <div class="filter-row">
-      <span class="filter-label">场景</span>
-      <div class="filter-chips" id="sceneChips"></div>
+      <span class="filter-label">品质</span>
+      <div class="filter-chips" id="tierChips"></div>
     </div>
     <div class="filter-row">
       <span class="filter-label">色调</span>
@@ -356,7 +356,7 @@ a { color: inherit; text-decoration: none; }
   <div class="grid" id="layoutGrid"></div>
   <div class="empty" id="emptyState" style="display:none">
     <h3>未找到匹配模板</h3>
-    <p>尝试切换场景或色调</p>
+    <p>尝试切换品质或色调</p>
   </div>
 </div>
 
@@ -372,31 +372,13 @@ a { color: inherit; text-decoration: none; }
 /* ═══════════════════════════════════════════════════════════════
    SCENE GROUPS — design_style → 场景
    ═══════════════════════════════════════════════════════════════ */
-var SCENE_GROUPS = {
-  '内容编辑': ['editorial', 'swiss'],
-  '创意品牌': ['playful'],
-  '自然生活': ['organic'],
-  '商务技术': ['corporate', 'minimalist'],
-  '独立宣言': ['brutalist'],
-  '复古娱乐': ['retro', 'luxury']
-};
-
-var SCENE_ORDER = ['内容编辑','创意品牌','自然生活','商务技术','独立宣言','复古娱乐'];
-
-var STYLE_TO_SCENE = {};
-SCENE_ORDER.forEach(function(scene) {
-  (SCENE_GROUPS[scene] || []).forEach(function(style) {
-    STYLE_TO_SCENE[style] = scene;
-  });
-});
-
-var SCHEME_LABELS = { light: '亮色', dark: '暗色', mixed: '混合' };
+var taxonomy = null;
 
 /* ═══════════════════════════════════════════════════════════════
    STATE
    ═══════════════════════════════════════════════════════════════ */
 var templates = [];
-var F = { scene: 'all', tone: 'all' };
+var F = { tier: 'all', tone: 'all' };
 
 /* ═══════════════════════════════════════════════════════════════
    INIT
@@ -410,10 +392,15 @@ async function init() {
     document.getElementById('layoutGrid').innerHTML = '<div class="empty"><h3>未找到模板数据</h3><p>请确认服务已启动</p></div>';
     return;
   }
-  templates.forEach(function(t) {
-    t.scene = STYLE_TO_SCENE[t.design_style] || '其他';
-  });
-  renderSceneChips();
+
+  try {
+    var txRes = await fetch('/api/taxonomy');
+    taxonomy = await txRes.json();
+  } catch(e) {
+    taxonomy = null;
+  }
+
+  renderTierChips();
   renderToneChips();
   renderGrid(applyFilters());
   bindEvents();
@@ -426,37 +413,50 @@ init();
    ═══════════════════════════════════════════════════════════════ */
 function applyFilters() {
   return templates.filter(function(t) {
-    if (F.scene !== 'all' && t.scene !== F.scene) return false;
+    if (F.tier !== 'all' && t.curation_status !== F.tier) return false;
     if (F.tone !== 'all' && t.scheme !== F.tone) return false;
     return true;
   });
 }
 
-function renderSceneChips() {
-  var counts = {};
-  var total = 0;
-  templates.forEach(function(t) {
-    counts[t.scene] = (counts[t.scene] || 0) + 1;
-    total++;
-  });
-
-  var html = '<button class="filter-chip active" data-scene="all" onclick="selectScene(\'all\')">全部<span class="count">' + total + '</span></button>';
-  SCENE_ORDER.forEach(function(scene) {
-    var c = counts[scene] || 0;
-    if (c > 0) {
-      html += '<button class="filter-chip" data-scene="' + scene + '" onclick="selectScene(\'' + scene + '\')">' + scene + '<span class="count">' + c + '</span></button>';
-    }
-  });
-  document.getElementById('sceneChips').innerHTML = html;
+function tierOrder() {
+  if (taxonomy && taxonomy.tier) return Object.keys(taxonomy.tier.values);
+  return ['curated', 'published', 'repairing'];
 }
 
-function selectScene(scene) {
-  F.scene = scene;
-  document.querySelectorAll('[data-scene]').forEach(function(el) {
-    el.classList.toggle('active', el.dataset.scene === scene);
+function tierLabel(key) {
+  if (taxonomy && taxonomy.tier && taxonomy.tier.values[key]) return taxonomy.tier.values[key].label;
+  var fallback = { curated: '精选', published: '可用', repairing: '原料' };
+  return fallback[key] || key;
+}
+
+function renderTierChips() {
+  var counts = { all: 0 };
+  var keys = tierOrder();
+  keys.forEach(function(k) { counts[k] = 0; });
+
+  templates.forEach(function(t) {
+    counts.all++;
+    var st = t.curation_status;
+    if (st && counts[st] !== undefined) counts[st]++;
   });
-  var filtered = applyFilters();
-  renderGrid(filtered);
+
+  var html = '<button class="filter-chip active" data-tier="all" onclick="selectTier(\'all\')">全部<span class="count">' + counts.all + '</span></button>';
+  keys.forEach(function(k) {
+    var c = counts[k] || 0;
+    if (c > 0) {
+      html += '<button class="filter-chip" data-tier="' + k + '" onclick="selectTier(\'' + k + '\')">' + tierLabel(k) + '<span class="count">' + c + '</span></button>';
+    }
+  });
+  document.getElementById('tierChips').innerHTML = html;
+}
+
+function selectTier(val) {
+  F.tier = val;
+  document.querySelectorAll('[data-tier]').forEach(function(el) {
+    el.classList.toggle('active', el.dataset.tier === val);
+  });
+  renderGrid(applyFilters());
 }
 
 var TONE_ORDER = [
@@ -514,13 +514,18 @@ function renderGrid(items) {
   empty.style.display = 'none';
 
   var SCHEME_SHORT = { light: '亮', dark: '暗', mixed: '混' };
+  var vfKV = taxonomy && taxonomy.visual_family ? taxonomy.visual_family.values : {};
+  var ctKV = taxonomy && taxonomy.content_type ? taxonomy.content_type.values : {};
 
   grid.innerHTML = items.map(function(t) {
     var previewPath = toRootPath(t.template_path);
     var tags = [];
-    (t.mood || []).slice(0, 2).forEach(function(m) {
-      tags.push('<span class="tag mood">' + m + '</span>');
-    });
+    if (t.visual_family && vfKV[t.visual_family]) {
+      tags.push('<span class="tag mood">' + vfKV[t.visual_family].label + '</span>');
+    }
+    if (t.content_type && ctKV[t.content_type]) {
+      tags.push('<span class="tag">' + ctKV[t.content_type].label + '</span>');
+    }
     if (t.scheme) {
       tags.push('<span class="tag">' + (SCHEME_SHORT[t.scheme] || t.scheme) + '</span>');
     }
@@ -626,9 +631,19 @@ function openModal(slug) {
   var t = templates.find(function(x) { return x.slug === slug; });
   if (!t) return;
 
-  var sceneLabel = t.scene || '—';
-  var schemeLabel = SCHEME_LABELS[t.scheme] || t.scheme || '—';
+  var tierKV = taxonomy && taxonomy.tier ? taxonomy.tier.values : {};
+  var vfKV = taxonomy && taxonomy.visual_family ? taxonomy.visual_family.values : {};
+  var ctKV = taxonomy && taxonomy.content_type ? taxonomy.content_type.values : {};
+  var schemeKV = taxonomy && taxonomy.scheme ? taxonomy.scheme.values : {};
+
+  var tierLabelText = t.curation_status && tierKV[t.curation_status] ? tierKV[t.curation_status].label : (t.curation_status || '—');
+  var vfLabel = t.visual_family && vfKV[t.visual_family] ? vfKV[t.visual_family].label : null;
+  var ctLabel = t.content_type && ctKV[t.content_type] ? ctKV[t.content_type].label : null;
+  var schemeLabel = t.scheme && schemeKV[t.scheme] ? schemeKV[t.scheme].label : (t.scheme || '—');
   var isDark = t.scheme === 'dark';
+
+  var tagLine = [vfLabel, ctLabel].filter(Boolean).join(' · ');
+  if (!tagLine) tagLine = schemeLabel;
 
   document.getElementById('modalBox').className = 'modal-box' + (isDark ? ' modal-dark' : '');
   document.getElementById('modalBox').removeAttribute('style');
@@ -643,7 +658,7 @@ function openModal(slug) {
       (t.design_principles ? '<div class="modal-section"><h4>设计原则</h4><div class="modal-principles">' + renderPrinciples(t.design_principles) + '</div></div>' : '') +
       (t.color_system ? '<div class="modal-section"><h4>六色系统</h4><div class="modal-colors">' + renderColorSystem(t.color_system) + '</div></div>' : '') +
       (t.typography_scale ? '<div class="modal-section"><h4>排版尺度</h4><div class="modal-type-scale">' + renderTypeScale(t.typography_scale) + '</div></div>' : '') +
-      '<div class="modal-section"><h4>场景 · 风格</h4><p>' + sceneLabel + ' · ' + schemeLabel + '</p></div>' +
+      '<div class="modal-section"><h4>品质 · 分类</h4><p>' + tierLabelText + ' · ' + tagLine + '</p></div>' +
       (t.best_for ? '<div class="modal-section"><h4>适用场景</h4><p>' + t.best_for + '</p></div>' : '') +
       (t.avoid_for ? '<div class="modal-section"><h4>不适用</h4><p>' + t.avoid_for + '</p></div>' : '') +
       '<div class="modal-actions">' +
