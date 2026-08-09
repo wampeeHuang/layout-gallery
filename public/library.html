@@ -346,6 +346,10 @@ a { color: inherit; text-decoration: none; }
       <div class="filter-chips" id="tierChips"></div>
     </div>
     <div class="filter-row">
+      <span class="filter-label">风格</span>
+      <div class="filter-chips" id="vfChips"></div>
+    </div>
+    <div class="filter-row">
       <span class="filter-label">色调</span>
       <div class="filter-chips" id="toneChips"></div>
     </div>
@@ -370,7 +374,7 @@ a { color: inherit; text-decoration: none; }
 
 <script>
 /* ═══════════════════════════════════════════════════════════════
-   SCENE GROUPS — design_style → 场景
+   TAXONOMY — labels loaded from /api/taxonomy
    ═══════════════════════════════════════════════════════════════ */
 var taxonomy = null;
 
@@ -378,7 +382,7 @@ var taxonomy = null;
    STATE
    ═══════════════════════════════════════════════════════════════ */
 var templates = [];
-var F = { tier: 'all', tone: 'all' };
+var F = { tier: 'all', vf: 'all', tone: 'all' };
 
 /* ═══════════════════════════════════════════════════════════════
    INIT
@@ -401,6 +405,7 @@ async function init() {
   }
 
   renderTierChips();
+  renderVFChips();
   renderToneChips();
   renderGrid(applyFilters());
   bindEvents();
@@ -414,6 +419,7 @@ init();
 function applyFilters() {
   return templates.filter(function(t) {
     if (F.tier !== 'all' && t.curation_status !== F.tier) return false;
+    if (F.vf !== 'all' && t.visual_family !== F.vf) return false;
     if (F.tone !== 'all' && t.scheme !== F.tone) return false;
     return true;
   });
@@ -455,6 +461,46 @@ function selectTier(val) {
   F.tier = val;
   document.querySelectorAll('[data-tier]').forEach(function(el) {
     el.classList.toggle('active', el.dataset.tier === val);
+  });
+  renderGrid(applyFilters());
+}
+
+function vfOrder() {
+  if (taxonomy && taxonomy.visual_family) return Object.keys(taxonomy.visual_family.values);
+  return [];
+}
+
+function vfLabel(key) {
+  if (taxonomy && taxonomy.visual_family && taxonomy.visual_family.values[key]) return taxonomy.visual_family.values[key].label;
+  return key;
+}
+
+function renderVFChips() {
+  var keys = vfOrder();
+  if (!keys.length) return;
+  var counts = { all: 0 };
+  keys.forEach(function(k) { counts[k] = 0; });
+
+  templates.forEach(function(t) {
+    counts.all++;
+    var vf = t.visual_family;
+    if (vf && counts[vf] !== undefined) counts[vf]++;
+  });
+
+  var html = '<button class="filter-chip active" data-vf="all" onclick="selectVF(\'all\')">全部<span class="count">' + counts.all + '</span></button>';
+  keys.forEach(function(k) {
+    var c = counts[k] || 0;
+    if (c > 0) {
+      html += '<button class="filter-chip" data-vf="' + k + '" onclick="selectVF(\'' + k + '\')">' + vfLabel(k) + '<span class="count">' + c + '</span></button>';
+    }
+  });
+  document.getElementById('vfChips').innerHTML = html;
+}
+
+function selectVF(val) {
+  F.vf = val;
+  document.querySelectorAll('[data-vf]').forEach(function(el) {
+    el.classList.toggle('active', el.dataset.vf === val);
   });
   renderGrid(applyFilters());
 }
