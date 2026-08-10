@@ -1,7 +1,7 @@
 # HANDOFF — 2026-08-10 Claude Code 会话
 
 > 上次更新：2026-08-10
-> 状态：index.html 已应用 mockup 版式，library.html 筛选标签已修复，待确认后提交
+> 状态：已提交 49e73b7。首页文案落地，复盘+两条 tips 已写入
 
 ---
 
