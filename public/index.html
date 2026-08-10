@@ -31,263 +31,148 @@ body {
 a { color: inherit; text-decoration: none; }
 
 /* ═══════════════════════════════════════════════════════════════
-   HERO CAROUSEL — full-viewport, 16:9 iframe previews, infinite loop
+   HERO
    ═══════════════════════════════════════════════════════════════ */
-.hero-carousel {
-  width: 100%;
-  padding: var(--space-xl) 0 var(--space-sm);
+.hero {
+  padding: clamp(3rem, 7vw, 5rem) var(--space-xl);
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1.35fr .65fr;
+  align-items: end;
+  max-width: var(--space-page-wmax);
+  margin: 0 auto;
 }
 
-.carousel-viewport {
-  width: 100%;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.carousel-viewport::-webkit-scrollbar { display: none; }
-
-.carousel-track {
-  display: flex; gap: 2vw;
-  padding: 0;
-}
-
-.carousel-slide {
-  flex: 0 0 78vw; max-width: 1200px;
-  scroll-snap-align: center;
-  border-radius: var(--radius-base);
-  overflow: hidden;
-  aspect-ratio: 16 / 9;
-  position: relative; cursor: pointer;
-  background: var(--color-surface-container-low);
-  transition: box-shadow var(--duration-slow);
-}
-.carousel-slide:first-child { scroll-snap-align: start; }
-.carousel-slide:last-child { scroll-snap-align: end; }
-.carousel-slide:hover { box-shadow: var(--elevation-md); }
-
-.carousel-slide .poster-bg {
-  position: absolute; inset: 0;
-  transition: transform 0.6s ease;
-}
-.carousel-slide:hover .poster-bg { transform: scale(1.03); }
-
-.carousel-slide .poster-deco {
-  position: absolute; z-index: 1;
-  border-radius: 50%;
-  opacity: 0.12;
-  pointer-events: none;
-}
-
-.carousel-slide .poster-name {
-  position: relative; z-index: 2;
+.hero-tagline {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 4rem);
-  font-weight: 700; line-height: 1.05;
-  letter-spacing: -0.03em;
-  color: #fff;
-  text-shadow: 0 2px 20px rgba(0,0,0,0.2);
-  padding: var(--space-2xl);
-  max-width: 75%;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  max-width: 12ch;
 }
 
-.carousel-slide .slide-label-row {
-  position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
-  padding: var(--space-lg) var(--space-2xl);
-  display: flex; align-items: center; gap: var(--space-sm);
-}
-
-.carousel-slide .slide-label {
-  display: inline-block;
-  padding: 4px 14px; border-radius: var(--radius-pill);
-  font-size: var(--text-xs); font-weight: 800;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  background: rgba(255,255,255,0.25);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.3);
-  color: #fff; white-space: nowrap;
-}
-
-.carousel-slide .slide-tagline {
-  font-size: var(--text-sm); color: rgba(255,255,255,0.75);
-  line-height: 1.4; text-shadow: 0 1px 4px rgba(0,0,0,0.3);
-  display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
-}
-
-/* Carousel arrows at bottom */
-.carousel-controls {
-  display: flex; justify-content: center; align-items: center; gap: var(--space-lg);
+.hero-sub {
+  max-width: 36rem;
+  color: var(--color-on-surface-variant);
+  font-size: var(--text-xl);
+  line-height: 1.8;
   margin-top: var(--space-md);
 }
 
-.carousel-arrow {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  border: var(--hairline) solid var(--color-outline);
-  background: var(--color-surface);
-  font-size: 18px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--color-on-surface-variant);
-  transition: all var(--duration-fast);
-  line-height: 1; font-family: var(--font-body); user-select: none;
+.hero-cta {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+  flex-wrap: wrap;
 }
-.carousel-arrow:hover { color: var(--color-primary); border-color: var(--color-primary); }
 
-.carousel-index {
-  font-size: var(--text-xs); color: var(--color-on-surface-variant);
-  min-width: 40px; text-align: center; user-select: none;
+.hero-cta a {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  padding: 0 1.25rem;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: var(--text-base);
+  border-radius: var(--radius-base);
+  transition: opacity var(--duration-fast);
 }
+
+.hero-cta a:hover { opacity: 0.88; }
+
+.hero-contract {
+  border-top: var(--hairline) solid var(--color-outline);
+  padding-top: var(--space-md);
+}
+
+.hero-contract-item {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-xs) 0;
+  border-bottom: var(--hairline) solid var(--color-outline-variant);
+  font-size: var(--text-sm);
+}
+
+.hero-contract-item:last-child { border-bottom: 0; }
+
+.hero-contract-item strong { color: var(--color-primary); }
 
 /* ═══════════════════════════════════════════════════════════════
-   QUICK LINKS
+   KNOWLEDGE BASE
    ═══════════════════════════════════════════════════════════════ */
-.quick-section {
-  padding: var(--space-2xl) clamp(20px, 4vw, 48px) var(--space-3xl);
-  max-width: var(--space-page-wmax); margin: 0 auto;
+.kb-section {
+  padding: var(--space-2xl) var(--space-xl) var(--space-3xl);
+  max-width: var(--space-page-wmax);
+  margin: 0 auto;
 }
 
-.quick-section h2 {
+.kb-section h2 {
   font-family: var(--font-display);
-  font-size: var(--text-3xl); font-weight: 700;
-  letter-spacing: -0.02em; color: var(--heading);
-  margin-bottom: var(--space-sm);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-xs);
 }
 
-.quick-section > .desc {
-  font-size: var(--text-base); color: var(--color-on-surface-variant);
-  line-height: 1.65; margin-bottom: var(--space-xl);
-  max-width: 560px; text-wrap: pretty;
+.kb-section > .desc {
+  font-size: var(--text-base);
+  color: var(--color-on-surface-variant);
+  line-height: 1.65;
+  margin-bottom: var(--space-xl);
+  max-width: 36rem;
 }
 
-.link-grid {
+.kb-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: var(--space-gutter);
 }
 
-.link-card {
+.kb-card {
   background: var(--color-surface-container-low);
   border: var(--hairline) solid var(--color-outline);
   border-radius: var(--radius-base);
-  padding: var(--space-xl) var(--space-lg);
+  padding: var(--space-xl);
   text-decoration: none;
   transition: all var(--duration-slow);
   display: flex; flex-direction: column; gap: var(--space-sm);
 }
-.link-card:hover {
+
+.kb-card:hover {
   box-shadow: var(--elevation-md);
   transform: translateY(-2px);
   border-color: var(--color-primary);
 }
-.link-card .lc-icon { width: 32px; height: 32px; color: var(--color-primary); flex-shrink: 0; }
-.link-card .lc-icon svg { display: block; width: 100%; height: 100%; }
-.link-card h4 { font-size: var(--text-xl); font-weight: 600; color: var(--color-on-surface); }
-.link-card p { font-size: var(--text-sm); color: var(--color-on-surface-variant); line-height: 1.6; }
 
-/* ═══════════════════════════════════════════════════════════════
-   FEATURED
-   ═══════════════════════════════════════════════════════════════ */
-.feat-section {
-  padding: 0 clamp(20px, 4vw, 48px) var(--space-3xl);
-  max-width: var(--space-page-wmax); margin: 0 auto;
-}
-
-.feat-section h2 {
+.kb-card h3 {
   font-family: var(--font-display);
-  font-size: var(--text-3xl); font-weight: 700;
-  letter-spacing: -0.02em; color: var(--heading);
-  margin-bottom: var(--space-sm);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--heading);
+  line-height: 1.3;
 }
 
-.feat-section > .desc {
-  font-size: var(--text-base); color: var(--color-on-surface-variant);
-  line-height: 1.65; margin-bottom: var(--space-xl);
-  max-width: 560px; text-wrap: pretty;
+.kb-card p {
+  font-size: var(--text-sm);
+  color: var(--color-on-surface-variant);
+  line-height: 1.6;
 }
 
-.feat-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: var(--space-gutter);
-}
-
-.card {
-  background: var(--color-surface-container-low);
-  border: var(--hairline) solid var(--color-outline);
-  border-radius: var(--radius-base);
-  cursor: pointer;
-  transition: all var(--duration-slow);
-  overflow: hidden;
-  display: flex; flex-direction: column;
-}
-.card:hover {
-  box-shadow: var(--elevation-md);
-  transform: translateY(-3px);
-}
-.card:hover .card-name { color: var(--color-primary); }
-
-.card-preview {
-  aspect-ratio: 16/10; overflow: hidden; flex-shrink: 0;
-  background: var(--color-surface-container-low); position: relative;
-}
-.card-preview iframe {
-  position: absolute; top: 0; left: 0; border: none;
-  pointer-events: none; user-select: none;
-  transform-origin: top left; width: 960px; height: 600px; opacity: 0;
-}
-.card-preview::after {
-  content: ''; position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(0deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.25) 35%, transparent 55%);
-  pointer-events: none;
-  transition: opacity var(--duration-slow);
-}
-.card:hover .card-preview::after {
-  opacity: 0.4;
-}
-
-.card-body {
-  padding: var(--space-lg); flex: 1;
-  display: flex; flex-direction: column; gap: var(--space-sm);
-}
-
-.card-name {
-  font-family: var(--font-display);
-  font-size: var(--text-xl); font-weight: 700;
-  color: var(--heading); line-height: 1.3;
-  transition: color var(--duration-base);
-}
-
-.card-tagline {
-  font-size: var(--text-sm); color: var(--color-on-surface-variant); line-height: 1.5;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-}
-
-.card-tags {
-  display: flex; flex-wrap: wrap; gap: var(--space-2xs);
-  margin-top: auto; padding-top: var(--space-xs);
-}
-
-.tag {
-  padding: 3px 10px; border-radius: var(--radius-sm);
-  font-size: var(--text-xs); font-weight: 600;
-  background: var(--color-surface); color: var(--color-on-surface-variant); white-space: nowrap;
-}
-.tag.mood { background: var(--color-primary-container); color: var(--color-primary); }
-
-.loading {
-  text-align: center; padding: var(--space-3xl);
-  color: var(--color-on-surface-variant); font-size: var(--text-sm);
+.kb-card .kb-arrow {
+  font-size: var(--text-sm);
+  color: var(--color-primary);
+  font-weight: 600;
+  margin-top: auto;
 }
 
 /* ═══════════════════════════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════════════════════════ */
 @media (max-width: 680px) {
-  .carousel-slide { flex: 0 0 85vw; }
-  .carousel-slide:first-child { scroll-snap-align: center; }
-  .carousel-slide:last-child { scroll-snap-align: center; }
-  .link-grid { grid-template-columns: 1fr; }
-  .feat-grid { grid-template-columns: 1fr; }
+  .hero {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
 }
 </style>
 </head>
@@ -295,282 +180,43 @@ a { color: inherit; text-decoration: none; }
 
 <!-- NAV_INJECT -->
 
-<div class="hero-carousel" id="heroCarousel">
-  <div class="carousel-viewport" id="carouselViewport">
-    <div class="carousel-track" id="carouselTrack"></div>
+<section class="hero">
+  <div>
+    <h1 class="hero-tagline">好版式，<br>替你筛过了。</h1>
+    <p class="hero-sub">散在各处的版式——有些好、更多是半成品。一家家翻、一个个试，半天就没了。我们筛过第一轮了。来这里，挑一个顺眼的。</p>
+    <div class="hero-cta">
+      <a href="/library">开始挑选</a>
+    </div>
   </div>
-  <div class="carousel-controls">
-    <button class="carousel-arrow" id="carouselPrev" aria-label="上一张">‹</button>
-    <span class="carousel-index" id="carouselIndex">1 / 5</span>
-    <button class="carousel-arrow" id="carouselNext" aria-label="下一张">›</button>
+  <div class="hero-contract">
+    <div class="hero-contract-item"><span>不只是好看</span><strong>每个版式都经过真实内容测试</strong></div>
+    <div class="hero-contract-item"><span>不只是承诺</span><strong>三次独立复现，全部通过才上线</strong></div>
+    <div class="hero-contract-item"><span>不只是模板</span><strong>源码、设计稿、配色方案，打包给你</strong></div>
+    <div class="hero-contract-item"><span>我们相信</span><strong>好的版式，伸手就能够到</strong></div>
   </div>
-</div>
+</section>
 
-<div class="quick-section">
-  <h2>快速入口</h2>
-  <p class="desc">浏览模板库、学习设计方法、用 AI 萃取灵感——三个入口，覆盖设计工程全流程。</p>
-  <div class="link-grid">
-    <a href="/library" class="link-card">
-      <div class="lc-icon"><svg viewBox="0 0 32 32" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" fill="currentColor" opacity=".2"/><rect x="18" y="2" width="12" height="12" rx="2" fill="currentColor" opacity=".4"/><rect x="2" y="18" width="12" height="12" rx="2" fill="currentColor" opacity=".6"/><rect x="18" y="18" width="12" height="12" rx="2" fill="currentColor"/></svg></div>
-      <h4>版式库</h4>
-      <p>浏览全部模板，按风格、色系、正式度、密度筛选，找到最适合项目的版式。</p>
+<section class="kb-section">
+  <h2>做网站，不靠猜。</h2>
+  <p class="desc">配色怎么选、字体怎么搭、间距怎么定——这些不是审美直觉，是工程问题。我们把答案整理好了，你只管查。</p>
+  <div class="kb-grid">
+    <a href="/learn" class="kb-card">
+      <h3>我做的够好吗？</h3>
+      <p>14 道门禁，逐条对照。哪里差一口气，一眼就知道。</p>
+      <span class="kb-arrow">去看看 →</span>
     </a>
-    <a href="/learn" class="link-card">
-      <div class="lc-icon"><svg viewBox="0 0 32 32" fill="none"><path d="M5 7 L16 3.5 L27 7 L27 25 L16 21 L5 25 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><line x1="16" y1="3.5" x2="16" y2="21" stroke="currentColor" stroke-width="2"/></svg></div>
-      <h4>知识库</h4>
-      <p>设计工程方法论——图像规范、配色库、字体配对、设计原则，每个决策有据可查。</p>
+    <a href="/learn" class="kb-card">
+      <h3>有现成的吗？</h3>
+      <p>图标、动效、字体、配色。别人造好的轮子，直接拿走。</p>
+      <span class="kb-arrow">去看看 →</span>
     </a>
-    <a href="/grow" class="link-card">
-      <div class="lc-icon"><svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="6" fill="currentColor" opacity=".15"/><path d="M16 4 L17.5 11.5 L25 13 L17.5 14.5 L16 22 L14.5 14.5 L7 13 L14.5 11.5 Z" fill="currentColor"/></svg></div>
-      <h4>AI 萃取</h4>
-      <p>输入任意网页 URL，AI 自动提取视觉 Token、生成品牌套件并入库，把灵感变成资产。</p>
+    <a href="/learn" class="kb-card">
+      <h3>怎么变强？</h3>
+      <p>设计原则不是背的，是用的。理解一个，顶一百个技巧。</p>
+      <span class="kb-arrow">去看看 →</span>
     </a>
   </div>
-</div>
-
-<div class="feat-section">
-  <h2>精选模板</h2>
-  <p class="desc">模板即页面，配置即皮肤——所有视觉参数集中在一个文件里，改色改字不用翻代码。先看品牌预览，满意后拿走配置和版式，放进项目直接用。</p>
-  <div class="feat-grid" id="featuredGrid">
-    <div class="loading">加载中…</div>
-  </div>
-</div>
-
-<script>
-var FEATURED_SLUGS = ['layout-gallery','brutalist-paper','template-swiss','neubrutalism-course','green-thread-quote','zen-garden'];
-var CAROUSEL_SLUGS = ['layout-gallery','zen-garden','brutalist-paper','neo-grid-bold','template-swiss'];
-
-var STYLE_LABELS = {'minimalist':'极简','editorial':'杂志编辑','swiss':'瑞士国际','corporate':'企业商务','brutalist':'粗野主义','modern':'现代科技','retro':'复古经典','organic':'自然柔和','luxury':'奢华暗色','playful':'活泼创意'};
-
-var POSTER_COLORS = {
-  'layout-gallery':   { from: '#3D6B4A', to: '#2E5238', deco: '#ffffff' },
-  'zen-garden':       { from: '#78716C', to: '#57534E', deco: '#ffffff' },
-  'brutalist-paper':  { from: '#44403C', to: '#292524', deco: '#ffffff' },
-  'neo-grid-bold':    { from: '#2563EB', to: '#1E40AF', deco: '#ffffff' },
-  'template-swiss':   { from: '#DC2626', to: '#991B1B', deco: '#ffffff' }
-};
-
-var allTemplates = [];
-var carouselIndex = 0;         // displayed index (0-based real)
-var carouselTotal = 0;         // real slide count
-var carouselTimer = null;
-var scrollSuppressUntil = 0;
-var carouselTransitioning = false; // true during clone→real jump
-
-// ════════════════════ CAROUSEL ════════════════════
-
-function buildCarousel() {
-  var slides = CAROUSEL_SLUGS.map(function(slug) {
-    return allTemplates.find(function(t) { return t.slug === slug; });
-  }).filter(Boolean);
-
-  if (slides.length === 0) return;
-  carouselTotal = slides.length;
-
-  // Clone technique: [last, 0, 1, 2, ..., N-1, first]
-  // Indices:           0     1  2  3       N   N+1
-  var extended = [slides[slides.length-1]].concat(slides).concat([slides[0]]);
-
-  var track = document.getElementById('carouselTrack');
-  track.innerHTML = extended.map(function(t) {
-    var colors = POSTER_COLORS[t.slug] || { from: '#3F3F46', to: '#18181B', deco: '#ffffff' };
-    return '<div class="carousel-slide" data-real-index="' +
-      (slides.indexOf(t)) + '" data-slug="' + t.slug + '" onclick="onCarouselClick(this)">' +
-      '<div class="poster-bg" style="background:linear-gradient(135deg,' + colors.from + ',' + colors.to + ')"></div>' +
-      '<div class="poster-deco" style="width:60vmin;height:60vmin;top:-15%;right:-10%;background:' + colors.deco + '"></div>' +
-      '<div class="poster-deco" style="width:30vmin;height:30vmin;bottom:15%;left:55%;background:' + colors.deco + '"></div>' +
-      '<div class="poster-name">' + t.name + '</div>' +
-      '<div class="slide-label-row">' +
-        '<span class="slide-label">' + (STYLE_LABELS[t.design_style] || t.design_style || '') + '</span>' +
-        (t.tagline ? '<span class="slide-tagline">' + t.tagline + '</span>' : '') +
-      '</div>' +
-    '</div>';
-  }).join('');
-
-  // Fix clone data-real-index values
-  var cloneEls = track.querySelectorAll('.carousel-slide');
-  cloneEls[0].dataset.realIndex = String(carouselTotal - 1);          // clone of last
-  cloneEls[cloneEls.length-1].dataset.realIndex = '0';                // clone of first
-
-  // Scroll to first real slide (index 1 in extended array) — instant, no animation
-  var viewport = document.getElementById('carouselViewport');
-  var firstReal = cloneEls[1];
-  scrollSuppressUntil = Date.now() + 500;
-  viewport.scrollLeft = firstReal.offsetLeft - (viewport.offsetWidth - firstReal.offsetWidth) / 2;
-  carouselIndex = 0;
-  updateIndex(0);
-
-  // Event handlers
-  document.getElementById('carouselPrev').onclick = function() {
-    goTo(carouselIndex - 1);
-    resetAutoPlay();
-  };
-  document.getElementById('carouselNext').onclick = function() {
-    goTo(carouselIndex + 1);
-    resetAutoPlay();
-  };
-
-  viewport.onmouseenter = function() { clearInterval(carouselTimer); };
-  viewport.onmouseleave = startAutoPlay;
-
-  viewport.onscroll = function() {
-    if (Date.now() < scrollSuppressUntil) return;
-    clearTimeout(viewport._scrollDebounce);
-    viewport._scrollDebounce = setTimeout(function() {
-      if (carouselTransitioning) return;
-      var slideEls = document.querySelectorAll('.carousel-slide');
-      var vpCenter = viewport.scrollLeft + viewport.offsetWidth / 2;
-      var bestIdx = -1, bestDist = Infinity;
-      slideEls.forEach(function(el, i) {
-        var elCenter = el.offsetLeft + el.offsetWidth / 2;
-        var dist = Math.abs(vpCenter - elCenter);
-        if (dist < bestDist) { bestDist = dist; bestIdx = i; }
-      });
-      if (bestIdx < 0) return;
-
-      var realIdx = parseInt(slideEls[bestIdx].dataset.realIndex, 10);
-      if (realIdx >= 0 && realIdx < carouselTotal) {
-        carouselIndex = realIdx;
-        updateIndex(realIdx);
-      }
-
-      // If we snapped to a clone, jump to the real counterpart
-      if (bestIdx === 0) {
-        // Snapped to clone of last → jump to real last
-        carouselTransitioning = true;
-        scrollSuppressUntil = Date.now() + 800;
-        carouselIndex = carouselTotal - 1;
-        updateIndex(carouselTotal - 1);
-        var realLast = slideEls[slideEls.length - 2]; // second-to-last is real last
-        viewport.scrollLeft = realLast.offsetLeft - (viewport.offsetWidth - realLast.offsetWidth) / 2;
-        setTimeout(function() { carouselTransitioning = false; }, 400);
-      } else if (bestIdx === slideEls.length - 1) {
-        // Snapped to clone of first → jump to real first
-        carouselTransitioning = true;
-        scrollSuppressUntil = Date.now() + 800;
-        carouselIndex = 0;
-        updateIndex(0);
-        var realFirst = slideEls[1]; // second is real first
-        viewport.scrollLeft = realFirst.offsetLeft - (viewport.offsetWidth - realFirst.offsetWidth) / 2;
-        setTimeout(function() { carouselTransitioning = false; }, 400);
-      }
-    }, 80);
-  };
-
-  startAutoPlay();
-}
-
-function goTo(index) {
-  // Wrap around
-  if (index < 0) index = carouselTotal - 1;
-  if (index >= carouselTotal) index = 0;
-
-  var viewport = document.getElementById('carouselViewport');
-  var slideEls = document.querySelectorAll('.carousel-slide');
-  // Target the real slide (index+1 in extended array: +1 for the leading clone)
-  var targetEl = slideEls[index + 1];
-  if (!targetEl) return;
-
-  scrollSuppressUntil = Date.now() + 700;
-  carouselIndex = index;
-  updateIndex(index);
-  viewport.scrollTo({
-    left: Math.max(0, targetEl.offsetLeft - (viewport.offsetWidth - targetEl.offsetWidth) / 2),
-    behavior: 'smooth'
-  });
-}
-
-function updateIndex(index) {
-  document.getElementById('carouselIndex').textContent = (index + 1) + ' / ' + carouselTotal;
-}
-
-function startAutoPlay() {
-  clearInterval(carouselTimer);
-  carouselTimer = setInterval(function() {
-    goTo((carouselIndex + 1) % carouselTotal);
-  }, 4000);
-}
-
-function resetAutoPlay() {
-  clearInterval(carouselTimer);
-  startAutoPlay();
-}
-
-function onCarouselClick(el) {
-  var slug = el.dataset.slug;
-  if (slug) window.open('/brand/' + slug + '/', '_blank');
-}
-
-// ════════════════════ FEATURED ════════════════════
-
-function renderFeatured() {
-  var grid = document.getElementById('featuredGrid');
-  var featured = FEATURED_SLUGS.map(function(s) { return allTemplates.find(function(t) { return t.slug === s; }); }).filter(Boolean);
-  if (featured.length === 0) { grid.innerHTML = '<div class="loading">暂无精选模板</div>'; return; }
-
-  grid.innerHTML = featured.map(function(t) {
-    var tags = [];
-    (t.mood||[]).slice(0,2).forEach(function(m) { tags.push('<span class="tag mood">' + m + '</span>'); });
-    if (t.design_style) tags.push('<span class="tag">' + (STYLE_LABELS[t.design_style]||t.design_style) + '</span>');
-    return '<a href="/brand/' + t.slug + '/" target="_blank" class="card" style="text-decoration:none">' +
-      '<div class="card-preview">' +
-        '<iframe data-src="' + t.template_path + '" onload="scaleFrame(this)" style="width:960px;height:600px"></iframe>' +
-      '</div>' +
-      '<div class="card-body">' +
-        '<div class="card-name">' + t.name + '</div>' +
-        (t.tagline ? '<div class="card-tagline">' + t.tagline + '</div>' : '') +
-        '<div class="card-tags">' + tags.join('') + '</div>' +
-      '</div>' +
-    '</a>';
-  }).join('');
-
-  observeIframes();
-}
-
-function scaleFrame(iframe) {
-  var container = iframe.parentElement;
-  var w = container.offsetWidth;
-  if (!w) return;
-  iframe.style.transform = 'scale(' + (w/960) + ')';
-  iframe.style.opacity = '1';
-}
-
-var io = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    if (!entry.isIntersecting) return;
-    var iframe = entry.target;
-    iframe.src = iframe.dataset.src;
-    io.unobserve(iframe);
-  });
-}, { rootMargin: '400px' });
-
-function observeIframes() {
-  document.querySelectorAll('iframe[data-src]').forEach(function(f) { io.observe(f); });
-}
-
-window.addEventListener('resize', function() {
-  document.querySelectorAll('.card-preview iframe').forEach(function(iframe) {
-    var container = iframe.parentElement;
-    if (container) iframe.style.transform = 'scale(' + (container.offsetWidth/960) + ')';
-  });
-});
-
-// ════════════════════ INIT ════════════════════
-
-async function init() {
-  try {
-    var res = await fetch('/api/registry');
-    var data = await res.json();
-    allTemplates = data.items.filter(function(t) { return t.status !== 'placeholder'; });
-    buildCarousel();
-    renderFeatured();
-  } catch(e) {
-    document.getElementById('featuredGrid').innerHTML = '<div class="loading">数据加载失败，请先启动服务器</div>';
-  }
-}
-
-init();
-</script>
+</section>
 
 <!-- FOOTER_INJECT -->
 </body>

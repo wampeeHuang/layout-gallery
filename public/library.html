@@ -342,16 +342,8 @@ a { color: inherit; text-decoration: none; }
 <div class="toolbar" id="filters">
   <div class="toolbar-inner">
     <div class="filter-row">
-      <span class="filter-label">品质</span>
-      <div class="filter-chips" id="tierChips"></div>
-    </div>
-    <div class="filter-row">
-      <span class="filter-label">风格</span>
+      <span class="filter-label">版面气质</span>
       <div class="filter-chips" id="vfChips"></div>
-    </div>
-    <div class="filter-row">
-      <span class="filter-label">色调</span>
-      <div class="filter-chips" id="toneChips"></div>
     </div>
   </div>
 </div>
@@ -359,8 +351,8 @@ a { color: inherit; text-decoration: none; }
 <div class="content">
   <div class="grid" id="layoutGrid"></div>
   <div class="empty" id="emptyState" style="display:none">
-    <h3>未找到匹配模板</h3>
-    <p>尝试切换品质或色调</p>
+    <h3>没有找到匹配的版式</h3>
+    <p>试试换一个版面气质</p>
   </div>
 </div>
 
@@ -382,7 +374,7 @@ var taxonomy = null;
    STATE
    ═══════════════════════════════════════════════════════════════ */
 var templates = [];
-var F = { tier: 'all', vf: 'all', tone: 'all' };
+var F = { vf: 'all' };
 
 /* ═══════════════════════════════════════════════════════════════
    INIT
@@ -404,9 +396,7 @@ async function init() {
     taxonomy = null;
   }
 
-  renderTierChips();
   renderVFChips();
-  renderToneChips();
   renderGrid(applyFilters());
   bindEvents();
 }
@@ -418,51 +408,9 @@ init();
    ═══════════════════════════════════════════════════════════════ */
 function applyFilters() {
   return templates.filter(function(t) {
-    if (F.tier !== 'all' && t.curation_status !== F.tier) return false;
     if (F.vf !== 'all' && t.visual_family !== F.vf) return false;
-    if (F.tone !== 'all' && t.scheme !== F.tone) return false;
     return true;
   });
-}
-
-function tierOrder() {
-  if (taxonomy && taxonomy.tier) return Object.keys(taxonomy.tier.values);
-  return ['curated', 'published', 'repairing'];
-}
-
-function tierLabel(key) {
-  if (taxonomy && taxonomy.tier && taxonomy.tier.values[key]) return taxonomy.tier.values[key].label;
-  var fallback = { curated: '精选', published: '可用', repairing: '原料' };
-  return fallback[key] || key;
-}
-
-function renderTierChips() {
-  var counts = { all: 0 };
-  var keys = tierOrder();
-  keys.forEach(function(k) { counts[k] = 0; });
-
-  templates.forEach(function(t) {
-    counts.all++;
-    var st = t.curation_status;
-    if (st && counts[st] !== undefined) counts[st]++;
-  });
-
-  var html = '<button class="filter-chip active" data-tier="all" onclick="selectTier(\'all\')">全部<span class="count">' + counts.all + '</span></button>';
-  keys.forEach(function(k) {
-    var c = counts[k] || 0;
-    if (c > 0) {
-      html += '<button class="filter-chip" data-tier="' + k + '" onclick="selectTier(\'' + k + '\')">' + tierLabel(k) + '<span class="count">' + c + '</span></button>';
-    }
-  });
-  document.getElementById('tierChips').innerHTML = html;
-}
-
-function selectTier(val) {
-  F.tier = val;
-  document.querySelectorAll('[data-tier]').forEach(function(el) {
-    el.classList.toggle('active', el.dataset.tier === val);
-  });
-  renderGrid(applyFilters());
 }
 
 function vfOrder() {
@@ -503,46 +451,6 @@ function selectVF(val) {
     el.classList.toggle('active', el.dataset.vf === val);
   });
   renderGrid(applyFilters());
-}
-
-var TONE_ORDER = [
-  { key: 'all',   label: '全部' },
-  { key: 'light', label: '亮色', icon: '<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>' },
-  { key: 'dark',  label: '暗色', icon: '<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.5 9.5A6 6 0 0 1 6.5 2.5 6 6 0 1 0 13.5 9.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>' },
-  { key: 'mixed', label: '混合' }
-];
-
-var TONE_ORDER_SORTED = ['all', 'light', 'mixed', 'dark'];
-
-function renderToneChips() {
-  var counts = { all: 0, light: 0, dark: 0, mixed: 0 };
-  templates.forEach(function(t) {
-    counts.all++;
-    if (counts[t.scheme] !== undefined) counts[t.scheme]++;
-  });
-
-  var TONE_MAP = {};
-  TONE_ORDER.forEach(function(t) { TONE_MAP[t.key] = t; });
-
-  var html = '';
-  TONE_ORDER_SORTED.forEach(function(key, i) {
-    var tone = TONE_MAP[key];
-    if (!tone) return;
-    var c = counts[key] || 0;
-    if (c > 0 || key === 'all') {
-      html += '<button class="filter-chip' + (i === 0 ? ' active' : '') + '" data-tone="' + key + '" onclick="selectTone(\'' + key + '\')">' + (tone.icon || '') + tone.label + '<span class="count">' + c + '</span></button>';
-    }
-  });
-  document.getElementById('toneChips').innerHTML = html;
-}
-
-function selectTone(tone) {
-  F.tone = tone;
-  document.querySelectorAll('[data-tone]').forEach(function(el) {
-    el.classList.toggle('active', el.dataset.tone === tone);
-  });
-  var filtered = applyFilters();
-  renderGrid(filtered);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -677,12 +585,10 @@ function openModal(slug) {
   var t = templates.find(function(x) { return x.slug === slug; });
   if (!t) return;
 
-  var tierKV = taxonomy && taxonomy.tier ? taxonomy.tier.values : {};
   var vfKV = taxonomy && taxonomy.visual_family ? taxonomy.visual_family.values : {};
   var ctKV = taxonomy && taxonomy.content_type ? taxonomy.content_type.values : {};
   var schemeKV = taxonomy && taxonomy.scheme ? taxonomy.scheme.values : {};
 
-  var tierLabelText = t.curation_status && tierKV[t.curation_status] ? tierKV[t.curation_status].label : (t.curation_status || '—');
   var vfLabel = t.visual_family && vfKV[t.visual_family] ? vfKV[t.visual_family].label : null;
   var ctLabel = t.content_type && ctKV[t.content_type] ? ctKV[t.content_type].label : null;
   var schemeLabel = t.scheme && schemeKV[t.scheme] ? schemeKV[t.scheme].label : (t.scheme || '—');
@@ -704,7 +610,7 @@ function openModal(slug) {
       (t.design_principles ? '<div class="modal-section"><h4>设计原则</h4><div class="modal-principles">' + renderPrinciples(t.design_principles) + '</div></div>' : '') +
       (t.color_system ? '<div class="modal-section"><h4>六色系统</h4><div class="modal-colors">' + renderColorSystem(t.color_system) + '</div></div>' : '') +
       (t.typography_scale ? '<div class="modal-section"><h4>排版尺度</h4><div class="modal-type-scale">' + renderTypeScale(t.typography_scale) + '</div></div>' : '') +
-      '<div class="modal-section"><h4>品质 · 分类</h4><p>' + tierLabelText + ' · ' + tagLine + '</p></div>' +
+      '<div class="modal-section"><h4>分类</h4><p>' + tagLine + '</p></div>' +
       (t.best_for ? '<div class="modal-section"><h4>适用场景</h4><p>' + t.best_for + '</p></div>' : '') +
       (t.avoid_for ? '<div class="modal-section"><h4>不适用</h4><p>' + t.avoid_for + '</p></div>' : '') +
       '<div class="modal-actions">' +
