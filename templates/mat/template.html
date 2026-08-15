@@ -149,39 +149,38 @@
       /* ── Navigation dots ──────────────────────────────────────────────── */
       #nav-dots {
         position: fixed;
-        bottom: 24px;
+        bottom: var(--space-24);
         left: 50%;
-        transform: translateX(-50%);
+        transform: var(--transform-0);
         display: flex;
-        gap: 7px;
+        gap: var(--space-7);
         z-index: 100;
       }
       .nav-dot {
-        width: 5px;
-        height: 5px;
+        width: var(--space-5);
+        height: var(--space-5);
         border-radius: 50%;
         border: none;
-        background: rgba(255, 255, 255, 0.22);
+        background: var(--color-extra-0);
         cursor: pointer;
-        transition:
-          background 0.3s,
+        transition: background 0.3s,
           transform 0.3s;
         padding: 0;
       }
       .nav-dot.is-active {
-        background: rgba(255, 255, 255, 0.8);
-        transform: scale(1.4);
+        background: var(--color-extra-1);
+        transform: var(--transform-1);
       }
 
       /* Slide counter — bottom right, subtle */
       #slide-counter {
         position: fixed;
-        bottom: 20px;
-        right: 28px;
+        bottom: var(--space-20);
+        right: var(--space-28);
         font-family: var(--font-mono);
-        font-size: 11px;
+        font-size: var(--typescale-11);
         letter-spacing: 0.12em;
-        color: rgba(255, 255, 255, 0.25);
+        color: var(--color-extra-2);
         z-index: 100;
         user-select: none;
       }
@@ -316,12 +315,7 @@
         right: -5%;
         width: 55%;
         height: 70%;
-        background: radial-gradient(
-          ellipse at 70% 80%,
-          rgba(122, 78, 36, 0.28) 0%,
-          rgba(80, 50, 20, 0.14) 40%,
-          transparent 70%
-        );
+        background: var(--bg-0);
         pointer-events: none;
         z-index: 0;
       }
@@ -351,12 +345,12 @@
       }
       .slide-chrome {
         padding-bottom: 1.4vh;
-        border-bottom: 1px solid var(--c-border);
+        border-bottom: var(--hairline) solid var(--c-border);
         margin-bottom: 2.8vh;
       }
       .slide-foot {
         padding-top: 1.4vh;
-        border-top: 1px solid var(--c-border);
+        border-top: var(--hairline) solid var(--c-border);
         margin-top: 2.8vh;
       }
       .light .slide-chrome,
@@ -389,15 +383,15 @@
 
       /* Rule: a short horizontal accent line */
       .rule {
-        width: 32px;
-        height: 1px;
+        width: var(--space-32);
+        height: var(--hairline);
         background: var(--c-accent);
       }
 
       /* Image placeholder — used until real photography is available */
       .img-placeholder {
-        background: rgba(240, 232, 210, 0.06);
-        border: 1px solid var(--c-border);
+        background: var(--color-extra-5);
+        border: var(--hairline) solid var(--c-border);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -588,7 +582,7 @@
         flex-direction: column;
         gap: 1.4vh;
         padding: 2.8vh 5.5vw 2.8vh 0;
-        border-right: 1px solid var(--c-border);
+        border-right: var(--hairline) solid var(--c-border);
       }
       /* Last cell: no right border, has left padding */
       .mat-stat:last-child {
@@ -707,7 +701,7 @@
       }
       .slide--compare .slide-body {
         display: grid;
-        grid-template-columns: 1fr 1px 1fr;
+        grid-template-columns: 1fr var(--hairline) 1fr;
         gap: 0;
         align-items: center;
         min-height: 0;
@@ -730,7 +724,7 @@
       .compare-divider-line {
         background: var(--c-border);
         height: 100%;
-        width: 1px;
+        width: var(--hairline);
       }
       /* Before label: muted mono */
       .compare-label {
@@ -780,7 +774,7 @@
         display: flex;
         align-items: flex-end;
         gap: 3vw;
-        border-left: 1px solid var(--c-border);
+        border-left: var(--hairline) solid var(--c-border);
         padding-left: 0.5vw;
       }
       /* Each individual bar column */
@@ -824,7 +818,7 @@
       }
       /* Baseline rule below the bars */
       .chart-baseline {
-        height: 1px;
+        height: var(--hairline);
         background: var(--c-border);
         flex-shrink: 0;
       }
@@ -872,7 +866,7 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
-        border-top: 1px solid var(--c-border);
+        border-top: var(--hairline) solid var(--c-border);
         padding-top: 1.4vh;
         margin-top: 2.8vh;
       }

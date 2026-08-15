@@ -52,32 +52,32 @@
   --space-gap: 24px;
   --space-gutter: 24px;
 }
-  html, body { margin:0; padding:0; background:#1a1a1a; }
-  body { font-family: "Inter", "Helvetica Neue", Arial, sans-serif; color: var(--ink); }
-  deck-stage { background: #1a1a1a; }
+  html, body { margin:0; padding:0; background:var(--color-extra-0); }
+  body { font-family: var(--font-display); color: var(--ink); }
+  deck-stage { background: var(--color-extra-1); }
 
   section.slide { background: var(--bone); color: var(--ink); overflow: hidden; position: relative; }
   section.slide.dark { background: var(--black); color: var(--bone); }
 
   /* ---------- chrome ---------- */
   .top {
-    position: absolute; top: 48px; left: 64px; right: 64px;
+    position: absolute; top: var(--space-48); left: var(--space-64); right: var(--space-64);
     display: flex; align-items: center; justify-content: space-between;
-    font-family: "Barlow Condensed", "Helvetica Neue", sans-serif;
+    font-family: var(--font-display);
     font-weight: 800;
-    font-size: 32px;
+    font-size: var(--typescale-32);
     letter-spacing: .04em;
     text-transform: uppercase;
     line-height: 1;
   }
-  .top .meta { display: flex; gap: 64px; font-size: 24px; font-weight: 600; letter-spacing: .06em; opacity: .85; }
+  .top .meta { display: flex; gap: var(--space-64); font-size: var(--typescale-24); font-weight: 600; letter-spacing: .06em; opacity: .85; }
   section.slide.dark .top { color: var(--bone); }
 
   .footer {
-    position: absolute; left: 64px; right: 64px; bottom: 36px;
+    position: absolute; left: var(--space-64); right: var(--space-64); bottom: var(--space-36);
     display: flex; justify-content: space-between; align-items: center;
-    font-family: "Barlow Condensed", sans-serif;
-    font-weight: 600; font-size: 22px;
+    font-family: var(--font-display);
+    font-weight: 600; font-size: var(--typescale-22);
     letter-spacing: .08em;
     text-transform: uppercase;
     opacity: .75;
@@ -85,28 +85,28 @@
   section.slide.dark .footer { color: var(--bone); }
 
   /* ---------- shared tablet card ---------- */
-  .tablet { border-radius: 26px; padding: 38px 32px 32px; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+  .tablet { border-radius: var(--radius-0); padding: var(--space-38) var(--space-page-pad) var(--space-page-pad); display: flex; flex-direction: column; position: relative; overflow: hidden; }
   .tablet .num {
-    font-family: "Stardos Stencil", "Bowlby One", serif;
+    font-family: var(--font-display);
     font-weight: 700;
     line-height: .9;
     color: var(--ink);
-    font-size: 220px;
+    font-size: var(--typescale-220);
     letter-spacing: -.02em;
   }
   .tablet h3 {
-    font-family: "Stardos Stencil", serif;
+    font-family: var(--font-display);
     font-weight: 700;
-    font-size: 30px;
+    font-size: var(--typescale-30);
     line-height: 1;
     text-transform: uppercase;
     letter-spacing: .02em;
     margin-top: auto;
-    margin-bottom: 14px;
+    margin-bottom: var(--space-14);
   }
   .tablet p {
-    font-family: "Inter", sans-serif;
-    font-size: 22px;
+    font-family: var(--font-display);
+    font-size: var(--typescale-22);
     line-height: 1.4;
     color: var(--ink);
   }
@@ -120,17 +120,17 @@
     position: absolute; inset: 0;
     display: grid;
     grid-template-rows: 1fr auto;
-    padding: 48px 64px;
+    padding: var(--space-48) var(--space-64);
   }
   .s-cover .super {
-    font-family: "Barlow Condensed", sans-serif;
-    font-weight: 800; font-size: 28px; letter-spacing: .12em;
+    font-family: var(--font-display);
+    font-weight: 800; font-size: var(--typescale-28); letter-spacing: .12em;
     text-transform: uppercase; opacity: .8;
   }
   .s-cover h1 {
-    font-family: "Stardos Stencil", serif;
+    font-family: var(--font-display);
     font-weight: 700;
-    font-size: 220px;
+    font-size: var(--typescale-220);
     line-height: .82;
     letter-spacing: -.015em;
     text-transform: uppercase;
@@ -141,26 +141,26 @@
   .s-cover h1 em { font-style: normal; color: var(--magenta); }
   .s-cover .row {
     display: flex; align-items: end; justify-content: space-between;
-    margin-top: 24px;
+    margin-top: var(--space-gutter);
   }
-  .s-cover .row .lockup { display: flex; align-items: center; gap: 18px; }
+  .s-cover .row .lockup { display: flex; align-items: center; gap: var(--space-18); }
   .s-cover .row .mark {
-    width: 56px; height: 56px; border-radius: 14px; background: var(--orange);
+    width: var(--space-56); height: var(--space-56); border-radius: var(--radius-1); background: var(--orange);
   }
   .s-cover .row .who {
-    font-family: "Barlow Condensed", sans-serif; font-weight: 700;
-    font-size: 30px; text-transform: uppercase; letter-spacing: .04em;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-30); text-transform: uppercase; letter-spacing: .04em;
   }
   .s-cover .row .who small {
-    display: block; font-size: 22px; font-weight: 500; letter-spacing: .08em; opacity: .65;
+    display: block; font-size: var(--typescale-22); font-weight: 500; letter-spacing: .08em; opacity: .65;
   }
   .s-cover .row .date {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 36px; text-transform: uppercase;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-36); text-transform: uppercase;
   }
   .s-cover .shape {
-    position: absolute; right: 56px; top: 64px;
-    width: 320px; height: 380px;
+    position: absolute; right: var(--space-56); top: var(--space-64);
+    width: var(--space-320); height: var(--space-380);
     color: var(--teal);
   }
 
@@ -168,22 +168,22 @@
   .s-agenda { padding: 0; }
   .s-agenda .grid {
     position: absolute;
-    left: 64px; right: 64px; top: 200px; bottom: 100px;
+    left: var(--space-64); right: var(--space-64); top: var(--space-200); bottom: var(--space-100);
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 28px;
+    gap: var(--space-28);
   }
-  .s-agenda .item { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 36px 18px 36px; }
+  .s-agenda .item { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: var(--space-36) var(--space-18) var(--space-36); }
   .s-agenda .item svg { position: absolute; inset: 0; width: 100%; height: 100%; }
   .s-agenda .item .n {
     position: relative; z-index: 2;
-    font-family: "Barlow Condensed", sans-serif; font-weight: 800;
-    font-size: 32px; letter-spacing: .06em; color: var(--ink);
+    font-family: var(--font-display); font-weight: 800;
+    font-size: var(--typescale-32); letter-spacing: .06em; color: var(--ink);
   }
   .s-agenda .item .lab {
     position: relative; z-index: 2;
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 32px; line-height: 1.05; text-align: center;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-32); line-height: 1.05; text-align: center;
     text-transform: uppercase; color: var(--ink);
   }
 
@@ -191,51 +191,51 @@
   .s-princ { padding: 0; }
   .s-princ .row {
     position: absolute;
-    left: 64px; right: 64px; top: 160px; bottom: 70px;
+    left: var(--space-64); right: var(--space-64); top: var(--space-160); bottom: var(--space-70);
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
+    gap: var(--space-gutter);
   }
-  .s-princ .card { border-radius: 26px; padding: 36px 30px 32px; display: flex; flex-direction: column; min-height: 0; }
+  .s-princ .card { border-radius: var(--radius-2); padding: var(--space-36) var(--space-30) var(--space-page-pad); display: flex; flex-direction: column; min-height: 0; }
   .s-princ .card.c1 { background: var(--sienna); }
   .s-princ .card.c2 { background: var(--magenta); }
   .s-princ .card.c3 { background: var(--orange); }
   .s-princ .card.c4 { background: var(--teal); }
   .s-princ .card .n {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 240px; line-height: .85; letter-spacing: -.02em;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-240); line-height: .85; letter-spacing: -.02em;
     color: var(--ink);
   }
   .s-princ .card h3 {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 30px; line-height: 1.05;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-30); line-height: 1.05;
     text-transform: uppercase; letter-spacing: .02em;
-    margin: auto 0 14px; color: var(--ink);
+    margin: auto 0 var(--space-14); color: var(--ink);
   }
   .s-princ .card p {
-    font-size: 22px; line-height: 1.4; color: var(--ink);
+    font-size: var(--typescale-22); line-height: 1.4; color: var(--ink);
   }
   .s-princ .card.c4 h3, .s-princ .card.c4 p { color: var(--bone); }
 
   /* =========== 04 SECTION DIVIDER =========== */
   .s-sec { padding: 0; }
   .s-sec .num {
-    position: absolute; left: 64px; top: 110px;
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 540px; line-height: .8; color: var(--orange);
+    position: absolute; left: var(--space-64); top: var(--space-110);
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-540); line-height: .8; color: var(--orange);
   }
   .s-sec .label {
-    position: absolute; right: 64px; top: 220px;
-    font-family: "Barlow Condensed", sans-serif; font-weight: 800;
-    font-size: 24px; letter-spacing: .14em; text-transform: uppercase;
+    position: absolute; right: var(--space-64); top: var(--space-220);
+    font-family: var(--font-display); font-weight: 800;
+    font-size: var(--typescale-24); letter-spacing: .14em; text-transform: uppercase;
     color: var(--bone); opacity: .7;
     text-align: right;
   }
   .s-sec h2 {
     position: absolute;
-    right: 64px; bottom: 130px; left: 360px;
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 120px; line-height: .92; text-transform: uppercase;
+    right: var(--space-64); bottom: var(--space-130); left: var(--space-360);
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-120); line-height: .92; text-transform: uppercase;
     letter-spacing: -.005em;
     color: var(--bone);
     text-align: right;
@@ -244,53 +244,53 @@
 
   /* =========== 05 CONSULT (text-dense action title) =========== */
   .s-consult .head {
-    position: absolute; left: 64px; right: 64px; top: 130px;
+    position: absolute; left: var(--space-64); right: var(--space-64); top: var(--space-130);
     background: var(--mustard);
-    border-radius: 22px;
-    padding: 24px 32px;
-    display: flex; align-items: center; gap: 28px;
+    border-radius: var(--radius-3);
+    padding: var(--space-gutter) var(--space-page-pad);
+    display: flex; align-items: center; gap: var(--space-28);
   }
   .s-consult .head .tag {
-    font-family: "Barlow Condensed", sans-serif; font-weight: 800;
-    font-size: 24px; letter-spacing: .12em; text-transform: uppercase;
-    flex-shrink: 0; padding-right: 28px;
-    border-right: 2px solid var(--ink);
+    font-family: var(--font-display); font-weight: 800;
+    font-size: var(--typescale-24); letter-spacing: .12em; text-transform: uppercase;
+    flex-shrink: 0; padding-right: var(--space-28);
+    border-right: var(--border-0) solid var(--ink);
   }
   .s-consult .head h2 {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 34px; line-height: 1.15; text-transform: uppercase; letter-spacing: -.005em;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-34); line-height: 1.15; text-transform: uppercase; letter-spacing: -.005em;
   }
   .s-consult .grid {
-    position: absolute; left: 64px; right: 64px; top: 290px; bottom: 80px;
+    position: absolute; left: var(--space-64); right: var(--space-64); top: var(--space-290); bottom: var(--space-80);
     display: grid;
     grid-template-columns: 1.1fr 1fr 1fr;
-    gap: 24px;
+    gap: var(--space-gutter);
   }
   .s-consult .col {
-    border-radius: 22px; padding: 28px 28px;
-    display: flex; flex-direction: column; gap: 14px; min-height: 0;
+    border-radius: var(--radius-4); padding: var(--space-28) var(--space-28);
+    display: flex; flex-direction: column; gap: var(--space-14); min-height: 0;
   }
   .s-consult .col.a { background: var(--paper); }
   .s-consult .col.b { background: var(--orange); }
   .s-consult .col.c { background: var(--paper); }
   .s-consult .col h3 {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 28px; text-transform: uppercase; letter-spacing: .02em;
-    border-bottom: 2px solid var(--ink); padding-bottom: 12px;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-28); text-transform: uppercase; letter-spacing: .02em;
+    border-bottom: var(--border-1) solid var(--ink); padding-bottom: var(--space-12);
   }
   .s-consult .col .meta {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 32px; line-height: 1.1;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-32); line-height: 1.1;
   }
-  .s-consult .col p { font-size: 20px; line-height: 1.45; }
-  .s-consult .col ul { margin: 0; padding-left: 22px; font-size: 20px; line-height: 1.45; }
-  .s-consult .col ul li { margin-bottom: 8px; }
+  .s-consult .col p { font-size: var(--typescale-20); line-height: 1.45; }
+  .s-consult .col ul { margin: 0; padding-left: var(--space-22); font-size: var(--typescale-20); line-height: 1.45; }
+  .s-consult .col ul li { margin-bottom: var(--space-8); }
   .s-consult .col ul li strong { font-weight: 700; }
   .s-consult .col .src {
     margin-top: auto;
-    font-family: "Barlow Condensed", sans-serif; font-weight: 700;
-    font-size: 18px; letter-spacing: .12em; text-transform: uppercase;
-    border-top: 1px dashed rgba(10,10,10,.35); padding-top: 12px; opacity: .75;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-18); letter-spacing: .12em; text-transform: uppercase;
+    border-top: var(--border-2) dashed var(--color-extra-2); padding-top: var(--space-12); opacity: .75;
   }
 
   /* =========== 06 CHART =========== */
@@ -299,72 +299,72 @@
      the absolutely-positioned .footer (which sits at bottom: 36 with
      ~24px text height). Also: h2 size now caps by viewport height too. */
   .s-chart .left {
-    position: absolute; left: 64px; top: 200px; bottom: 150px; width: 540px;
-    display: flex; flex-direction: column; gap: 24px;
+    position: absolute; left: var(--space-64); top: var(--space-200); bottom: var(--space-150); width: var(--space-540);
+    display: flex; flex-direction: column; gap: var(--space-gutter);
   }
   .s-chart .left h2 {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: min(110px, 12vh); line-height: .92; text-transform: uppercase; letter-spacing: -.01em;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: min(var(--typescale-110), 12vh); line-height: .92; text-transform: uppercase; letter-spacing: -.01em;
     color: var(--bone);
   }
   .s-chart .left h2 em { font-style: normal; color: var(--orange); }
-  .s-chart .left p { font-size: 22px; line-height: 1.5; color: var(--bone); opacity: .85; }
+  .s-chart .left p { font-size: var(--typescale-22); line-height: 1.5; color: var(--bone); opacity: .85; }
   .s-chart .left .legend {
-    margin-top: auto; display: flex; flex-direction: column; gap: 10px;
+    margin-top: auto; display: flex; flex-direction: column; gap: var(--space-10);
   }
   .s-chart .left .legend .li {
-    display: flex; align-items: center; gap: 14px;
-    font-family: "Barlow Condensed", sans-serif; font-weight: 700;
-    font-size: 22px; letter-spacing: .06em; text-transform: uppercase; color: var(--bone);
+    display: flex; align-items: center; gap: var(--space-14);
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-22); letter-spacing: .06em; text-transform: uppercase; color: var(--bone);
   }
-  .s-chart .left .legend .li i { width: 32px; height: 6px; }
+  .s-chart .left .legend .li i { width: var(--space-page-pad); height: var(--space-6); }
   .s-chart .right {
-    position: absolute; right: 64px; top: 200px; bottom: 130px; left: 680px;
-    background: var(--paper); border-radius: 22px;
-    padding: 32px 32px 28px 80px;
+    position: absolute; right: var(--space-64); top: var(--space-200); bottom: var(--space-130); left: var(--space-680);
+    background: var(--paper); border-radius: var(--radius-5);
+    padding: var(--space-page-pad) var(--space-page-pad) var(--space-28) var(--space-80);
     display: flex; flex-direction: column; overflow: hidden;
   }
   .s-chart .right .yhead {
-    font-family: "Barlow Condensed", sans-serif; font-weight: 700;
-    font-size: 18px; letter-spacing: .12em; text-transform: uppercase;
-    margin-bottom: 8px; opacity: .7;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-18); letter-spacing: .12em; text-transform: uppercase;
+    margin-bottom: var(--space-8); opacity: .7;
   }
   .s-chart .plot { flex: 1; min-height: 0; position: relative;
-    border-left: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
-  .s-chart .plot .gline { position: absolute; left: 0; right: 0; border-top: 1px dashed rgba(10,10,10,.18); }
+    border-left: var(--border-3) solid var(--ink); border-bottom: var(--border-4) solid var(--ink); }
+  .s-chart .plot .gline { position: absolute; left: 0; right: 0; border-top: var(--border-5) dashed var(--color-extra-3); }
   .s-chart .plot .yticks {
     position: absolute; left: -52px; top: 0; bottom: 0;
     display: flex; flex-direction: column; justify-content: space-between;
-    font-family: "Barlow Condensed", sans-serif; font-weight: 600;
-    font-size: 18px;
+    font-family: var(--font-display); font-weight: 600;
+    font-size: var(--typescale-18);
   }
   .s-chart .plot svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; overflow: visible; }
-  .s-chart .right .xticks { display: flex; justify-content: space-between; padding-top: 10px;
-    font-family: "Barlow Condensed", sans-serif; font-weight: 600;
-    font-size: 18px; letter-spacing: .06em; }
+  .s-chart .right .xticks { display: flex; justify-content: space-between; padding-top: var(--space-10);
+    font-family: var(--font-display); font-weight: 600;
+    font-size: var(--typescale-18); letter-spacing: .06em; }
 
   /* =========== 07 PROCESS DIAGRAM =========== */
   .s-process .head {
-    position: absolute; left: 64px; right: 64px; top: 130px;
-    display: flex; align-items: flex-start; justify-content: space-between; gap: 40px;
+    position: absolute; left: var(--space-64); right: var(--space-64); top: var(--space-130);
+    display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-40);
   }
   .s-process .head h2 {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 92px; line-height: .92; text-transform: uppercase; letter-spacing: -.01em;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-92); line-height: .92; text-transform: uppercase; letter-spacing: -.01em;
   }
   .s-process .head h2 em { font-style: normal; color: var(--magenta); }
   .s-process .head .sub {
-    font-family: "Barlow Condensed", sans-serif; font-weight: 600;
-    font-size: 22px; letter-spacing: .06em; text-transform: uppercase;
-    max-width: 38ch; line-height: 1.5; opacity: .8; margin-top: 12px;
+    font-family: var(--font-display); font-weight: 600;
+    font-size: var(--typescale-22); letter-spacing: .06em; text-transform: uppercase;
+    max-width: 38ch; line-height: 1.5; opacity: .8; margin-top: var(--space-12);
   }
   .s-process .flow {
-    position: absolute; left: 64px; right: 64px; top: 470px; bottom: 200px;
-    display: grid; grid-template-columns: repeat(5, 1fr); gap: 22px;
+    position: absolute; left: var(--space-64); right: var(--space-64); top: var(--space-470); bottom: var(--space-200);
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-22);
   }
   .s-process .node {
-    border-radius: 22px; padding: 24px 22px 22px;
-    display: flex; flex-direction: column; gap: 8px; position: relative;
+    border-radius: var(--radius-6); padding: var(--space-gutter) var(--space-22) var(--space-22);
+    display: flex; flex-direction: column; gap: var(--space-8); position: relative;
   }
   .s-process .node.n1 { background: var(--sienna); color: var(--ink); }
   .s-process .node.n2 { background: var(--magenta); color: var(--ink); }
@@ -372,233 +372,233 @@
   .s-process .node.n4 { background: var(--teal); color: var(--bone); }
   .s-process .node.n5 { background: var(--blue); color: var(--bone); }
   .s-process .node .n {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 64px; line-height: .9;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-64); line-height: .9;
   }
   .s-process .node h3 {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 28px; line-height: 1.05; text-transform: uppercase; letter-spacing: .02em;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-28); line-height: 1.05; text-transform: uppercase; letter-spacing: .02em;
   }
-  .s-process .node p { font-size: 18px; line-height: 1.4; }
+  .s-process .node p { font-size: var(--typescale-18); line-height: 1.4; }
   .s-process .node .arr {
     position: absolute; right: -16px; top: 40%;
-    width: 32px; height: 32px; z-index: 2;
+    width: var(--space-page-pad); height: var(--space-page-pad); z-index: 2;
   }
   .s-process .node.n5 .arr { display: none; }
   .s-process .timeline {
-    position: absolute; left: 64px; right: 64px; bottom: 110px; height: 50px;
-    background: var(--paper); border-radius: 14px;
-    padding: 0 28px; display: flex; align-items: center; justify-content: space-between;
-    font-family: "Barlow Condensed", sans-serif; font-weight: 700;
-    font-size: 20px; letter-spacing: .08em; text-transform: uppercase;
+    position: absolute; left: var(--space-64); right: var(--space-64); bottom: var(--space-110); height: var(--space-50);
+    background: var(--paper); border-radius: var(--radius-7);
+    padding: 0 var(--space-28); display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-20); letter-spacing: .08em; text-transform: uppercase;
   }
 
   /* =========== 08 COMPARISON MATRIX =========== */
   .s-matrix .head {
-    position: absolute; left: 64px; right: 64px; top: 130px;
-    display: flex; align-items: flex-start; justify-content: space-between; gap: 40px;
+    position: absolute; left: var(--space-64); right: var(--space-64); top: var(--space-130);
+    display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-40);
   }
   .s-matrix .head h2 {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 92px; line-height: .92; text-transform: uppercase; letter-spacing: -.01em;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-92); line-height: .92; text-transform: uppercase; letter-spacing: -.01em;
   }
   .s-matrix .head h2 em { font-style: normal; color: var(--teal); }
   .s-matrix .head .sub {
-    font-family: "Barlow Condensed", sans-serif; font-weight: 600;
-    font-size: 22px; letter-spacing: .06em; text-transform: uppercase;
-    max-width: 38ch; line-height: 1.5; opacity: .8; margin-top: 12px;
+    font-family: var(--font-display); font-weight: 600;
+    font-size: var(--typescale-22); letter-spacing: .06em; text-transform: uppercase;
+    max-width: 38ch; line-height: 1.5; opacity: .8; margin-top: var(--space-12);
   }
   .s-matrix .table {
-    position: absolute; left: 64px; right: 64px; top: 460px; bottom: 110px;
-    background: var(--paper); border-radius: 22px;
+    position: absolute; left: var(--space-64); right: var(--space-64); top: var(--space-460); bottom: var(--space-110);
+    background: var(--paper); border-radius: var(--radius-8);
     display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr;
     grid-auto-rows: 1fr; overflow: hidden;
   }
   .s-matrix .cell {
-    padding: 18px 22px; display: flex; align-items: center;
-    font-size: 22px; line-height: 1.35;
-    border-bottom: 1.5px solid rgba(10,10,10,.35);
-    border-right: 1.5px solid rgba(10,10,10,.35);
+    padding: var(--space-18) var(--space-22); display: flex; align-items: center;
+    font-size: var(--typescale-22); line-height: 1.35;
+    border-bottom: var(--border-6) solid var(--color-extra-4);
+    border-right: var(--border-7) solid var(--color-extra-5);
   }
   .s-matrix .cell:nth-child(4n) { border-right: 0; }
   .s-matrix .cell.last { border-bottom: 0; }
   .s-matrix .cell.head-row {
     background: var(--ink); color: var(--bone);
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 24px; text-transform: uppercase; letter-spacing: .02em;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-24); text-transform: uppercase; letter-spacing: .02em;
   }
   .s-matrix .cell.row-label {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 26px; text-transform: uppercase; letter-spacing: .01em;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-26); text-transform: uppercase; letter-spacing: .01em;
   }
   .s-matrix .pill {
-    display: inline-block; border-radius: 999px;
-    padding: 6px 16px; font-weight: 700;
-    font-family: "Barlow Condensed", sans-serif;
-    font-size: 18px; letter-spacing: .08em; text-transform: uppercase;
+    display: inline-block; border-radius: var(--radius-pill);
+    padding: var(--space-6) var(--space-16); font-weight: 700;
+    font-family: var(--font-display);
+    font-size: var(--typescale-18); letter-spacing: .08em; text-transform: uppercase;
     white-space: nowrap;
   }
   .s-matrix .pill.yes  { background: var(--teal); color: var(--bone); }
   .s-matrix .pill.part { background: var(--mustard); color: var(--ink); }
   .s-matrix .pill.no   { background: var(--magenta); color: var(--bone); }
-  .s-matrix .pill.note { background: var(--paper); color: var(--ink); border: 1.5px solid var(--ink); }
+  .s-matrix .pill.note { background: var(--paper); color: var(--ink); border: var(--border-8) solid var(--ink); }
 
   /* =========== 09 STATS / NUMBERS =========== */
   .s-stats .head {
-    position: absolute; left: 64px; right: 64px; top: 130px;
-    display: flex; align-items: flex-start; justify-content: space-between; gap: 40px;
+    position: absolute; left: var(--space-64); right: var(--space-64); top: var(--space-130);
+    display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-40);
   }
   .s-stats .head h2 {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 92px; line-height: .92; text-transform: uppercase; letter-spacing: -.01em;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-92); line-height: .92; text-transform: uppercase; letter-spacing: -.01em;
     color: var(--bone);
   }
   .s-stats .head h2 em { font-style: normal; color: var(--orange); }
   .s-stats .head .sub {
-    font-family: "Barlow Condensed", sans-serif; font-weight: 600;
-    font-size: 22px; letter-spacing: .06em; text-transform: uppercase;
-    max-width: 36ch; line-height: 1.5; opacity: .85; color: var(--bone); margin-top: 12px;
+    font-family: var(--font-display); font-weight: 600;
+    font-size: var(--typescale-22); letter-spacing: .06em; text-transform: uppercase;
+    max-width: 36ch; line-height: 1.5; opacity: .85; color: var(--bone); margin-top: var(--space-12);
   }
   .s-stats .grid {
-    position: absolute; left: 64px; right: 64px; top: 470px; bottom: 110px;
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    position: absolute; left: var(--space-64); right: var(--space-64); top: var(--space-470); bottom: var(--space-110);
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-gutter);
   }
   .s-stats .stat {
-    border-radius: 22px; padding: 32px 30px;
-    display: flex; flex-direction: column; gap: 14px;
+    border-radius: var(--radius-9); padding: var(--space-page-pad) var(--space-30);
+    display: flex; flex-direction: column; gap: var(--space-14);
     color: var(--ink);
   }
   .s-stats .stat.s1 { background: var(--orange); }
   .s-stats .stat.s2 { background: var(--mustard); }
   .s-stats .stat.s3 { background: var(--bone); }
   .s-stats .stat .big {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 160px; line-height: .85; letter-spacing: -.02em;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-160); line-height: .85; letter-spacing: -.02em;
   }
   .s-stats .stat .big small {
-    font-family: "Barlow Condensed", sans-serif; font-weight: 800;
-    font-size: 40px; vertical-align: top; margin-left: 6px;
+    font-family: var(--font-display); font-weight: 800;
+    font-size: var(--typescale-40); vertical-align: top; margin-left: var(--space-6);
   }
   .s-stats .stat h3 {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 26px; text-transform: uppercase; letter-spacing: .02em;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-26); text-transform: uppercase; letter-spacing: .02em;
     margin-top: auto;
   }
-  .s-stats .stat p { font-size: 20px; line-height: 1.4; }
+  .s-stats .stat p { font-size: var(--typescale-20); line-height: 1.4; }
 
   /* =========== 10 QUOTE =========== */
   .s-quote { padding: 0; }
   .s-quote .panel {
-    position: absolute; left: 64px; right: 64px; top: 130px; bottom: 110px;
+    position: absolute; left: var(--space-64); right: var(--space-64); top: var(--space-130); bottom: var(--space-110);
     background: var(--magenta);
-    border-radius: 26px;
-    padding: 60px 80px;
+    border-radius: var(--radius-10);
+    padding: var(--space-60) var(--space-80);
     display: grid;
     grid-template-columns: 1fr 1.6fr;
-    gap: 60px;
+    gap: var(--space-60);
     align-items: center;
   }
   .s-quote .panel .qmark {
-    font-family: "Bowlby One", "Stardos Stencil", serif; font-weight: 700;
-    font-size: 320px; line-height: .8; color: var(--ink);
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-320); line-height: .8; color: var(--ink);
   }
   .s-quote .panel blockquote {
     margin: 0;
-    font-family: "Stardos Stencil", serif; font-weight: 400;
-    font-size: 60px; line-height: 1.05;
+    font-family: var(--font-display); font-weight: 400;
+    font-size: var(--typescale-60); line-height: 1.05;
     color: var(--ink);
     letter-spacing: -.005em;
   }
   .s-quote .panel .who {
-    margin-top: 32px;
-    font-family: "Barlow Condensed", sans-serif; font-weight: 800;
-    font-size: 26px; letter-spacing: .08em; text-transform: uppercase;
+    margin-top: var(--space-page-pad);
+    font-family: var(--font-display); font-weight: 800;
+    font-size: var(--typescale-26); letter-spacing: .08em; text-transform: uppercase;
     color: var(--ink);
   }
   .s-quote .panel .who small {
-    display: block; font-weight: 600; font-size: 22px; opacity: .7; margin-top: 4px;
+    display: block; font-weight: 600; font-size: var(--typescale-22); opacity: .7; margin-top: var(--space-4);
   }
 
   /* =========== 11 CTA =========== */
   .s-cta { padding: 0; }
   .s-cta .stage {
     position: absolute; inset: 0;
-    padding: 130px 64px 100px;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+    padding: var(--space-130) var(--space-64) var(--space-100);
+    display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-page-pad);
   }
   .s-cta .pane {
-    border-radius: 26px; padding: 40px;
-    display: flex; flex-direction: column; gap: 20px;
+    border-radius: var(--radius-11); padding: var(--space-40);
+    display: flex; flex-direction: column; gap: var(--space-20);
   }
   .s-cta .pane.l { background: var(--teal); color: var(--bone); justify-content: space-between; }
   .s-cta .pane.r { background: var(--orange); color: var(--ink); }
   .s-cta .pane.l h2 {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 130px; line-height: .9; text-transform: uppercase; letter-spacing: -.015em;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-130); line-height: .9; text-transform: uppercase; letter-spacing: -.015em;
   }
   .s-cta .pane.l h2 em { font-style: normal; color: var(--orange); }
-  .s-cta .pane.l p { font-size: 22px; line-height: 1.5; opacity: .9; max-width: 32ch; }
+  .s-cta .pane.l p { font-size: var(--typescale-22); line-height: 1.5; opacity: .9; max-width: 32ch; }
   .s-cta .pane.r h3 {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 36px; line-height: 1; text-transform: uppercase; letter-spacing: .02em;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-36); line-height: 1; text-transform: uppercase; letter-spacing: .02em;
   }
-  .s-cta .pane.r .step { display: grid; grid-template-columns: 60px 1fr; gap: 14px; align-items: start; }
+  .s-cta .pane.r .step { display: grid; grid-template-columns: var(--space-60) 1fr; gap: var(--space-14); align-items: start; }
   .s-cta .pane.r .step .n {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 56px; line-height: .9;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-56); line-height: .9;
   }
   .s-cta .pane.r .step h4 {
-    font-family: "Barlow Condensed", sans-serif; font-weight: 800;
-    font-size: 26px; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px;
+    font-family: var(--font-display); font-weight: 800;
+    font-size: var(--typescale-26); text-transform: uppercase; letter-spacing: .04em; margin-bottom: var(--space-4);
   }
-  .s-cta .pane.r .step p { font-size: 20px; line-height: 1.4; }
+  .s-cta .pane.r .step p { font-size: var(--typescale-20); line-height: 1.4; }
 
   /* =========== 12 DESIGN SYSTEM =========== */
   .s-system .wrap {
-    position: absolute; left: 64px; right: 64px; top: 130px; bottom: 80px;
-    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px;
+    position: absolute; left: var(--space-64); right: var(--space-64); top: var(--space-130); bottom: var(--space-80);
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-gutter);
   }
   .s-system .card {
-    border-radius: 22px; padding: 28px;
-    display: flex; flex-direction: column; gap: 14px;
+    border-radius: var(--radius-12); padding: var(--space-28);
+    display: flex; flex-direction: column; gap: var(--space-14);
     background: var(--paper);
   }
   .s-system .card h3 {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 28px; text-transform: uppercase; letter-spacing: .02em;
-    border-bottom: 2px solid var(--ink); padding-bottom: 10px;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-28); text-transform: uppercase; letter-spacing: .02em;
+    border-bottom: var(--border-9) solid var(--ink); padding-bottom: var(--space-10);
   }
-  .s-system .card .row { display: flex; align-items: center; gap: 14px; }
-  .s-system .swatch { width: 48px; height: 48px; border-radius: 10px; border: 1.5px solid var(--ink); }
+  .s-system .card .row { display: flex; align-items: center; gap: var(--space-14); }
+  .s-system .swatch { width: var(--space-48); height: var(--space-48); border-radius: var(--radius-13); border: var(--border-10) solid var(--ink); }
   .s-system .row .label {
-    font-family: "Barlow Condensed", sans-serif; font-weight: 700;
-    font-size: 22px; letter-spacing: .04em; text-transform: uppercase;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-22); letter-spacing: .04em; text-transform: uppercase;
   }
   .s-system .row .label small {
     display: block; font-weight: 500; opacity: .65; letter-spacing: .04em;
   }
   .s-system .typespec {
-    display: flex; align-items: baseline; gap: 14px;
-    border-bottom: 1px dashed rgba(10,10,10,.3); padding-bottom: 12px;
+    display: flex; align-items: baseline; gap: var(--space-14);
+    border-bottom: var(--border-11) dashed var(--color-extra-6); padding-bottom: var(--space-12);
   }
   .s-system .typespec .name {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 36px; text-transform: uppercase; flex-shrink: 0;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-36); text-transform: uppercase; flex-shrink: 0;
   }
   .s-system .typespec .name.barlow {
-    font-family: "Barlow Condensed", sans-serif; font-weight: 800;
+    font-family: var(--font-display); font-weight: 800;
   }
   .s-system .typespec .name.inter {
-    font-family: "Inter", sans-serif; font-weight: 600; text-transform: none; font-size: 28px;
+    font-family: var(--font-display); font-weight: 600; text-transform: none; font-size: var(--typescale-28);
   }
   .s-system .typespec .desc {
-    font-size: 18px; opacity: .75;
+    font-size: var(--typescale-18); opacity: .75;
   }
-  .s-system ul { margin: 0; padding-left: 20px; font-size: 18px; line-height: 1.45; }
-  .s-system ul li { margin-bottom: 6px; }
+  .s-system ul { margin: 0; padding-left: var(--space-20); font-size: var(--typescale-18); line-height: 1.45; }
+  .s-system ul li { margin-bottom: var(--space-6); }
   .s-system .principle {
-    font-family: "Stardos Stencil", serif; font-weight: 700;
-    font-size: 30px; line-height: 1.05; text-transform: uppercase;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: var(--typescale-30); line-height: 1.05; text-transform: uppercase;
     color: var(--magenta);
   }
 

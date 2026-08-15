@@ -206,8 +206,7 @@
 
       @keyframes kFadeUp {
         from {
-          opacity: 0;
-          transform: translateY(28px);
+          opacity: 0transform: var(--transform-0);
         }
         to {
           opacity: 1;
@@ -244,8 +243,7 @@
       }
       @keyframes kScaleIn {
         from {
-          opacity: 0;
-          transform: scale(0.94);
+          opacity: 0transform: var(--transform-1);
         }
         to {
           opacity: 1;
@@ -256,19 +254,18 @@
       /* ── Navigation ───────────────────────────────────────────────────── */
       #nav-dots {
         position: fixed;
-        bottom: 24px;
-        left: 50%;
-        transform: translateX(-50%);
+        bottom: var(--space-24);
+        left: 50%transform: var(--transform-2);
         display: flex;
-        gap: 7px;
+        gap: var(--space-7);
         z-index: 100;
       }
       .nav-dot {
-        width: 5px;
-        height: 5px;
+        width: var(--space-5);
+        height: var(--space-5);
         border-radius: 50%;
         border: none;
-        background: rgba(255, 255, 255, 0.22);
+        background: var(--color-extra-0);
         cursor: pointer;
         transition:
           background 0.3s,
@@ -276,18 +273,17 @@
         padding: 0;
       }
       .nav-dot.is-active {
-        background: rgba(255, 255, 255, 0.8);
-        transform: scale(1.4);
+        background: var(--color-extra-1)transform: var(--transform-3);
       }
 
       #slide-counter {
         position: fixed;
-        bottom: 20px;
-        right: 28px;
+        bottom: var(--space-20);
+        right: var(--space-28);
         font-family: var(--font-mono);
-        font-size: 11px;
+        font-size: var(--typescale-11);
         letter-spacing: 0.12em;
-        color: rgba(255, 255, 255, 0.25);
+        color: var(--color-extra-2);
         z-index: 100;
         user-select: none;
       }
@@ -379,18 +375,18 @@
       .orange .h1,
       .orange .h2,
       .orange .h3 {
-        color: #111111;
+        color: var(--color-surface);
       }
       .orange .lead,
       .orange .body {
-        color: rgba(17, 17, 17, 0.75);
+        color: var(--color-extra-3);
       }
       .orange .label {
-        color: rgba(17, 17, 17, 0.55);
+        color: var(--c-fg-light-3);
       }
       /* On orange, .accent still means "the contrast pop" — use sparingly */
       .orange .accent {
-        color: #111111;
+        color: var(--color-surface);
       }
 
       /* ╔══════════════════════════════════════════════════════════════════════╗
@@ -408,19 +404,19 @@
       }
       .slide-chrome {
         padding-bottom: 1vh;
-        border-bottom: 1px solid var(--c-border);
+        border-bottom: var(--hairline) solid var(--c-border);
         margin-bottom: 2vh;
       }
       .slide-foot {
         padding-top: 1vh;
-        border-top: 1px solid var(--c-border);
+        border-top: var(--hairline) solid var(--c-border);
         margin-top: 2vh;
       }
 
       /* On orange slides, chrome borders use dark ink at low opacity */
       .orange .slide-chrome,
       .orange .slide-foot {
-        border-color: rgba(17, 17, 17, 0.2);
+        border-color: var(--color-extra-4);
       }
 
       /* Slides that suppress chrome/foot entirely */
@@ -464,7 +460,7 @@
         align-items: flex-end;
         margin-top: 3.5vh;
         padding-top: 1vh;
-        border-top: 1px solid rgba(17, 17, 17, 0.2);
+        border-top: var(--hairline) solid var(--color-extra-5);
       }
 
       /* ── 2. CHAPTER ───────────────────────────────────────────────────── */
@@ -482,7 +478,7 @@
         letter-spacing: 0.2em;
         text-transform: uppercase;
         /* On orange: dark ink; on dark: orange accent */
-        color: rgba(17, 17, 17, 0.55);
+        color: var(--c-fg-light-3);
         margin-bottom: 2vh;
       }
       /* On dark chapter slides the number gets orange accent */
@@ -490,9 +486,9 @@
         color: var(--c-accent);
       }
       .chapter-rule {
-        width: 36px;
-        height: 2px;
-        background: #111111; /* dark rule on orange */
+        width: var(--space-36);
+        height: var(--space-2);
+        background: var(--color-surface); /* dark rule on orange */
         margin-bottom: 2vh;
       }
       .dark .chapter-rule {
@@ -544,12 +540,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px dashed var(--c-border);
-        font-family: var(--font-mono, "IBM Plex Mono", monospace);
+        background: var(--color-extra-6);
+        border: var(--hairline) dashed var(--c-border);
+        font-family: var(--font-mono);
         font-size: 0.85rem;
         font-weight: 500;
-        color: var(--c-fg-2, var(--c-fg));
+        color: var(--c-fg-2);
         letter-spacing: 0.12em;
         text-transform: uppercase;
       }
@@ -575,7 +571,7 @@
         flex-direction: column;
         gap: 1vh;
         padding: 2vh 2vh 2vh 0;
-        border-top: 1px solid var(--c-border);
+        border-top: var(--hairline) solid var(--c-border);
       }
       /* The big number — orange on dark slides */
       .stat-value {
@@ -688,7 +684,7 @@
       }
       .compare-panel.left {
         padding-right: calc(5.5vw * 0.55);
-        border-right: 1px solid var(--c-border);
+        border-right: var(--hairline) solid var(--c-border);
       }
       .compare-panel.right {
         padding-left: calc(5.5vw * 0.55);
@@ -699,7 +695,7 @@
         letter-spacing: 0.16em;
         text-transform: uppercase;
         padding-bottom: 1vh;
-        border-bottom: 1px solid var(--c-border);
+        border-bottom: var(--hairline) solid var(--c-border);
         color: var(--c-fg-2);
       }
       /* The "after" panel uses orange — the payoff */
@@ -725,19 +721,19 @@
 
       /* Accent rule — orange on dark, dark-ink on orange */
       .rule {
-        width: 36px;
-        height: 2px;
+        width: var(--space-36);
+        height: var(--space-2);
         background: var(--c-accent);
       }
       .orange .rule {
-        background: #111111;
+        background: var(--color-surface);
       }
       .rule.full {
         width: 100%;
         background: var(--c-border);
       }
       .orange .rule.full {
-        background: rgba(17, 17, 17, 0.2);
+        background: var(--color-extra-7);
       }
 
       /* Eyebrow / kicker label — orange on dark, dark-ink on orange */
@@ -749,7 +745,7 @@
         color: var(--c-accent);
       }
       .orange .kicker {
-        color: rgba(17, 17, 17, 0.55);
+        color: var(--c-fg-light-3);
       }
 
       /* Bordered tag */
@@ -760,13 +756,13 @@
         letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--c-accent);
-        border: 1px solid var(--c-accent);
+        border: var(--hairline) solid var(--c-accent);
         padding: 0.3em 0.8em;
         line-height: 1;
       }
       .orange .tag {
-        color: #111111;
-        border-color: rgba(17, 17, 17, 0.4);
+        color: var(--color-surface);
+        border-color: var(--color-extra-8);
       }
 
       /* Image caption */
@@ -786,7 +782,7 @@
         font-size: 1.1vw;
         font-weight: 500;
         letter-spacing: 0.1em;
-        color: rgba(17, 17, 17, 0.45); /* dark ink on orange */
+        color: var(--color-extra-9); /* dark ink on orange */
       }
       /* On dark slides the number uses muted fg */
       .dark .broadside-num {
@@ -799,7 +795,7 @@
         font-size: var(--typescale-label-medium);
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: rgba(17, 17, 17, 0.4);
+        color: var(--color-extra-10);
       }
       .dark .corner-label {
         color: var(--c-fg-3);
@@ -837,7 +833,7 @@
         font-size: 7.5vw;
         font-weight: 900;
         letter-spacing: -0.03em;
-        color: #111111;
+        color: var(--color-surface);
         line-height: 1;
       }
       .fadelist-item:nth-child(2) {
@@ -852,22 +848,22 @@
         font-weight: 900;
         line-height: 0.9;
         letter-spacing: -0.04em;
-        color: #111111;
+        color: var(--color-surface);
         align-self: flex-end;
       }
 
       /* Stats on orange: dark ink instead of cream */
       .orange .stat-value {
-        color: #111111;
+        color: var(--color-surface);
       }
       .orange .stat-label {
-        color: rgba(17, 17, 17, 0.65);
+        color: var(--color-extra-11);
       }
       .orange .stat-note {
-        color: rgba(17, 17, 17, 0.4);
+        color: var(--color-extra-12);
       }
       .orange .stat-card {
-        border-top-color: rgba(17, 17, 17, 0.22);
+        border-top-color: var(--color-extra-13);
       }
 
       /* Compare: right panel gets orange fill */
@@ -876,20 +872,20 @@
         background: var(--c-accent);
       }
       .compare-panel.panel-orange .compare-label {
-        color: rgba(17, 17, 17, 0.55);
-        border-color: rgba(17, 17, 17, 0.22);
+        color: var(--c-fg-light-3);
+        border-color: var(--color-extra-14);
       }
       .compare-panel.panel-orange .h3 {
-        color: #111111;
+        color: var(--color-surface);
       }
       .compare-panel.panel-orange .lead {
-        color: rgba(17, 17, 17, 0.7);
+        color: var(--color-extra-15);
       }
       .compare-panel.panel-orange .bullet-list li {
-        color: #111111;
+        color: var(--color-surface);
       }
       .compare-panel.panel-orange .bullet-list li::before {
-        color: rgba(17, 17, 17, 0.45);
+        color: var(--color-extra-16);
       }
 
       /* ── CHART ─────────────────────────────────────────────────────────── */
@@ -917,11 +913,11 @@
         display: flex;
         align-items: flex-end;
         gap: 4vw;
-        border-left: 1px solid var(--c-border);
+        border-left: var(--hairline) solid var(--c-border);
         padding-left: 0.5vw;
       }
       .orange .bar-track {
-        border-color: rgba(17, 17, 17, 0.2);
+        border-color: var(--color-extra-17);
       }
       .bar-col {
         flex: 1;
@@ -941,10 +937,10 @@
         background: var(--c-accent);
       }
       .orange .bar-fill {
-        background: rgba(17, 17, 17, 0.22);
+        background: var(--color-extra-18);
       }
       .orange .bar-fill.accent {
-        background: #111111;
+        background: var(--color-surface);
       }
       .bar-x-label {
         font-family: var(--font-mono);
@@ -955,7 +951,7 @@
         text-transform: uppercase;
       }
       .orange .bar-x-label {
-        color: rgba(17, 17, 17, 0.45);
+        color: var(--color-extra-19);
       }
       .bar-val {
         font-family: var(--font-body);
@@ -967,19 +963,19 @@
         color: var(--c-accent);
       }
       .orange .bar-val {
-        color: rgba(17, 17, 17, 0.55);
+        color: var(--c-fg-light-3);
       }
       .orange .bar-val.hi {
-        color: #111111;
+        color: var(--color-surface);
       }
       .chart-baseline {
-        height: 1px;
+        height: var(--hairline);
         background: var(--c-border);
         flex-shrink: 0;
-        margin-top: 1px;
+        margin-top: var(--hairline);
       }
       .orange .chart-baseline {
-        background: rgba(17, 17, 17, 0.2);
+        background: var(--color-extra-20);
       }
       .chart-source {
         flex-shrink: 0;
@@ -990,7 +986,7 @@
         margin-top: 1vh;
       }
       .orange .chart-source {
-        color: rgba(17, 17, 17, 0.4);
+        color: var(--color-extra-21);
       }
 
       /* ── DIAGRAM ────────────────────────────────────────────────────────── */
@@ -1022,7 +1018,7 @@
         letter-spacing: -0.03em;
       }
       .orange .flow-num {
-        color: rgba(17, 17, 17, 0.2);
+        color: var(--color-extra-22);
       }
       .flow-title {
         font-family: var(--font-display);
@@ -1032,7 +1028,7 @@
         color: var(--c-fg);
       }
       .orange .flow-title {
-        color: #111111;
+        color: var(--color-surface);
       }
       .flow-desc {
         font-family: var(--font-body);
@@ -1042,7 +1038,7 @@
         font-weight: 400;
       }
       .orange .flow-desc {
-        color: rgba(17, 17, 17, 0.6);
+        color: var(--color-extra-23);
       }
       .flow-arrow {
         display: flex;
@@ -1055,7 +1051,7 @@
         flex-shrink: 0;
       }
       .orange .flow-arrow {
-        color: rgba(17, 17, 17, 0.3);
+        color: var(--color-extra-24);
       }
       /* ── PIE / DONUT CHART ──────────────────────────────────────────────── */
       .slide--pie .slide-body {
@@ -1104,7 +1100,7 @@
       .pie-swatch {
         width: 0.8em;
         height: 0.8em;
-        border-radius: 2px;
+        border-radius: var(--radius-0);
         flex-shrink: 0;
       }
       .pie-item-label {
@@ -1121,12 +1117,12 @@
         color: var(--c-accent);
       }
       .orange .pie-item-val {
-        color: #111;
+        color: var(--color-extra-25);
       }
       .pie-total {
         margin-top: 1vh;
         padding-top: 1vh;
-        border-top: 1px solid var(--c-border);
+        border-top: var(--hairline) solid var(--c-border);
         font-family: var(--font-mono);
         font-size: var(--typescale-label-medium);
         letter-spacing: 0.1em;
@@ -1144,7 +1140,7 @@
       .pyramid {
         display: flex;
         flex-direction: column;
-        gap: 3px;
+        gap: var(--space-3);
         align-items: center;
       }
       .pyr-level {
@@ -1152,11 +1148,11 @@
         justify-content: space-between;
         align-items: center;
         padding: 1.5vh 2.5vw;
-        border-left: 4px solid var(--c-accent);
+        border-left: var(--border-0) solid var(--c-accent);
         transition: width 0.3s;
       }
       .orange .pyr-level {
-        border-left-color: rgba(17, 17, 17, 0.4);
+        border-left-color: var(--color-extra-26);
       }
       .pyr-level:nth-child(1) {
         background: color-mix(in srgb, var(--c-accent) 75%, var(--c-bg));
@@ -1206,11 +1202,11 @@
         text-transform: lowercase;
         letter-spacing: -0.03em;
         padding-bottom: 2vh;
-        border-bottom: 1px solid var(--c-border);
+        border-bottom: var(--hairline) solid var(--c-border);
       }
       .vtimeline {
         display: grid;
-        grid-template-columns: 8em 2px 1fr;
+        grid-template-columns: 8em var(--space-2) 1fr;
         gap: 0;
         min-height: 0;
         padding-top: 2vh;
@@ -1233,8 +1229,8 @@
         position: absolute;
         top: 0.2em;
         left: -5px;
-        width: 10px;
-        height: 10px;
+        width: var(--space-10);
+        height: var(--space-10);
         background: var(--c-accent);
       }
       .vt-content {
@@ -1277,7 +1273,7 @@
         flex-direction: column;
         gap: 1vh;
         padding: 2vh;
-        border-top: 3px solid var(--c-accent);
+        border-top: var(--border-1) solid var(--c-accent);
       }
       .cycle-num {
         font-family: var(--font-display);

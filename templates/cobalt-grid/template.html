@@ -47,9 +47,9 @@
   --space-gutter: 24px;
 }
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; height: 100%; background: #0a0a0a; }
+  html, body { margin: 0; padding: 0; height: 100%; background: var(--color-extra-0); }
   body {
-    font-family: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
+    font-family: var(--font-display);
     color: var(--ink);
     overflow: hidden;
   }
@@ -66,11 +66,9 @@
   /* Graph-paper grid behind every slide */
   .stage::before {
     content: '';
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(to right, var(--grid) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
-    background-size: clamp(28px, 2.2vw, 44px) clamp(28px, 2.2vw, 44px);
+    position: absolute; inset: 0background-image:
+      var(--bg-0);
+    background-size: clamp(var(--space-28), 2.2vw, var(--space-44)) clamp(var(--space-28), 2.2vw, var(--space-44));
     pointer-events: none;
     z-index: 1;
   }
@@ -85,7 +83,7 @@
 
   /* ─── TYPE SYSTEM ──────────────────────────────────────────── */
   .disp {
-    font-family: 'Newsreader', Georgia, serif;
+    font-family: var(--font-display);
     
     font-weight: 400;
     line-height: 0.92;
@@ -116,10 +114,10 @@
      two so the chrome elements don't collide on any slide. */
   .pagenum {
     position: absolute;
-    right: clamp(28px, 2.4vw, 48px);
-    bottom: clamp(48px, 4.8vh, 76px);
+    right: clamp(var(--space-28), 2.4vw, var(--space-48));
+    bottom: clamp(var(--space-48), 4.8vh, var(--space-76));
     font-family: var(--font-mono);
-    font-size: clamp(11px, 0.82vw, 13px);
+    font-size: clamp(var(--typescale-11), 0.82vw, var(--typescale-13));
     color: var(--ink);
     letter-spacing: 0.06em;
     z-index: 9;
@@ -133,24 +131,24 @@
   .hairlines::after {
     content: '';
     position: absolute;
-    left: clamp(36px, 3.6vw, 80px);
-    right: clamp(36px, 3.6vw, 80px);
-    height: 1.5px;
+    left: clamp(var(--space-36), 3.6vw, var(--space-80));
+    right: clamp(var(--space-36), 3.6vw, var(--space-80));
+    height: var(--space-1-5);
     background: var(--ink);
     z-index: 4;
     pointer-events: none;
   }
-  .hairlines::before { top: clamp(28px, 2.6vh, 48px); }
-  .hairlines::after  { bottom: clamp(20px, 2vh, 32px); }
+  .hairlines::before { top: clamp(var(--space-28), 2.6vh, var(--space-48)); }
+  .hairlines::after  { bottom: clamp(var(--space-20), 2vh, var(--space-page-pad)); }
 
   /* Fixed nav hint — sits above the bottom hairline, same vertical level
      as the page number on the opposite side, so neither overlaps the rule. */
   .nav-hint {
     position: fixed;
-    left: clamp(36px, 3.6vw, 80px);
-    bottom: clamp(48px, 4.8vh, 76px);
+    left: clamp(var(--space-36), 3.6vw, var(--space-80));
+    bottom: clamp(var(--space-48), 4.8vh, var(--space-76));
     font-family: var(--font-mono);
-    font-size: clamp(11px, 0.75vw, 12px);
+    font-size: clamp(var(--typescale-11), 0.75vw, var(--typescale-12));
     color: var(--ink);
     letter-spacing: 0.08em;
     opacity: 0.4;
@@ -182,10 +180,9 @@
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(8, 1fr);
-    gap: 1.5px;
+    gap: var(--space-1-5);
     background: var(--paper);
-    padding: 4px;
-    box-shadow: 0 0 0 1.5px var(--paper);
+    padding: var(--space-4)box-shadow: var(--elevation-0);
   }
   .qr-block .px { background: var(--paper); }
   .qr-block .px.on { background: var(--ink); }
@@ -197,71 +194,70 @@
 
   .s-cover .titlewrap {
     position: absolute;
-    left: clamp(36px, 3.6vw, 80px);
-    top: clamp(80px, 9vh, 160px);
+    left: clamp(var(--space-36), 3.6vw, var(--space-80));
+    top: clamp(var(--space-80), 9vh, var(--space-160));
     z-index: 5;
     max-width: 60%;
   }
   .s-cover .title {
-    font-family: 'Newsreader', Georgia, serif;
+    font-family: var(--font-display);
     
     font-weight: 400;
-    font-size: clamp(100px, min(11vw, 18vh), 200px);
+    font-size: clamp(var(--typescale-100), min(11vw, 18vh), var(--typescale-200));
     line-height: 0.92;
     letter-spacing: -0.008em;
     color: var(--ink);
   }
   .s-cover .subkicker {
-    margin-top: clamp(20px, 2.2vh, 36px);
-    display: flex; flex-direction: column; gap: 6px;
+    margin-top: clamp(var(--space-20), 2.2vh, var(--space-36));
+    display: flex; flex-direction: column; gap: var(--space-6);
   }
   .s-cover .subkicker .l {
     font-family: var(--font-body);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.18em;
-    font-size: clamp(13px, 1vw, 16px);
+    font-size: clamp(var(--typescale-13), 1vw, var(--typescale-body-large));
     color: var(--ink);
   }
   .s-cover .subkicker .ed {
-    font-family: 'Newsreader', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(28px, min(2.8vw, 4.6vh), 50px);
+    font-size: clamp(var(--typescale-28), min(2.8vw, 4.6vh), var(--typescale-50));
     line-height: 1.1;
     color: var(--ink);
   }
 
   /* Pixel-glitch column on the right side of the cover */
   .s-cover .pixel-glitch {
-    top: clamp(60px, 6vh, 120px);
-    right: clamp(36px, 3.6vw, 80px);
-    width: clamp(280px, 32vw, 560px);
-    bottom: clamp(110px, 12vh, 200px);
+    top: clamp(var(--space-60), 6vh, var(--space-120));
+    right: clamp(var(--space-36), 3.6vw, var(--space-80));
+    width: clamp(var(--space-280), 32vw, var(--space-560));
+    bottom: clamp(var(--space-110), 12vh, var(--space-200));
   }
 
   /* QR block top-right */
   .s-cover .qr-block {
-    top: clamp(60px, 6vh, 120px);
-    right: clamp(120px, 8vw, 200px);
-    width: clamp(58px, 4.2vw, 84px);
-    height: clamp(58px, 4.2vw, 84px);
+    top: clamp(var(--space-60), 6vh, var(--space-120));
+    right: clamp(var(--space-120), 8vw, var(--space-200));
+    width: clamp(var(--space-58), 4.2vw, var(--space-84));
+    height: clamp(var(--space-58), 4.2vw, var(--space-84));
   }
 
   /* Vertical right-side label column (reads as a stack of micro-text,
      replacing the Korean column in the reference). */
   .s-cover .vstack {
     position: absolute;
-    right: clamp(36px, 3.6vw, 60px);
-    top: 50%;
-    transform: translateY(-50%);
+    right: clamp(var(--space-36), 3.6vw, var(--space-60));
+    top: 50%transform: var(--transform-0);
     z-index: 5;
     display: flex; flex-direction: column;
-    gap: clamp(10px, 1.2vh, 18px);
+    gap: clamp(var(--space-10), 1.2vh, var(--space-18));
     align-items: end;
   }
   .s-cover .vstack .v-row {
     font-family: var(--font-mono);
-    font-size: clamp(12px, 0.9vw, 15px);
+    font-size: clamp(var(--typescale-12), 0.9vw, var(--typescale-15));
     line-height: 1;
     color: var(--ink);
     letter-spacing: 0.04em;
@@ -274,24 +270,24 @@
     /* Constrained to the left half so it never runs under the right-side
        pixel-glitch column on any viewport. */
     position: absolute;
-    left: clamp(36px, 3.6vw, 80px);
-    right: clamp(680px, 40vw, 880px);
-    bottom: clamp(82px, 8vh, 120px);
+    left: clamp(var(--space-36), 3.6vw, var(--space-80));
+    right: clamp(var(--space-680), 40vw, var(--space-880));
+    bottom: clamp(var(--space-82), 8vh, var(--space-120));
     display: flex; justify-content: flex-start; align-items: end;
     z-index: 5;
-    gap: clamp(28px, 3vw, 56px);
+    gap: clamp(var(--space-28), 3vw, var(--space-56));
   }
   .s-cover .cfooter .colf {
     font-family: var(--font-body);
-    font-size: clamp(14px, 0.92vw, 15px);
+    font-size: clamp(var(--typescale-14), 0.92vw, var(--typescale-15));
     line-height: 1.45;
     color: var(--ink);
   }
   .s-cover .cfooter .colf .ftag {
     font-family: var(--font-body);
     font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em;
-    font-size: clamp(11px, 0.78vw, 13px);
-    margin-bottom: 4px;
+    font-size: clamp(var(--typescale-11), 0.78vw, var(--typescale-13));
+    margin-bottom: var(--space-4);
     color: var(--ink);
   }
 
@@ -301,18 +297,17 @@
   .s-manifesto { background: var(--paper); }
   .s-manifesto .stmt-wrap {
     position: absolute;
-    left: clamp(60px, 8vw, 160px);
-    right: clamp(60px, 8vw, 160px);
-    top: 50%;
-    transform: translateY(-50%);
+    left: clamp(var(--space-60), 8vw, var(--space-160));
+    right: clamp(var(--space-60), 8vw, var(--space-160));
+    top: 50%transform: var(--transform-1);
     z-index: 5;
     text-align: left;
   }
   .s-manifesto .stmt {
-    font-family: 'Newsreader', Georgia, serif;
+    font-family: var(--font-display);
     
     font-weight: 400;
-    font-size: clamp(56px, min(6.4vw, 11vh), 120px);
+    font-size: clamp(var(--typescale-56), min(6.4vw, 11vh), var(--typescale-120));
     line-height: 1.05;
     letter-spacing: -0.005em;
     color: var(--ink);
@@ -322,22 +317,22 @@
     font-weight: 500;
   }
   .s-manifesto .attr {
-    margin-top: clamp(28px, 3vh, 50px);
-    display: flex; gap: clamp(14px, 1.4vw, 24px); align-items: center;
-    border-top: 1px solid var(--ink);
-    padding-top: clamp(10px, 1.2vh, 18px);
+    margin-top: clamp(var(--space-28), 3vh, var(--space-50));
+    display: flex; gap: clamp(var(--space-14), 1.4vw, var(--space-gutter)); align-items: center;
+    border-top: var(--border-0) solid var(--ink);
+    padding-top: clamp(var(--space-10), 1.2vh, var(--space-18));
   }
   .s-manifesto .attr .who {
     font-family: var(--font-body);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.16em;
-    font-size: clamp(12px, 0.85vw, 14px);
+    font-size: clamp(var(--typescale-12), 0.85vw, var(--typescale-14));
     color: var(--ink);
   }
   .s-manifesto .attr .meta-tag {
     font-family: var(--font-mono);
-    font-size: clamp(12px, 0.82vw, 14px);
+    font-size: clamp(var(--typescale-12), 0.82vw, var(--typescale-14));
     color: var(--ink);
     letter-spacing: 0.04em;
     opacity: 0.78;
@@ -349,66 +344,66 @@
   .s-index { background: var(--paper); }
   .s-index .frame {
     position: absolute;
-    inset: clamp(76px, 8vh, 130px) clamp(36px, 3.6vw, 80px) clamp(100px, 10vh, 150px);
+    inset: clamp(var(--space-76), 8vh, var(--space-130)) clamp(var(--space-36), 3.6vw, var(--space-80)) clamp(var(--space-100), 10vh, var(--space-150));
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
-    gap: clamp(20px, 2.2vh, 36px);
+    gap: clamp(var(--space-20), 2.2vh, var(--space-36));
     z-index: 5;
   }
   .s-index .topbar {
     display: flex; align-items: end; justify-content: space-between;
-    border-bottom: 1.5px solid var(--ink);
-    padding-bottom: clamp(12px, 1.4vh, 22px);
-    gap: 30px;
+    border-bottom: var(--border-1) solid var(--ink);
+    padding-bottom: clamp(var(--space-12), 1.4vh, var(--space-22));
+    gap: var(--space-30);
   }
   .s-index .topbar .h {
-    font-family: 'Newsreader', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(48px, min(5vw, 8.5vh), 100px);
+    font-size: clamp(var(--typescale-48), min(5vw, 8.5vh), var(--typescale-100));
     line-height: 0.95;
     color: var(--ink);
   }
   .s-index .topbar .lab-tag {
     font-family: var(--font-body);
     font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em;
-    font-size: clamp(12px, 0.9vw, 14px);
+    font-size: clamp(var(--typescale-12), 0.9vw, var(--typescale-14));
     color: var(--ink); text-align: right;
   }
   .s-index .list {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    gap: clamp(14px, 2vh, 28px) clamp(28px, 3vw, 56px);
+    gap: clamp(var(--space-14), 2vh, var(--space-28)) clamp(var(--space-28), 3vw, var(--space-56));
   }
   .s-index .row { align-self: stretch; }
   .s-index .row {
     display: grid;
-    grid-template-columns: 56px 1fr;
-    gap: clamp(12px, 1.4vw, 22px);
-    border-bottom: 1px solid rgba(31, 43, 224, 0.18);
-    padding-bottom: clamp(12px, 1.4vh, 20px);
+    grid-template-columns: var(--space-56) 1fr;
+    gap: clamp(var(--space-12), 1.4vw, var(--space-22));
+    border-bottom: var(--border-2) solid var(--color-extra-1);
+    padding-bottom: clamp(var(--space-12), 1.4vh, var(--space-20));
   }
   .s-index .row .num-tag {
     font-family: var(--font-mono);
-    font-size: clamp(13px, 0.9vw, 15px);
+    font-size: clamp(var(--typescale-13), 0.9vw, var(--typescale-15));
     color: var(--ink);
     letter-spacing: 0.04em;
-    padding-top: 6px;
+    padding-top: var(--space-6);
   }
   .s-index .row h3 {
-    margin: 0 0 6px 0;
-    font-family: 'Newsreader', Georgia, serif;
+    margin: 0 0 var(--space-6) 0;
+    font-family: var(--font-display);
     
     font-weight: 400;
-    font-size: clamp(26px, 2vw, 40px);
+    font-size: clamp(var(--typescale-26), 2vw, var(--typescale-40));
     line-height: 1.05;
     color: var(--ink);
   }
   .s-index .row p {
     margin: 0;
     font-family: var(--font-body);
-    font-size: clamp(14px, 0.95vw, 15px);
+    font-size: clamp(var(--typescale-14), 0.95vw, var(--typescale-15));
     line-height: 1.5;
     color: var(--ink);
     max-width: 92%;
@@ -419,34 +414,34 @@
      ────────────────────────────────────────────────────────────── */
   .s-chapter { background: var(--paper); }
   .s-chapter .pixel-glitch {
-    top: clamp(60px, 6vh, 120px);
-    right: clamp(0px, 0vw, 0px);
-    width: clamp(220px, 26vw, 460px);
-    bottom: clamp(110px, 12vh, 200px);
+    top: clamp(var(--space-60), 6vh, var(--space-120));
+    right: clamp(var(--space-0), 0vw, var(--space-0));
+    width: clamp(var(--space-220), 26vw, var(--space-460));
+    bottom: clamp(var(--space-110), 12vh, var(--space-200));
     opacity: 0.75;
   }
   .s-chapter .frame {
     position: absolute;
-    left: clamp(36px, 3.6vw, 80px);
-    right: clamp(280px, 30vw, 540px);
-    top: clamp(80px, 9vh, 140px);
-    bottom: clamp(110px, 11vh, 170px);
+    left: clamp(var(--space-36), 3.6vw, var(--space-80));
+    right: clamp(var(--space-280), 30vw, var(--space-540));
+    top: clamp(var(--space-80), 9vh, var(--space-140));
+    bottom: clamp(var(--space-110), 11vh, var(--space-170));
     display: flex; flex-direction: column;
     justify-content: center;
     z-index: 5;
-    gap: clamp(18px, 2vh, 32px);
+    gap: clamp(var(--space-18), 2vh, var(--space-page-pad));
   }
   .s-chapter .nm-tag {
     font-family: var(--font-mono);
-    font-size: clamp(13px, 0.92vw, 15px);
+    font-size: clamp(var(--typescale-13), 0.92vw, var(--typescale-15));
     color: var(--ink);
     letter-spacing: 0.06em;
   }
   .s-chapter .ttl {
-    font-family: 'Newsreader', Georgia, serif;
+    font-family: var(--font-display);
     
     font-weight: 400;
-    font-size: clamp(56px, min(6vw, 10vh), 130px);
+    font-size: clamp(var(--typescale-56), min(6vw, 10vh), var(--typescale-130));
     line-height: 1.0;
     color: var(--ink);
     letter-spacing: -0.005em;
@@ -454,7 +449,7 @@
   .s-chapter .lede {
     font-family: var(--font-body);
     font-weight: 400;
-    font-size: clamp(15px, 1vw, 18px);
+    font-size: clamp(var(--typescale-15), 1vw, var(--typescale-18));
     line-height: 1.5;
     color: var(--ink);
     max-width: 56ch;
@@ -466,45 +461,45 @@
   .s-data { background: var(--paper); }
   .s-data .frame {
     position: absolute;
-    inset: clamp(76px, 8vh, 130px) clamp(36px, 3.6vw, 80px) clamp(100px, 10vh, 150px);
+    inset: clamp(var(--space-76), 8vh, var(--space-130)) clamp(var(--space-36), 3.6vw, var(--space-80)) clamp(var(--space-100), 10vh, var(--space-150));
     display: grid;
     grid-template-rows: auto 1fr;
-    gap: clamp(20px, 2vh, 36px);
+    gap: clamp(var(--space-20), 2vh, var(--space-36));
     z-index: 5;
   }
   .s-data .topbar {
     display: flex; align-items: end; justify-content: space-between;
-    border-bottom: 1.5px solid var(--ink);
-    padding-bottom: clamp(12px, 1.4vh, 22px);
-    gap: 30px;
+    border-bottom: var(--border-3) solid var(--ink);
+    padding-bottom: clamp(var(--space-12), 1.4vh, var(--space-22));
+    gap: var(--space-30);
   }
   .s-data .topbar .h {
-    font-family: 'Newsreader', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(46px, min(4.8vw, 8.2vh), 92px);
+    font-size: clamp(var(--typescale-46), min(4.8vw, 8.2vh), var(--typescale-92));
     line-height: 0.95;
     color: var(--ink);
   }
   .s-data .topbar .lab-tag {
     font-family: var(--font-body);
     font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em;
-    font-size: clamp(12px, 0.9vw, 14px);
+    font-size: clamp(var(--typescale-12), 0.9vw, var(--typescale-14));
     color: var(--ink); text-align: right;
   }
   .s-data .body {
     display: grid;
     grid-template-columns: 0.8fr 1.6fr;
-    gap: clamp(28px, 3vw, 56px);
+    gap: clamp(var(--space-28), 3vw, var(--space-56));
   }
   .s-data .col-a {
     display: flex; flex-direction: column; justify-content: center;
-    gap: clamp(20px, 2.4vh, 36px);
+    gap: clamp(var(--space-20), 2.4vh, var(--space-36));
   }
   .s-data .stat .vbig {
-    font-family: 'Newsreader', Georgia, serif;
+    font-family: var(--font-display);
     
     font-weight: 400;
-    font-size: clamp(110px, min(11vw, 18vh), 240px);
+    font-size: clamp(var(--typescale-110), min(11vw, 18vh), var(--typescale-240));
     line-height: 0.92;
     color: var(--ink);
     letter-spacing: -0.015em;
@@ -514,17 +509,17 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.16em;
-    font-size: clamp(13px, 0.95vw, 15px);
+    font-size: clamp(var(--typescale-13), 0.95vw, var(--typescale-15));
     color: var(--ink);
-    margin-top: 6px;
+    margin-top: var(--space-6);
   }
   .s-data .stat .desc {
     font-family: var(--font-body);
-    font-size: clamp(15px, 1vw, 17px);
+    font-size: clamp(var(--typescale-15), 1vw, var(--typescale-17));
     line-height: 1.5;
     color: var(--ink);
     max-width: 30ch;
-    margin-top: 6px;
+    margin-top: var(--space-6);
   }
 
   /* The chart itself: a row of vertical "pixel stacks" — each track is
@@ -532,36 +527,36 @@
      value. Visually echoes the reference's pixel-glitch decoration. */
   .s-data .chart {
     display: flex; flex-direction: column; justify-content: end;
-    gap: clamp(10px, 1.2vh, 18px);
+    gap: clamp(var(--space-10), 1.2vh, var(--space-18));
   }
   .s-data .chart .bars {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
-    gap: clamp(10px, 1vw, 18px);
+    gap: clamp(var(--space-10), 1vw, var(--space-18));
     align-items: end;
     height: 100%;
-    min-height: clamp(280px, 38vh, 540px);
+    min-height: clamp(var(--space-280), 38vh, var(--space-540));
   }
   .s-data .chart .stack {
-    display: flex; flex-direction: column-reverse; gap: 3px;
+    display: flex; flex-direction: column-reverse; gap: var(--space-3);
     height: 100%;
   }
   .s-data .chart .stack .cell {
     flex: 1 1 0;
-    min-height: 6px;
-    background: rgba(31, 43, 224, 0.10);
+    min-height: var(--space-6);
+    background: var(--grid);
   }
   .s-data .chart .stack .cell.on { background: var(--ink); }
   .s-data .chart .ticks {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
-    gap: clamp(10px, 1vw, 18px);
-    border-top: 1.5px solid var(--ink);
-    padding-top: clamp(8px, 1vh, 14px);
+    gap: clamp(var(--space-10), 1vw, var(--space-18));
+    border-top: var(--border-4) solid var(--ink);
+    padding-top: clamp(var(--space-8), 1vh, var(--space-14));
   }
   .s-data .chart .ticks .ticklab {
     font-family: var(--font-mono);
-    font-size: clamp(12px, 0.85vw, 14px);
+    font-size: clamp(var(--typescale-12), 0.85vw, var(--typescale-14));
     color: var(--ink);
     letter-spacing: 0.04em;
     text-align: center;
@@ -572,18 +567,17 @@
      ────────────────────────────────────────────────────────────── */
   .s-quote { background: var(--paper); }
   .s-quote .pixel-glitch {
-    top: clamp(40px, 4vh, 80px);
-    right: clamp(36px, 3.6vw, 80px);
-    width: clamp(160px, 16vw, 280px);
-    bottom: clamp(40px, 4vh, 80px);
+    top: clamp(var(--space-40), 4vh, var(--space-80));
+    right: clamp(var(--space-36), 3.6vw, var(--space-80));
+    width: clamp(var(--space-160), 16vw, var(--space-280));
+    bottom: clamp(var(--space-40), 4vh, var(--space-80));
     opacity: 0.6;
   }
   .s-quote .qframe {
     position: absolute;
-    left: clamp(36px, 3.6vw, 80px);
-    right: clamp(220px, 22vw, 380px);
-    top: 50%;
-    transform: translateY(-50%);
+    left: clamp(var(--space-36), 3.6vw, var(--space-80));
+    right: clamp(var(--space-220), 22vw, var(--space-380));
+    top: 50%transform: var(--transform-2);
     z-index: 5;
   }
   .s-quote .qkicker {
@@ -591,39 +585,39 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    font-size: clamp(12px, 0.9vw, 14px);
+    font-size: clamp(var(--typescale-12), 0.9vw, var(--typescale-14));
     color: var(--ink);
-    margin-bottom: clamp(16px, 1.8vh, 28px);
+    margin-bottom: clamp(var(--space-16), 1.8vh, var(--space-28));
   }
   .s-quote .qbody {
-    font-family: 'Newsreader', Georgia, serif;
+    font-family: var(--font-display);
     
     font-weight: 400;
-    font-size: clamp(50px, min(5.6vw, 9vh), 110px);
+    font-size: clamp(var(--typescale-50), min(5.6vw, 9vh), var(--typescale-110));
     line-height: 1.05;
     color: var(--ink);
     letter-spacing: -0.005em;
     max-width: 92%;
   }
   .s-quote .qattr {
-    margin-top: clamp(24px, 2.6vh, 40px);
+    margin-top: clamp(var(--space-gutter), 2.6vh, var(--space-40));
     display: grid; grid-template-columns: auto 1fr;
-    gap: clamp(14px, 1.4vw, 24px);
+    gap: clamp(var(--space-14), 1.4vw, var(--space-gutter));
     align-items: end;
-    border-top: 1px solid var(--ink);
-    padding-top: clamp(10px, 1.2vh, 18px);
+    border-top: var(--border-5) solid var(--ink);
+    padding-top: clamp(var(--space-10), 1.2vh, var(--space-18));
   }
   .s-quote .qattr .who-tag {
     font-family: var(--font-body);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.16em;
-    font-size: clamp(13px, 0.92vw, 15px);
+    font-size: clamp(var(--typescale-13), 0.92vw, var(--typescale-15));
     color: var(--ink);
   }
   .s-quote .qattr .role-meta {
     font-family: var(--font-mono);
-    font-size: clamp(12px, 0.85vw, 14px);
+    font-size: clamp(var(--typescale-12), 0.85vw, var(--typescale-14));
     color: var(--ink);
     letter-spacing: 0.04em;
     opacity: 0.78;
@@ -635,28 +629,28 @@
   .s-table { background: var(--paper); }
   .s-table .frame {
     position: absolute;
-    inset: clamp(76px, 8vh, 130px) clamp(36px, 3.6vw, 80px) clamp(100px, 10vh, 150px);
+    inset: clamp(var(--space-76), 8vh, var(--space-130)) clamp(var(--space-36), 3.6vw, var(--space-80)) clamp(var(--space-100), 10vh, var(--space-150));
     display: flex; flex-direction: column;
     z-index: 5;
   }
   .s-table .topbar {
     display: flex; align-items: end; justify-content: space-between;
-    border-bottom: 1.5px solid var(--ink);
-    padding-bottom: clamp(12px, 1.4vh, 22px);
-    margin-bottom: clamp(14px, 1.6vh, 24px);
-    gap: 30px;
+    border-bottom: var(--border-6) solid var(--ink);
+    padding-bottom: clamp(var(--space-12), 1.4vh, var(--space-22));
+    margin-bottom: clamp(var(--space-14), 1.6vh, var(--space-gutter));
+    gap: var(--space-30);
   }
   .s-table .topbar .h {
-    font-family: 'Newsreader', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(46px, min(4.8vw, 8.2vh), 92px);
+    font-size: clamp(var(--typescale-46), min(4.8vw, 8.2vh), var(--typescale-92));
     line-height: 0.95;
     color: var(--ink);
   }
   .s-table .topbar .lab-tag {
     font-family: var(--font-body);
     font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em;
-    font-size: clamp(12px, 0.9vw, 14px);
+    font-size: clamp(var(--typescale-12), 0.9vw, var(--typescale-14));
     color: var(--ink); text-align: right;
   }
   .s-table .ledger {
@@ -670,54 +664,54 @@
   }
   .s-table .row {
     display: grid;
-    grid-template-columns: 76px 0.6fr 1.4fr 0.7fr 0.5fr;
-    gap: clamp(14px, 1.4vw, 28px);
+    grid-template-columns: var(--space-76) 0.6fr 1.4fr 0.7fr 0.5fr;
+    gap: clamp(var(--space-14), 1.4vw, var(--space-28));
     align-items: center;
     padding: 0;
     flex: 1 1 0;
-    min-height: clamp(46px, 6vh, 80px);
-    border-bottom: 1px solid rgba(31, 43, 224, 0.18);
+    min-height: clamp(var(--space-46), 6vh, var(--space-80));
+    border-bottom: var(--border-7) solid var(--color-extra-2);
   }
   .s-table .row.headrow {
-    border-bottom: 1.5px solid var(--ink);
+    border-bottom: var(--border-8) solid var(--ink);
     flex: 0 0 auto;
     min-height: 0;
-    padding: 8px 0;
+    padding: var(--space-8) 0;
   }
   .s-table .row.headrow > div {
     font-family: var(--font-body);
     font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em;
-    font-size: clamp(11px, 0.75vw, 12px);
+    font-size: clamp(var(--typescale-11), 0.75vw, var(--typescale-12));
     color: var(--ink);
   }
   .s-table .num-tag {
     font-family: var(--font-mono);
-    font-size: clamp(13px, 0.95vw, 15px);
+    font-size: clamp(var(--typescale-13), 0.95vw, var(--typescale-15));
     color: var(--ink);
     letter-spacing: 0.04em;
   }
   .s-table .nm {
-    font-family: 'Newsreader', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(20px, 1.6vw, 28px);
+    font-size: clamp(var(--typescale-20), 1.6vw, var(--typescale-28));
     line-height: 1.15;
     color: var(--ink);
   }
   .s-table .desc {
     font-family: var(--font-body);
-    font-size: clamp(14px, 0.95vw, 15px);
+    font-size: clamp(var(--typescale-14), 0.95vw, var(--typescale-15));
     line-height: 1.4;
     color: var(--ink);
   }
   .s-table .mood-tag {
     font-family: var(--font-body);
     font-weight: 600;
-    font-size: clamp(13px, 0.92vw, 15px);
+    font-size: clamp(var(--typescale-13), 0.92vw, var(--typescale-15));
     color: var(--ink);
   }
   .s-table .delta-tag {
     font-family: var(--font-mono);
-    font-size: clamp(13px, 0.92vw, 15px);
+    font-size: clamp(var(--typescale-13), 0.92vw, var(--typescale-15));
     text-align: right;
     color: var(--ink);
     letter-spacing: 0.04em;
@@ -731,21 +725,21 @@
      ────────────────────────────────────────────────────────────── */
   .s-colophon { background: var(--paper); }
   .s-colophon .pixel-glitch {
-    top: clamp(80px, 9vh, 160px);
-    left: clamp(36px, 3.6vw, 80px);
-    width: clamp(220px, 26vw, 460px);
-    bottom: clamp(220px, 22vh, 360px);
+    top: clamp(var(--space-80), 9vh, var(--space-160));
+    left: clamp(var(--space-36), 3.6vw, var(--space-80));
+    width: clamp(var(--space-220), 26vw, var(--space-460));
+    bottom: clamp(var(--space-220), 22vh, var(--space-360));
     opacity: 0.75;
   }
   .s-colophon .qr-block {
-    top: clamp(80px, 9vh, 160px);
-    right: clamp(36px, 3.6vw, 80px);
-    width: clamp(72px, 5vw, 100px);
-    height: clamp(72px, 5vw, 100px);
+    top: clamp(var(--space-80), 9vh, var(--space-160));
+    right: clamp(var(--space-36), 3.6vw, var(--space-80));
+    width: clamp(var(--space-72), 5vw, var(--space-100));
+    height: clamp(var(--space-72), 5vw, var(--space-100));
   }
   .s-colophon .titlewrap {
     position: absolute;
-    right: clamp(36px, 3.6vw, 80px);
+    right: clamp(var(--space-36), 3.6vw, var(--space-80));
     top: 28%;
     z-index: 5;
     max-width: 56%;
@@ -756,45 +750,45 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.22em;
-    font-size: clamp(12px, 0.9vw, 14px);
+    font-size: clamp(var(--typescale-12), 0.9vw, var(--typescale-14));
     color: var(--ink);
-    margin-bottom: clamp(14px, 1.6vh, 24px);
+    margin-bottom: clamp(var(--space-14), 1.6vh, var(--space-gutter));
   }
   .s-colophon .ttl {
-    font-family: 'Newsreader', Georgia, serif;
+    font-family: var(--font-display);
     
     font-weight: 400;
-    font-size: clamp(72px, min(8.4vw, 14vh), 180px);
+    font-size: clamp(var(--typescale-72), min(8.4vw, 14vh), var(--typescale-180));
     line-height: 0.96;
     color: var(--ink);
     letter-spacing: -0.005em;
   }
   .s-colophon .col-footer {
     position: absolute;
-    left: clamp(36px, 3.6vw, 80px);
-    right: clamp(36px, 3.6vw, 80px);
-    bottom: clamp(106px, 10.4vh, 160px);
+    left: clamp(var(--space-36), 3.6vw, var(--space-80));
+    right: clamp(var(--space-36), 3.6vw, var(--space-80));
+    bottom: clamp(var(--space-106), 10.4vh, var(--space-160));
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1.2fr;
-    gap: clamp(20px, 2.4vw, 44px);
+    gap: clamp(var(--space-20), 2.4vw, var(--space-44));
     z-index: 5;
   }
   .s-colophon .col-footer > div {
-    border-top: 1.5px solid var(--ink);
-    padding-top: clamp(10px, 1.2vh, 16px);
+    border-top: var(--border-9) solid var(--ink);
+    padding-top: clamp(var(--space-10), 1.2vh, var(--space-16));
   }
   .s-colophon .col-footer .ftag {
     font-family: var(--font-body);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.18em;
-    font-size: clamp(11px, 0.78vw, 13px);
-    margin-bottom: 6px;
+    font-size: clamp(var(--typescale-11), 0.78vw, var(--typescale-13));
+    margin-bottom: var(--space-6);
     color: var(--ink);
   }
   .s-colophon .col-footer .ftxt {
     font-family: var(--font-body);
-    font-size: clamp(14px, 0.95vw, 15px);
+    font-size: clamp(var(--typescale-14), 0.95vw, var(--typescale-15));
     line-height: 1.5;
     color: var(--ink);
   }

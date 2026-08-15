@@ -62,7 +62,7 @@
     html, body {
       height: 100%;
       overflow: hidden;
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-display);
       background: var(--offwhite);
       color: var(--black);
     }
@@ -81,7 +81,7 @@
       width: 100vw;
       height: 100vh;
       display: none;
-      padding: 60px;
+      padding: var(--space-60);
       overflow: hidden;
     }
 
@@ -90,30 +90,29 @@
     }
 
     /* Dot grid background pattern */
-    .dot-grid {
-      background-image: radial-gradient(circle, var(--black) 1.2px, transparent 1.2px);
-      background-size: 24px 24px;
+    .dot-grid background-image: var(--bg-0);
+      background-size: var(--space-gutter) var(--space-gutter);
     }
 
     /* Navigation */
     .nav-controls {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
+      bottom: var(--space-gutter);
+      right: var(--space-gutter);
       display: flex;
-      gap: 12px;
+      gap: var(--space-12);
       z-index: 1000;
     }
 
     .nav-btn {
-      width: 48px;
-      height: 48px;
-      border: 3px solid var(--black);
+      width: var(--space-48);
+      height: var(--space-48);
+      border: var(--border-0) solid var(--black);
       background: var(--white);
       cursor: pointer;
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-display);
       font-weight: 700;
-      font-size: 18px;
+      font-size: var(--typescale-18);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -121,29 +120,25 @@
       box-shadow: var(--shadow-sm);
     }
 
-    .nav-btn:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0px var(--black);
+    .nav-btn:hover transform: var(--transform-0)box-shadow: var(--elevation-0);
     }
 
-    .nav-btn:active {
-      transform: translate(2px, 2px);
-      box-shadow: 2px 2px 0px var(--black);
+    .nav-btn:active transform: var(--transform-1)box-shadow: var(--elevation-1);
     }
 
     .slide-counter {
       position: fixed;
-      bottom: 24px;
-      left: 24px;
+      bottom: var(--space-gutter);
+      left: var(--space-gutter);
       z-index: 1000;
-      font-family: 'Space Grotesk', monospace;
+      font-family: var(--font-mono);
       font-weight: 700;
-      font-size: 14px;
+      font-size: var(--typescale-14);
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      border: 3px solid var(--black);
+      border: var(--border-1) solid var(--black);
       background: var(--white);
-      padding: 10px 18px;
+      padding: var(--space-10) var(--space-18);
       box-shadow: var(--shadow-sm);
     }
 
@@ -162,10 +157,10 @@
 
     .nb-label {
       display: inline-block;
-      border: 3px solid var(--black);
-      padding: 6px 16px;
-      font-family: 'Space Grotesk', monospace;
-      font-size: 13px;
+      border: var(--border-2) solid var(--black);
+      padding: var(--space-6) var(--space-16);
+      font-family: var(--font-mono);
+      font-size: var(--typescale-13);
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -181,11 +176,11 @@
 
     .nb-btn {
       display: inline-block;
-      border: 3px solid var(--black);
-      padding: 14px 32px;
-      font-family: 'Inter', sans-serif;
+      border: var(--border-3) solid var(--black);
+      padding: var(--space-14) var(--space-page-pad);
+      font-family: var(--font-display);
       font-weight: 700;
-      font-size: 16px;
+      font-size: var(--typescale-body-large);
       text-decoration: none;
       color: var(--black);
       background: var(--yellow);
@@ -194,48 +189,46 @@
       transition: all 0.15s ease;
     }
 
-    .nb-btn:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0px var(--black);
+    .nb-btn:hover transform: var(--transform-2)box-shadow: var(--elevation-2);
     }
 
     .nb-heading-xl {
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-display);
       font-weight: 900;
-      font-size: clamp(48px, 6vw, 96px);
+      font-size: clamp(var(--typescale-48), 6vw, var(--typescale-96));
       line-height: 0.95;
       letter-spacing: -0.03em;
       text-transform: uppercase;
     }
 
     .nb-heading-lg {
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-display);
       font-weight: 800;
-      font-size: clamp(32px, 4vw, 64px);
+      font-size: clamp(var(--typescale-32), 4vw, var(--typescale-64));
       line-height: 1.0;
       letter-spacing: -0.02em;
       text-transform: uppercase;
     }
 
     .nb-heading-md {
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-display);
       font-weight: 700;
-      font-size: clamp(24px, 2.5vw, 40px);
+      font-size: clamp(var(--typescale-24), 2.5vw, var(--typescale-40));
       line-height: 1.1;
       letter-spacing: -0.01em;
     }
 
     .nb-body {
-      font-family: 'Inter', sans-serif;
-      font-size: clamp(16px, 1.2vw, 20px);
+      font-family: var(--font-display);
+      font-size: clamp(var(--typescale-body-large), 1.2vw, var(--typescale-20));
       line-height: 1.6;
       font-weight: 500;
     }
 
     .nb-mono {
-      font-family: 'Space Grotesk', monospace;
+      font-family: var(--font-mono);
       font-weight: 500;
-      font-size: 15px;
+      font-size: var(--typescale-15);
       letter-spacing: 0.02em;
     }
 
@@ -249,14 +242,14 @@
       border: var(--border);
     }
 
-    .tilt-left { transform: rotate(-8deg); }
-    .tilt-right { transform: rotate(8deg); }
+    .tilt-left transform: var(--transform-3); }
+    .tilt-right transform: var(--transform-4); }
 
     .corner-bracket {
       position: absolute;
-      width: 24px;
-      height: 24px;
-      border: 3px solid var(--black);
+      width: var(--space-gutter);
+      height: var(--space-gutter);
+      border: var(--border-4) solid var(--black);
     }
     .corner-bracket.tl { border-right: none; border-bottom: none; top: 0; left: 0; }
     .corner-bracket.tr { border-left: none; border-bottom: none; top: 0; right: 0; }
@@ -275,46 +268,45 @@
     .slide-1 .hero-frame {
       position: relative;
       width: 100%;
-      max-width: 900px;
+      max-width: var(--space-900);
       border: var(--border);
       background: var(--offwhite);
-      padding: 60px;
+      padding: var(--space-60);
       box-shadow: var(--shadow);
     }
 
     .slide-1 .hero-label {
-      margin-bottom: 24px;
+      margin-bottom: var(--space-gutter);
     }
 
     .slide-1 .hero-title {
-      margin-bottom: 32px;
+      margin-bottom: var(--space-page-pad);
     }
 
     .slide-1 .hero-subtitle {
-      font-family: 'Space Grotesk', monospace;
-      font-size: 18px;
+      font-family: var(--font-mono);
+      font-size: var(--typescale-18);
       font-weight: 500;
-      max-width: 500px;
+      max-width: var(--space-500);
     }
 
     .slide-1 .deco-pink-rect {
       position: absolute;
       top: -30px;
-      right: 80px;
-      width: 100px;
-      height: 100px;
+      right: var(--space-80);
+      width: var(--space-100);
+      height: var(--space-100);
       background: var(--pink);
       border: var(--border);
-      box-shadow: var(--shadow-sm);
-      transform: rotate(12deg);
+      box-shadow: var(--shadow-sm)transform: var(--transform-5);
     }
 
     .slide-1 .deco-green-circle {
       position: absolute;
-      bottom: 60px;
-      right: 120px;
-      width: 60px;
-      height: 60px;
+      bottom: var(--space-60);
+      right: var(--space-120);
+      width: var(--space-60);
+      height: var(--space-60);
       background: var(--green);
       border: var(--border);
       border-radius: 50%;
@@ -325,30 +317,28 @@
          the content area so it never collides with the subtitle. */
       position: absolute;
       bottom: -18px;
-      left: 80px;
-      width: 140px;
-      height: 36px;
+      left: var(--space-80);
+      width: var(--space-140);
+      height: var(--space-36);
       background: var(--yellow);
       border: var(--border);
-      box-shadow: var(--shadow-sm);
-      transform: rotate(-3deg);
+      box-shadow: var(--shadow-sm)transform: var(--transform-6);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Space Grotesk', monospace;
-      font-size: 13px;
+      font-family: var(--font-mono);
+      font-size: var(--typescale-13);
       font-weight: 600;
       z-index: 5;
     }
 
     .slide-1 .deco-dots {
       position: absolute;
-      top: 60px;
-      left: 60px;
-      width: 120px;
-      height: 80px;
-      background-image: radial-gradient(circle, var(--black) 2px, transparent 2px);
-      background-size: 20px 20px;
+      top: var(--space-60);
+      left: var(--space-60);
+      width: var(--space-120);
+      height: var(--space-80)background-image: var(--bg-1);
+      background-size: var(--space-20) var(--space-20);
       opacity: 0.4;
     }
 
@@ -356,7 +346,7 @@
     .slide-2 {
       background: var(--blue);
       flex-direction: row;
-      gap: 48px;
+      gap: var(--space-48);
       align-items: center;
     }
 
@@ -364,33 +354,33 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: var(--space-gutter);
     }
 
     .slide-2 .col-right {
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: var(--space-20);
     }
 
     .slide-2 .intro-card {
       border: var(--border);
       background: var(--white);
-      padding: 28px;
+      padding: var(--space-28);
       box-shadow: var(--shadow-sm);
     }
 
     .slide-2 .intro-card h3 {
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-display);
       font-weight: 700;
-      font-size: 20px;
-      margin-bottom: 12px;
+      font-size: var(--typescale-20);
+      margin-bottom: var(--space-12);
       text-transform: uppercase;
     }
 
     .slide-2 .intro-card p {
-      font-size: 15px;
+      font-size: var(--typescale-15);
       line-height: 1.6;
       font-weight: 500;
     }
@@ -398,12 +388,12 @@
     .slide-2 .stat-pill {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      border: 3px solid var(--black);
-      padding: 10px 20px;
+      gap: var(--space-8);
+      border: var(--border-5) solid var(--black);
+      padding: var(--space-10) var(--space-20);
       background: var(--yellow);
-      font-family: 'Space Grotesk', monospace;
-      font-size: 14px;
+      font-family: var(--font-mono);
+      font-size: var(--typescale-14);
       font-weight: 600;
     }
 
@@ -415,12 +405,12 @@
     }
 
     .slide-3 .slide-header {
-      margin-bottom: 48px;
+      margin-bottom: var(--space-48);
     }
 
     .slide-3 .cards-row {
       display: flex;
-      gap: 32px;
+      gap: var(--space-page-pad);
       width: 100%;
     }
 
@@ -428,20 +418,20 @@
       flex: 1;
       border: var(--border);
       background: var(--white);
-      padding: 36px;
+      padding: var(--space-36);
       box-shadow: var(--shadow);
       position: relative;
     }
 
     .slide-3 .feature-icon {
-      width: 64px;
-      height: 64px;
-      border: 3px solid var(--black);
-      margin-bottom: 24px;
+      width: var(--space-64);
+      height: var(--space-64);
+      border: var(--border-6) solid var(--black);
+      margin-bottom: var(--space-gutter);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 28px;
+      font-size: var(--typescale-28);
       font-weight: 700;
     }
 
@@ -450,15 +440,15 @@
     .slide-3 .icon-green { background: var(--green); }
 
     .slide-3 .feature-card h3 {
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-display);
       font-weight: 700;
-      font-size: 22px;
-      margin-bottom: 14px;
+      font-size: var(--typescale-22);
+      margin-bottom: var(--space-14);
       text-transform: uppercase;
     }
 
     .slide-3 .feature-card p {
-      font-size: 15px;
+      font-size: var(--typescale-15);
       line-height: 1.6;
       font-weight: 500;
     }
@@ -466,10 +456,10 @@
     .slide-3 .card-deco {
       position: absolute;
       top: -12px;
-      right: 24px;
-      width: 48px;
-      height: 48px;
-      border: 3px solid var(--black);
+      right: var(--space-gutter);
+      width: var(--space-48);
+      height: var(--space-48);
+      border: var(--border-7) solid var(--black);
       background: var(--yellow);
     }
 
@@ -480,23 +470,23 @@
       justify-content: center;
       /* Reserve space for the shadow + the bottom-fixed nav chrome
          so the chart-frame never butts up against the slide edge. */
-      padding-bottom: 110px;
+      padding-bottom: var(--space-110);
     }
 
     .slide-4 .chart-frame {
       border: var(--border);
       background: var(--white);
       box-shadow: var(--shadow);
-      padding: 32px 40px;
-      width: calc(100% - 16px);
-      max-width: 1200px;
+      padding: var(--space-page-pad) var(--space-40);
+      width: calc(100% - var(--space-16));
+      max-width: var(--space-page-wmax);
       margin: 0 auto;
       /* Cap the frame so it always fits inside the slide content area
          (slide is 100vh - 60 top - 110 bottom = ~70vh available). */
       max-height: 70vh;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: var(--space-20);
       overflow: hidden;
     }
 
@@ -509,29 +499,29 @@
 
     .slide-4 .chart-legend {
       display: flex;
-      gap: 16px;
+      gap: var(--space-16);
     }
 
     .slide-4 .legend-item {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-family: 'Space Grotesk', monospace;
-      font-size: 13px;
+      gap: var(--space-6);
+      font-family: var(--font-mono);
+      font-size: var(--typescale-13);
       font-weight: 600;
     }
 
     .slide-4 .legend-swatch {
-      width: 16px;
-      height: 16px;
-      border: 2px solid var(--black);
+      width: var(--space-16);
+      height: var(--space-16);
+      border: var(--border-8) solid var(--black);
     }
 
     /* Chart body — chart on the left, stat boxes stacked on the right.
        This is a flex row that fills the remaining space below the header. */
     .slide-4 .chart-body {
       display: flex;
-      gap: 32px;
+      gap: var(--space-page-pad);
       flex: 1 1 auto;
       min-height: 0;
       align-items: stretch;
@@ -555,36 +545,36 @@
     .slide-4 .data-column {
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      flex: 0 0 240px;
-      width: 240px;
+      gap: var(--space-16);
+      flex: 0 0 var(--space-240);
+      width: var(--space-240);
       min-width: 0;
     }
 
     .slide-4 .data-box {
       flex: 1 1 0;
       min-height: 0;
-      border: 3px solid var(--black);
+      border: var(--border-9) solid var(--black);
       background: var(--cream);
-      padding: 18px 20px;
+      padding: var(--space-18) var(--space-20);
       text-align: center;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 6px;
+      gap: var(--space-6);
     }
 
     .slide-4 .data-box .data-num {
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-display);
       font-weight: 900;
-      font-size: 36px;
+      font-size: var(--typescale-36);
       display: block;
-      margin-bottom: 4px;
+      margin-bottom: var(--space-4);
     }
 
     .slide-4 .data-box .data-label {
-      font-family: 'Space Grotesk', monospace;
-      font-size: 13px;
+      font-family: var(--font-mono);
+      font-size: var(--typescale-13);
       font-weight: 600;
       text-transform: uppercase;
     }
@@ -602,25 +592,25 @@
     .slide-5 .quote-frame {
       border: var(--border);
       background: var(--white);
-      padding: 60px 80px;
+      padding: var(--space-60) var(--space-80);
       box-shadow: var(--shadow);
-      max-width: 1000px;
+      max-width: var(--space-1000);
       position: relative;
     }
 
     .slide-5 .quote-text {
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-display);
       font-weight: 900;
-      font-size: clamp(28px, 3.5vw, 52px);
+      font-size: clamp(var(--typescale-28), 3.5vw, var(--typescale-52));
       line-height: 1.15;
       letter-spacing: -0.02em;
       text-transform: uppercase;
-      margin-bottom: 32px;
+      margin-bottom: var(--space-page-pad);
     }
 
     .slide-5 .quote-author {
-      font-family: 'Space Grotesk', monospace;
-      font-size: 15px;
+      font-family: var(--font-mono);
+      font-size: var(--typescale-15);
       font-weight: 600;
       letter-spacing: 0.05em;
       text-transform: uppercase;
@@ -629,28 +619,21 @@
     .slide-5 .deco-quote-marks {
       position: absolute;
       top: -30px;
-      left: 40px;
-      font-size: 120px;
+      left: var(--space-40);
+      font-size: var(--typescale-120);
       font-weight: 900;
       line-height: 1;
       color: var(--yellow);
-      -webkit-text-stroke: 3px var(--black);
+      -webkit-text-stroke: var(--space-3) var(--black);
     }
 
     .slide-5 .deco-stripes {
       position: absolute;
-      bottom: 60px;
-      right: 60px;
-      width: 80px;
-      height: 80px;
-      background: repeating-linear-gradient(
-        45deg,
-        var(--black),
-        var(--black) 4px,
-        var(--green) 4px,
-        var(--green) 12px
-      );
-      border: 3px solid var(--black);
+      bottom: var(--space-60);
+      right: var(--space-60);
+      width: var(--space-80);
+      height: var(--space-80)background: var(--bg-2);
+      border: var(--border-10) solid var(--black);
     }
 
     /* ============ SLIDE 6: SPLIT IMAGE + TEXT ============ */
@@ -668,16 +651,16 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 60px;
+      padding: var(--space-60);
       position: relative;
       overflow: hidden;
     }
 
     .slide-6 .split-visual .visual-box {
       width: 100%;
-      max-width: 400px;
+      max-width: var(--space-400);
       aspect-ratio: 1;
-      border: 4px solid var(--white);
+      border: var(--border-11) solid var(--white);
       background: var(--pink);
       display: flex;
       align-items: center;
@@ -688,12 +671,12 @@
     .slide-6 .split-visual .visual-box::after {
       content: '';
       position: absolute;
-      top: 20px;
-      left: 20px;
+      top: var(--space-20);
+      left: var(--space-20);
       width: 100%;
       height: 100%;
       background: var(--blue);
-      border: 4px solid var(--white);
+      border: var(--border-12) solid var(--white);
       z-index: -1;
     }
 
@@ -701,25 +684,24 @@
       /* Top-right of the dark panel so it never collides with the
          fixed slide-counter pill at bottom-left of the viewport. */
       position: absolute;
-      top: 40px;
-      right: 40px;
-      border: 3px solid var(--white);
+      top: var(--space-40);
+      right: var(--space-40);
+      border: var(--border-13) solid var(--white);
       background: var(--green);
       color: var(--black);
-      padding: 8px 16px;
-      font-family: 'Space Grotesk', monospace;
-      font-size: 13px;
-      font-weight: 600;
-      transform: rotate(-4deg);
+      padding: var(--space-8) var(--space-16);
+      font-family: var(--font-mono);
+      font-size: var(--typescale-13);
+      font-weight: 600transform: var(--transform-7);
     }
 
     .slide-6 .split-content {
       flex: 1;
-      padding: 60px;
+      padding: var(--space-60);
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 28px;
+      gap: var(--space-28);
       background: var(--offwhite);
       border-left: var(--border);
     }
@@ -728,30 +710,30 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: var(--space-16);
     }
 
     .slide-6 .content-list li {
       display: flex;
       align-items: flex-start;
-      gap: 14px;
-      font-size: 16px;
+      gap: var(--space-14);
+      font-size: var(--typescale-body-large);
       line-height: 1.5;
       font-weight: 500;
     }
 
     .slide-6 .content-list .list-num {
       flex-shrink: 0;
-      width: 36px;
-      height: 36px;
-      border: 3px solid var(--black);
+      width: var(--space-36);
+      height: var(--space-36);
+      border: var(--border-14) solid var(--black);
       background: var(--yellow);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Space Grotesk', monospace;
+      font-family: var(--font-mono);
       font-weight: 700;
-      font-size: 14px;
+      font-size: var(--typescale-14);
     }
 
     /* ============ SLIDE 7: TIMELINE / PROCESS ============ */
@@ -762,7 +744,7 @@
     }
 
     .slide-7 .slide-header {
-      margin-bottom: 48px;
+      margin-bottom: var(--space-48);
     }
 
     .slide-7 .timeline {
@@ -775,7 +757,7 @@
       flex: 1;
       border: var(--border);
       background: var(--white);
-      padding: 32px;
+      padding: var(--space-page-pad);
       box-shadow: var(--shadow-sm);
       position: relative;
       margin-right: -4px;
@@ -799,24 +781,24 @@
     }
 
     .slide-7 .step-num {
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-display);
       font-weight: 900;
-      font-size: 48px;
+      font-size: var(--typescale-48);
       line-height: 1;
-      margin-bottom: 16px;
+      margin-bottom: var(--space-16);
       opacity: 0.6;
     }
 
     .slide-7 .step-title {
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-display);
       font-weight: 700;
-      font-size: 20px;
+      font-size: var(--typescale-20);
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: var(--space-10);
     }
 
     .slide-7 .step-desc {
-      font-size: 14px;
+      font-size: var(--typescale-14);
       line-height: 1.5;
       font-weight: 500;
     }
@@ -825,11 +807,10 @@
       position: absolute;
       top: 50%;
       right: -28px;
-      width: 28px;
-      height: 4px;
+      width: var(--space-28);
+      height: var(--space-4);
       background: var(--black);
-      z-index: 10;
-      transform: translateY(-50%);
+      z-index: 10transform: var(--transform-8);
     }
 
     /* ============ SLIDE 8: STATISTICS / NUMBERS ============ */
@@ -840,44 +821,42 @@
     }
 
     .slide-8 .slide-header {
-      margin-bottom: 48px;
+      margin-bottom: var(--space-48);
     }
 
     .slide-8 .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
+      gap: var(--space-gutter);
       width: 100%;
     }
 
     .slide-8 .stat-card {
       border: var(--border);
       background: var(--white);
-      padding: 32px;
+      padding: var(--space-page-pad);
       box-shadow: var(--shadow-sm);
       text-align: center;
       position: relative;
     }
 
-    .slide-8 .stat-card:nth-child(odd) {
-      transform: rotate(-2deg);
+    .slide-8 .stat-card:nth-child(odd) transform: var(--transform-9);
     }
 
-    .slide-8 .stat-card:nth-child(even) {
-      transform: rotate(2deg);
+    .slide-8 .stat-card:nth-child(even) transform: var(--transform-10);
     }
 
     .slide-8 .stat-number {
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-display);
       font-weight: 900;
-      font-size: clamp(36px, 4vw, 64px);
+      font-size: clamp(var(--typescale-36), 4vw, var(--typescale-64));
       line-height: 1;
-      margin-bottom: 12px;
+      margin-bottom: var(--space-12);
     }
 
     .slide-8 .stat-label {
-      font-family: 'Space Grotesk', monospace;
-      font-size: 13px;
+      font-family: var(--font-mono);
+      font-size: var(--typescale-13);
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -885,12 +864,12 @@
 
     .slide-8 .stat-deco {
       position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 12px;
-      height: 12px;
+      top: var(--space-8);
+      right: var(--space-8);
+      width: var(--space-12);
+      height: var(--space-12);
       border-radius: 50%;
-      border: 2px solid var(--black);
+      border: var(--border-15) solid var(--black);
     }
 
     /* ============ SLIDE 9: TEAM / GRID ============ */
@@ -900,42 +879,42 @@
       justify-content: center;
       /* Extra bottom padding so the second card row clears the fixed
          slide-counter (bottom-left) and nav-controls (bottom-right). */
-      padding-bottom: 110px;
+      padding-bottom: var(--space-110);
     }
 
     .slide-9 .slide-header {
-      margin-bottom: 32px;
+      margin-bottom: var(--space-page-pad);
     }
 
     .slide-9 .team-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: var(--space-20);
       width: 100%;
     }
 
     .slide-9 .team-card {
       border: var(--border);
       background: var(--white);
-      padding: 22px;
+      padding: var(--space-22);
       box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: var(--space-10);
       min-width: 0;
     }
 
     .slide-9 .team-avatar {
-      width: 72px;
-      height: 72px;
-      border: 3px solid var(--black);
+      width: var(--space-72);
+      height: var(--space-72);
+      border: var(--border-16) solid var(--black);
       background: var(--pink);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-display);
       font-weight: 900;
-      font-size: 28px;
+      font-size: var(--typescale-28);
       text-transform: uppercase;
     }
 
@@ -946,22 +925,22 @@
     .slide-9 .team-card:nth-child(6) .team-avatar { background: var(--blue); }
 
     .slide-9 .team-name {
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-display);
       font-weight: 700;
-      font-size: 20px;
+      font-size: var(--typescale-20);
       text-transform: uppercase;
     }
 
     .slide-9 .team-role {
-      font-family: 'Space Grotesk', monospace;
-      font-size: 14px;
+      font-family: var(--font-mono);
+      font-size: var(--typescale-14);
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
 
     .slide-9 .team-bio {
-      font-size: 13px;
+      font-size: var(--typescale-13);
       line-height: 1.45;
       font-weight: 500;
     }
@@ -977,78 +956,73 @@
     }
 
     .slide-10 .close-frame {
-      border: 4px solid var(--white);
+      border: var(--border-17) solid var(--white);
       background: var(--black);
-      padding: 60px 80px;
-      box-shadow: 12px 12px 0px var(--yellow);
+      padding: var(--space-60) var(--space-80)box-shadow: var(--elevation-3);
       position: relative;
     }
 
     .slide-10 .close-title {
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-display);
       font-weight: 900;
-      font-size: clamp(40px, 5vw, 80px);
+      font-size: clamp(var(--typescale-40), 5vw, var(--typescale-80));
       line-height: 0.95;
       letter-spacing: -0.03em;
       text-transform: uppercase;
       color: var(--white);
-      margin-bottom: 24px;
+      margin-bottom: var(--space-gutter);
     }
 
     .slide-10 .close-subtitle {
-      font-family: 'Space Grotesk', monospace;
-      font-size: 18px;
+      font-family: var(--font-mono);
+      font-size: var(--typescale-18);
       font-weight: 500;
       color: var(--cream);
-      margin-bottom: 40px;
+      margin-bottom: var(--space-40);
     }
 
     .slide-10 .close-btn {
       display: inline-block;
-      border: 3px solid var(--white);
-      padding: 16px 40px;
-      font-family: 'Inter', sans-serif;
+      border: var(--border-18) solid var(--white);
+      padding: var(--space-16) var(--space-40);
+      font-family: var(--font-display);
       font-weight: 700;
-      font-size: 16px;
+      font-size: var(--typescale-body-large);
       text-decoration: none;
       color: var(--black);
-      background: var(--yellow);
-      box-shadow: 6px 6px 0px var(--white);
+      background: var(--yellow)box-shadow: var(--elevation-4);
       cursor: pointer;
       transition: all 0.15s ease;
     }
 
-    .slide-10 .close-btn:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 8px 8px 0px var(--white);
+    .slide-10 .close-btn:hover transform: var(--transform-11)box-shadow: var(--elevation-5);
     }
 
     .slide-10 .deco-star {
       position: absolute;
       top: -20px;
-      right: 60px;
-      width: 50px;
-      height: 50px;
+      right: var(--space-60);
+      width: var(--space-50);
+      height: var(--space-50);
       background: var(--pink);
-      border: 3px solid var(--white);
+      border: var(--border-19) solid var(--white);
       clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
     }
 
     .slide-10 .deco-dots-bottom {
       position: absolute;
-      bottom: 40px;
-      left: 40px;
-      width: 100px;
-      height: 100px;
-      background-image: radial-gradient(circle, var(--white) 2px, transparent 2px);
-      background-size: 16px 16px;
+      bottom: var(--space-40);
+      left: var(--space-40);
+      width: var(--space-100);
+      height: var(--space-100)background-image: var(--bg-3);
+      background-size: var(--space-16) var(--space-16);
       opacity: 0.3;
     }
 
     /* Responsive adjustments */
     @media (max-width: 1024px) {
       .slide {
-        padding: 40px;
+        padding: var(--space-40);
       }
       .slide-2 {
         flex-direction: column;
@@ -1089,42 +1063,42 @@
         grid-template-columns: 1fr;
       }
       .slide-1 .hero-frame {
-        padding: 32px;
+        padding: var(--space-page-pad);
       }
       .slide-5 .quote-frame {
-        padding: 32px;
+        padding: var(--space-page-pad);
       }
     }
   /* ============ DS SLIDES ============ */
   .s-ds-rules { flex-direction: column; justify-content: center; background: var(--offwhite); }
-  .s-ds-rules .ds-header { margin-bottom: 24px; }
-  .s-ds-rules .rules-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 20px; flex: 1; min-height: 0; }
-  .s-ds-rules .rule-card { border: var(--border); background: var(--white); box-shadow: var(--shadow); padding: 24px; display: flex; flex-direction: column; min-height: 0; }
-  .s-ds-rules .rule-card .rule-num { font-family: 'Space Grotesk', monospace; font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+  .s-ds-rules .ds-header { margin-bottom: var(--space-gutter); }
+  .s-ds-rules .rules-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: var(--space-20); flex: 1; min-height: 0; }
+  .s-ds-rules .rule-card { border: var(--border); background: var(--white); box-shadow: var(--shadow); padding: var(--space-gutter); display: flex; flex-direction: column; min-height: 0; }
+  .s-ds-rules .rule-card .rule-num { font-family: var(--font-mono); font-weight: 700; font-size: var(--typescale-13); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: var(--space-8); }
   .s-ds-rules .rule-card:nth-child(1) .rule-num { color: var(--pink); }
   .s-ds-rules .rule-card:nth-child(2) .rule-num { color: var(--blue); }
   .s-ds-rules .rule-card:nth-child(3) .rule-num { color: var(--green); }
   .s-ds-rules .rule-card:nth-child(4) .rule-num { color: var(--yellow); }
   .s-ds-rules .rule-card:nth-child(5) .rule-num { color: var(--cream); }
   .s-ds-rules .rule-card:nth-child(6) .rule-num { color: var(--black); }
-  .s-ds-rules .rule-card .rule-title { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 16px; text-transform: uppercase; letter-spacing: -0.01em; margin-bottom: 6px; }
-  .s-ds-rules .rule-card .rule-body { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 14px; line-height: 1.5; }
+  .s-ds-rules .rule-card .rule-title { font-family: var(--font-display); font-weight: 700; font-size: var(--typescale-body-large); text-transform: uppercase; letter-spacing: -0.01em; margin-bottom: var(--space-6); }
+  .s-ds-rules .rule-card .rule-body { font-family: var(--font-display); font-weight: 500; font-size: var(--typescale-14); line-height: 1.5; }
 
   .s-ds-type { flex-direction: column; justify-content: center; background: var(--cream); }
-  .s-ds-type .ds-header { margin-bottom: 20px; }
+  .s-ds-type .ds-header { margin-bottom: var(--space-20); }
   .s-ds-type .type-rows { display: flex; flex-direction: column; flex: 1; min-height: 0; justify-content: space-evenly; }
-  .s-ds-type .tr { display: grid; grid-template-columns: 160px 1fr; align-items: baseline; gap: 24px; padding: 8px 0; border-bottom: 3px solid var(--black); }
+  .s-ds-type .tr { display: grid; grid-template-columns: var(--space-160) 1fr; align-items: baseline; gap: var(--space-gutter); padding: var(--space-8) 0; border-bottom: var(--border-20) solid var(--black); }
   .s-ds-type .tr:last-child { border-bottom: none; }
-  .s-ds-type .tr .tn { font-family: 'Space Grotesk', monospace; font-weight: 600; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
-  .s-ds-type .tr .ts { font-family: 'Inter', sans-serif; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 0.95; }
+  .s-ds-type .tr .tn { font-family: var(--font-mono); font-weight: 600; font-size: var(--typescale-12); letter-spacing: 0.06em; text-transform: uppercase; }
+  .s-ds-type .tr .ts { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 0.95; }
 
   .s-ds-palette { flex-direction: column; justify-content: center; background: var(--white); }
-  .s-ds-palette .ds-header { margin-bottom: 20px; }
-  .s-ds-palette .swatches { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr 1fr; gap: 16px; flex: 1; min-height: 0; }
-  .s-ds-palette .sw { border: var(--border); background: var(--white); box-shadow: var(--shadow-sm); padding: 12px; text-align: center; display: flex; flex-direction: column; min-height: 0; }
-  .s-ds-palette .sw .box { flex: 1; width: 100%; min-height: 0; margin-bottom: 8px; }
-  .s-ds-palette .sw .nm { font-family: 'Space Grotesk', monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; }
-  .s-ds-palette .sw .hex { font-family: 'Space Grotesk', monospace; font-weight: 500; font-size: 11px; opacity: 0.5; margin-top: 2px; }
+  .s-ds-palette .ds-header { margin-bottom: var(--space-20); }
+  .s-ds-palette .swatches { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr 1fr; gap: var(--space-16); flex: 1; min-height: 0; }
+  .s-ds-palette .sw { border: var(--border); background: var(--white); box-shadow: var(--shadow-sm); padding: var(--space-12); text-align: center; display: flex; flex-direction: column; min-height: 0; }
+  .s-ds-palette .sw .box { flex: 1; width: 100%; min-height: 0; margin-bottom: var(--space-8); }
+  .s-ds-palette .sw .nm { font-family: var(--font-mono); font-weight: 700; font-size: var(--typescale-12); letter-spacing: 0.04em; text-transform: uppercase; }
+  .s-ds-palette .sw .hex { font-family: var(--font-mono); font-weight: 500; font-size: var(--typescale-11); opacity: 0.5; margin-top: var(--space-2); }
 
   @media (max-width: 1024px) {
     .s-ds-rules .rules-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }

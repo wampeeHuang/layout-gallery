@@ -82,29 +82,29 @@
   /* Header / footer chrome shared across slides */
   .eyebrow {
     position: absolute;
-    top: 60px; left: 80px;
+    top: var(--space-60); left: var(--space-page-pad);
     font-family: var(--font-body);
-    font-size: 28px;
+    font-size: var(--typescale-body-large);
     font-weight: 400;
     color: var(--ink);
     letter-spacing: -0.005em;
   }
   .footer {
     position: absolute;
-    left: 80px; right: 80px; bottom: 50px;
+    left: var(--space-page-pad); right: var(--space-page-pad); bottom: var(--space-50);
     display: flex;
     justify-content: space-between;
     font-family: var(--font-display);
-    font-size: 26px;
+    font-size: var(--typescale-26);
     
     color: var(--ink-soft);
   }
   .pagedot {
     position: absolute;
-    right: 80px; top: 60px;
+    right: var(--space-page-pad); top: var(--space-60);
     font-family: var(--font-display);
     
-    font-size: 26px;
+    font-size: var(--typescale-26);
     color: var(--ink-soft);
   }
 
@@ -115,64 +115,63 @@
   .display {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: 188px;
+    font-size: var(--typescale-188);
     line-height: 0.95;
     letter-spacing: -0.015em;
   }
   .title {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: 124px;
+    font-size: var(--typescale-124);
     line-height: 0.98;
     letter-spacing: -0.01em;
   }
   .subtitle {
     font-family: var(--font-body);
     font-weight: 500;
-    font-size: 44px;
+    font-size: var(--typescale-44);
     line-height: 1.1;
   }
   .body {
     font-family: var(--font-body);
     font-weight: 400;
-    font-size: 26px;
+    font-size: var(--typescale-26);
     line-height: 1.5;
   }
 
   /* ============== 1. COVER ================================== */
   .s-cover .stack {
     position: absolute;
-    left: 80px; right: 80px; top: 50%;
-    transform: translateY(-50%);
+    left: var(--space-page-pad); right: var(--space-page-pad); top: 50%transform: var(--transform-0);
     display: flex; flex-direction: column; gap: var(--space-36);
   }
   .s-cover .kicker {
     font-family: var(--font-display);
     
-    font-size: 38px;
+    font-size: var(--typescale-38);
     color: var(--ink-soft);
   }
   .s-cover h1 {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: 232px;
+    font-size: var(--typescale-232);
     line-height: 0.92;
     letter-spacing: -0.02em;
   }
   .s-cover h1 em { font-weight: 400; }
   .s-cover .lede {
-    font-size: 30px;
+    font-size: var(--typescale-30);
     line-height: 1.4;
     max-width: 60ch;
     color: var(--ink-soft);
   }
   .s-cover .swatches {
     position: absolute;
-    right: 80px; top: 80px;
-    display: flex; gap: 14px;
+    right: var(--space-page-pad); top: var(--space-page-pad);
+    display: flex; gap: var(--space-14);
   }
   .s-cover .swatches i {
-    width: 56px; height: 56px;
+    width: var(--space-56); height: var(--space-56);
     border-radius: 50%;
     display: block;
   }
@@ -180,75 +179,75 @@
   /* ============== 2. FOREWORD =============================== */
   .s-foreword .col-l {
     position: absolute;
-    left: 80px; top: 200px; width: 760px;
+    left: var(--space-page-pad); top: var(--space-200); width: var(--space-760);
   }
   .s-foreword .col-l .opener {
     font-family: var(--font-display);
     
-    font-size: 56px;
+    font-size: var(--typescale-56);
     line-height: 1.1;
     color: var(--ink);
     margin-bottom: var(--space-36);
   }
   .s-foreword .col-l .opener:first-letter {
-    font-size: 132px;
+    font-size: var(--typescale-132);
     float: left;
     line-height: 0.85;
-    padding: 8px 14px 0 0;
+    padding: var(--space-8) var(--space-14) 0 0;
     font-style: normal;
     font-weight: 500;
   }
   .s-foreword .col-r {
     position: absolute;
-    right: 80px; top: 200px; width: 760px;
+    right: var(--space-page-pad); top: var(--space-200); width: var(--space-760);
   }
   .s-foreword .col-r p {
-    font-size: 24px;
+    font-size: var(--typescale-body-medium);
     line-height: 1.55;
-    margin-bottom: 22px;
+    margin-bottom: var(--space-22);
     color: var(--ink-soft);
   }
   .s-foreword .col-r p:first-child { color: var(--ink); }
   .s-foreword .signoff {
-    margin-top: 24px;
+    margin-top: var(--space-24);
     font-family: var(--font-display);
     
-    font-size: 30px;
+    font-size: var(--typescale-30);
     color: var(--ink);
   }
 
   /* ============== 3. THE METHOD ============================= */
   .s-method .grid {
     position: absolute;
-    left: 80px; right: 80px; top: 220px; bottom: 140px;
+    left: var(--space-page-pad); right: var(--space-page-pad); top: var(--space-220); bottom: var(--space-140);
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: var(--space-28);
   }
   .s-method .step {
-    background: rgba(255,255,255,0.55);
+    background: var(--color-surface-container-low);
     border-radius: var(--radius-xl);
-    padding: var(--space-36) 32px;
+    padding: var(--space-36) var(--space-32);
     display: flex; flex-direction: column;
     justify-content: flex-start;
-    gap: 24px;
+    gap: var(--space-24);
   }
   .s-method .step .n {
     font-family: var(--font-display);
     
-    font-size: 92px;
+    font-size: var(--typescale-92);
     line-height: 0.9;
     color: var(--ink);
   }
   .s-method .step h3 {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: 44px;
+    font-size: var(--typescale-44);
     line-height: 1.05;
-    margin-top: 16px;
+    margin-top: var(--space-16);
   }
   .s-method .step p {
-    font-size: 24px;
+    font-size: var(--typescale-body-medium);
     line-height: 1.45;
     color: var(--ink-soft);
   }
@@ -260,14 +259,14 @@
   /* ============== 4. INSIGHTS (reference layout) ============ */
   .s-insights .row {
     position: absolute;
-    left: 80px; right: 80px; top: 200px; bottom: 200px;
+    left: var(--space-page-pad); right: var(--space-page-pad); top: var(--space-200); bottom: var(--space-200);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-28);
   }
   .s-insights .card {
     border-radius: var(--radius-xl);
-    padding: 64px 48px;
+    padding: var(--space-64) var(--space-48);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -280,20 +279,20 @@
   .s-insights .card .head h3 {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: 72px;
+    font-size: var(--typescale-72);
     line-height: 1;
     letter-spacing: -0.01em;
-    margin-bottom: 12px;
+    margin-bottom: var(--space-12);
     white-space: nowrap;
   }
   .s-insights .card .head .sub {
     font-family: var(--font-body);
     font-weight: 500;
-    font-size: 32px;
+    font-size: var(--typescale-title-small);
     line-height: 1.1;
   }
   .s-insights .card p {
-    font-size: 24px;
+    font-size: var(--typescale-body-medium);
     line-height: 1.45;
     max-width: 26ch;
   }
@@ -303,32 +302,31 @@
   .s-closer .eyebrow,
   .s-closer .pagedot,
   .s-closer .footer { color: var(--ink); }
-  .s-closer .footer { color: rgba(42,36,27,.7); }
+  .s-closer .footer { color: var(--color-extra-0); }
   .s-closer .center {
     position: absolute;
-    left: 50%; top: 50%;
-    transform: translate(-50%, -50%);
-    width: 1100px;
+    left: 50%; top: 50%transform: var(--transform-1);
+    width: var(--space-1100);
     text-align: center;
   }
   .s-closer .marker {
     font-family: var(--font-display);
     
-    font-size: 38px;
+    font-size: var(--typescale-38);
     color: var(--ink);
-    margin-bottom: 32px;
+    margin-bottom: var(--space-32);
   }
   .s-closer h2 {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: 168px;
+    font-size: var(--typescale-168);
     line-height: 0.95;
     letter-spacing: -0.015em;
     margin-bottom: var(--space-36);
   }
   .s-closer h2 em { font-weight: 400; }
   .s-closer p {
-    font-size: 28px;
+    font-size: var(--typescale-body-large);
     line-height: 1.5;
     max-width: 56ch;
     margin: 0 auto;
@@ -337,7 +335,7 @@
   /* ============== 6. BY THE NUMBERS ========================= */
   .s-numbers .grid {
     position: absolute;
-    left: 80px; right: 80px; top: 200px; bottom: 140px;
+    left: var(--space-page-pad); right: var(--space-page-pad); top: var(--space-200); bottom: var(--space-140);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr 1fr;
@@ -345,48 +343,47 @@
   }
   .s-numbers .stat {
     border-radius: var(--radius-xl);
-    padding: 42px 44px;
+    padding: var(--space-42) var(--space-44);
     display: flex; flex-direction: column;
     justify-content: space-between;
   }
   .s-numbers .stat .v {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: 200px;
+    font-size: var(--typescale-200);
     line-height: 0.9;
     letter-spacing: -0.02em;
   }
   .s-numbers .stat .v em { font-weight: 400; }
   .s-numbers .stat .lab {
-    font-size: 24px;
+    font-size: var(--typescale-body-medium);
     line-height: 1.4;
     color: var(--ink);
     max-width: 28ch;
   }
   .s-numbers .a { background: var(--lemon); grid-column: span 2; grid-row: span 2; }
-  .s-numbers .a .v { font-size: 320px; }
+  .s-numbers .a .v { font-size: var(--typescale-320); }
   .s-numbers .b { background: var(--pink); }
   .s-numbers .c { background: var(--blush); }
 
   /* ============== 7. IN THEIR WORDS ========================= */
   .s-quote .center {
     position: absolute;
-    left: 80px; right: 80px; top: 50%;
-    transform: translateY(-50%);
+    left: var(--space-page-pad); right: var(--space-page-pad); top: 50%transform: var(--transform-2);
     text-align: center;
   }
   .s-quote .qmark {
     font-family: var(--font-display);
     
-    font-size: 220px;
+    font-size: var(--typescale-220);
     line-height: 0.7;
     color: var(--blush);
-    margin-bottom: 12px;
+    margin-bottom: var(--space-12);
   }
   .s-quote blockquote {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: 88px;
+    font-size: var(--typescale-88);
     line-height: 1.05;
     letter-spacing: -0.01em;
     margin: 0 auto;
@@ -398,51 +395,51 @@
     margin-top: var(--space-48);
     font-family: var(--font-body);
     font-weight: 500;
-    font-size: 24px;
+    font-size: var(--typescale-body-medium);
     color: var(--ink);
   }
   .s-quote .attr .role {
     font-family: var(--font-display);
     
     font-weight: 400;
-    font-size: 24px;
+    font-size: var(--typescale-body-medium);
     color: var(--ink-soft);
     display: block;
-    margin-top: 4px;
+    margin-top: var(--space-4);
   }
 
   /* ============== 8. WHAT WE'LL DO NEXT ===================== */
   .s-next .grid {
     position: absolute;
-    left: 80px; right: 80px; top: 200px; bottom: 140px;
+    left: var(--space-page-pad); right: var(--space-page-pad); top: var(--space-200); bottom: var(--space-140);
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-36);
   }
   .s-next .panel {
     border-radius: var(--radius-xl);
-    padding: var(--space-48) 52px;
+    padding: var(--space-48) var(--space-52);
     display: flex; flex-direction: column;
-    gap: 18px;
+    gap: var(--space-18);
   }
   .s-next .panel.l {
-    background: rgba(255,255,255,0.55);
+    background: var(--color-surface-container-low);
     justify-content: center;
   }
   .s-next .panel.l h2 {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: 124px;
+    font-size: var(--typescale-124);
     line-height: 0.95;
     letter-spacing: -0.015em;
   }
   .s-next .panel.l h2 em { font-weight: 400; }
   .s-next .panel.l p {
-    font-size: 24px;
+    font-size: var(--typescale-body-medium);
     line-height: 1.5;
     color: var(--ink-soft);
     max-width: 36ch;
-    margin-top: 12px;
+    margin-top: var(--space-12);
   }
   .s-next .panel.r {
     background: transparent;
@@ -451,9 +448,9 @@
   }
   .s-next .item {
     border-radius: var(--radius-xl);
-    padding: 24px 32px;
+    padding: var(--space-24) var(--space-32);
     display: grid;
-    grid-template-columns: 80px 1fr;
+    grid-template-columns: var(--space-page-pad) 1fr;
     gap: var(--space-20);
     align-items: center;
   }
@@ -463,18 +460,18 @@
   .s-next .item .n {
     font-family: var(--font-display);
     
-    font-size: 64px;
+    font-size: var(--typescale-64);
     line-height: 1;
   }
   .s-next .item h3 {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: 38px;
+    font-size: var(--typescale-38);
     line-height: 1.05;
-    margin-bottom: 4px;
+    margin-bottom: var(--space-4);
   }
   .s-next .item p {
-    font-size: 24px;
+    font-size: var(--typescale-body-medium);
     line-height: 1.4;
     color: var(--ink);
     opacity: 0.85;
@@ -486,159 +483,159 @@
   .s-consult .footer { color: var(--ink-soft); }
   .s-consult .action {
     position: absolute;
-    left: 80px; right: 80px; top: 130px;
+    left: var(--space-page-pad); right: var(--space-page-pad); top: var(--space-130);
     background: var(--lemon);
     border-radius: var(--radius-xl);
-    padding: 24px 36px;
-    display: flex; align-items: center; gap: 24px;
+    padding: var(--space-24) var(--space-36);
+    display: flex; align-items: center; gap: var(--space-24);
   }
   .s-consult .action .tag {
     font-family: var(--font-display);
     
-    font-size: 28px;
+    font-size: var(--typescale-body-large);
     color: var(--ink);
     flex-shrink: 0;
-    border-right: 1px solid rgba(42,36,27,.3);
-    padding-right: 24px;
+    border-right: var(--border-0) solid var(--color-extra-1);
+    padding-right: var(--space-24);
   }
   .s-consult .action h2 {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: 40px;
+    font-size: var(--typescale-40);
     line-height: 1.15;
     letter-spacing: -0.005em;
   }
   .s-consult .body {
     position: absolute;
-    left: 80px; right: 80px; top: 290px; bottom: 130px;
+    left: var(--space-page-pad); right: var(--space-page-pad); top: var(--space-290); bottom: var(--space-130);
     display: grid;
     grid-template-columns: 1.1fr 1fr 1fr;
     gap: var(--space-28);
   }
   .s-consult .col {
-    background: rgba(255,255,255,0.55);
+    background: var(--color-surface-container-low);
     border-radius: var(--radius-xl);
-    padding: var(--space-28) 30px;
+    padding: var(--space-28) var(--space-30);
     display: flex; flex-direction: column;
-    gap: 16px;
+    gap: var(--space-16);
   }
   .s-consult .col h3 {
     font-family: var(--font-display);
     font-weight: 500;
     
-    font-size: 32px;
+    font-size: var(--typescale-title-small);
     line-height: 1.05;
     color: var(--ink);
-    border-bottom: 1px solid rgba(42,36,27,.18);
-    padding-bottom: 14px;
+    border-bottom: var(--border-1) solid var(--color-extra-2);
+    padding-bottom: var(--space-14);
   }
   .s-consult .col .meta {
     font-family: var(--font-body);
-    font-size: 24px;
+    font-size: var(--typescale-body-medium);
     line-height: 1.4;
     color: var(--ink);
     font-weight: 500;
   }
   .s-consult .col p {
-    font-size: 24px;
+    font-size: var(--typescale-body-medium);
     line-height: 1.5;
     color: var(--ink-soft);
   }
   .s-consult .col ul {
-    margin: 0; padding-left: 18px;
-    font-size: 24px; line-height: 1.45;
+    margin: 0; padding-left: var(--space-18);
+    font-size: var(--typescale-body-medium); line-height: 1.45;
     color: var(--ink-soft);
   }
-  .s-consult .col ul li { margin-bottom: 8px; }
+  .s-consult .col ul li { margin-bottom: var(--space-8); }
   .s-consult .col ul li strong { color: var(--ink); font-weight: 500; }
   .s-consult .source {
     margin-top: auto;
     font-family: var(--font-display);
     
-    font-size: 24px;
+    font-size: var(--typescale-body-medium);
     color: var(--ink-soft);
-    padding-top: 12px;
-    border-top: 1px dashed rgba(42,36,27,.18);
+    padding-top: var(--space-12);
+    border-top: var(--border-2) dashed var(--color-extra-3);
   }
 
   /* ============== CHART =================================== */
   .s-chart .left {
     position: absolute;
-    left: 80px; top: 200px; bottom: 130px; width: 540px;
-    display: flex; flex-direction: column; gap: 24px;
+    left: var(--space-page-pad); top: var(--space-200); bottom: var(--space-130); width: var(--space-540);
+    display: flex; flex-direction: column; gap: var(--space-24);
   }
   .s-chart .left h2 {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: 96px;
+    font-size: var(--typescale-96);
     line-height: 0.98;
     letter-spacing: -0.01em;
   }
   .s-chart .left h2 em { font-weight: 400; }
   .s-chart .left p {
-    font-size: 24px; line-height: 1.5; color: var(--ink-soft);
+    font-size: var(--typescale-body-medium); line-height: 1.5; color: var(--ink-soft);
   }
   .s-chart .left .legend {
-    display: flex; flex-direction: column; gap: 10px;
+    display: flex; flex-direction: column; gap: var(--space-10);
     margin-top: auto;
   }
   .s-chart .left .legend .li {
-    display: flex; align-items: center; gap: 14px;
-    font-size: 24px; color: var(--ink);
+    display: flex; align-items: center; gap: var(--space-14);
+    font-size: var(--typescale-body-medium); color: var(--ink);
   }
   .s-chart .left .legend .li i {
-    width: 28px; height: 12px; border-radius: var(--radius-xs);
+    width: var(--space-28); height: var(--space-12); border-radius: var(--radius-xs);
   }
   .s-chart .right {
     position: absolute;
-    right: 80px; top: 200px; bottom: 200px; left: 680px;
-    background: rgba(255,255,255,0.55);
+    right: var(--space-page-pad); top: var(--space-200); bottom: var(--space-200); left: var(--space-680);
+    background: var(--color-surface-container-low);
     border-radius: var(--radius-xl);
-    padding: var(--space-36) 40px 30px 80px;
+    padding: var(--space-36) var(--space-40) var(--space-30) var(--space-page-pad);
     display: flex; flex-direction: column;
     overflow: hidden;
   }
   .s-chart .right .yhead {
     font-family: var(--font-display);
     
-    font-size: 24px;
+    font-size: var(--typescale-body-medium);
     color: var(--ink-soft);
-    margin-bottom: 8px;
+    margin-bottom: var(--space-8);
   }
   .s-chart .right .plot {
     flex: 1; min-height: 0; position: relative;
-    border-left: 1.5px solid rgba(42,36,27,.35);
-    border-bottom: 1.5px solid rgba(42,36,27,.35);
-    padding: var(--space-12) 12px 0 12px;
+    border-left: var(--border-3) solid var(--color-extra-4);
+    border-bottom: var(--border-4) solid var(--color-extra-5);
+    padding: var(--space-12) var(--space-12) 0 var(--space-12);
   }
   .s-chart .right .gline {
     position: absolute; left: 0; right: 0;
-    border-top: 1px dashed rgba(42,36,27,.12);
+    border-top: var(--border-5) dashed var(--color-extra-6);
   }
   .s-chart .right .yticks {
     position: absolute; left: -56px; top: 0; bottom: 0;
     display: flex; flex-direction: column; justify-content: space-between;
-    font-size: 24px; color: var(--ink-soft);
+    font-size: var(--typescale-body-medium); color: var(--ink-soft);
     font-family: var(--font-display); 
   }
-  .s-chart .right svg { width: 100%; height: 100%; display: block; position: absolute; inset: 12px 12px 0 12px; overflow: visible; }
+  .s-chart .right svg { width: 100%; height: 100%; display: block; position: absolute; inset: var(--space-12) var(--space-12) 0 var(--space-12); overflow: visible; }
   .s-chart .right .xticks {
     display: flex; justify-content: space-between;
-    margin-top: 12px;
-    font-size: 24px; color: var(--ink-soft);
+    margin-top: var(--space-12);
+    font-size: var(--typescale-body-medium); color: var(--ink-soft);
     font-family: var(--font-display); 
   }
 
   /* ============== PROCESS DIAGRAM ========================= */
   .s-process .head {
     position: absolute;
-    left: 80px; right: 80px; top: 130px;
+    left: var(--space-page-pad); right: var(--space-page-pad); top: var(--space-130);
     display: flex; align-items: baseline; justify-content: space-between;
   }
   .s-process .head h2 {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: 88px;
+    font-size: var(--typescale-88);
     line-height: 1;
     letter-spacing: -0.01em;
   }
@@ -646,39 +643,39 @@
   .s-process .head .sub {
     font-family: var(--font-display);
     
-    font-size: 28px;
+    font-size: var(--typescale-body-large);
     color: var(--ink-soft);
     max-width: 32ch;
     text-align: right;
   }
   .s-process .flow {
     position: absolute;
-    left: 80px; right: 80px; top: 320px; bottom: 240px;
+    left: var(--space-page-pad); right: var(--space-page-pad); top: var(--space-320); bottom: var(--space-240);
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 24px;
+    gap: var(--space-24);
     align-items: stretch;
   }
   .s-process .node {
     border-radius: var(--radius-xl);
-    padding: 26px 24px;
-    display: flex; flex-direction: column; gap: 10px;
+    padding: var(--space-26) var(--space-24);
+    display: flex; flex-direction: column; gap: var(--space-10);
     position: relative;
   }
   .s-process .node .n {
     font-family: var(--font-display);
     
-    font-size: 56px;
+    font-size: var(--typescale-56);
     line-height: 0.9;
   }
   .s-process .node h3 {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: 32px;
+    font-size: var(--typescale-title-small);
     line-height: 1.05;
   }
   .s-process .node p {
-    font-size: 24px;
+    font-size: var(--typescale-body-medium);
     line-height: 1.4;
     color: var(--ink-soft);
   }
@@ -689,37 +686,37 @@
   .s-process .node.n5 { background: var(--lilac); }
   .s-process .node .arrow {
     position: absolute;
-    right: -20px; top: 50%; transform: translateY(-50%);
-    width: 32px; height: 32px;
+    right: -20px; top: 50%transform: var(--transform-3);
+    width: var(--space-32); height: var(--space-32);
     z-index: 2;
     color: var(--ink);
   }
   .s-process .node.n5 .arrow { display: none; }
   .s-process .timeline {
     position: absolute;
-    left: 80px; right: 80px; bottom: 140px; top: auto;
-    height: 60px;
-    background: rgba(255,255,255,0.55);
+    left: var(--space-page-pad); right: var(--space-page-pad); bottom: var(--space-140); top: auto;
+    height: var(--space-60);
+    background: var(--color-surface-container-low);
     border-radius: var(--radius-xl);
-    padding: 14px 28px;
+    padding: var(--space-14) var(--space-28);
     display: flex; justify-content: space-between; align-items: center;
     font-family: var(--font-display);
     
-    font-size: 24px;
+    font-size: var(--typescale-body-medium);
     color: var(--ink);
   }
 
   /* ============== COMPARISON MATRIX ======================= */
   .s-matrix .head {
     position: absolute;
-    left: 80px; right: 80px; top: 130px;
+    left: var(--space-page-pad); right: var(--space-page-pad); top: var(--space-130);
     display: flex; align-items: flex-start; justify-content: space-between;
-    gap: 40px;
+    gap: var(--space-40);
   }
   .s-matrix .head h2 {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: 76px;
+    font-size: var(--typescale-76);
     line-height: 1;
     letter-spacing: -0.01em;
     flex-shrink: 0;
@@ -728,45 +725,45 @@
   .s-matrix .head .sub {
     font-family: var(--font-display);
     
-    font-size: 26px;
+    font-size: var(--typescale-26);
     color: var(--ink-soft);
     max-width: 36ch;
     text-align: right;
-    margin-top: 8px;
+    margin-top: var(--space-8);
   }
   .s-matrix .table {
     position: absolute;
-    left: 80px; right: 80px; top: 320px; bottom: 130px;
-    background: rgba(255,255,255,0.55);
+    left: var(--space-page-pad); right: var(--space-page-pad); top: var(--space-320); bottom: var(--space-130);
+    background: var(--color-surface-container-low);
     border-radius: var(--radius-xl);
-    padding: 8px;
+    padding: var(--space-8);
     display: grid;
     grid-template-columns: 1.4fr 1fr 1fr 1fr;
     grid-auto-rows: minmax(0, 1fr);
     overflow: hidden;
   }
   .s-matrix .table .cell {
-    padding: 22px 24px;
-    display: flex; align-items: flex-start; gap: 12px;
-    font-size: 24px;
+    padding: var(--space-22) var(--space-24);
+    display: flex; align-items: flex-start; gap: var(--space-12);
+    font-size: var(--typescale-body-medium);
     line-height: 1.4;
     color: var(--ink);
-    border-bottom: 1px dashed rgba(42,36,27,.18);
-    border-right: 1px dashed rgba(42,36,27,.18);
+    border-bottom: var(--border-6) dashed var(--color-extra-7);
+    border-right: var(--border-7) dashed var(--color-extra-8);
   }
   .s-matrix .table .cell:nth-child(4n) { border-right: 0; }
   .s-matrix .table .cell.head-row {
     font-family: var(--font-display);
     
-    font-size: 28px;
+    font-size: var(--typescale-body-large);
     color: var(--ink);
-    border-bottom: 1.5px solid rgba(42,36,27,.4);
+    border-bottom: var(--border-8) solid var(--color-extra-9);
     align-items: center;
   }
   .s-matrix .table .cell.row-label {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: 28px;
+    font-size: var(--typescale-body-large);
     color: var(--ink);
     align-items: center;
   }
@@ -774,43 +771,43 @@
   .s-matrix .pill {
     display: inline-block;
     border-radius: var(--radius-pill);
-    padding: 4px 14px;
-    font-size: 24px;
+    padding: var(--space-4) var(--space-14);
+    font-size: var(--typescale-body-medium);
     font-weight: 500;
     line-height: 1.3;
-    margin-bottom: 4px;
+    margin-bottom: var(--space-4);
   }
   .s-matrix .pill.yes  { background: var(--lemon); }
   .s-matrix .pill.part { background: var(--blush); }
   .s-matrix .pill.no   { background: var(--pink); }
-  .s-matrix .pill.note { background: rgba(255,255,255,0.6); border: 1px solid rgba(42,36,27,.18); color: var(--ink-soft); font-family: var(--font-display); font-weight: 400; }
+  .s-matrix .pill.note { background: var(--color-extra-10); border: var(--border-9) solid var(--color-extra-11); color: var(--ink-soft); font-family: var(--font-display); font-weight: 400; }
 
   /* ============== 9. DESIGN SYSTEM ========================== */
   .s-system .wrap {
     position: absolute;
-    left: 80px; right: 80px; top: 140px; bottom: 100px;
+    left: var(--space-page-pad); right: var(--space-page-pad); top: var(--space-140); bottom: var(--space-100);
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: auto 1fr 1fr;
-    gap: 24px;
+    gap: var(--space-24);
   }
-  .s-system .wrap > * { background: rgba(255,255,255,.55); border-radius: var(--radius-xl); padding: 22px 26px; }
+  .s-system .wrap > * { background: var(--color-extra-12); border-radius: var(--radius-xl); padding: var(--space-22) var(--space-26); }
   .s-system h4 {
     font-family: var(--font-display);
     
     font-weight: 500;
-    font-size: 26px;
-    margin-bottom: 12px;
+    font-size: var(--typescale-26);
+    margin-bottom: var(--space-12);
     color: var(--ink);
   }
-  .s-system .small { font-size: 17px; line-height: 1.5; color: var(--ink-soft); }
-  .s-system .small li { margin-bottom: 6px; }
-  .s-system .small ul { margin: 0; padding-left: 18px; }
+  .s-system .small { font-size: var(--typescale-17); line-height: 1.5; color: var(--ink-soft); }
+  .s-system .small li { margin-bottom: var(--space-6); }
+  .s-system .small ul { margin: 0; padding-left: var(--space-18); }
 
   .s-system .pal { grid-column: 1 / span 5; grid-row: 1 / span 2; }
-  .s-system .pal .row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
-  .s-system .pal .sw { aspect-ratio: 1/1.2; border-radius: var(--radius-xl); display: flex; flex-direction: column; justify-content: flex-end; padding: 10px; font-family: var(--font-body); font-size: 11px; color: var(--ink); }
-  .s-system .pal .sw.s1 { background: var(--paper); border: 1px solid rgba(0,0,0,0.06); }
+  .s-system .pal .row { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-10); }
+  .s-system .pal .sw { aspect-ratio: 1/1.2; border-radius: var(--radius-xl); display: flex; flex-direction: column; justify-content: flex-end; padding: var(--space-10); font-family: var(--font-body); font-size: var(--typescale-11); color: var(--ink); }
+  .s-system .pal .sw.s1 { background: var(--paper); border: var(--border-10) solid var(--color-extra-13); }
   .s-system .pal .sw.s2 { background: var(--pink); }
   .s-system .pal .sw.s3 { background: var(--lemon); }
   .s-system .pal .sw.s4 { background: var(--blush); }
@@ -818,23 +815,23 @@
 
   .s-system .type { grid-column: 6 / span 7; grid-row: 1 / span 2; }
   .s-system .type .row {
-    display: flex; align-items: baseline; gap: 18px;
-    padding: 6px 0; border-bottom: 1px dashed rgba(42,36,27,.15);
+    display: flex; align-items: baseline; gap: var(--space-18);
+    padding: var(--space-6) 0; border-bottom: var(--border-11) dashed var(--color-extra-14);
   }
   .s-system .type .row:last-child { border-bottom: 0; }
   .s-system .type .lbl {
     font-family: var(--font-body);
-    font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+    font-size: var(--typescale-11); letter-spacing: .06em; text-transform: uppercase;
     color: var(--ink-soft); margin-left: auto; white-space: nowrap;
   }
 
   .s-system .rules { grid-column: 1 / span 7; grid-row: 3; }
   .s-system .dont  { grid-column: 8 / span 5; grid-row: 3; }
   .s-system .corners {
-    display: flex; gap: 12px; margin-top: 8px;
+    display: flex; gap: var(--space-12); margin-top: var(--space-8);
   }
   .s-system .corners .box {
-    width: 42px; height: 42px;
+    width: var(--space-42); height: var(--space-42);
     background: var(--pink);
   }
   .s-system .corners .box.r1 { border-radius: var(--radius-xl); background: var(--lemon); }
@@ -846,84 +843,84 @@
      ══════════════════════════════════════════════════════ */
   .s-ds-rules .stack {
     position: absolute;
-    left: 80px; right: 80px; top: 140px; bottom: 100px;
+    left: var(--space-page-pad); right: var(--space-page-pad); top: var(--space-140); bottom: var(--space-100);
     display: flex; flex-direction: column;
   }
   .s-ds-rules .kicker {
     font-family: var(--font-display);
-    font-size: 28px;
+    font-size: var(--typescale-body-large);
     color: var(--ink-soft);
-    margin-bottom: 16px;
+    margin-bottom: var(--space-16);
   }
   .s-ds-rules h2 {
     font-family: var(--font-display); font-weight: 500;
-    font-size: 88px; line-height: 0.98;
-    letter-spacing: -0.01em; margin-bottom: 36px;
+    font-size: var(--typescale-88); line-height: 0.98;
+    letter-spacing: -0.01em; margin-bottom: var(--space-36);
   }
-  .s-ds-rules .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; flex: 1; align-content: center; }
+  .s-ds-rules .rules { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-28); flex: 1; align-content: center; }
   .s-ds-rules .rule {
-    background: rgba(255,255,255,0.55); border-radius: var(--radius-xl);
-    padding: 20px 24px; display: flex; flex-direction: column; gap: 6px;
+    background: var(--color-surface-container-low); border-radius: var(--radius-xl);
+    padding: var(--space-20) var(--space-24); display: flex; flex-direction: column; gap: var(--space-6);
   }
   .s-ds-rules .rule .rn {
     font-family: var(--font-display); font-weight: 500;
-    font-size: 22px; color: var(--ink);
+    font-size: var(--typescale-22); color: var(--ink);
   }
   .s-ds-rules .rule .rb {
-    font-size: 18px; line-height: 1.4; color: var(--ink-soft);
+    font-size: var(--typescale-body-small); line-height: 1.4; color: var(--ink-soft);
   }
 
   .s-ds-type .stack {
     position: absolute;
-    left: 80px; right: 80px; top: 140px; bottom: 100px;
+    left: var(--space-page-pad); right: var(--space-page-pad); top: var(--space-140); bottom: var(--space-100);
     display: flex; flex-direction: column;
   }
   .s-ds-type h2 {
     font-family: var(--font-display); font-weight: 500;
-    font-size: 88px; line-height: 0.98;
-    letter-spacing: -0.01em; margin-bottom: 32px;
+    font-size: var(--typescale-88); line-height: 0.98;
+    letter-spacing: -0.01em; margin-bottom: var(--space-32);
   }
   .s-ds-type .type-rows { display: flex; flex-direction: column; flex: 1; justify-content: center; gap: 0; }
   .s-ds-type .tr {
-    display: flex; align-items: baseline; gap: 24px;
-    padding: 14px 0; border-bottom: 1px dashed rgba(42,36,27,.15);
+    display: flex; align-items: baseline; gap: var(--space-24);
+    padding: var(--space-14) 0; border-bottom: var(--border-12) dashed var(--color-extra-15);
   }
   .s-ds-type .tr:last-child { border-bottom: none; }
   .s-ds-type .tr .tn {
-    font-family: var(--font-body); font-size: 13px; letter-spacing: .06em; text-transform: uppercase;
-    color: var(--ink-soft); min-width: 140px; white-space: nowrap;
+    font-family: var(--font-body); font-size: var(--typescale-13); letter-spacing: .06em; text-transform: uppercase;
+    color: var(--ink-soft); min-width: var(--space-140); white-space: nowrap;
   }
 
   .s-ds-palette .stack {
     position: absolute;
-    left: 80px; right: 80px; top: 140px; bottom: 100px;
+    left: var(--space-page-pad); right: var(--space-page-pad); top: var(--space-140); bottom: var(--space-100);
     display: flex; flex-direction: column;
   }
   .s-ds-palette .kicker {
     font-family: var(--font-display);
-    font-size: 22px; color: var(--ink-soft);
-    margin-bottom: 8px;
+    font-size: var(--typescale-22); color: var(--ink-soft);
+    margin-bottom: var(--space-8);
   }
   .s-ds-palette h2 {
     font-family: var(--font-display); font-weight: 500;
-    font-size: 88px; line-height: 0.98;
-    letter-spacing: -0.01em; margin-bottom: 32px;
+    font-size: var(--typescale-88); line-height: 0.98;
+    letter-spacing: -0.01em; margin-bottom: var(--space-32);
   }
   .s-ds-palette .swatches {
-    display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr 1fr; gap: 12px;
+    display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr 1fr; gap: var(--space-12);
     flex: 1; min-height: 0;
   }
   .s-ds-palette .sw {
-    background: rgba(255,255,255,0.55); border-radius: var(--radius-xl);
-    padding: 12px; text-align: center; display: flex; flex-direction: column; gap: 4px;
+    background: var(--color-surface-container-low); border-radius: var(--radius-xl);
+    padding: var(--space-12); text-align: center; display: flex; flex-direction: column; gap: var(--space-4);
     min-height: 0;
   }
   .s-ds-palette .sw .box { flex: 1; width: 100%; min-height: 0; border-radius: var(--radius-xl); }
   .s-ds-palette .sw .nm {
-    font-family: var(--font-display); font-weight: 500; font-size: 14px; color: var(--ink);
+    font-family: var(--font-display); font-weight: 500; font-size: var(--typescale-14); color: var(--ink);
   }
   .s-ds-palette .sw .hex {
-    font-size: 11px; color: var(--ink-soft);
+    font-size: var(--typescale-11); color: var(--ink-soft);
   }
 </style>
 </head>

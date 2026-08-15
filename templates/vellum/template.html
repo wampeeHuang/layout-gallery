@@ -144,19 +144,18 @@
       /* ── Navigation ───────────────────────────────────────────────────── */
       #nav-dots {
         position: fixed;
-        bottom: 24px;
-        left: 50%;
-        transform: translateX(-50%);
+        bottom: var(--space-24);
+        left: 50%transform: var(--transform-0);
         display: flex;
-        gap: 7px;
+        gap: var(--space-7);
         z-index: 100;
       }
       .nav-dot {
-        width: 5px;
-        height: 5px;
+        width: var(--space-5);
+        height: var(--space-5);
         border-radius: 50%;
         border: none;
-        background: rgba(255, 255, 255, 0.22);
+        background: var(--color-extra-0);
         cursor: pointer;
         transition:
           background 0.3s,
@@ -164,18 +163,17 @@
         padding: 0;
       }
       .nav-dot.is-active {
-        background: rgba(255, 255, 255, 0.8);
-        transform: scale(1.4);
+        background: var(--color-extra-1)transform: var(--transform-1);
       }
 
       #slide-counter {
         position: fixed;
-        bottom: 20px;
-        right: 28px;
+        bottom: var(--space-20);
+        right: var(--space-28);
         font-family: var(--font-mono);
-        font-size: 11px;
+        font-size: var(--typescale-11);
         letter-spacing: 0.12em;
-        color: rgba(255, 255, 255, 0.25);
+        color: var(--color-extra-2);
         z-index: 100;
         user-select: none;
       }
@@ -338,12 +336,12 @@
       }
       .slide-chrome {
         padding-bottom: 1.5vh;
-        border-bottom: 1px solid var(--c-border);
+        border-bottom: var(--hairline) solid var(--c-border);
         margin-bottom: 3vh;
       }
       .slide-foot {
         padding-top: 1.5vh;
-        border-top: 1px solid var(--c-border);
+        border-top: var(--hairline) solid var(--c-border);
         margin-top: 3vh;
       }
       .light .slide-chrome,
@@ -359,15 +357,15 @@
         color: var(--c-accent);
       }
       .rule {
-        width: 28px;
-        height: 1px;
+        width: var(--space-28);
+        height: var(--hairline);
         background: var(--c-accent);
       }
 
       /* Image placeholder */
       .img-placeholder {
-        background: rgba(42, 56, 112, 0.12);
-        border: 1px dashed var(--c-border);
+        background: var(--color-extra-3);
+        border: var(--hairline) dashed var(--c-border);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -380,7 +378,7 @@
         min-height: 28vh;
       }
       .light .img-placeholder {
-        background: rgba(42, 56, 112, 0.08);
+        background: var(--color-extra-4);
         color: var(--c-fg-light-3);
       }
 
@@ -495,7 +493,7 @@
         text-align: center;
         gap: 1.5vh;
         padding: 3vh;
-        border-right: 1px solid var(--c-border);
+        border-right: var(--hairline) solid var(--c-border);
       }
       .pin-stat:last-child {
         border-right: none;
@@ -610,13 +608,13 @@
       /* Two visually distinct navy shades.
          Left = darker (the past, the unedited). Right = lighter (the present). */
       .compare-panel.left {
-        background: #1f2858;   /* darker navy */
+        background: var(--color-extra-5);   /* darker navy */
         color: var(--c-fg);
       }
       .compare-panel.right {
-        background: #34407a;   /* lighter navy */
+        background: var(--color-extra-6);   /* lighter navy */
         color: var(--c-fg);
-        border-left: 1px solid rgba(232, 216, 92, 0.18);
+        border-left: var(--hairline) solid var(--color-extra-7);
       }
       .slide--compare.light,
       .slide--compare.dark {
@@ -662,7 +660,7 @@
         display: flex;
         align-items: flex-end;
         gap: 3vw;
-        border-left: 1px solid var(--c-border);
+        border-left: var(--hairline) solid var(--c-border);
         padding-left: 0.5vw;
       }
       .light .bar-track {
@@ -715,7 +713,7 @@
         color: var(--c-fg-light);
       }
       .chart-baseline {
-        height: 1px;
+        height: var(--hairline);
         background: var(--c-border);
       }
       .light .chart-baseline {

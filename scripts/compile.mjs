@@ -54,12 +54,15 @@ function scanBodyCSS(html, knownTokens) {
       if (rootEnd > rootStart) css = css.slice(0, rootStart) + css.slice(rootStart, rootEnd).replace(/[^\n]/g, ' ') + css.slice(rootEnd);
     }
 
+    // mask comments (single- and multi-line) preserving newlines so source line numbers stay exact
+    css = css.replace(/\/\*[\s\S]*?\*\//g, (c) => c.replace(/[^\n]/g, ' '));
+
     // Component-private variables are valid if they are declared in body CSS.
     for (const match of css.matchAll(/(--[\w-]+)\s*:/g)) tokenNames.add(match[1]);
 
     const lines = css.split('\n');
     for (let i = 0; i < lines.length; i++) {
-      const line = lines[i].replace(/\/\*.*?\*\//g, '');
+      const line = lines[i];
       const trimmed = line.trim();
       if (!trimmed || trimmed.startsWith('//')) continue;
       const lineno = html.slice(0, cssStart).split('\n').length + i;
@@ -78,8 +81,13 @@ function scanBodyCSS(html, knownTokens) {
       if (/^\s*--[\w-]+\s*:/.test(line) || /:\s*/.test(line)) {
         HARDCODED_COLOR_RE.lastIndex = 0;
         while ((m = HARDCODED_COLOR_RE.exec(line)) !== null) issues.push({ line: lineno, type: 'hardcoded-color', value: m[0], fix: 'Move this visual color to tokens.json and reference it with var().' });
-        HARDCODED_PX_RE.lastIndex = 0;
-        while ((m = HARDCODED_PX_RE.exec(line)) !== null) issues.push({ line: lineno, type: 'hardcoded-px', value: m[0], fix: 'Use a spacing/type token or a relative unit.' });
+        // media/container breakpoints can't be var() tokenized (CSS forbids custom props in
+        // @media conditions); they're structural, not visual — exempt from the px gate.
+        const atRule = /^\s*@(media|container)\b/.test(line);
+        if (!atRule) {
+          HARDCODED_PX_RE.lastIndex = 0;
+          while ((m = HARDCODED_PX_RE.exec(line)) !== null) issues.push({ line: lineno, type: 'hardcoded-px', value: m[0], fix: 'Use a spacing/type token or a relative unit.' });
+        }
         const fontMatch = line.match(/font-family\s*:\s*([^;]+)/i);
         if (fontMatch && !fontMatch[1].trim().startsWith('var(')) {
           issues.push({ line: lineno, type: 'hardcoded-font', value: fontMatch[1].trim(), fix: 'Use a font token from tokens.json.' });

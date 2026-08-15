@@ -89,10 +89,9 @@ a { color: inherit; }
   z-index: 20;
   padding: var(--space-8) var(--space-16);
   background: var(--color-on-surface);
-  color: var(--color-surface);
-  transform: translateY(-160%);
+  color: var(--color-surface)transform: var(--transform-0);
 }
-.skip-link:focus { transform: translateY(0); }
+.skip-link:focus transform: var(--transform-1); }
 
 .shell {
   width: min(calc(100% - (var(--space-page-pad) * 2)), var(--space-page-wmax));
@@ -164,7 +163,7 @@ h3 { font-size: var(--typescale-title-medium); }
   transition: transform var(--duration-fast) var(--ease-standard), opacity var(--duration-fast) var(--ease-standard);
 }
 .button.secondary { background: var(--color-surface); color: var(--color-primary); }
-.button:hover { transform: translateY(-.12rem); }
+.button:hover transform: var(--transform-2); }
 
 .section { padding-block: clamp(4rem, 8vw, 7rem); border-block-end: var(--hairline) solid var(--color-outline); }
 .section-heading { display: grid; grid-template-columns: minmax(0, .7fr) minmax(18rem, 1.3fr); gap: var(--space-64); margin-block-end: var(--space-48); }
@@ -183,7 +182,7 @@ h3 { font-size: var(--typescale-title-medium); }
 .catalog { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-gutter); }
 .template-card { display: grid; border: var(--hairline) solid var(--color-outline); background: var(--color-surface); }
 .preview { position: relative; min-block-size: 17rem; overflow: hidden; border-block-end: var(--hairline) solid var(--color-outline); background: var(--color-surface-container-low); }
-.preview::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(to right, var(--color-outline-variant) var(--hairline), transparent var(--hairline)), linear-gradient(to bottom, var(--color-outline-variant) var(--hairline), transparent var(--hairline)); background-size: 25% 25%; opacity: .62; }
+.preview::before { content: ""; position: absolute; inset: 0background-image: var(--bg-0); background-size: 25% 25%; opacity: .62; }
 .preview-sheet { position: absolute; inset: var(--space-24); display: grid; align-content: space-between; padding: var(--space-24); background: var(--color-surface); border: var(--hairline) solid var(--color-outline); box-shadow: var(--elevation-sm); }
 .preview-swiss .preview-sheet { border-inline-start: var(--space-8) solid var(--color-primary); }
 .preview-grid .preview-sheet { background: var(--color-on-surface); color: var(--color-surface); }

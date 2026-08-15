@@ -47,9 +47,9 @@
   --space-gutter: 24px;
 }
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; height: 100%; background: #0a0a0a; }
+  html, body { margin: 0; padding: 0; height: 100%; background: var(--color-extra-0); }
   body {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     color: var(--ink);
     overflow: hidden;
   }
@@ -68,9 +68,8 @@
     content: '';
     position: absolute; inset: 0;
     pointer-events: none;
-    opacity: 0.10;
-    background-image: radial-gradient(circle at 1px 1px, rgba(181,61,42,0.5) 0.5px, transparent 1px);
-    background-size: 4px 4px;
+    opacity: 0.10background-image: var(--bg-0);
+    background-size: var(--space-4) var(--space-4);
     z-index: 1;
   }
 
@@ -84,7 +83,7 @@
 
   /* ─── TYPE SYSTEM ──────────────────────────────────────────── */
   .disp {
-    font-family: 'Bricolage Grotesque', sans-serif;
+    font-family: var(--font-display);
     font-weight: 800;
     line-height: 0.92;
     letter-spacing: -0.01em;
@@ -92,14 +91,14 @@
     color: var(--ink);
   }
   .body-it {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
     font-weight: 400;
     line-height: 1.45;
     color: var(--ink);
   }
   .body-ro {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
@@ -109,22 +108,22 @@
   /* Page-number marker — italic Fraunces */
   .pagenum {
     position: absolute;
-    right: clamp(36px, 3.6vw, 80px);
-    bottom: clamp(40px, 4vh, 64px);
-    font-family: 'Fraunces', Georgia, serif;
+    right: clamp(var(--space-36), 3.6vw, var(--space-80));
+    bottom: clamp(var(--space-40), 4vh, var(--space-64));
+    font-family: var(--font-display);
     
-    font-size: clamp(14px, 0.95vw, 16px);
+    font-size: clamp(var(--typescale-14), 0.95vw, var(--typescale-body-large));
     color: var(--ink);
     letter-spacing: 0.02em;
     z-index: 9;
   }
   .nav-hint {
     position: fixed;
-    left: clamp(36px, 3.6vw, 80px);
-    bottom: clamp(40px, 4vh, 64px);
-    font-family: 'Fraunces', Georgia, serif;
+    left: clamp(var(--space-36), 3.6vw, var(--space-80));
+    bottom: clamp(var(--space-40), 4vh, var(--space-64));
+    font-family: var(--font-display);
     
-    font-size: clamp(11px, 0.78vw, 13px);
+    font-size: clamp(var(--typescale-11), 0.78vw, var(--typescale-13));
     color: var(--ink);
     letter-spacing: 0.02em;
     opacity: 0.45;
@@ -136,21 +135,21 @@
   .pill {
     display: inline-flex;
     align-items: center; justify-content: center;
-    padding: clamp(8px, 1vh, 14px) clamp(20px, 2vw, 32px);
-    border: 1.5px solid var(--ink);
-    border-radius: 999px;
-    font-family: 'Fraunces', Georgia, serif;
+    padding: clamp(var(--space-8), 1vh, var(--space-14)) clamp(var(--space-20), 2vw, var(--space-page-pad));
+    border: var(--border-0) solid var(--ink);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-display);
     
-    font-size: clamp(15px, 1.1vw, 20px);
+    font-size: clamp(var(--typescale-15), 1.1vw, var(--typescale-20));
     color: var(--ink);
     line-height: 1;
     white-space: nowrap;
   }
   .pill-divider {
     color: var(--ink);
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(18px, 1.4vw, 24px);
+    font-size: clamp(var(--typescale-18), 1.4vw, var(--typescale-24));
     line-height: 1;
     align-self: center;
     opacity: 0.7;
@@ -160,13 +159,13 @@
   .ed-badge {
     display: inline-flex;
     align-items: center; justify-content: center;
-    width: clamp(34px, 2.6vw, 44px);
-    height: clamp(34px, 2.6vw, 44px);
-    border: 1.5px solid var(--ink);
+    width: clamp(var(--space-34), 2.6vw, var(--space-44));
+    height: clamp(var(--space-34), 2.6vw, var(--space-44));
+    border: var(--border-1) solid var(--ink);
     border-radius: 50%;
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(15px, 1.05vw, 18px);
+    font-size: clamp(var(--typescale-15), 1.05vw, var(--typescale-18));
     color: var(--ink);
     line-height: 1;
   }
@@ -175,11 +174,11 @@
   .rect-tag {
     display: inline-flex;
     align-items: center;
-    padding: clamp(7px, 0.9vh, 12px) clamp(14px, 1.4vw, 22px);
-    border: 1.5px solid var(--ink);
-    font-family: 'Fraunces', Georgia, serif;
+    padding: clamp(var(--space-7), 0.9vh, var(--space-12)) clamp(var(--space-14), 1.4vw, var(--space-22));
+    border: var(--border-2) solid var(--ink);
+    font-family: var(--font-display);
     
-    font-size: clamp(15px, 1.1vw, 20px);
+    font-size: clamp(var(--typescale-15), 1.1vw, var(--typescale-20));
     color: var(--ink);
     line-height: 1.1;
   }
@@ -191,43 +190,43 @@
 
   .s-cover .grid {
     position: absolute;
-    inset: clamp(60px, 6vh, 100px) clamp(60px, 5vw, 110px) clamp(110px, 11vh, 170px);
+    inset: clamp(var(--space-60), 6vh, var(--space-100)) clamp(var(--space-60), 5vw, var(--space-110)) clamp(var(--space-110), 11vh, var(--space-170));
     display: grid;
     grid-template-columns: 1.05fr 1fr;
-    gap: clamp(40px, 4vw, 80px);
+    gap: clamp(var(--space-40), 4vw, var(--space-80));
     z-index: 5;
   }
   .s-cover .left {
     display: flex; flex-direction: column;
-    gap: clamp(18px, 2vh, 30px);
+    gap: clamp(var(--space-18), 2vh, var(--space-30));
   }
   .s-cover .ed-row {
-    display: flex; align-items: center; gap: clamp(12px, 1.2vw, 18px);
+    display: flex; align-items: center; gap: clamp(var(--space-12), 1.2vw, var(--space-18));
   }
   .s-cover .ed-row .ed-label {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(20px, 1.6vw, 30px);
+    font-size: clamp(var(--typescale-20), 1.6vw, var(--typescale-30));
     color: var(--ink);
     line-height: 1;
   }
   .s-cover .title {
-    font-family: 'Bricolage Grotesque', sans-serif;
+    font-family: var(--font-display);
     font-weight: 800;
     text-transform: uppercase;
-    font-size: clamp(82px, min(8.8vw, 15vh), 180px);
+    font-size: clamp(var(--typescale-82), min(8.8vw, 15vh), var(--typescale-180));
     line-height: 0.92;
     letter-spacing: -0.012em;
     color: var(--ink);
   }
   .s-cover .actions {
-    display: flex; gap: clamp(8px, 0.8vw, 14px); align-items: center;
+    display: flex; gap: clamp(var(--space-8), 0.8vw, var(--space-14)); align-items: center;
     flex-wrap: wrap;
   }
   .s-cover .stats {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(17px, 1.2vw, 22px);
+    font-size: clamp(var(--typescale-17), 1.2vw, var(--typescale-22));
     line-height: 1.4;
     color: var(--ink);
   }
@@ -238,13 +237,13 @@
   .s-cover .left .bottom-block {
     margin-top: auto;
     display: flex; flex-direction: column;
-    gap: clamp(12px, 1.4vh, 22px);
+    gap: clamp(var(--space-12), 1.4vh, var(--space-22));
     align-items: flex-start;
   }
   .s-cover .tagline {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(18px, 1.4vw, 26px);
+    font-size: clamp(var(--typescale-18), 1.4vw, var(--typescale-26));
     line-height: 1.35;
     color: var(--ink);
     max-width: 40ch;
@@ -259,28 +258,28 @@
     text-align: right;
   }
   .s-cover .big-edition {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
     font-weight: 400;
-    font-size: clamp(180px, min(22vw, 38vh), 480px);
+    font-size: clamp(var(--typescale-180), min(22vw, 38vh), var(--typescale-480));
     line-height: 0.86;
     letter-spacing: -0.02em;
     color: var(--ink);
   }
   .s-cover .big-edition-lab {
-    margin-top: clamp(8px, 1vh, 16px);
-    font-family: 'Bricolage Grotesque', sans-serif;
+    margin-top: clamp(var(--space-8), 1vh, var(--space-16));
+    font-family: var(--font-display);
     font-weight: 700;
     text-transform: uppercase;
-    font-size: clamp(15px, 1.1vw, 18px);
+    font-size: clamp(var(--typescale-15), 1.1vw, var(--typescale-18));
     letter-spacing: 0.18em;
     color: var(--ink);
   }
   .s-cover .big-edition-meta {
-    margin-top: clamp(20px, 2.4vh, 36px);
-    font-family: 'Fraunces', Georgia, serif;
+    margin-top: clamp(var(--space-20), 2.4vh, var(--space-36));
+    font-family: var(--font-display);
     
-    font-size: clamp(17px, 1.2vw, 22px);
+    font-size: clamp(var(--typescale-17), 1.2vw, var(--typescale-22));
     line-height: 1.4;
     color: var(--ink);
     max-width: 30ch;
@@ -293,51 +292,51 @@
   .s-manifesto { background: var(--paper); }
   .s-manifesto .frame {
     position: absolute;
-    inset: clamp(96px, 10vh, 160px) clamp(80px, 8vw, 200px) clamp(110px, 11vh, 170px);
+    inset: clamp(var(--space-96), 10vh, var(--space-160)) clamp(var(--space-80), 8vw, var(--space-200)) clamp(var(--space-110), 11vh, var(--space-170));
     display: grid;
     grid-template-columns: 0.85fr 1fr;
-    gap: clamp(50px, 5vw, 100px);
+    gap: clamp(var(--space-50), 5vw, var(--space-100));
     align-items: center;
     z-index: 5;
   }
   .s-manifesto .left .ed-row {
-    display: flex; align-items: center; gap: 14px;
-    margin-bottom: clamp(20px, 2.4vh, 36px);
+    display: flex; align-items: center; gap: var(--space-14);
+    margin-bottom: clamp(var(--space-20), 2.4vh, var(--space-36));
   }
   .s-manifesto .left .ed-row .ed-label {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(18px, 1.4vw, 24px);
+    font-size: clamp(var(--typescale-18), 1.4vw, var(--typescale-24));
     color: var(--ink);
   }
   .s-manifesto .left .h {
-    font-family: 'Bricolage Grotesque', sans-serif;
+    font-family: var(--font-display);
     font-weight: 800;
     text-transform: uppercase;
-    font-size: clamp(72px, min(7.6vw, 13vh), 160px);
+    font-size: clamp(var(--typescale-72), min(7.6vw, 13vh), var(--typescale-160));
     line-height: 0.9;
     letter-spacing: -0.012em;
     color: var(--ink);
   }
   .s-manifesto .right p {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(20px, 1.5vw, 28px);
+    font-size: clamp(var(--typescale-20), 1.5vw, var(--typescale-28));
     line-height: 1.45;
     color: var(--ink);
-    margin: 0 0 clamp(16px, 1.6vh, 24px);
+    margin: 0 0 clamp(var(--space-16), 1.6vh, var(--space-gutter));
   }
   .s-manifesto .right p .empha {
     font-style: normal;
     font-weight: 600;
   }
   .s-manifesto .right .sig {
-    margin-top: clamp(18px, 2vh, 30px);
-    font-family: 'Fraunces', Georgia, serif;
+    margin-top: clamp(var(--space-18), 2vh, var(--space-30));
+    font-family: var(--font-display);
     
-    font-size: clamp(16px, 1.2vw, 20px);
+    font-size: clamp(var(--typescale-body-large), 1.2vw, var(--typescale-20));
     color: var(--ink);
-    display: flex; flex-direction: column; gap: 4px;
+    display: flex; flex-direction: column; gap: var(--space-4);
   }
   .s-manifesto .right .sig .who-tag {
     font-style: normal;
@@ -350,31 +349,31 @@
   .s-index { background: var(--paper); }
   .s-index .frame {
     position: absolute;
-    inset: clamp(96px, 10vh, 160px) clamp(60px, 5vw, 110px) clamp(110px, 11vh, 170px);
+    inset: clamp(var(--space-96), 10vh, var(--space-160)) clamp(var(--space-60), 5vw, var(--space-110)) clamp(var(--space-110), 11vh, var(--space-170));
     display: grid;
     grid-template-rows: auto 1fr;
-    gap: clamp(28px, 3vh, 50px);
+    gap: clamp(var(--space-28), 3vh, var(--space-50));
     z-index: 5;
   }
   .s-index .topbar {
     display: flex; align-items: end; justify-content: space-between;
-    border-bottom: 1.5px solid var(--ink);
-    padding-bottom: clamp(14px, 1.6vh, 24px);
-    gap: 30px;
+    border-bottom: var(--border-3) solid var(--ink);
+    padding-bottom: clamp(var(--space-14), 1.6vh, var(--space-gutter));
+    gap: var(--space-30);
   }
   .s-index .topbar .h {
-    font-family: 'Bricolage Grotesque', sans-serif;
+    font-family: var(--font-display);
     font-weight: 800;
     text-transform: uppercase;
-    font-size: clamp(56px, min(6vw, 10vh), 120px);
+    font-size: clamp(var(--typescale-56), min(6vw, 10vh), var(--typescale-120));
     line-height: 0.9;
     letter-spacing: -0.012em;
     color: var(--ink);
   }
   .s-index .topbar .lab-tag {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(15px, 1.05vw, 18px);
+    font-size: clamp(var(--typescale-15), 1.05vw, var(--typescale-18));
     color: var(--ink);
     text-align: right;
     line-height: 1.4;
@@ -383,61 +382,61 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto;
-    gap: clamp(20px, 2.4vw, 36px);
+    gap: clamp(var(--space-20), 2.4vw, var(--space-36));
     align-self: center;
     align-items: start;
   }
   .s-index .card {
-    border: 1.5px solid var(--ink);
-    padding: clamp(20px, 2vh, 32px) clamp(20px, 1.8vw, 30px);
-    display: flex; flex-direction: column; gap: clamp(10px, 1.2vh, 18px);
+    border: var(--border-4) solid var(--ink);
+    padding: clamp(var(--space-20), 2vh, var(--space-page-pad)) clamp(var(--space-20), 1.8vw, var(--space-30));
+    display: flex; flex-direction: column; gap: clamp(var(--space-10), 1.2vh, var(--space-18));
   }
   .s-index .card .card-top {
-    display: flex; align-items: center; gap: clamp(10px, 1vw, 16px);
-    border-bottom: 1px solid rgba(181, 61, 42, 0.32);
-    padding-bottom: clamp(10px, 1.2vh, 16px);
+    display: flex; align-items: center; gap: clamp(var(--space-10), 1vw, var(--space-16));
+    border-bottom: var(--border-5) solid var(--color-extra-2);
+    padding-bottom: clamp(var(--space-10), 1.2vh, var(--space-16));
   }
   .s-index .card .card-top .num-tag {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(15px, 1.05vw, 18px);
+    font-size: clamp(var(--typescale-15), 1.05vw, var(--typescale-18));
     color: var(--ink);
   }
   .s-index .card .card-top .city-tag {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(15px, 1.05vw, 18px);
+    font-size: clamp(var(--typescale-15), 1.05vw, var(--typescale-18));
     color: var(--ink);
     margin-left: auto;
   }
   .s-index .card .nm {
-    font-family: 'Bricolage Grotesque', sans-serif;
+    font-family: var(--font-display);
     font-weight: 800;
     text-transform: uppercase;
-    font-size: clamp(28px, 2.4vw, 44px);
+    font-size: clamp(var(--typescale-28), 2.4vw, var(--typescale-44));
     line-height: 0.95;
     color: var(--ink);
     letter-spacing: -0.008em;
   }
   .s-index .card .desc {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(15px, 1vw, 17px);
+    font-size: clamp(var(--typescale-15), 1vw, var(--typescale-17));
     line-height: 1.45;
     color: var(--ink);
     flex: 1;
   }
   .s-index .card .meta-row {
-    display: flex; align-items: center; gap: clamp(10px, 1vw, 16px);
+    display: flex; align-items: center; gap: clamp(var(--space-10), 1vw, var(--space-16));
     margin-top: auto;
-    border-top: 1px dashed rgba(181, 61, 42, 0.32);
-    padding-top: clamp(10px, 1.2vh, 16px);
+    border-top: var(--border-6) dashed var(--color-extra-3);
+    padding-top: clamp(var(--space-10), 1.2vh, var(--space-16));
   }
   .s-index .card .meta-row .seats-tag,
   .s-index .card .meta-row .date-tag {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(14px, 0.95vw, 16px);
+    font-size: clamp(var(--typescale-14), 0.95vw, var(--typescale-body-large));
     color: var(--ink);
   }
   .s-index .card .meta-row .seats-tag { margin-right: auto; }
@@ -450,42 +449,42 @@
     /* Bottom inset enlarged so content can never run into the page-num /
        nav-hint chrome at the bottom of the slide. */
     position: absolute;
-    inset: clamp(96px, 10vh, 160px) clamp(80px, 7vw, 160px) clamp(150px, 14vh, 220px);
+    inset: clamp(var(--space-96), 10vh, var(--space-160)) clamp(var(--space-80), 7vw, var(--space-160)) clamp(var(--space-150), 14vh, var(--space-220));
     display: grid;
     grid-template-columns: 1.1fr 1fr;
-    gap: clamp(40px, 4vw, 80px);
+    gap: clamp(var(--space-40), 4vw, var(--space-80));
     align-items: center;
     z-index: 5;
   }
-  .s-featured .left { display: flex; flex-direction: column; gap: clamp(18px, 2vh, 32px); }
+  .s-featured .left { display: flex; flex-direction: column; gap: clamp(var(--space-18), 2vh, var(--space-page-pad)); }
   .s-featured .left .ed-row {
-    display: flex; align-items: center; gap: 14px;
+    display: flex; align-items: center; gap: var(--space-14);
   }
   .s-featured .left .ed-row .ed-label {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(18px, 1.3vw, 22px);
+    font-size: clamp(var(--typescale-18), 1.3vw, var(--typescale-22));
     color: var(--ink);
   }
   .s-featured .left .ttl {
-    font-family: 'Bricolage Grotesque', sans-serif;
+    font-family: var(--font-display);
     font-weight: 800;
     text-transform: uppercase;
-    font-size: clamp(60px, min(6.4vw, 10.5vh), 140px);
+    font-size: clamp(var(--typescale-60), min(6.4vw, 10.5vh), var(--typescale-140));
     line-height: 0.9;
     letter-spacing: -0.012em;
     color: var(--ink);
   }
   .s-featured .left .lede {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(17px, 1.2vw, 22px);
+    font-size: clamp(var(--typescale-17), 1.2vw, var(--typescale-22));
     line-height: 1.5;
     color: var(--ink);
     max-width: 44ch;
   }
   .s-featured .left .stats-line {
-    display: flex; gap: clamp(20px, 2vw, 36px); align-items: center;
+    display: flex; gap: clamp(var(--space-20), 2vw, var(--space-36)); align-items: center;
     flex-wrap: wrap;
   }
   /* Right side of featured edition — text info card replacing the illustration. */
@@ -493,45 +492,45 @@
     display: flex; flex-direction: column;
     justify-content: center;
     color: var(--ink);
-    border: 1.5px solid var(--ink);
-    padding: clamp(28px, 3vw, 56px) clamp(28px, 2.4vw, 48px);
-    gap: clamp(16px, 2vh, 28px);
+    border: var(--border-7) solid var(--ink);
+    padding: clamp(var(--space-28), 3vw, var(--space-56)) clamp(var(--space-28), 2.4vw, var(--space-48));
+    gap: clamp(var(--space-16), 2vh, var(--space-28));
   }
   .s-featured .right .info-row {
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: clamp(20px, 2vw, 36px);
+    gap: clamp(var(--space-20), 2vw, var(--space-36));
     align-items: baseline;
-    border-bottom: 1px dashed rgba(181, 61, 42, 0.32);
-    padding-bottom: clamp(12px, 1.4vh, 20px);
+    border-bottom: var(--border-8) dashed var(--color-extra-4);
+    padding-bottom: clamp(var(--space-12), 1.4vh, var(--space-20));
   }
   .s-featured .right .info-row:last-child { border-bottom: none; padding-bottom: 0; }
   .s-featured .right .info-row .k {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(14px, 0.95vw, 16px);
+    font-size: clamp(var(--typescale-14), 0.95vw, var(--typescale-body-large));
     color: var(--ink);
     letter-spacing: 0.02em;
     text-transform: uppercase;
     letter-spacing: 0.16em;
   }
   .s-featured .right .info-row .v {
-    font-family: 'Bricolage Grotesque', sans-serif;
+    font-family: var(--font-display);
     font-weight: 700;
     text-transform: uppercase;
-    font-size: clamp(20px, 1.6vw, 28px);
+    font-size: clamp(var(--typescale-20), 1.6vw, var(--typescale-28));
     line-height: 1.1;
     color: var(--ink);
     letter-spacing: -0.005em;
     text-align: right;
   }
   .s-featured .right .info-row .v.it {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
     font-weight: 400;
     text-transform: none;
     letter-spacing: 0;
-    font-size: clamp(20px, 1.5vw, 26px);
+    font-size: clamp(var(--typescale-20), 1.5vw, var(--typescale-26));
   }
 
   /* ──────────────────────────────────────────────────────────────
@@ -543,28 +542,28 @@
        course rows, so the menu sits up against the title instead of the
        rows being pushed apart by space-between distribution. */
     position: absolute;
-    inset: clamp(40px, 4vh, 70px) clamp(120px, 12vw, 280px) clamp(110px, 11vh, 170px);
+    inset: clamp(var(--space-40), 4vh, var(--space-70)) clamp(var(--space-120), 12vw, var(--space-280)) clamp(var(--space-110), 11vh, var(--space-170));
     display: flex;
     flex-direction: column;
-    gap: clamp(14px, 1.6vh, 24px);
+    gap: clamp(var(--space-14), 1.6vh, var(--space-gutter));
     z-index: 5;
   }
   .s-menu .top-row {
     text-align: center;
     display: flex; flex-direction: column; align-items: center;
-    gap: clamp(8px, 1vh, 14px);
+    gap: clamp(var(--space-8), 1vh, var(--space-14));
   }
   .s-menu .top-row .kicker {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(16px, 1.2vw, 20px);
+    font-size: clamp(var(--typescale-body-large), 1.2vw, var(--typescale-20));
     color: var(--ink);
   }
   .s-menu .top-row .h {
-    font-family: 'Bricolage Grotesque', sans-serif;
+    font-family: var(--font-display);
     font-weight: 800;
     text-transform: uppercase;
-    font-size: clamp(48px, min(5vw, 8.4vh), 100px);
+    font-size: clamp(var(--typescale-48), min(5vw, 8.4vh), var(--typescale-100));
     line-height: 0.92;
     letter-spacing: -0.012em;
     color: var(--ink);
@@ -575,43 +574,43 @@
   }
   .s-menu .course {
     display: grid;
-    grid-template-columns: 64px 1fr auto;
-    gap: clamp(14px, 1.4vw, 28px);
+    grid-template-columns: var(--space-64) 1fr auto;
+    gap: clamp(var(--space-14), 1.4vw, var(--space-28));
     align-items: center;
-    padding: clamp(14px, 1.6vh, 24px) 0;
-    border-bottom: 1px solid rgba(181, 61, 42, 0.32);
+    padding: clamp(var(--space-14), 1.6vh, var(--space-gutter)) 0;
+    border-bottom: var(--border-9) solid var(--color-extra-5);
   }
   .s-menu .course .num-tag {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(16px, 1.1vw, 20px);
+    font-size: clamp(var(--typescale-body-large), 1.1vw, var(--typescale-20));
     color: var(--ink);
     line-height: 1;
   }
   .s-menu .course .item {
-    display: flex; flex-direction: column; gap: 4px;
+    display: flex; flex-direction: column; gap: var(--space-4);
   }
   .s-menu .course .item .nm {
-    font-family: 'Bricolage Grotesque', sans-serif;
+    font-family: var(--font-display);
     font-weight: 700;
     text-transform: uppercase;
-    font-size: clamp(20px, 1.5vw, 28px);
+    font-size: clamp(var(--typescale-20), 1.5vw, var(--typescale-28));
     line-height: 1.05;
     letter-spacing: -0.005em;
     color: var(--ink);
   }
   .s-menu .course .item .desc {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(15px, 1vw, 17px);
+    font-size: clamp(var(--typescale-15), 1vw, var(--typescale-17));
     line-height: 1.4;
     color: var(--ink);
     max-width: 60ch;
   }
   .s-menu .course .pair-tag {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(14px, 0.95vw, 16px);
+    font-size: clamp(var(--typescale-14), 0.95vw, var(--typescale-body-large));
     color: var(--ink);
     text-align: right;
     white-space: nowrap;
@@ -625,7 +624,7 @@
   .s-quote .frame {
     /* Single centred quote — no illustration. */
     position: absolute;
-    inset: clamp(96px, 10vh, 160px) clamp(120px, 12vw, 280px) clamp(150px, 14vh, 220px);
+    inset: clamp(var(--space-96), 10vh, var(--space-160)) clamp(var(--space-120), 12vw, var(--space-280)) clamp(var(--space-150), 14vh, var(--space-220));
     display: flex; flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -634,27 +633,27 @@
   }
   .s-quote .right {
     display: flex; flex-direction: column;
-    gap: clamp(18px, 2vh, 32px);
+    gap: clamp(var(--space-18), 2vh, var(--space-page-pad));
     align-items: center;
     width: 100%;
   }
   .s-quote .right .kicker {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(16px, 1.2vw, 20px);
+    font-size: clamp(var(--typescale-body-large), 1.2vw, var(--typescale-20));
     color: var(--ink);
   }
   .s-quote .right .qbody {
-    font-family: 'Bricolage Grotesque', sans-serif;
+    font-family: var(--font-display);
     font-weight: 700;
     text-transform: uppercase;
-    font-size: clamp(40px, min(4.4vw, 7.4vh), 96px);
+    font-size: clamp(var(--typescale-40), min(4.4vw, 7.4vh), var(--typescale-96));
     line-height: 0.95;
     letter-spacing: -0.012em;
     color: var(--ink);
   }
   .s-quote .right .qbody .it-emph {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
     font-weight: 500;
     text-transform: none;
@@ -662,23 +661,23 @@
     line-height: 1;
   }
   .s-quote .right .who-row {
-    display: flex; flex-direction: column; gap: 4px;
-    border-top: 1.5px solid var(--ink);
-    padding-top: clamp(12px, 1.4vh, 20px);
+    display: flex; flex-direction: column; gap: var(--space-4);
+    border-top: var(--border-10) solid var(--ink);
+    padding-top: clamp(var(--space-12), 1.4vh, var(--space-20));
     align-items: center;
   }
   .s-quote .right .who-row .who-tag {
-    font-family: 'Bricolage Grotesque', sans-serif;
+    font-family: var(--font-display);
     font-weight: 700;
     text-transform: uppercase;
-    font-size: clamp(15px, 1.05vw, 18px);
+    font-size: clamp(var(--typescale-15), 1.05vw, var(--typescale-18));
     color: var(--ink);
     letter-spacing: -0.005em;
   }
   .s-quote .right .who-row .meta-tag {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(14px, 0.95vw, 16px);
+    font-size: clamp(var(--typescale-14), 0.95vw, var(--typescale-body-large));
     color: var(--ink);
     opacity: 0.78;
   }
@@ -689,30 +688,30 @@
   .s-cal { background: var(--paper); }
   .s-cal .frame {
     position: absolute;
-    inset: clamp(96px, 10vh, 160px) clamp(80px, 7vw, 160px) clamp(110px, 11vh, 170px);
+    inset: clamp(var(--space-96), 10vh, var(--space-160)) clamp(var(--space-80), 7vw, var(--space-160)) clamp(var(--space-110), 11vh, var(--space-170));
     display: flex; flex-direction: column;
     z-index: 5;
   }
   .s-cal .topbar {
     display: flex; align-items: end; justify-content: space-between;
-    border-bottom: 1.5px solid var(--ink);
-    padding-bottom: clamp(14px, 1.6vh, 24px);
-    margin-bottom: clamp(20px, 2.4vh, 32px);
-    gap: 30px;
+    border-bottom: var(--border-11) solid var(--ink);
+    padding-bottom: clamp(var(--space-14), 1.6vh, var(--space-gutter));
+    margin-bottom: clamp(var(--space-20), 2.4vh, var(--space-page-pad));
+    gap: var(--space-30);
   }
   .s-cal .topbar .h {
-    font-family: 'Bricolage Grotesque', sans-serif;
+    font-family: var(--font-display);
     font-weight: 800;
     text-transform: uppercase;
-    font-size: clamp(56px, min(6vw, 10vh), 120px);
+    font-size: clamp(var(--typescale-56), min(6vw, 10vh), var(--typescale-120));
     line-height: 0.9;
     letter-spacing: -0.012em;
     color: var(--ink);
   }
   .s-cal .topbar .lab-tag {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(15px, 1.05vw, 18px);
+    font-size: clamp(var(--typescale-15), 1.05vw, var(--typescale-18));
     color: var(--ink);
     text-align: right;
     line-height: 1.4;
@@ -723,61 +722,61 @@
   }
   .s-cal .row {
     display: grid;
-    grid-template-columns: 80px 130px 1.6fr 0.9fr auto;
-    gap: clamp(14px, 1.4vw, 28px);
+    grid-template-columns: var(--space-80) var(--space-130) 1.6fr 0.9fr auto;
+    gap: clamp(var(--space-14), 1.4vw, var(--space-28));
     align-items: center;
-    padding: clamp(11px, 1.3vh, 18px) 0;
-    border-bottom: 1px solid rgba(181, 61, 42, 0.30);
+    padding: clamp(var(--space-11), 1.3vh, var(--space-18)) 0;
+    border-bottom: var(--border-12) solid var(--color-extra-6);
     flex: 1 1 0;
-    min-height: clamp(56px, 7vh, 90px);
+    min-height: clamp(var(--space-56), 7vh, var(--space-90));
   }
   .s-cal .row.headrow {
     flex: 0 0 auto;
     min-height: 0;
-    border-bottom: 1.5px solid var(--ink);
-    padding: 6px 0;
+    border-bottom: var(--border-13) solid var(--ink);
+    padding: var(--space-6) 0;
   }
   .s-cal .row.headrow > div {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(13px, 0.92vw, 15px);
+    font-size: clamp(var(--typescale-13), 0.92vw, var(--typescale-15));
     color: var(--ink);
     letter-spacing: 0.04em;
   }
   .s-cal .row .num-tag {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(15px, 1.05vw, 18px);
+    font-size: clamp(var(--typescale-15), 1.05vw, var(--typescale-18));
     color: var(--ink);
   }
   .s-cal .row .city-tag {
-    font-family: 'Bricolage Grotesque', sans-serif;
+    font-family: var(--font-display);
     font-weight: 700;
     text-transform: uppercase;
-    font-size: clamp(18px, 1.3vw, 24px);
+    font-size: clamp(var(--typescale-18), 1.3vw, var(--typescale-24));
     color: var(--ink);
     letter-spacing: -0.005em;
   }
   .s-cal .row .theme {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(17px, 1.2vw, 22px);
+    font-size: clamp(var(--typescale-17), 1.2vw, var(--typescale-22));
     color: var(--ink);
     line-height: 1.3;
   }
   .s-cal .row .date-tag {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(15px, 1.05vw, 17px);
+    font-size: clamp(var(--typescale-15), 1.05vw, var(--typescale-17));
     color: var(--ink);
   }
   .s-cal .row .seats-pill {
-    border: 1.5px solid var(--ink);
-    border-radius: 999px;
-    padding: 6px 16px;
-    font-family: 'Fraunces', Georgia, serif;
+    border: var(--border-14) solid var(--ink);
+    border-radius: var(--radius-pill);
+    padding: var(--space-6) var(--space-16);
+    font-family: var(--font-display);
     
-    font-size: clamp(13px, 0.95vw, 16px);
+    font-size: clamp(var(--typescale-13), 0.95vw, var(--typescale-body-large));
     color: var(--ink);
     line-height: 1;
     white-space: nowrap;
@@ -797,44 +796,44 @@
      page-num chrome. Three discrete bands, no overlap zones. */
   .s-closing .frame {
     position: absolute;
-    left: clamp(80px, 7vw, 160px);
-    right: clamp(80px, 7vw, 160px);
-    top: clamp(96px, 10vh, 160px);
-    bottom: clamp(280px, 28vh, 400px);
+    left: clamp(var(--space-80), 7vw, var(--space-160));
+    right: clamp(var(--space-80), 7vw, var(--space-160));
+    top: clamp(var(--space-96), 10vh, var(--space-160));
+    bottom: clamp(var(--space-280), 28vh, var(--space-400));
     display: flex; flex-direction: column;
     justify-content: center;
     z-index: 5;
   }
-  .s-closing .left { display: flex; flex-direction: column; gap: clamp(20px, 2.4vh, 38px); max-width: 60ch; }
+  .s-closing .left { display: flex; flex-direction: column; gap: clamp(var(--space-20), 2.4vh, var(--space-38)); max-width: 60ch; }
   .s-closing .left .ed-row {
-    display: flex; align-items: center; gap: 14px;
+    display: flex; align-items: center; gap: var(--space-14);
   }
   .s-closing .left .ed-row .ed-label {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(18px, 1.3vw, 22px);
+    font-size: clamp(var(--typescale-18), 1.3vw, var(--typescale-22));
     color: var(--ink);
   }
   .s-closing .left .h {
-    font-family: 'Bricolage Grotesque', sans-serif;
+    font-family: var(--font-display);
     font-weight: 800;
     text-transform: uppercase;
-    font-size: clamp(60px, min(6.4vw, 10vh), 130px);
+    font-size: clamp(var(--typescale-60), min(6.4vw, 10vh), var(--typescale-130));
     line-height: 0.92;
     letter-spacing: -0.012em;
     color: var(--ink);
   }
   /* No right-side illustration — closing is a single text band. */
   .s-closing .left .desc-it {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: var(--font-display);
     
-    font-size: clamp(17px, 1.2vw, 22px);
+    font-size: clamp(var(--typescale-17), 1.2vw, var(--typescale-22));
     line-height: 1.5;
     color: var(--ink);
     max-width: 42ch;
   }
   .s-closing .left .actions {
-    display: flex; gap: clamp(12px, 1.2vw, 20px); align-items: center;
+    display: flex; gap: clamp(var(--space-12), 1.2vw, var(--space-20)); align-items: center;
     flex-wrap: wrap;
   }
   .s-closing .right {
@@ -845,18 +844,18 @@
   .s-closing .footer-line {
     /* Footer band sits above the page-num chrome; clear gap below. */
     position: absolute;
-    left: clamp(80px, 7vw, 160px);
-    right: clamp(80px, 7vw, 160px);
-    bottom: clamp(110px, 11vh, 160px);
-    display: flex; gap: clamp(40px, 4vw, 70px);
+    left: clamp(var(--space-80), 7vw, var(--space-160));
+    right: clamp(var(--space-80), 7vw, var(--space-160));
+    bottom: clamp(var(--space-110), 11vh, var(--space-160));
+    display: flex; gap: clamp(var(--space-40), 4vw, var(--space-70));
     z-index: 5;
   }
   .s-closing .footer-line .colf {
-    border-top: 1px solid var(--ink);
-    padding-top: clamp(8px, 1vh, 14px);
-    font-family: 'Fraunces', Georgia, serif;
+    border-top: var(--border-15) solid var(--ink);
+    padding-top: clamp(var(--space-8), 1vh, var(--space-14));
+    font-family: var(--font-display);
     
-    font-size: clamp(14px, 0.95vw, 16px);
+    font-size: clamp(var(--typescale-14), 0.95vw, var(--typescale-body-large));
     color: var(--ink);
     line-height: 1.4;
     flex: 1;
@@ -864,7 +863,7 @@
   .s-closing .footer-line .colf .ftag {
     font-style: normal;
     font-weight: 600;
-    margin-bottom: 2px;
+    margin-bottom: var(--space-2);
     display: block;
   }
 

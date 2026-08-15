@@ -120,10 +120,10 @@
   /* Page number — single, bottom-right, on every slide */
   .pagenum {
     position: absolute;
-    right: clamp(24px, 2.4vw, 48px);
-    bottom: clamp(22px, 2.4vh, 42px);
+    right: clamp(var(--space-24-2), 2.4vw, var(--space-48-2));
+    bottom: clamp(var(--space-22), 2.4vh, var(--space-42));
     font-family: var(--font-mono);
-    font-size: clamp(11px, 0.85vw, 13px);
+    font-size: clamp(var(--typescale-11), 0.85vw, var(--typescale-13));
     color: var(--ink);
     letter-spacing: 0.08em;
     z-index: 8;
@@ -133,10 +133,10 @@
   /* Persistent navigation hint — bottom-left, single appearance */
   .nav-hint {
     position: fixed;
-    left: clamp(20px, 2vw, 36px);
-    bottom: clamp(16px, 2vh, 28px);
+    left: clamp(var(--space-20), 2vw, var(--space-36));
+    bottom: clamp(var(--space-16-2), 2vh, var(--space-28));
     font-family: var(--font-mono);
-    font-size: clamp(10px, 0.75vw, 12px);
+    font-size: clamp(var(--typescale-10), 0.75vw, var(--typescale-12));
     color: var(--ink);
     letter-spacing: 0.08em;
     opacity: 0.4;
@@ -164,18 +164,16 @@
 
   /* central sun-bloom + corner peach edge */
   .s-cover .sunglow {
-    position: absolute; inset: 0; pointer-events: none;
-    background:
-      radial-gradient(ellipse 42% 38% at 52% 42%, var(--sun-95) 0%, var(--sun-65) 38%, var(--haze-22) 65%, transparent 88%),
-      radial-gradient(ellipse 28% 30% at 88% 16%, var(--ember-22) 0%, transparent 70%);
+    position: absolute; inset: 0; pointer-events: nonebackground:
+      var(--bg-0);
   }
 
   .s-cover .date-rail {
     position: absolute;
-    top: clamp(28px, 3.2vh, 56px);
-    right: clamp(40px, 4vw, 76px);
+    top: clamp(var(--space-28), 3.2vh, var(--space-56));
+    right: clamp(var(--space-40), 4vw, var(--space-76));
     font-family: var(--font-display);
-    font-size: clamp(48px, min(5.2vw, 9vh), 96px);
+    font-size: clamp(var(--typescale-48), min(5.2vw, 9vh), var(--typescale-96));
     color: var(--ink);
     line-height: 0.96;
     text-align: right;
@@ -185,56 +183,56 @@
 
   .s-cover .titlewrap {
     position: absolute;
-    left: clamp(40px, 4vw, 76px);
-    bottom: clamp(132px, 16vh, 220px);
+    left: clamp(var(--space-40), 4vw, var(--space-76));
+    bottom: clamp(var(--space-132), 16vh, var(--space-220));
     z-index: 5;
     max-width: 88%;
   }
   .s-cover .title {
     font-family: var(--font-display);
-    font-size: clamp(120px, min(14.6vw, 22vh), 240px);
+    font-size: clamp(var(--typescale-120), min(14.6vw, 22vh), var(--typescale-240));
     line-height: 0.86;
     color: var(--ink);
     letter-spacing: -0.018em;
   }
   .s-cover .title em { }
   .s-cover .subline {
-    margin-top: clamp(8px, 1vh, 18px);
+    margin-top: clamp(var(--space-8-2), 1vh, var(--space-18));
     font-family: var(--font-body);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.18em;
-    font-size: clamp(11px, 0.85vw, 13px);
+    font-size: clamp(var(--typescale-11), 0.85vw, var(--typescale-13));
     color: var(--ink);
   }
 
   .s-cover .footer-row {
     position: absolute;
-    left: clamp(40px, 4vw, 76px);
-    right: clamp(40px, 4vw, 76px);
-    bottom: clamp(28px, 3vh, 52px);
+    left: clamp(var(--space-40), 4vw, var(--space-76));
+    right: clamp(var(--space-40), 4vw, var(--space-76));
+    bottom: clamp(var(--space-28), 3vh, var(--space-52));
     display: grid;
     grid-template-columns: 1.1fr 1fr 1.4fr 2fr;
-    gap: clamp(20px, 2.4vw, 44px);
+    gap: clamp(var(--space-20), 2.4vw, var(--space-44));
     z-index: 5;
   }
   .s-cover .footer-row > div {
-    border-top: 1px solid var(--ink);
-    padding-top: clamp(10px, 1.2vh, 16px);
+    border-top: var(--hairline) solid var(--ink);
+    padding-top: clamp(var(--space-10), 1.2vh, var(--space-16-2));
   }
   .s-cover .footer-row .ftag {
     text-transform: uppercase; letter-spacing: 0.16em; font-weight: 600;
-    font-size: clamp(10px, 0.72vw, 12px);
-    margin-bottom: 6px;
+    font-size: clamp(var(--typescale-10), 0.72vw, var(--typescale-12));
+    margin-bottom: var(--space-6);
   }
   .s-cover .footer-row .ftxt {
     font-family: var(--font-body);
-    font-size: clamp(11px, 0.78vw, 13px);
+    font-size: clamp(var(--typescale-11), 0.78vw, var(--typescale-13));
     line-height: 1.45;
   }
   .s-cover .footer-row .fdesc {
     font-family: var(--font-body);
-    font-size: clamp(11px, 0.74vw, 12px);
+    font-size: clamp(var(--typescale-11), 0.74vw, var(--typescale-12));
     line-height: 1.5;
     color: var(--ink);
   }
@@ -244,19 +242,17 @@
      ────────────────────────────────────────────────────────────────── */
   .s-manifesto { background: var(--paper); display: flex; align-items: center; justify-content: center; }
   .s-manifesto .haze {
-    position: absolute; inset: 0; pointer-events: none;
-    background:
-      radial-gradient(ellipse 70% 60% at 50% 50%, var(--sun-70) 0%, var(--sun-soft-42) 32%, var(--haze-18) 56%, transparent 80%),
-      radial-gradient(circle 600px at 12% 88%, var(--ember-15) 0%, transparent 70%);
+    position: absolute; inset: 0; pointer-events: nonebackground:
+      var(--bg-1);
   }
   .s-manifesto .quote {
     position: relative; z-index: 4;
-    max-width: min(86%, 1480px);
-    padding: 0 clamp(40px, 6vw, 120px);
+    max-width: min(86%, var(--space-1480));
+    padding: 0 clamp(var(--space-40), 6vw, var(--space-120));
     font-family: var(--font-display);
     
     font-weight: 400;
-    font-size: clamp(56px, min(7vw, 11vh), 120px);
+    font-size: clamp(var(--typescale-56), min(7vw, 11vh), var(--typescale-120));
     line-height: 1.04;
     color: var(--ink);
     letter-spacing: -0.005em;
@@ -264,13 +260,13 @@
   }
   .s-manifesto .attr {
     position: absolute;
-    left: clamp(40px, 4vw, 76px);
-    bottom: clamp(56px, 6vh, 96px);
+    left: clamp(var(--space-40), 4vw, var(--space-76));
+    bottom: clamp(var(--space-56), 6vh, var(--space-96));
     font-family: var(--font-body);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    font-size: clamp(11px, 0.85vw, 13px);
+    font-size: clamp(var(--typescale-11), 0.85vw, var(--typescale-13));
     color: var(--ink);
     z-index: 4;
   }
@@ -282,25 +278,25 @@
   .s-programme .left {
     background: var(--sun);
     position: relative;
-    padding: clamp(40px, 4.2vw, 80px);
+    padding: clamp(var(--space-40), 4.2vw, var(--space-80));
     display: flex; flex-direction: column; justify-content: space-between;
   }
   .s-programme .left .kicker {
     font-family: var(--font-body);
     font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em;
-    font-size: clamp(11px, 0.85vw, 14px);
+    font-size: clamp(var(--typescale-11), 0.85vw, var(--typescale-14));
     color: var(--ink);
   }
   .s-programme .left .word {
     font-family: var(--font-display);
-    font-size: clamp(110px, min(11vw, 18vh), 200px);
+    font-size: clamp(var(--typescale-110), min(11vw, 18vh), var(--typescale-200));
     line-height: 0.86;
     color: var(--ink);
     letter-spacing: -0.018em;
   }
   .s-programme .left .meta {
     font-family: var(--font-body);
-    font-size: clamp(13px, 0.95vw, 16px);
+    font-size: clamp(var(--typescale-13), 0.95vw, var(--typescale-16));
     line-height: 1.5;
     max-width: 88%;
     color: var(--ink);
@@ -308,45 +304,45 @@
   .s-programme .right {
     background: var(--paper);
     position: relative;
-    padding: clamp(40px, 4.2vw, 80px) clamp(40px, 4.2vw, 80px) clamp(56px, 5vh, 88px);
-    display: flex; flex-direction: column; gap: clamp(18px, 2.2vh, 32px);
+    padding: clamp(var(--space-40), 4.2vw, var(--space-80)) clamp(var(--space-40), 4.2vw, var(--space-80)) clamp(var(--space-56), 5vh, var(--space-88));
+    display: flex; flex-direction: column; gap: clamp(var(--space-18), 2.2vh, var(--space-32-2));
   }
   .s-programme .right .head {
     font-family: var(--font-body);
     font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em;
-    font-size: clamp(11px, 0.85vw, 14px);
-    border-bottom: 1px solid var(--ink);
-    padding-bottom: 14px;
+    font-size: clamp(var(--typescale-11), 0.85vw, var(--typescale-14));
+    border-bottom: var(--hairline) solid var(--ink);
+    padding-bottom: var(--space-14);
   }
   .s-programme .strands {
     display: flex; flex-direction: column;
-    gap: clamp(14px, 1.8vh, 22px);
+    gap: clamp(var(--space-14), 1.8vh, var(--space-22));
   }
   .s-programme .strand {
     display: grid;
-    grid-template-columns: 56px 1fr;
-    gap: clamp(14px, 1.4vw, 24px);
-    border-bottom: 1px solid var(--ink-18);
-    padding-bottom: clamp(12px, 1.6vh, 22px);
+    grid-template-columns: var(--space-56) 1fr;
+    gap: clamp(var(--space-14), 1.4vw, var(--space-24-2));
+    border-bottom: var(--hairline) solid var(--ink-18);
+    padding-bottom: clamp(var(--space-12-2), 1.6vh, var(--space-22));
   }
   .s-programme .strand .num {
     font-family: var(--font-display);
-    font-size: clamp(28px, 2vw, 38px);
+    font-size: clamp(var(--typescale-28), 2vw, var(--typescale-38));
     color: var(--ink);
     line-height: 1;
   }
   .s-programme .strand h3 {
-    margin: 0 0 4px 0;
+    margin: 0 0 var(--space-4-2) 0;
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(22px, 1.7vw, 32px);
+    font-size: clamp(var(--typescale-22), 1.7vw, var(--typescale-32));
     line-height: 1.1;
     color: var(--ink);
   }
   .s-programme .strand p {
     margin: 0;
     font-family: var(--font-body);
-    font-size: clamp(14px, 0.95vw, 15px);
+    font-size: clamp(var(--typescale-14), 0.95vw, var(--typescale-15));
     line-height: 1.5;
     color: var(--ink);
     max-width: 92%;
@@ -357,55 +353,52 @@
      ────────────────────────────────────────────────────────────────── */
   .s-chapter { background: var(--paper); }
   .s-chapter .glow {
-    position: absolute; inset: 0; pointer-events: none;
-    background:
-      radial-gradient(circle 720px at -10% -10%, var(--sun-70) 0%, transparent 65%),
-      radial-gradient(circle 540px at 110% 110%, var(--ember-18) 0%, transparent 70%);
+    position: absolute; inset: 0; pointer-events: nonebackground:
+      var(--bg-2);
   }
   .s-chapter .vrail {
     position: absolute;
-    left: clamp(40px, 4vw, 76px);
-    top: 50%;
-    transform: translateY(-50%) rotate(-90deg);
+    left: clamp(var(--space-40), 4vw, var(--space-76));
+    top: 50%transform: var(--transform-0);
     transform-origin: 0 50%;
     font-family: var(--font-body);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.32em;
-    font-size: clamp(11px, 0.85vw, 13px);
+    font-size: clamp(var(--typescale-11), 0.85vw, var(--typescale-13));
     color: var(--ink);
     white-space: nowrap;
     z-index: 4;
   }
   .s-chapter .stack {
     position: absolute;
-    left: clamp(120px, 12vw, 220px);
-    top: clamp(40px, 5vh, 96px);
-    bottom: clamp(80px, 9vh, 130px);
-    right: clamp(40px, 4vw, 76px);
+    left: clamp(var(--space-120), 12vw, var(--space-220));
+    top: clamp(var(--space-40), 5vh, var(--space-96));
+    bottom: clamp(var(--space-80), 9vh, var(--space-130));
+    right: clamp(var(--space-40), 4vw, var(--space-76));
     display: flex; flex-direction: column; justify-content: center;
     z-index: 4;
   }
   .s-chapter .nm {
     font-family: var(--font-display);
-    font-size: clamp(220px, min(28vw, 64vh), 720px);
+    font-size: clamp(var(--typescale-220), min(28vw, 64vh), var(--typescale-720));
     line-height: 0.84;
     color: var(--ink);
     letter-spacing: -0.04em;
   }
   .s-chapter .ttl {
-    margin-top: clamp(12px, 1.6vh, 28px);
+    margin-top: clamp(var(--space-12-2), 1.6vh, var(--space-28));
     font-family: var(--font-display);
     
-    font-size: clamp(40px, min(4.4vw, 7vh), 90px);
+    font-size: clamp(var(--typescale-40), min(4.4vw, 7vh), var(--typescale-90));
     line-height: 1.05;
     color: var(--ink);
     max-width: 78%;
   }
   .s-chapter .lede {
-    margin-top: clamp(18px, 2.2vh, 36px);
+    margin-top: clamp(var(--space-18), 2.2vh, var(--space-36));
     font-family: var(--font-body);
-    font-size: clamp(15px, 1.05vw, 18px);
+    font-size: clamp(var(--typescale-15), 1.05vw, var(--typescale-18));
     line-height: 1.55;
     color: var(--ink);
     max-width: 56ch;
@@ -416,34 +409,33 @@
      ────────────────────────────────────────────────────────────────── */
   .s-data { background: var(--paper); }
   .s-data .glow {
-    position: absolute; inset: 0; pointer-events: none;
-    background: radial-gradient(ellipse 50% 40% at 92% 8%, var(--sun-55) 0%, transparent 70%);
+    position: absolute; inset: 0; pointer-events: nonebackground: var(--bg-3);
   }
   .s-data .frame {
-    position: absolute; inset: clamp(40px, 4vw, 76px) clamp(40px, 4vw, 76px) clamp(70px, 7vh, 120px);
+    position: absolute; inset: clamp(var(--space-40), 4vw, var(--space-76)) clamp(var(--space-40), 4vw, var(--space-76)) clamp(var(--space-70), 7vh, var(--space-120));
     display: grid;
     grid-template-columns: 1fr 1.4fr;
     grid-template-rows: auto 1fr;
-    gap: clamp(20px, 2.5vw, 48px);
+    gap: clamp(var(--space-20), 2.5vw, var(--space-48-2));
     z-index: 4;
   }
-  .s-data .head { grid-column: 1 / 3; display: flex; align-items: end; justify-content: space-between; gap: 32px; border-bottom: 1px solid var(--ink); padding-bottom: clamp(14px, 1.6vh, 24px); }
-  .s-data .head .lab { font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; font-size: clamp(11px, 0.85vw, 13px); color: var(--ink); }
-  .s-data .head .h { font-family: var(--font-display); font-size: clamp(32px, min(3.6vw, 6vh), 56px); line-height: 1; color: var(--ink); }
+  .s-data .head { grid-column: 1 / 3; display: flex; align-items: end; justify-content: space-between; gap: var(--space-32-2); border-bottom: var(--hairline) solid var(--ink); padding-bottom: clamp(var(--space-14), 1.6vh, var(--space-24-2)); }
+  .s-data .head .lab { font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; font-size: clamp(var(--typescale-11), 0.85vw, var(--typescale-13)); color: var(--ink); }
+  .s-data .head .h { font-family: var(--font-display); font-size: clamp(var(--typescale-32), min(3.6vw, 6vh), var(--typescale-56)); line-height: 1; color: var(--ink); }
 
-  .s-data .col-a { display: flex; flex-direction: column; justify-content: center; gap: clamp(18px, 2vh, 32px); }
-  .s-data .stat { display: flex; flex-direction: column; gap: 4px; }
-  .s-data .stat .v { font-family: var(--font-display); font-size: clamp(72px, min(7vw, 12vh), 144px); line-height: 0.92; color: var(--ink); letter-spacing: -0.01em; }
+  .s-data .col-a { display: flex; flex-direction: column; justify-content: center; gap: clamp(var(--space-18), 2vh, var(--space-32-2)); }
+  .s-data .stat { display: flex; flex-direction: column; gap: var(--space-4-2); }
+  .s-data .stat .v { font-family: var(--font-display); font-size: clamp(var(--typescale-72), min(7vw, 12vh), var(--typescale-144)); line-height: 0.92; color: var(--ink); letter-spacing: -0.01em; }
   .s-data .stat .v sup { font-size: 0.42em; vertical-align: super; opacity: 0.7; }
-  .s-data .stat .lab2 { font-family: var(--font-body); font-weight: 500; text-transform: uppercase; letter-spacing: 0.18em; font-size: clamp(11px, 0.8vw, 13px); color: var(--ink); }
-  .s-data .stat .desc { font-family: var(--font-body); font-size: clamp(14px, 0.95vw, 15px); line-height: 1.45; color: var(--ink); max-width: 32ch; margin-top: 4px; }
+  .s-data .stat .lab2 { font-family: var(--font-body); font-weight: 500; text-transform: uppercase; letter-spacing: 0.18em; font-size: clamp(var(--typescale-11), 0.8vw, var(--typescale-13)); color: var(--ink); }
+  .s-data .stat .desc { font-family: var(--font-body); font-size: clamp(var(--typescale-14), 0.95vw, var(--typescale-15)); line-height: 1.45; color: var(--ink); max-width: 32ch; margin-top: var(--space-4-2); }
 
-  .s-data .chart { display: flex; flex-direction: column; gap: clamp(8px, 1vh, 14px); justify-content: center; }
-  .s-data .row { display: grid; grid-template-columns: 64px 1fr 80px; align-items: center; gap: clamp(12px, 1vw, 22px); }
-  .s-data .row .yr { font-family: var(--font-mono); font-size: clamp(12px, 0.85vw, 14px); color: var(--ink); letter-spacing: 0.04em; }
-  .s-data .row .val { font-family: var(--font-mono); font-size: clamp(12px, 0.85vw, 14px); color: var(--ink); text-align: right; letter-spacing: 0.02em; }
-  .s-data .bar { height: clamp(14px, 1.6vh, 22px); background: var(--ink); position: relative; }
-  .s-data .bar.lit { background: var(--sun); border: 1px solid var(--ink); }
+  .s-data .chart { display: flex; flex-direction: column; gap: clamp(var(--space-8-2), 1vh, var(--space-14)); justify-content: center; }
+  .s-data .row { display: grid; grid-template-columns: var(--space-64-2) 1fr var(--space-80); align-items: center; gap: clamp(var(--space-12-2), 1vw, var(--space-22)); }
+  .s-data .row .yr { font-family: var(--font-mono); font-size: clamp(var(--typescale-12), 0.85vw, var(--typescale-14)); color: var(--ink); letter-spacing: 0.04em; }
+  .s-data .row .val { font-family: var(--font-mono); font-size: clamp(var(--typescale-12), 0.85vw, var(--typescale-14)); color: var(--ink); text-align: right; letter-spacing: 0.02em; }
+  .s-data .bar { height: clamp(var(--space-14), 1.6vh, var(--space-22)); background: var(--ink); position: relative; }
+  .s-data .bar.lit { background: var(--sun); border: var(--hairline) solid var(--ink); }
 
   /* ──────────────────────────────────────────────────────────────────
      SLIDE 6 — QUOTE SPREAD
@@ -456,49 +448,47 @@
     background: var(--sun);
   }
   .s-quote .glow {
-    position: absolute; inset: 0; pointer-events: none;
-    background: radial-gradient(circle 600px at 8% 92%, var(--sun-40) 0%, transparent 70%);
+    position: absolute; inset: 0; pointer-events: nonebackground: var(--bg-4);
   }
   .s-quote .qwrap {
     position: absolute;
-    left: clamp(40px, 4vw, 76px);
+    left: clamp(var(--space-40), 4vw, var(--space-76));
     right: 36%;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 50%transform: var(--transform-1);
     z-index: 4;
   }
   .s-quote .qkicker {
     font-family: var(--font-body); font-weight: 600;
     text-transform: uppercase; letter-spacing: 0.22em;
-    font-size: clamp(11px, 0.82vw, 13px);
+    font-size: clamp(var(--typescale-11), 0.82vw, var(--typescale-13));
     color: var(--ink);
-    margin-bottom: clamp(14px, 1.8vh, 26px);
+    margin-bottom: clamp(var(--space-14), 1.8vh, var(--space-26));
   }
   .s-quote .qbody {
     font-family: var(--font-display);
     
-    font-size: clamp(40px, min(4.6vw, 7vh), 88px);
+    font-size: clamp(var(--typescale-40), min(4.6vw, 7vh), var(--typescale-88));
     line-height: 1.06;
     color: var(--ink);
     letter-spacing: -0.005em;
   }
   .s-quote .qattr {
-    margin-top: clamp(20px, 2.4vh, 36px);
+    margin-top: clamp(var(--space-20), 2.4vh, var(--space-36));
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: clamp(14px, 1.4vw, 24px);
+    gap: clamp(var(--space-14), 1.4vw, var(--space-24-2));
     align-items: end;
-    border-top: 1px solid var(--ink);
-    padding-top: clamp(10px, 1.4vh, 18px);
+    border-top: var(--hairline) solid var(--ink);
+    padding-top: clamp(var(--space-10), 1.4vh, var(--space-18));
   }
-  .s-quote .qattr .who { font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.16em; font-size: clamp(11px, 0.85vw, 13px); color: var(--ink); }
-  .s-quote .qattr .role { font-family: var(--font-body); font-size: clamp(11px, 0.78vw, 13px); color: var(--ink); opacity: 0.75; }
+  .s-quote .qattr .who { font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.16em; font-size: clamp(var(--typescale-11), 0.85vw, var(--typescale-13)); color: var(--ink); }
+  .s-quote .qattr .role { font-family: var(--font-body); font-size: clamp(var(--typescale-11), 0.78vw, var(--typescale-13)); color: var(--ink); opacity: 0.75; }
   .s-quote .y-mark {
     position: absolute;
-    right: clamp(40px, 4vw, 76px);
-    bottom: clamp(70px, 8vh, 130px);
+    right: clamp(var(--space-40), 4vw, var(--space-76));
+    bottom: clamp(var(--space-70), 8vh, var(--space-130));
     font-family: var(--font-display);
-    font-size: clamp(120px, min(15vw, 22vh), 280px);
+    font-size: clamp(var(--typescale-120), min(15vw, 22vh), var(--typescale-280));
     line-height: 0.9;
     color: var(--ink);
     letter-spacing: -0.04em;
@@ -510,54 +500,51 @@
      ────────────────────────────────────────────────────────────────── */
   .s-cal { background: var(--paper); }
   .s-cal .glow {
-    position: absolute; inset: 0; pointer-events: none;
-    background: radial-gradient(circle 700px at 105% 0%, var(--sun-45) 0%, transparent 65%);
+    position: absolute; inset: 0; pointer-events: nonebackground: var(--bg-5);
   }
   .s-cal .frame {
     position: absolute;
-    inset: clamp(40px, 4vw, 76px) clamp(40px, 4vw, 76px) clamp(70px, 7vh, 120px);
+    inset: clamp(var(--space-40), 4vw, var(--space-76)) clamp(var(--space-40), 4vw, var(--space-76)) clamp(var(--space-70), 7vh, var(--space-120));
     display: flex; flex-direction: column;
     z-index: 4;
   }
   .s-cal .frame .topbar {
     display: flex; align-items: end; justify-content: space-between;
-    border-bottom: 1px solid var(--ink);
-    padding-bottom: clamp(12px, 1.4vh, 22px);
-    margin-bottom: clamp(16px, 1.8vh, 26px);
+    border-bottom: var(--hairline) solid var(--ink);
+    padding-bottom: clamp(var(--space-12-2), 1.4vh, var(--space-22));
+    margin-bottom: clamp(var(--space-16-2), 1.8vh, var(--space-26));
   }
   .s-cal .frame .topbar .h {
     font-family: var(--font-display);
-    font-size: clamp(40px, min(4.4vw, 7vh), 80px);
+    font-size: clamp(var(--typescale-40), min(4.4vw, 7vh), var(--typescale-80));
     line-height: 1;
     color: var(--ink);
   }
-  .s-cal .frame .topbar .lab { font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; font-size: clamp(11px, 0.82vw, 13px); color: var(--ink); }
+  .s-cal .frame .topbar .lab { font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; font-size: clamp(var(--typescale-11), 0.82vw, var(--typescale-13)); color: var(--ink); }
   .s-cal .ledger { flex: 1; display: flex; flex-direction: column; gap: 0; }
   .s-cal .row {
     display: grid;
-    grid-template-columns: 92px 1.6fr 0.9fr 80px;
-    gap: clamp(14px, 1.4vw, 28px);
+    grid-template-columns: var(--space-92) 1.6fr 0.9fr var(--space-80);
+    gap: clamp(var(--space-14), 1.4vw, var(--space-28));
     align-items: center;
-    padding: clamp(10px, 1.3vh, 18px) 0;
-    border-bottom: 1px solid var(--ink-20);
+    padding: clamp(var(--space-10), 1.3vh, var(--space-18)) 0;
+    border-bottom: var(--hairline) solid var(--ink-20);
   }
-  .s-cal .row .date { font-family: var(--font-mono); font-size: clamp(13px, 0.95vw, 16px); color: var(--ink); letter-spacing: 0.02em; }
-  .s-cal .row .ttl  { font-family: var(--font-display); font-size: clamp(20px, 1.6vw, 30px); line-height: 1.15; color: var(--ink); }
+  .s-cal .row .date { font-family: var(--font-mono); font-size: clamp(var(--typescale-13), 0.95vw, var(--typescale-16)); color: var(--ink); letter-spacing: 0.02em; }
+  .s-cal .row .ttl  { font-family: var(--font-display); font-size: clamp(var(--typescale-20), 1.6vw, var(--typescale-30)); line-height: 1.15; color: var(--ink); }
   .s-cal .row .ttl em { }
-  .s-cal .row .ven  { font-family: var(--font-body); font-size: clamp(14px, 0.92vw, 15px); color: var(--ink); }
-  .s-cal .row .dur  { font-family: var(--font-mono); font-size: clamp(12px, 0.84vw, 14px); color: var(--ink); text-align: right; letter-spacing: 0.04em; opacity: 0.78; }
-  .s-cal .row.headrow { border-bottom: 1px solid var(--ink); padding-bottom: 8px; }
-  .s-cal .row.headrow > div { font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em; font-size: clamp(10px, 0.7vw, 12px); color: var(--ink); }
+  .s-cal .row .ven  { font-family: var(--font-body); font-size: clamp(var(--typescale-14), 0.92vw, var(--typescale-15)); color: var(--ink); }
+  .s-cal .row .dur  { font-family: var(--font-mono); font-size: clamp(var(--typescale-12), 0.84vw, var(--typescale-14)); color: var(--ink); text-align: right; letter-spacing: 0.04em; opacity: 0.78; }
+  .s-cal .row.headrow { border-bottom: var(--hairline) solid var(--ink); padding-bottom: var(--space-8-2); }
+  .s-cal .row.headrow > div { font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em; font-size: clamp(var(--typescale-10), 0.7vw, var(--typescale-12)); color: var(--ink); }
 
   /* ──────────────────────────────────────────────────────────────────
      SLIDE 8 — COLOPHON (mirror of cover, inverted)
      ────────────────────────────────────────────────────────────────── */
   .s-colophon { background: var(--paper); }
   .s-colophon .glow {
-    position: absolute; inset: 0; pointer-events: none;
-    background:
-      radial-gradient(ellipse 55% 50% at 50% 110%, var(--sun-85) 0%, var(--sun-50) 35%, var(--haze-18) 60%, transparent 84%),
-      radial-gradient(ellipse 30% 30% at 12% 18%, var(--ember-18) 0%, transparent 70%);
+    position: absolute; inset: 0; pointer-events: nonebackground:
+      var(--bg-6);
   }
   .s-colophon .blocks {
     position: absolute; inset: 0;
@@ -568,18 +555,18 @@
   .s-colophon .blocks .b2 { background: var(--sun-40);  grid-column: 4; grid-row: 5 / 8; }
   .s-colophon .titlewrap {
     position: absolute;
-    left: clamp(40px, 4vw, 76px);
-    top: clamp(36px, 4vh, 72px);
+    left: clamp(var(--space-40), 4vw, var(--space-76));
+    top: clamp(var(--space-36), 4vh, var(--space-72));
     z-index: 5;
     max-width: 92%;
   }
   .s-colophon .ktag {
     font-family: var(--font-body); font-weight: 600; text-transform: uppercase;
-    letter-spacing: 0.22em; font-size: clamp(11px, 0.82vw, 13px); color: var(--ink); margin-bottom: clamp(12px, 1.4vh, 22px);
+    letter-spacing: 0.22em; font-size: clamp(var(--typescale-11), 0.82vw, var(--typescale-13)); color: var(--ink); margin-bottom: clamp(var(--space-12-2), 1.4vh, var(--space-22));
   }
   .s-colophon .ttl {
     font-family: var(--font-display);
-    font-size: clamp(80px, min(10vw, 16vh), 200px);
+    font-size: clamp(var(--typescale-80), min(10vw, 16vh), var(--typescale-200));
     line-height: 0.86;
     color: var(--ink);
     letter-spacing: -0.018em;
@@ -588,60 +575,59 @@
 
   .s-colophon .colofo {
     position: absolute;
-    left: clamp(40px, 4vw, 76px);
-    bottom: clamp(70px, 8vh, 120px);
-    right: clamp(40px, 4vw, 76px);
+    left: clamp(var(--space-40), 4vw, var(--space-76));
+    bottom: clamp(var(--space-70), 8vh, var(--space-120));
+    right: clamp(var(--space-40), 4vw, var(--space-76));
     display: grid;
     grid-template-columns: 1.2fr 1.1fr 1fr 1.4fr;
-    gap: clamp(20px, 2.4vw, 44px);
+    gap: clamp(var(--space-20), 2.4vw, var(--space-44));
     z-index: 5;
   }
   .s-colophon .colofo > div {
-    border-top: 1px solid var(--ink);
-    padding-top: clamp(10px, 1.2vh, 16px);
+    border-top: var(--hairline) solid var(--ink);
+    padding-top: clamp(var(--space-10), 1.2vh, var(--space-16-2));
   }
-  .s-colophon .colofo .ftag { text-transform: uppercase; letter-spacing: 0.16em; font-weight: 600; font-size: clamp(10px, 0.72vw, 12px); margin-bottom: 6px; color: var(--ink); }
-  .s-colophon .colofo .ftxt { font-family: var(--font-body); font-size: clamp(11px, 0.78vw, 13px); line-height: 1.5; color: var(--ink); }
+  .s-colophon .colofo .ftag { text-transform: uppercase; letter-spacing: 0.16em; font-weight: 600; font-size: clamp(var(--typescale-10), 0.72vw, var(--typescale-12)); margin-bottom: var(--space-6); color: var(--ink); }
+  .s-colophon .colofo .ftxt { font-family: var(--font-body); font-size: clamp(var(--typescale-11), 0.78vw, var(--typescale-13)); line-height: 1.5; color: var(--ink); }
 
 /* ══════════════════════════════════════════════════════
    SLIDES 9–11 — DESIGN SYSTEM SHOWCASE
    ══════════════════════════════════════════════════════ */
 .s-ds-rules { background: var(--paper); display: flex; flex-direction: column; }
 .s-ds-rules .glow {
-  position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(circle 600px at 90% 10%, var(--sun-45) 0%, transparent 65%);
+  position: absolute; inset: 0; pointer-events: nonebackground: var(--bg-7);
 }
 .s-ds-rules .frame {
   position: absolute;
-  inset: clamp(40px, 4vw, 76px);
+  inset: clamp(var(--space-40), 4vw, var(--space-76));
   display: flex; flex-direction: column;
   z-index: 4;
 }
-.s-ds-rules .rules { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2.2vh, 28px); flex: 1; min-height: 0; align-content: center; }
-.s-ds-rules .rule { border-top: 2px solid var(--sun); padding: clamp(12px, 1.6vh, 20px) clamp(14px, 1.6vw, 24px) 0 0; min-height: 0; }
+.s-ds-rules .rules { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(var(--space-16-2), 2.2vh, var(--space-28)); flex: 1; min-height: 0; align-content: center; }
+.s-ds-rules .rule { border-top: var(--border-0) solid var(--sun); padding: clamp(var(--space-12-2), 1.6vh, var(--space-20)) clamp(var(--space-14), 1.6vw, var(--space-24-2)) 0 0; min-height: 0; }
 .s-ds-rules .rule .rn {
   font-family: var(--font-body); font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em;
-  font-size: clamp(10px, 0.72vw, 12px); color: var(--ink); margin-bottom: 4px;
+  font-size: clamp(var(--typescale-10), 0.72vw, var(--typescale-12)); color: var(--ink); margin-bottom: var(--space-4-2);
 }
 .s-ds-rules .rule .rb {
-  font-family: var(--font-body); font-size: clamp(13px, 0.9vw, 15px); line-height: 1.5; color: var(--ink);
+  font-family: var(--font-body); font-size: clamp(var(--typescale-13), 0.9vw, var(--typescale-15)); line-height: 1.5; color: var(--ink);
 }
 
 .s-ds-type { background: var(--sun); }
 .s-ds-type .frame {
   position: absolute;
-  inset: clamp(40px, 4vw, 76px);
+  inset: clamp(var(--space-40), 4vw, var(--space-76));
   display: flex; flex-direction: column;
   z-index: 4;
 }
 .s-ds-type .type-rows { display: flex; flex-direction: column; flex: 1; min-height: 0; justify-content: center; }
 .s-ds-type .tr {
-  display: grid; grid-template-columns: 140px 1fr; align-items: baseline; gap: clamp(14px, 1.6vw, 28px);
-  padding: clamp(5px, 0.7vh, 8px) 0; border-bottom: 1px solid var(--ink-20);
+  display: grid; grid-template-columns: var(--space-140) 1fr; align-items: baseline; gap: clamp(var(--space-14), 1.6vw, var(--space-28));
+  padding: clamp(var(--space-5), 0.7vh, var(--space-8-2)) 0; border-bottom: var(--hairline) solid var(--ink-20);
 }
 .s-ds-type .tr:last-child { border-bottom: none; }
 .s-ds-type .tr .tn {
-  font-family: var(--font-mono); font-size: clamp(10px, 0.7vw, 12px); letter-spacing: 0.04em; color: var(--ink);
+  font-family: var(--font-mono); font-size: clamp(var(--typescale-10), 0.7vw, var(--typescale-12)); letter-spacing: 0.04em; color: var(--ink);
   opacity: 0.65;
 }
 .s-ds-type .tr .ts {
@@ -650,28 +636,27 @@
 
 .s-ds-palette { background: var(--paper); }
 .s-ds-palette .glow {
-  position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(circle 500px at 10% 90%, var(--sun-40) 0%, transparent 65%);
+  position: absolute; inset: 0; pointer-events: nonebackground: var(--bg-8);
 }
 .s-ds-palette .frame {
   position: absolute;
-  inset: clamp(40px, 4vw, 76px);
+  inset: clamp(var(--space-40), 4vw, var(--space-76));
   display: flex; flex-direction: column;
   z-index: 4;
 }
-.s-ds-palette .swatches { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr 1fr; gap: clamp(12px, 1.4vw, 20px); flex: 1; min-height: 0; }
+.s-ds-palette .swatches { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr 1fr; gap: clamp(var(--space-12-2), 1.4vw, var(--space-20)); flex: 1; min-height: 0; }
 .s-ds-palette .sw { text-align: center; display: flex; flex-direction: column; min-height: 0; }
 .s-ds-palette .sw .box {
-  flex: 1; width: 100%; min-height: 0; margin-bottom: clamp(4px, 0.5vh, 8px);
-  border: 1px solid var(--ink-20);
+  flex: 1; width: 100%; min-height: 0; margin-bottom: clamp(var(--space-4-2), 0.5vh, var(--space-8-2));
+  border: var(--hairline) solid var(--ink-20);
 }
 .s-ds-palette .sw .nm {
-  font-family: var(--font-mono); font-size: clamp(10px, 0.7vw, 12px); font-weight: 400;
+  font-family: var(--font-mono); font-size: clamp(var(--typescale-10), 0.7vw, var(--typescale-12)); font-weight: 400;
   letter-spacing: 0.04em; color: var(--ink);
 }
 .s-ds-palette .sw .hex {
-  font-family: var(--font-mono); font-size: clamp(10px, 0.7vw, 12px); color: var(--ink);
-  opacity: 0.55; margin-top: 2px;
+  font-family: var(--font-mono); font-size: clamp(var(--typescale-10), 0.7vw, var(--typescale-12)); color: var(--ink);
+  opacity: 0.55; margin-top: var(--space-2);
 }
 </style>
 </head>

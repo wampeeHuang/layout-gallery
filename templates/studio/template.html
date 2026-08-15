@@ -110,7 +110,7 @@
   .mono { font-family: var(--font-mono); font-weight: 500; letter-spacing: 0.06em; }
 
   /* ── Nav hint ── */
-  .nav-hint { position: fixed; left: 24px; bottom: 20px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; opacity: 0.32; z-index: 20; pointer-events: none; color: var(--acid-yellow); mix-blend-mode: difference; }
+  .nav-hint { position: fixed; left: var(--space-24); bottom: var(--space-20); font-family: var(--font-mono); font-size: var(--typescale-11); letter-spacing: 0.06em; opacity: 0.32; z-index: 20; pointer-events: none; color: var(--acid-yellow); mix-blend-mode: difference; }
 
   /* ══════════════════════════════════════════════════════
      SLIDE 1 — COVER
@@ -158,10 +158,10 @@
   .s-agenda .content { flex: 1; display: flex; flex-direction: column; justify-content: center; max-width: 70%; }
   .s-agenda h2 { font-size: var(--typescale-title-large); margin-bottom: var(--space-large-section-gap); }
   .s-agenda .items { display: flex; flex-direction: column; gap: var(--space-component-gap); }
-  .s-agenda .item { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-gap); align-items: baseline; padding-bottom: var(--space-card-padding); border-bottom: var(--hairline) solid var(--border-dark); }
+  .s-agenda .item { display: grid; grid-template-columns: var(--space-48) 1fr; gap: var(--space-gap); align-items: baseline; padding-bottom: var(--space-card-padding); border-bottom: var(--hairline) solid var(--border-dark); }
   .s-agenda .item .num { font-family: var(--font-mono); font-size: var(--typescale-label-medium); font-weight: 500; letter-spacing: 0.06em; color: var(--text-on-dark-3); }
   .s-agenda .item h3 { font-size: var(--typescale-body-medium); color: var(--acid-yellow); }
-  .s-agenda .item p  { font-size: var(--typescale-label-large); color: var(--text-on-dark-2); margin-top: 4px; }
+  .s-agenda .item p  { font-size: var(--typescale-label-large); color: var(--text-on-dark-2); margin-top: var(--space-4); }
 
   /* ══════════════════════════════════════════════════════
      SLIDE 3 — STATEMENT (dark, chromeless)
@@ -181,7 +181,7 @@
      ══════════════════════════════════════════════════════ */
   .s-content .body-area { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-gutter); align-items: center; }
   .s-content .body-area .left h2 { font-size: var(--typescale-title-large); margin-bottom: var(--space-component-gap); }
-  .s-content .body-area .left .lead { font-size: var(--typescale-body-large, 1.6vw); color: var(--text-on-dark-2); max-width: 44ch; }
+  .s-content .body-area .left .lead { font-size: var(--typescale-body-large); color: var(--text-on-dark-2); max-width: 44ch; }
   .s-content .body-area .right ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-component-gap); }
   .s-content .body-area .right li { position: relative; padding-left: 1.2em; font-size: var(--typescale-body-medium); line-height: 1.5; color: var(--text-on-dark-2); }
   .s-content .body-area .right li::before { content: '—'; position: absolute; left: 0; color: var(--acid-yellow); }
@@ -191,7 +191,7 @@
      ══════════════════════════════════════════════════════ */
   .s-content-light .body-area { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-gutter); align-items: center; }
   .s-content-light .body-area .left h2 { font-size: var(--typescale-title-large); margin-bottom: var(--space-component-gap); }
-  .s-content-light .body-area .left .lead { font-size: var(--typescale-body-large, 1.6vw); color: var(--text-on-light-2); max-width: 44ch; }
+  .s-content-light .body-area .left .lead { font-size: var(--typescale-body-large); color: var(--text-on-light-2); max-width: 44ch; }
   .s-content-light .body-area .right ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-component-gap); }
   .s-content-light .body-area .right li { position: relative; padding-left: 1.2em; font-size: var(--typescale-body-medium); line-height: 1.5; color: var(--text-on-light-2); }
   .s-content-light .body-area .right li::before { content: '—'; position: absolute; left: 0; color: var(--near-black); }
@@ -202,16 +202,16 @@
   .s-stats .body-area { flex: 1; display: flex; flex-direction: column; justify-content: center; }
   .s-stats h2 { font-size: var(--typescale-title-large); margin-bottom: var(--space-large-section-gap); }
   .s-stats .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-gutter); }
-  .s-stats .stat-card { border-top: 2px solid var(--acid-yellow); padding: var(--space-component-gap) var(--space-component-gap) var(--space-component-gap) 0; }
-  .s-stats .stat-card .val { font-size: var(--typescale-headline-medium, 5.5vw); color: var(--acid-yellow); margin-bottom: var(--space-card-padding); }
-  .s-stats .stat-card .lab { font-size: var(--typescale-body-medium); font-weight: 500; margin-bottom: 4px; }
+  .s-stats .stat-card { border-top: var(--border-0) solid var(--acid-yellow); padding: var(--space-component-gap) var(--space-component-gap) var(--space-component-gap) 0; }
+  .s-stats .stat-card .val { font-size: var(--typescale-headline-medium); color: var(--acid-yellow); margin-bottom: var(--space-card-padding); }
+  .s-stats .stat-card .lab { font-size: var(--typescale-body-medium); font-weight: 500; margin-bottom: var(--space-4); }
   .s-stats .stat-card .note { font-family: var(--font-mono); font-size: var(--typescale-label-medium); font-weight: 500; letter-spacing: 0.06em; color: var(--text-on-dark-3); }
 
   /* ══════════════════════════════════════════════════════
      SLIDE 8 — QUOTE (dark, chromeless)
      ══════════════════════════════════════════════════════ */
   .s-quote { justify-content: center; }
-  .s-quote blockquote { font-size: var(--typescale-headline-small, 3.8vw); max-width: 80%; }
+  .s-quote blockquote { font-size: var(--typescale-headline-small); max-width: 80%; }
   .s-quote .attr { margin-top: var(--space-large-section-gap); font-family: var(--font-mono); font-size: var(--typescale-label-medium); font-weight: 500; letter-spacing: 0.06em; color: var(--text-on-dark-2); text-transform: uppercase; }
 
   /* ══════════════════════════════════════════════════════
@@ -220,20 +220,20 @@
   .s-chart .body-area { flex: 1; display: flex; flex-direction: column; justify-content: center; }
   .s-chart h2 { font-size: var(--typescale-title-large); margin-bottom: var(--space-large-section-gap); }
   .s-chart .chart-wrap { display: flex; flex-direction: column; gap: var(--space-card-padding); }
-  .s-chart .bar-row { display: grid; grid-template-columns: 80px 1fr 80px; align-items: center; gap: var(--space-gap); }
+  .s-chart .bar-row { display: grid; grid-template-columns: var(--space-80) 1fr var(--space-80); align-items: center; gap: var(--space-gap); }
   .s-chart .bar-row .lbl { font-family: var(--font-mono); font-size: var(--typescale-label-medium); font-weight: 500; letter-spacing: 0.06em; color: var(--text-on-dark-2); }
   .s-chart .bar-row .val { font-family: var(--font-mono); font-size: var(--typescale-label-medium); font-weight: 500; letter-spacing: 0.06em; text-align: right; }
-  .s-chart .bar-track { height: 14px; position: relative; }
+  .s-chart .bar-track { height: var(--space-14); position: relative; }
   .s-chart .bar-fill { height: 100%; background: var(--text-on-dark-3); }
   .s-chart .bar-fill.hi { background: var(--acid-yellow); }
-  .s-chart .baseline { height: 2px; background: var(--text-on-dark-3); margin-top: var(--space-card-padding); }
+  .s-chart .baseline { height: var(--space-2); background: var(--text-on-dark-3); margin-top: var(--space-card-padding); }
 
   /* ══════════════════════════════════════════════════════
      SLIDE 10 — COMPARE (dark)
      ══════════════════════════════════════════════════════ */
-  .s-compare .body-area { flex: 1; display: grid; grid-template-columns: 1fr 2px 1fr; gap: 0; align-items: stretch; }
+  .s-compare .body-area { flex: 1; display: grid; grid-template-columns: 1fr var(--space-2) 1fr; gap: 0; align-items: stretch; }
   .s-compare .panel { display: flex; flex-direction: column; justify-content: center; padding: 0 var(--space-page-pad); }
-  .s-compare .panel h3 { font-size: var(--typescale-title-medium, 2.8vw); margin-bottom: var(--space-component-gap); }
+  .s-compare .panel h3 { font-size: var(--typescale-title-medium); margin-bottom: var(--space-component-gap); }
   .s-compare .panel ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-card-padding); }
   .s-compare .panel li { position: relative; padding-left: 1.2em; font-size: var(--typescale-body-medium); line-height: 1.5; color: var(--text-on-dark-2); }
   .s-compare .panel li::before { content: '—'; position: absolute; left: 0; color: var(--acid-yellow); }
@@ -273,8 +273,8 @@
   .s-ds-type h2 { font-size: var(--typescale-title-large); margin-bottom: var(--space-card-padding); color: var(--near-black); flex-shrink: 0; }
   .s-ds-type .type-rows { display: flex; flex-direction: column; gap: 0; flex: 1; min-height: 0; justify-content: space-evenly; overflow: hidden; }
   .s-ds-type .tr {
-    display: grid; grid-template-columns: 120px 1fr; align-items: baseline; gap: var(--space-gap);
-    padding: 3px 0; border-bottom: var(--hairline) solid var(--border-light);
+    display: grid; grid-template-columns: var(--space-120) 1fr; align-items: baseline; gap: var(--space-gap);
+    padding: var(--space-3) 0; border-bottom: var(--hairline) solid var(--border-light);
   }
   .s-ds-type .tr:last-child { border-bottom: none; }
   .s-ds-type .tr .tn {
@@ -290,7 +290,7 @@
   .s-ds-rules h2 { font-size: var(--typescale-title-large); margin-bottom: var(--space-component-gap); flex-shrink: 0; }
   .s-ds-rules .rules { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-gap); flex: 1; min-height: 0; align-content: center; }
   .s-ds-rules .rule {
-    border-top: 2px solid var(--acid-yellow); padding: var(--space-card-padding) var(--space-card-padding) var(--space-card-padding) 0; min-height: 0;
+    border-top: var(--border-1) solid var(--acid-yellow); padding: var(--space-card-padding) var(--space-card-padding) var(--space-card-padding) 0; min-height: 0;
   }
   .s-ds-rules .rule .rn {
     font-family: var(--font-mono); font-size: var(--typescale-label-medium); font-weight: 500;
