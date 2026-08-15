@@ -11,6 +11,9 @@ layout-gallery/
 ├── README.md                   # 人：是什么 / 线上地址 / 怎么跑
 ├── AGENTS.md                   # AI：架构真相 + 门禁命令 + API
 ├── CLAUDE.md                   # Claude 入口：@AGENTS.md + 专属补充
+├── package.json                # 依赖 + npm scripts
+├── package-lock.json           # 依赖锁
+├── vercel.json                 # Vercel 部署配置
 │
 ├── data/                       # 契约层（目录 + 分类枚举）
 │   ├── registry.json           #   模板注册表（目录契约 + 身份分类）
