@@ -8,6 +8,8 @@ HTML 模板注册站，为 AI Agent 提供可发现、可预览、可调用的�
 
 ```
 layout-gallery/
+├── .project                    # Codex 部署配置（id / domain / pipeline）
+├── .gitignore                  # git 忽略规则
 ├── README.md                   # 人：是什么 / 线上地址 / 怎么跑
 ├── AGENTS.md                   # AI：架构真相 + 门禁命令 + API
 ├── CLAUDE.md                   # Claude 入口：@AGENTS.md + 专属补充
@@ -45,13 +47,24 @@ layout-gallery/
 │   └── growth-agent.js         #   /api/grow 管线
 ├── server/                     # 运行时层（API + 页面注入）
 │   ├── server.js               #   Express :3080
-│   └── brand-renderer.js       #   品牌套件渲染
+│   ├── brand-renderer.js       #   品牌套件渲染
+│   ├── nav.html                #   页面注入片段
+│   ├── footer.html             #   页面注入片段
+│   └── brand-template.html     #   品牌套件模板
 ├── public/                     # 页面层（人读页 + 前端运行时）
 │   ├── index.html              #   画廊首页
 │   ├── library.html            #   版式库浏览器
+│   ├── learn.html              #   学习页
 │   ├── grow.html               #   AI 萃取界面
+│   ├── template-detail.html    #   模板详情页
 │   └── deck-stage.js           #   deck 幻灯片组件
 └── guides/                     # 指南层（跨模板通用指南）
+    ├── how-to-pick.md          #   选模板决策树
+    ├── workflows.md            #   AI 操作工作流
+    ├── checklist.md            #   P0 门禁
+    ├── color-systems.md        #   颜色体系
+    ├── image-conventions.md    #   图片约定
+    └── research-curation-quality-system-20260809.md  #   策展质量体系
 
 不进 git：inbox/(投料)  _runtime/(过程)  _archive/(留档)  generated/(产物)
 ```
