@@ -6,22 +6,20 @@ AI 调用的设计风格仓库。模板统一索引 → 按意图发现 → 一�
 
 ## 架构 (v3)
 
-```
-tokens.json (DTCG 格式)  ← 唯一真相源
-    ↓ scripts/compile.mjs
-:root CSS 块注入 template.html
+真相单向流：tokens.json → compile.mjs → :root → template.html → server.js → 浏览器。
 
-data/registry.json         ← 模板注册表（Git 管理，目录契约）
-data/taxonomy.json         ← 分类维度 + 枚举（检索标签唯一真相源）
-scripts/                  ← 工具链（compile / validate / add-template）
-server/server.js           ← Express :3080
-public/                    ← 静态页面（index / library / grow）
-schemas/                   ← JSON Schema + token-contract.json
-guides/                    ← 跨模板通用指南
-inbox/                     ← 人-Agent 投料区（不进 git）
-_archive/                  ← 永久留档（不进 git）
-_runtime/                  ← 过程产物（不进 git）
 ```
+定义层   templates/{slug}/   tokens.json(唯一视觉真相) + template.html(读 token) + design.md(为什么)
+契约层   data/               registry(目录契约) + taxonomy(分类枚举)
+         schemas/            token-contract(命名契约) + JSON Schema
+机器层   scripts/            生成器(compile) + 门禁(validate/check) + 注册(add-template)
+生长层   growth/             AI 萃取管线(growth-agent，非确定性，生产不部署)
+运行时层 server/             Express :3080，读 registry 渲染 + API
+页面层   public/             人读页(index/library/grow) + deck-stage.js
+产物层   generated/          quality-report(重跑可得)
+```
+
+非 git：inbox/(投料) _runtime/(过程) _archive/(留档) generated/(产物)
 
 ## P0 交付门禁
 
