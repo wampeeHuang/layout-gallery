@@ -5,3 +5,7 @@ _archive/
 inbox/
 
 .vercel
+
+generated/
+output/
+.playwright-cli/
