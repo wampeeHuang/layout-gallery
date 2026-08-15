@@ -4,10 +4,14 @@
 <meta charset="utf-8" />
 <title>Stencil &amp; Tablet — Slide Template</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<script src="/runtime/deck-stage.js"></script>
+<script src="/public/deck-stage.js"></script>
 <style>
   :root {
-  /* ── Standard Roles (auto-injected) ── */
+
+  /* ── Color Roles ── */
+  --black: #000000;
+  --ink: #0A0A0A;
+  --paper: #F4EFE0;
   --color-primary: #3F73B7;
   --color-secondary: #666666;
   --color-surface: #F4EFE0;
@@ -15,36 +19,39 @@
   --color-on-surface-variant: #666666;
   --color-outline: rgba(10,10,10,0.15);
   --color-surface-container-low: #F4EFE0;
-  --bg-rgb: 244,239,224;
-  --text-rgb: 10,10,10;
-  --accent-rgb: 63,115,183;
+  --bone: #E2DCC9;
+  --sienna: #A06A3C;
+  --magenta: #C73B7A;
+  --orange: #EE7A2E;
+  --teal: #2D7E73;
+  --blue: #3F73B7;
+  --mustard: #D8A93B;
+  --olive: #6F7A2E;
+
+  /* ── Typography ── */
   --font-display: Inter, system-ui, sans-serif;
   --font-body: 'Stardos Stencil', display;
   --font-mono: ui-monospace, SF Mono, Consolas, monospace;
-  --radius-base: 4px;
-  --radius-sm: 2px;
-  --radius-pill: 999px;
+  --typescale-body-large: 16px;
+
+  /* ── Shadow ── */
   --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
   --elevation-md: 0 8px 30px rgba(0,0,0,0.1);
+
+  /* ── radius ── */
+  --radius-xs: 4px;
+  --radius-pill: 999px;
+
+  /* ── motion ── */
   --ease-standard: 0.18s ease;
   --duration-base: 150ms;
+
+  /* ── spacing ── */
   --space-page-wmax: 1200px;
   --space-page-pad: 32px;
   --space-gap: 24px;
   --space-gutter: 24px;
-
-    --bone:    #E2DCC9;
-    --black:   #000000;
-    --ink:     #0A0A0A;
-    --paper:   #F4EFE0;
-    --sienna:  #A06A3C;
-    --magenta: #C73B7A;
-    --orange:  #EE7A2E;
-    --teal:    #2D7E73;
-    --blue:    #3F73B7;
-    --mustard: #D8A93B;
-    --olive:   #6F7A2E;
-  }
+}
   html, body { margin:0; padding:0; background:#1a1a1a; }
   body { font-family: "Inter", "Helvetica Neue", Arial, sans-serif; color: var(--ink); }
   deck-stage { background: #1a1a1a; }

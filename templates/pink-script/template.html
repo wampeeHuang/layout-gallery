@@ -3,18 +3,20 @@
 <head>
 <meta charset="utf-8" />
 <title>Pink Script — After Hours</title>
-<script src="../../runtime/deck-stage.js"></script>
+<script src="/public/deck-stage.js"></script>
 <style>
-  :root{
-    --ink: #060507;
-    --ink-2: #0F0D11;
-    --paper: #F5EDF1;
-    --pink: #ED3D8C;
-    --pink-2: #FF66A8;
-    --pink-deep: #B81D67;
-    --line: rgba(237,61,140,.32);
-    --mute: rgba(245,237,241,.55);
-    --hair: rgba(245,237,241,.14);
+  :root {
+
+  /* ── Color Roles ── */
+  --ink: #060507;
+  --ink-2: #0F0D11;
+  --paper: #F5EDF1;
+  --pink: #ED3D8C;
+  --pink-2: #FF66A8;
+  --pink-deep: #B81D67;
+  --line: rgba(237,61,140,.32);
+  --mute: rgba(245,237,241,.55);
+  --hair: rgba(245,237,241,.14);
   --color-primary: #ED3D8C;
   --color-secondary: #B81D67;
   --color-surface: #060507;
@@ -22,18 +24,37 @@
   --color-on-surface-variant: rgba(245,237,241,.55);
   --color-outline: rgba(237,61,140,.32);
   --color-surface-container-low: #0F0D11;
+  --color-outline-variant: rgba(237,61,140,.32);
+
+  /* ── Typography ── */
   --font-display: "Noto Serif SC", "Songti SC", Georgia, serif;
   --font-body: "PingFang SC", "Microsoft YaHei UI", system-ui, sans-serif;
   --font-mono: "SF Mono", "Consolas", ui-monospace, monospace;
+  --typescale-display-large: 540px;
+  --typescale-display-medium: 360px;
+  --typescale-display-small: 220px;
+  --typescale-headline-large: 140px;
+  --typescale-headline-medium: 88px;
+  --typescale-body-large: 28px;
+  --typescale-body-medium: 24px;
+  --typescale-label-large: 22px;
+
+  /* ── Shadow ── */
+  --elevation-sm: 0 1px 3px rgba(0,0,0,.12);
+
+  /* ── radius ── */
+  --radius-xs: 4px;
+
+  /* ── motion ── */
+  --ease-standard: ease;
+  --duration-base: 0.3s;
+
+  /* ── spacing ── */
   --space-page-wmax: 1920px;
   --space-page-pad: 60px;
   --space-gap: 16px;
   --space-gutter: 24px;
-  --radius-base: 2px;
-  --elevation-sm: 0 1px 3px rgba(0,0,0,.12);
-  --ease-standard: ease;
-  --duration-base: 0.3s;
-  }
+}
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { background: #000; font-family: var(--font-body); color: var(--paper); }
 

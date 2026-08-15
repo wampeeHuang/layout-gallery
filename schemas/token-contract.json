@@ -224,19 +224,39 @@
         }
       },
       "radius": {
-        "--radius-base": {
+        "--radius-none": {
           "type": "brand",
-          "role": "圆角基准",
-          "required": true
+          "role": "直角 — 无圆角",
+          "required": false
+        },
+        "--radius-xs": {
+          "type": "brand",
+          "role": "extra-small 4px — 输入框/芯片",
+          "required": false
         },
         "--radius-sm": {
           "type": "brand",
-          "role": "小圆角 — 按钮/代码块",
+          "role": "small 8px — 芯片/小卡片",
+          "required": false
+        },
+        "--radius-md": {
+          "type": "brand",
+          "role": "medium 12px — 卡片/对话框",
+          "required": false
+        },
+        "--radius-lg": {
+          "type": "brand",
+          "role": "large 16px — 大卡片/面板",
+          "required": false
+        },
+        "--radius-xl": {
+          "type": "brand",
+          "role": "extra-large 28px — 对话框/FAB",
           "required": false
         },
         "--radius-pill": {
           "type": "brand",
-          "role": "胶囊圆角 — 标签/眉题",
+          "role": "full 999px — 胶囊/标签",
           "required": false
         }
       },
@@ -279,34 +299,79 @@
       "_description": "布局配置 — 页面宽度 + 字号刻度 + 间距刻度。站点自主定义。",
       "typography": {
         "_description": "字号刻度 — 从品牌字体家族派生具体尺寸。",
-        "--text-3xl": {
+        "--typescale-display-large": {
           "type": "layout",
-          "role": "区段标题",
+          "role": "展示级 — 封面/首屏巨字",
           "required": false
         },
-        "--text-2xl": {
+        "--typescale-display-medium": {
           "type": "layout",
-          "role": "卡片标题",
+          "role": "展示级 — 封面/首屏巨字",
           "required": false
         },
-        "--text-xl": {
+        "--typescale-display-small": {
           "type": "layout",
-          "role": "正文大",
+          "role": "展示级 — 封面/首屏巨字",
           "required": false
         },
-        "--text-base": {
+        "--typescale-headline-large": {
+          "type": "layout",
+          "role": "页面/区块主标题",
+          "required": false
+        },
+        "--typescale-headline-medium": {
+          "type": "layout",
+          "role": "页面/区块主标题",
+          "required": false
+        },
+        "--typescale-headline-small": {
+          "type": "layout",
+          "role": "页面/区块主标题",
+          "required": false
+        },
+        "--typescale-title-large": {
+          "type": "layout",
+          "role": "卡片/小节标题",
+          "required": false
+        },
+        "--typescale-title-medium": {
+          "type": "layout",
+          "role": "卡片/小节标题",
+          "required": false
+        },
+        "--typescale-title-small": {
+          "type": "layout",
+          "role": "卡片/小节标题",
+          "required": false
+        },
+        "--typescale-body-large": {
           "type": "layout",
           "role": "正文",
           "required": false
         },
-        "--text-sm": {
+        "--typescale-body-medium": {
           "type": "layout",
-          "role": "辅助文字",
+          "role": "正文",
           "required": false
         },
-        "--text-xs": {
+        "--typescale-body-small": {
           "type": "layout",
-          "role": "标签/眉题",
+          "role": "正文",
+          "required": false
+        },
+        "--typescale-label-large": {
+          "type": "layout",
+          "role": "标签/辅助文字",
+          "required": false
+        },
+        "--typescale-label-medium": {
+          "type": "layout",
+          "role": "标签/辅助文字",
+          "required": false
+        },
+        "--typescale-label-small": {
+          "type": "layout",
+          "role": "标签/辅助文字",
           "required": false
         }
       },
@@ -331,49 +396,49 @@
           "role": "列间距/留白基准",
           "required": true
         },
-        "--space-3xl": {
+        "--hairline": {
           "type": "layout",
-          "role": "区段间距",
+          "role": "极细线宽",
           "required": false
         },
-        "--space-2xl": {
-          "type": "layout",
-          "role": "大区段间距",
-          "required": false
-        },
-        "--space-xl": {
-          "type": "layout",
-          "role": "组件间距",
-          "required": false
-        },
-        "--space-lg": {
-          "type": "layout",
-          "role": "卡片内边距",
-          "required": false
-        },
-        "--space-md": {
-          "type": "layout",
-          "role": "副标题间距",
-          "required": false
-        },
-        "--space-sm": {
-          "type": "layout",
-          "role": "小间距",
-          "required": false
-        },
-        "--space-xs": {
-          "type": "layout",
-          "role": "标签内边距",
-          "required": false
-        },
-        "--space-2xs": {
+        "--space-4": {
           "type": "layout",
           "role": "微内边距",
           "required": false
         },
-        "--hairline": {
+        "--space-8": {
           "type": "layout",
-          "role": "极细线宽",
+          "role": "标签内边距",
+          "required": false
+        },
+        "--space-12": {
+          "type": "layout",
+          "role": "小间距",
+          "required": false
+        },
+        "--space-16": {
+          "type": "layout",
+          "role": "副标题间距",
+          "required": false
+        },
+        "--space-24": {
+          "type": "layout",
+          "role": "卡片内边距",
+          "required": false
+        },
+        "--space-32": {
+          "type": "layout",
+          "role": "组件间距",
+          "required": false
+        },
+        "--space-48": {
+          "type": "layout",
+          "role": "大区段间距",
+          "required": false
+        },
+        "--space-64": {
+          "type": "layout",
+          "role": "区段间距",
           "required": false
         }
       }
@@ -400,9 +465,8 @@
         ]
       },
       "layout": {
-        "spacing": [
-          "--pixel-size"
-        ]
+        "spacing": [],
+        "typography": []
       },
       "note": "Win95 3D bevel 浮雕渲染 + 三霓虹色体系。chrome accent 与 --color-primary 并存。"
     },
@@ -419,24 +483,18 @@
           "--sage",
           "--lilac"
         ],
-        "radius": [
-          "--radius-xs",
-          "--radius-md",
-          "--radius-lg",
-          "--radius-14",
-          "--radius-16",
-          "--radius-18",
-          "--radius-22"
-        ],
+        "radius": [],
         "shadow": [
           "--shadow-card"
         ]
       },
       "layout": {
         "spacing": [
-          "--page-w",
-          "--page-margin"
-        ]
+          "--space-20",
+          "--space-28",
+          "--space-36"
+        ],
+        "typography": []
       },
       "note": "六色尘粉体系 + 扩展半径。MD3 container 体系覆盖：blush→tertiary, sage→secondary-container。"
     },
@@ -454,7 +512,8 @@
           "--grey-2",
           "--grey-3",
           "--border-strong",
-          "--border-subtle"
+          "--border-subtle",
+          "--accent"
         ],
         "motion": [
           "--ease-prod",
@@ -471,21 +530,25 @@
           "--dur-slow-2",
           "--dur-page",
           "--dur-draw"
+        ],
+        "other": [
+          "--text-rgb",
+          "--bg-rgb"
         ]
       },
       "layout": {
         "spacing": [
-          "--sp-3",
-          "--sp-4",
-          "--sp-5",
-          "--sp-6",
-          "--sp-7",
-          "--sp-8",
-          "--sp-9",
-          "--sp-10",
-          "--sp-11",
-          "--sp-12",
-          "--sp-13",
+          "--space-8",
+          "--space-12",
+          "--space-16",
+          "--space-24",
+          "--space-32",
+          "--space-40",
+          "--space-48",
+          "--space-64",
+          "--space-80",
+          "--space-96",
+          "--space-160",
           "--nav-safe-bottom"
         ]
       },
@@ -499,10 +562,7 @@
           "--ink-tint",
           "--paper-tint"
         ],
-        "radius": [
-          "--radius-sm",
-          "--radius-pill"
-        ],
+        "radius": [],
         "motion": [
           "--dur-page",
           "--dur-slow-1",
@@ -511,12 +571,15 @@
           "--dur-slow-2",
           "--ease-page",
           "--ease-draw"
+        ],
+        "other": [
+          "--text-rgb",
+          "--bg-rgb"
         ]
       },
       "layout": {
-        "spacing": [
-          "--page-w"
-        ]
+        "spacing": [],
+        "typography": []
       },
       "note": "paper-tint→surface-container-low, ink-tint 覆盖。"
     },
@@ -536,9 +599,8 @@
         ]
       },
       "layout": {
-        "spacing": [
-          "--page-w"
-        ]
+        "spacing": [],
+        "typography": []
       },
       "note": "粗野主义阴影系统：硬阴影、块状阴影是视觉语言核心。"
     },
@@ -570,17 +632,16 @@
           "--ink-20",
           "--ink-18"
         ],
-        "radius": [
-          "--radius-base",
-          "--radius-sm",
-          "--radius-pill"
-        ],
+        "radius": [],
         "shadow": [
           "--elevation-sm",
           "--elevation-md"
         ]
       },
-      "note": "暖羊皮纸底 + 太阳能黄 + 靛蓝墨。radius=0+shadow=none 是设计特征。透明度变体 token 用于渐变光晕层叠。"
+      "note": "暖羊皮纸底 + 太阳能黄 + 靛蓝墨。radius=0+shadow=none 是设计特征。透明度变体 token 用于渐变光晕层叠。",
+      "layout": {
+        "typography": []
+      }
     },
     "pink-script": {
       "brand": {
@@ -596,7 +657,10 @@
           "--line"
         ]
       },
-      "note": "黑底+亮粉单强调色体系。paper 是珍珠奶油色，line 是粉色半透明。"
+      "note": "黑底+亮粉单强调色体系。paper 是珍珠奶油色，line 是粉色半透明。",
+      "layout": {
+        "typography": []
+      }
     },
     "studio": {
       "brand": {
@@ -614,24 +678,12 @@
         ]
       },
       "layout": {
-        "typography": [
-          "--sz-display",
-          "--sz-h1",
-          "--sz-stat",
-          "--sz-h2",
-          "--sz-quote",
-          "--sz-h3",
-          "--sz-lead",
-          "--sz-body",
-          "--sz-caption",
-          "--sz-label"
-        ],
+        "typography": [],
         "spacing": [
-          "--sp-pad-x",
-          "--sp-pad-y",
-          "--sp-gap-lg",
-          "--sp-gap-md",
-          "--sp-gap-sm"
+          "--space-card-padding",
+          "--space-component-gap",
+          "--space-large-section-gap",
+          "--space-section-gap"
         ]
       },
       "note": "二进制黑/黄调色板 + Barlow 900 大写标题即图形块。零圆角零阴影零渐变。IBM Plex Mono 仅用于元数据 chrome。MD3 映射：primary→acid-yellow, secondary→near-black。"
@@ -640,7 +692,10 @@
       "brand": {
         "color": []
       },
-      "note": "已完全标准化——无模板特有变量。textures + cursor 在 layout.json 中管理。"
+      "note": "brand.color 已完全标准化（空数组）；layout.typography 保留 --sz-* 首屏/区段标题刻度（模板特有）。",
+      "layout": {
+        "typography": []
+      }
     },
     "block-frame": {
       "brand": {
@@ -654,9 +709,7 @@
           "--shadow",
           "--shadow-sm"
         ],
-        "radius": [
-          "--radius"
-        ],
+        "radius": [],
         "shadow": [
           "--shadow",
           "--shadow-sm"
@@ -734,23 +787,8 @@
         ]
       },
       "layout": {
-        "spacing": [
-          "--pad-x",
-          "--pad-y",
-          "--gap-lg",
-          "--gap-md",
-          "--gap-sm"
-        ],
-        "typography": [
-          "--sz-display",
-          "--sz-h1",
-          "--sz-h2",
-          "--sz-h3",
-          "--sz-lead",
-          "--sz-body",
-          "--sz-caption",
-          "--sz-label"
-        ]
+        "spacing": [],
+        "typography": []
       }
     },
     "capsule": {
@@ -854,10 +892,7 @@
           "--shadow",
           "--shadow-sm"
         ],
-        "radius": [
-          "--radius",
-          "--radius-lg"
-        ],
+        "radius": [],
         "shadow": [
           "--shadow",
           "--shadow-sm"
@@ -968,23 +1003,8 @@
         ]
       },
       "layout": {
-        "spacing": [
-          "--pad-x",
-          "--pad-y",
-          "--gap-lg",
-          "--gap-md",
-          "--gap-sm"
-        ],
-        "typography": [
-          "--sz-display",
-          "--sz-h1",
-          "--sz-h2",
-          "--sz-h3",
-          "--sz-lead",
-          "--sz-body",
-          "--sz-caption",
-          "--sz-label"
-        ]
+        "spacing": [],
+        "typography": []
       }
     },
     "long-table": {
@@ -1036,23 +1056,8 @@
         ]
       },
       "layout": {
-        "spacing": [
-          "--pad-x",
-          "--pad-y",
-          "--gap-lg",
-          "--gap-md",
-          "--gap-sm"
-        ],
-        "typography": [
-          "--sz-display",
-          "--sz-h1",
-          "--sz-h2",
-          "--sz-h3",
-          "--sz-lead",
-          "--sz-body",
-          "--sz-caption",
-          "--sz-label"
-        ]
+        "spacing": [],
+        "typography": []
       }
     },
     "monochrome": {
@@ -1095,23 +1100,8 @@
         ]
       },
       "layout": {
-        "spacing": [
-          "--pad-x",
-          "--pad-y",
-          "--gap-lg",
-          "--gap-md",
-          "--gap-sm"
-        ],
-        "typography": [
-          "--sz-display",
-          "--sz-h1",
-          "--sz-h2",
-          "--sz-h3",
-          "--sz-lead",
-          "--sz-body",
-          "--sz-caption",
-          "--sz-label"
-        ]
+        "spacing": [],
+        "typography": []
       }
     },
     "neo-grid-bold": {
@@ -1329,23 +1319,8 @@
         ]
       },
       "layout": {
-        "spacing": [
-          "--pad-x",
-          "--pad-y",
-          "--gap-lg",
-          "--gap-md",
-          "--gap-sm"
-        ],
-        "typography": [
-          "--sz-display",
-          "--sz-h1",
-          "--sz-h2",
-          "--sz-h3",
-          "--sz-lead",
-          "--sz-body",
-          "--sz-caption",
-          "--sz-label"
-        ]
+        "spacing": [],
+        "typography": []
       }
     },
     "stencil-tablet": {
@@ -1405,22 +1380,126 @@
         ]
       },
       "layout": {
-        "spacing": [
-          "--pad-x",
-          "--pad-y",
-          "--gap-lg",
-          "--gap-md",
-          "--gap-sm"
+        "spacing": [],
+        "typography": []
+      }
+    },
+    "template-dune": {
+      "brand": {
+        "color": [
+          "--ink",
+          "--paper",
+          "--paper-tint",
+          "--ink-tint"
         ],
-        "typography": [
-          "--sz-display",
-          "--sz-h1",
-          "--sz-h2",
-          "--sz-h3",
-          "--sz-lead",
-          "--sz-body",
-          "--sz-caption",
-          "--sz-label"
+        "other": [
+          "--ink-rgb",
+          "--paper-rgb"
+        ]
+      }
+    },
+    "template-forest": {
+      "brand": {
+        "color": [
+          "--ink",
+          "--paper",
+          "--paper-tint",
+          "--ink-tint"
+        ],
+        "other": [
+          "--ink-rgb",
+          "--paper-rgb"
+        ]
+      }
+    },
+    "template-indigo": {
+      "brand": {
+        "color": [
+          "--ink",
+          "--paper",
+          "--paper-tint",
+          "--ink-tint"
+        ],
+        "other": [
+          "--ink-rgb",
+          "--paper-rgb"
+        ]
+      }
+    },
+    "template-kraft": {
+      "brand": {
+        "color": [
+          "--ink",
+          "--paper",
+          "--paper-tint",
+          "--ink-tint"
+        ],
+        "other": [
+          "--ink-rgb",
+          "--paper-rgb"
+        ]
+      }
+    },
+    "template-swiss-lemon": {
+      "brand": {
+        "color": [
+          "--accent",
+          "--paper",
+          "--ink",
+          "--grey-1",
+          "--grey-2",
+          "--grey-3"
+        ],
+        "other": [
+          "--paper-rgb",
+          "--ink-rgb"
+        ]
+      },
+      "layout": {
+        "spacing": [
+          "--nav-safe-bottom"
+        ]
+      }
+    },
+    "template-swiss-neon": {
+      "brand": {
+        "color": [
+          "--accent",
+          "--paper",
+          "--ink",
+          "--grey-1",
+          "--grey-2",
+          "--grey-3"
+        ],
+        "other": [
+          "--paper-rgb",
+          "--ink-rgb"
+        ]
+      },
+      "layout": {
+        "spacing": [
+          "--nav-safe-bottom"
+        ]
+      }
+    },
+    "template-swiss-orange": {
+      "brand": {
+        "color": [
+          "--accent",
+          "--paper",
+          "--ink",
+          "--grey-1",
+          "--grey-2",
+          "--grey-3"
+        ],
+        "other": [
+          "--paper-rgb",
+          "--ink-rgb"
+        ]
+      },
+      "layout": {
+        "spacing": [
+          "--nav-safe-bottom"
         ]
       }
     }

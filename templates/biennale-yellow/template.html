@@ -8,87 +8,82 @@
   /* TOKENS — 与 brand.json + layout.json 同步 */
 
   :root {
-    /* ── 域名颜色 — 品牌视觉语言 ── */
-    --paper:      #E9E5DB;
-    --paper-deep: #DCD6C4;
-    --sun:        #F1EE2E;
-    --sun-soft:   #F8F39B;
-    --ink:        #1B2566;
-    --ember:      #E26B4A;
-    --haze:       #F0DA7C;
-    --line:       #1B2566;
 
-    /* ── 透明度变体 — 光晕层叠 ── */
-    --sun-95:      rgba(241,238,46,0.95);
-    --sun-85:      rgba(241,238,46,0.85);
-    --sun-70:      rgba(241,238,46,0.7);
-    --sun-65:      rgba(241,238,46,0.65);
-    --sun-55:      rgba(241,238,46,0.55);
-    --sun-50:      rgba(241,238,46,0.5);
-    --sun-45:      rgba(241,238,46,0.45);
-    --sun-40:      rgba(241,238,46,0.4);
-    --sun-soft-42: rgba(248,243,155,0.42);
-    --ember-22:    rgba(226,107,74,0.22);
-    --ember-18:    rgba(226,107,74,0.18);
-    --ember-15:    rgba(226,107,74,0.15);
-    --haze-22:     rgba(240,218,124,0.22);
-    --haze-18:     rgba(240,218,124,0.18);
-    --ink-20:      rgba(27,37,102,0.20);
-    --ink-18:      rgba(27,37,102,0.18);
+  /* ── Color Roles ── */
+  --paper: #E9E5DB;
+  --paper-deep: #DCD6C4;
+  --sun: #F1EE2E;
+  --sun-soft: #F8F39B;
+  --ink: #1B2566;
+  --ember: #E26B4A;
+  --haze: #F0DA7C;
+  --line: #1B2566;
+  --sun-95: rgba(241,238,46,0.95);
+  --sun-85: rgba(241,238,46,0.85);
+  --sun-70: rgba(241,238,46,0.7);
+  --sun-65: rgba(241,238,46,0.65);
+  --sun-55: rgba(241,238,46,0.55);
+  --sun-50: rgba(241,238,46,0.5);
+  --sun-45: rgba(241,238,46,0.45);
+  --sun-40: rgba(241,238,46,0.4);
+  --sun-soft-42: rgba(248,243,155,0.42);
+  --ember-22: rgba(226,107,74,0.22);
+  --ember-18: rgba(226,107,74,0.18);
+  --ember-15: rgba(226,107,74,0.15);
+  --haze-22: rgba(240,218,124,0.22);
+  --haze-18: rgba(240,218,124,0.18);
+  --ink-20: rgba(27,37,102,0.20);
+  --ink-18: rgba(27,37,102,0.18);
+  --color-primary: #F1EE2E;
+  --color-on-primary: #1B2566;
+  --color-secondary: #E26B4A;
+  --color-surface: #E9E5DB;
+  --color-on-surface: #1B2566;
+  --color-on-surface-variant: rgba(27,37,102,0.60);
+  --color-outline: #1B2566;
+  --color-outline-variant: rgba(27,37,102,0.30);
+  --color-surface-container-low: #DCD6C4;
+  --color-background: #E9E5DB;
 
-    /* ── 标准颜色角色 (MD3) ── */
-    --color-primary: #F1EE2E;
-    --color-on-primary: #1B2566;
-    --color-secondary: #E26B4A;
-    --color-surface: #E9E5DB;
-    --color-on-surface: #1B2566;
-    --color-on-surface-variant: rgba(27,37,102,0.60);
-    --color-outline: #1B2566;
-    --color-outline-variant: rgba(27,37,102,0.30);
-    --color-surface-container-low: #DCD6C4;
-    --color-background: #E9E5DB;
+  /* ── Typography ── */
+  --font-display: "Noto Serif SC", "Songti SC", "Times New Roman", "Georgia", "SimSun", serif;
+  --font-body: "PingFang SC", "Microsoft YaHei UI", "Segoe UI", "Helvetica Neue", "Arial", system-ui, sans-serif;
+  --font-mono: "Cascadia Code", "Consolas", "SF Mono", "JetBrains Mono", "Courier New", ui-monospace, monospace;
+  --typescale-display-large: clamp(120px, min(14.6vw, 22vh), 240px);
+  --typescale-display-medium: clamp(110px, min(11vw, 18vh), 200px);
+  --typescale-display-small: clamp(80px, min(10vw, 16vh), 200px);
+  --typescale-headline-large: clamp(40px, min(4.6vw, 7vh), 88px);
+  --typescale-body-large: clamp(14px, 0.95vw, 16px);
+  --typescale-label-large: clamp(11px, 0.85vw, 14px);
 
-    /* ── 字体家族 ── */
-    --font-display: "Noto Serif SC", "Songti SC", "Times New Roman", "Georgia", "SimSun", serif;
-    --font-body: "PingFang SC", "Microsoft YaHei UI", "Segoe UI", "Helvetica Neue", "Arial", system-ui, sans-serif;
-    --font-mono: "Cascadia Code", "Consolas", "SF Mono", "JetBrains Mono", "Courier New", ui-monospace, monospace;
+  /* ── Shadow ── */
+  --elevation-sm: none;
+  --elevation-md: none;
 
-    /* ── 圆角 + 阴影 ── */
-    --radius-base: 0px;
-    --radius-sm: 0px;
-    --radius-pill: 0px;
-    --elevation-sm: none;
-    --elevation-md: none;
+  /* ── radius ── */
+  --radius-none: 0px;
 
-    /* ── 动效 ── */
-    --ease-standard: ease;
-    --duration-base: 0.28s;
-    --duration-fast: 0.15s;
-    --duration-slow: 0.6s;
+  /* ── motion ── */
+  --ease-standard: ease;
+  --duration-base: 0.28s;
+  --duration-fast: 0.15s;
+  --duration-slow: 0.6s;
 
-    /* ── 间距 ── */
-    --space-page-wmax: 1920px;
-    --space-page-pad: clamp(40px, 4vw, 76px);
-    --space-gap: clamp(20px, 2.4vw, 44px);
-    --space-gutter: clamp(20px, 2.5vw, 48px);
-    --space-3xl: clamp(80px, 8vw, 120px);
-    --space-2xl: clamp(56px, 5.6vw, 88px);
-    --space-xl: clamp(36px, 3.6vw, 56px);
-    --space-lg: clamp(24px, 2.4vw, 44px);
-    --space-md: clamp(16px, 1.6vw, 28px);
-    --space-sm: clamp(10px, 1vw, 18px);
-    --space-xs: clamp(6px, 0.6vw, 12px);
-    --space-2xs: clamp(4px, 0.4vw, 6px);
-    --hairline: 1px;
-
-    /* ── 字号刻度 ── */
-    --text-3xl: clamp(120px, min(14.6vw, 22vh), 240px);
-    --text-2xl: clamp(56px, min(7vw, 11vh), 120px);
-    --text-xl: clamp(40px, min(4.6vw, 7vh), 88px);
-    --text-base: clamp(14px, 0.95vw, 16px);
-    --text-sm: clamp(13px, 0.95vw, 15px);
-    --text-xs: clamp(11px, 0.85vw, 14px);
-  }
+  /* ── spacing ── */
+  --space-page-wmax: 1920px;
+  --space-page-pad: clamp(40px, 4vw, 76px);
+  --space-gap: clamp(20px, 2.4vw, 44px);
+  --space-gutter: clamp(20px, 2.5vw, 48px);
+  --space-64: clamp(80px, 8vw, 120px);
+  --space-48: clamp(56px, 5.6vw, 88px);
+  --space-32: clamp(36px, 3.6vw, 56px);
+  --space-24: clamp(24px, 2.4vw, 44px);
+  --space-16: clamp(16px, 1.6vw, 28px);
+  --space-12: clamp(12px, 1vw, 20px);
+  --space-8: clamp(8px, 0.6vw, 12px);
+  --space-4: clamp(4px, 0.4vw, 8px);
+  --hairline: 1px;
+}
 
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; height: 100%; background: var(--color-surface); }

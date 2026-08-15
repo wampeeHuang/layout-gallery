@@ -1,67 +1,64 @@
 ---
-version: alpha
+version: 1
 name: 版式画廊 · Layout Gallery
-description: Institutional gallery aesthetic — sage green accent (#3D6B4A) on white, Noto Serif SC display with system sans body. Structure-as-texture: the grid itself is the ornament. Generous whitespace, 12px radius, subtle shadows, and a single restrained accent color used sparingly. Feels like a design institution's permanent collection catalog.
-
+description: 以鼠尾草绿、衬线标题、细网格和大留白构成的精选版式目录。结构即纹理；零圆角框架与克制动效强化机构感，不用装饰性假数据制造繁荣。
+scheme: light
+qualityTier: standard
 colors:
   accent: "#3D6B4A"
-  accent-hover: "#2E5238"
   accent-soft: "#EEF4EF"
   bg: "#FFFFFF"
   surface: "#F4F4F5"
-  surface-alt: "#E4E4E7"
   text: "#18181B"
   text-soft: "#52525B"
-  text-muted: "#787882"
-  heading: "#18181B"
   line: "#D4D4D8"
-  line-soft: "#E8E8EC"
-  success: "#059669"
-  danger: "#dc2626"
-
-color-aliases:
-  background: bg
-  text-primary: text
-  text-secondary: text-soft
-  border: line
-  accent-subtle: accent-soft
-
 typography:
-  display:
-    fontFamily: "Noto Serif SC, Source Han Serif SC, Songti SC, SimSun, serif"
-    role: "Chinese serif display — elegant, literary"
-  body:
-    fontFamily: "Noto Sans SC, Inter, Segoe UI, Helvetica Neue, PingFang SC, Microsoft YaHei UI, system-ui, sans-serif"
-    role: "body copy — IKEA Noto scheme"
-  mono:
-    fontFamily: "SF Mono, Consolas, Cascadia Code, IBM Plex Mono, ui-monospace, monospace"
-    role: "code, tags, KPIs"
-
-typeScale:
-  text-3xl: "clamp(28px, 2.5vw, 36px)"
-  text-2xl: "20px"
-  text-xl: "17px"
-  text-base: "15px"
-  text-sm: "13px"
-  text-xs: "11px"
-
+  display: "Noto Serif SC, Source Han Serif SC, Songti SC, SimSun, serif"
+  body: "Noto Sans SC, Inter, Segoe UI, PingFang SC, system-ui, sans-serif"
+  mono: "SF Mono, Consolas, Cascadia Code, ui-monospace, monospace"
 spacing:
-  page-wmax: 1040px
-  page-pad: 32px
-  gap: 24px
+  page-wmax: 1732px
+  page-pad: 48px
+  gap: 16px
   gutter: 24px
-  space-2xl: 48px
-  space-lg: 24px
-  space-sm: 12px
-  space-2xs: 4px
-
-radius: 12px
-scheme: light
-
-shadows:
-  shadow-sm: "0 2px 8px rgba(0,0,0,0.06)"
-  shadow-md: "0 8px 24px rgba(0,0,0,0.08)"
-
+  section: 64px
+radius: 0px
 motion:
-  ease-default: "cubic-bezier(0.4, 0, 0.2, 1)"
-  duration-base: 150ms
+  duration-base: 200ms
+  reduced-motion: required
+---
+
+## 设计意图
+
+这是平台自身的标准预览，不是“纸媒宣言”展示页，也不是虚构数据的缩略图陈列。首屏先解释精选边界，目录展示真实可用条目，质量证据与 Agent 使用入口紧随其后。任何数字、等级和状态都必须能追溯到仓库文件或生成报告。
+
+## Anatomy
+
+以下结构均来自当前 `template.html`，可直接被后续 Agent 定位和复用：
+
+| 结构 | 真实用途 | 约束 |
+|---|---|---|
+| `.masthead` / `.nav` | 品牌身份与页内导航 | 保持低高度、细边线，不增加营销式主导航 |
+| `.hero` / `.hero-aside` | 价值主张与收录边界 | 不展示无法验证的模板数量、评分或承诺 |
+| `.filters` / `[data-filter]` | 目录筛选状态 | 必须键盘可达；无匹配项时显示真实空状态 |
+| `.catalog` / `.template-card` | 实际收录项和版式预览 | 卡片数据必须来自仓库现有 slug；缩略预览体现版式差异 |
+| `.evidence-grid` / `.gate` | 质量门禁证据 | 只引用可生成的质量报告，不手写“全部通过” |
+| `.agent-panel` / `.read-order` | Agent 最短使用路径 | 明示四文件读取顺序并提供可复制提示词 |
+| `.stress` / `.stress-list` | 长文案与混合字符压力测试 | 保留中英数混排、长标题和窄屏检验内容 |
+
+## 使用规则
+
+1. 先读取 `template.json` 确认类型、能力与质量层级。
+2. 再读取 `tokens.json`；所有视觉值从 token 引用，正文 CSS 不新增裸色值、像素值或字体栈。
+3. 读取本文件理解结构语义，不把示例文案误当成组件 API。
+4. 最后以 `template.html` 为唯一可运行基准；复制结构可以，伪造条目和质量结论不可以。
+5. 新增交互必须支持键盘和 `prefers-reduced-motion`；不得用行内样式表达运行时状态。
+6. 主题只有存在真实差量时才能写入 `tokens.json.themes`，空主题不迁移。
+
+## 上线门禁
+
+```bash
+npm run check -- --slug layout-gallery
+```
+
+报告写入 `generated/layout-gallery/quality-report.json`。只有该命令 8/8 通过，且目录内容可追溯，才能维持 `standard/listed`；“精选”仍需真实复现证据与人工审查，不由页面自封。

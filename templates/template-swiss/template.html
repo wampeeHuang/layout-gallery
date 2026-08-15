@@ -32,7 +32,7 @@
   --border-strong: #a3a3a3;
   --text-rgb: 10,10,10;
   --bg-rgb: 250,250,248;
-  --accent-rgb: 0,47,167;
+  --color-outline-variant: #e0e0e0;
 
   /* ── Typography ── */
   --font-display: "Inter","Helvetica Neue","Helvetica","Arial","Segoe UI Variable","Segoe UI",system-ui,-apple-system,sans-serif;
@@ -40,18 +40,18 @@
   --font-mono: "JetBrains Mono","IBM Plex Mono","SF Mono","Cascadia Code","Consolas","Courier New",ui-monospace,monospace;
 
   /* ── Dimensions — Radius, Spacing & Page Layout ── */
-  --radius-base: 4px;
-  --sp-3: 8px;
-  --sp-4: 12px;
-  --sp-5: 16px;
-  --sp-6: 24px;
-  --sp-7: 32px;
-  --sp-8: 40px;
-  --sp-9: 48px;
-  --sp-10: 64px;
-  --sp-11: 80px;
-  --sp-12: 96px;
-  --sp-13: 160px;
+  --radius-xs: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-64: 64px;
+  --space-80: 80px;
+  --space-96: 96px;
+  --space-160: 160px;
   --space-page-wmax: 1200px;
   --space-page-pad: 32px;
   --space-gap: 24px;
@@ -565,21 +565,21 @@
   .swiss-img-split.align-image-bottom .swiss-img-copy{align-self:end}
   .swiss-img-split.align-image-bottom figure.tile{align-self:end;position:relative}
   .swiss-img-split.align-image-bottom figure.tile > .swiss-img-caption{
-    position:absolute;left:0;right:0;top:calc(100% + var(--sp-4));margin-top:0
+    position:absolute;left:0;right:0;top:calc(100% + var(--space-12));margin-top:0
   }
   .nav-safe-bottom{padding-bottom:var(--nav-safe-bottom)}
   .nav-safe-bottom-tight{padding-bottom:calc(var(--nav-safe-bottom) * .65)}
-  .swiss-img-copy{display:flex;flex-direction:column;gap:var(--sp-6);min-width:0}
+  .swiss-img-copy{display:flex;flex-direction:column;gap:var(--space-24);min-width:0}
   .swiss-img-copy .hr{margin:0}
-  .swiss-img-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-5);align-items:start;margin-top:var(--sp-7)}
+  .swiss-img-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-16);align-items:start;margin-top:var(--space-32)}
   .swiss-img-grid.two{grid-template-columns:repeat(2,1fr)}
   .swiss-img-grid.tight{margin-top:0}
   .swiss-img-caption{
-    display:flex;justify-content:space-between;gap:var(--sp-5);
-    margin-top:var(--sp-4);
+    display:flex;justify-content:space-between;gap:var(--space-16);
+    margin-top:var(--space-12);
     font-family:var(--font-mono);font-size:max(9px,.68vw);
     letter-spacing:.16em;text-transform:uppercase;color:var(--color-on-surface-variant);
-    border-top:1px solid var(--color-outline);padding-top:var(--sp-4)
+    border-top:1px solid var(--color-outline);padding-top:var(--space-12)
   }
   .swiss-img-caption strong{
     font-family:var(--font-body),var(--font-body);font-size:max(12px,.88vw);
@@ -734,13 +734,13 @@
   .timeline-v{
     --tl-axis-w:24px;        /* axis 列固定宽度 */
     --tl-dot:8px;            /* 圆点直径 */
-    position:relative;margin-top:var(--sp-7)
+    position:relative;margin-top:var(--space-32)
   }
   .timeline-v::before{
     content:"";position:absolute;
     left:calc(var(--tl-axis-w) / 2);
     transform:translateX(-50%);
-    top:var(--sp-5);bottom:var(--sp-5);
+    top:var(--space-16);bottom:var(--space-16);
     width:1px;
     background:repeating-linear-gradient(to bottom,currentColor 0 4px,transparent 4px 8px);
     opacity:.35;pointer-events:none;z-index:0
@@ -749,9 +749,9 @@
     position:relative;
     display:grid;
     grid-template-columns:var(--tl-axis-w) minmax(0,7em) minmax(0,7.6em) 1fr;
-    gap:0 var(--sp-5);
+    gap:0 var(--space-16);
     align-items:center;
-    padding:var(--sp-7) 0
+    padding:var(--space-32) 0
   }
   /* 进度点: 纯色实心圆,无背景无描边,精确居中在 axis 列中线 */
   .tl-node .dot{
@@ -854,7 +854,7 @@
     background:color-mix(in srgb, var(--color-surface) 95%, var(--color-on-surface));
     padding:2.4vh 1.6vw 2vh;
     display:flex;flex-direction:column;
-    position:relative;border-radius:var(--radius-base);
+    position:relative;border-radius:var(--radius-xs);
     min-height:0
   }
   .slide.dark .sub-card{background:rgba(255,255,255,.06)}
@@ -1169,9 +1169,9 @@
     letter-spacing:.16em;text-transform:uppercase;
     color:var(--color-on-surface-variant);
     flex:0 0 auto;
-    margin-bottom:var(--sp-9);   /* 48px */
+    margin-bottom:var(--space-48);   /* 48px */
   }
-  .canvas-card .chrome-min.tight{margin-bottom:var(--sp-7)}   /* 32px */
+  .canvas-card .chrome-min.tight{margin-bottom:var(--space-32)}   /* 32px */
   .canvas-card .chrome-min .l, .canvas-card .chrome-min .r{
     max-width:48vw;line-height:1.5
   }
@@ -1332,7 +1332,7 @@
       </div>
       <div class="half" style="padding:5.6vh 3.6vw 4.4vh;justify-content:center;gap:3vh">
         <p class="lead" style="font-weight:300;max-width:36ch">一次构建，永久运行。薄型承载层，厚重技能。从提示工程到自驱管线，四年十六倍进化。</p>
-        <ul style="display:flex;flex-direction:column;gap:1.6vh;font-family:var(--font-body);font-size:max(14px,1.1vw);font-weight:300;color:var(--text-secondary);list-style:none">
+        <ul style="display:flex;flex-direction:column;gap:1.6vh;font-family:var(--font-body);font-size:max(14px,1.1vw);font-weight:300;color:var(--color-on-surface-variant);list-style:none">
           <li style="padding-left:1.2em;border-left:2px solid var(--accent)">编码知识，而非编码行为</li>
           <li style="padding-left:1.2em;border-left:2px solid var(--accent)">工具承载技能，技能脱离工具</li>
           <li style="padding-left:1.2em;border-left:2px solid var(--accent)">22 个版式 = 22 种思维方式</li>
@@ -1480,18 +1480,18 @@
         <div class="duo-half">
           <span class="t-cat">Before</span>
           <h2 style="font-family:var(--font-body);font-weight:200;font-size:min(4.6vw,8vh);line-height:1;letter-spacing:-.03em">交给人力</h2>
-          <p style="font-family:var(--font-body);font-size:max(13px,1vw);line-height:1.55;color:var(--text-secondary);margin-top:2vh;max-width:32ch">需求→设计→开发→测试→部署，每个环节依赖专人。工期按周计算，沟通成本随团队规模指数增长。</p>
+          <p style="font-family:var(--font-body);font-size:max(13px,1vw);line-height:1.55;color:var(--color-on-surface-variant);margin-top:2vh;max-width:32ch">需求→设计→开发→测试→部署，每个环节依赖专人。工期按周计算，沟通成本随团队规模指数增长。</p>
           <ul style="display:flex;flex-direction:column;gap:1vh;margin-top:2vh;list-style:none;font-family:var(--font-body);font-size:max(12px,.9vw)">
-            <li style="display:flex;align-items:center;gap:.6vw"><span style="color:var(--text-helper)">✕</span> 5 人 × 4 周 = 20 人周</li>
-            <li style="display:flex;align-items:center;gap:.6vw"><span style="color:var(--text-helper)">✕</span> 需求传递损耗 30%</li>
-            <li style="display:flex;align-items:center;gap:.6vw"><span style="color:var(--text-helper)">✕</span> 代码审查瓶颈</li>
+            <li style="display:flex;align-items:center;gap:.6vw"><span style="color:var(--color-on-surface-variant)">✕</span> 5 人 × 4 周 = 20 人周</li>
+            <li style="display:flex;align-items:center;gap:.6vw"><span style="color:var(--color-on-surface-variant)">✕</span> 需求传递损耗 30%</li>
+            <li style="display:flex;align-items:center;gap:.6vw"><span style="color:var(--color-on-surface-variant)">✕</span> 代码审查瓶颈</li>
           </ul>
         </div>
         <span class="vrule"></span>
         <div class="duo-half">
           <span class="t-cat accent">After</span>
           <h2 style="font-family:var(--font-body);font-weight:200;font-size:min(4.6vw,8vh);line-height:1;letter-spacing:-.03em">交给代码</h2>
-          <p style="font-family:var(--font-body);font-size:max(13px,1vw);line-height:1.55;color:var(--text-secondary);margin-top:2vh;max-width:32ch">需求→AI 规划→并行生成→自动审查→一键部署。单人在 2 天内完成，质量一致、可复现、可追溯。</p>
+          <p style="font-family:var(--font-body);font-size:max(13px,1vw);line-height:1.55;color:var(--color-on-surface-variant);margin-top:2vh;max-width:32ch">需求→AI 规划→并行生成→自动审查→一键部署。单人在 2 天内完成，质量一致、可复现、可追溯。</p>
           <ul style="display:flex;flex-direction:column;gap:1vh;margin-top:2vh;list-style:none;font-family:var(--font-body);font-size:max(12px,.9vw)">
             <li style="display:flex;align-items:center;gap:.6vw"><span style="color:var(--accent)">✓</span> 1 人 × 2 天 = 0.4 人周</li>
             <li style="display:flex;align-items:center;gap:.6vw"><span style="color:var(--accent)">✓</span> 规范零损耗</li>
@@ -1515,7 +1515,7 @@
       <span class="dot-mat xl" style="position:absolute;right:0;top:0;width:36vw;height:36vw"></span>
       <div data-anim="up" style="position:relative;z-index:2;max-width:60vw">
         <h1 class="h-hero" style="font-size:min(8.4vw,15vh)">Thin harness,<br>fat skills.</h1>
-        <p style="font-family:var(--font-body);font-size:max(14px,1.2vw);font-weight:300;color:var(--text-secondary);margin-top:2.4vh">工具越薄，技能越重。承载层退后，能力层前移。</p>
+        <p style="font-family:var(--font-body);font-size:max(14px,1.2vw);font-weight:300;color:var(--color-on-surface-variant);margin-top:2.4vh">工具越薄，技能越重。承载层退后，能力层前移。</p>
       </div>
     </div>
   </div>
@@ -1537,15 +1537,15 @@
         <ul style="display:flex;flex-direction:column;gap:2.4vh;list-style:none;margin-top:3vh">
           <li style="display:grid;grid-template-columns:auto 1fr;gap:2vw;align-items:start">
             <span style="font-family:var(--font-body);font-weight:200;font-size:min(4.6vw,8vh);line-height:1;color:var(--accent)">01</span>
-            <div><h4 style="font-family:var(--font-body);font-weight:500;font-size:max(16px,1.4vw);line-height:1.2">知识编码化</h4><p style="font-family:var(--font-body);font-size:max(12px,.95vw);color:var(--text-secondary);margin-top:.6vh">每次决策都落成规则，下次不再重复判断。</p></div>
+            <div><h4 style="font-family:var(--font-body);font-weight:500;font-size:max(16px,1.4vw);line-height:1.2">知识编码化</h4><p style="font-family:var(--font-body);font-size:max(12px,.95vw);color:var(--color-on-surface-variant);margin-top:.6vh">每次决策都落成规则，下次不再重复判断。</p></div>
           </li>
           <li style="display:grid;grid-template-columns:auto 1fr;gap:2vw;align-items:start">
             <span style="font-family:var(--font-body);font-weight:200;font-size:min(4.6vw,8vh);line-height:1;color:var(--accent)">02</span>
-            <div><h4 style="font-family:var(--font-body);font-weight:500;font-size:max(16px,1.4vw);line-height:1.2">工具后退</h4><p style="font-family:var(--font-body);font-size:max(12px,.95vw);color:var(--text-secondary);margin-top:.6vh">框架越薄越好，技能脱离工具独立存在。</p></div>
+            <div><h4 style="font-family:var(--font-body);font-weight:500;font-size:max(16px,1.4vw);line-height:1.2">工具后退</h4><p style="font-family:var(--font-body);font-size:max(12px,.95vw);color:var(--color-on-surface-variant);margin-top:.6vh">框架越薄越好，技能脱离工具独立存在。</p></div>
           </li>
           <li style="display:grid;grid-template-columns:auto 1fr;gap:2vw;align-items:start">
             <span style="font-family:var(--font-body);font-weight:200;font-size:min(4.6vw,8vh);line-height:1;color:var(--accent)">03</span>
-            <div><h4 style="font-family:var(--font-body);font-weight:500;font-size:max(16px,1.4vw);line-height:1.2">自动闭环</h4><p style="font-family:var(--font-body);font-size:max(12px,.95vw);color:var(--text-secondary);margin-top:.6vh">触发→执行→验证→交付，无人值守全程自驱。</p></div>
+            <div><h4 style="font-family:var(--font-body);font-weight:500;font-size:max(16px,1.4vw);line-height:1.2">自动闭环</h4><p style="font-family:var(--font-body);font-size:max(12px,.95vw);color:var(--color-on-surface-variant);margin-top:.6vh">触发→执行→验证→交付，无人值守全程自驱。</p></div>
           </li>
         </ul>
       </div>
@@ -1590,7 +1590,7 @@
         <div class="t-meta">MANIFESTO · 阶段性结论</div>
         <h2 style="font-family:var(--font-body);font-weight:200;font-size:min(7vw,12vh);line-height:.94;letter-spacing:-.035em">工具是<br>技能的<br>容器</h2>
       </div>
-      <div style="font-family:var(--font-body);font-size:max(14px,1.1vw);line-height:1.6;color:var(--text-secondary);padding-top:1.2vw">
+      <div style="font-family:var(--font-body);font-size:max(14px,1.1vw);line-height:1.6;color:var(--color-on-surface-variant);padding-top:1.2vw">
         <p>技能不应该被工具锁死。当技能编码为可迁移的知识文件，工具就退化为薄型承载层——可替换、可升级、可抛弃。</p>
         <p style="margin-top:1.6vh">这不是技术架构选择，这是组织能力策略。</p>
       </div>
@@ -1624,15 +1624,15 @@
       <div data-anim="up" style="display:flex;flex-direction:column;gap:1.2vh">
         <div class="card-fill" style="padding:2.8vh 2vw;display:grid;grid-template-columns:auto 1fr;gap:2vw;align-items:start">
           <span style="font-family:var(--font-body);font-weight:200;font-size:min(5.6vw,10vh);line-height:1;color:var(--accent)">01</span>
-          <div><h4 style="font-family:var(--font-body);font-weight:500;font-size:max(16px,1.5vw);line-height:1.2">语义压缩</h4><p style="font-family:var(--font-body);font-size:max(12px,.95vw);color:var(--text-secondary);margin-top:1vh;max-width:44ch">复杂需求被压缩为标准化的任务模板，一字一句都是规格。</p></div>
+          <div><h4 style="font-family:var(--font-body);font-weight:500;font-size:max(16px,1.5vw);line-height:1.2">语义压缩</h4><p style="font-family:var(--font-body);font-size:max(12px,.95vw);color:var(--color-on-surface-variant);margin-top:1vh;max-width:44ch">复杂需求被压缩为标准化的任务模板，一字一句都是规格。</p></div>
         </div>
         <div class="card-fill" style="padding:2.8vh 2vw;display:grid;grid-template-columns:auto 1fr;gap:2vw;align-items:start">
           <span style="font-family:var(--font-body);font-weight:200;font-size:min(5.6vw,10vh);line-height:1;color:var(--accent)">02</span>
-          <div><h4 style="font-family:var(--font-body);font-weight:500;font-size:max(16px,1.5vw);line-height:1.2">并行生成</h4><p style="font-family:var(--font-body);font-size:max(12px,.95vw);color:var(--text-secondary);margin-top:1vh;max-width:44ch">多 Agent 在同一上下文上并行工作，互不阻塞，产出自动合并。</p></div>
+          <div><h4 style="font-family:var(--font-body);font-weight:500;font-size:max(16px,1.5vw);line-height:1.2">并行生成</h4><p style="font-family:var(--font-body);font-size:max(12px,.95vw);color:var(--color-on-surface-variant);margin-top:1vh;max-width:44ch">多 Agent 在同一上下文上并行工作，互不阻塞，产出自动合并。</p></div>
         </div>
         <div class="card-fill" style="padding:2.8vh 2vw;display:grid;grid-template-columns:auto 1fr;gap:2vw;align-items:start">
           <span style="font-family:var(--font-body);font-weight:200;font-size:min(5.6vw,10vh);line-height:1;color:var(--accent)">03</span>
-          <div><h4 style="font-family:var(--font-body);font-weight:500;font-size:max(16px,1.5vw);line-height:1.2">自动审查</h4><p style="font-family:var(--font-body);font-size:max(12px,.95vw);color:var(--text-secondary);margin-top:1vh;max-width:44ch">每一行输出都经过 P0 门禁验证，不合格自动打回重做。</p></div>
+          <div><h4 style="font-family:var(--font-body);font-weight:500;font-size:max(16px,1.5vw);line-height:1.2">自动审查</h4><p style="font-family:var(--font-body);font-size:max(12px,.95vw);color:var(--color-on-surface-variant);margin-top:1vh;max-width:44ch">每一行输出都经过 P0 门禁验证，不合格自动打回重做。</p></div>
         </div>
       </div>
     </div>
@@ -1653,19 +1653,19 @@
         <div style="display:flex;flex-direction:column;gap:1.6vh;margin-top:2vh">
           <div style="display:grid;grid-template-columns:auto 1fr;gap:1.2vw;align-items:start">
             <div style="width:8px;height:8px;background:var(--accent);margin-top:.6em;flex-shrink:0"></div>
-            <div><strong style="font-weight:500">Collect</strong><span style="color:var(--text-secondary);margin-left:.6em">收集执行结果与反馈信号</span></div>
+            <div><strong style="font-weight:500">Collect</strong><span style="color:var(--color-on-surface-variant);margin-left:.6em">收集执行结果与反馈信号</span></div>
           </div>
           <div style="display:grid;grid-template-columns:auto 1fr;gap:1.2vw;align-items:start">
             <div style="width:8px;height:8px;background:var(--accent);margin-top:.6em;flex-shrink:0"></div>
-            <div><strong style="font-weight:500">Analyze</strong><span style="color:var(--text-secondary);margin-left:.6em">分析失败模式与成功路径</span></div>
+            <div><strong style="font-weight:500">Analyze</strong><span style="color:var(--color-on-surface-variant);margin-left:.6em">分析失败模式与成功路径</span></div>
           </div>
           <div style="display:grid;grid-template-columns:auto 1fr;gap:1.2vw;align-items:start">
             <div style="width:8px;height:8px;background:var(--accent);margin-top:.6em;flex-shrink:0"></div>
-            <div><strong style="font-weight:500">Codify</strong><span style="color:var(--text-secondary);margin-left:.6em">将经验编码为可复用规则</span></div>
+            <div><strong style="font-weight:500">Codify</strong><span style="color:var(--color-on-surface-variant);margin-left:.6em">将经验编码为可复用规则</span></div>
           </div>
           <div style="display:grid;grid-template-columns:auto 1fr;gap:1.2vw;align-items:start">
             <div style="width:8px;height:8px;background:var(--accent);margin-top:.6em;flex-shrink:0"></div>
-            <div><strong style="font-weight:500">Apply</strong><span style="color:var(--text-secondary);margin-left:.6em">下次任务自动应用新规则</span></div>
+            <div><strong style="font-weight:500">Apply</strong><span style="color:var(--color-on-surface-variant);margin-left:.6em">下次任务自动应用新规则</span></div>
           </div>
         </div>
       </div>
@@ -1701,22 +1701,22 @@
         <h2 style="font-family:var(--font-body);font-weight:200;font-size:min(5.8vw,10.2vh);line-height:.96;letter-spacing:-.035em">跨领域能力覆盖</h2>
       </div>
       <div data-anim="up" style="display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:1.2vh 1.2vw">
-        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">Code Gen</div><div style="font-size:max(10px,.8vw);color:var(--text-helper);margin-top:.4vh">代码生成</div></div>
-        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">Review</div><div style="font-size:max(10px,.8vw);color:var(--text-helper);margin-top:.4vh">代码审查</div></div>
-        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">Testing</div><div style="font-size:max(10px,.8vw);color:var(--text-helper);margin-top:.4vh">自动化测试</div></div>
-        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">Docs</div><div style="font-size:max(10px,.8vw);color:var(--text-helper);margin-top:.4vh">文档生成</div></div>
-        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">Debug</div><div style="font-size:max(10px,.8vw);color:var(--text-helper);margin-top:.4vh">智能调试</div></div>
-        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">Architecture</div><div style="font-size:max(10px,.8vw);color:var(--text-helper);margin-top:.4vh">架构设计</div></div>
-        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">Deploy</div><div style="font-size:max(10px,.8vw);color:var(--text-helper);margin-top:.4vh">部署运维</div></div>
+        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">Code Gen</div><div style="font-size:max(10px,.8vw);color:var(--color-on-surface-variant);margin-top:.4vh">代码生成</div></div>
+        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">Review</div><div style="font-size:max(10px,.8vw);color:var(--color-on-surface-variant);margin-top:.4vh">代码审查</div></div>
+        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">Testing</div><div style="font-size:max(10px,.8vw);color:var(--color-on-surface-variant);margin-top:.4vh">自动化测试</div></div>
+        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">Docs</div><div style="font-size:max(10px,.8vw);color:var(--color-on-surface-variant);margin-top:.4vh">文档生成</div></div>
+        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">Debug</div><div style="font-size:max(10px,.8vw);color:var(--color-on-surface-variant);margin-top:.4vh">智能调试</div></div>
+        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">Architecture</div><div style="font-size:max(10px,.8vw);color:var(--color-on-surface-variant);margin-top:.4vh">架构设计</div></div>
+        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">Deploy</div><div style="font-size:max(10px,.8vw);color:var(--color-on-surface-variant);margin-top:.4vh">部署运维</div></div>
         <div class="card-accent" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">Refactor</div><div style="font-size:max(10px,.8vw);color:rgba(255,255,255,.7);margin-top:.4vh">智能重构</div></div>
-        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">Security</div><div style="font-size:max(10px,.8vw);color:var(--text-helper);margin-top:.4vh">安全审计</div></div>
-        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">Data</div><div style="font-size:max(10px,.8vw);color:var(--text-helper);margin-top:.4vh">数据分析</div></div>
-        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">UI/UX</div><div style="font-size:max(10px,.8vw);color:var(--text-helper);margin-top:.4vh">界面设计</div></div>
-        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">API</div><div style="font-size:max(10px,.8vw);color:var(--text-helper);margin-top:.4vh">接口集成</div></div>
+        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">Security</div><div style="font-size:max(10px,.8vw);color:var(--color-on-surface-variant);margin-top:.4vh">安全审计</div></div>
+        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">Data</div><div style="font-size:max(10px,.8vw);color:var(--color-on-surface-variant);margin-top:.4vh">数据分析</div></div>
+        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">UI/UX</div><div style="font-size:max(10px,.8vw);color:var(--color-on-surface-variant);margin-top:.4vh">界面设计</div></div>
+        <div class="card-fill" style="padding:2vh 1.4vw;display:flex;flex-direction:column;justify-content:center"><div style="font-weight:500;font-size:max(14px,1.2vw)">API</div><div style="font-size:max(10px,.8vw);color:var(--color-on-surface-variant);margin-top:.4vh">接口集成</div></div>
       </div>
-      <div data-anim="kpi" style="display:flex;align-items:baseline;gap:1vw;border-top:1px solid var(--border-subtle);padding-top:2vh">
+      <div data-anim="kpi" style="display:flex;align-items:baseline;gap:1vw;border-top:1px solid var(--color-outline-variant);padding-top:2vh">
         <span style="font-family:var(--font-body);font-weight:200;font-size:min(8.4vw,14vh);line-height:1;color:var(--accent);letter-spacing:-.04em">1,024</span>
-        <span style="font-family:var(--font-body);font-size:max(14px,1.2vw);color:var(--text-secondary)">已登记技能 · 跨 14 个领域 · 日增 8+</span>
+        <span style="font-family:var(--font-body);font-size:max(14px,1.2vw);color:var(--color-on-surface-variant)">已登记技能 · 跨 14 个领域 · 日增 8+</span>
       </div>
     </div>
   </div>
@@ -1737,11 +1737,11 @@
       <div data-anim="up" style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:1.4vh 1.4vw">
         <div class="card-fill" style="padding:2.4vh 1.6vw;display:flex;flex-direction:column;justify-content:space-between">
           <div style="font-weight:500;font-size:max(16px,1.4vw)">平均响应 340ms</div>
-          <div style="font-family:var(--font-mono);font-size:max(10px,.78vw);color:var(--text-helper);margin-top:auto;align-self:flex-end">P99: 1.2s</div>
+          <div style="font-family:var(--font-mono);font-size:max(10px,.78vw);color:var(--color-on-surface-variant);margin-top:auto;align-self:flex-end">P99: 1.2s</div>
         </div>
         <div class="card-fill" style="padding:2.4vh 1.6vw;display:flex;flex-direction:column;justify-content:space-between">
           <div style="font-weight:500;font-size:max(16px,1.4vw)">日处理 12K 任务</div>
-          <div style="font-family:var(--font-mono);font-size:max(10px,.78vw);color:var(--text-helper);margin-top:auto;align-self:flex-end">峰值 18K/h</div>
+          <div style="font-family:var(--font-mono);font-size:max(10px,.78vw);color:var(--color-on-surface-variant);margin-top:auto;align-self:flex-end">峰值 18K/h</div>
         </div>
         <div class="card-accent" style="padding:2.4vh 1.6vw;display:flex;flex-direction:column;justify-content:space-between">
           <div style="font-weight:500;font-size:max(16px,1.4vw)">成功率 94.2%</div>
@@ -1749,15 +1749,15 @@
         </div>
         <div class="card-fill" style="padding:2.4vh 1.6vw;display:flex;flex-direction:column;justify-content:space-between">
           <div style="font-weight:500;font-size:max(16px,1.4vw)">覆盖 14 个领域</div>
-          <div style="font-family:var(--font-mono);font-size:max(10px,.78vw);color:var(--text-helper);margin-top:auto;align-self:flex-end">1,024 技能</div>
+          <div style="font-family:var(--font-mono);font-size:max(10px,.78vw);color:var(--color-on-surface-variant);margin-top:auto;align-self:flex-end">1,024 技能</div>
         </div>
         <div class="card-fill" style="padding:2.4vh 1.6vw;display:flex;flex-direction:column;justify-content:space-between">
           <div style="font-weight:500;font-size:max(16px,1.4vw)">月活 12K 开发者</div>
-          <div style="font-family:var(--font-mono);font-size:max(10px,.78vw);color:var(--text-helper);margin-top:auto;align-self:flex-end">↑ 18% MoM</div>
+          <div style="font-family:var(--font-mono);font-size:max(10px,.78vw);color:var(--color-on-surface-variant);margin-top:auto;align-self:flex-end">↑ 18% MoM</div>
         </div>
         <div class="card-fill" style="padding:2.4vh 1.6vw;display:flex;flex-direction:column;justify-content:space-between">
           <div style="font-weight:500;font-size:max(16px,1.4vw)">知识库 86GB</div>
-          <div style="font-family:var(--font-mono);font-size:max(10px,.78vw);color:var(--text-helper);margin-top:auto;align-self:flex-end">日增 220MB</div>
+          <div style="font-family:var(--font-mono);font-size:max(10px,.78vw);color:var(--color-on-surface-variant);margin-top:auto;align-self:flex-end">日增 220MB</div>
         </div>
       </div>
     </div>
@@ -1777,11 +1777,11 @@
           <div class="t-meta">SYSTEM DIAGRAM · 三层同心圆</div>
           <h2 style="font-family:var(--font-body);font-weight:200;font-size:min(5.2vw,9.2vh);line-height:.96;letter-spacing:-.035em">Agent 生态<br>分层架构</h2>
         </div>
-        <p data-anim="head" style="font-family:var(--font-body);font-size:max(14px,1.1vw);font-weight:300;color:var(--text-secondary);line-height:1.55;align-self:end">内核→中间层→外圈，每一层职责清晰、接口标准化。外层不依赖内层实现，内层不感知外层存在。</p>
+        <p data-anim="head" style="font-family:var(--font-body);font-size:max(14px,1.1vw);font-weight:300;color:var(--color-on-surface-variant);line-height:1.55;align-self:end">内核→中间层→外圈，每一层职责清晰、接口标准化。外层不依赖内层实现，内层不感知外层存在。</p>
       </div>
       <div data-anim="up" style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:3vw;align-items:center;min-height:0">
         <svg viewBox="0 0 200 200" style="width:22vw;height:22vw;justify-self:center">
-          <circle cx="100" cy="100" r="90" fill="none" stroke="var(--border-subtle)" stroke-width="1"/>
+          <circle cx="100" cy="100" r="90" fill="none" stroke="var(--color-outline-variant)" stroke-width="1"/>
           <circle cx="100" cy="100" r="62" fill="none" stroke="var(--accent)" stroke-width="1" opacity=".5"/>
           <circle cx="100" cy="100" r="34" fill="var(--accent)" opacity=".12" stroke="var(--accent)" stroke-width="1.4"/>
           <circle cx="100" cy="100" r="10" fill="var(--accent)"/>
@@ -1789,15 +1789,15 @@
         <div style="display:flex;flex-direction:column;gap:2vh">
           <div style="display:grid;grid-template-columns:auto 1fr;gap:1.2vw;align-items:start">
             <div style="width:10px;height:10px;background:var(--accent);margin-top:.5em"></div>
-            <div><strong style="font-weight:500">Core · 内核</strong><p style="font-size:max(12px,.9vw);color:var(--text-secondary);margin-top:.4vh">推理引擎 + 知识图谱 + 状态机</p></div>
+            <div><strong style="font-weight:500">Core · 内核</strong><p style="font-size:max(12px,.9vw);color:var(--color-on-surface-variant);margin-top:.4vh">推理引擎 + 知识图谱 + 状态机</p></div>
           </div>
           <div style="display:grid;grid-template-columns:auto 1fr;gap:1.2vw;align-items:start">
             <div style="width:10px;height:10px;border:1.4px solid var(--accent);margin-top:.5em"></div>
-            <div><strong style="font-weight:500">Middle · 中间层</strong><p style="font-size:max(12px,.9vw);color:var(--text-secondary);margin-top:.4vh">技能注册 · 模板匹配 · 管线编排</p></div>
+            <div><strong style="font-weight:500">Middle · 中间层</strong><p style="font-size:max(12px,.9vw);color:var(--color-on-surface-variant);margin-top:.4vh">技能注册 · 模板匹配 · 管线编排</p></div>
           </div>
           <div style="display:grid;grid-template-columns:auto 1fr;gap:1.2vw;align-items:start">
-            <div style="width:10px;height:10px;border:1px solid var(--border-subtle);margin-top:.5em"></div>
-            <div><strong style="font-weight:500">Outer · 外圈</strong><p style="font-size:max(12px,.9vw);color:var(--text-secondary);margin-top:.4vh">API 网关 · 用户界面 · 第三方集成</p></div>
+            <div style="width:10px;height:10px;border:1px solid var(--color-outline-variant);margin-top:.5em"></div>
+            <div><strong style="font-weight:500">Outer · 外圈</strong><p style="font-size:max(12px,.9vw);color:var(--color-on-surface-variant);margin-top:.4vh">API 网关 · 用户界面 · 第三方集成</p></div>
           </div>
         </div>
       </div>
@@ -1821,19 +1821,19 @@
         <div style="display:flex;flex-direction:column;gap:1.6vh">
           <div class="t-cat">01 · 算力拐点</div>
           <h4 style="font-weight:400;font-size:max(18px,1.6vw);line-height:1.2">推理成本<br>下降 100 倍</h4>
-          <p style="font-size:max(13px,1vw);color:var(--text-secondary);line-height:1.55;margin-top:1vh">单次推理从 $0.01 降至 $0.0001，Agent 循环不再受成本约束。</p>
+          <p style="font-size:max(13px,1vw);color:var(--color-on-surface-variant);line-height:1.55;margin-top:1vh">单次推理从 $0.01 降至 $0.0001，Agent 循环不再受成本约束。</p>
           <div style="font-family:var(--font-body);font-weight:200;font-size:min(6vw,10vh);line-height:1;margin-top:auto;letter-spacing:-.03em">100<span style="font-size:.36em;font-weight:300;opacity:.5;margin-left:.15em">×</span></div>
         </div>
         <div style="display:flex;flex-direction:column;gap:1.6vh">
           <div class="t-cat">02 · 协议标准化</div>
           <h4 style="font-weight:400;font-size:max(18px,1.6vw);line-height:1.2">MCP + A2A<br>打通孤岛</h4>
-          <p style="font-size:max(13px,1vw);color:var(--text-secondary);line-height:1.55;margin-top:1vh">工具调用协议统一，Agent 可跨系统协作，不再为每个平台写适配层。</p>
+          <p style="font-size:max(13px,1vw);color:var(--color-on-surface-variant);line-height:1.55;margin-top:1vh">工具调用协议统一，Agent 可跨系统协作，不再为每个平台写适配层。</p>
           <div style="font-family:var(--font-body);font-weight:200;font-size:min(6vw,10vh);line-height:1;margin-top:auto;letter-spacing:-.03em">2026</div>
         </div>
         <div style="display:flex;flex-direction:column;gap:1.6vh">
           <div class="t-cat accent">03 · 组织准备</div>
           <h4 style="font-weight:400;font-size:max(18px,1.6vw);line-height:1.2">知识编码<br>成为共识</h4>
-          <p style="font-size:max(13px,1vw);color:var(--text-secondary);line-height:1.55;margin-top:1vh">从"人来记"到"文件来记"，团队已建立可被 AI 消费的知识库。</p>
+          <p style="font-size:max(13px,1vw);color:var(--color-on-surface-variant);line-height:1.55;margin-top:1vh">从"人来记"到"文件来记"，团队已建立可被 AI 消费的知识库。</p>
           <div style="font-family:var(--font-body);font-weight:200;font-size:min(6vw,10vh);line-height:1;margin-top:auto;color:var(--accent);letter-spacing:-.03em">03</div>
         </div>
       </div>
@@ -1858,22 +1858,22 @@
         <div style="display:flex;flex-direction:column;gap:1.6vh">
           <div class="t-meta">— 01 / COMPILER</div>
           <h3 style="font-weight:300;font-size:max(18px,1.8vw);line-height:1.15;letter-spacing:-.015em">编译器</h3>
-          <p style="font-size:max(13px,1vw);color:var(--text-secondary);line-height:1.5">tokens.json → :root CSS，同时扫描 body CSS 硬编码。</p>
+          <p style="font-size:max(13px,1vw);color:var(--color-on-surface-variant);line-height:1.5">tokens.json → :root CSS，同时扫描 body CSS 硬编码。</p>
         </div>
         <div style="display:flex;flex-direction:column;gap:1.6vh">
           <div class="t-meta">— 02 / VALIDATOR</div>
           <h3 style="font-weight:300;font-size:max(18px,1.8vw);line-height:1.15;letter-spacing:-.015em">校验器</h3>
-          <p style="font-size:max(13px,1vw);color:var(--text-secondary);line-height:1.5">DTCG $type + 必填 token + 命名规范 + 无重复。</p>
+          <p style="font-size:max(13px,1vw);color:var(--color-on-surface-variant);line-height:1.5">DTCG $type + 必填 token + 命名规范 + 无重复。</p>
         </div>
         <div style="display:flex;flex-direction:column;gap:1.6vh">
           <div class="t-meta">— 03 / GENERATOR</div>
           <h3 style="font-weight:300;font-size:max(18px,1.8vw);line-height:1.15;letter-spacing:-.015em">配方生成器</h3>
-          <p style="font-size:max(13px,1vw);color:var(--text-secondary);line-height:1.5">从 Golden Source 自动生成 recipes.md + components.md。</p>
+          <p style="font-size:max(13px,1vw);color:var(--color-on-surface-variant);line-height:1.5">从 Golden Source 自动生成 recipes.md + components.md。</p>
         </div>
         <div style="display:flex;flex-direction:column;gap:1.6vh">
           <div class="t-meta">— 04 / SERVER</div>
           <h3 style="font-weight:300;font-size:max(18px,1.8vw);line-height:1.15;letter-spacing:-.015em">服务端</h3>
-          <p style="font-size:max(13px,1vw);color:var(--text-secondary);line-height:1.5">Express :3080，API registry + template + brand 全端点。</p>
+          <p style="font-size:max(13px,1vw);color:var(--color-on-surface-variant);line-height:1.5">Express :3080，API registry + template + brand 全端点。</p>
         </div>
       </div>
     </div>
@@ -1893,24 +1893,24 @@
         <h2 style="font-family:var(--font-body);font-weight:200;font-size:min(5.8vw,10.2vh);line-height:.96;letter-spacing:-.035em">季度运营指标</h2>
       </div>
       <div data-anim="up" style="display:flex;flex-direction:column;gap:0">
-        <div style="display:grid;grid-template-columns:1fr 2fr auto;gap:2vw;align-items:center;padding:3vh 0;border-bottom:1px solid var(--border-subtle)">
+        <div style="display:grid;grid-template-columns:1fr 2fr auto;gap:2vw;align-items:center;padding:3vh 0;border-bottom:1px solid var(--color-outline-variant)">
           <div style="font-family:var(--font-body);font-weight:200;font-size:min(8vw,13vh);line-height:1;letter-spacing:-.04em">12<span style="font-size:.3em;font-weight:300;opacity:.55;margin-left:.12em;vertical-align:.6em">K</span></div>
-          <div><div style="font-weight:500;font-size:max(16px,1.4vw)">月活跃开发者</div><div style="font-size:max(12px,.9vw);color:var(--text-secondary);margin-top:.4vh">同比增长 18%，来自 46 个国家</div></div>
+          <div><div style="font-weight:500;font-size:max(16px,1.4vw)">月活跃开发者</div><div style="font-size:max(12px,.9vw);color:var(--color-on-surface-variant);margin-top:.4vh">同比增长 18%，来自 46 个国家</div></div>
           <i data-lucide="users" style="width:2vw;height:2vw;stroke-width:1.4;color:var(--accent)"></i>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 2fr auto;gap:2vw;align-items:center;padding:3vh 0;border-bottom:1px solid var(--border-subtle)">
+        <div style="display:grid;grid-template-columns:1fr 2fr auto;gap:2vw;align-items:center;padding:3vh 0;border-bottom:1px solid var(--color-outline-variant)">
           <div style="font-family:var(--font-body);font-weight:200;font-size:min(8vw,13vh);line-height:1;letter-spacing:-.04em">94<span style="font-size:.3em;font-weight:300;opacity:.55;margin-left:.12em;vertical-align:.6em">%</span></div>
-          <div><div style="font-weight:500;font-size:max(16px,1.4vw)">任务完成率</div><div style="font-size:max(12px,.9vw);color:var(--text-secondary);margin-top:.4vh">P0 门禁通过率，连续 4 个月提升</div></div>
+          <div><div style="font-weight:500;font-size:max(16px,1.4vw)">任务完成率</div><div style="font-size:max(12px,.9vw);color:var(--color-on-surface-variant);margin-top:.4vh">P0 门禁通过率，连续 4 个月提升</div></div>
           <i data-lucide="check-circle" style="width:2vw;height:2vw;stroke-width:1.4;color:var(--accent)"></i>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 2fr auto;gap:2vw;align-items:center;padding:3vh 0;border-bottom:1px solid var(--border-subtle)">
+        <div style="display:grid;grid-template-columns:1fr 2fr auto;gap:2vw;align-items:center;padding:3vh 0;border-bottom:1px solid var(--color-outline-variant)">
           <div style="font-family:var(--font-body);font-weight:200;font-size:min(8vw,13vh);line-height:1;letter-spacing:-.04em">1.2<span style="font-size:.3em;font-weight:300;opacity:.55;margin-left:.12em;vertical-align:.6em">s</span></div>
-          <div><div style="font-weight:500;font-size:max(16px,1.4vw)">P99 响应延迟</div><div style="font-size:max(12px,.9vw);color:var(--text-secondary);margin-top:.4vh">从 4.2s 降至 1.2s，优化 3.5×</div></div>
+          <div><div style="font-weight:500;font-size:max(16px,1.4vw)">P99 响应延迟</div><div style="font-size:max(12px,.9vw);color:var(--color-on-surface-variant);margin-top:.4vh">从 4.2s 降至 1.2s，优化 3.5×</div></div>
           <i data-lucide="zap" style="width:2vw;height:2vw;stroke-width:1.4;color:var(--accent)"></i>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 2fr auto;gap:2vw;align-items:center;padding:3vh 0;border-bottom:1px solid var(--border-subtle)">
+        <div style="display:grid;grid-template-columns:1fr 2fr auto;gap:2vw;align-items:center;padding:3vh 0;border-bottom:1px solid var(--color-outline-variant)">
           <div style="font-family:var(--font-body);font-weight:200;font-size:min(8vw,13vh);line-height:1;letter-spacing:-.04em">28</div>
-          <div><div style="font-weight:500;font-size:max(16px,1.4vw)">模板库规模</div><div style="font-size:max(12px,.9vw);color:var(--text-secondary);margin-top:.4vh">设计风格模板，全部通过 P0 门禁</div></div>
+          <div><div style="font-weight:500;font-size:max(16px,1.4vw)">模板库规模</div><div style="font-size:max(12px,.9vw);color:var(--color-on-surface-variant);margin-top:.4vh">设计风格模板，全部通过 P0 门禁</div></div>
           <i data-lucide="layout" style="width:2vw;height:2vw;stroke-width:1.4;color:var(--accent)"></i>
         </div>
       </div>
@@ -1934,26 +1934,26 @@
         <div style="border-top:1px solid var(--ink);padding-top:1.6vh">
           <div class="t-meta" style="margin-bottom:1vh">TOKEN / SEC</div>
           <div style="font-family:var(--font-body);font-weight:200;font-size:min(5.6vw,9.5vh);line-height:1;letter-spacing:-.03em">186</div>
-          <div style="font-size:max(12px,.9vw);color:var(--text-secondary);margin-top:1vh">吞吐量 · Throughput</div>
+          <div style="font-size:max(12px,.9vw);color:var(--color-on-surface-variant);margin-top:1vh">吞吐量 · Throughput</div>
         </div>
         <div style="border-top:1px solid var(--ink);padding-top:1.6vh">
           <div class="t-meta" style="margin-bottom:1vh">ACCURACY</div>
           <div style="font-family:var(--font-body);font-weight:200;font-size:min(5.6vw,9.5vh);line-height:1;letter-spacing:-.03em">92<span style="font-size:.36em;font-weight:300;opacity:.5;margin-left:.12em">%</span></div>
-          <div style="font-size:max(12px,.9vw);color:var(--text-secondary);margin-top:1vh">任务成功率 · Success Rate</div>
+          <div style="font-size:max(12px,.9vw);color:var(--color-on-surface-variant);margin-top:1vh">任务成功率 · Success Rate</div>
         </div>
         <div style="border-top:1px solid var(--ink);padding-top:1.6vh">
           <div class="t-meta" style="margin-bottom:1vh">UPTIME</div>
           <div style="font-family:var(--font-body);font-weight:200;font-size:min(5.6vw,9.5vh);line-height:1;letter-spacing:-.03em">99<span style="font-size:.36em;font-weight:300;opacity:.5;margin-left:.12em">%</span></div>
-          <div style="font-size:max(12px,.9vw);color:var(--text-secondary);margin-top:1vh">服务可用性 · Availability</div>
+          <div style="font-size:max(12px,.9vw);color:var(--color-on-surface-variant);margin-top:1vh">服务可用性 · Availability</div>
         </div>
       </div>
-      <div data-anim="kpi" style="display:flex;align-items:flex-end;justify-content:space-between;border-top:1px solid var(--border-subtle);padding-top:2vh">
+      <div data-anim="kpi" style="display:flex;align-items:flex-end;justify-content:space-between;border-top:1px solid var(--color-outline-variant);padding-top:2vh">
         <div style="font-family:var(--font-body);font-weight:200;font-size:min(8vw,13vh);line-height:1;letter-spacing:-.04em">v3.2</div>
         <div style="display:flex;gap:2vw;align-items:flex-end">
           <div style="display:flex;gap:.8vw">
             <span class="tag">GPT-5.6</span><span class="tag">CLAUDE-4.7</span><span class="tag">Gemini-3</span>
           </div>
-          <span style="font-family:var(--font-mono);font-size:max(10px,.78vw);color:var(--text-helper);letter-spacing:.16em">MP-75</span>
+          <span style="font-family:var(--font-mono);font-size:max(10px,.78vw);color:var(--color-on-surface-variant);letter-spacing:.16em">MP-75</span>
         </div>
       </div>
     </div>
@@ -1964,7 +1964,7 @@
 <section class="slide light" data-layout="S22" data-animate="image-hero">
   <div class="canvas-card" style="padding:0;display:flex;flex-direction:column;overflow:hidden">
     <div data-anim="img" style="position:relative;flex:0 0 60%;overflow:hidden;background:var(--grey-1)">
-      <div style="position:absolute;inset:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:max(12px,1vw);color:var(--text-helper);letter-spacing:.16em">
+      <div style="position:absolute;inset:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:max(12px,1vw);color:var(--color-on-surface-variant);letter-spacing:.16em">
         <div style="text-align:center">
           <div style="font-size:max(24px,2vw);margin-bottom:1vh">21:9</div>
           <div>图片占位 · Image Placeholder</div>
@@ -1988,21 +1988,21 @@
           <div style="height:1px;background:var(--ink)"></div>
           <div class="t-meta">Templates</div>
           <div style="font-family:var(--font-body);font-weight:200;font-size:min(4.6vw,7.6vh);line-height:.95;letter-spacing:-.04em">28</div>
-          <div style="height:1px;background:var(--border-subtle);margin-top:auto"></div>
+          <div style="height:1px;background:var(--color-outline-variant);margin-top:auto"></div>
           <p style="font-size:max(12px,.9vw)">设计风格模板，全部通过 P0 门禁</p>
         </div>
         <div style="display:flex;flex-direction:column;gap:.6vh">
           <div style="height:1px;background:var(--ink)"></div>
           <div class="t-meta">API Latency</div>
           <div style="font-family:var(--font-body);font-weight:200;font-size:min(4.6vw,7.6vh);line-height:.95;letter-spacing:-.04em">340<span style="font-size:.36em;font-weight:300;opacity:.55;margin-left:.12em">ms</span></div>
-          <div style="height:1px;background:var(--border-subtle);margin-top:auto"></div>
+          <div style="height:1px;background:var(--color-outline-variant);margin-top:auto"></div>
           <p style="font-size:max(12px,.9vw)">Express :3080，Vercel 部署</p>
         </div>
         <div style="display:flex;flex-direction:column;gap:.6vh">
           <div style="height:1px;background:var(--ink)"></div>
           <div class="t-meta">Uptime</div>
           <div style="font-family:var(--font-body);font-weight:200;font-size:min(4.6vw,7.6vh);line-height:.95;letter-spacing:-.04em;color:var(--accent)">100<span style="font-size:.36em;font-weight:300;opacity:.55;margin-left:.12em">%</span></div>
-          <div style="height:1px;background:var(--border-subtle);margin-top:auto"></div>
+          <div style="height:1px;background:var(--color-outline-variant);margin-top:auto"></div>
           <p style="font-size:max(12px,.9vw)">Vercel 自动扩缩容</p>
         </div>
       </div>

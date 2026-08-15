@@ -4,10 +4,15 @@
 <meta charset="utf-8" />
 <title>Editorial Deck Template</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<script src="/runtime/deck-stage.js"></script>
+<script src="/public/deck-stage.js"></script>
 <style>
-  :root{
-  /* ── Standard Roles (auto-injected) ── */
+  :root {
+
+  /* ── Color Roles ── */
+  --pink: #F2B6C6;
+  --pink-deep: #F2B6C6;
+  --cream: #F2D86A;
+  --ink: #7A1F35;
   --color-primary: #F2B6C6;
   --color-secondary: #666666;
   --color-surface: #F2D86A;
@@ -15,36 +20,38 @@
   --color-on-surface-variant: #666666;
   --color-outline: rgba(10,10,10,0.15);
   --color-surface-container-low: #F2D86A;
-  --bg-rgb: 242,216,106;
-  --text-rgb: 242,182,198;
-  --accent-rgb: 242,182,198;
+  --navy: #7A1F35;
+  --forest: #7A1F35;
+  --burgundy: #7A1F35;
+  --lime: #F2D86A;
+  --sky: #F2B6C6;
+  --terracotta: #F2D86A;
+  --butter: #F2D86A;
+
+  /* ── Typography ── */
   --font-display: Inter, system-ui, sans-serif;
   --font-body: 'Bricolage Grotesque', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-  --radius-base: 4px;
-  --radius-sm: 2px;
-  --radius-pill: 999px;
+  --typescale-body-large: 16px;
+
+  /* ── Shadow ── */
   --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
   --elevation-md: 0 8px 30px rgba(0,0,0,0.1);
+
+  /* ── radius ── */
+  --radius-xs: 4px;
+  --radius-pill: 999px;
+
+  /* ── motion ── */
   --ease-standard: 0.18s ease;
   --duration-base: 150ms;
+
+  /* ── spacing ── */
   --space-page-wmax: 1200px;
   --space-page-pad: 32px;
   --space-gap: 24px;
   --space-gutter: 24px;
-
-    --pink:#F2B6C6;
-    --pink-deep:#F2B6C6;
-    --cream:#F2D86A;
-    --navy:#7A1F35;
-    --forest:#7A1F35;
-    --burgundy:#7A1F35;
-    --lime:#F2D86A;
-    --sky:#F2B6C6;
-    --terracotta:#F2D86A;
-    --butter:#F2D86A;
-    --ink:#7A1F35;
-  }
+}
   html, body { margin:0; padding:0; background:#7A1F35; }
   body { font-family: "Bricolage Grotesque", sans-serif; color: var(--ink); }
 

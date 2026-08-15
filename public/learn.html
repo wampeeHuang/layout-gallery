@@ -35,7 +35,7 @@ a { color: inherit; text-decoration: none; }
    ═══════════════════════════════════════════════════════════════ */
 .learn-header {
   text-align: center;
-  padding: clamp(40px, 6vw, 72px) clamp(20px, 4vw, 48px) var(--space-xl);
+  padding: clamp(40px, 6vw, 72px) clamp(20px, 4vw, 48px) var(--space-32);
   border-bottom: var(--hairline) solid var(--color-outline);
 }
 
@@ -44,11 +44,11 @@ a { color: inherit; text-decoration: none; }
   font-size: clamp(40px, 7vw, 64px);
   font-weight: 700; letter-spacing: -0.03em; line-height: 1.1;
   color: var(--heading);
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-16);
 }
 
 .learn-header .lead {
-  font-size: var(--text-xl); color: var(--text-soft);
+  font-size: var(--typescale-body-large); color: var(--color-on-surface-variant);
   max-width: 560px; margin: 0 auto; line-height: 1.65;
 }
 
@@ -61,14 +61,14 @@ a { color: inherit; text-decoration: none; }
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: var(--hairline) solid var(--color-outline-variant);
-  padding: var(--space-sm) clamp(20px, 4vw, 48px);
+  padding: var(--space-12) clamp(20px, 4vw, 48px);
   display: flex; justify-content: center; flex-wrap: wrap;
-  gap: var(--space-2xs);
+  gap: var(--space-4);
 }
 
 .learn-nav a {
-  font-size: var(--text-sm); color: var(--text-soft);
-  padding: var(--space-xs) var(--space-md);
+  font-size: var(--typescale-label-large); color: var(--color-on-surface-variant);
+  padding: var(--space-8) var(--space-16);
   border-radius: var(--radius-pill);
   border: var(--hairline) solid transparent;
   transition: all var(--duration-fast); white-space: nowrap;
@@ -84,25 +84,25 @@ a { color: inherit; text-decoration: none; }
    ═══════════════════════════════════════════════════════════════ */
 .learn-main {
   max-width: var(--space-page-wmax); margin: 0 auto;
-  padding: 0 clamp(20px, 4vw, 48px) var(--space-3xl);
+  padding: 0 clamp(20px, 4vw, 48px) var(--space-64);
 }
 
 .learn-section {
-  margin-top: var(--space-3xl);
+  margin-top: var(--space-64);
   scroll-margin-top: 130px;
 }
-.learn-section:first-of-type { margin-top: var(--space-2xl); }
+.learn-section:first-of-type { margin-top: var(--space-48); }
 
 .learn-section h2 {
   font-family: var(--font-display);
-  font-size: var(--text-3xl); font-weight: 700;
+  font-size: var(--typescale-headline-large); font-weight: 700;
   letter-spacing: -0.02em; color: var(--heading);
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-8);
 }
 
 .learn-section > .desc {
-  font-size: var(--text-base); color: var(--text-soft);
-  line-height: 1.7; margin-bottom: var(--space-xl);
+  font-size: var(--typescale-body-medium); color: var(--color-on-surface-variant);
+  line-height: 1.7; margin-bottom: var(--space-32);
   max-width: 560px;
 }
 
@@ -112,33 +112,33 @@ a { color: inherit; text-decoration: none; }
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--space-xl);
+  gap: var(--space-32);
 }
 
 .card {
   background: var(--color-surface-container-low);
   border: var(--hairline) solid var(--color-outline);
-  border-radius: var(--radius-base);
-  padding: var(--space-xl);
+  border-radius: var(--radius-none);
+  padding: var(--space-32);
   transition: box-shadow var(--duration-slow);
 }
 .card:hover { box-shadow: var(--elevation-sm); }
 
 .card h3 {
-  font-size: var(--text-xl); font-weight: 600;
-  margin-bottom: var(--space-xs); color: var(--color-on-surface);
+  font-size: var(--typescale-body-large); font-weight: 600;
+  margin-bottom: var(--space-8); color: var(--color-on-surface);
 }
 
 .card p {
-  font-size: var(--text-sm); color: var(--text-soft);
-  line-height: 1.6; margin-bottom: var(--space-md);
+  font-size: var(--typescale-label-large); color: var(--color-on-surface-variant);
+  line-height: 1.6; margin-bottom: var(--space-16);
 }
 
 .card .card-note {
-  font-size: var(--text-xs); color: var(--color-on-surface-variant);
-  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--typescale-label-medium); color: var(--color-on-surface-variant);
+  padding: var(--space-8) var(--space-12);
   background: var(--color-surface);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-xs);
   border: var(--hairline) solid var(--color-outline);
   font-family: var(--font-mono);
 }
@@ -149,23 +149,23 @@ a { color: inherit; text-decoration: none; }
 .coming-soon {
   display: flex; align-items: center; justify-content: center;
   flex-direction: column;
-  padding: var(--space-3xl) var(--space-lg);
+  padding: var(--space-64) var(--space-24);
   text-align: center;
   border: 2px dashed var(--color-outline);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-none);
   background: var(--color-surface);
   color: var(--color-on-surface-variant);
 }
-.coming-soon .icon { font-size: 36px; margin-bottom: var(--space-sm); }
-.coming-soon h3 { font-size: var(--text-xl); color: var(--text-soft); margin-bottom: var(--space-xs); }
-.coming-soon p { font-size: var(--text-sm); }
+.coming-soon .icon { font-size: 36px; margin-bottom: var(--space-12); }
+.coming-soon h3 { font-size: var(--typescale-body-large); color: var(--color-on-surface-variant); margin-bottom: var(--space-8); }
+.coming-soon p { font-size: var(--typescale-label-large); }
 
 /* ═══════════════════════════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════════════════════════ */
 @media (max-width: 680px) {
   .learn-header h1 { font-size: clamp(32px, 10vw, 48px); }
-  .learn-section { margin-top: var(--space-2xl); }
+  .learn-section { margin-top: var(--space-48); }
   .card-grid { grid-template-columns: 1fr; }
 }
 </style>
@@ -240,7 +240,7 @@ a { color: inherit; text-decoration: none; }
   <h2>设计原则</h2>
   <p class="desc">版式画廊遵循 7 条通用设计原则 + 5 条 AI 输出约束。不是宣言，是每个模板通过 P0 门禁前的检查清单。</p>
 
-  <h3 style="margin-top:var(--space-xl);font-family:var(--font-display);color:var(--heading)">通用设计原则 · 7 条</h3>
+  <h3 style="margin-top:var(--space-32);font-family:var(--font-display);color:var(--heading)">通用设计原则 · 7 条</h3>
 
   <div class="card-grid">
     <div class="card">
@@ -273,7 +273,7 @@ a { color: inherit; text-decoration: none; }
     </div>
   </div>
 
-  <h3 style="margin-top:var(--space-2xl);font-family:var(--font-display);color:var(--heading)">AI 输出约束 · 5 条</h3>
+  <h3 style="margin-top:var(--space-48);font-family:var(--font-display);color:var(--heading)">AI 输出约束 · 5 条</h3>
 
   <div class="card-grid">
     <div class="card">

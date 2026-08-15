@@ -2,13 +2,30 @@
 
 模板改动交付前必须通过全部门禁。本清单覆盖基础设施 + 风格 A（电子杂志）+ 风格 B（瑞士国际主义）。
 
+## P1 四文件合同（新包默认）
+
+- [ ] `template.json` 存在，且通过 `schemas/template.schema.json`：身份、来源、许可、taxonomy、能力、生命周期齐全
+- [ ] `design.md` 是唯一意图文档，包含真实 Anatomy 与 Usage patterns；不再新增 `components.md` / `recipes.md`
+- [ ] `tokens.json` 是唯一机器控制面；`themes` 只在存在真实 token 差量时出现
+- [ ] `template.html` 是 canonical executable reference，内容可替换后仍能运行
+- [ ] `generated/<slug>/` 的质量报告与评审签名只作为派生证据，不回写作者文件
+- [ ] legacy 七文件包允许双读，但 `components.md`、`recipes.md`、`themes.json` 不得成为新包的必需输入
+
+迁移/差异报告：
+
+```bash
+node scripts/template-migration-report.mjs <slug>
+```
+
+新模板注册默认写入 `lifecycle.qualityTier=blocked`、`lifecycle.exposure=hidden`，通过质量与上架门禁后才可提升等级。
+
 ---
 
 ## 运行验证
 
 ```bash
-node platform/validate.mjs --all    # exit 0 才能报完成
-node platform/compile.mjs <slug> --check  # body CSS 硬编码扫描
+node scripts/validate.mjs --all    # exit 0 才能报完成
+node scripts/compile.mjs <slug> --check  # body CSS 硬编码扫描
 ```
 
 ---
@@ -26,12 +43,12 @@ node platform/compile.mjs <slug> --check  # body CSS 硬编码扫描
 - [ ] `compile.mjs <slug>` exit 0
 - [ ] `compile.mjs <slug> --check` exit 0（无未定义 var() 引用，无 var() fallback 陷阱，无硬编码 hex/rgba/font-family）
 
-### 文件存在
+### 文件存在（legacy 兼容包）
 - [ ] template.html 存在且包含 `:root` 块
-- [ ] design.md 存在
-- [ ] recipes.md 存在
-- [ ] themes.json 存在
-- [ ] components.md 存在
+- [ ] design.md 存在（四文件必需）
+- [ ] recipes.md 存在（legacy 可选）
+- [ ] themes.json 存在（legacy 可选）
+- [ ] components.md 存在（legacy 可选）
 
 ### 语法 & 安全
 - [ ] JSON 文件可解析
@@ -178,4 +195,4 @@ node platform/compile.mjs <slug> --check  # body CSS 硬编码扫描
 
 ## 不通过 = 不交付
 
-`node platform/validate.mjs --all` exit 0 才能报完成。局部通过不等于全局完成。
+`node scripts/validate.mjs --all` exit 0 才能报完成。局部通过不等于全局完成。

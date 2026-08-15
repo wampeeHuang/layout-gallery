@@ -5,7 +5,8 @@
     { "src": "templates/**/*.html", "use": "@vercel/static" },
     { "src": "public/index.html", "use": "@vercel/static" },
     { "src": "public/library.html", "use": "@vercel/static" },
-    { "src": "public/grow.html", "use": "@vercel/static" }
+    { "src": "public/grow.html", "use": "@vercel/static" },
+    { "src": "public/deck-stage.js", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "server/server.js" },

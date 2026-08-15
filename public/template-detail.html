@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{NAME}} · 版式画廊</title>
+<style>
+<!-- ROOT_INJECT -->
+*,*::before,*::after{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--color-surface);color:var(--color-on-surface);font-family:var(--font-body);font-size:16px;line-height:1.7}.skip{position:fixed;inset-block-start:var(--space-12);inset-inline-start:var(--space-12);z-index:20;transform:translateY(-200%);background:var(--color-primary);color:var(--color-surface);padding:var(--space-12) var(--space-16)}.skip:focus{transform:none}a{color:inherit}.shell{width:min(calc(100% - 2rem),var(--space-page-wmax));margin-inline:auto}.hero{padding-block:clamp(4rem,10vw,8rem);display:grid;gap:var(--space-48);border-bottom:var(--hairline) solid var(--color-outline)}.eyebrow,.facts dt{font:var(--typescale-label-medium)/1.4 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--color-primary)}h1{font:700 clamp(3rem,8vw,7rem)/.98 var(--font-display);letter-spacing:-.04em;margin:var(--space-12) 0;max-width:12ch}.lead{max-width:48rem;color:var(--color-on-surface-variant)}.actions{display:flex;flex-wrap:wrap;gap:var(--space-12);margin-top:var(--space-32)}.button{min-height:2.75rem;display:inline-flex;align-items:center;padding-inline:var(--space-24);border:var(--hairline) solid var(--color-primary);text-decoration:none;color:var(--color-primary)}.button.primary{background:var(--color-primary);color:var(--color-surface)}.button:focus-visible{outline:.2rem solid var(--color-primary-container);outline-offset:.2rem}.cover{width:100%;height:auto;display:block;border:var(--hairline) solid var(--color-outline)}.section{padding-block:var(--space-64);border-bottom:var(--hairline) solid var(--color-outline)}.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-24);margin:0}.facts div{border-top:var(--hairline) solid var(--color-outline);padding-top:var(--space-12)}.facts dd{margin:var(--space-8) 0 0}.proof{display:grid;gap:var(--space-32)}.proof img{width:min(100%,24rem);height:auto;border:var(--hairline) solid var(--color-outline)}footer{padding-block:var(--space-32);color:var(--color-on-surface-variant)}@media(min-width:52rem){.hero{grid-template-columns:minmax(0,1.2fr) minmax(18rem,.8fr);align-items:end}.facts{grid-template-columns:repeat(4,minmax(0,1fr))}.proof{grid-template-columns:1fr 1fr;align-items:start}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<!-- NAV_INJECT -->
+<main id="main">
+  <section class="shell hero">
+    <div><div class="eyebrow">{{TIER}} · {{SLUG}}</div><h1>{{NAME}}</h1><p class="lead">{{TAGLINE}}</p><div class="actions"><a class="button primary" href="{{PREVIEW}}">打开预览</a><a class="button" href="{{BRAND}}">查看品牌套件</a><a class="button" href="{{REPORT}}">质量报告</a></div></div>
+    <dl class="facts"><div><dt>层级</dt><dd>{{TIER}}</dd></div><div><dt>版式族</dt><dd>{{FAMILY}}</dd></div><div><dt>类型</dt><dd>{{TYPE}}</dd></div><div><dt>内容</dt><dd>{{CONTENT}}</dd></div></dl>
+  </section>
+  <section class="shell section"><img class="cover" src="{{COVER}}" width="1440" height="1000" alt="{{NAME}} 桌面预览"></section>
+  <section class="shell section proof"><div><div class="eyebrow">Mobile proof</div><h2>窄屏不是缩小版桌面</h2><p class="lead">该证据由生成器从同一 canonical preview 自动生成，不能手工替换。</p></div><img src="{{MOBILE}}" width="390" height="844" loading="lazy" alt="{{NAME}} 移动端验证"></section>
+</main>
+<!-- FOOTER_INJECT -->
+</body>
+</html>

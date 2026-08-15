@@ -1,5 +1,6 @@
 ﻿const fs = require('fs');
 const path = require('path');
+const { readManifest } = require('../scripts/template-package.cjs');
 
 // ── Token contract fallback lookup ──────────────────────────────
 // Single source of truth: token-contract.json defines default values
@@ -48,6 +49,14 @@ const STD = {
 };
 
 function renderBrandKit(entry, projectDir) {
+  const packageInfo = readManifest(projectDir, entry.template_path, entry);
+  const packageManifest = packageInfo.manifest;
+  entry = {
+    ...entry,
+    ...packageManifest,
+    scheme: packageManifest.scheme || packageManifest.taxonomy?.scheme || entry.scheme,
+    tagline: packageManifest.tagline || entry.tagline,
+  };
   const fb = loadFallbackMap(projectDir);
   const tmplPath = path.join(projectDir, entry.template_path);
   const html = fs.readFileSync(tmplPath, 'utf-8');
@@ -171,7 +180,7 @@ function renderBrandKit(entry, projectDir) {
   // ── Hero ──
   out = out.replace(/\{\{TEMPLATE_NAME\}\}/g, esc(entry.name));
   out = out.replace(/\{\{TAGLINE\}\}/g, esc(entry.tagline || ''));
-  out = out.replace(/\{\{EYEBROW_TEXT\}\}/g, esc(styleLabel(entry.design_style) + ' · 设计基因套件'));
+  out = out.replace(/\{\{EYEBROW_TEXT\}\}/g, esc(styleLabel(entry.visual_family) + ' · 设计基因套件'));
   out = out.replace(/\{\{MOOD_CHIPS\}\}/g, buildMoodChips(entry, P));
 
   // ── Overview ──
@@ -578,17 +587,17 @@ function groupTokensFromData(tokensData) {
 
 function buildMoodChips(entry, P) {
   const chips = [];
-  if (entry.design_style) chips.push('<span class="bk-chip mood">' + esc(styleLabel(entry.design_style)) + '</span>');
-  if (entry.mood) entry.mood.forEach(m => chips.push('<span class="bk-chip mood">' + esc(m) + '</span>'));
+  if (entry.visual_family) chips.push('<span class="bk-chip mood">' + esc(styleLabel(entry.visual_family)) + '</span>');
+  if (entry.tone) entry.tone.forEach(t => chips.push('<span class="bk-chip mood">' + esc(toneLabel(t)) + '</span>'));
   if (entry.scheme) chips.push('<span class="bk-chip">' + esc(schemeLabel(entry.scheme)) + '</span>');
   if (entry.density) chips.push('<span class="bk-chip">' + esc(densityLabel(entry.density)) + '</span>');
-  if (entry.template_type) chips.push('<span class="bk-chip">' + esc(typeLabel(entry.template_type)) + '</span>');
+  if (entry.content_type) chips.push('<span class="bk-chip">' + esc(typeLabel(entry.content_type)) + '</span>');
   return chips.join('\n    ');
 }
 
 function buildOverview(entry) {
   const parts = [];
-  if (entry.design_style) parts.push(styleLabel(entry.design_style) + ' 风格');
+  if (entry.visual_family) parts.push(styleLabel(entry.visual_family) + ' 风格');
   if (entry.scheme) parts.push(schemeLabel(entry.scheme) + ' 配色');
   if (entry.formality) parts.push('正式度 ' + formalityLabel(entry.formality));
   if (entry.density) parts.push('信息密度 ' + densityLabel(entry.density));
@@ -597,8 +606,8 @@ function buildOverview(entry) {
 
 function buildDNA(entry) {
   const parts = [];
-  if (entry.design_style) parts.push(styleLabel(entry.design_style));
-  if (entry.template_type) parts.push(entry.template_type);
+  if (entry.visual_family) parts.push(styleLabel(entry.visual_family));
+  if (entry.content_type) parts.push(typeLabel(entry.content_type));
   if (entry.typography_style) parts.push(entry.typography_style);
   return parts.join(' / ') || '—';
 }
@@ -1259,7 +1268,7 @@ function buildDecisions(entry, P, T, vars, assets) {
     const dlabel = { low: '低密度', medium: '中密度', 'medium-high': '中高密度', high: '高密度' }[entry.density] || entry.density;
     items.push({
       q: '为什么「' + dlabel + '」排版？',
-      a: '--page-w: ' + vars['--page-w'] + '（内容区宽度）。' + (w && w >= 1100 ? '宽内容区+' + dlabel + '密度 = 宣言式留白——每屏信息量有节制，视觉焦点始终在标题和主行动号召上。' : '内容区宽度与' + dlabel + '密度配合，控制每屏信息量。') + (entry.template_type === 'single-page' ? ' 单页设计天然需要更大的 section 间距来区分内容区块。' : ''),
+      a: '--page-w: ' + vars['--page-w'] + '（内容区宽度）。' + (w && w >= 1100 ? '宽内容区+' + dlabel + '密度 = 宣言式留白——每屏信息量有节制，视觉焦点始终在标题和主行动号召上。' : '内容区宽度与' + dlabel + '密度配合，控制每屏信息量。') + (entry.content_type === 'landing' ? ' 单页设计天然需要更大的 section 间距来区分内容区块。' : ''),
       tag: 'layout'
     });
   }
@@ -1296,8 +1305,8 @@ function buildJsonBlock(entry, groups) {
   const obj = {
     template: entry.slug,
     name: entry.name,
-    style: [entry.design_style, entry.template_type].filter(Boolean),
-    design_philosophy: (entry.tagline || '') + '. ' + styleLabel(entry.design_style) + '. ' + schemeLabel(entry.scheme) + '.',
+    style: [entry.visual_family, entry.content_type].filter(Boolean),
+    design_philosophy: (entry.tagline || '') + '. ' + styleLabel(entry.visual_family) + '. ' + schemeLabel(entry.scheme) + '.',
     tokens: {}
   };
   for (const [cat, items] of Object.entries(groups)) {
@@ -1386,8 +1395,7 @@ function cleanSpacingVal(val) {
 }
 
 function styleLabel(s) {
-  const map = { 'minimalist': '极简', 'editorial': '杂志编辑', 'swiss': '瑞士国际', 'corporate': '企业商务',
-    'brutalist': '粗野主义', 'modern': '现代科技', 'retro': '复古经典', 'organic': '自然柔和', 'luxury': '奢华暗色', 'playful': '活泼创意' };
+  const map = { 'editorial': '编辑风', 'swiss': '瑞士风', 'brutalist': '粗野风', 'retro': '复古风', 'organic': '自然风', 'graphic': '图形风' };
   return map[s] || s || '';
 }
 
@@ -1407,7 +1415,12 @@ function formalityLabel(s) {
 }
 
 function typeLabel(s) {
-  const map = { 'single-page': '单页', 'slide-deck': '幻灯片', report: '报告', infographic: '信息图', 'social-card': '社交卡片', poster: '海报' };
+  const map = { 'landing': '营销落地', 'portfolio': '作品展示', 'blog': '内容阅读', 'corporate': '企业品牌', 'dashboard': '数据面板', 'ecommerce': '电商', 'personal': '个人页' };
+  return map[s] || s || '';
+}
+
+function toneLabel(s) {
+  const map = { dramatic: '戏剧', playful: '玩趣', warm: '温暖', confident: '自信', sober: '克制', friendly: '友好', upbeat: '活泼', punchy: '强劲' };
   return map[s] || s || '';
 }
 

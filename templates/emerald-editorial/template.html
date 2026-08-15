@@ -5,7 +5,17 @@
 <title>Emerald Editorial Deck</title>
 <style>
   :root {
-  /* ── Standard Roles (auto-injected) ── */
+
+  /* ── Color Roles ── */
+  --bg: #3CD896;
+  --bg-2: #2DC684;
+  --bg-3: #25B377;
+  --ink: #0F1A5C;
+  --ink-2: #1B2774;
+  --ink-3: #3A4593;
+  --paper: #F1E9D6;
+  --rule: rgba(15, 26, 92, 0.22);
+  --rule-strong: rgba(15, 26, 92, 0.85);
   --color-primary: #333333;
   --color-secondary: #666666;
   --color-surface: #F1E9D6;
@@ -13,35 +23,31 @@
   --color-on-surface-variant: #666666;
   --color-outline: rgba(15, 26, 92, 0.22);
   --color-surface-container-low: #F1E9D6;
-  --bg-rgb: 241,233,214;
-  --text-rgb: 15,26,92;
-  --accent-rgb: 51,51,51;
+
+  /* ── Typography ── */
   --font-display: 'Bodoni Moda', serif;
   --font-body: 'Bodoni Moda', serif;
   --font-mono: ui-monospace, SF Mono, Consolas, monospace;
-  --radius-base: 4px;
-  --radius-sm: 2px;
-  --radius-pill: 999px;
+  --typescale-body-large: 16px;
+
+  /* ── Shadow ── */
   --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
   --elevation-md: 0 8px 30px rgba(0,0,0,0.1);
+
+  /* ── radius ── */
+  --radius-xs: 4px;
+  --radius-pill: 999px;
+
+  /* ── motion ── */
   --ease-standard: 0.18s ease;
   --duration-base: 150ms;
+
+  /* ── spacing ── */
   --space-page-wmax: 1200px;
   --space-page-pad: 32px;
   --space-gap: 24px;
   --space-gutter: 24px;
-
-    --bg: #3CD896;
-    --bg-2: #2DC684;
-    --bg-3: #25B377;
-    --ink: #0F1A5C;
-    --ink-2: #1B2774;
-    --ink-3: #3A4593;
-    --paper: #F1E9D6;
-    --rule: rgba(15, 26, 92, 0.22);
-    --rule-strong: rgba(15, 26, 92, 0.85);
-    --display-font: 'Bodoni Moda', serif;
-  }
+}
 
   html, body { margin: 0; padding: 0; background: #0a0a0a; }
   deck-stage { background: #0a0a0a; }
@@ -59,14 +65,14 @@
 
   /* Bold display serif — Bodoni Moda heavy */
   .display {
-    font-family: var(--display-font);
+    font-family: var(--font-display);
     font-weight: 900;
     font-style: normal;
     letter-spacing: -0.005em;
     line-height: 0.95;
   }
   .display-md {
-    font-family: var(--display-font);
+    font-family: var(--font-display);
     font-weight: 800;
     font-style: normal;
   }
@@ -90,7 +96,7 @@
     width: 100%;
   }
   .ornament .word {
-    font-family: var(--display-font);
+    font-family: var(--font-display);
     font-weight: 800;
     font-size: 0.42em;
     letter-spacing: 0.02em;
@@ -118,7 +124,7 @@
     display: inline-flex;
     align-items: center;
     gap: 22px;
-    font-family: var(--display-font);
+    font-family: var(--font-display);
     font-weight: 700;
   }
   .of-mark::before, .of-mark::after {
@@ -183,9 +189,9 @@
     min-height: 0;
   }
   .s1-line { color: var(--ink); }
-  .s1-the { font-family: var(--display-font); font-weight: 800; font-size: 76px; line-height: 1; margin-bottom: -2px; }
+  .s1-the { font-family: var(--font-display); font-weight: 800; font-size: 76px; line-height: 1; margin-bottom: -2px; }
   .s1-big {
-    font-family: var(--display-font);
+    font-family: var(--font-display);
     font-weight: 900;
     font-size: 184px;
     line-height: 0.92;
@@ -206,7 +212,7 @@
   .s1-mid .rule::before { top: 2px; }
   .s1-mid .rule::after { bottom: 2px; }
   .s1-mid .of {
-    font-family: var(--display-font); font-weight: 800;
+    font-family: var(--font-display); font-weight: 800;
     font-size: 68px; line-height: 1; padding: 0 6px;
   }
 
@@ -239,7 +245,7 @@
   }
   .s2-eyebrow { font-size: 28px; font-weight: 800; letter-spacing: 0.18em; margin-bottom: 30px; }
   .s2-title {
-    font-family: var(--display-font);
+    font-family: var(--font-display);
     font-weight: 900;
     font-size: 200px;
     line-height: 0.9;
@@ -257,13 +263,13 @@
   }
   .s2-row:last-child { border-bottom: 4px solid var(--ink); }
   .s2-row .num {
-    font-family: var(--display-font);
+    font-family: var(--font-display);
     font-weight: 800;
     font-size: 64px;
     line-height: 1;
   }
   .s2-row .name {
-    font-family: var(--display-font);
+    font-family: var(--font-display);
     font-weight: 800;
     font-size: 64px;
     line-height: 1;
@@ -300,7 +306,7 @@
     font-size: 26px; font-weight: 700; letter-spacing: 0.08em;
   }
   .s3-numeral {
-    font-family: var(--display-font);
+    font-family: var(--font-display);
     font-weight: 900;
     font-size: 460px;
     line-height: 0.9;
@@ -327,7 +333,7 @@
     font-size: 28px;
   }
   .s3-right h2 {
-    font-family: var(--display-font);
+    font-family: var(--font-display);
     font-weight: 900;
     font-size: 128px;
     line-height: 0.95;
@@ -362,7 +368,7 @@
     gap: 60px;
   }
   .s4-state {
-    font-family: var(--display-font);
+    font-family: var(--font-display);
     font-weight: 900;
     font-size: 130px;
     line-height: 0.96;
@@ -376,7 +382,7 @@
     margin: 14px 0;
   }
   .s4-state .ornament-row .of-word {
-    font-family: var(--display-font);
+    font-family: var(--font-display);
     font-weight: 800;
     font-size: 84px;
     line-height: 1;
@@ -398,14 +404,14 @@
     padding-top: 36px;
   }
   .s4-cell .n {
-    font-family: var(--display-font);
+    font-family: var(--font-display);
     font-weight: 800;
     font-size: 64px;
     line-height: 1;
     margin-bottom: 18px;
   }
   .s4-cell h4 {
-    font-family: var(--display-font);
+    font-family: var(--font-display);
     font-weight: 800;
     font-size: 44px;
     line-height: 1.05;
@@ -431,7 +437,7 @@
     align-items: end;
   }
   .s5-h {
-    font-family: var(--display-font);
+    font-family: var(--font-display);
     font-weight: 900;
     font-size: 104px;
     line-height: 0.95;
@@ -472,7 +478,7 @@
   }
   .chart-yaxis span {
     position: absolute; right: 14px; font-size: 26px;
-    font-family: var(--display-font); font-weight: 700;
+    font-family: var(--font-display); font-weight: 700;
     transform: translateY(-50%);
   }
   .chart-grid {
@@ -494,7 +500,7 @@
   .bar.b2 { background: var(--paper); }
   .bar .v {
     position: absolute; top: -40px; left: 50%; transform: translateX(-50%);
-    font-family: var(--display-font); font-weight: 800;
+    font-family: var(--font-display); font-weight: 800;
     font-size: 30px; color: var(--bg);
   }
   .bar.b2 .v { color: var(--paper); }
@@ -531,7 +537,7 @@
     white-space: nowrap;
   }
   .s5-side .take {
-    font-family: var(--display-font);
+    font-family: var(--font-display);
     font-weight: 800;
     font-size: 48px;
     line-height: 1.0;
@@ -550,7 +556,7 @@
     padding-top: 28px;
   }
   .s5-side .stats .stat .num {
-    font-family: var(--display-font);
+    font-family: var(--font-display);
     font-weight: 900;
     font-size: 92px;
     line-height: 1;
@@ -580,7 +586,7 @@
   }
   .s6-eyebrow { font-size: 28px; font-weight: 800; letter-spacing: 0.16em; }
   .s6-h {
-    font-family: var(--display-font); font-weight: 900;
+    font-family: var(--font-display); font-weight: 900;
     font-size: 120px; line-height: 0.95; letter-spacing: -0.015em;
     margin: 18px 0 0;
   }
@@ -602,12 +608,12 @@
   }
   .step.alt { background: var(--paper); color: var(--ink); }
   .step .n {
-    font-family: var(--display-font); font-weight: 900;
+    font-family: var(--font-display); font-weight: 900;
     font-size: 80px; line-height: 1;
     margin-bottom: 14px;
   }
   .step h4 {
-    font-family: var(--display-font); font-weight: 800;
+    font-family: var(--font-display); font-weight: 800;
     font-size: 40px; line-height: 1.0;
     margin: 0 0 16px;
     letter-spacing: -0.005em;
@@ -637,7 +643,7 @@
   }
   .s7-eyebrow { font-size: 28px; font-weight: 800; letter-spacing: 0.16em; margin-bottom: 14px; }
   .s7-h {
-    font-family: var(--display-font); font-weight: 900;
+    font-family: var(--font-display); font-weight: 900;
     font-size: 128px; line-height: 0.92; letter-spacing: -0.015em;
     margin: 0;
   }
@@ -670,7 +676,7 @@
     font-size: 24px;
   }
   .kpi .val {
-    font-family: var(--display-font);
+    font-family: var(--font-display);
     font-weight: 900;
     font-size: 144px;
     line-height: 0.9;
@@ -728,7 +734,7 @@
     margin-bottom: 30px;
   }
   .s8-h {
-    font-family: var(--display-font);
+    font-family: var(--font-display);
     font-weight: 900;
     font-size: 180px;
     line-height: 0.92;
@@ -748,7 +754,7 @@
   .s8-mid .rule::before { top: 2px; }
   .s8-mid .rule::after { bottom: 2px; }
   .s8-mid .of {
-    font-family: var(--display-font); font-weight: 800;
+    font-family: var(--font-display); font-weight: 800;
     font-size: 76px; line-height: 1;
   }
   .s8-foot {
@@ -764,7 +770,7 @@
   }
   .s8-foot .col .lbl { font-weight: 800; letter-spacing: 0.14em; font-size: 24px; margin-bottom: 10px; }
   .s8-foot .col .val {
-    font-family: var(--display-font); font-weight: 800;
+    font-family: var(--font-display); font-weight: 800;
     font-size: 38px; line-height: 1.1;
   }
 
@@ -1110,7 +1116,7 @@
 
 </deck-stage>
 
-<script src="/runtime/deck-stage.js"></script>
+<script src="/public/deck-stage.js"></script>
 
 </body>
 </html>

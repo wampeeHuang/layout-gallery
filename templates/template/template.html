@@ -7,40 +7,55 @@
 
 <style>
 :root {
-  --color-primary: #333;
-  --color-secondary: #888;
-  --color-surface: #f1efea;
-  --color-on-surface: #0a0a0b;
-  --color-on-surface-variant: #18181a;
-  --color-outline: rgba(10,10,11,0.18);
-  --color-surface-container-low: #f1efea;
-  --text-rgb: 10,10,11;
-  --bg-rgb: 241,239,234;
-  --accent-rgb: 51,51,51;
-  --font-display: "Playfair Display","Source Serif 4",Georgia,serif;
-  --font-body: "Source Serif 4",Georgia,serif;
-  --font-mono: "IBM Plex Mono",ui-monospace,monospace;
-  --radius-base: 0px;
-  --radius-sm: 4px;
-  --radius-pill: 999px;
-  --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
-  --elevation-md: 0 8px 30px rgba(0,0,0,0.1);
-  --ease-standard: 0.18s ease;
-  --duration-base: 150ms;
-  --ease-page: cubic-bezier(.77,0,.175,1);
-  --dur-page: .9s;
-  --dur-slow-1: 1.2s;
-  --dur-slow-2: .7s;
-  --dur-mod-2: .24s;
-  --space-page-wmax: 1200px;
-  --space-page-pad: 32px;
-  --space-gap: 24px;
-  --space-gutter: 24px;
 
+  /* ── Color Roles ── */
   --ink: #0a0a0b;
   --paper: #f1efea;
   --paper-tint: #e8e5de;
   --ink-tint: #18181a;
+  --color-primary: #333;
+  --color-secondary: #888;
+  --color-surface: #f1efea;
+  --color-surface-container-low: #f1efea;
+  --color-on-surface: #0a0a0b;
+  --color-on-surface-variant: #18181a;
+  --color-outline: rgba(10,10,11,0.18);
+  --bg-rgb: 241,239,234;
+  --text-rgb: 10,10,11;
+
+  /* ── Typography ── */
+  --font-display: "Playfair Display","Source Serif 4",Georgia,serif;
+  --font-body: "Source Serif 4",Georgia,serif;
+  --font-mono: "IBM Plex Mono",ui-monospace,monospace;
+  --typescale-display-large: clamp(40px, 7vw, 64px);
+  --typescale-headline-large: clamp(28px, 4vw, 40px);
+  --typescale-body-large: clamp(18px, 2.5vw, 22px);
+  --typescale-body-medium: 16px;
+  --typescale-label-large: 13px;
+
+  /* ── Shadow ── */
+  --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --elevation-md: 0 8px 30px rgba(0,0,0,0.1);
+
+  /* ── radius ── */
+  --radius-none: 0px;
+  --radius-xs: 4px;
+  --radius-pill: 999px;
+
+  /* ── motion ── */
+  --ease-standard: 0.18s ease;
+  --duration-base: 150ms;
+  --ease-page: cubic-bezier(0.77,0,0.175,1);
+  --dur-page: .9s;
+  --dur-slow-1: 1.2s;
+  --dur-slow-2: .7s;
+  --dur-mod-2: .24s;
+
+  /* ── spacing ── */
+  --space-page-wmax: 1200px;
+  --space-page-pad: 32px;
+  --space-gap: 24px;
+  --space-gutter: 24px;
 }
 
   
@@ -181,7 +196,7 @@
      重要约束：高度用内联 height:Nvh 精确控制，不要用 aspect-ratio（会撑破布局）
      object-position:top center 保证严禁裁剪顶部和左右，只裁剪底部
   */
-  .frame-img{overflow:hidden;position:relative;background:rgba(0,0,0,.04);box-sizing:border-box;width:100%;border-radius:var(--radius-sm)}
+  .frame-img{overflow:hidden;position:relative;background:rgba(0,0,0,.04);box-sizing:border-box;width:100%;border-radius:var(--radius-xs)}
   .slide.dark .frame-img{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12)}
   .frame-img > img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
   .frame-img.fit-contain > img{object-fit:contain;object-position:center center}
@@ -1048,7 +1063,7 @@ function buildOverview(){
   grid.style.cssText='display:grid;grid-template-columns:repeat(4,1fr);gap:2vh 1.6vw;max-width:90vw;margin:0 auto';
   slides.forEach((s,i)=>{
     const card=document.createElement('div');
-    card.style.cssText='cursor:pointer;border-radius:var(--radius-sm);overflow:hidden;border:2px solid '+(i===idx?'rgba(var(--bg-rgb),.8)':'rgba(var(--bg-rgb),.15)')+';transition:border-color var(--dur-mod-2)';
+    card.style.cssText='cursor:pointer;border-radius:var(--radius-xs);overflow:hidden;border:2px solid '+(i===idx?'rgba(var(--bg-rgb),.8)':'rgba(var(--bg-rgb),.15)')+';transition:border-color var(--dur-mod-2)';
     card.onmouseenter=()=>card.style.borderColor='rgba(var(--bg-rgb),.6)';
     card.onmouseleave=()=>card.style.borderColor=i===idx?'rgba(var(--bg-rgb),.8)':'rgba(var(--bg-rgb),.15)';
     const wrap=document.createElement('div');

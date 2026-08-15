@@ -158,7 +158,7 @@ tokens.json                    ← 你创建的，唯一数据源
 | tokens.motion | 过渡时间 |
 
 **渲染器的行为：**
-1. 读 registry.json 找到模板的 `template_type`
+1. 读 `data/registry.json` 找到模板的 `content_type` 分类
 2. 从模板目录读 `design.md` YAML 头获取设计令牌（颜色/排版/间距）
 3. 用 tokens.json 填充品牌页 `:root` 块
 4. 将 typography / spacing / radius / shadow / motion 也注入 `:root`

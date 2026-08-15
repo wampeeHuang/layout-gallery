@@ -4,10 +4,19 @@
 <meta charset="utf-8" />
 <title>Creative Mode — Deck Template</title>
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<script src="/runtime/deck-stage.js"></script>
+<script src="/public/deck-stage.js"></script>
 <style>
-  :root{
-  /* ── Standard Roles (auto-injected) ── */
+  :root {
+
+  /* ── Color Roles ── */
+  --cream: #EFE9D9;
+  --cream-2: #E4DCC4;
+  --green-dark: #136636;
+  --pink: #F06CA8;
+  --pink-dark: #D14E8B;
+  --ink: #0F0F0F;
+  --ink-2: #2A2A2A;
+  --rule: #0F0F0F;
   --color-primary: #1F8A4C;
   --color-secondary: #666666;
   --color-surface: #EFE9D9;
@@ -15,36 +24,34 @@
   --color-on-surface-variant: #666666;
   --color-outline: #0F0F0F;
   --color-surface-container-low: #EFE9D9;
-  --bg-rgb: 239,233,217;
-  --text-rgb: 240,108,168;
-  --accent-rgb: 31,138,76;
+  --green: #1F8A4C;
+  --orange: #E85A1F;
+  --yellow: #F5C518;
+
+  /* ── Typography ── */
   --font-display: 'Archivo Black', sans-serif;
   --font-body: 'JetBrains Mono', monospace;
   --font-mono: 'JetBrains Mono', monospace;
-  --radius-base: 4px;
-  --radius-sm: 2px;
-  --radius-pill: 999px;
+  --typescale-body-large: 16px;
+
+  /* ── Shadow ── */
   --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
   --elevation-md: 0 8px 30px rgba(0,0,0,0.1);
+
+  /* ── radius ── */
+  --radius-xs: 4px;
+  --radius-pill: 999px;
+
+  /* ── motion ── */
   --ease-standard: 0.18s ease;
   --duration-base: 150ms;
+
+  /* ── spacing ── */
   --space-page-wmax: 1200px;
   --space-page-pad: 32px;
   --space-gap: 24px;
   --space-gutter: 24px;
-
-    --cream:#EFE9D9;
-    --cream-2:#E4DCC4;
-    --green:#1F8A4C;
-    --green-dark:#136636;
-    --pink:#F06CA8;
-    --pink-dark:#D14E8B;
-    --orange:#E85A1F;
-    --yellow:#F5C518;
-    --ink:#0F0F0F;
-    --ink-2:#2A2A2A;
-    --rule:#0F0F0F;
-  }
+}
   html, body { margin:0; padding:0; background:#000; }
   body { font-family:"Space Grotesk", system-ui, sans-serif; color:var(--ink); }
 

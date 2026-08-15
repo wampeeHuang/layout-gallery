@@ -6,7 +6,13 @@
     <title>Presentation Template</title>
     <style>
         :root {
-  /* ── Standard Roles (auto-injected) ── */
+
+  /* ── Color Roles ── */
+  --bg: #F0C8A0;
+  --bg-alt: #E8B88E;
+  --text: #1A1A1A;
+  --accent: #1A1A1A;
+  --light: #F7DEC6;
   --color-primary: #1A1A1A;
   --color-secondary: #666666;
   --color-surface: #F0C8A0;
@@ -14,30 +20,31 @@
   --color-on-surface-variant: #666666;
   --color-outline: rgba(10,10,10,0.15);
   --color-surface-container-low: #E8B88E;
-  --bg-rgb: 240,200,160;
-  --text-rgb: 26,26,26;
-  --accent-rgb: 26,26,26;
+
+  /* ── Typography ── */
   --font-display: 'Syne', sans-serif;
   --font-body: 'Space Grotesk', sans-serif;
   --font-mono: 'Space Grotesk', sans-serif;
-  --radius-base: 4px;
-  --radius-sm: 2px;
-  --radius-pill: 999px;
+  --typescale-body-large: 16px;
+
+  /* ── Shadow ── */
   --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
   --elevation-md: 0 8px 30px rgba(0,0,0,0.1);
+
+  /* ── radius ── */
+  --radius-xs: 4px;
+  --radius-pill: 999px;
+
+  /* ── motion ── */
   --ease-standard: 0.18s ease;
   --duration-base: 150ms;
+
+  /* ── spacing ── */
   --space-page-wmax: 1200px;
   --space-page-pad: 32px;
   --space-gap: 24px;
   --space-gutter: 24px;
-
-            --bg: #F0C8A0;
-            --bg-alt: #E8B88E;
-            --text: #1A1A1A;
-            --accent: #1A1A1A;
-            --light: #F7DEC6;
-        }
+}
 
         * {
             margin: 0;

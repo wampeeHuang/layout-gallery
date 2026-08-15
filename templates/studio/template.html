@@ -6,64 +6,65 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
   :root {
-    /* ── 二进制调色板 ── */
-    --near-black:      #1C1C1C;
-    --near-black-alt:  #242422;
-    --acid-yellow:     #F5D200;
-    --acid-yellow-alt: #F0CC00;
-    --text-on-dark-2:  rgba(245,210,0,0.58);
-    --text-on-dark-3:  rgba(245,210,0,0.32);
-    --text-on-light-2: rgba(28,28,28,0.62);
-    --text-on-light-3: rgba(28,28,28,0.35);
-    --border-dark:     #2E2E2C;
-    --border-light:    rgba(28,28,28,0.18);
 
-    /* ── 标准颜色角色 ── */
-    --color-primary: #F5D200;
-    --color-secondary: #1C1C1C;
-    --color-surface: #1C1C1C;
-    --color-on-surface: #F5D200;
-    --color-on-surface-variant: rgba(245,210,0,0.58);
-    --color-outline: #2E2E2C;
-    --color-surface-container-low: #242422;
+  /* ── Color Roles ── */
+  --near-black: #1C1C1C;
+  --near-black-alt: #242422;
+  --acid-yellow: #F5D200;
+  --acid-yellow-alt: #F0CC00;
+  --text-on-dark-2: rgba(245,210,0,0.58);
+  --text-on-dark-3: rgba(245,210,0,0.32);
+  --text-on-light-2: rgba(28,28,28,0.62);
+  --text-on-light-3: rgba(28,28,28,0.35);
+  --border-dark: #2E2E2C;
+  --border-light: rgba(28,28,28,0.18);
+  --color-primary: #F5D200;
+  --color-secondary: #1C1C1C;
+  --color-surface: #1C1C1C;
+  --color-on-surface: #F5D200;
+  --color-on-surface-variant: rgba(245,210,0,0.58);
+  --color-outline: #2E2E2C;
+  --color-surface-container-low: #242422;
 
-    /* ── 字体家族 ── */
-    --font-display: "Barlow","Noto Sans SC",system-ui,sans-serif;
-    --font-body:    "Barlow","Noto Sans SC",system-ui,sans-serif;
-    --font-mono:    "IBM Plex Mono","Noto Sans Mono CJK SC",ui-monospace,monospace;
+  /* ── Typography ── */
+  --font-display: "Barlow","Noto Sans SC",system-ui,sans-serif;
+  --font-body: "Barlow","Noto Sans SC",system-ui,sans-serif;
+  --font-mono: "IBM Plex Mono","Noto Sans Mono CJK SC",ui-monospace,monospace;
+  --typescale-display-large: 12vw;
+  --typescale-headline-large: 7.5vw;
+  --typescale-headline-medium: 5.5vw;
+  --typescale-title-large: 4.8vw;
+  --typescale-headline-small: 3.8vw;
+  --typescale-title-medium: 2.8vw;
+  --typescale-body-large: 1.6vw;
+  --typescale-body-medium: 1.15vw;
+  --typescale-label-large: 0.85vw;
+  --typescale-label-medium: 0.72vw;
 
-    /* ── 圆角 + 阴影 ── */
-    --radius-base: 0px;
-    --radius-sm: 0px;
-    --radius-pill: 0px;
-    --elevation-sm: none;
-    --elevation-md: none;
+  /* ── Shadow ── */
+  --elevation-sm: none;
+  --elevation-md: none;
 
-    /* ── 动效 ── */
-    --ease-standard: cubic-bezier(0.4,0,0.2,1);
-    --duration-base: 0.5s;
-    --duration-fast: 0.25s;
-    --duration-slow: 0.75s;
+  /* ── radius ── */
+  --radius-none: 0px;
 
-    /* ── 间距 ── */
-    --space-page-wmax: 1920px;
-    --space-page-pad: 5vw;
-    --space-gap: 2vh;
-    --space-gutter: 2vh;
-    --space-3xl: 5vh;
-    --space-2xl: 3.5vh;
-    --space-xl: 2vh;
-    --space-lg: 1vh;
-    --hairline: 1px;
+  /* ── motion ── */
+  --ease-standard: cubic-bezier(0.4,0,0.2,1);
+  --duration-base: 0.5s;
+  --duration-fast: 0.25s;
+  --duration-slow: 0.75s;
 
-    /* ── 字号刻度 ── */
-    --text-3xl: 12vw;
-    --text-2xl: 7.5vw;
-    --text-xl: 4.8vw;
-    --text-base: 1.15vw;
-    --text-sm: 0.85vw;
-    --text-xs: 0.72vw;
-  }
+  /* ── spacing ── */
+  --space-page-wmax: 1920px;
+  --space-page-pad: 5vw;
+  --space-gap: 2vh;
+  --space-gutter: 2vh;
+  --space-section-gap: 5vh;
+  --space-large-section-gap: 3.5vh;
+  --space-component-gap: 2vh;
+  --space-card-padding: 1vh;
+  --hairline: 1px;
+}
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 100%; height: 100%; overflow: hidden; background: var(--near-black); }
@@ -77,7 +78,7 @@
     opacity: 0; pointer-events: none;
     transition: opacity var(--duration-slow) var(--ease-standard);
     display: flex; flex-direction: column;
-    padding: var(--space-3xl) var(--space-page-pad);
+    padding: var(--space-section-gap) var(--space-page-pad);
   }
   .slide.active { opacity: 1; pointer-events: auto; }
 
@@ -86,15 +87,15 @@
   .slide.light { background: var(--acid-yellow); color: var(--near-black); }
 
   /* ── Chrome bar ── */
-  .chrome { display: flex; justify-content: space-between; align-items: center; padding-bottom: var(--space-lg); margin-bottom: var(--space-xl); border-bottom: var(--hairline) solid var(--border-dark); flex-shrink: 0; }
+  .chrome { display: flex; justify-content: space-between; align-items: center; padding-bottom: var(--space-card-padding); margin-bottom: var(--space-component-gap); border-bottom: var(--hairline) solid var(--border-dark); flex-shrink: 0; }
   .light .chrome { border-bottom-color: var(--border-light); }
-  .chrome .mono { font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.06em; opacity: 0.7; }
-  .chrome .counter { font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.06em; opacity: 0.5; }
+  .chrome .mono { font-family: var(--font-mono); font-size: var(--typescale-label-medium); font-weight: 500; letter-spacing: 0.06em; opacity: 0.7; }
+  .chrome .counter { font-family: var(--font-mono); font-size: var(--typescale-label-medium); font-weight: 500; letter-spacing: 0.06em; opacity: 0.5; }
 
   /* ── Foot bar ── */
-  .foot { display: flex; justify-content: space-between; align-items: center; padding-top: var(--space-lg); margin-top: auto; border-top: var(--hairline) solid var(--border-dark); flex-shrink: 0; }
+  .foot { display: flex; justify-content: space-between; align-items: center; padding-top: var(--space-card-padding); margin-top: auto; border-top: var(--hairline) solid var(--border-dark); flex-shrink: 0; }
   .light .foot { border-top-color: var(--border-light); }
-  .foot .mono { font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.06em; opacity: 0.7; }
+  .foot .mono { font-family: var(--font-mono); font-size: var(--typescale-label-medium); font-weight: 500; letter-spacing: 0.06em; opacity: 0.7; }
 
   /* ── Display type ── */
   .display { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; line-height: 0.9; letter-spacing: -0.02em; }
@@ -125,28 +126,28 @@
   }
   .s-cover .cover-left .cover-type {
     font-family: var(--font-display); font-weight: 900;
-    font-size: var(--text-3xl); text-transform: uppercase;
+    font-size: var(--typescale-display-large); text-transform: uppercase;
     color: var(--acid-yellow); line-height: 0.88; letter-spacing: -0.03em;
   }
   .s-cover .cover-right {
     background: var(--acid-yellow);
     display: flex; flex-direction: column; justify-content: center;
-    padding: var(--space-3xl) var(--space-page-pad);
+    padding: var(--space-section-gap) var(--space-page-pad);
     color: var(--near-black);
   }
   .s-cover .cover-right .cover-brand {
     font-family: var(--font-display); font-weight: 900;
-    font-size: var(--text-xl); text-transform: uppercase;
+    font-size: var(--typescale-title-large); text-transform: uppercase;
     line-height: 0.92; letter-spacing: -0.02em;
-    margin-bottom: var(--space-2xl);
+    margin-bottom: var(--space-large-section-gap);
   }
   .s-cover .cover-right .cover-year {
     font-family: var(--font-display); font-weight: 900;
-    font-size: var(--text-2xl); line-height: 0.9; letter-spacing: -0.03em;
-    margin-bottom: var(--space-xl);
+    font-size: var(--typescale-headline-large); line-height: 0.9; letter-spacing: -0.03em;
+    margin-bottom: var(--space-component-gap);
   }
   .s-cover .cover-right .cover-desc {
-    font-family: var(--font-mono); font-size: var(--text-xs);
+    font-family: var(--font-mono); font-size: var(--typescale-label-medium);
     font-weight: 500; letter-spacing: 0.06em; line-height: 1.6;
     opacity: 0.55;
   }
@@ -155,86 +156,86 @@
      SLIDE 2 — AGENDA (dark)
      ══════════════════════════════════════════════════════ */
   .s-agenda .content { flex: 1; display: flex; flex-direction: column; justify-content: center; max-width: 70%; }
-  .s-agenda h2 { font-size: var(--text-xl); margin-bottom: var(--space-2xl); }
-  .s-agenda .items { display: flex; flex-direction: column; gap: var(--space-xl); }
-  .s-agenda .item { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-gap); align-items: baseline; padding-bottom: var(--space-lg); border-bottom: var(--hairline) solid var(--border-dark); }
-  .s-agenda .item .num { font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.06em; color: var(--text-on-dark-3); }
-  .s-agenda .item h3 { font-size: var(--text-base); color: var(--acid-yellow); }
-  .s-agenda .item p  { font-size: var(--text-sm); color: var(--text-on-dark-2); margin-top: 4px; }
+  .s-agenda h2 { font-size: var(--typescale-title-large); margin-bottom: var(--space-large-section-gap); }
+  .s-agenda .items { display: flex; flex-direction: column; gap: var(--space-component-gap); }
+  .s-agenda .item { display: grid; grid-template-columns: 48px 1fr; gap: var(--space-gap); align-items: baseline; padding-bottom: var(--space-card-padding); border-bottom: var(--hairline) solid var(--border-dark); }
+  .s-agenda .item .num { font-family: var(--font-mono); font-size: var(--typescale-label-medium); font-weight: 500; letter-spacing: 0.06em; color: var(--text-on-dark-3); }
+  .s-agenda .item h3 { font-size: var(--typescale-body-medium); color: var(--acid-yellow); }
+  .s-agenda .item p  { font-size: var(--typescale-label-large); color: var(--text-on-dark-2); margin-top: 4px; }
 
   /* ══════════════════════════════════════════════════════
      SLIDE 3 — STATEMENT (dark, chromeless)
      ══════════════════════════════════════════════════════ */
-  .s-statement { justify-content: center; padding: var(--space-3xl) var(--space-page-pad); }
-  .s-statement h2 { font-size: var(--text-2xl); max-width: 82%; }
+  .s-statement { justify-content: center; padding: var(--space-section-gap) var(--space-page-pad); }
+  .s-statement h2 { font-size: var(--typescale-headline-large); max-width: 82%; }
 
   /* ══════════════════════════════════════════════════════
      SLIDE 4 — CHAPTER (yellow, chromeless)
      ══════════════════════════════════════════════════════ */
-  .s-chapter { justify-content: center; align-items: flex-start; padding: var(--space-3xl) var(--space-page-pad); }
-  .s-chapter .chap-num { font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.06em; margin-bottom: var(--space-2xl); }
-  .s-chapter h2 { font-size: var(--text-2xl); max-width: 78%; }
+  .s-chapter { justify-content: center; align-items: flex-start; padding: var(--space-section-gap) var(--space-page-pad); }
+  .s-chapter .chap-num { font-family: var(--font-mono); font-size: var(--typescale-label-medium); font-weight: 500; letter-spacing: 0.06em; margin-bottom: var(--space-large-section-gap); }
+  .s-chapter h2 { font-size: var(--typescale-headline-large); max-width: 78%; }
 
   /* ══════════════════════════════════════════════════════
      SLIDE 5 — CONTENT (dark)
      ══════════════════════════════════════════════════════ */
   .s-content .body-area { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-gutter); align-items: center; }
-  .s-content .body-area .left h2 { font-size: var(--text-xl); margin-bottom: var(--space-xl); }
-  .s-content .body-area .left .lead { font-size: var(--sz-lead, 1.6vw); color: var(--text-on-dark-2); max-width: 44ch; }
-  .s-content .body-area .right ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-xl); }
-  .s-content .body-area .right li { position: relative; padding-left: 1.2em; font-size: var(--text-base); line-height: 1.5; color: var(--text-on-dark-2); }
+  .s-content .body-area .left h2 { font-size: var(--typescale-title-large); margin-bottom: var(--space-component-gap); }
+  .s-content .body-area .left .lead { font-size: var(--typescale-body-large, 1.6vw); color: var(--text-on-dark-2); max-width: 44ch; }
+  .s-content .body-area .right ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-component-gap); }
+  .s-content .body-area .right li { position: relative; padding-left: 1.2em; font-size: var(--typescale-body-medium); line-height: 1.5; color: var(--text-on-dark-2); }
   .s-content .body-area .right li::before { content: '—'; position: absolute; left: 0; color: var(--acid-yellow); }
 
   /* ══════════════════════════════════════════════════════
      SLIDE 6 — CONTENT LIGHT (yellow)
      ══════════════════════════════════════════════════════ */
   .s-content-light .body-area { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-gutter); align-items: center; }
-  .s-content-light .body-area .left h2 { font-size: var(--text-xl); margin-bottom: var(--space-xl); }
-  .s-content-light .body-area .left .lead { font-size: var(--sz-lead, 1.6vw); color: var(--text-on-light-2); max-width: 44ch; }
-  .s-content-light .body-area .right ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-xl); }
-  .s-content-light .body-area .right li { position: relative; padding-left: 1.2em; font-size: var(--text-base); line-height: 1.5; color: var(--text-on-light-2); }
+  .s-content-light .body-area .left h2 { font-size: var(--typescale-title-large); margin-bottom: var(--space-component-gap); }
+  .s-content-light .body-area .left .lead { font-size: var(--typescale-body-large, 1.6vw); color: var(--text-on-light-2); max-width: 44ch; }
+  .s-content-light .body-area .right ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-component-gap); }
+  .s-content-light .body-area .right li { position: relative; padding-left: 1.2em; font-size: var(--typescale-body-medium); line-height: 1.5; color: var(--text-on-light-2); }
   .s-content-light .body-area .right li::before { content: '—'; position: absolute; left: 0; color: var(--near-black); }
 
   /* ══════════════════════════════════════════════════════
      SLIDE 7 — STATS (dark)
      ══════════════════════════════════════════════════════ */
   .s-stats .body-area { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-  .s-stats h2 { font-size: var(--text-xl); margin-bottom: var(--space-2xl); }
+  .s-stats h2 { font-size: var(--typescale-title-large); margin-bottom: var(--space-large-section-gap); }
   .s-stats .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-gutter); }
-  .s-stats .stat-card { border-top: 2px solid var(--acid-yellow); padding: var(--space-xl) var(--space-xl) var(--space-xl) 0; }
-  .s-stats .stat-card .val { font-size: var(--sz-stat, 5.5vw); color: var(--acid-yellow); margin-bottom: var(--space-lg); }
-  .s-stats .stat-card .lab { font-size: var(--text-base); font-weight: 500; margin-bottom: 4px; }
-  .s-stats .stat-card .note { font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.06em; color: var(--text-on-dark-3); }
+  .s-stats .stat-card { border-top: 2px solid var(--acid-yellow); padding: var(--space-component-gap) var(--space-component-gap) var(--space-component-gap) 0; }
+  .s-stats .stat-card .val { font-size: var(--typescale-headline-medium, 5.5vw); color: var(--acid-yellow); margin-bottom: var(--space-card-padding); }
+  .s-stats .stat-card .lab { font-size: var(--typescale-body-medium); font-weight: 500; margin-bottom: 4px; }
+  .s-stats .stat-card .note { font-family: var(--font-mono); font-size: var(--typescale-label-medium); font-weight: 500; letter-spacing: 0.06em; color: var(--text-on-dark-3); }
 
   /* ══════════════════════════════════════════════════════
      SLIDE 8 — QUOTE (dark, chromeless)
      ══════════════════════════════════════════════════════ */
   .s-quote { justify-content: center; }
-  .s-quote blockquote { font-size: var(--sz-quote, 3.8vw); max-width: 80%; }
-  .s-quote .attr { margin-top: var(--space-2xl); font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.06em; color: var(--text-on-dark-2); text-transform: uppercase; }
+  .s-quote blockquote { font-size: var(--typescale-headline-small, 3.8vw); max-width: 80%; }
+  .s-quote .attr { margin-top: var(--space-large-section-gap); font-family: var(--font-mono); font-size: var(--typescale-label-medium); font-weight: 500; letter-spacing: 0.06em; color: var(--text-on-dark-2); text-transform: uppercase; }
 
   /* ══════════════════════════════════════════════════════
      SLIDE 9 — CHART (dark)
      ══════════════════════════════════════════════════════ */
   .s-chart .body-area { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-  .s-chart h2 { font-size: var(--text-xl); margin-bottom: var(--space-2xl); }
-  .s-chart .chart-wrap { display: flex; flex-direction: column; gap: var(--space-lg); }
+  .s-chart h2 { font-size: var(--typescale-title-large); margin-bottom: var(--space-large-section-gap); }
+  .s-chart .chart-wrap { display: flex; flex-direction: column; gap: var(--space-card-padding); }
   .s-chart .bar-row { display: grid; grid-template-columns: 80px 1fr 80px; align-items: center; gap: var(--space-gap); }
-  .s-chart .bar-row .lbl { font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.06em; color: var(--text-on-dark-2); }
-  .s-chart .bar-row .val { font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.06em; text-align: right; }
+  .s-chart .bar-row .lbl { font-family: var(--font-mono); font-size: var(--typescale-label-medium); font-weight: 500; letter-spacing: 0.06em; color: var(--text-on-dark-2); }
+  .s-chart .bar-row .val { font-family: var(--font-mono); font-size: var(--typescale-label-medium); font-weight: 500; letter-spacing: 0.06em; text-align: right; }
   .s-chart .bar-track { height: 14px; position: relative; }
   .s-chart .bar-fill { height: 100%; background: var(--text-on-dark-3); }
   .s-chart .bar-fill.hi { background: var(--acid-yellow); }
-  .s-chart .baseline { height: 2px; background: var(--text-on-dark-3); margin-top: var(--space-lg); }
+  .s-chart .baseline { height: 2px; background: var(--text-on-dark-3); margin-top: var(--space-card-padding); }
 
   /* ══════════════════════════════════════════════════════
      SLIDE 10 — COMPARE (dark)
      ══════════════════════════════════════════════════════ */
   .s-compare .body-area { flex: 1; display: grid; grid-template-columns: 1fr 2px 1fr; gap: 0; align-items: stretch; }
   .s-compare .panel { display: flex; flex-direction: column; justify-content: center; padding: 0 var(--space-page-pad); }
-  .s-compare .panel h3 { font-size: var(--sz-h3, 2.8vw); margin-bottom: var(--space-xl); }
-  .s-compare .panel ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-lg); }
-  .s-compare .panel li { position: relative; padding-left: 1.2em; font-size: var(--text-base); line-height: 1.5; color: var(--text-on-dark-2); }
+  .s-compare .panel h3 { font-size: var(--typescale-title-medium, 2.8vw); margin-bottom: var(--space-component-gap); }
+  .s-compare .panel ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-card-padding); }
+  .s-compare .panel li { position: relative; padding-left: 1.2em; font-size: var(--typescale-body-medium); line-height: 1.5; color: var(--text-on-dark-2); }
   .s-compare .panel li::before { content: '—'; position: absolute; left: 0; color: var(--acid-yellow); }
   .s-compare .divider { background: var(--text-on-dark-3); }
 
@@ -242,15 +243,15 @@
      SLIDE 11 — END (yellow, chromeless)
      ══════════════════════════════════════════════════════ */
   .s-end { justify-content: center; align-items: flex-start; }
-  .s-end .end-mono { font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 500; letter-spacing: 0.06em; margin-bottom: var(--space-2xl); }
-  .s-end h2 { font-size: var(--text-2xl); max-width: 70%; }
-  .s-end .end-col { margin-top: var(--space-2xl); font-size: var(--text-sm); color: var(--text-on-light-2); max-width: 48ch; }
+  .s-end .end-mono { font-family: var(--font-mono); font-size: var(--typescale-label-medium); font-weight: 500; letter-spacing: 0.06em; margin-bottom: var(--space-large-section-gap); }
+  .s-end h2 { font-size: var(--typescale-headline-large); max-width: 70%; }
+  .s-end .end-col { margin-top: var(--space-large-section-gap); font-size: var(--typescale-label-large); color: var(--text-on-light-2); max-width: 48ch; }
 
   /* ══════════════════════════════════════════════════════
      SLIDE 12–14 — DESIGN SYSTEM SHOWCASE
      ══════════════════════════════════════════════════════ */
   .s-ds-palette .body-area { flex: 1; min-height: 0; display: flex; flex-direction: column; }
-  .s-ds-palette h2 { font-size: var(--text-xl); margin-bottom: var(--space-lg); flex-shrink: 0; }
+  .s-ds-palette h2 { font-size: var(--typescale-title-large); margin-bottom: var(--space-card-padding); flex-shrink: 0; }
   .s-ds-palette .swatches { display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: 1fr 1fr; gap: 0.8vh; flex: 1; min-height: 0; }
   .s-ds-palette .sw {
     border: var(--hairline) solid var(--border-dark);
@@ -260,16 +261,16 @@
     flex: 1; width: 100%; min-height: 0; margin-bottom: 0.3vh;
   }
   .s-ds-palette .sw .nm {
-    font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 500;
+    font-family: var(--font-mono); font-size: var(--typescale-label-medium); font-weight: 500;
     letter-spacing: 0.04em; margin-bottom: 0;
   }
   .s-ds-palette .sw .hex {
-    font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 400;
+    font-family: var(--font-mono); font-size: var(--typescale-label-medium); font-weight: 400;
     letter-spacing: 0.02em; color: var(--text-on-dark-3);
   }
 
   .s-ds-type .body-area { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
-  .s-ds-type h2 { font-size: var(--text-xl); margin-bottom: var(--space-lg); color: var(--near-black); flex-shrink: 0; }
+  .s-ds-type h2 { font-size: var(--typescale-title-large); margin-bottom: var(--space-card-padding); color: var(--near-black); flex-shrink: 0; }
   .s-ds-type .type-rows { display: flex; flex-direction: column; gap: 0; flex: 1; min-height: 0; justify-content: space-evenly; overflow: hidden; }
   .s-ds-type .tr {
     display: grid; grid-template-columns: 120px 1fr; align-items: baseline; gap: var(--space-gap);
@@ -286,17 +287,17 @@
   }
 
   .s-ds-rules .body-area { flex: 1; min-height: 0; display: flex; flex-direction: column; }
-  .s-ds-rules h2 { font-size: var(--text-xl); margin-bottom: var(--space-xl); flex-shrink: 0; }
+  .s-ds-rules h2 { font-size: var(--typescale-title-large); margin-bottom: var(--space-component-gap); flex-shrink: 0; }
   .s-ds-rules .rules { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-gap); flex: 1; min-height: 0; align-content: center; }
   .s-ds-rules .rule {
-    border-top: 2px solid var(--acid-yellow); padding: var(--space-lg) var(--space-lg) var(--space-lg) 0; min-height: 0;
+    border-top: 2px solid var(--acid-yellow); padding: var(--space-card-padding) var(--space-card-padding) var(--space-card-padding) 0; min-height: 0;
   }
   .s-ds-rules .rule .rn {
-    font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 500;
+    font-family: var(--font-mono); font-size: var(--typescale-label-medium); font-weight: 500;
     letter-spacing: 0.06em; color: var(--text-on-dark-2); margin-bottom: 0.3vh;
   }
   .s-ds-rules .rule .rb {
-    font-size: var(--text-sm); line-height: 1.45; color: var(--text-on-dark-2);
+    font-size: var(--typescale-label-large); line-height: 1.45; color: var(--text-on-dark-2);
   }
 </style>
 </head>
@@ -353,14 +354,14 @@
   <!-- 3. STATEMENT — dark, chromeless ──────────────── -->
   <section class="slide dark s-statement">
     <h2 class="h1">The room is a slow argument with the sun. We spent four years listening to its answer.</h2>
-    <div class="foot" style="margin-top:var(--space-3xl);"><span class="mono">Excerpt · Aurora Charter, 2023</span><span class="counter" style="font-family:var(--font-mono);font-size:var(--text-xs);opacity:0.5;">03 / 11</span></div>
+    <div class="foot" style="margin-top:var(--space-section-gap);"><span class="mono">Excerpt · Aurora Charter, 2023</span><span class="counter" style="font-family:var(--font-mono);font-size:var(--typescale-label-medium);opacity:0.5;">03 / 11</span></div>
   </section>
 
   <!-- 4. CHAPTER — yellow, chromeless ──────────────── -->
   <section class="slide light s-chapter">
     <div class="chap-num mono">Chapter One</div>
     <h2 class="h1">Context<br/>&amp; Brief</h2>
-    <div class="foot" style="margin-top:var(--space-3xl);"><span class="mono">Boring Studios</span><span class="counter" style="font-family:var(--font-mono);font-size:var(--text-xs);opacity:0.5;">04 / 11</span></div>
+    <div class="foot" style="margin-top:var(--space-section-gap);"><span class="mono">Boring Studios</span><span class="counter" style="font-family:var(--font-mono);font-size:var(--typescale-label-medium);opacity:0.5;">04 / 11</span></div>
   </section>
 
   <!-- 5. CONTENT — dark, chromed ───────────────────── -->
@@ -450,7 +451,7 @@
   <section class="slide dark s-quote">
     <blockquote class="quote-txt">The yellow we used is not the yellow we meant. It is the yellow that arrives ten minutes after you leave the building.</blockquote>
     <div class="attr">Idun Reijners · Curator, Aurora Institute · Letter to the Editorial Board, Jan 2026</div>
-    <div class="foot" style="margin-top:var(--space-3xl);"><span class="mono">Boring Studios</span><span class="counter" style="font-family:var(--font-mono);font-size:var(--text-xs);opacity:0.5;">08 / 11</span></div>
+    <div class="foot" style="margin-top:var(--space-section-gap);"><span class="mono">Boring Studios</span><span class="counter" style="font-family:var(--font-mono);font-size:var(--typescale-label-medium);opacity:0.5;">08 / 11</span></div>
   </section>
 
   <!-- 9. CHART — dark, chromed ─────────────────────── -->
@@ -524,7 +525,7 @@
     <div class="end-col">
       <p class="body">Volume Five opens May 2027. Look for the yellow on the door.</p>
     </div>
-    <div class="foot" style="margin-top:var(--space-3xl);"><span class="mono">Boring Studios</span><span class="counter" style="font-family:var(--font-mono);font-size:var(--text-xs);opacity:0.5;">11 / 14</span></div>
+    <div class="foot" style="margin-top:var(--space-section-gap);"><span class="mono">Boring Studios</span><span class="counter" style="font-family:var(--font-mono);font-size:var(--typescale-label-medium);opacity:0.5;">11 / 14</span></div>
   </section>
 
   <!-- 12. DESIGN SYSTEM — Principles (dark, chromed) ──── -->
@@ -550,15 +551,15 @@
     <div class="body-area">
       <h2 class="h2">字号刻度</h2>
       <div class="type-rows">
-        <div class="tr"><span class="tn">display · 12vw</span><span class="ts" style="font-size:min(var(--sz-display,12vw),8vh)">Graphic Mass</span></div>
-        <div class="tr"><span class="tn">h1 · 7.5vw</span><span class="ts" style="font-size:min(var(--sz-h1,7.5vw),7vh)">Statement</span></div>
-        <div class="tr"><span class="tn">h2 · 4.8vw</span><span class="ts" style="font-size:min(var(--sz-h2,4.8vw),6vh)">Headline</span></div>
-        <div class="tr"><span class="tn">quote · 3.8vw</span><span class="ts" style="font-size:min(var(--sz-quote,3.8vw),5vh)">Pull Quote Text</span></div>
-        <div class="tr"><span class="tn">h3 · 2.8vw</span><span class="ts" style="font-size:min(var(--sz-h3,2.8vw),4.5vh);font-weight:700">Sub Headline</span></div>
-        <div class="tr"><span class="tn">lead · 1.6vw</span><span class="ts" style="font-size:var(--sz-lead,1.6vw);font-weight:500;text-transform:none;letter-spacing:0">Lead paragraph sentence</span></div>
-        <div class="tr"><span class="tn">body · 1.15vw</span><span class="ts" style="font-size:var(--sz-body,1.15vw);font-weight:400;text-transform:none;letter-spacing:0">Body copy rendered in Barlow 400</span></div>
-        <div class="tr"><span class="tn">caption · 0.85vw</span><span class="ts" style="font-size:var(--sz-caption,0.85vw);font-weight:400;text-transform:none;letter-spacing:0">Caption and source attribution</span></div>
-        <div class="tr"><span class="tn">label · 0.72vw</span><span class="ts" style="font-family:var(--font-mono);font-size:var(--sz-label,0.72vw);font-weight:500;text-transform:none;letter-spacing:0.06em">Mono metadata label</span></div>
+        <div class="tr"><span class="tn">display · 12vw</span><span class="ts" style="font-size:min(var(--typescale-display-large,12vw),8vh)">Graphic Mass</span></div>
+        <div class="tr"><span class="tn">h1 · 7.5vw</span><span class="ts" style="font-size:min(var(--typescale-headline-large,7.5vw),7vh)">Statement</span></div>
+        <div class="tr"><span class="tn">h2 · 4.8vw</span><span class="ts" style="font-size:min(var(--typescale-title-large,4.8vw),6vh)">Headline</span></div>
+        <div class="tr"><span class="tn">quote · 3.8vw</span><span class="ts" style="font-size:min(var(--typescale-headline-small,3.8vw),5vh)">Pull Quote Text</span></div>
+        <div class="tr"><span class="tn">h3 · 2.8vw</span><span class="ts" style="font-size:min(var(--typescale-title-medium,2.8vw),4.5vh);font-weight:700">Sub Headline</span></div>
+        <div class="tr"><span class="tn">lead · 1.6vw</span><span class="ts" style="font-size:var(--typescale-body-large,1.6vw);font-weight:500;text-transform:none;letter-spacing:0">Lead paragraph sentence</span></div>
+        <div class="tr"><span class="tn">body · 1.15vw</span><span class="ts" style="font-size:var(--typescale-body-medium,1.15vw);font-weight:400;text-transform:none;letter-spacing:0">Body copy rendered in Barlow 400</span></div>
+        <div class="tr"><span class="tn">caption · 0.85vw</span><span class="ts" style="font-size:var(--typescale-label-large,0.85vw);font-weight:400;text-transform:none;letter-spacing:0">Caption and source attribution</span></div>
+        <div class="tr"><span class="tn">label · 0.72vw</span><span class="ts" style="font-family:var(--font-mono);font-size:var(--typescale-label-medium,0.72vw);font-weight:500;text-transform:none;letter-spacing:0.06em">Mono metadata label</span></div>
       </div>
     </div>
     <div class="foot"><span class="mono">Boring Studios</span><span class="mono">Design System</span></div>

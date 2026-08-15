@@ -1,7 +1,7 @@
 {
   "$schema": "https://gallery.evopearl.com/schemas/taxonomy.schema.json",
-  "version": "1.1.0",
-  "updatedAt": "2026-08-09T00:00:00Z",
+  "version": "1.2.0",
+  "updatedAt": "2026-08-14T00:00:00Z",
 
   "tier": {
     "description": "品质等级 — 模板完成度分级。互斥，每个模板属于唯一等级。",
@@ -57,6 +57,27 @@
       "friendly":  { "label": "友好" },
       "upbeat":    { "label": "活泼" },
       "punchy":    { "label": "强劲" }
+    }
+  },
+
+  "formality": {
+    "description": "正式度。互斥，每个模板属于唯一正式度。",
+    "values": {
+      "low":         { "label": "非正式",   "desc": "口语、亲切、玩趣，弱化权威感" },
+      "medium-low":  { "label": "较非正式", "desc": "轻松但保持基本结构" },
+      "medium":      { "label": "中性",     "desc": "正式与非正式之间的平衡" },
+      "medium-high": { "label": "较正式",   "desc": "专业克制，略带编辑分量" },
+      "high":        { "label": "正式",     "desc": "权威、机构感，弱化个人色彩" }
+    }
+  },
+
+  "density": {
+    "description": "信息密度。互斥，每个模板属于唯一密度。",
+    "values": {
+      "low":         { "label": "稀疏", "desc": "大字、大留白，单屏信息量少" },
+      "medium":      { "label": "适中", "desc": "信息量与留白的常规平衡" },
+      "medium-high": { "label": "较密", "desc": "内容较多，留白收紧" },
+      "high":        { "label": "密集", "desc": "数据/图表/文本堆叠，信息量大" }
     }
   }
 }

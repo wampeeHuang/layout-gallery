@@ -2,6 +2,8 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const { renderBrandKit } = require('./brand-renderer');
+const { readManifest } = require('../scripts/template-package.cjs');
+const { generateRoot } = require('../scripts/tokens-to-css.cjs');
 
 const app = express();
 const PORT = process.env.PORT || 3080;
@@ -38,19 +40,55 @@ app.use(express.json());
 // ── API ──────────────────────────────────────────────────────
 
 const registryPath = path.join(PROJECT_DIR, 'data', 'registry.json');
-const curationPath = path.join(PROJECT_DIR, 'data', 'curation.json');
 const taxonomyPath = path.join(PROJECT_DIR, 'data', 'taxonomy.json');
 
 function loadRegistry() {
   return JSON.parse(fs.readFileSync(registryPath, 'utf-8'));
 }
 
-function loadCuration() {
-  try { return JSON.parse(fs.readFileSync(curationPath, 'utf-8')); } catch (_) { return { entries: {} }; }
-}
-
 function loadTaxonomy() {
   try { return JSON.parse(fs.readFileSync(taxonomyPath, 'utf-8')); } catch (_) { return null; }
+}
+
+function loadTokensFor(entry) {
+  if (!entry.template_path) return null;
+  const dir = path.join(PROJECT_DIR, path.dirname(entry.template_path));
+  const p = path.join(dir, 'tokens.json');
+  if (!fs.existsSync(p)) return null;
+  try { return JSON.parse(fs.readFileSync(p, 'utf-8')); } catch (_) { return null; }
+}
+
+// 从 tokens.json 派生视觉值展示（palette 色点 / 六色系统 / 排版尺度 / 字体栈）
+// 真相源是 tokens.json，registry 不再存这些副本。
+function deriveVisuals(tokensData) {
+  const empty = { palette: [], color_system: null, typography_scale: null, displayFont: null, bodyFont: null };
+  if (!tokensData || !tokensData.tokens) return empty;
+  const colors = tokensData.tokens.color || [];
+  const typography = tokensData.tokens.typography || [];
+
+  const palette = colors
+    .filter(t => t.$type === 'color')
+    .slice(0, 8)
+    .map(t => ({ name: String(t.name || '').replace(/^--/, ''), color: t.value }));
+
+  const stdKeys = ['--color-primary', '--color-secondary', '--color-surface', '--color-on-surface'];
+  const colorParts = stdKeys
+    .map(k => colors.find(c => c.name === k))
+    .filter(Boolean)
+    .map(t => `${t.name.replace(/^--/, '')}: ${t.value}`);
+  const color_system = colorParts.length ? colorParts.join('; ') : null;
+
+  const scale = typography
+    .filter(t => t.role === 'type-scale')
+    .map(t => `${String(t.name || '').replace(/^--sz-/, '')}: ${t.value}`);
+  const typography_scale = scale.length ? scale.join('; ') : null;
+
+  const display = typography.find(t => t.role === 'display-font');
+  const body = typography.find(t => t.role === 'body-font');
+  const displayFont = display ? display.value : null;
+  const bodyFont = body ? body.value : null;
+
+  return { palette, color_system, typography_scale, displayFont, bodyFont };
 }
 
 function isBrandKitReady(entry) {
@@ -60,15 +98,30 @@ function isBrandKitReady(entry) {
       || (fs.existsSync(path.join(dir, 'brand.json')) && fs.existsSync(path.join(dir, 'layout.json')));
 }
 
+function packageProjection(entry) {
+  try {
+    const info = readManifest(PROJECT_DIR, entry.template_path, entry);
+    const manifest = info.manifest || {};
+    return {
+      quality_tier: manifest.lifecycle?.qualityTier || null,
+      exposure: manifest.lifecycle?.exposure || null,
+      lifecycle_state: manifest.lifecycle?.state || null,
+      taxonomy: manifest.taxonomy || null,
+      cover: `/generated/${entry.slug}/cover.webp`,
+      mobile_proof: `/generated/${entry.slug}/mobile.webp`,
+      detail_url: `/templates/${entry.slug}/`,
+    };
+  } catch (_) {
+    return { quality_tier: null, exposure: null, lifecycle_state: null, taxonomy: null };
+  }
+}
+
 // GET /api/registry — query + filter
 app.get('/api/registry', (req, res) => {
   let items = loadRegistry();
-  const curation = loadCuration();
   const isPublic = process.env.VERCEL || process.env.PUBLIC_MODE;
 
   const filters = {
-    type: req.query.type,
-    design_style: req.query.design_style,
     visual_family: req.query.visual_family,
     content_type: req.query.content_type,
     scheme: req.query.scheme,
@@ -82,32 +135,18 @@ app.get('/api/registry', (req, res) => {
     items = items.filter(e => e.visibility === 'public');
   }
 
-  if (filters.type) items = items.filter(e => e.template_type === filters.type);
-  if (filters.design_style) items = items.filter(e => e.design_style === filters.design_style);
   if (filters.scheme) items = items.filter(e => e.scheme === filters.scheme);
   if (filters.formality) items = items.filter(e => e.formality === filters.formality);
   if (filters.density) items = items.filter(e => e.density === filters.density);
   if (filters.skill) items = items.filter(e => e.skill === filters.skill);
 
-  if (filters.q) {
-    const q = filters.q.toLowerCase();
-    items = items.filter(e =>
-      e.name.toLowerCase().includes(q) ||
-      (e.tagline || '').toLowerCase().includes(q) ||
-      (e.mood || []).some(m => m.toLowerCase().includes(q)) ||
-      (e.design_style || '').toLowerCase().includes(q)
-    );
-  }
-
-  // Merge curation taxonomy fields
+  // Enrich with derived visuals + brand readiness
   const enriched = items.map(e => {
-    const cur = curation.entries[e.slug];
+    const projection = packageProjection(e);
     return {
       ...e,
-      visual_family: cur?.visual_family || null,
-      content_type: cur?.content_type || null,
-      tone: cur?.tone || [],
-      curation_status: cur?.status || null,
+      ...projection,
+      ...deriveVisuals(loadTokensFor(e)),
       brand_kit_ready: isBrandKitReady(e),
       html_api: '/api/template/' + e.slug + '/html'
     };
@@ -118,6 +157,16 @@ app.get('/api/registry', (req, res) => {
   if (filters.visual_family) result = result.filter(e => e.visual_family === filters.visual_family);
   if (filters.content_type) result = result.filter(e => e.content_type === filters.content_type);
 
+  if (filters.q) {
+    const q = filters.q.toLowerCase();
+    result = result.filter(e =>
+      e.name.toLowerCase().includes(q) ||
+      (e.tagline || '').toLowerCase().includes(q) ||
+      (e.tone || []).some(m => m.toLowerCase().includes(q)) ||
+      (e.visual_family || '').toLowerCase().includes(q)
+    );
+  }
+
   res.json({ count: result.length, items: result });
 });
 
@@ -126,7 +175,7 @@ app.get('/api/template/:slug', (req, res) => {
   const items = loadRegistry();
   const entry = items.find(e => e.slug === req.params.slug);
   if (!entry) return res.status(404).json({ error: 'not found' });
-  res.json({ ...entry, brand_kit_ready: isBrandKitReady(entry), html_api: '/api/template/' + entry.slug + '/html' });
+  res.json({ ...entry, ...packageProjection(entry), brand_kit_ready: isBrandKitReady(entry), html_api: '/api/template/' + entry.slug + '/html' });
 });
 
 // GET /api/template/:slug/html — raw template HTML
@@ -147,13 +196,14 @@ app.get('/api/taxonomy', (req, res) => {
   res.json(tx);
 });
 
-// GET /api/design-styles — list all design_style values with counts
+// GET /api/design-styles — list all visual_family values with counts
 app.get('/api/design-styles', (req, res) => {
   const items = loadRegistry();
   const map = {};
   items.forEach(e => {
     if (e.status === 'placeholder') return;
-    map[e.design_style] = (map[e.design_style] || 0) + 1;
+    if (!e.visual_family) return;
+    map[e.visual_family] = (map[e.visual_family] || 0) + 1;
   });
   res.json(Object.entries(map).map(([name, count]) => ({ name, count })));
 });
@@ -176,22 +226,24 @@ app.get('/api/brand/:slug', (req, res) => {
     }
   }
 
+  const visuals = deriveVisuals(loadTokensFor(entry));
+
   res.json({
     slug: entry.slug,
     name: entry.name,
     tagline: entry.tagline,
-    design_style: entry.design_style,
+    visual_family: entry.visual_family || null,
+    content_type: entry.content_type || null,
+    tone: entry.tone || [],
     scheme: entry.scheme,
     formality: entry.formality,
     density: entry.density,
-    mood: entry.mood,
-    palette: entry.palette,
-    typography: { displayFont: entry.displayFont, bodyFont: entry.bodyFont, style: entry.typography_style },
+    palette: visuals.palette,
+    typography: { displayFont: visuals.displayFont, bodyFont: visuals.bodyFont },
     best_for: entry.best_for,
     avoid_for: entry.avoid_for,
     features: entry.features,
     tokens,
-    css_variables: entry.css_variables,
   });
 });
 
@@ -256,7 +308,9 @@ app.get('/brand/:slug', (req, res) => {
   if (!entry) return res.status(404).json({ error: 'not found' });
 
   try {
-    const html = renderBrandKit(entry, PROJECT_DIR);
+    const generated = path.join(PROJECT_DIR, 'generated', entry.slug, 'brand.html');
+    const enriched = { ...entry, ...deriveVisuals(loadTokensFor(entry)) };
+    const html = fs.existsSync(generated) ? fs.readFileSync(generated, 'utf8') : renderBrandKit(enriched, PROJECT_DIR);
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'no-cache');
     res.send(html);
@@ -264,6 +318,26 @@ app.get('/brand/:slug', (req, res) => {
     console.error('Brand kit render error:', err);
     res.status(500).json({ error: 'render failed', detail: err.message });
   }
+});
+
+app.get('/templates/:slug/', (req, res) => {
+  const entry = loadRegistry().find(item => item.slug === req.params.slug);
+  if (!entry) return res.status(404).send('Template not found');
+  const projection = packageProjection(entry);
+  if (projection.exposure !== 'listed') return res.status(404).send('Template is not publicly listed');
+  const { manifest } = readManifest(PROJECT_DIR, entry.template_path, entry);
+  const escHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+  let html = fs.readFileSync(path.join(PROJECT_DIR, 'public', 'template-detail.html'), 'utf8');
+  const replacements = {
+    SLUG: manifest.slug, NAME: manifest.name, TAGLINE: manifest.tagline || entry.tagline || '',
+    TIER: manifest.lifecycle.qualityTier, FAMILY: manifest.taxonomy.visualFamily,
+    TYPE: manifest.taxonomy.templateType, CONTENT: manifest.taxonomy.contentType,
+    COVER: projection.cover, MOBILE: projection.mobile_proof,
+    PREVIEW: `/${entry.template_path}`, BRAND: `/brand/${entry.slug}/`,
+    REPORT: manifest.quality.report ? `/${manifest.quality.report}` : '',
+  };
+  for (const [key, value] of Object.entries(replacements)) html = html.replaceAll(`{{${key}}}`, escHtml(value));
+  servePage(res, path.join(PROJECT_DIR, 'public', 'template-detail.html'), galleryTokensDir, 'library', html);
 });
 
 // GET /learn — knowledge base
@@ -287,7 +361,7 @@ app.post('/api/grow', (req, res) => {
   res.setHeader('Connection', 'keep-alive');
   res.setHeader('X-Accel-Buffering', 'no');
 
-  const { runPipeline } = require('../scripts/growth-agent');
+  const { runPipeline } = require('../growth/growth-agent');
 
   runPipeline(url, {
     onProgress(ev) {
@@ -320,24 +394,8 @@ app.post('/api/grow/approve', (req, res) => {
   }
 
   const tokens = JSON.parse(fs.readFileSync(tokensPath, 'utf-8'));
-  const tmplHtml = fs.readFileSync(tmplPath, 'utf-8');
-
-  const rootMatch = tmplHtml.match(/:root\s*\{([^}]*)\}/s);
-  const cssVars = [];
-  if (rootMatch) {
-    const re = /--([\w-]+)\s*:\s*([^;]+);/g;
-    let m;
-    while ((m = re.exec(rootMatch[1])) !== null) {
-      cssVars.push({ name: '--' + m[1], value: m[2].trim() });
-    }
-  }
 
   const colorTokens = tokens.tokens?.color || [];
-  const palette = colorTokens.slice(0, 8).map(t => ({
-    name: (t.description || t.name).slice(0, 20),
-    color: t.value,
-  }));
-
   const bg = colorTokens.find(t => t.role === 'surface-bg');
   const bgIsDark = bg && bg.value.match(/#([0-9a-fA-F]{3,6})/) && parseInt(bg.value.match(/#([0-9a-fA-F]{3,6})/)[1], 16) < 0x808080;
   const scheme = bgIsDark ? 'dark' : 'light';
@@ -346,29 +404,24 @@ app.post('/api/grow/approve', (req, res) => {
   const density = spacings.length <= 3 ? 'low' : spacings.length <= 5 ? 'medium' : 'high';
 
   const metaPath = path.join(growthDir, '.growth-meta.json');
-  let growthMeta = { template_type: 'single-page', design_style: 'editorial' };
+  let growthMeta = {};
   if (fs.existsSync(metaPath)) {
-    try { growthMeta = { ...growthMeta, ...JSON.parse(fs.readFileSync(metaPath, 'utf-8')) }; } catch (_) {}
+    try { growthMeta = JSON.parse(fs.readFileSync(metaPath, 'utf-8')); } catch (_) {}
   }
 
   const entry = {
     slug,
     name: slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
     tagline: 'Growth Agent auto-extract · ' + new Date().toISOString().slice(0, 10),
-    template_type: growthMeta.template_type,
-    design_style: growthMeta.design_style,
+    visual_family: growthMeta.visual_family || null,
+    content_type: growthMeta.content_type || null,
+    tone: growthMeta.tone || [],
     scheme,
     formality: 'medium',
     density,
-    mood: [],
-    palette,
-    displayFont: 'Inter',
-    bodyFont: 'Noto Sans SC',
-    typography_style: 'modern',
     best_for: ['brand landing page'],
     avoid_for: [],
     features: [],
-    css_variables: cssVars,
     visibility: 'public',
     status: 'active',
     template_path: 'templates/' + slug + '/template.html',
@@ -411,60 +464,19 @@ function loadTokens(tmplDir) {
   if (fs.existsSync(tokensPath)) {
     return JSON.parse(fs.readFileSync(tokensPath, 'utf-8'));
   }
-  // Fallback: brand.json + layout.json (legacy)
-  const brandPath = path.join(tmplDir, 'brand.json');
-  const layoutPath = path.join(tmplDir, 'layout.json');
-  if (fs.existsSync(brandPath) && fs.existsSync(layoutPath)) {
-    const brand = JSON.parse(fs.readFileSync(brandPath, 'utf-8'));
-    const layout = JSON.parse(fs.readFileSync(layoutPath, 'utf-8'));
-    const tokens = {};
-    for (const cat of ['color', 'typography', 'spacing', 'radius', 'shadow', 'motion']) {
-      tokens[cat] = [
-        ...(brand.tokens?.[cat] || []),
-        ...(layout.tokens?.[cat] || [])
-      ];
-    }
-    return { template: tmplDir.split(path.sep).pop(), version: 1, tokens };
-  }
   return null;
-}
-
-function tokenToCSS(t) {
-  if (t.$type === 'cubicBezier' && Array.isArray(t.value)) {
-    return 'cubic-bezier(' + t.value.join(',') + ')';
-  }
-  return t.value;
-}
-
-function generateRoot(tokensData) {
-  const lines = [':root{'];
-  for (const [cat, tokens] of Object.entries(tokensData.tokens || {})) {
-    if (!tokens || tokens.length === 0) continue;
-    const label = cat.charAt(0).toUpperCase() + cat.slice(1);
-    lines.push('  /* ' + label + ' */');
-    for (const t of tokens) {
-      lines.push('  ' + t.name + ':' + tokenToCSS(t) + ';');
-    }
-    lines.push('');
-  }
-  lines.push('  font-family:var(--font-body); color:var(--color-on-surface); background:var(--color-surface);');
-  lines.push('  font-size:var(--text-base); line-height:1.5;');
-  lines.push('}');
-  return lines.join('\n');
 }
 
 const galleryTokensDir = path.join(PROJECT_DIR, 'templates', 'layout-gallery');
 const navHTML = fs.readFileSync(path.join(PROJECT_DIR, 'server', 'nav.html'), 'utf-8');
 const footerHTML = fs.readFileSync(path.join(PROJECT_DIR, 'server', 'footer.html'), 'utf-8');
-const turboScript = '<script src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.12/dist/turbo.es2017-umd.js" defer data-turbo-track="reload"></script>';
 
-function servePage(res, filePath, tokensDir, activeNav) {
-  let html = fs.readFileSync(filePath, 'utf-8');
+function servePage(res, filePath, tokensDir, activeNav, preparedHtml) {
+  let html = preparedHtml || fs.readFileSync(filePath, 'utf-8');
   html = html.replace('<style>', '<style data-turbo-track="dynamic">');
-  html = html.replace('</head>', turboScript + '\n</head>');
   if (tokensDir) {
     const tokens = loadTokens(tokensDir);
-    if (tokens) html = html.replace('<!-- ROOT_INJECT -->', generateRoot(tokens));
+    if (tokens) html = html.replace('<!-- ROOT_INJECT -->', generateRoot(tokens.tokens));
   }
   html = html.replace('<!-- NAV_INJECT -->', navHTML);
   html = html.replace('<!-- FOOTER_INJECT -->', footerHTML);

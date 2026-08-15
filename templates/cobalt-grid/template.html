@@ -6,7 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
   :root {
-  /* ── Standard Roles (auto-injected) ── */
+
+  /* ── Color Roles ── */
+  --paper: #F0EBDE;
+  --paper-2: #E6E0CE;
+  --ink: #1F2BE0;
+  --ink-soft: #5560E5;
+  --rule: #1F2BE0;
   --color-primary: #333333;
   --color-secondary: #5560E5;
   --color-surface: #F0EBDE;
@@ -14,31 +20,32 @@
   --color-on-surface-variant: #5560E5;
   --color-outline: #1F2BE0;
   --color-surface-container-low: #F0EBDE;
-  --bg-rgb: 240,235,222;
-  --text-rgb: 31,43,224;
-  --accent-rgb: 51,51,51;
+  --grid: rgba(31, 43, 224, 0.10);
+
+  /* ── Typography ── */
   --font-display: Inter, system-ui, sans-serif;
   --font-body: 'Hanken Grotesk', sans-serif;
   --font-mono: 'DM Mono', ui-monospace, monospace;
-  --radius-base: 4px;
-  --radius-sm: 2px;
-  --radius-pill: 999px;
+  --typescale-body-large: 16px;
+
+  /* ── Shadow ── */
   --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
   --elevation-md: 0 8px 30px rgba(0,0,0,0.1);
+
+  /* ── radius ── */
+  --radius-xs: 4px;
+  --radius-pill: 999px;
+
+  /* ── motion ── */
   --ease-standard: 0.18s ease;
   --duration-base: 150ms;
+
+  /* ── spacing ── */
   --space-page-wmax: 1200px;
   --space-page-pad: 32px;
   --space-gap: 24px;
   --space-gutter: 24px;
-
-    --paper:    #F0EBDE;   /* warm cream / ivory paper canvas */
-    --paper-2:  #E6E0CE;
-    --ink:      #1F2BE0;   /* electric cobalt / royal blue */
-    --ink-soft: #5560E5;   /* lighter cobalt for secondary marks */
-    --grid:     rgba(31, 43, 224, 0.10);  /* very faint blue grid */
-    --rule:     #1F2BE0;
-  }
+}
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; height: 100%; background: #0a0a0a; }
   body {

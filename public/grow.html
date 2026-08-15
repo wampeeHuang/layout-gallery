@@ -34,7 +34,7 @@ a { color: inherit; text-decoration: none; }
    PAGE HEADER
    ═══════════════════════════════════════════════════════════════ */
 .page-header {
-  padding: clamp(32px, 5vw, 56px) clamp(20px, 4vw, 48px) var(--space-xl);
+  padding: clamp(32px, 5vw, 56px) clamp(20px, 4vw, 48px) var(--space-32);
   border-bottom: var(--hairline) solid var(--color-outline);
   max-width: var(--space-page-wmax); margin: 0 auto;
 }
@@ -45,11 +45,11 @@ a { color: inherit; text-decoration: none; }
   font-weight: 700; line-height: 1.05;
   letter-spacing: -0.04em;
   color: var(--heading);
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-8);
 }
 
 .page-header .subtitle {
-  font-size: var(--text-base); color: var(--color-on-surface-variant);
+  font-size: var(--typescale-body-medium); color: var(--color-on-surface-variant);
   max-width: 600px;
 }
 
@@ -58,28 +58,28 @@ a { color: inherit; text-decoration: none; }
    ═══════════════════════════════════════════════════════════════ */
 .page-wrap {
   max-width: var(--space-page-wmax); margin: 0 auto;
-  padding: var(--space-xl) clamp(20px, 4vw, 48px) var(--space-3xl);
+  padding: var(--space-32) clamp(20px, 4vw, 48px) var(--space-64);
 }
 
 /* ═══════════════════════════════════════════════════════════════
    STATUS BANNER
    ═══════════════════════════════════════════════════════════════ */
 .status-banner {
-  display: flex; gap: var(--space-lg); align-items: flex-start;
+  display: flex; gap: var(--space-24); align-items: flex-start;
   background: var(--color-primary-container);
   border: var(--hairline) solid var(--color-primary);
-  padding: var(--space-lg) var(--space-xl);
-  margin-bottom: var(--space-2xl);
+  padding: var(--space-24) var(--space-32);
+  margin-bottom: var(--space-48);
 }
 .status-badge {
   flex-shrink: 0;
-  font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.06em;
+  font-size: var(--typescale-label-medium); font-weight: 700; letter-spacing: 0.06em;
   text-transform: uppercase;
   background: var(--color-primary); color: #fff;
   padding: 4px 12px;
 }
 .status-body p {
-  font-size: var(--text-sm); color: var(--color-on-surface);
+  font-size: var(--typescale-label-large); color: var(--color-on-surface);
   line-height: 1.7; max-width: 640px;
 }
 
@@ -87,36 +87,36 @@ a { color: inherit; text-decoration: none; }
    PIPELINE PREVIEW
    ═══════════════════════════════════════════════════════════════ */
 .pipeline-preview {
-  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-48);
 }
 .pipeline-preview h3 {
   font-family: var(--font-display);
-  font-size: var(--text-lg); font-weight: 600;
+  font-size: var(--typescale-body-large); font-weight: 600;
   color: var(--color-on-surface);
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-16);
 }
 .pipe-steps {
-  display: flex; gap: var(--space-xs); align-items: center;
+  display: flex; gap: var(--space-8); align-items: center;
   flex-wrap: wrap;
 }
 .pipe-step {
-  display: flex; align-items: center; gap: var(--space-xs);
-  padding: var(--space-sm) var(--space-md);
+  display: flex; align-items: center; gap: var(--space-8);
+  padding: var(--space-12) var(--space-16);
   background: var(--color-surface-container-low);
   border: var(--hairline) solid var(--color-outline);
-  font-size: var(--text-sm);
+  font-size: var(--typescale-label-large);
 }
 .pipe-num {
   font-family: var(--font-display);
-  font-size: var(--text-lg); font-weight: 700;
-  color: var(--color-on-surface-muted);
+  font-size: var(--typescale-body-large); font-weight: 700;
+  color: var(--color-on-surface-variant);
 }
 .pipe-label {
   color: var(--color-on-surface-variant);
 }
 .pipe-arrow {
-  color: var(--color-on-surface-muted);
-  font-size: var(--text-lg);
+  color: var(--color-on-surface-variant);
+  font-size: var(--typescale-body-large);
   flex-shrink: 0;
 }
 
@@ -127,24 +127,24 @@ a { color: inherit; text-decoration: none; }
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: var(--space-gutter);
-  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-48);
 }
 .prereq-card {
   background: var(--color-surface-container-low);
   border: var(--hairline) solid var(--color-outline);
-  padding: var(--space-xl);
+  padding: var(--space-32);
 }
 .prereq-icon {
-  font-size: 24px; margin-bottom: var(--space-sm);
+  font-size: 24px; margin-bottom: var(--space-12);
 }
 .prereq-card h4 {
   font-family: var(--font-display);
-  font-size: var(--text-base); font-weight: 600;
+  font-size: var(--typescale-body-medium); font-weight: 600;
   color: var(--color-on-surface);
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-8);
 }
 .prereq-card p {
-  font-size: var(--text-sm); color: var(--color-on-surface-variant);
+  font-size: var(--typescale-label-large); color: var(--color-on-surface-variant);
   line-height: 1.6;
 }
 
@@ -153,13 +153,13 @@ a { color: inherit; text-decoration: none; }
    ═══════════════════════════════════════════════════════════════ */
 .watch-zone {
   border-top: var(--hairline) solid var(--color-outline);
-  padding-top: var(--space-xl);
+  padding-top: var(--space-32);
 }
 .watch-zone h3 {
   font-family: var(--font-display);
-  font-size: var(--text-lg); font-weight: 600;
+  font-size: var(--typescale-body-large); font-weight: 600;
   color: var(--color-on-surface);
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-16);
 }
 .watch-links {
   display: flex; gap: var(--space-gap); flex-wrap: wrap;
@@ -167,7 +167,7 @@ a { color: inherit; text-decoration: none; }
 .watch-link {
   flex: 1; min-width: 240px;
   display: block;
-  padding: var(--space-lg);
+  padding: var(--space-24);
   border: var(--hairline) solid var(--color-outline);
   text-decoration: none;
   transition: box-shadow var(--duration-fast) var(--ease-standard);
@@ -178,12 +178,12 @@ a { color: inherit; text-decoration: none; }
 .watch-label {
   display: block;
   font-family: var(--font-display);
-  font-size: var(--text-base); font-weight: 600;
+  font-size: var(--typescale-body-medium); font-weight: 600;
   color: var(--color-primary);
   margin-bottom: 4px;
 }
 .watch-desc {
-  font-size: var(--text-sm); color: var(--color-on-surface-variant);
+  font-size: var(--typescale-label-large); color: var(--color-on-surface-variant);
 }
 
 @media(max-width:640px) {

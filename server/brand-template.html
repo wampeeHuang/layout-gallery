@@ -96,6 +96,7 @@
   --chrome-chip-light:var(--chip-label-light);
 }
 
+html,body{max-width:100%;overflow-x:clip}
 body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.5}
 
 /* === HERO === */
@@ -307,6 +308,14 @@ body{font-family:var(--font-body);color:var(--text);background:var(--bg);-webkit
 {{TEXTURE_CSS}}
 {{CURSOR_CSS}}
 {{HEADING_OVERRIDES}}
+@media (max-width:600px){
+  .scale-table{width:100%;max-width:100%;min-width:0;table-layout:fixed}
+  .scale-table th,.scale-table td{padding:var(--brand-sp-sm);overflow-wrap:anywhere;word-break:break-word}
+  .token-table{width:100%;max-width:100%;min-width:0;table-layout:fixed}
+  .token-table th,.token-table td{padding:var(--brand-sp-sm);overflow-wrap:anywhere;word-break:break-word}
+  .bk-main,.bk-section,.bk-section-body,.bk-token-group{min-width:0}
+  pre,code{max-width:100%;overflow-wrap:anywhere}
+}
 </style>
 </head>
 <body>

@@ -12,7 +12,10 @@
   }
 
   :root {
-  /* ── Standard Roles (auto-injected) ── */
+
+  /* ── Color Roles ── */
+  --bg: #F5F5F0;
+  --outline: #1E1E1E;
   --color-primary: #F2D160;
   --color-secondary: #666666;
   --color-surface: #F5F5F0;
@@ -20,37 +23,41 @@
   --color-on-surface-variant: #666666;
   --color-outline: #1E1E1E;
   --color-surface-container-low: #F5F5F0;
-  --bg-rgb: 245,245,240;
-  --text-rgb: 10,10,10;
-  --accent-rgb: 242,209,96;
+  --fg: #1A1A1A;
+  --coral: #E85D4E;
+  --lime: #C4D94E;
+  --lavender: #C5B5E0;
+  --sky: #8BB4F7;
+  --violet: #A06CE8;
+  --yellow: #F2D160;
+  --peach: #F5B895;
+  --mint: #A8E6CF;
+  --shadow: rgba(26, 26, 26, 0.08);
+
+  /* ── Typography ── */
+  --font-display: 'Bodoni Moda', serif;
+  --font-body: 'Space Grotesk', sans-serif;
   --font-mono: ui-monospace, SF Mono, Consolas, monospace;
-  --radius-base: 4px;
-  --radius-sm: 2px;
-  --radius-pill: 999px;
+  --typescale-body-large: 16px;
+
+  /* ── Shadow ── */
   --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
   --elevation-md: rgba(26, 26, 26, 0.08);
+
+  /* ── radius ── */
+  --radius-xs: 4px;
+  --radius-pill: 999px;
+
+  /* ── motion ── */
   --ease-standard: 0.18s ease;
   --duration-base: 150ms;
+
+  /* ── spacing ── */
   --space-page-wmax: 1200px;
   --space-page-pad: 32px;
   --space-gap: 24px;
   --space-gutter: 24px;
-
-    --bg: #F5F5F0;
-    --fg: #1A1A1A;
-    --coral: #E85D4E;
-    --lime: #C4D94E;
-    --lavender: #C5B5E0;
-    --sky: #8BB4F7;
-    --violet: #A06CE8;
-    --yellow: #F2D160;
-    --peach: #F5B895;
-    --mint: #A8E6CF;
-    --outline: #1E1E1E;
-    --shadow: rgba(26, 26, 26, 0.08);
-    --font-display: 'Bodoni Moda', serif;
-    --font-body: 'Space Grotesk', sans-serif;
-  }
+}
 
   html, body {
     width: 100%;

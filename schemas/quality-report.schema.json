@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://layout-gallery.local/schemas/quality-report.schema.json",
+  "title": "Layout Gallery quality report",
+  "type": "object",
+  "required": ["schemaVersion", "slug", "generatedAt", "commit", "tool", "ok", "gates", "summary"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "slug": { "type": "string" },
+    "generatedAt": { "type": "string" },
+    "commit": { "type": ["string", "null"] },
+    "tool": {
+      "type": "object",
+      "required": ["name", "version", "node"],
+      "properties": {
+        "name": { "const": "layout-gallery-check" },
+        "version": { "type": "string" },
+        "node": { "type": "string" }
+      }
+    },
+    "ok": { "type": "boolean" },
+    "gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "ok", "issues"],
+        "properties": {
+          "id": { "type": "string" },
+          "ok": { "type": "boolean" },
+          "issues": { "type": "array" },
+          "evidence": {}
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["passed", "failed", "issues"],
+      "properties": {
+        "passed": { "type": "integer" },
+        "failed": { "type": "integer" },
+        "issues": { "type": "integer" }
+      }
+    }
+  }
+}

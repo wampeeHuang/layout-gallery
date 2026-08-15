@@ -6,7 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
 :root {
-  /* ── Standard Roles (auto-injected) ── */
+
+  /* ── Color Roles ── */
+  --paper: #EFE56A;
+  --paper-2: #F5ECA0;
+  --paper-3: #E8D85A;
+  --cream: #F8F1D6;
+  --ink: #1F3A8A;
+  --ink-soft: #2D4FB8;
+  --ink-line: #3457C4;
+  --black: #0E1430;
   --color-primary: #C2342B;
   --color-secondary: #2D4FB8;
   --color-surface: #EFE56A;
@@ -14,36 +23,34 @@
   --color-on-surface-variant: #2D4FB8;
   --color-outline: #3457C4;
   --color-surface-container-low: #EFE56A;
-  --bg-rgb: 239,229,106;
-  --text-rgb: 31,58,138;
-  --accent-rgb: 194,52,43;
+  --kraft: #C9A66B;
+  --red: #C2342B;
+  --olive: #6B7A2E;
+  --orange: #D8702A;
+
+  /* ── Typography ── */
   --font-display: 'Caveat', cursive;
   --font-body: 'DM Mono', monospace;
   --font-mono: 'Space Grotesk', sans-serif;
-  --radius-base: 4px;
-  --radius-sm: 2px;
-  --radius-pill: 999px;
+  --typescale-body-large: 16px;
+
+  /* ── Shadow ── */
   --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
   --elevation-md: 0 8px 30px rgba(0,0,0,0.1);
+
+  /* ── radius ── */
+  --radius-xs: 4px;
+  --radius-pill: 999px;
+
+  /* ── motion ── */
   --ease-standard: 0.18s ease;
   --duration-base: 150ms;
+
+  /* ── spacing ── */
   --space-page-wmax: 1200px;
   --space-page-pad: 32px;
   --space-gap: 24px;
   --space-gutter: 24px;
-
-  --paper:    #EFE56A;
-  --paper-2:  #F5ECA0;
-  --paper-3:  #E8D85A;
-  --cream:    #F8F1D6;
-  --kraft:    #C9A66B;
-  --ink:      #1F3A8A;
-  --ink-soft: #2D4FB8;
-  --ink-line: #3457C4;
-  --black:    #0E1430;
-  --red:      #C2342B;
-  --olive:    #6B7A2E;
-  --orange:   #D8702A;
 }
 
 html, body { margin:0; padding:0; background:#1a1a1a; }
@@ -672,7 +679,7 @@ section.slide.ink .footer { color: var(--paper); opacity: .75; }
 .s-cta .pane.r .step p { font-size: 18px; line-height: 1.4; margin: 0; }
 
 </style>
-<script src="/runtime/deck-stage.js"></script>
+<script src="/public/deck-stage.js"></script>
 
 <!-- reusable safety pin svg, used via <use href="#pin"> -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">

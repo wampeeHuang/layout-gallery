@@ -21,7 +21,18 @@
    ║  Never write raw hex values, font names, or px sizes outside here.   ║
    ╚══════════════════════════════════════════════════════════════════════╝ */
       :root {
-  /* ── Standard Roles (auto-injected) ── */
+
+  /* ── Color Roles ── */
+  --c-bg: #1c2644;
+  --c-bg-alt: #232f55;
+  --c-bg-light: #f0ece3;
+  --c-bg-light-alt: #e6e0d4;
+  --c-fg-light: #1a2030;
+  --c-fg-light-2: #5a6270;
+  --c-fg-light-3: #9aa0a8;
+  --c-accent: #c8a870;
+  --c-border: #2e3d5c;
+  --c-border-light: #cac4b4;
   --color-primary: #c8a870;
   --color-secondary: #666666;
   --color-surface: #1c2644;
@@ -29,96 +40,51 @@
   --color-on-surface-variant: #888880;
   --color-outline: #2e3d5c;
   --color-surface-container-low: #232f55;
-  --bg-rgb: 28,38,68;
-  --text-rgb: 10,10,10;
-  --accent-rgb: 200,168,112;
+  --c-fg: #e2dcd0;
+  --c-fg-2: #8a96a8;
+  --c-fg-3: #4e5a6e;
+  --dur-slide: 0.85s;
+  --dur-enter: 0.65s;
+
+  /* ── Typography ── */
   --font-display: "Source Serif 4", "Noto Serif SC", Georgia, serif;
   --font-body: "DM Sans", "Noto Sans SC", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", "JetBrains Mono", monospace;
-  --radius-base: 4px;
-  --radius-sm: 2px;
-  --radius-pill: 999px;
+  --typescale-display-large: 9.5vw;
+  --typescale-headline-large: 5.2vw;
+  --typescale-title-large: 3vw;
+  --typescale-title-medium: 1.9vw;
+  --typescale-body-large: 1.4vw;
+  --typescale-body-medium: 1.05vw;
+  --typescale-label-large: 0.82vw;
+  --typescale-label-medium: 0.7vw;
+
+  /* ── Shadow ── */
   --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
   --elevation-md: 0 8px 30px rgba(0,0,0,0.1);
-  --ease-standard: cubic-bezier(0.77, 0, 0.175, 1);
+
+  /* ── radius ── */
+  --radius-xs: 4px;
+  --radius-pill: 999px;
+
+  /* ── motion ── */
+  --ease-slide: cubic-bezier(0.77,0,0.175,1);
+  --ease-enter: cubic-bezier(0.16,1,0.3,1);
+  --ease-standard: cubic-bezier(0.77,0,0.175,1);
   --duration-base: 150ms;
+
+  /* ── spacing ── */
   --space-page-wmax: 1200px;
   --space-page-pad: 7.5vw;
   --space-gap: 4vh;
   --space-gutter: 4vh;
---space-2xs: 4px;
---space-xs: 8px;
---space-sm: 12px;
---space-md: 16px;
---space-lg: 24px;
---hairline: 1px;
-
-        /* ── Palette ──────────────────────────────────────────────────────── */
-        /* Dark navy: intelligence, authority, depth — the editorial tone */
-        --c-bg: #1c2644;
-        /* Slightly lighter navy for secondary dark surfaces */
-        --c-bg-alt: #232f55;
-        /* Warm cream: the light slide background, like aged paper */
-        --c-bg-light: #f0ece3;
-        /* Slightly cooler cream for secondary light surfaces */
-        --c-bg-light-alt: #e6e0d4;
-
-        /* Primary text on dark: warm off-white, never pure white */
-        --c-fg: #e2dcd0;
-        /* Secondary text on dark: muted blue-grey */
-        --c-fg-2: #8a96a8;
-        /* Tertiary / hint text on dark */
-        --c-fg-3: #4e5a6e;
-        /* Primary text on light: very dark navy near-black */
-        --c-fg-light: #1a2030;
-        /* Secondary text on light */
-        --c-fg-light-2: #5a6270;
-        /* Tertiary text on light */
-        --c-fg-light-3: #9aa0a8;
-
-        /* Accent: warm antique gold — the single hot colour; used for italic serif em */
-        --c-accent: #c8a870;
-        /* Dividers on dark: dark navy border */
-        --c-border: #2e3d5c;
-        /* Dividers on light: warm greige border */
-        --c-border-light: #cac4b4;
-
-        /* ── Typography ──────────────────────────────────────────────────── */
-        /* Display + Heading: Source Serif 4 — editorial, authoritative.
-           Mix roman and italic mid-sentence for the Signal look. */
-        --f-display: "Source Serif 4", "Noto Serif SC", Georgia, serif;
-        --f-heading: "Source Serif 4", "Noto Serif SC", Georgia, serif;
-        /* Body: DM Sans — clean grotesque, steps back so the serif leads */
-        --f-body: "DM Sans", "Noto Sans SC", system-ui, sans-serif;
-        /* Mono: IBM Plex Mono — the condensed editorial timestamp */
-        --f-mono: "IBM Plex Mono", "JetBrains Mono", monospace;
-
-        /* ── Type Scale ───────────────────────────────────────────────────── */
-        /* vw units keep all sizes proportional regardless of window width */
-        --sz-display: 9.5vw; /* hero cover title — very large, commanding */
-        --sz-h1: 5.2vw; /* chapter titles */
-        --sz-h2: 3vw; /* slide headlines */
-        --sz-h3: 1.9vw; /* sub-headlines, compare panel titles */
-        --sz-lead: 1.4vw; /* lead paragraph */
-        --sz-body: 1.05vw; /* body text, bullets */
-        --sz-caption: 0.82vw; /* captions, footnotes */
-        --sz-label: 0.7vw; /* chrome, kickers, tags, mono metadata */
-
-        /* ── Spacing ─────────────────────────────────────────────────────── */
-        --pad-x: 7.5vw; /* horizontal slide padding */
-        --pad-y: 5.5vh; /* vertical slide padding */
-        --gap-lg: 4vh; /* between major content sections */
-        --gap-md: 2.5vh; /* between related elements */
-        --gap-sm: 1.2vh; /* between tightly coupled elements */
-
-        /* ── Motion ──────────────────────────────────────────────────────── */
-        /* Slide pan: sharp in, sharp out — deliberate, not springy */
-        --ease-slide: cubic-bezier(0.77, 0, 0.175, 1);
-        --dur-slide: 0.85s;
-        /* Element entrance: spring-y ease-out for content reveals */
-        --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
-        --dur-enter: 0.65s;
-      }
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --hairline: 1px;
+}
 
       /* ╔══════════════════════════════════════════════════════════════════════╗
    ║  ZONE B · ENGINE — DO NOT MODIFY                                     ║
@@ -157,7 +123,7 @@
         width: 100vw;
         height: 100vh;
         position: relative;
-        padding: var(--pad-y) var(--pad-x);
+        padding: 5.5vh 7.5vw;
         display: grid;
         grid-template-rows: auto 1fr auto;
         overflow: hidden;
@@ -305,7 +271,7 @@
         position: fixed;
         bottom: 20px;
         right: 28px;
-        font-family: var(--f-mono);
+        font-family: var(--font-mono);
         font-size: 11px;
         letter-spacing: 0.12em;
         color: rgba(255, 255, 255, 0.25);
@@ -318,52 +284,52 @@
    ╚══════════════════════════════════════════════════════════════════════╝ */
 
       .display {
-        font-family: var(--f-display);
-        font-size: var(--sz-display);
+        font-family: var(--font-display);
+        font-size: var(--typescale-display-large);
         font-weight: 700;
         line-height: 0.96;
         letter-spacing: -0.02em;
       }
       .h1 {
-        font-family: var(--f-heading);
-        font-size: var(--sz-h1);
+        font-family: var(--font-display);
+        font-size: var(--typescale-headline-large);
         font-weight: 600;
         line-height: 1.08;
         letter-spacing: -0.01em;
       }
       .h2 {
-        font-family: var(--f-heading);
-        font-size: var(--sz-h2);
+        font-family: var(--font-display);
+        font-size: var(--typescale-title-large);
         font-weight: 600;
         line-height: 1.18;
       }
       .h3 {
-        font-family: var(--f-heading);
-        font-size: var(--sz-h3);
+        font-family: var(--font-display);
+        font-size: var(--typescale-title-medium);
         font-weight: 500;
         line-height: 1.3;
       }
       .lead {
-        font-family: var(--f-body);
-        font-size: var(--sz-lead);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-large);
         font-weight: 400;
         line-height: 1.58;
       }
       .body {
-        font-family: var(--f-body);
-        font-size: var(--sz-body);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-medium);
         font-weight: 400;
         line-height: 1.65;
       }
       .caption {
-        font-family: var(--f-body);
-        font-size: var(--sz-caption);
+        font-family: var(--font-body);
+        font-size: var(--typescale-label-large);
         font-weight: 400;
         line-height: 1.5;
       }
       .label {
-        font-family: var(--f-mono);
-        font-size: var(--sz-label);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-medium);
         font-weight: 500;
         letter-spacing: 0.14em;
         text-transform: uppercase;
@@ -380,7 +346,7 @@
       .lead em {
         
         color: var(--c-accent);
-        font-family: var(--f-heading);
+        font-family: var(--font-display);
       }
 
       .dark .muted {
@@ -422,14 +388,14 @@
         align-items: center;
       }
       .slide-chrome {
-        padding-bottom: var(--gap-sm);
+        padding-bottom: 1.2vh;
         border-bottom: 1px solid var(--c-border);
-        margin-bottom: var(--gap-md);
+        margin-bottom: 2.5vh;
       }
       .slide-foot {
-        padding-top: var(--gap-sm);
+        padding-top: 1.2vh;
         border-top: 1px solid var(--c-border);
-        margin-top: var(--gap-md);
+        margin-top: 2.5vh;
       }
       .light .slide-chrome,
       .light .slide-foot {
@@ -463,14 +429,14 @@
         flex-direction: column;
         flex: 1;
         justify-content: flex-end;
-        gap: var(--gap-md);
+        gap: 2.5vh;
       }
       .cover-meta {
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
-        margin-top: var(--gap-lg);
-        padding-top: var(--gap-sm);
+        margin-top: 4vh;
+        padding-top: 1.2vh;
         border-top: 1px solid var(--c-border);
       }
       .light .cover-meta {
@@ -484,18 +450,18 @@
         justify-content: center;
       }
       .chapter-num {
-        font-family: var(--f-mono);
-        font-size: var(--sz-label);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-medium);
         letter-spacing: 0.2em;
         text-transform: uppercase;
         color: var(--c-accent);
-        margin-bottom: var(--gap-md);
+        margin-bottom: 2.5vh;
       }
       .chapter-rule {
         width: 36px;
         height: 1px;
         background: var(--c-accent);
-        margin-bottom: var(--gap-md);
+        margin-bottom: 2.5vh;
       }
 
       /* 3. STATEMENT ──────────────────────────────────────────────────────── */
@@ -503,25 +469,25 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: var(--gap-md);
+        gap: 2.5vh;
       }
 
       /* 4. SPLIT ──────────────────────────────────────────────────────────── */
       .slide--split .slide-body {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: calc(var(--pad-x) * 0.7);
+        gap: calc(7.5vw * 0.7);
         align-items: center;
       }
       .split-text {
         display: flex;
         flex-direction: column;
-        gap: var(--gap-md);
+        gap: 2.5vh;
       }
       .split-image {
         display: flex;
         flex-direction: column;
-        gap: var(--gap-sm);
+        gap: 1.2vh;
       }
       .split-image img {
         width: 100%;
@@ -535,7 +501,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: var(--gap-lg);
+        gap: 4vh;
       }
       .stats-grid {
         display: grid;
@@ -548,15 +514,15 @@
       .stat-card {
         display: flex;
         flex-direction: column;
-        gap: var(--gap-sm);
-        padding: var(--gap-md) var(--gap-md) var(--gap-md) 0;
+        gap: 1.2vh;
+        padding: 2.5vh 2.5vh 2.5vh 0;
         border-top: 1px solid var(--c-border);
       }
       .light .stat-card {
         border-color: var(--c-border-light);
       }
       .stat-value {
-        font-family: var(--f-display);
+        font-family: var(--font-display);
         font-size: 5.5vw;
         font-weight: 600;
         line-height: 1;
@@ -564,13 +530,13 @@
         letter-spacing: -0.02em;
       }
       .stat-label {
-        font-family: var(--f-body);
-        font-size: var(--sz-body);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-medium);
         line-height: 1.5;
       }
       .stat-note {
-        font-family: var(--f-mono);
-        font-size: var(--sz-caption);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-large);
         letter-spacing: 0.05em;
         color: var(--c-fg-3);
       }
@@ -583,24 +549,24 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: calc(var(--pad-y) * 1.2) calc(var(--pad-x) * 1.1);
+        padding: calc(5.5vh * 1.2) calc(7.5vw * 1.1);
       }
       .quote-mark {
-        font-family: var(--f-display);
+        font-family: var(--font-display);
         font-size: 8vw;
         line-height: 0.6;
         color: var(--c-accent);
-        margin-bottom: var(--gap-md);
+        margin-bottom: 2.5vh;
         font-weight: 300;
       }
       .quote-text {
-        font-family: var(--f-display);
+        font-family: var(--font-display);
         font-size: 3.6vw;
         font-weight: 400;
         line-height: 1.28;
         letter-spacing: -0.01em;
         max-width: 78%;
-        margin-bottom: var(--gap-lg);
+        margin-bottom: 4vh;
         
       }
       .quote-attr {
@@ -613,33 +579,33 @@
       .slide--list .slide-body {
         display: grid;
         grid-template-columns: 2fr 3fr;
-        gap: calc(var(--pad-x) * 0.8);
+        gap: calc(7.5vw * 0.8);
         align-items: center;
       }
       .list-head {
         display: flex;
         flex-direction: column;
-        gap: var(--gap-md);
-        padding-top: var(--gap-sm);
+        gap: 2.5vh;
+        padding-top: 1.2vh;
       }
       .bullet-list {
         list-style: none;
         display: flex;
         flex-direction: column;
-        gap: var(--gap-md);
+        gap: 2.5vh;
       }
       .bullet-list li {
         display: grid;
         grid-template-columns: 1.2em 1fr;
         gap: 0.5em;
-        font-family: var(--f-body);
-        font-size: var(--sz-lead);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-large);
         line-height: 1.5;
       }
       .bullet-list li::before {
         content: "—";
         color: var(--c-accent);
-        font-family: var(--f-mono);
+        font-family: var(--font-mono);
       }
       .dark .bullet-list li {
         color: var(--c-fg);
@@ -657,25 +623,25 @@
       .compare-panel {
         display: flex;
         flex-direction: column;
-        gap: var(--gap-md);
-        padding: var(--gap-md) 0;
+        gap: 2.5vh;
+        padding: 2.5vh 0;
       }
       .compare-panel.left {
-        padding-right: calc(var(--pad-x) * 0.55);
+        padding-right: calc(7.5vw * 0.55);
         border-right: 1px solid var(--c-border);
       }
       .compare-panel.right {
-        padding-left: calc(var(--pad-x) * 0.55);
+        padding-left: calc(7.5vw * 0.55);
       }
       .light .compare-panel.left {
         border-color: var(--c-border-light);
       }
       .compare-label {
-        font-family: var(--f-mono);
-        font-size: var(--sz-label);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-medium);
         letter-spacing: 0.16em;
         text-transform: uppercase;
-        padding-bottom: var(--gap-sm);
+        padding-bottom: 1.2vh;
         border-bottom: 1px solid var(--c-border);
       }
       .compare-label.after {
@@ -690,7 +656,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: var(--gap-md);
+        gap: 2.5vh;
       }
 
       /* 10. EDITORIAL — Editorial newsletter style ─────────────────── */
@@ -698,8 +664,8 @@
         grid-template-rows: auto auto auto 1fr auto;
       }
       .editorial-stamp {
-        font-family: var(--f-mono);
-        font-size: var(--sz-label);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-medium);
         letter-spacing: 0.22em;
         color: var(--c-fg-3);
       }
@@ -707,11 +673,11 @@
         color: var(--c-accent);
       }
       .editorial-hl {
-        font-family: var(--f-heading);
+        font-family: var(--font-display);
         font-size: 2.75vw;
         font-weight: 600;
         line-height: 1.2;
-        padding-bottom: var(--gap-md);
+        padding-bottom: 2.5vh;
         border-bottom: 1px solid var(--c-border);
       }
       .editorial-hl em {
@@ -730,28 +696,28 @@
         min-height: 0;
       }
       .editorial-col-left {
-        padding-right: calc(var(--pad-x) * 0.38);
+        padding-right: calc(7.5vw * 0.38);
         border-right: 1px solid var(--c-border);
         display: flex;
         flex-direction: column;
       }
       .editorial-col-right {
-        padding-left: calc(var(--pad-x) * 0.38);
+        padding-left: calc(7.5vw * 0.38);
         display: flex;
         flex-direction: column;
-        gap: var(--gap-md);
+        gap: 2.5vh;
       }
       .light .editorial-col-left {
         border-color: var(--c-border-light);
       }
       .editorial-col-head {
-        font-family: var(--f-mono);
-        font-size: var(--sz-label);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-medium);
         letter-spacing: 0.18em;
         color: var(--c-fg-3);
-        padding-bottom: var(--gap-sm);
+        padding-bottom: 1.2vh;
         border-bottom: 1px solid var(--c-border);
-        margin-bottom: var(--gap-sm);
+        margin-bottom: 1.2vh;
       }
       .light .editorial-col-head {
         border-color: var(--c-border-light);
@@ -772,21 +738,21 @@
         align-items: baseline;
       }
       .log-dt {
-        font-family: var(--f-mono);
-        font-size: var(--sz-caption);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-large);
         letter-spacing: 0.1em;
         color: var(--c-fg-3);
         white-space: nowrap;
       }
       .log-dd {
-        font-family: var(--f-body);
-        font-size: var(--sz-body);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-medium);
         line-height: 1.52;
       }
       .log-dd em {
         
         color: var(--c-accent);
-        font-family: var(--f-heading);
+        font-family: var(--font-display);
       }
 
       /* 2x2 mixed-font stat grid in right column */
@@ -808,7 +774,7 @@
       }
       /* Value: roman grotesque number (DM Sans 700) + italic serif suffix (Source Serif 4 italic) */
       .stat-4-val {
-        font-family: var(--f-body);
+        font-family: var(--font-body);
         font-size: 2.5vw;
         font-weight: 700;
         line-height: 1;
@@ -817,13 +783,13 @@
         letter-spacing: -0.02em;
       }
       .stat-4-val em {
-        font-family: var(--f-display);
+        font-family: var(--font-display);
         
         color: var(--c-accent);
         font-weight: 600;
       }
       .stat-4-label {
-        font-family: var(--f-mono);
+        font-family: var(--font-mono);
         font-size: 0.62vw;
         letter-spacing: 0.07em;
         color: var(--c-fg-3);
@@ -836,12 +802,12 @@
 
       /* Analysis line below columns */
       .editorial-analysis {
-        font-family: var(--f-body);
+        font-family: var(--font-body);
         font-size: 0.88vw;
         line-height: 1.72;
         color: var(--c-fg-2);
         border-top: 1px solid var(--c-border);
-        padding-top: var(--gap-sm);
+        padding-top: 1.2vh;
       }
       .light .editorial-analysis {
         border-color: var(--c-border-light);
@@ -853,11 +819,11 @@
         grid-template-rows: auto auto 1fr auto;
       }
       .dense-hl {
-        font-family: var(--f-heading);
+        font-family: var(--font-display);
         font-size: 2.4vw;
         font-weight: 600;
         line-height: 1.2;
-        padding-bottom: var(--gap-md);
+        padding-bottom: 2.5vh;
         border-bottom: 1px solid var(--c-border);
         max-width: 88%;
       }
@@ -871,17 +837,17 @@
       .dense-cols {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: calc(var(--pad-x) * 0.45);
-        padding-top: var(--gap-md);
+        gap: calc(7.5vw * 0.45);
+        padding-top: 2.5vh;
         min-height: 0;
       }
       .dense-col h4 {
-        font-family: var(--f-mono);
-        font-size: var(--sz-label);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-medium);
         letter-spacing: 0.16em;
         color: var(--c-fg-3);
-        margin-bottom: var(--gap-sm);
-        padding-bottom: var(--gap-sm);
+        margin-bottom: 1.2vh;
+        padding-bottom: 1.2vh;
         border-bottom: 1px solid var(--c-border);
       }
       .light .dense-col h4 {
@@ -889,8 +855,8 @@
         color: var(--c-fg-light-3);
       }
       .dense-col p {
-        font-family: var(--f-body);
-        font-size: var(--sz-body);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-medium);
         line-height: 1.72;
         color: var(--c-fg-2);
         margin-bottom: 1.4vh;
@@ -904,7 +870,7 @@
       .dense-col p em {
         
         color: var(--c-accent);
-        font-family: var(--f-heading);
+        font-family: var(--font-display);
       }
 
       /* 12. FULLBLEED ──────────────────────────────────────────────────────── */
@@ -929,7 +895,7 @@
         bottom: 0;
         left: 0;
         right: 0;
-        padding: var(--pad-y) var(--pad-x);
+        padding: 5.5vh 7.5vw;
         background: linear-gradient(
           to bottom,
           transparent 0%,
@@ -937,7 +903,7 @@
         );
         display: flex;
         flex-direction: column;
-        gap: var(--gap-sm);
+        gap: 1.2vh;
       }
 
       /* ╔══════════════════════════════════════════════════════════════════════╗
@@ -960,8 +926,8 @@
 
       /* Kicker label (above headlines) */
       .kicker {
-        font-family: var(--f-mono);
-        font-size: var(--sz-label);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-medium);
         letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--c-accent);
@@ -970,8 +936,8 @@
       /* Outlined tag */
       .tag {
         display: inline-block;
-        font-family: var(--f-mono);
-        font-size: var(--sz-label);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-medium);
         letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--c-accent);
@@ -982,8 +948,8 @@
 
       /* Image caption */
       .img-caption {
-        font-family: var(--f-mono);
-        font-size: var(--sz-caption);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-large);
         letter-spacing: 0.04em;
         opacity: 0.5;
         margin-top: 0.8vh;
@@ -992,7 +958,7 @@
       .slide--chart .slide-body {
         display: flex;
         flex-direction: column;
-        gap: var(--gap-md);
+        gap: 2.5vh;
         min-height: 0;
       }
       .chart-header {
@@ -1042,8 +1008,8 @@
         background: var(--c-accent);
       }
       .bar-x-label {
-        font-family: var(--f-mono);
-        font-size: var(--sz-caption);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-large);
         letter-spacing: 0.1em;
         color: var(--c-fg-3);
         white-space: nowrap;
@@ -1053,8 +1019,8 @@
         color: var(--c-fg-light-3);
       }
       .bar-val {
-        font-family: var(--f-body);
-        font-size: var(--sz-body);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-medium);
         font-weight: 500;
         color: var(--c-fg-2);
       }
@@ -1076,11 +1042,11 @@
       }
       .chart-source {
         flex-shrink: 0;
-        font-family: var(--f-mono);
-        font-size: var(--sz-caption);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-large);
         color: var(--c-fg-3);
         letter-spacing: 0.06em;
-        margin-top: var(--gap-sm);
+        margin-top: 1.2vh;
       }
       .light .chart-source {
         color: var(--c-fg-light-3);
@@ -1091,7 +1057,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: var(--gap-lg);
+        gap: 4vh;
         min-height: 0;
       }
       .flow {
@@ -1103,11 +1069,11 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-        gap: var(--gap-sm);
-        padding-right: calc(var(--pad-x) * 0.35);
+        gap: 1.2vh;
+        padding-right: calc(7.5vw * 0.35);
       }
       .flow-num {
-        font-family: var(--f-display);
+        font-family: var(--font-display);
         font-size: 4.5vw;
         font-weight: 700;
         line-height: 1;
@@ -1116,8 +1082,8 @@
         
       }
       .flow-title {
-        font-family: var(--f-heading);
-        font-size: var(--sz-h3);
+        font-family: var(--font-display);
+        font-size: var(--typescale-title-medium);
         font-weight: 600;
         line-height: 1.15;
         color: var(--c-fg);
@@ -1126,8 +1092,8 @@
         color: var(--c-fg-light);
       }
       .flow-desc {
-        font-family: var(--f-body);
-        font-size: var(--sz-body);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-medium);
         color: var(--c-fg-2);
         line-height: 1.62;
       }
@@ -1138,7 +1104,7 @@
         display: flex;
         align-items: flex-start;
         padding-top: 1em;
-        padding-right: calc(var(--pad-x) * 0.35);
+        padding-right: calc(7.5vw * 0.35);
         font-size: 2vw;
         color: var(--c-border);
         flex-shrink: 0;
@@ -1151,13 +1117,13 @@
       .slide--pie .slide-body {
         display: flex;
         flex-direction: column;
-        gap: var(--gap-md);
+        gap: 2.5vh;
         min-height: 0;
       }
       .pie-row {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: calc(var(--pad-x) * 0.7);
+        gap: calc(7.5vw * 0.7);
         align-items: center;
         flex: 1;
         min-height: 0;
@@ -1180,7 +1146,7 @@
       .pie-legend {
         display: flex;
         flex-direction: column;
-        gap: var(--gap-md);
+        gap: 2.5vh;
       }
       .pie-item {
         display: grid;
@@ -1195,23 +1161,23 @@
         flex-shrink: 0;
       }
       .pie-item-label {
-        font-family: var(--f-body);
-        font-size: var(--sz-lead);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-large);
         line-height: 1.4;
       }
       .pie-item-val {
-        font-family: var(--f-mono);
-        font-size: var(--sz-body);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-body-medium);
         font-weight: 500;
         letter-spacing: 0.06em;
         color: var(--c-accent);
       }
       .pie-total {
-        margin-top: var(--gap-sm);
-        padding-top: var(--gap-sm);
+        margin-top: 1.2vh;
+        padding-top: 1.2vh;
         border-top: 1px solid var(--c-border);
-        font-family: var(--f-mono);
-        font-size: var(--sz-label);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-medium);
         letter-spacing: 0.1em;
         color: var(--c-fg-3);
       }
@@ -1228,7 +1194,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: var(--gap-md);
+        gap: 2.5vh;
         min-height: 0;
       }
       .pyramid {
@@ -1266,14 +1232,14 @@
         width: 100%;
       }
       .pyr-name {
-        font-family: var(--f-heading);
-        font-size: var(--sz-h3);
+        font-family: var(--font-display);
+        font-size: var(--typescale-title-medium);
         font-weight: 500;
         line-height: 1.2;
       }
       .pyr-desc {
-        font-family: var(--f-body);
-        font-size: var(--sz-body);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-medium);
         color: var(--c-fg-2);
         text-align: right;
         max-width: 55%;
@@ -1285,10 +1251,10 @@
         grid-template-rows: auto auto 1fr auto;
       }
       .vt-hl {
-        font-family: var(--f-heading);
-        font-size: var(--sz-h2);
+        font-family: var(--font-display);
+        font-size: var(--typescale-title-large);
         font-weight: 600;
-        padding-bottom: var(--gap-md);
+        padding-bottom: 2.5vh;
         border-bottom: 1px solid var(--c-border);
       }
       .light .vt-hl {
@@ -1299,11 +1265,11 @@
         grid-template-columns: 8em 1px 1fr;
         gap: 0;
         min-height: 0;
-        padding-top: var(--gap-md);
+        padding-top: 2.5vh;
       }
       .vt-date {
-        font-family: var(--f-mono);
-        font-size: var(--sz-caption);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-large);
         letter-spacing: 0.08em;
         color: var(--c-fg-3);
         text-align: right;
@@ -1334,15 +1300,15 @@
         padding: 0 0 3.5vh 1.5vw;
       }
       .vt-title {
-        font-family: var(--f-heading);
-        font-size: var(--sz-h3);
+        font-family: var(--font-display);
+        font-size: var(--typescale-title-medium);
         font-weight: 500;
         margin-bottom: 0.6vh;
         line-height: 1.25;
       }
       .vt-body {
-        font-family: var(--f-body);
-        font-size: var(--sz-body);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-medium);
         color: var(--c-fg-2);
         line-height: 1.65;
       }
@@ -1352,21 +1318,21 @@
       .vt-body em {
         
         color: var(--c-accent);
-        font-family: var(--f-heading);
+        font-family: var(--font-display);
       }
 
       /* ── CYCLE PROCESS ───────────────────────────────────────────────────── */
       .slide--cycle .slide-body {
         display: flex;
         flex-direction: column;
-        gap: var(--gap-md);
+        gap: 2.5vh;
         min-height: 0;
       }
       .cycle-grid {
         display: grid;
         grid-template-columns: 1fr 3em 1fr;
         grid-template-rows: 1fr 3em 1fr;
-        gap: var(--gap-sm);
+        gap: 1.2vh;
         flex: 1;
         min-height: 0;
         align-items: center;
@@ -1374,12 +1340,12 @@
       .cycle-step {
         display: flex;
         flex-direction: column;
-        gap: var(--gap-sm);
-        padding: var(--gap-md);
+        gap: 1.2vh;
+        padding: 2.5vh;
         border-top: 2px solid var(--c-accent);
       }
       .cycle-num {
-        font-family: var(--f-display);
+        font-family: var(--font-display);
         font-size: 3.2vw;
         font-weight: 700;
         color: var(--c-accent);
@@ -1387,14 +1353,14 @@
         letter-spacing: -0.02em;
       }
       .cycle-title {
-        font-family: var(--f-heading);
-        font-size: var(--sz-h3);
+        font-family: var(--font-display);
+        font-size: var(--typescale-title-medium);
         font-weight: 500;
         line-height: 1.2;
       }
       .cycle-desc {
-        font-family: var(--f-body);
-        font-size: var(--sz-body);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-medium);
         color: var(--c-fg-2);
         line-height: 1.6;
       }
@@ -1453,7 +1419,7 @@
             class="lead"
             style="
               
-              font-family: var(--f-heading);
+              font-family: var(--font-display);
               max-width: 52%;
               color: var(--c-fg-2);
             "
@@ -1483,7 +1449,7 @@
         <!-- Chapter title -->
         <h1
           class="h1"
-          style="max-width: 62%; margin-bottom: var(--gap-md)"
+          style="max-width: 62%; margin-bottom: 2.5vh"
           data-anim="fade-up"
           data-delay="2"
         >
@@ -1570,7 +1536,7 @@
               specific, and easy to scan.
             </p>
             <!-- Bullet list -->
-            <ul class="bullet-list" style="font-size: var(--sz-body)">
+            <ul class="bullet-list" style="font-size: var(--typescale-body-medium)">
               <li>First supporting point with concise context</li>
               <li>Second supporting point with concise context</li>
               <li>Third supporting point with concise context</li>
@@ -1582,7 +1548,7 @@
             class="split-image"
             data-anim="fade-in"
             data-delay="3"
-            style="display: flex; flex-direction: column; gap: var(--gap-sm)"
+            style="display: flex; flex-direction: column; gap: 1.2vh"
           >
             <div
               style="
@@ -1597,8 +1563,8 @@
             >
               <span
                 style="
-                  font-family: var(--f-mono);
-                  font-size: var(--sz-label);
+                  font-family: var(--font-mono);
+                  font-size: var(--typescale-label-medium);
                   color: var(--c-fg-light-3);
                   letter-spacing: 0.12em;
                   text-transform: uppercase;
@@ -1759,7 +1725,7 @@
               Describe the current approach, the friction it creates, and why it
               needs to change.
             </p>
-            <ul class="bullet-list" style="font-size: var(--sz-body)">
+            <ul class="bullet-list" style="font-size: var(--typescale-body-medium)">
               <li>Current limitation or source of friction</li>
               <li>Current limitation or source of friction</li>
               <li>Current limitation or source of friction</li>
@@ -1776,7 +1742,7 @@
               Describe the improved approach, the behavior it enables, and the
               outcome it supports.
             </p>
-            <ul class="bullet-list" style="font-size: var(--sz-body)">
+            <ul class="bullet-list" style="font-size: var(--typescale-body-medium)">
               <li>Expected improvement or capability</li>
               <li>Expected improvement or capability</li>
               <li>Expected improvement or capability</li>

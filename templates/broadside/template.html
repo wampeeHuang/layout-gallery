@@ -16,7 +16,24 @@
    ║  Never write raw hex values, font names, or px sizes outside here.   ║
    ╚══════════════════════════════════════════════════════════════════════╝ */
       :root {
-  /* ── Standard Roles (auto-injected) ── */
+
+  /* ── Color Roles ── */
+  --c-bg: #111111;
+  --c-bg-alt: #1a1a18;
+  --c-bg-light: #111111;
+  --c-bg-light-alt: #1a1a18;
+  --c-bg-orange: #e85d26;
+  --c-fg-light: #111111;
+  --c-fg-light-2: #2a1810;
+  --c-fg-light-3: rgba(
+          17,
+          17,
+          17,
+          0.55
+        );
+  --c-accent: #e85d26;
+  --c-border: #282826;
+  --c-border-light: #282826;
   --color-primary: #e85d26;
   --color-secondary: #666666;
   --color-surface: #111111;
@@ -24,96 +41,51 @@
   --color-on-surface-variant: #888880;
   --color-outline: #282826;
   --color-surface-container-low: #1a1a18;
-  --bg-rgb: 17,17,17;
-  --text-rgb: 10,10,10;
-  --accent-rgb: 232,93,38;
+  --c-fg: #f0ece5;
+  --c-fg-2: #888880;
+  --c-fg-3: #505048;
+  --dur-slide: 0.8s;
+  --dur-enter: 0.5s;
+
+  /* ── Typography ── */
   --font-display: "Barlow", "Noto Sans SC", sans-serif;
   --font-body: "Barlow", "Noto Sans SC", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
-  --radius-base: 4px;
-  --radius-sm: 2px;
-  --radius-pill: 999px;
+  --typescale-display-large: 13vw;
+  --typescale-headline-large: 7.5vw;
+  --typescale-title-large: 4.5vw;
+  --typescale-title-medium: 2.8vw;
+  --typescale-body-large: 1.6vw;
+  --typescale-body-medium: 1.2vw;
+  --typescale-label-large: 0.9vw;
+  --typescale-label-medium: 0.72vw;
+
+  /* ── Shadow ── */
   --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
   --elevation-md: 0 8px 30px rgba(0,0,0,0.1);
-  --ease-standard: cubic-bezier(0.77, 0, 0.175, 1);
+
+  /* ── radius ── */
+  --radius-xs: 4px;
+  --radius-pill: 999px;
+
+  /* ── motion ── */
+  --ease-slide: cubic-bezier(0.77,0,0.175,1);
+  --ease-enter: cubic-bezier(0.16,1,0.3,1);
+  --ease-standard: cubic-bezier(0.77,0,0.175,1);
   --duration-base: 150ms;
+
+  /* ── spacing ── */
   --space-page-wmax: 1200px;
   --space-page-pad: 5.5vw;
   --space-gap: 3.5vh;
   --space-gutter: 3.5vh;
---space-2xs: 4px;
---space-xs: 8px;
---space-sm: 12px;
---space-md: 16px;
---space-lg: 24px;
---hairline: 1px;
-
-        /* ── Palette ──────────────────────────────────────────────────────── */
-        --c-bg: #111111; /* near-black — the default slide background  */
-        --c-bg-alt: #1a1a18; /* secondary surface on dark slides            */
-
-        /* Broadside has NO light slides. These vars are overridden to dark
-           so any accidental .light class still renders dark. */
-        --c-bg-light: #111111;
-        --c-bg-light-alt: #1a1a18;
-
-        /* The signature: orange is not an accent here — it is the ENVIRONMENT.
-           Cover and chapter slides use this as their full background fill. */
-        --c-bg-orange: #e85d26;
-
-        --c-fg: #f0ece5; /* primary text on dark slides                 */
-        --c-fg-2: #888880; /* secondary / muted text on dark              */
-        --c-fg-3: #505048; /* tertiary / hint text on dark                */
-
-        /* Text colours for orange slides — ink on fire */
-        --c-fg-light: #111111; /* primary text on orange                */
-        --c-fg-light-2: #2a1810; /* muted text on orange                  */
-        --c-fg-light-3: rgba(
-          17,
-          17,
-          17,
-          0.55
-        ); /* hint text on orange               */
-
-        --c-accent: #e85d26; /* orange = accent everywhere on dark slides   */
-        --c-border: #282826; /* divider lines on dark slides                */
-        --c-border-light: #282826; /* same dark border even on "light" (overridden)*/
-
-        /* ── Typography ──────────────────────────────────────────────────── */
-        /* Barlow: the defining typeface. Condensed grotesque. Always heavy.
-           Used at max weight — 900 for display, 800 for h1, 700 for h2.
-           Noto Sans SC provides full CJK coverage at matching weights. */
-        --f-display: "Barlow", "Noto Sans SC", sans-serif;
-        --f-heading: "Barlow", "Noto Sans SC", sans-serif;
-        --f-body: "Barlow", "Noto Sans SC", system-ui, sans-serif;
-        /* Mono: IBM Plex Mono for chrome labels, metadata, slide numbers */
-        --f-mono: "IBM Plex Mono", monospace;
-
-        /* ── Type Scale ───────────────────────────────────────────────────── */
-        /* Broadside's defining trait: TYPE IS MASSIVE. Display is 13vw —
-           on a 1440px screen that is ~187px. Words become graphic elements. */
-        --sz-display: 13vw; /* the whole point — nearly abstract at full size */
-        --sz-h1: 7.5vw; /* chapter title — still enormous                */
-        --sz-h2: 4.5vw; /* slide headline                                */
-        --sz-h3: 2.8vw; /* sub-headline                                  */
-        --sz-lead: 1.6vw; /* lead paragraph                                */
-        --sz-body: 1.2vw; /* body text                                     */
-        --sz-caption: 0.9vw; /* captions, footnotes                           */
-        --sz-label: 0.72vw; /* chrome labels, slide numbers, metadata        */
-
-        /* ── Spacing ─────────────────────────────────────────────────────── */
-        --pad-x: 5.5vw; /* tighter than skeleton — type fills the space  */
-        --pad-y: 5.5vh;
-        --gap-lg: 3.5vh;
-        --gap-md: 2vh;
-        --gap-sm: 1vh;
-
-        /* ── Motion ──────────────────────────────────────────────────────── */
-        --ease-slide: cubic-bezier(0.77, 0, 0.175, 1);
-        --dur-slide: 0.8s;
-        --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
-        --dur-enter: 0.5s;
-      }
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --hairline: 1px;
+}
 
       /* ╔══════════════════════════════════════════════════════════════════════╗
    ║  ZONE B · ENGINE — DO NOT MODIFY                                     ║
@@ -153,7 +125,7 @@
         width: 100vw;
         height: 100vh;
         position: relative;
-        padding: var(--pad-y) var(--pad-x);
+        padding: 5.5vh 5.5vw;
         display: grid;
         grid-template-rows: auto 1fr auto;
         overflow: hidden;
@@ -312,7 +284,7 @@
         position: fixed;
         bottom: 20px;
         right: 28px;
-        font-family: var(--f-mono);
+        font-family: var(--font-mono);
         font-size: 11px;
         letter-spacing: 0.12em;
         color: rgba(255, 255, 255, 0.25);
@@ -330,54 +302,54 @@
 
       /* Base typographic classes — all font families read from tokens */
       .display {
-        font-family: var(--f-display);
-        font-size: var(--sz-display);
+        font-family: var(--font-display);
+        font-size: var(--typescale-display-large);
         /* Broadside: maximum weight. Lowercase is the aesthetic — NOT uppercase. */
         font-weight: 900;
         line-height: 0.88;
         letter-spacing: -0.04em;
       }
       .h1 {
-        font-family: var(--f-heading);
-        font-size: var(--sz-h1);
+        font-family: var(--font-display);
+        font-size: var(--typescale-headline-large);
         font-weight: 800;
         line-height: 0.9;
         letter-spacing: -0.03em;
       }
       .h2 {
-        font-family: var(--f-heading);
-        font-size: var(--sz-h2);
+        font-family: var(--font-display);
+        font-size: var(--typescale-title-large);
         font-weight: 700;
         line-height: 1.1;
         letter-spacing: -0.02em;
       }
       .h3 {
-        font-family: var(--f-heading);
-        font-size: var(--sz-h3);
+        font-family: var(--font-display);
+        font-size: var(--typescale-title-medium);
         font-weight: 600;
         line-height: 1.2;
       }
       .lead {
-        font-family: var(--f-body);
-        font-size: var(--sz-lead);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-large);
         font-weight: 400;
         line-height: 1.5;
       }
       .body {
-        font-family: var(--f-body);
-        font-size: var(--sz-body);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-medium);
         font-weight: 400;
         line-height: 1.6;
       }
       .caption {
-        font-family: var(--f-body);
-        font-size: var(--sz-caption);
+        font-family: var(--font-body);
+        font-size: var(--typescale-label-large);
         font-weight: 400;
         line-height: 1.5;
       }
       .label {
-        font-family: var(--f-mono);
-        font-size: var(--sz-label);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-medium);
         font-weight: 500;
         letter-spacing: 0.14em;
         text-transform: uppercase;
@@ -435,14 +407,14 @@
         align-items: center;
       }
       .slide-chrome {
-        padding-bottom: var(--gap-sm);
+        padding-bottom: 1vh;
         border-bottom: 1px solid var(--c-border);
-        margin-bottom: var(--gap-md);
+        margin-bottom: 2vh;
       }
       .slide-foot {
-        padding-top: var(--gap-sm);
+        padding-top: 1vh;
         border-top: 1px solid var(--c-border);
-        margin-top: var(--gap-md);
+        margin-top: 2vh;
       }
 
       /* On orange slides, chrome borders use dark ink at low opacity */
@@ -484,14 +456,14 @@
         flex-direction: column;
         flex: 1;
         justify-content: flex-end;
-        gap: var(--gap-md);
+        gap: 2vh;
       }
       .cover-meta {
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
-        margin-top: var(--gap-lg);
-        padding-top: var(--gap-sm);
+        margin-top: 3.5vh;
+        padding-top: 1vh;
         border-top: 1px solid rgba(17, 17, 17, 0.2);
       }
 
@@ -505,13 +477,13 @@
         gap: 0;
       }
       .chapter-num {
-        font-family: var(--f-mono);
-        font-size: var(--sz-label);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-medium);
         letter-spacing: 0.2em;
         text-transform: uppercase;
         /* On orange: dark ink; on dark: orange accent */
         color: rgba(17, 17, 17, 0.55);
-        margin-bottom: var(--gap-md);
+        margin-bottom: 2vh;
       }
       /* On dark chapter slides the number gets orange accent */
       .dark .chapter-num {
@@ -521,7 +493,7 @@
         width: 36px;
         height: 2px;
         background: #111111; /* dark rule on orange */
-        margin-bottom: var(--gap-md);
+        margin-bottom: 2vh;
       }
       .dark .chapter-rule {
         background: var(--c-accent);
@@ -534,7 +506,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: var(--gap-md);
+        gap: 2vh;
       }
 
       /* ── 4. SPLIT ─────────────────────────────────────────────────────── */
@@ -543,19 +515,19 @@
       .slide--split .slide-body {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: calc(var(--pad-x) * 0.7);
+        gap: calc(5.5vw * 0.7);
         align-items: center;
       }
       .split-text {
         display: flex;
         flex-direction: column;
-        gap: var(--gap-md);
+        gap: 2vh;
       }
       .split-image {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        gap: var(--gap-sm);
+        gap: 1vh;
       }
       /* Always explicit height in vh to prevent overflow on different screens */
       .split-image img {
@@ -588,7 +560,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: var(--gap-lg);
+        gap: 3.5vh;
       }
       .stats-grid {
         display: grid;
@@ -601,13 +573,13 @@
       .stat-card {
         display: flex;
         flex-direction: column;
-        gap: var(--gap-sm);
-        padding: var(--gap-md) var(--gap-md) var(--gap-md) 0;
+        gap: 1vh;
+        padding: 2vh 2vh 2vh 0;
         border-top: 1px solid var(--c-border);
       }
       /* The big number — orange on dark slides */
       .stat-value {
-        font-family: var(--f-display);
+        font-family: var(--font-display);
         font-size: 5.5vw;
         font-weight: 900;
         line-height: 1;
@@ -615,13 +587,13 @@
         letter-spacing: -0.04em;
       }
       .stat-label {
-        font-family: var(--f-body);
-        font-size: var(--sz-body);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-medium);
         line-height: 1.5;
       }
       .stat-note {
-        font-family: var(--f-mono);
-        font-size: var(--sz-caption);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-large);
         letter-spacing: 0.05em;
         color: var(--c-fg-3);
       }
@@ -632,24 +604,24 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: calc(var(--pad-y) * 1.2) calc(var(--pad-x) * 1.1);
+        padding: calc(5.5vh * 1.2) calc(5.5vw * 1.1);
       }
       .quote-mark {
-        font-family: var(--f-display);
+        font-family: var(--font-display);
         font-size: 10vw;
         line-height: 0.6;
         color: var(--c-accent);
-        margin-bottom: var(--gap-md);
+        margin-bottom: 2vh;
         font-weight: 900;
       }
       .quote-text {
-        font-family: var(--f-display);
+        font-family: var(--font-display);
         font-size: 3.8vw;
         font-weight: 700;
         line-height: 1.15;
         letter-spacing: -0.02em;
         max-width: 78%;
-        margin-bottom: var(--gap-lg);
+        margin-bottom: 3.5vh;
       }
       .quote-attr {
         display: flex;
@@ -663,27 +635,27 @@
       .slide--list .slide-body {
         display: grid;
         grid-template-columns: 2fr 3fr;
-        gap: calc(var(--pad-x) * 0.8);
+        gap: calc(5.5vw * 0.8);
         align-items: center;
       }
       .list-head {
         display: flex;
         flex-direction: column;
-        gap: var(--gap-md);
-        padding-top: var(--gap-sm);
+        gap: 2vh;
+        padding-top: 1vh;
       }
       .bullet-list {
         list-style: none;
         display: flex;
         flex-direction: column;
-        gap: var(--gap-md);
+        gap: 2vh;
       }
       .bullet-list li {
         display: grid;
         grid-template-columns: 1.2em 1fr;
         gap: 0.5em;
-        font-family: var(--f-body);
-        font-size: var(--sz-lead);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-large);
         font-weight: 500;
         line-height: 1.4;
       }
@@ -691,7 +663,7 @@
       .bullet-list li::before {
         content: "/";
         color: var(--c-accent);
-        font-family: var(--f-mono);
+        font-family: var(--font-mono);
         font-weight: 700;
       }
       .dark .bullet-list li {
@@ -711,22 +683,22 @@
       .compare-panel {
         display: flex;
         flex-direction: column;
-        gap: var(--gap-md);
-        padding: var(--gap-md) 0;
+        gap: 2vh;
+        padding: 2vh 0;
       }
       .compare-panel.left {
-        padding-right: calc(var(--pad-x) * 0.55);
+        padding-right: calc(5.5vw * 0.55);
         border-right: 1px solid var(--c-border);
       }
       .compare-panel.right {
-        padding-left: calc(var(--pad-x) * 0.55);
+        padding-left: calc(5.5vw * 0.55);
       }
       .compare-label {
-        font-family: var(--f-mono);
-        font-size: var(--sz-label);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-medium);
         letter-spacing: 0.16em;
         text-transform: uppercase;
-        padding-bottom: var(--gap-sm);
+        padding-bottom: 1vh;
         border-bottom: 1px solid var(--c-border);
         color: var(--c-fg-2);
       }
@@ -742,7 +714,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: var(--gap-md);
+        gap: 2vh;
       }
 
       /* ╔══════════════════════════════════════════════════════════════════════╗
@@ -770,8 +742,8 @@
 
       /* Eyebrow / kicker label — orange on dark, dark-ink on orange */
       .kicker {
-        font-family: var(--f-mono);
-        font-size: var(--sz-label);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-medium);
         letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--c-accent);
@@ -783,8 +755,8 @@
       /* Bordered tag */
       .tag {
         display: inline-block;
-        font-family: var(--f-mono);
-        font-size: var(--sz-label);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-medium);
         letter-spacing: 0.14em;
         text-transform: uppercase;
         color: var(--c-accent);
@@ -799,8 +771,8 @@
 
       /* Image caption */
       .img-caption {
-        font-family: var(--f-mono);
-        font-size: var(--sz-caption);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-large);
         letter-spacing: 0.04em;
         opacity: 0.5;
         margin-top: 0.8vh;
@@ -810,7 +782,7 @@
       /* The large catalogue number in the top-left corner of orange slides.
          Inspired by SPACE10 deck: "01" in small mono, top-left, low opacity. */
       .broadside-num {
-        font-family: var(--f-mono);
+        font-family: var(--font-mono);
         font-size: 1.1vw;
         font-weight: 500;
         letter-spacing: 0.1em;
@@ -823,8 +795,8 @@
 
       /* Corner label utility — used for section labels at slide edges */
       .corner-label {
-        font-family: var(--f-mono);
-        font-size: var(--sz-label);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-medium);
         letter-spacing: 0.1em;
         text-transform: uppercase;
         color: rgba(17, 17, 17, 0.4);
@@ -861,7 +833,7 @@
         line-height: 0.92;
       }
       .fadelist-item {
-        font-family: var(--f-display);
+        font-family: var(--font-display);
         font-size: 7.5vw;
         font-weight: 900;
         letter-spacing: -0.03em;
@@ -875,7 +847,7 @@
         opacity: 0.22;
       }
       .fadelist-title {
-        font-family: var(--f-display);
+        font-family: var(--font-display);
         font-size: 10.5vw;
         font-weight: 900;
         line-height: 0.9;
@@ -900,7 +872,7 @@
 
       /* Compare: right panel gets orange fill */
       .compare-panel.panel-orange {
-        padding-left: calc(var(--pad-x) * 0.55);
+        padding-left: calc(5.5vw * 0.55);
         background: var(--c-accent);
       }
       .compare-panel.panel-orange .compare-label {
@@ -924,7 +896,7 @@
       .slide--chart .slide-body {
         display: flex;
         flex-direction: column;
-        gap: var(--gap-md);
+        gap: 2vh;
         min-height: 0;
       }
       .chart-header {
@@ -975,8 +947,8 @@
         background: #111111;
       }
       .bar-x-label {
-        font-family: var(--f-mono);
-        font-size: var(--sz-caption);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-large);
         letter-spacing: 0.1em;
         color: var(--c-fg-3);
         white-space: nowrap;
@@ -986,8 +958,8 @@
         color: rgba(17, 17, 17, 0.45);
       }
       .bar-val {
-        font-family: var(--f-body);
-        font-size: var(--sz-body);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-medium);
         font-weight: 700;
         color: var(--c-fg-2);
       }
@@ -1011,11 +983,11 @@
       }
       .chart-source {
         flex-shrink: 0;
-        font-family: var(--f-mono);
-        font-size: var(--sz-caption);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-large);
         color: var(--c-fg-3);
         letter-spacing: 0.06em;
-        margin-top: var(--gap-sm);
+        margin-top: 1vh;
       }
       .orange .chart-source {
         color: rgba(17, 17, 17, 0.4);
@@ -1026,7 +998,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: var(--gap-lg);
+        gap: 3.5vh;
         min-height: 0;
       }
       .flow {
@@ -1038,11 +1010,11 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-        gap: var(--gap-sm);
-        padding-right: calc(var(--pad-x) * 0.35);
+        gap: 1vh;
+        padding-right: calc(5.5vw * 0.35);
       }
       .flow-num {
-        font-family: var(--f-display);
+        font-family: var(--font-display);
         font-size: 5vw;
         font-weight: 900;
         line-height: 1;
@@ -1053,8 +1025,8 @@
         color: rgba(17, 17, 17, 0.2);
       }
       .flow-title {
-        font-family: var(--f-heading);
-        font-size: var(--sz-h3);
+        font-family: var(--font-display);
+        font-size: var(--typescale-title-medium);
         font-weight: 700;
         line-height: 1.15;
         color: var(--c-fg);
@@ -1063,8 +1035,8 @@
         color: #111111;
       }
       .flow-desc {
-        font-family: var(--f-body);
-        font-size: var(--sz-body);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-medium);
         color: var(--c-fg-2);
         line-height: 1.6;
         font-weight: 400;
@@ -1076,7 +1048,7 @@
         display: flex;
         align-items: flex-start;
         padding-top: 1.2em;
-        padding-right: calc(var(--pad-x) * 0.35);
+        padding-right: calc(5.5vw * 0.35);
         font-size: 2.2vw;
         color: var(--c-accent);
         font-weight: 300;
@@ -1089,13 +1061,13 @@
       .slide--pie .slide-body {
         display: flex;
         flex-direction: column;
-        gap: var(--gap-md);
+        gap: 2vh;
         min-height: 0;
       }
       .pie-row {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: calc(var(--pad-x) * 0.7);
+        gap: calc(5.5vw * 0.7);
         align-items: center;
         flex: 1;
         min-height: 0;
@@ -1121,7 +1093,7 @@
       .pie-legend {
         display: flex;
         flex-direction: column;
-        gap: var(--gap-md);
+        gap: 2vh;
       }
       .pie-item {
         display: grid;
@@ -1136,14 +1108,14 @@
         flex-shrink: 0;
       }
       .pie-item-label {
-        font-family: var(--f-body);
-        font-size: var(--sz-lead);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-large);
         font-weight: 700;
         line-height: 1.4;
       }
       .pie-item-val {
-        font-family: var(--f-mono);
-        font-size: var(--sz-body);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-body-medium);
         font-weight: 500;
         letter-spacing: 0.06em;
         color: var(--c-accent);
@@ -1152,11 +1124,11 @@
         color: #111;
       }
       .pie-total {
-        margin-top: var(--gap-sm);
-        padding-top: var(--gap-sm);
+        margin-top: 1vh;
+        padding-top: 1vh;
         border-top: 1px solid var(--c-border);
-        font-family: var(--f-mono);
-        font-size: var(--sz-label);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-medium);
         letter-spacing: 0.1em;
         color: var(--c-fg-3);
       }
@@ -1166,7 +1138,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: var(--gap-md);
+        gap: 2vh;
         min-height: 0;
       }
       .pyramid {
@@ -1207,15 +1179,15 @@
         width: 100%;
       }
       .pyr-name {
-        font-family: var(--f-heading);
-        font-size: var(--sz-h3);
+        font-family: var(--font-display);
+        font-size: var(--typescale-title-medium);
         font-weight: 900;
         line-height: 1.1;
         text-transform: lowercase;
       }
       .pyr-desc {
-        font-family: var(--f-body);
-        font-size: var(--sz-body);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-medium);
         color: var(--c-fg-2);
         text-align: right;
         max-width: 55%;
@@ -1228,12 +1200,12 @@
         grid-template-rows: auto auto 1fr auto;
       }
       .vt-hl {
-        font-family: var(--f-heading);
-        font-size: var(--sz-h2);
+        font-family: var(--font-display);
+        font-size: var(--typescale-title-large);
         font-weight: 900;
         text-transform: lowercase;
         letter-spacing: -0.03em;
-        padding-bottom: var(--gap-md);
+        padding-bottom: 2vh;
         border-bottom: 1px solid var(--c-border);
       }
       .vtimeline {
@@ -1241,11 +1213,11 @@
         grid-template-columns: 8em 2px 1fr;
         gap: 0;
         min-height: 0;
-        padding-top: var(--gap-md);
+        padding-top: 2vh;
       }
       .vt-date {
-        font-family: var(--f-mono);
-        font-size: var(--sz-caption);
+        font-family: var(--font-mono);
+        font-size: var(--typescale-label-large);
         letter-spacing: 0.1em;
         color: var(--c-fg-3);
         text-align: right;
@@ -1269,16 +1241,16 @@
         padding: 0 0 3.5vh 1.5vw;
       }
       .vt-title {
-        font-family: var(--f-heading);
-        font-size: var(--sz-h3);
+        font-family: var(--font-display);
+        font-size: var(--typescale-title-medium);
         font-weight: 900;
         margin-bottom: 0.6vh;
         line-height: 1.1;
         text-transform: lowercase;
       }
       .vt-body {
-        font-family: var(--f-body);
-        font-size: var(--sz-body);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-medium);
         color: var(--c-fg-2);
         line-height: 1.65;
         font-weight: 400;
@@ -1288,14 +1260,14 @@
       .slide--cycle .slide-body {
         display: flex;
         flex-direction: column;
-        gap: var(--gap-md);
+        gap: 2vh;
         min-height: 0;
       }
       .cycle-grid {
         display: grid;
         grid-template-columns: 1fr 3em 1fr;
         grid-template-rows: 1fr 3em 1fr;
-        gap: var(--gap-sm);
+        gap: 1vh;
         flex: 1;
         min-height: 0;
         align-items: center;
@@ -1303,12 +1275,12 @@
       .cycle-step {
         display: flex;
         flex-direction: column;
-        gap: var(--gap-sm);
-        padding: var(--gap-md);
+        gap: 1vh;
+        padding: 2vh;
         border-top: 3px solid var(--c-accent);
       }
       .cycle-num {
-        font-family: var(--f-display);
+        font-family: var(--font-display);
         font-size: 4vw;
         font-weight: 900;
         color: var(--c-accent);
@@ -1317,15 +1289,15 @@
         text-transform: lowercase;
       }
       .cycle-title {
-        font-family: var(--f-heading);
-        font-size: var(--sz-h3);
+        font-family: var(--font-display);
+        font-size: var(--typescale-title-medium);
         font-weight: 900;
         line-height: 1.1;
         text-transform: lowercase;
       }
       .cycle-desc {
-        font-family: var(--f-body);
-        font-size: var(--sz-body);
+        font-family: var(--font-body);
+        font-size: var(--typescale-body-medium);
         color: var(--c-fg-2);
         line-height: 1.6;
         font-weight: 400;
@@ -1394,7 +1366,7 @@
           class="broadside-num"
           data-anim="fade-in"
           data-delay="0"
-          style="margin-bottom: var(--gap-lg)"
+          style="margin-bottom: 3.5vh"
         >
           02 / Chapter
         </div>
@@ -1407,7 +1379,7 @@
           class="lead"
           data-anim="fade-up"
           data-delay="2"
-          style="max-width: 50%; margin-top: var(--gap-md); opacity: 0.65"
+          style="max-width: 50%; margin-top: 2vh; opacity: 0.65"
         >
           One optional sentence that frames what this section is about.
         </p>
@@ -1548,7 +1520,7 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            padding-top: var(--gap-sm);
+            padding-top: 1vh;
             border-top: 1px solid rgba(17, 17, 17, 0.15);
           "
         >
@@ -1593,7 +1565,7 @@
           class="kicker accent"
           data-anim="fade-in"
           data-delay="0"
-          style="margin-bottom: var(--gap-lg)"
+          style="margin-bottom: 3.5vh"
         >
           On speed
         </p>
@@ -2015,7 +1987,7 @@
           let's<br />talk.
         </h1>
         <div
-          style="display: flex; flex-direction: column; gap: var(--gap-sm)"
+          style="display: flex; flex-direction: column; gap: 1vh"
           data-anim="fade-up"
           data-delay="2"
         >
@@ -2029,7 +2001,7 @@
             justify-content: space-between;
             align-items: flex-end;
             margin-top: auto;
-            padding-top: var(--gap-sm);
+            padding-top: 1vh;
             border-top: 1px solid rgba(17, 17, 17, 0.15);
           "
         >

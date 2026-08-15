@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://layout-gallery.local/schemas/template.schema.json",
+  "title": "Layout Gallery four-file template manifest",
+  "type": "object",
+  "required": ["version", "slug", "name", "source", "license", "taxonomy", "capabilities", "lifecycle"],
+  "properties": {
+    "version": { "const": 1 },
+    "slug": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "name": { "type": "string", "minLength": 1 },
+    "source": {
+      "type": "object",
+      "required": ["kind", "locator"],
+      "properties": {
+        "kind": { "type": "string", "enum": ["local", "repository", "url", "generated", "unknown"] },
+        "locator": { "type": "string", "minLength": 1 },
+        "retrievedAt": { "type": ["string", "null"] }
+      }
+    },
+    "license": { "type": "object" },
+    "upstream": { "type": ["object", "null"] },
+    "taxonomy": {
+      "type": "object",
+      "required": ["templateType", "scheme"],
+      "properties": {
+        "templateType": { "type": "string" },
+        "visualFamily": { "type": ["string", "null"] },
+        "contentType": { "type": ["string", "null"] },
+        "scheme": { "type": "string", "enum": ["light", "dark", "mixed"] },
+        "tone": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "capabilities": {
+      "type": "object",
+      "required": ["brandKit", "responsive", "preview"],
+      "properties": {
+        "brandKit": { "type": "boolean" },
+        "responsive": { "type": "boolean" },
+        "interactive": { "type": "boolean" },
+        "preview": { "type": "string", "enum": ["html", "image", "none"] }
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "required": ["state", "qualityTier", "exposure"],
+      "properties": {
+        "state": { "type": "string" },
+        "qualityTier": { "type": "string", "enum": ["blocked", "standard", "curated"] },
+        "exposure": { "type": "string", "enum": ["hidden", "listed", "featured"] }
+      }
+    },
+    "quality": { "type": "object" }
+  },
+  "additionalProperties": true
+}

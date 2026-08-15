@@ -4,10 +4,14 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Block &amp; Bold — Presentation Template</title>
-<script src="/runtime/deck-stage.js"></script>
+<script src="/public/deck-stage.js"></script>
 <style>
-  :root{
-  /* ── Standard Roles (auto-injected) ── */
+  :root {
+
+  /* ── Color Roles ── */
+  --cream: #F4E9D6;
+  --paper: #F5F2EA;
+  --ink: #0E0E14;
   --color-primary: #E83A2A;
   --color-secondary: #666666;
   --color-surface: #F5F2EA;
@@ -15,34 +19,37 @@
   --color-on-surface-variant: #666666;
   --color-outline: rgba(10,10,10,0.15);
   --color-surface-container-low: #F5F2EA;
-  --bg-rgb: 245,242,234;
-  --text-rgb: 14,14,20;
-  --accent-rgb: 232,58,42;
+  --blue: #2C2CDC;
+  --blue-deep: #1B1BB0;
+  --orange: #F2A03A;
+  --orange-deep: #E89321;
+  --red: #E83A2A;
+  --red-deep: #B7281C;
+
+  /* ── Typography ── */
   --font-display: 'Caveat Brush', cursive;
   --font-body: 'Alfa Slab One', cursive;
   --font-mono: ui-monospace, SF Mono, Consolas, monospace;
-  --radius-base: 4px;
-  --radius-sm: 2px;
-  --radius-pill: 999px;
+  --typescale-body-large: 16px;
+
+  /* ── Shadow ── */
   --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
   --elevation-md: 0 8px 30px rgba(0,0,0,0.1);
+
+  /* ── radius ── */
+  --radius-xs: 4px;
+  --radius-pill: 999px;
+
+  /* ── motion ── */
   --ease-standard: 0.18s ease;
   --duration-base: 150ms;
+
+  /* ── spacing ── */
   --space-page-wmax: 1200px;
   --space-page-pad: 32px;
   --space-gap: 24px;
   --space-gutter: 24px;
-
-    --blue:#2C2CDC;
-    --blue-deep:#1B1BB0;
-    --orange:#F2A03A;
-    --orange-deep:#E89321;
-    --red:#E83A2A;
-    --red-deep:#B7281C;
-    --cream:#F4E9D6;
-    --paper:#F5F2EA;
-    --ink:#0E0E14;
-  }
+}
 
   html,body{margin:0;background:#111;}
   body{font-family:'Archivo Narrow', system-ui, sans-serif; color:var(--ink);}
