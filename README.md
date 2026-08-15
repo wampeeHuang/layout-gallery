@@ -1,8 +1,15 @@
 # 版式画廊 · Layout Gallery
 
-HTML 模板注册站，为 AI Agent 提供可发现、可预览、可调用的版式模板库。
+> HTML 模板注册站——AI Agent 发现、预览、调用版式模板的入口。文件即注册，Registry 是唯一真相源。
 
 线上地址: **https://gallery.evopearl.com**
+
+## 快速开始
+
+```bash
+npm install
+node server/server.js   # → http://localhost:3080
+```
 
 ## 目录结构
 
@@ -69,15 +76,54 @@ layout-gallery/
 不进 git：inbox/(投料)  _runtime/(过程)  _archive/(留档)  generated/(产物)
 ```
 
-## 本地运行
+## 设计哲学
 
-```bash
-npm install
-node server/server.js   # → http://localhost:3080
-```
+### Registry 是唯一真相源
 
-## 详情
+所有模板元数据在一个 `registry.json` 里。server.js 只做只读投影——不缓存、不建数据库、不搞后台冗余。几十个模板不需要数据库——一个 JSON 文件，人可读可改，git diff 可追踪，AI agent 可直接读写，比管理后台更快。
 
-- 架构 / 门禁 / API / 工具链 → `AGENTS.md`
-- 模板字段定义 → `schemas/registry.schema.json`
-- 模板选择指南 → `guides/how-to-pick.md`
+### 文件即注册
+
+模板三件套放入 `templates/{slug}/`，registry 加一条就上线。没有审批流程，没有管理中心。目录结构本身就是注册表。
+
+### 发现先于调用
+
+画廊的核心价值不是调用模板，是让 Agent 发现有哪些模板、长什么样。分类筛选 + iframe 预览 + 懒加载——先看全貌再选。
+
+## API
+
+| 端点 | 说明 |
+|---|---|
+| `GET /api/registry` | 模板列表，支持 `?visual_family=&content_type=&scheme=&formality=&density=&skill=&q=` |
+| `GET /api/template/:slug` | 单个模板元数据 + CSS 变量合约 |
+| `GET /api/template/:slug/html` | 模板原始 HTML |
+| `GET /api/template/:slug/tokens` | CSS 变量键值对 |
+| `GET /api/template/:slug/audit` | Token 角色覆盖审计 |
+| `GET /api/design-styles` | 设计风格枚举值及计数 |
+
+完整 API 见 `AGENTS.md`。
+
+## 添加模板
+
+1. 准备 `template.html` + `tokens.json` + `design.md` → `templates/{slug}/`
+2. 跑 `node scripts/add-template.mjs <slug>` 注册
+3. 跑 `node scripts/validate.mjs <slug>` 验证通过
+4. 更新 `registry.json`（name/tagline 人工撰写）
+5. 提交 → GitHub → Vercel 自动部署
+
+## 模板 Schema
+
+每个条目必填: `slug`, `name`, `skill`, `scheme`, `visibility`, `template_path`
+
+完整字段定义见 `schemas/registry.schema.json`。
+
+## 诚实边界
+
+- **模板注册站，不是模板编辑器。** 模板在本仓库 `templates/` 维护，画廊只做展示和发现
+- **不支持在线修改。** 更新 registry 或模板需推送 GitHub，走 Vercel 自动部署
+- **模板质量取决于上游。** 画廊校验 token 命名合规，但不验证模板 HTML 的视觉可用性
+- **不适合超大规模。** 单 JSON 文件 registry，>500 模板时需考虑分页/搜索索引
+
+## License
+
+MIT
