@@ -21,16 +21,44 @@
   --color-outline: #1F2BE0;
   --color-surface-container-low: #F0EBDE;
   --grid: rgba(31, 43, 224, 0.10);
+  --color-extra-0: #0a0a0a;
+  --color-extra-1: rgba(31, 43, 224, 0.18);
+  --color-extra-2: rgba(31, 43, 224, 0.18);
 
   /* ── Typography ── */
   --font-display: Inter, system-ui, sans-serif;
   --font-body: 'Hanken Grotesk', sans-serif;
   --font-mono: 'DM Mono', ui-monospace, monospace;
   --typescale-body-large: 16px;
+  --typescale-11: 11px;
+  --typescale-13: 13px;
+  --typescale-12: 12px;
+  --typescale-100: 100px;
+  --typescale-200: 200px;
+  --typescale-28: 28px;
+  --typescale-50: 50px;
+  --typescale-15: 15px;
+  --typescale-14: 14px;
+  --typescale-56: 56px;
+  --typescale-120: 120px;
+  --typescale-48: 48px;
+  --typescale-26: 26px;
+  --typescale-40: 40px;
+  --typescale-130: 130px;
+  --typescale-18: 18px;
+  --typescale-46: 46px;
+  --typescale-92: 92px;
+  --typescale-110: 110px;
+  --typescale-240: 240px;
+  --typescale-17: 17px;
+  --typescale-20: 20px;
+  --typescale-72: 72px;
+  --typescale-180: 180px;
 
   /* ── Shadow ── */
   --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
   --elevation-md: 0 8px 30px rgba(0,0,0,0.1);
+  --elevation-0: 0 0 0 1.5px var(--paper);
 
   /* ── radius ── */
   --radius-xs: 4px;
@@ -45,6 +73,71 @@
   --space-page-pad: 32px;
   --space-gap: 24px;
   --space-gutter: 24px;
+  --space-28: 28px;
+  --space-44: 44px;
+  --space-48: 48px;
+  --space-76: 76px;
+  --space-36: 36px;
+  --space-80: 80px;
+  --space-1-5: 1.5px;
+  --space-20: 20px;
+  --space-4: 4px;
+  --space-160: 160px;
+  --space-6: 6px;
+  --space-60: 60px;
+  --space-120: 120px;
+  --space-280: 280px;
+  --space-560: 560px;
+  --space-110: 110px;
+  --space-200: 200px;
+  --space-58: 58px;
+  --space-84: 84px;
+  --space-10: 10px;
+  --space-18: 18px;
+  --space-680: 680px;
+  --space-880: 880px;
+  --space-82: 82px;
+  --space-56: 56px;
+  --space-50: 50px;
+  --space-14: 14px;
+  --border-0: 1px;
+  --space-130: 130px;
+  --space-100: 100px;
+  --space-150: 150px;
+  --border-1: 1.5px;
+  --space-12: 12px;
+  --space-22: 22px;
+  --space-30: 30px;
+  --border-2: 1px;
+  --space-0: 0px;
+  --space-220: 220px;
+  --space-460: 460px;
+  --space-540: 540px;
+  --space-140: 140px;
+  --space-170: 170px;
+  --border-3: 1.5px;
+  --space-3: 3px;
+  --border-4: 1.5px;
+  --space-8: 8px;
+  --space-40: 40px;
+  --space-380: 380px;
+  --space-16: 16px;
+  --border-5: 1px;
+  --border-6: 1.5px;
+  --space-46: 46px;
+  --border-7: 1px;
+  --border-8: 1.5px;
+  --space-360: 360px;
+  --space-72: 72px;
+  --space-106: 106px;
+  --border-9: 1.5px;
+
+  /* ── other ── */
+  --bg-0: linear-gradient(to right, var(--grid) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  --transform-0: translateY(-50%);
+  --transform-1: translateY(-50%);
+  --transform-2: translateY(-50%);
 }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; height: 100%; background: var(--color-extra-0); }
@@ -66,7 +159,7 @@
   /* Graph-paper grid behind every slide */
   .stage::before {
     content: '';
-    position: absolute; inset: 0background-image:
+    position: absolute; inset: 0; background-image:
       var(--bg-0);
     background-size: clamp(var(--space-28), 2.2vw, var(--space-44)) clamp(var(--space-28), 2.2vw, var(--space-44));
     pointer-events: none;
@@ -182,7 +275,7 @@
     grid-template-rows: repeat(8, 1fr);
     gap: var(--space-1-5);
     background: var(--paper);
-    padding: var(--space-4)box-shadow: var(--elevation-0);
+    padding: var(--space-4); box-shadow: var(--elevation-0);
   }
   .qr-block .px { background: var(--paper); }
   .qr-block .px.on { background: var(--ink); }
@@ -249,7 +342,7 @@
   .s-cover .vstack {
     position: absolute;
     right: clamp(var(--space-36), 3.6vw, var(--space-60));
-    top: 50%transform: var(--transform-0);
+    top: 50%; transform: var(--transform-0);
     z-index: 5;
     display: flex; flex-direction: column;
     gap: clamp(var(--space-10), 1.2vh, var(--space-18));
@@ -299,7 +392,7 @@
     position: absolute;
     left: clamp(var(--space-60), 8vw, var(--space-160));
     right: clamp(var(--space-60), 8vw, var(--space-160));
-    top: 50%transform: var(--transform-1);
+    top: 50%; transform: var(--transform-1);
     z-index: 5;
     text-align: left;
   }
@@ -577,7 +670,7 @@
     position: absolute;
     left: clamp(var(--space-36), 3.6vw, var(--space-80));
     right: clamp(var(--space-220), 22vw, var(--space-380));
-    top: 50%transform: var(--transform-2);
+    top: 50%; transform: var(--transform-2);
     z-index: 5;
   }
   .s-quote .qkicker {

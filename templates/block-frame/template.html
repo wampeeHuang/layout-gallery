@@ -30,12 +30,37 @@
   --font-body: Inter, system-ui, sans-serif;
   --font-mono: 'Space Grotesk', sans-serif;
   --typescale-body-large: 16px;
+  --typescale-18: 18px;
+  --typescale-14: 14px;
+  --typescale-13: 13px;
+  --typescale-48: 48px;
+  --typescale-96: 96px;
+  --typescale-32: 32px;
+  --typescale-64: 64px;
+  --typescale-24: 24px;
+  --typescale-40: 40px;
+  --typescale-20: 20px;
+  --typescale-15: 15px;
+  --typescale-28: 28px;
+  --typescale-22: 22px;
+  --typescale-36: 36px;
+  --typescale-52: 52px;
+  --typescale-120: 120px;
+  --typescale-80: 80px;
+  --typescale-12: 12px;
+  --typescale-11: 11px;
 
   /* ── Shadow ── */
   --shadow: 8px 8px 0px var(--black);
   --shadow-sm: 4px 4px 0px var(--black);
   --elevation-sm: 4px 4px 0px var(--black);
   --elevation-md: 8px 8px 0px var(--black);
+  --elevation-0: 6px 6px 0px var(--black);
+  --elevation-1: 2px 2px 0px var(--black);
+  --elevation-2: 6px 6px 0px var(--black);
+  --elevation-3: 12px 12px 0px var(--yellow);
+  --elevation-4: 6px 6px 0px var(--white);
+  --elevation-5: 8px 8px 0px var(--white);
 
   /* ── radius ── */
   --radius-none: 0px;
@@ -51,6 +76,82 @@
   --space-page-pad: 32px;
   --space-gap: 24px;
   --space-gutter: 24px;
+  --space-60: 60px;
+  --space-12: 12px;
+  --space-48: 48px;
+  --border-0: 3px;
+  --border-1: 3px;
+  --space-10: 10px;
+  --space-18: 18px;
+  --border-2: 3px;
+  --space-6: 6px;
+  --space-16: 16px;
+  --border-3: 3px;
+  --space-14: 14px;
+  --border-4: 3px;
+  --space-900: 900px;
+  --space-500: 500px;
+  --space-80: 80px;
+  --space-100: 100px;
+  --space-120: 120px;
+  --space-140: 140px;
+  --space-36: 36px;
+  --space-20: 20px;
+  --space-28: 28px;
+  --space-8: 8px;
+  --border-5: 3px;
+  --space-64: 64px;
+  --border-6: 3px;
+  --border-7: 3px;
+  --space-110: 110px;
+  --space-40: 40px;
+  --border-8: 2px;
+  --space-240: 240px;
+  --border-9: 3px;
+  --space-4: 4px;
+  --space-1000: 1000px;
+  --space-3: 3px;
+  --border-10: 3px;
+  --space-400: 400px;
+  --border-11: 4px;
+  --border-12: 4px;
+  --border-13: 3px;
+  --border-14: 3px;
+  --border-15: 2px;
+  --space-22: 22px;
+  --space-72: 72px;
+  --border-16: 3px;
+  --border-17: 4px;
+  --border-18: 3px;
+  --space-50: 50px;
+  --border-19: 3px;
+  --space-160: 160px;
+  --border-20: 3px;
+  --space-2: 2px;
+
+  /* ── other ── */
+  --bg-0: radial-gradient(circle, var(--black) 1.2px, transparent 1.2px);
+  --transform-0: translate(-2px, -2px);
+  --transform-1: translate(2px, 2px);
+  --transform-2: translate(-2px, -2px);
+  --transform-3: rotate(-8deg);
+  --transform-4: rotate(8deg);
+  --transform-5: rotate(12deg);
+  --transform-6: rotate(-3deg);
+  --bg-1: radial-gradient(circle, var(--black) 2px, transparent 2px);
+  --bg-2: repeating-linear-gradient(
+        45deg,
+        var(--black),
+        var(--black) 4px,
+        var(--green) 4px,
+        var(--green) 12px
+      );
+  --transform-7: rotate(-4deg);
+  --transform-8: translateY(-50%);
+  --transform-9: rotate(-2deg);
+  --transform-10: rotate(2deg);
+  --transform-11: translate(-2px, -2px);
+  --bg-3: radial-gradient(circle, var(--white) 2px, transparent 2px);
 }
 
     * {
@@ -90,7 +191,7 @@
     }
 
     /* Dot grid background pattern */
-    .dot-grid background-image: var(--bg-0);
+    .dot-grid { background-image: var(--bg-0);
       background-size: var(--space-gutter) var(--space-gutter);
     }
 
@@ -120,10 +221,10 @@
       box-shadow: var(--shadow-sm);
     }
 
-    .nav-btn:hover transform: var(--transform-0)box-shadow: var(--elevation-0);
+    .nav-btn:hover { transform: var(--transform-0); box-shadow: var(--elevation-0);
     }
 
-    .nav-btn:active transform: var(--transform-1)box-shadow: var(--elevation-1);
+    .nav-btn:active { transform: var(--transform-1); box-shadow: var(--elevation-1);
     }
 
     .slide-counter {
@@ -189,7 +290,7 @@
       transition: all 0.15s ease;
     }
 
-    .nb-btn:hover transform: var(--transform-2)box-shadow: var(--elevation-2);
+    .nb-btn:hover { transform: var(--transform-2); box-shadow: var(--elevation-2);
     }
 
     .nb-heading-xl {
@@ -242,8 +343,8 @@
       border: var(--border);
     }
 
-    .tilt-left transform: var(--transform-3); }
-    .tilt-right transform: var(--transform-4); }
+    .tilt-left { transform: var(--transform-3); }
+    .tilt-right { transform: var(--transform-4); }
 
     .corner-bracket {
       position: absolute;
@@ -298,7 +399,7 @@
       height: var(--space-100);
       background: var(--pink);
       border: var(--border);
-      box-shadow: var(--shadow-sm)transform: var(--transform-5);
+      box-shadow: var(--shadow-sm); transform: var(--transform-5);
     }
 
     .slide-1 .deco-green-circle {
@@ -322,7 +423,7 @@
       height: var(--space-36);
       background: var(--yellow);
       border: var(--border);
-      box-shadow: var(--shadow-sm)transform: var(--transform-6);
+      box-shadow: var(--shadow-sm); transform: var(--transform-6);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -337,7 +438,7 @@
       top: var(--space-60);
       left: var(--space-60);
       width: var(--space-120);
-      height: var(--space-80)background-image: var(--bg-1);
+      height: var(--space-80); background-image: var(--bg-1);
       background-size: var(--space-20) var(--space-20);
       opacity: 0.4;
     }
@@ -632,7 +733,7 @@
       bottom: var(--space-60);
       right: var(--space-60);
       width: var(--space-80);
-      height: var(--space-80)background: var(--bg-2);
+      height: var(--space-80); background: var(--bg-2);
       border: var(--border-10) solid var(--black);
     }
 
@@ -692,7 +793,7 @@
       padding: var(--space-8) var(--space-16);
       font-family: var(--font-mono);
       font-size: var(--typescale-13);
-      font-weight: 600transform: var(--transform-7);
+      font-weight: 600; transform: var(--transform-7);
     }
 
     .slide-6 .split-content {
@@ -810,7 +911,7 @@
       width: var(--space-28);
       height: var(--space-4);
       background: var(--black);
-      z-index: 10transform: var(--transform-8);
+      z-index: 10; transform: var(--transform-8);
     }
 
     /* ============ SLIDE 8: STATISTICS / NUMBERS ============ */
@@ -840,10 +941,10 @@
       position: relative;
     }
 
-    .slide-8 .stat-card:nth-child(odd) transform: var(--transform-9);
+    .slide-8 .stat-card:nth-child(odd) { transform: var(--transform-9);
     }
 
-    .slide-8 .stat-card:nth-child(even) transform: var(--transform-10);
+    .slide-8 .stat-card:nth-child(even) { transform: var(--transform-10);
     }
 
     .slide-8 .stat-number {
@@ -958,7 +1059,7 @@
     .slide-10 .close-frame {
       border: var(--border-17) solid var(--white);
       background: var(--black);
-      padding: var(--space-60) var(--space-80)box-shadow: var(--elevation-3);
+      padding: var(--space-60) var(--space-80); box-shadow: var(--elevation-3);
       position: relative;
     }
 
@@ -990,12 +1091,12 @@
       font-size: var(--typescale-body-large);
       text-decoration: none;
       color: var(--black);
-      background: var(--yellow)box-shadow: var(--elevation-4);
+      background: var(--yellow); box-shadow: var(--elevation-4);
       cursor: pointer;
       transition: all 0.15s ease;
     }
 
-    .slide-10 .close-btn:hover transform: var(--transform-11)box-shadow: var(--elevation-5);
+    .slide-10 .close-btn:hover { transform: var(--transform-11); box-shadow: var(--elevation-5);
     }
 
     .slide-10 .deco-star {
@@ -1014,7 +1115,7 @@
       bottom: var(--space-40);
       left: var(--space-40);
       width: var(--space-100);
-      height: var(--space-100)background-image: var(--bg-3);
+      height: var(--space-100); background-image: var(--bg-3);
       background-size: var(--space-16) var(--space-16);
       opacity: 0.3;
     }

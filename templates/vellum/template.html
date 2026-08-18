@@ -38,6 +38,14 @@
   --c-emphasis: #F5E168;
   --dur-slide: 0s;
   --dur-enter: 0s;
+  --color-extra-0: rgba(255, 255, 255, 0.22);
+  --color-extra-1: rgba(255, 255, 255, 0.8);
+  --color-extra-2: rgba(255, 255, 255, 0.25);
+  --color-extra-3: rgba(42, 56, 112, 0.12);
+  --color-extra-4: rgba(42, 56, 112, 0.08);
+  --color-extra-5: #1f2858;
+  --color-extra-6: #34407a;
+  --color-extra-7: rgba(232, 216, 92, 0.18);
 
   /* ── Typography ── */
   --font-display: "Cormorant Garamond", "Noto Serif SC", Georgia, serif;
@@ -51,6 +59,7 @@
   --typescale-body-medium: 1.05vw;
   --typescale-label-large: 0.85vw;
   --typescale-label-medium: 0.72vw;
+  --typescale-11: 11px;
 
   /* ── Shadow ── */
   --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
@@ -77,6 +86,14 @@
   --space-16: 16px;
   --space-24: 24px;
   --hairline: 1px;
+  --space-7: 7px;
+  --space-5: 5px;
+  --space-20: 20px;
+  --space-28: 28px;
+
+  /* ── other ── */
+  --transform-0: translateX(-50%);
+  --transform-1: scale(1.4);
 }
 
       /* ╔══════════════════════════════════════════════════════════════════════╗
@@ -145,7 +162,7 @@
       #nav-dots {
         position: fixed;
         bottom: var(--space-24);
-        left: 50%transform: var(--transform-0);
+        left: 50%; transform: var(--transform-0);
         display: flex;
         gap: var(--space-7);
         z-index: 100;
@@ -163,7 +180,7 @@
         padding: 0;
       }
       .nav-dot.is-active {
-        background: var(--color-extra-1)transform: var(--transform-1);
+        background: var(--color-extra-1); transform: var(--transform-1);
       }
 
       #slide-counter {

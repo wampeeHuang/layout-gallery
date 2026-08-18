@@ -55,6 +55,36 @@
   --typescale-headline-large: clamp(40px, min(4.6vw, 7vh), 88px);
   --typescale-body-large: clamp(14px, 0.95vw, 16px);
   --typescale-label-large: clamp(11px, 0.85vw, 14px);
+  --typescale-11: 11px;
+  --typescale-13: 13px;
+  --typescale-10: 10px;
+  --typescale-12: 12px;
+  --typescale-48: 48px;
+  --typescale-96: 96px;
+  --typescale-120: 120px;
+  --typescale-240: 240px;
+  --typescale-56: 56px;
+  --typescale-14: 14px;
+  --typescale-110: 110px;
+  --typescale-200: 200px;
+  --typescale-16: 16px;
+  --typescale-28: 28px;
+  --typescale-38: 38px;
+  --typescale-22: 22px;
+  --typescale-32: 32px;
+  --typescale-15: 15px;
+  --typescale-220: 220px;
+  --typescale-720: 720px;
+  --typescale-40: 40px;
+  --typescale-90: 90px;
+  --typescale-18: 18px;
+  --typescale-72: 72px;
+  --typescale-144: 144px;
+  --typescale-88: 88px;
+  --typescale-280: 280px;
+  --typescale-80: 80px;
+  --typescale-20: 20px;
+  --typescale-30: 30px;
 
   /* ── Shadow ── */
   --elevation-sm: none;
@@ -83,6 +113,61 @@
   --space-8: clamp(8px, 0.6vw, 12px);
   --space-4: clamp(4px, 0.4vw, 8px);
   --hairline: 1px;
+  --space-24-2: 24px;
+  --space-48-2: 48px;
+  --space-22: 22px;
+  --space-42: 42px;
+  --space-20: 20px;
+  --space-36: 36px;
+  --space-16-2: 16px;
+  --space-28: 28px;
+  --space-56: 56px;
+  --space-40: 40px;
+  --space-76: 76px;
+  --space-132: 132px;
+  --space-220: 220px;
+  --space-8-2: 8px;
+  --space-18: 18px;
+  --space-52: 52px;
+  --space-44: 44px;
+  --space-10: 10px;
+  --space-6: 6px;
+  --space-1480: 1480px;
+  --space-120: 120px;
+  --space-96: 96px;
+  --space-80: 80px;
+  --space-88: 88px;
+  --space-32-2: 32px;
+  --space-14: 14px;
+  --space-12-2: 12px;
+  --space-4-2: 4px;
+  --space-130: 130px;
+  --space-70: 70px;
+  --space-64-2: 64px;
+  --space-26: 26px;
+  --space-92: 92px;
+  --space-72: 72px;
+  --border-0: 2px;
+  --space-140: 140px;
+  --space-5: 5px;
+  --space-2: 2px;
+
+  /* ── other ── */
+  --bg-0: radial-gradient(ellipse 42% 38% at 52% 42%, var(--sun-95) 0%, var(--sun-65) 38%, var(--haze-22) 65%, transparent 88%),
+      radial-gradient(ellipse 28% 30% at 88% 16%, var(--ember-22) 0%, transparent 70%);
+  --bg-1: radial-gradient(ellipse 70% 60% at 50% 50%, var(--sun-70) 0%, var(--sun-soft-42) 32%, var(--haze-18) 56%, transparent 80%),
+      radial-gradient(circle 600px at 12% 88%, var(--ember-15) 0%, transparent 70%);
+  --bg-2: radial-gradient(circle 720px at -10% -10%, var(--sun-70) 0%, transparent 65%),
+      radial-gradient(circle 540px at 110% 110%, var(--ember-18) 0%, transparent 70%);
+  --transform-0: translateY(-50%) rotate(-90deg);
+  --bg-3: radial-gradient(ellipse 50% 40% at 92% 8%, var(--sun-55) 0%, transparent 70%);
+  --bg-4: radial-gradient(circle 600px at 8% 92%, var(--sun-40) 0%, transparent 70%);
+  --transform-1: translateY(-50%);
+  --bg-5: radial-gradient(circle 700px at 105% 0%, var(--sun-45) 0%, transparent 65%);
+  --bg-6: radial-gradient(ellipse 55% 50% at 50% 110%, var(--sun-85) 0%, var(--sun-50) 35%, var(--haze-18) 60%, transparent 84%),
+      radial-gradient(ellipse 30% 30% at 12% 18%, var(--ember-18) 0%, transparent 70%);
+  --bg-7: radial-gradient(circle 600px at 90% 10%, var(--sun-45) 0%, transparent 65%);
+  --bg-8: radial-gradient(circle 500px at 10% 90%, var(--sun-40) 0%, transparent 65%);
 }
 
   * { box-sizing: border-box; }
@@ -164,7 +249,7 @@
 
   /* central sun-bloom + corner peach edge */
   .s-cover .sunglow {
-    position: absolute; inset: 0; pointer-events: nonebackground:
+    position: absolute; inset: 0; pointer-events: none; background:
       var(--bg-0);
   }
 
@@ -242,7 +327,7 @@
      ────────────────────────────────────────────────────────────────── */
   .s-manifesto { background: var(--paper); display: flex; align-items: center; justify-content: center; }
   .s-manifesto .haze {
-    position: absolute; inset: 0; pointer-events: nonebackground:
+    position: absolute; inset: 0; pointer-events: none; background:
       var(--bg-1);
   }
   .s-manifesto .quote {
@@ -353,13 +438,13 @@
      ────────────────────────────────────────────────────────────────── */
   .s-chapter { background: var(--paper); }
   .s-chapter .glow {
-    position: absolute; inset: 0; pointer-events: nonebackground:
+    position: absolute; inset: 0; pointer-events: none; background:
       var(--bg-2);
   }
   .s-chapter .vrail {
     position: absolute;
     left: clamp(var(--space-40), 4vw, var(--space-76));
-    top: 50%transform: var(--transform-0);
+    top: 50%; transform: var(--transform-0);
     transform-origin: 0 50%;
     font-family: var(--font-body);
     font-weight: 600;
@@ -409,7 +494,7 @@
      ────────────────────────────────────────────────────────────────── */
   .s-data { background: var(--paper); }
   .s-data .glow {
-    position: absolute; inset: 0; pointer-events: nonebackground: var(--bg-3);
+    position: absolute; inset: 0; pointer-events: none; background: var(--bg-3);
   }
   .s-data .frame {
     position: absolute; inset: clamp(var(--space-40), 4vw, var(--space-76)) clamp(var(--space-40), 4vw, var(--space-76)) clamp(var(--space-70), 7vh, var(--space-120));
@@ -448,13 +533,13 @@
     background: var(--sun);
   }
   .s-quote .glow {
-    position: absolute; inset: 0; pointer-events: nonebackground: var(--bg-4);
+    position: absolute; inset: 0; pointer-events: none; background: var(--bg-4);
   }
   .s-quote .qwrap {
     position: absolute;
     left: clamp(var(--space-40), 4vw, var(--space-76));
     right: 36%;
-    top: 50%transform: var(--transform-1);
+    top: 50%; transform: var(--transform-1);
     z-index: 4;
   }
   .s-quote .qkicker {
@@ -500,7 +585,7 @@
      ────────────────────────────────────────────────────────────────── */
   .s-cal { background: var(--paper); }
   .s-cal .glow {
-    position: absolute; inset: 0; pointer-events: nonebackground: var(--bg-5);
+    position: absolute; inset: 0; pointer-events: none; background: var(--bg-5);
   }
   .s-cal .frame {
     position: absolute;
@@ -543,7 +628,7 @@
      ────────────────────────────────────────────────────────────────── */
   .s-colophon { background: var(--paper); }
   .s-colophon .glow {
-    position: absolute; inset: 0; pointer-events: nonebackground:
+    position: absolute; inset: 0; pointer-events: none; background:
       var(--bg-6);
   }
   .s-colophon .blocks {
@@ -595,7 +680,7 @@
    ══════════════════════════════════════════════════════ */
 .s-ds-rules { background: var(--paper); display: flex; flex-direction: column; }
 .s-ds-rules .glow {
-  position: absolute; inset: 0; pointer-events: nonebackground: var(--bg-7);
+  position: absolute; inset: 0; pointer-events: none; background: var(--bg-7);
 }
 .s-ds-rules .frame {
   position: absolute;
@@ -636,7 +721,7 @@
 
 .s-ds-palette { background: var(--paper); }
 .s-ds-palette .glow {
-  position: absolute; inset: 0; pointer-events: nonebackground: var(--bg-8);
+  position: absolute; inset: 0; pointer-events: none; background: var(--bg-8);
 }
 .s-ds-palette .frame {
   position: absolute;

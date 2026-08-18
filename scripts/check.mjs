@@ -33,6 +33,18 @@ const registryDrift = (() => {
   return { id: 'registry-drift', ok: issues.length === 0, issues, evidence: { checkedFields: REGISTRY_VISUAL_FIELDS } };
 })();
 
+// 品牌套件页无裸色值：brand-template.html 是全部品牌页的模板，色值只准来自 token（或 renderer 注入的 {{PLACEHOLDER}}）。
+const brandBareColor = (() => {
+  const p = path.join(ROOT, 'server', 'brand-template.html');
+  if (!fs.existsSync(p)) return { id: 'brand-bare-color', ok: false, issues: ['server/brand-template.html missing'] };
+  const html = fs.readFileSync(p, 'utf8');
+  const issues = [];
+  for (const m of html.matchAll(/#[0-9a-fA-F]{3,8}\b|rgba?\(\s*\d+\s*,\s*\d+\s*,\s*\d+/g)) {
+    issues.push(`brand-template.html:${lineOf(html, m.index)} bare color ${m[0]}`);
+  }
+  return { id: 'brand-bare-color', ok: issues.length === 0, issues, evidence: { count: issues.length } };
+})();
+
 function lineOf(text, offset) {
   return text.slice(0, offset).split('\n').length;
 }
@@ -122,6 +134,7 @@ async function checkOne(slug, browser) {
     commandGate('tokens', ['scripts/validate.mjs', slug]),
     commandGate('compile-static', ['scripts/compile.mjs', slug, '--check']),
     registryDrift,
+    brandBareColor,
     ...staticGates(slug),
     await browserGate(slug, browser),
   ];

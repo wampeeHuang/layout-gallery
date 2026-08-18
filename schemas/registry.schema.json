@@ -60,7 +60,7 @@
     "scheme": {
       "type": "string",
       "enum": ["light", "dark", "mixed"],
-      "description": "配色方案: light=亮色, dark=暗色, mixed=混合"
+      "description": "配色方案: light=亮, dark=暗, mixed=混"
     },
     "best_for": {
       "type": "array",

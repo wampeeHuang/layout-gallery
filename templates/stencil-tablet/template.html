@@ -27,12 +27,42 @@
   --blue: #3F73B7;
   --mustard: #D8A93B;
   --olive: #6F7A2E;
+  --color-extra-0: #1a1a1a;
+  --color-extra-1: #1a1a1a;
+  --color-extra-2: rgba(10,10,10,.35);
+  --color-extra-3: rgba(10,10,10,.18);
+  --color-extra-4: rgba(10,10,10,.35);
+  --color-extra-5: rgba(10,10,10,.35);
+  --color-extra-6: rgba(10,10,10,.3);
 
   /* ── Typography ── */
   --font-display: Inter, system-ui, sans-serif;
   --font-body: 'Stardos Stencil', display;
   --font-mono: ui-monospace, SF Mono, Consolas, monospace;
   --typescale-body-large: 16px;
+  --typescale-32: 32px;
+  --typescale-24: 24px;
+  --typescale-22: 22px;
+  --typescale-220: 220px;
+  --typescale-30: 30px;
+  --typescale-28: 28px;
+  --typescale-36: 36px;
+  --typescale-240: 240px;
+  --typescale-540: 540px;
+  --typescale-120: 120px;
+  --typescale-34: 34px;
+  --typescale-20: 20px;
+  --typescale-18: 18px;
+  --typescale-110: 110px;
+  --typescale-92: 92px;
+  --typescale-64: 64px;
+  --typescale-26: 26px;
+  --typescale-160: 160px;
+  --typescale-40: 40px;
+  --typescale-320: 320px;
+  --typescale-60: 60px;
+  --typescale-130: 130px;
+  --typescale-56: 56px;
 
   /* ── Shadow ── */
   --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
@@ -41,6 +71,20 @@
   /* ── radius ── */
   --radius-xs: 4px;
   --radius-pill: 999px;
+  --radius-0: 26px;
+  --radius-1: 14px;
+  --radius-2: 26px;
+  --radius-3: 22px;
+  --radius-4: 22px;
+  --radius-5: 22px;
+  --radius-6: 22px;
+  --radius-7: 14px;
+  --radius-8: 22px;
+  --radius-9: 22px;
+  --radius-10: 26px;
+  --radius-11: 26px;
+  --radius-12: 22px;
+  --radius-13: 10px;
 
   /* ── motion ── */
   --ease-standard: 0.18s ease;
@@ -51,6 +95,55 @@
   --space-page-pad: 32px;
   --space-gap: 24px;
   --space-gutter: 24px;
+  --space-48: 48px;
+  --space-64: 64px;
+  --space-36: 36px;
+  --space-38: 38px;
+  --space-14: 14px;
+  --space-18: 18px;
+  --space-56: 56px;
+  --space-320: 320px;
+  --space-380: 380px;
+  --space-200: 200px;
+  --space-100: 100px;
+  --space-28: 28px;
+  --space-160: 160px;
+  --space-70: 70px;
+  --space-30: 30px;
+  --space-110: 110px;
+  --space-220: 220px;
+  --space-130: 130px;
+  --space-360: 360px;
+  --border-0: 2px;
+  --space-290: 290px;
+  --space-80: 80px;
+  --border-1: 2px;
+  --space-12: 12px;
+  --space-22: 22px;
+  --space-8: 8px;
+  --border-2: 1px;
+  --space-150: 150px;
+  --space-540: 540px;
+  --space-10: 10px;
+  --space-6: 6px;
+  --space-680: 680px;
+  --border-3: 2px;
+  --border-4: 2px;
+  --border-5: 1px;
+  --space-40: 40px;
+  --space-470: 470px;
+  --space-50: 50px;
+  --space-460: 460px;
+  --border-6: 1.5px;
+  --border-7: 1.5px;
+  --space-16: 16px;
+  --border-8: 1.5px;
+  --space-60: 60px;
+  --space-4: 4px;
+  --space-20: 20px;
+  --border-9: 2px;
+  --border-10: 1.5px;
+  --border-11: 1px;
 }
   html, body { margin:0; padding:0; background:var(--color-extra-0); }
   body { font-family: var(--font-display); color: var(--ink); }
@@ -296,7 +389,7 @@
   /* =========== 06 CHART =========== */
   .s-chart { padding: 0; }
   /* Bottom bumped from 110 to 150 so the legend can never collide with
-     the absolutely-positioned .footer (which sits at bottom: 36 with
+     the absolutely-positioned .footer (which sits at { bottom: 36 with
      ~24px text height). Also: h2 size now caps by viewport height too. */
   .s-chart .left {
     position: absolute; left: var(--space-64); top: var(--space-200); bottom: var(--space-150); width: var(--space-540);

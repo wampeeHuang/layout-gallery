@@ -1,7 +1,7 @@
 {
   "$schema": "https://gallery.evopearl.com/schemas/taxonomy.schema.json",
   "version": "1.2.0",
-  "updatedAt": "2026-08-14T00:00:00Z",
+  "updatedAt": "2026-08-17T00:00:00Z",
 
   "tier": {
     "description": "品质等级 — 模板完成度分级。互斥，每个模板属于唯一等级。",
@@ -40,9 +40,9 @@
   "scheme": {
     "description": "色调模式。互斥。已有字段，此处仅登记枚举。",
     "values": {
-      "light":  { "label": "亮色" },
-      "dark":   { "label": "暗色" },
-      "mixed":  { "label": "混合" }
+      "light":  { "label": "亮" },
+      "dark":   { "label": "暗" },
+      "mixed":  { "label": "混" }
     }
   },
 

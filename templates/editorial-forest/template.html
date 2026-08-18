@@ -23,12 +23,28 @@
   --green: #2e4a2a;
   --green-deep: #243a21;
   --green-lite: #3a5a36;
+  --color-extra-0: #111;
+  --color-extra-1: rgba(239,231,212,0.18);
 
   /* ── Typography ── */
   --font-display: "Source Serif 4", "Source Serif Pro", Georgia, serif;
   --font-body: "Source Serif 4", "Source Serif Pro", Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
   --typescale-body-large: 16px;
+  --typescale-26: 26px;
+  --typescale-28: 28px;
+  --typescale-220: 220px;
+  --typescale-96: 96px;
+  --typescale-56: 56px;
+  --typescale-84: 84px;
+  --typescale-24: 24px;
+  --typescale-140: 140px;
+  --typescale-44: 44px;
+  --typescale-30: 30px;
+  --typescale-32: 32px;
+  --typescale-68: 68px;
+  --typescale-80: 80px;
+  --typescale-110: 110px;
 
   /* ── Shadow ── */
   --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
@@ -37,6 +53,12 @@
   /* ── radius ── */
   --radius-xs: 4px;
   --radius-pill: 999px;
+  --radius-0: 6px;
+  --radius-1: 6px;
+  --radius-2: 2px;
+  --radius-3: 3px;
+  --radius-4: 3px;
+  --radius-5: 8px;
 
   /* ── motion ── */
   --ease-standard: 0.18s ease;
@@ -47,6 +69,54 @@
   --space-page-pad: 32px;
   --space-gap: 24px;
   --space-gutter: 24px;
+  --space-1920: 1920px;
+  --space-1080: 1080px;
+  --space-96: 96px;
+  --space-120: 120px;
+  --space-100: 100px;
+  --space-140: 140px;
+  --space-130: 130px;
+  --border-0: 2px;
+  --space-40: 40px;
+  --space-80: 80px;
+  --space-90: 90px;
+  --space-36: 36px;
+  --border-1: 2px;
+  --space-28: 28px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-160: 160px;
+  --space-48: 48px;
+  --space-1560: 1560px;
+  --space-60: 60px;
+  --space-14: 14px;
+  --space-880: 880px;
+  --space-110: 110px;
+  --space-8: 8px;
+  --space-760: 760px;
+  --border-2: 2px;
+  --space-18: 18px;
+  --space-26: 26px;
+  --space-12: 12px;
+  --space-520: 520px;
+  --border-3: 2px;
+  --border-4: 2px;
+  --space-30: 30px;
+  --space-56: 56px;
+  --space-1500: 1500px;
+  --space-70: 70px;
+  --space-470: 470px;
+  --border-5: 2.5px;
+  --border-6: 2px;
+  --space-1400: 1400px;
+  --border-7: 2px;
+  --space-4: 4px;
+  --space-50: 50px;
+  --border-8: 2px;
+
+  /* ── other ── */
+  --bg-0: repeating-linear-gradient(to top, transparent 0 calc(25% - 1px), var(--color-extra-1) calc(25% - 1px) 25%);
+  --transform-0: translateX(-50%);
 }
   html, body { margin: 0; padding: 0; background: var(--color-extra-0); }
   deck-stage { font-family: var(--font-display); color: var(--ink); }
@@ -402,7 +472,7 @@
   }
   .chart .grid-lines {
     position: absolute;
-    inset: 0background-image: var(--bg-0);
+    inset: 0; background-image: var(--bg-0);
     pointer-events: none;
   }
   .bar-group { display: flex; flex-direction: column; align-items: center; flex: 1; height: 100%; justify-content: flex-end; gap: var(--space-8); }
@@ -413,7 +483,7 @@
   .bar .val {
     position: absolute;
     top: -38px;
-    left: 50%transform: var(--transform-0);
+    left: 50%; transform: var(--transform-0);
     font-family: var(--font-mono);
     font-size: var(--typescale-24);
     color: var(--cream);

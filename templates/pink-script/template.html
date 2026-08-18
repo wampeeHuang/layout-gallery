@@ -25,6 +25,17 @@
   --color-outline: rgba(237,61,140,.32);
   --color-surface-container-low: #0F0D11;
   --color-outline-variant: rgba(237,61,140,.32);
+  --color-extra-0: #000;
+  --color-extra-1: #1A1218;
+  --color-extra-2: #0A0709;
+  --color-extra-3: #050306;
+  --color-extra-4: rgba(237,61,140,.18);
+  --color-extra-5: rgba(237,61,140,.22);
+  --color-extra-6: rgba(237,61,140,.18);
+  --color-extra-7: rgba(237,61,140,.08);
+  --color-extra-8: #1A1218;
+  --color-extra-9: #0A0709;
+  --color-extra-10: #050306;
 
   /* ── Typography ── */
   --font-display: "Noto Serif SC", "Songti SC", Georgia, serif;
@@ -38,9 +49,35 @@
   --typescale-body-large: 28px;
   --typescale-body-medium: 24px;
   --typescale-label-large: 22px;
+  --typescale-280: 280px;
+  --typescale-48: 48px;
+  --typescale-80: 80px;
+  --typescale-64: 64px;
+  --typescale-56: 56px;
+  --typescale-132: 132px;
+  --typescale-116: 116px;
+  --typescale-36: 36px;
+  --typescale-600: 600px;
+  --typescale-90: 90px;
+  --typescale-120: 120px;
+  --typescale-156: 156px;
+  --typescale-26: 26px;
+  --typescale-96: 96px;
+  --typescale-38: 38px;
+  --typescale-32: 32px;
+  --typescale-16: 16px;
+  --typescale-320: 320px;
+  --typescale-92: 92px;
+  --typescale-44: 44px;
+  --typescale-18: 18px;
+  --typescale-20: 20px;
+  --typescale-13: 13px;
+  --typescale-12: 12px;
 
   /* ── Shadow ── */
   --elevation-sm: 0 1px 3px rgba(0,0,0,.12);
+  --elevation-0: 0 0 80px var(--color-extra-4);
+  --elevation-1: 0 0 120px var(--color-extra-5);
 
   /* ── radius ── */
   --radius-xs: 4px;
@@ -54,6 +91,46 @@
   --space-page-pad: 60px;
   --space-gap: 16px;
   --space-gutter: 24px;
+  --space-1080: 1080px;
+  --space-36: 36px;
+  --border-0: 1px;
+  --space-1: 1px;
+  --space-180: 180px;
+  --space-360: 360px;
+  --space-20: 20px;
+  --space-28: 28px;
+  --space-160: 160px;
+  --space-32: 32px;
+  --space-6: 6px;
+  --space-140: 140px;
+  --space-480: 480px;
+  --space-80: 80px;
+  --space-110: 110px;
+  --space-200: 200px;
+  --space-26: 26px;
+  --space-8: 8px;
+  --space-18: 18px;
+  --space-240: 240px;
+  --space-4: 4px;
+  --space-100: 100px;
+  --space-380: 380px;
+  --space-14: 14px;
+  --space-2: 2px;
+  --space-460: 460px;
+  --space-30: 30px;
+  --space-540: 540px;
+  --space-320: 320px;
+  --space-12: 12px;
+  --space-280: 280px;
+  --space-48: 48px;
+  --space-22: 22px;
+  --space-64: 64px;
+
+  /* ── other ── */
+  --bg-0: radial-gradient(ellipse 90% 70% at 30% 30%, var(--color-extra-1) 0%, var(--color-extra-2) 55%, var(--color-extra-3) 100%);
+  --transform-0: rotate(-90deg);
+  --transform-1: translateY(-50%);
+  --bg-1: radial-gradient(ellipse 90% 70% at 30% 30%, var(--color-extra-8) 0%, var(--color-extra-9) 55%, var(--color-extra-10) 100%);
 }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { background: var(--color-extra-0); font-family: var(--font-body); color: var(--paper); }
@@ -61,7 +138,7 @@
   /* --- shared slide chrome ----------------------------------------- */
   deck-stage > section.slide {
     position: relative;
-    width: var(--space-page-wmax); height: var(--space-1080)background:
+    width: var(--space-page-wmax); height: var(--space-1080); background:
       var(--bg-0);
     color: var(--paper);
     overflow: hidden;
@@ -138,7 +215,7 @@
   .s-cover .title {
     font-family: var(--font-display); 
     color: var(--pink); font-size: var(--typescale-280); line-height: 1.02; letter-spacing: -.015em;
-    text-align: centertext-shadow: var(--elevation-0);
+    text-align: center; text-shadow: var(--elevation-0);
     padding-bottom: .12em;
   }
   .s-cover .title .l2 { display: block; padding-left: var(--space-180); color: var(--paper); }
@@ -186,10 +263,10 @@
   .s-section .num {
     font-family: var(--font-display); 
     color: var(--pink);
-    font-size: var(--typescale-600); line-height: .82; letter-spacing: -.02emtext-shadow: var(--elevation-1);
+    font-size: var(--typescale-600); line-height: .82; letter-spacing: -.02em; text-shadow: var(--elevation-1);
   }
-  .s-section .label-l { position: absolute; left: var(--space-80); top: auto; bottom: var(--space-140)transform: var(--transform-0); transform-origin: left bottom; font-family: var(--font-mono); font-size: var(--typescale-label-large); letter-spacing: .42em; text-transform: uppercase; color: var(--mute); white-space: nowrap; }
-  .s-section .right { position: absolute; right: var(--space-100); top: 50%transform: var(--transform-1); display: flex; flex-direction: column; gap: var(--space-18); max-width: var(--space-380); }
+  .s-section .label-l { position: absolute; left: var(--space-80); top: auto; bottom: var(--space-140); transform: var(--transform-0); transform-origin: left bottom; font-family: var(--font-mono); font-size: var(--typescale-label-large); letter-spacing: .42em; text-transform: uppercase; color: var(--mute); white-space: nowrap; }
+  .s-section .right { position: absolute; right: var(--space-100); top: 50%; transform: var(--transform-1); display: flex; flex-direction: column; gap: var(--space-18); max-width: var(--space-380); }
   .s-section .right .kicker { font-family: var(--font-mono); font-size: var(--typescale-label-large); letter-spacing: .14em; text-transform: uppercase; color: var(--pink); }
   .s-section .right h2 { font-family: var(--font-display); font-size: var(--typescale-headline-medium); line-height: 1.06; color: var(--paper); padding-bottom: .1em; }
   .s-section .right p  { font-family: var(--font-body); font-size: var(--typescale-body-medium); line-height: 1.55; color: var(--mute); font-weight: 300; }
@@ -315,7 +392,7 @@
   .s-ds-rules .rule .rn { font-family: var(--font-mono); font-size: var(--typescale-18); letter-spacing: .1em; text-transform: uppercase; color: var(--pink); }
   .s-ds-rules .rule .rb { font-family: var(--font-body); font-size: var(--typescale-20); line-height: 1.4; color: var(--mute); font-weight: 300; }
 
-  .s-ds-type background: var(--bg-1); }
+  .s-ds-type { background: var(--bg-1); }
   .s-ds-type .body { position: absolute; inset: var(--space-140) var(--space-page-pad) var(--space-140) var(--space-page-pad); display: flex; flex-direction: column; }
   .s-ds-type .k { font-family: var(--font-mono); font-size: var(--typescale-label-large); letter-spacing: .16em; text-transform: uppercase; color: var(--pink); margin-bottom: var(--space-gap); }
   .s-ds-type h1 { font-family: var(--font-display); font-size: var(--typescale-headline-medium); line-height: 1.04; color: var(--paper); padding-bottom: .1em; margin-bottom: var(--space-gutter); }

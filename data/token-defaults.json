@@ -1,0 +1,16 @@
+{
+  "_comment": "模板缺 token 时的最后兜底默认值。合同只定义角色不定义值，故值存这里。编辑后无需改代码。",
+  "sharp": "0px",
+  "default": "0 2px 8px rgba(0,0,0,0.1)",
+  "card-hover": "0 4px 16px rgba(0,0,0,0.15)",
+  "surface-bg": "#ffffff",
+  "surface-card": "#f5f5f5",
+  "text-primary": "#1a1a1a",
+  "text-secondary": "#666666",
+  "border-default": "rgba(0,0,0,0.12)",
+  "accent": "#333333",
+  "accent-hover": "#555555",
+  "display-font": "Georgia, serif",
+  "body-font": "system-ui, sans-serif",
+  "mono-font": "monospace"
+}

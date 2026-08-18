@@ -26,6 +26,22 @@
   --blush: #E8C9B6;
   --sage: #B7C7A8;
   --lilac: #C9BEDC;
+  --color-extra-0: rgba(42,36,27,.7);
+  --color-extra-1: rgba(42,36,27,.3);
+  --color-extra-2: rgba(42,36,27,.18);
+  --color-extra-3: rgba(42,36,27,.18);
+  --color-extra-4: rgba(42,36,27,.35);
+  --color-extra-5: rgba(42,36,27,.35);
+  --color-extra-6: rgba(42,36,27,.12);
+  --color-extra-7: rgba(42,36,27,.18);
+  --color-extra-8: rgba(42,36,27,.18);
+  --color-extra-9: rgba(42,36,27,.4);
+  --color-extra-10: rgba(255,255,255,0.6);
+  --color-extra-11: rgba(42,36,27,.18);
+  --color-extra-12: rgba(255,255,255,.55);
+  --color-extra-13: rgba(0,0,0,0.06);
+  --color-extra-14: rgba(42,36,27,.15);
+  --color-extra-15: rgba(42,36,27,.15);
 
   /* ── Typography ── */
   --font-display: "Garamond", "Georgia", "Times New Roman", serif;
@@ -40,6 +56,31 @@
   --typescale-body-large: 28px;
   --typescale-body-medium: 24px;
   --typescale-body-small: 18px;
+  --typescale-26: 26px;
+  --typescale-188: 188px;
+  --typescale-124: 124px;
+  --typescale-44: 44px;
+  --typescale-38: 38px;
+  --typescale-232: 232px;
+  --typescale-30: 30px;
+  --typescale-56: 56px;
+  --typescale-132: 132px;
+  --typescale-92: 92px;
+  --typescale-72: 72px;
+  --typescale-168: 168px;
+  --typescale-200: 200px;
+  --typescale-320: 320px;
+  --typescale-220: 220px;
+  --typescale-88: 88px;
+  --typescale-64: 64px;
+  --typescale-40: 40px;
+  --typescale-96: 96px;
+  --typescale-76: 76px;
+  --typescale-17: 17px;
+  --typescale-11: 11px;
+  --typescale-22: 22px;
+  --typescale-13: 13px;
+  --typescale-14: 14px;
 
   /* ── Shadow ── */
   --elevation-sm: 0 2px 24px rgba(42, 36, 27, 0.06);
@@ -67,6 +108,57 @@
   --space-28: 28px;
   --space-36: 36px;
   --space-48: 48px;
+  --space-60: 60px;
+  --space-50: 50px;
+  --space-14: 14px;
+  --space-56: 56px;
+  --space-200: 200px;
+  --space-760: 760px;
+  --space-8: 8px;
+  --space-22: 22px;
+  --space-24: 24px;
+  --space-220: 220px;
+  --space-140: 140px;
+  --space-32: 32px;
+  --space-16: 16px;
+  --space-64: 64px;
+  --space-1100: 1100px;
+  --space-42: 42px;
+  --space-44: 44px;
+  --space-4: 4px;
+  --space-52: 52px;
+  --space-18: 18px;
+  --space-130: 130px;
+  --border-0: 1px;
+  --space-290: 290px;
+  --space-30: 30px;
+  --border-1: 1px;
+  --border-2: 1px;
+  --space-540: 540px;
+  --space-10: 10px;
+  --space-680: 680px;
+  --space-40: 40px;
+  --border-3: 1.5px;
+  --border-4: 1.5px;
+  --border-5: 1px;
+  --space-320: 320px;
+  --space-240: 240px;
+  --space-26: 26px;
+  --border-6: 1px;
+  --border-7: 1px;
+  --border-8: 1.5px;
+  --border-9: 1px;
+  --space-100: 100px;
+  --space-6: 6px;
+  --border-10: 1px;
+  --border-11: 1px;
+  --border-12: 1px;
+
+  /* ── other ── */
+  --transform-0: translateY(-50%);
+  --transform-1: translate(-50%, -50%);
+  --transform-2: translateY(-50%);
+  --transform-3: translateY(-50%);
 }
   html, body { margin:0; padding:0; background: var(--color-surface); }
   body { font-family: var(--font-body); color: var(--ink); }
@@ -142,7 +234,7 @@
   /* ============== 1. COVER ================================== */
   .s-cover .stack {
     position: absolute;
-    left: var(--space-page-pad); right: var(--space-page-pad); top: 50%transform: var(--transform-0);
+    left: var(--space-page-pad); right: var(--space-page-pad); top: 50%; transform: var(--transform-0);
     display: flex; flex-direction: column; gap: var(--space-36);
   }
   .s-cover .kicker {
@@ -305,7 +397,7 @@
   .s-closer .footer { color: var(--color-extra-0); }
   .s-closer .center {
     position: absolute;
-    left: 50%; top: 50%transform: var(--transform-1);
+    left: 50%; top: 50%; transform: var(--transform-1);
     width: var(--space-1100);
     text-align: center;
   }
@@ -369,7 +461,7 @@
   /* ============== 7. IN THEIR WORDS ========================= */
   .s-quote .center {
     position: absolute;
-    left: var(--space-page-pad); right: var(--space-page-pad); top: 50%transform: var(--transform-2);
+    left: var(--space-page-pad); right: var(--space-page-pad); top: 50%; transform: var(--transform-2);
     text-align: center;
   }
   .s-quote .qmark {
@@ -686,7 +778,7 @@
   .s-process .node.n5 { background: var(--lilac); }
   .s-process .node .arrow {
     position: absolute;
-    right: -20px; top: 50%transform: var(--transform-3);
+    right: -20px; top: 50%; transform: var(--transform-3);
     width: var(--space-32); height: var(--space-32);
     z-index: 2;
     color: var(--ink);

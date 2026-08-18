@@ -8,23 +8,16 @@ const { readManifest } = require('../scripts/template-package.cjs');
 // never hardcodes.
 
 function loadFallbackMap(projectDir) {
-  // Sensible fallbacks when a template lacks a token. Not derived from
-  // contract (MD3 defines roles, not values). These are last-resort defaults.
-  return {
-    'sharp': '0px',
-    'default': '0 2px 8px rgba(0,0,0,0.1)',
-    'card-hover': '0 4px 16px rgba(0,0,0,0.15)',
-    'surface-bg': '#ffffff',
-    'surface-card': '#f5f5f5',
-    'text-primary': '#1a1a1a',
-    'text-secondary': '#666666',
-    'border-default': 'rgba(0,0,0,0.12)',
-    'accent': '#333333',
-    'accent-hover': '#555555',
-    'display-font': 'Georgia, serif',
-    'body-font': 'system-ui, sans-serif',
-    'mono-font': 'monospace',
-  };
+  // Last-resort defaults when a template lacks a token. Not derived from
+  // contract (MD3 defines roles, not values). Values live in data/token-defaults.json
+  // — single source of truth, editable without touching code.
+  const configPath = path.join(projectDir, 'data', 'token-defaults.json');
+  if (!fs.existsSync(configPath)) {
+    throw new Error('Missing token fallback defaults: ' + configPath);
+  }
+  const map = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+  delete map._comment;
+  return map;
 }
 
 // Standard CSS variable vocabulary — enforced by validate-templates.js.
@@ -138,6 +131,16 @@ function renderBrandKit(entry, projectDir) {
   // accent at 10% opacity for token-note backgrounds (brand-page UI constant, not a token)
   const accent10 = hexToRgba(P.accent, 0.1);
   out = out.replace(/\{\{ACCENT_10\}\}/g, accent10);
+
+  // on-accent: contract token --color-on-primary when declared, else auto black/white by WCAG contrast
+  const onAccent = vars['--color-on-primary'] || pickOnAccent(P.accent);
+  out = out.replace(/\{\{ON_ACCENT\}\}/g, onAccent);
+  out = out.replace(/\{\{ON_ACCENT_SOFT\}\}/g, hexToRgba(onAccent, 0.7));
+  out = out.replace(/\{\{ON_ACCENT_MID\}\}/g, hexToRgba(onAccent, 0.85));
+
+  // code theme — fixed dark chrome constants (code viewer is brand-independent, not a template token)
+  out = out.replace(/\{\{CODE_BG\}\}/g, '#1a1a1e');
+  out = out.replace(/\{\{CODE_FG\}\}/g, '#e0e0e0');
 
   // ── Brand kit type scale & spacing (from tokens.json brandKit section) ──
   const brandKit = tokensData.brandKit || {};
@@ -1450,6 +1453,30 @@ function isDarkColor(hex) {
   const g = parseInt(h.substring(2, 4), 16);
   const b = parseInt(h.substring(4, 6), 16);
   return (r * 299 + g * 587 + b * 114) / 1000 < 140;
+}
+
+function wcagContrast(hex1, hex2) {
+  const lum = (hex) => {
+    let h = hex.replace('#', '');
+    if (h.length === 3) h = h.split('').map(c => c + c).join('');
+    if (h.length === 8) h = h.substring(0, 6);
+    const r = parseInt(h.substring(0, 2), 16) / 255;
+    const g = parseInt(h.substring(2, 4), 16) / 255;
+    const b = parseInt(h.substring(4, 6), 16) / 255;
+    const f = (v) => v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+  };
+  const l1 = lum(hex1), l2 = lum(hex2);
+  const hi = Math.max(l1, l2), lo = Math.min(l1, l2);
+  return (hi + 0.05) / (lo + 0.05);
+}
+
+// Pick the readable on-accent color: near-black vs white by WCAG contrast.
+// Used when a template does not declare --color-on-primary (contract-optional).
+function pickOnAccent(hex) {
+  const h = extractHex(hex);
+  if (!h) return '#ffffff';
+  return wcagContrast(h, '#1a1a1a') >= wcagContrast(h, '#ffffff') ? '#1a1a1a' : '#ffffff';
 }
 
 function cssValToPx(val) {

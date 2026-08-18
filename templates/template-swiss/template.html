@@ -33,11 +33,46 @@
   --text-rgb: 10,10,10;
   --bg-rgb: 250,250,248;
   --color-outline-variant: #e0e0e0;
+  --color-extra-0: rgba(250,250,248,.86);
+  --color-extra-1: rgba(10,10,10,.92);
+  --color-extra-2: rgba(127,127,127,.25);
+  --color-extra-3: rgba(127,127,127,.4);
+  --color-extra-4: rgba(127,127,127,.3);
+  --color-extra-5: rgba(255,255,255,.06);
+  --color-extra-6: rgba(127,127,127,.18);
+  --color-extra-7: rgba(0,0,0,.28);
+  --color-extra-8: rgba(0,0,0,.55);
+  --color-extra-9: rgba(255,255,255,.32);
+  --color-extra-10: rgba(255,255,255,.6);
+  --color-extra-11: rgba(255,255,255,.62);
+  --color-extra-12: rgba(255,255,255,.7);
+  --color-extra-13: rgba(255,255,255,.62);
+  --color-extra-14: rgba(255,255,255,.06);
+  --color-extra-15: rgba(255,255,255,.78);
+  --color-extra-16: rgba(255,255,255,.62);
+  --color-extra-17: rgba(255,255,255,.78);
+  --color-extra-18: rgba(255,255,255,.62);
+  --color-extra-19: rgba(255,255,255,.78);
+  --color-extra-20: rgba(127,127,127,.22);
+  --color-extra-21: rgba(255,255,255,.62);
 
   /* ── Typography ── */
   --font-display: "Inter","Helvetica Neue","Helvetica","Arial","Segoe UI Variable","Segoe UI",system-ui,-apple-system,sans-serif;
   --font-body: "Inter","Helvetica Neue","Helvetica","Arial","Segoe UI Variable","Segoe UI",system-ui,-apple-system,sans-serif;
   --font-mono: "JetBrains Mono","IBM Plex Mono","SF Mono","Cascadia Code","Consolas","Courier New",ui-monospace,monospace;
+  --typescale-11: 11px;
+  --typescale-10: 10px;
+  --typescale-13: 13px;
+  --typescale-12: 12px;
+  --typescale-9: 9px;
+  --typescale-28: 28px;
+  --typescale-56: 56px;
+  --typescale-15: 15px;
+  --typescale-17: 17px;
+  --typescale-20: 20px;
+  --typescale-14: 14px;
+  --typescale-16: 16px;
+  --typescale-18: 18px;
 
   /* ── Dimensions — Radius, Spacing & Page Layout ── */
   --radius-xs: 4px;
@@ -61,6 +96,7 @@
   /* ── Shadow ── */
   --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
   --elevation-md: 0 8px 30px rgba(0,0,0,0.1);
+  --elevation-0: none;
 
   /* ── Motion — Easing ── */
   --ease-standard: 0.18s ease;
@@ -81,6 +117,49 @@
   --dur-slow-2: .7s;
   --dur-page: .9s;
   --dur-draw: 1s;
+
+  /* ── spacing ── */
+  --space-1: 1px;
+  --space-2: 2px;
+  --space-18: 18px;
+  --space-5: 5px;
+  --space-10: 10px;
+  --space-4: 4px;
+  --border-0: 2px;
+  --border-1: 3px;
+  --border-2: 2px;
+  --border-3: 3px;
+  --border-4: 3px;
+  --border-5: 2px;
+  --border-6: 2px;
+  --space-14: 14px;
+  --space-6: 6px;
+  --space-22: 22px;
+  --space-34: 34px;
+  --space-9: 9px;
+  --space-28: 28px;
+  --border-7: 2px;
+  --border-8: 2px;
+  --space-100: 100px;
+
+  /* ── other ── */
+  --blur-0: blur(1px);
+  --bg-0: radial-gradient(currentColor 1px, transparent 1px);
+  --bg-1: radial-gradient(currentColor 0.8px, transparent 0.8px);
+  --bg-2: radial-gradient(currentColor 1.4px, transparent 1.4px);
+  --bg-3: linear-gradient(to bottom, transparent 70%, var(--color-primary) 70%, var(--color-primary) 96%, transparent 96%);
+  --transform-0: translateX(-50%);
+  --transform-1: translateX(-24px);
+  --transform-2: translateX(24px);
+  --transform-3: translateY(10px);
+  --transform-4: translateX(-50%);
+  --bg-4: repeating-linear-gradient(to bottom,currentColor 0 4px,transparent 4px 8px);
+  --transform-5: translateY(-50%);
+  --bg-5: repeating-linear-gradient(to right,currentColor 0 4px,transparent 4px 8px);
+  --transform-6: translateX(-50%);
+  --bg-6: repeating-linear-gradient(135deg,currentColor 0 1px,transparent 1px 8px);
+  --bg-7: radial-gradient(currentColor 1.4px,transparent 1.6px);
+  --bg-8: radial-gradient(circle at 50% 50%,transparent 2px,currentColor 2px,currentColor 2.6px,transparent 2.7px);
 }
 *{box-sizing:border-box;margin:0;padding:0}
   html,body{
@@ -115,7 +194,7 @@
 
   /* Hero 页透出网格背景多一点 */
   .slide.hero{background:transparent}
-  .slide.hero.grey{background:var(--color-extra-0)backdrop-filter:var(--blur-0)}
+  .slide.hero.grey{background:var(--color-extra-0); backdrop-filter:var(--blur-0)}
   .slide.hero.dark{background:var(--color-extra-1);color:var(--color-surface)}
 
   /* ============ 装饰: 极细分隔线 + 点阵矩阵 ============ */
@@ -125,16 +204,16 @@
   .rule.v{width:var(--space-1);height:100%;margin:0}
 
   /* 点阵矩阵 (dot matrix) - 用 radial-gradient */
-  .dotsbackground-image:var(--bg-0);
+  .dots { background-image:var(--bg-0);
     background-size:var(--space-12) var(--space-12);
     background-position:0 0;
     opacity:.18;
   }
-  .dots-finebackground-image:var(--bg-1);
+  .dots-fine { background-image:var(--bg-1);
     background-size:var(--space-8) var(--space-8);
     opacity:.14;
   }
-  .dots-boldbackground-image:var(--bg-2);
+  .dots-bold { background-image:var(--bg-2);
     background-size:var(--space-18) var(--space-18);
     opacity:.22;
   }
@@ -376,7 +455,7 @@
     -webkit-box-decoration-break:clone;
   }
   .mark.ink{background:var(--color-on-surface);color:var(--color-surface)}
-  .underline-accentbackground-image:var(--bg-3);
+  .underline-accent { background-image:var(--bg-3);
     padding:0 .05em
   }
 
@@ -593,7 +672,7 @@
 
   /* ============ 导航 ============ */
   /* 底部分页导航: 仅保留方块本身,无背景无描边 */
-  #nav{position:fixed;left:50%;bottom:2vhtransform:var(--transform-0);z-index:30;display:flex;gap:var(--space-10);padding:0;background:transparent;border:0}
+  #nav{position:fixed;left:50%;bottom:2vh; transform:var(--transform-0);z-index:30;display:flex;gap:var(--space-10);padding:0;background:transparent;border:0}
   #nav .dot{width:var(--space-6);height:var(--space-6);background:var(--color-extra-7);cursor:pointer;transition:all var(--ease-standard);border:0;padding:0;border-radius:0}
   #nav .dot:hover{background:var(--color-extra-8)}
   #nav .dot.active{background:var(--color-primary);width:var(--space-18)}
@@ -619,9 +698,9 @@
   /* ============ 动效 (与原模板一致) ============ */
   [data-anim]{opacity:1}
   body.motion-ready [data-anim]{opacity:0}
-  body.motion-ready [data-anim="left"]transform:var(--transform-1)}
-  body.motion-ready [data-anim="right"]transform:var(--transform-2)}
-  body.motion-ready [data-anim="line"]{opacity:0transform:var(--transform-3)}
+  body.motion-ready [data-anim="left"] { transform:var(--transform-1)}
+  body.motion-ready [data-anim="right"] { transform:var(--transform-2)}
+  body.motion-ready [data-anim="line"]{opacity:0; transform:var(--transform-3)}
   body.motion-ready [data-animate="pipeline"] [data-anim]{opacity:.15}
   body.low-power #deck{transition:none!important}
   body.low-power *,
@@ -656,7 +735,7 @@
     background:var(--color-surface);color:var(--color-on-surface);
     padding:5.6vh 5vw 4.4vh;
     display:flex;flex-direction:column;
-    position:relative;overflow:hiddenbox-shadow:var(--elevation-0);
+    position:relative;overflow:hidden; box-shadow:var(--elevation-0);
     border-radius:0;
   }
   .slide.dark .canvas-card{background:var(--color-on-surface);color:var(--color-surface)}
@@ -733,9 +812,9 @@
   }
   .timeline-v::before{
     content:"";position:absolute;
-    left:calc(var(--tl-axis-w) / 2)transform:var(--transform-4);
+    left:calc(var(--tl-axis-w) / 2); transform:var(--transform-4);
     top:var(--space-16);bottom:var(--space-16);
-    width:var(--space-1)background:var(--bg-4);
+    width:var(--space-1); background:var(--bg-4);
     opacity:.35;pointer-events:none;z-index:0
   }
   .tl-node{
@@ -790,7 +869,7 @@
   }
   .timeline-h::before{
     content:"";position:absolute;
-    top:50%;left:5%;right:5%;height:var(--space-1)transform:var(--transform-5)background:var(--bg-5);
+    top:50%;left:5%;right:5%;height:var(--space-1); transform:var(--transform-5); background:var(--bg-5);
     opacity:.35;pointer-events:none;z-index:0
   }
   .timeline-h .tl-row{
@@ -810,7 +889,7 @@
   }
   .timeline-h .th-node.accent .dot{background:var(--color-primary)}
   .timeline-h .th-node .label{
-    position:absolute;left:50%transform:var(--transform-6);
+    position:absolute;left:50%; transform:var(--transform-6);
     width:13vw;text-align:center;
     display:flex;flex-direction:column;gap:.4vh
   }
@@ -989,14 +1068,14 @@
   .split-half .half.b-ink .t-body,.split-half .half.b-ink .t-body-emp,.split-half .half.b-ink .t-h-prod{color:var(--color-surface)}
 
   /* 斜杠点阵装饰 (参考图 6 左下) */
-  .hatchbackground-image:var(--bg-6);
+  .hatch { background-image:var(--bg-6);
     opacity:.55
   }
 
   /* ========== V3: 高级点阵装饰 — 圆点 / × 号 / 圆圈 ========== */
   /* 实心圆点矩阵 — 用于大面积装饰 */
   .dot-mat{
-    --d:var(--space-14)background-image:var(--bg-7);
+    --d:var(--space-14); background-image:var(--bg-7);
     background-size:var(--d) var(--d);
     background-position:0 0;
     opacity:.5
@@ -1007,7 +1086,7 @@
 
   /* 描边圆圈矩阵 — 工业感 */
   .ring-mat{
-    --d:var(--space-18)background-image:
+    --d:var(--space-18); background-image:
       var(--bg-8);
     background-size:var(--d) var(--d);
     opacity:.55

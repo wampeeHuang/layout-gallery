@@ -23,12 +23,39 @@
   --color-on-surface-variant: #666666;
   --color-outline: rgba(15, 26, 92, 0.22);
   --color-surface-container-low: #F1E9D6;
+  --color-extra-0: #0a0a0a;
+  --color-extra-1: #0a0a0a;
+  --color-extra-2: rgba(60, 216, 150, 0.22);
 
   /* ── Typography ── */
   --font-display: 'Bodoni Moda', serif;
   --font-body: 'Bodoni Moda', serif;
   --font-mono: ui-monospace, SF Mono, Consolas, monospace;
   --typescale-body-large: 16px;
+  --typescale-26: 26px;
+  --typescale-76: 76px;
+  --typescale-184: 184px;
+  --typescale-68: 68px;
+  --typescale-28: 28px;
+  --typescale-200: 200px;
+  --typescale-64: 64px;
+  --typescale-460: 460px;
+  --typescale-128: 128px;
+  --typescale-24: 24px;
+  --typescale-130: 130px;
+  --typescale-84: 84px;
+  --typescale-44: 44px;
+  --typescale-104: 104px;
+  --typescale-30: 30px;
+  --typescale-48: 48px;
+  --typescale-92: 92px;
+  --typescale-120: 120px;
+  --typescale-80: 80px;
+  --typescale-40: 40px;
+  --typescale-144: 144px;
+  --typescale-60: 60px;
+  --typescale-180: 180px;
+  --typescale-38: 38px;
 
   /* ── Shadow ── */
   --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
@@ -47,6 +74,57 @@
   --space-page-pad: 32px;
   --space-gap: 24px;
   --space-gutter: 24px;
+  --space-1920: 1920px;
+  --space-1080: 1080px;
+  --space-26: 26px;
+  --space-4: 4px;
+  --space-18: 18px;
+  --space-3: 3px;
+  --space-22: 22px;
+  --space-64: 64px;
+  --space-56: 56px;
+  --space-80: 80px;
+  --space-110: 110px;
+  --space-10: 10px;
+  --space-1400: 1400px;
+  --space-5: 5px;
+  --space-2: 2px;
+  --space-6: 6px;
+  --space-7: 7px;
+  --space-30: 30px;
+  --space-70: 70px;
+  --space-130: 130px;
+  --space-320: 320px;
+  --border-0: 4px;
+  --space-40: 40px;
+  --border-1: 4px;
+  --space-90: 90px;
+  --space-720: 720px;
+  --space-14: 14px;
+  --space-20: 20px;
+  --border-2: 4px;
+  --space-60: 60px;
+  --space-220: 220px;
+  --space-1: 1px;
+  --space-50: 50px;
+  --border-3: 4px;
+  --space-36: 36px;
+  --space-16: 16px;
+  --border-4: 4px;
+  --space-8: 8px;
+  --border-5: 4px;
+  --space-28: 28px;
+  --space-12: 12px;
+  --border-6: 4px;
+  --space-1500: 1500px;
+  --border-7: 4px;
+
+  /* ── other ── */
+  --bg-4: linear-gradient(var(--ink), var(--ink)) 0 4px / 100% 4px no-repeat,
+      linear-gradient(var(--ink), var(--ink)) 0 12px / 100% 4px no-repeat;
+  --transform-0: translateY(-50%);
+  --transform-1: translateY(-50%);
+  --transform-2: translateX(-50%);
 }
 
   html, body { margin: 0; padding: 0; background: var(--color-extra-0); }
@@ -130,7 +208,7 @@
   .of-mark::before, .of-mark::after {
     content: "";
     width: var(--space-64);
-    height: var(--space-18)background:
+    height: var(--space-18); background:
       var(--bg-4);
   }
 
@@ -218,7 +296,7 @@
   :root[data-ornament="single"] .s1-mid .rule::before,
   :root[data-ornament="single"] .s4-state .ornament-row .rule::before,
   :root[data-ornament="single"] .s8-mid .rule::before {
-    top: 50%; bottom: autotransform: var(--transform-0); height: var(--space-7);
+    top: 50%; bottom: auto; transform: var(--transform-0); height: var(--space-7);
   }
   :root[data-ornament="single"] .s1-mid .rule::after,
   :root[data-ornament="single"] .s4-state .ornament-row .rule::after,
@@ -476,7 +554,7 @@
   }
   .chart-yaxis span {
     position: absolute; right: var(--space-14); font-size: var(--typescale-26);
-    font-family: var(--font-display); font-weight: 700transform: var(--transform-1);
+    font-family: var(--font-display); font-weight: 700; transform: var(--transform-1);
   }
   .chart-grid {
     position: absolute; left: var(--space-90); right: 0; top: 0; bottom: var(--space-60);
@@ -496,7 +574,7 @@
   }
   .bar.b2 { background: var(--paper); }
   .bar .v {
-    position: absolute; top: -40px; left: 50%transform: var(--transform-2);
+    position: absolute; top: -40px; left: 50%; transform: var(--transform-2);
     font-family: var(--font-display); font-weight: 800;
     font-size: var(--typescale-30); color: var(--bg);
   }

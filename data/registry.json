@@ -44,74 +44,6 @@
     ]
   },
   {
-    "slug": "template-indigo",
-    "name": "归藏PPT · 靛蓝瓷",
-    "tagline": "电子杂志 靛蓝瓷配色 — 深靛蓝+瓷白，冷静理性，学术期刊质感",
-    "template_path": "templates/template-indigo/template.html",
-    "aspect_ratio": "16:9",
-    "formality": "medium",
-    "scheme": "mixed",
-    "best_for": "AI/技术/产品发布、工程师文化、深度内容",
-    "slide_count": 10,
-    "visibility": "public",
-    "visual_family": "editorial",
-    "content_type": "blog",
-    "tone": [
-      "sober"
-    ]
-  },
-  {
-    "slug": "template-forest",
-    "name": "归藏PPT · 森林墨",
-    "tagline": "电子杂志 森林墨配色 — 深森林绿+象牙，沉稳呼吸感，国家地理风",
-    "template_path": "templates/template-forest/template.html",
-    "aspect_ratio": "16:9",
-    "formality": "medium",
-    "scheme": "mixed",
-    "best_for": "自然/可持续/文化、非虚构内容、户外品牌",
-    "slide_count": 10,
-    "visibility": "public",
-    "visual_family": "editorial",
-    "content_type": "blog",
-    "tone": [
-      "sober"
-    ]
-  },
-  {
-    "slug": "template-kraft",
-    "name": "归藏PPT · 牛皮纸",
-    "tagline": "电子杂志 牛皮纸配色 — 深棕+暖米，牛皮信封质感，温暖年代感",
-    "template_path": "templates/template-kraft/template.html",
-    "aspect_ratio": "16:9",
-    "formality": "medium",
-    "scheme": "mixed",
-    "best_for": "怀旧/人文/阅读、历史/文学分享、独立杂志",
-    "slide_count": 10,
-    "visibility": "public",
-    "visual_family": "editorial",
-    "content_type": "blog",
-    "tone": [
-      "sober"
-    ]
-  },
-  {
-    "slug": "template-dune",
-    "name": "归藏PPT · 沙丘",
-    "tagline": "电子杂志 沙丘配色 — 炭灰+沙色，高级克制，沙漠黄昏质感",
-    "template_path": "templates/template-dune/template.html",
-    "aspect_ratio": "16:9",
-    "formality": "medium",
-    "scheme": "mixed",
-    "best_for": "艺术/设计/创意/时尚、画廊手册、审美优先的私享会",
-    "slide_count": 10,
-    "visibility": "public",
-    "visual_family": "editorial",
-    "content_type": "blog",
-    "tone": [
-      "sober"
-    ]
-  },
-  {
     "slug": "template-swiss",
     "name": "归藏PPT · Style B 瑞士国际主义",
     "tagline": "瑞士国际主义 — 全屏滑动网页，Carbon网格系统，22+布局，Canvas背景，4色强调",
@@ -126,57 +58,6 @@
     "preview_type": "iframe",
     "template_path": "templates/template-swiss/template.html",
     "design_philosophy": "瑞士国际主义——克莱因蓝（#002FA7）在近白纸上，Inter/Helvetica 无衬线全家。网格非对称布局、模数化间距、等宽数据标签。干净、理性、严格系统化。包豪斯展览图录的美学。",
-    "visual_family": "swiss",
-    "content_type": "corporate",
-    "tone": [
-      "sober"
-    ]
-  },
-  {
-    "slug": "template-swiss-lemon",
-    "name": "归藏PPT · 柠檬黄",
-    "tagline": "瑞士国际主义 柠檬黄 — 鲜亮活力，IKEA式视觉语言，警示感强",
-    "template_path": "templates/template-swiss-lemon/template.html",
-    "aspect_ratio": "16:9",
-    "formality": "high",
-    "scheme": "light",
-    "best_for": "年轻/运动/零售、消费品、Y2K复古",
-    "slide_count": 22,
-    "visibility": "public",
-    "visual_family": "swiss",
-    "content_type": "corporate",
-    "tone": [
-      "sober"
-    ]
-  },
-  {
-    "slug": "template-swiss-neon",
-    "name": "归藏PPT · 柠檬绿",
-    "tagline": "瑞士国际主义 荧光柠檬绿 — 未来感，年轻当代，Acne Studios风",
-    "template_path": "templates/template-swiss-neon/template.html",
-    "aspect_ratio": "16:9",
-    "formality": "high",
-    "scheme": "light",
-    "best_for": "生态/可持续/健康、新兴科技、Z世代品牌",
-    "slide_count": 22,
-    "visibility": "public",
-    "visual_family": "swiss",
-    "content_type": "corporate",
-    "tone": [
-      "sober"
-    ]
-  },
-  {
-    "slug": "template-swiss-orange",
-    "name": "归藏PPT · 安全橙",
-    "tagline": "瑞士国际主义 安全橙 — 工业感，紧迫感，Saul Bass海报风",
-    "template_path": "templates/template-swiss-orange/template.html",
-    "aspect_ratio": "16:9",
-    "formality": "high",
-    "scheme": "light",
-    "best_for": "工业/警示/运动、技术发布会重点页",
-    "slide_count": 22,
-    "visibility": "public",
     "visual_family": "swiss",
     "content_type": "corporate",
     "tone": [

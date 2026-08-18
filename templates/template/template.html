@@ -22,6 +22,40 @@
   --color-outline: rgba(10,10,11,0.18);
   --bg-rgb: 241,239,234;
   --text-rgb: 10,10,11;
+  --color-extra-0: rgba(241,239,234,.78);
+  --color-extra-1: rgba(10,10,11,.78);
+  --color-extra-2: rgba(241,239,234,.16);
+  --color-extra-3: rgba(10,10,11,.12);
+  --color-extra-4: rgba(241,239,234,.28);
+  --color-extra-5: rgba(241,239,234,0);
+  --color-extra-6: rgba(241,239,234,0);
+  --color-extra-7: rgba(241,239,234,.28);
+  --color-extra-8: rgba(10,10,11,.32);
+  --color-extra-9: rgba(10,10,11,0);
+  --color-extra-10: rgba(10,10,11,0);
+  --color-extra-11: rgba(10,10,11,.32);
+  --color-extra-12: rgba(10,10,11,.05);
+  --color-extra-13: rgba(241,239,234,.06);
+  --color-extra-14: rgba(127,127,127,.35);
+  --color-extra-15: rgba(127,127,127,.25);
+  --color-extra-16: rgba(127,127,127,.25);
+  --color-extra-17: rgba(241,239,234,.15);
+  --color-extra-18: rgba(10,10,11,.08);
+  --color-extra-19: rgba(127,127,127,.4);
+  --color-extra-20: rgba(0,0,0,.04);
+  --color-extra-21: rgba(255,255,255,.04);
+  --color-extra-22: rgba(255,255,255,.12);
+  --color-extra-23: rgba(0,0,0,.18);
+  --color-extra-24: rgba(255,255,255,.3);
+  --color-extra-25: rgba(255,255,255,.5);
+  --color-extra-26: rgba(255,255,255,.95);
+  --color-extra-27: rgba(255,255,255,.25);
+  --color-extra-28: rgba(10,10,11,.25);
+  --color-extra-29: rgba(10,10,11,.9);
+  --color-extra-30: #aaa;
+  --color-extra-31: rgba(127,127,127,.3);
+  --color-extra-32: rgba(127,127,127,.32);
+  --color-extra-33: rgba(127,127,127,.35);
 
   /* ── Typography ── */
   --font-display: "Playfair Display","Source Serif 4",Georgia,serif;
@@ -32,6 +66,12 @@
   --typescale-body-large: clamp(18px, 2.5vw, 22px);
   --typescale-body-medium: 16px;
   --typescale-label-large: 13px;
+  --typescale-12: 12px;
+  --typescale-11: 11px;
+  --typescale-15: 15px;
+  --typescale-10: 10px;
+  --typescale-17: 17px;
+  --typescale-14: 14px;
 
   /* ── Shadow ── */
   --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
@@ -56,6 +96,31 @@
   --space-page-pad: 32px;
   --space-gap: 24px;
   --space-gutter: 24px;
+  --space-40: 40px;
+  --space-1: 1px;
+  --space-6: 6px;
+  --space-14: 14px;
+  --border-0: 3px;
+  --border-1: 1.5px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-22: 22px;
+  --border-2: 2px;
+  --space-180: 180px;
+  --space-100: 100px;
+
+  /* ── other ── */
+  --blur-0: blur(3px);
+  --blur-1: blur(3px);
+  --bg-0: linear-gradient(180deg,var(--color-extra-4) 0%,var(--color-extra-5) 14%,var(--color-extra-6) 86%,var(--color-extra-7) 100%);
+  --bg-1: linear-gradient(180deg,var(--color-extra-8) 0%,var(--color-extra-9) 14%,var(--color-extra-10) 86%,var(--color-extra-11) 100%);
+  --transform-0: translateX(-50%);
+  --blur-2: blur(10px);
+  --blur-3: blur(10px);
+  --transform-1: scale(1.15);
+  --transform-2: translateX(-24px);
+  --transform-3: translateX(24px);
+  --transform-4: translateY(10px);
 }
 
   
@@ -79,15 +144,15 @@
 
   /* 默认页：遮罩较厚，保证文字可读 */
   .slide::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;transition:background var(--dur-slow-2) var(--ease-standard)}
-  .slide.light::before{background:var(--color-extra-0)backdrop-filter:var(--blur-0)}
-  .slide.dark::before{background:var(--color-extra-1)backdrop-filter:var(--blur-1)}
+  .slide.light::before{background:var(--color-extra-0); backdrop-filter:var(--blur-0)}
+  .slide.dark::before{background:var(--color-extra-1); backdrop-filter:var(--blur-1)}
   /* Hero 页：遮罩大幅降低，让 WebGL 背景明显透出 */
   .slide.hero.light::before{background:var(--color-extra-2);backdrop-filter:none}
   .slide.hero.dark::before{background:var(--color-extra-3);backdrop-filter:none}
   /* Hero 页顶底微弱渐隐，保证 chrome/foot 区域可读 */
   .slide.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none}
-  .slide.hero.light::afterbackground:var(--bg-0)}
-  .slide.hero.dark::afterbackground:var(--bg-1)}
+  .slide.hero.light::after { background:var(--bg-0)}
+  .slide.hero.dark::after { background:var(--bg-1)}
 
   /* ============ Magazine chrome：顶部 meta + 底部 foot ============ */
   .chrome{display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--font-mono);font-size:var(--typescale-12);letter-spacing:.18em;text-transform:uppercase;opacity:.7}
@@ -219,9 +284,9 @@
   figure.tile > .frame-img{flex:0 0 auto}
 
   /* ============ 导航 ============ */
-  #nav{position:fixed;left:50%;bottom:2.6vhtransform:var(--transform-0);z-index:30;display:flex;gap:var(--space-10);padding:var(--space-8) var(--space-14);border-radius:var(--radius-pill);background:var(--color-extra-23)backdrop-filter:var(--blur-2)-webkit-backdrop-filter:var(--blur-3)}
+  #nav{position:fixed;left:50%;bottom:2.6vh; transform:var(--transform-0);z-index:30;display:flex;gap:var(--space-10);padding:var(--space-8) var(--space-14);border-radius:var(--radius-pill);background:var(--color-extra-23); backdrop-filter:var(--blur-2)-webkit-backdrop-filter:var(--blur-3)}
   #nav .dot{width:var(--space-8);height:var(--space-8);border-radius:50%;background:var(--color-extra-24);cursor:pointer;transition:all var(--dur-mod-2) var(--ease-standard);border:0;padding:0}
-  #nav .dot:hover{background:var(--color-extra-25)transform:var(--transform-1)}
+  #nav .dot:hover{background:var(--color-extra-25); transform:var(--transform-1)}
   #nav .dot.active{background:var(--color-extra-26);width:var(--space-22);border-radius:var(--radius-pill)}
   body.light-bg #nav{background:var(--color-extra-27)}
   body.light-bg #nav .dot{background:var(--color-extra-28)}
@@ -454,9 +519,9 @@
   */
   [data-anim]{opacity:1}
   body.motion-ready [data-anim]{opacity:0}
-  body.motion-ready [data-anim="left"]transform:var(--transform-2)}
-  body.motion-ready [data-anim="right"]transform:var(--transform-3)}
-  body.motion-ready [data-anim="line"]{opacity:0transform:var(--transform-4)}
+  body.motion-ready [data-anim="left"] { transform:var(--transform-2)}
+  body.motion-ready [data-anim="right"] { transform:var(--transform-3)}
+  body.motion-ready [data-anim="line"]{opacity:0; transform:var(--transform-4)}
   body.motion-ready [data-animate="pipeline"] [data-anim]{opacity:.15}
   body.low-power #deck{transition:none!important}
   body.low-power *,

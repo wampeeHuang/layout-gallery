@@ -19,16 +19,52 @@
   --color-outline: rgba(10,10,10,0.15);
   --color-surface-container-low: #FFFFFF;
   --red: #D8000F;
+  --color-extra-0: rgba(28,20,16,0.25);
+  --color-extra-1: rgba(255,255,255,0.85);
+  --color-extra-2: rgba(255,255,255,0.7);
+  --color-extra-3: rgba(255,255,255,0.55);
 
   /* ── Typography ── */
   --font-display: 'Shrikhand', cursive;
   --font-body: 'Libre Baskerville', serif;
   --font-mono: 'Space Grotesk', sans-serif;
   --typescale-body-large: 16px;
+  --typescale-11: 11px;
+  --typescale-1-5: 1.5px;
+  --typescale-10: 10px;
+  --typescale-12: 12px;
+  --typescale-14: 14px;
+  --typescale-15: 15px;
+  --typescale-0-5: 0.5px;
+  --typescale-72: 72px;
+  --typescale-220: 220px;
+  --typescale-1: 1px;
+  --typescale-84: 84px;
+  --typescale-260: 260px;
+  --typescale-64: 64px;
+  --typescale-200: 200px;
+  --typescale-3: 3px;
+  --typescale-13: 13px;
+  --typescale-32: 32px;
+  --typescale-90: 90px;
+  --typescale-18: 18px;
+  --typescale-0-3: 0.3px;
+  --typescale-28: 28px;
+  --typescale-48: 48px;
+  --typescale-36: 36px;
+  --typescale-52: 52px;
+  --typescale-120: 120px;
+  --typescale-320: 320px;
+  --typescale-56: 56px;
+  --typescale-22: 22px;
+  --typescale-20: 20px;
+  --typescale-80: 80px;
+  --typescale-2: 2px;
 
   /* ── Shadow ── */
   --elevation-sm: 0 1px 3px rgba(0,0,0,0.06);
   --elevation-md: 0 8px 30px rgba(0,0,0,0.1);
+  --elevation-0: 3px 3px 0 var(--color-extra-0);
 
   /* ── radius ── */
   --radius-xs: 4px;
@@ -43,6 +79,49 @@
   --space-page-pad: 32px;
   --space-gap: 24px;
   --space-gutter: 24px;
+  --space-5: 5px;
+  --space-18: 18px;
+  --space-6: 6px;
+  --space-14: 14px;
+  --space-48: 48px;
+  --space-56: 56px;
+  --space-300: 300px;
+  --space-8: 8px;
+  --space-900: 900px;
+  --space-1100: 1100px;
+  --border-0: 2px;
+  --space-20: 20px;
+  --border-1: 1px;
+  --space-4: 4px;
+  --border-2: 3px;
+  --space-22: 22px;
+  --border-3: 1.5px;
+  --space-10: 10px;
+  --space-520: 520px;
+  --space-1000: 1000px;
+  --border-4: 4px;
+  --space-12: 12px;
+  --space-3: 3px;
+  --space-40: 40px;
+  --space-28: 28px;
+  --space-36: 36px;
+  --border-5: 3px;
+  --space-16: 16px;
+  --border-6: 3px;
+  --border-7: 1px;
+  --border-8: 2px;
+  --space-2: 2px;
+  --border-9: 2px;
+  --border-10: 3px;
+
+  /* ── other ── */
+  --transform-0: translateX(-50%);
+  --transform-1: translateY(30px) scale(0.98);
+  --transform-2: translateY(0) scale(1);
+  --transform-3: rotate(-4deg);
+  --transform-4: rotate(2deg);
+  --transform-5: rotate(-6deg);
+  --transform-6: rotate(-5deg);
 }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -68,7 +147,7 @@
       font-weight: 600; color: var(--color-on-surface-variant);
     }
     .hint {
-      position: fixed; bottom: var(--space-18); left: 50%transform: var(--transform-0);
+      position: fixed; bottom: var(--space-18); left: 50%; transform: var(--transform-0);
       z-index: 100; font-family: var(--font-mono);
       font-size: var(--typescale-10); letter-spacing: var(--typescale-1-5); text-transform: uppercase;
       color: var(--dark); opacity: 0; transition: opacity 0.4s ease;
@@ -82,12 +161,12 @@
       position: absolute; inset: 0;
       display: flex; flex-direction: column;
       justify-content: center; align-items: center;
-      opacity: 0; pointer-events: nonetransform: var(--transform-1);
+      opacity: 0; pointer-events: none; transform: var(--transform-1);
       transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22,1,0.36,1);
       overflow: hidden; padding: var(--space-48) var(--space-56);
     }
     .slide.active {
-      opacity: 1; pointer-events: alltransform: var(--transform-2);
+      opacity: 1; pointer-events: all; transform: var(--transform-2);
     }
 
     /* ---------- UTILITIES ---------- */
@@ -132,12 +211,12 @@
     .hero-title.red {
       color: var(--red);
       font-size: clamp(var(--typescale-84), 18vw, var(--typescale-260));
-      line-height: 0.85transform: var(--transform-3);
+      line-height: 0.85; transform: var(--transform-3);
       display: inline-block; margin-left: -0.5vw; margin-top: -2vh;
     }
     .hero-title.bottom {
       font-size: clamp(var(--typescale-64), 14vw, var(--typescale-200));
-      line-height: 0.9transform: var(--transform-4);
+      line-height: 0.9; transform: var(--transform-4);
       display: inline-block; margin-top: -1vh;
     }
     .hero-tagline {
@@ -164,7 +243,7 @@
     .red-quote {
       font-family: var(--font-display);
       font-size: clamp(var(--typescale-32), 7vw, var(--typescale-90));
-      line-height: 1.15text-shadow: var(--elevation-0);
+      line-height: 1.15; text-shadow: var(--elevation-0);
       max-width: var(--space-900);
     }
     .red-cite {
@@ -275,7 +354,7 @@
     .stat-big {
       font-family: var(--font-display);
       font-size: clamp(var(--typescale-120), 26vw, var(--typescale-320));
-      line-height: 0.82; color: var(--red)transform: var(--transform-5); display: inline-block;
+      line-height: 0.82; color: var(--red); transform: var(--transform-5); display: inline-block;
     }
     .stat-row {
       display: flex; gap: var(--space-48); justify-content: center;
@@ -490,7 +569,7 @@
     .close-big {
       font-family: var(--font-display);
       font-size: clamp(var(--typescale-80), 18vw, var(--typescale-260));
-      line-height: 0.88; color: var(--red)transform: var(--transform-6); display: inline-block;
+      line-height: 0.88; color: var(--red); transform: var(--transform-6); display: inline-block;
     }
     .close-sub {
       font-family: var(--font-body);

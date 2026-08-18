@@ -63,7 +63,8 @@ a { color: inherit; text-decoration: none; }
 
 .filter-chip {
   padding: 6px var(--space-16);
-  border-radius: var(--radius-none);
+  min-width: 88px; text-align: center;
+  border-radius: var(--radius-xs);
   border: var(--hairline) solid var(--color-outline);
   background: transparent;
   font-size: var(--typescale-label-large); cursor: pointer; white-space: nowrap;
@@ -75,12 +76,6 @@ a { color: inherit; text-decoration: none; }
   background: var(--color-primary); color: #fff; border-color: var(--color-primary);
   font-weight: 600;
 }
-
-.filter-chip .count {
-  opacity: 0.5; margin-left: 2px; font-size: var(--typescale-label-medium);
-  font-weight: 400;
-}
-.filter-chip.active .count { opacity: 0.85; }
 
 .filter-chip svg { display: inline-block; vertical-align: -2px; margin-right: 2px; }
 
@@ -102,7 +97,7 @@ a { color: inherit; text-decoration: none; }
 .card {
   background: var(--color-surface-container-low);
   border: var(--hairline) solid var(--color-outline);
-  border-radius: var(--radius-none);
+  border-radius: var(--radius-xs);
   cursor: pointer;
   transition: box-shadow var(--duration-slow), transform var(--duration-slow);
   overflow: hidden;
@@ -135,7 +130,7 @@ a { color: inherit; text-decoration: none; }
 
 .card-preview-open {
   padding: 8px var(--space-24);
-  border-radius: var(--radius-none);
+  border-radius: var(--radius-xs);
   background: var(--color-primary);
   border: none;
   font-size: var(--typescale-label-large); font-weight: 600; cursor: pointer;
@@ -181,7 +176,7 @@ a { color: inherit; text-decoration: none; }
   padding-top: var(--space-12); cursor: pointer;
   font-family: var(--font-body);
 }
-.card:hover .card-detail-hint { color: var(--color-on-surface-variant); }
+.card:hover .card-detail-hint { color: var(--color-primary); text-decoration: underline; text-underline-offset: 3px; }
 
 .card-footer {
   display: flex; align-items: center; justify-content: center;
@@ -205,10 +200,11 @@ a { color: inherit; text-decoration: none; }
    ═══════════════════════════════════════════════════════════════ */
 .back-to-top {
   position: fixed; bottom: 32px; right: 32px; z-index: 150;
-  width: 40px; height: 40px;
-  border-radius: var(--radius-none);
+  width: 44px; height: 44px;
+  border-radius: 999px;
   border: none;
   background: var(--color-primary);
+  color: #fff;
   box-shadow: var(--elevation-md);
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
@@ -220,8 +216,7 @@ a { color: inherit; text-decoration: none; }
   opacity: 1; pointer-events: auto;
   transform: translateY(0);
 }
-.back-to-top:hover { background: var(--color-primary); }
-.back-to-top svg { stroke: #fff; }
+.back-to-top:hover { background: var(--color-primary); transform: translateY(-2px); }
 
 /* ═══════════════════════════════════════════════════════════════
    EMPTY STATE
@@ -249,7 +244,7 @@ a { color: inherit; text-decoration: none; }
 
 .modal-box {
   background: var(--color-surface);
-  border-radius: var(--radius-none);
+  border-radius: var(--radius-xs);
   max-width: 560px; width: 100%;
   box-shadow: var(--elevation-md);
   border: var(--hairline) solid var(--color-outline);
@@ -301,7 +296,7 @@ a { color: inherit; text-decoration: none; }
   padding: var(--space-12) var(--space-24);
   background: var(--color-surface); color: var(--color-primary);
   border: var(--hairline) solid var(--color-primary);
-  border-radius: var(--radius-none);
+  border-radius: var(--radius-xs);
   text-decoration: none; font-weight: 600;
   font-size: var(--typescale-label-large); font-family: var(--font-body);
   transition: all var(--duration-fast);
@@ -345,6 +340,10 @@ a { color: inherit; text-decoration: none; }
       <span class="filter-label">版面气质</span>
       <div class="filter-chips" id="vfChips"></div>
     </div>
+    <div class="filter-row">
+      <span class="filter-label">配色方案</span>
+      <div class="filter-chips" id="schemeChips"></div>
+    </div>
   </div>
 </div>
 
@@ -356,8 +355,8 @@ a { color: inherit; text-decoration: none; }
   </div>
 </div>
 
-<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部" aria-label="回到顶部">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
@@ -374,7 +373,12 @@ var taxonomy = null;
    STATE
    ═══════════════════════════════════════════════════════════════ */
 var templates = [];
-var F = { vf: 'all' };
+var F = { vf: 'all', scheme: 'all' };
+
+var FILTER_DIMS = [
+  { key: 'vf', field: 'visual_family', container: 'vfChips' },
+  { key: 'scheme', field: 'scheme', container: 'schemeChips' }
+];
 
 /* ═══════════════════════════════════════════════════════════════
    INIT
@@ -396,7 +400,7 @@ async function init() {
     taxonomy = null;
   }
 
-  renderVFChips();
+  FILTER_DIMS.forEach(renderChips);
   renderGrid(applyFilters());
   bindEvents();
 }
@@ -409,46 +413,30 @@ init();
 function applyFilters() {
   return templates.filter(function(t) {
     if (F.vf !== 'all' && t.visual_family !== F.vf) return false;
+    if (F.scheme !== 'all' && t.scheme !== F.scheme) return false;
     return true;
   });
 }
 
-function vfOrder() {
-  if (taxonomy && taxonomy.visual_family) return Object.keys(taxonomy.visual_family.values);
-  return [];
-}
-
-function vfLabel(key) {
-  if (taxonomy && taxonomy.visual_family && taxonomy.visual_family.values[key]) return taxonomy.visual_family.values[key].label;
-  return key;
-}
-
-function renderVFChips() {
-  var keys = vfOrder();
+function renderChips(dim) {
+  var el = document.getElementById(dim.container);
+  if (!el) return;
+  var values = taxonomy && taxonomy[dim.field] ? taxonomy[dim.field].values : {};
+  var keys = Object.keys(values);
   if (!keys.length) return;
-  var counts = { all: 0 };
-  keys.forEach(function(k) { counts[k] = 0; });
 
-  templates.forEach(function(t) {
-    counts.all++;
-    var vf = t.visual_family;
-    if (vf && counts[vf] !== undefined) counts[vf]++;
-  });
-
-  var html = '<button class="filter-chip active" data-vf="all" onclick="selectVF(\'all\')">全部<span class="count">' + counts.all + '</span></button>';
+  var html = '<button class="filter-chip active" data-dim="' + dim.key + '" data-val="all" onclick="selectDim(\'' + dim.key + '\',\'all\')">全部</button>';
   keys.forEach(function(k) {
-    var c = counts[k] || 0;
-    if (c > 0) {
-      html += '<button class="filter-chip" data-vf="' + k + '" onclick="selectVF(\'' + k + '\')">' + vfLabel(k) + '<span class="count">' + c + '</span></button>';
-    }
+    var label = values[k] && values[k].label ? values[k].label : k;
+    html += '<button class="filter-chip" data-dim="' + dim.key + '" data-val="' + k + '" onclick="selectDim(\'' + dim.key + '\',\'' + k + '\')">' + label + '</button>';
   });
-  document.getElementById('vfChips').innerHTML = html;
+  el.innerHTML = html;
 }
 
-function selectVF(val) {
-  F.vf = val;
-  document.querySelectorAll('[data-vf]').forEach(function(el) {
-    el.classList.toggle('active', el.dataset.vf === val);
+function selectDim(dimKey, val) {
+  F[dimKey] = val;
+  document.querySelectorAll('[data-dim="' + dimKey + '"]').forEach(function(el) {
+    el.classList.toggle('active', el.dataset.val === val);
   });
   renderGrid(applyFilters());
 }
@@ -467,9 +455,8 @@ function renderGrid(items) {
   }
   empty.style.display = 'none';
 
-  var SCHEME_SHORT = { light: '亮', dark: '暗', mixed: '混' };
   var vfKV = taxonomy && taxonomy.visual_family ? taxonomy.visual_family.values : {};
-  var ctKV = taxonomy && taxonomy.content_type ? taxonomy.content_type.values : {};
+  var schemeKV = taxonomy && taxonomy.scheme ? taxonomy.scheme.values : {};
 
   grid.innerHTML = items.map(function(t) {
     var previewPath = toRootPath(t.template_path);
@@ -477,14 +464,8 @@ function renderGrid(items) {
     if (t.visual_family && vfKV[t.visual_family]) {
       tags.push('<span class="tag mood">' + vfKV[t.visual_family].label + '</span>');
     }
-    if (t.content_type && ctKV[t.content_type]) {
-      tags.push('<span class="tag">' + ctKV[t.content_type].label + '</span>');
-    }
-    if (t.scheme) {
-      tags.push('<span class="tag">' + (SCHEME_SHORT[t.scheme] || t.scheme) + '</span>');
-    }
-    if (t.slide_count) {
-      tags.push('<span class="tag">' + t.slide_count + ' 页</span>');
+    if (t.scheme && schemeKV[t.scheme]) {
+      tags.push('<span class="tag">' + schemeKV[t.scheme].label + '</span>');
     }
 
     return '<div class="card">' +
@@ -586,16 +567,13 @@ function openModal(slug) {
   if (!t) return;
 
   var vfKV = taxonomy && taxonomy.visual_family ? taxonomy.visual_family.values : {};
-  var ctKV = taxonomy && taxonomy.content_type ? taxonomy.content_type.values : {};
   var schemeKV = taxonomy && taxonomy.scheme ? taxonomy.scheme.values : {};
 
   var vfLabel = t.visual_family && vfKV[t.visual_family] ? vfKV[t.visual_family].label : null;
-  var ctLabel = t.content_type && ctKV[t.content_type] ? ctKV[t.content_type].label : null;
   var schemeLabel = t.scheme && schemeKV[t.scheme] ? schemeKV[t.scheme].label : (t.scheme || '—');
   var isDark = t.scheme === 'dark';
 
-  var tagLine = [vfLabel, ctLabel].filter(Boolean).join(' · ');
-  if (!tagLine) tagLine = schemeLabel;
+  var tagLine = [vfLabel, schemeLabel].filter(Boolean).join(' · ');
 
   document.getElementById('modalBox').className = 'modal-box' + (isDark ? ' modal-dark' : '');
   document.getElementById('modalBox').removeAttribute('style');
