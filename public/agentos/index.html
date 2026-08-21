@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AgentOS · Vivi Huang 的个人 Agent 基础设施：调度、守护、巡检、知识沉淀与工具编排。">
+  <meta property="og:title" content="AgentOS · 让 Agent 自己工作">
+  <meta property="og:description" content="一个面向 AI Agent 的个人工作系统：文件是真相，系统自调度，异常自巡检。">
+  <meta property="og:image" content="https://vivihuang.evopearl.com/assets/images/photo.webp">
+  <title>AgentOS · 让 Agent 自己工作</title>
+  <style>
+    :root {
+      --paper: #fbfcf9;
+      --paper-deep: #f1f6f1;
+      --surface: #ffffff;
+      --ink: #17221a;
+      --ink-soft: #617067;
+      --sage: #3d6b4a;
+      --sage-strong: #23422d;
+      --sage-soft: #e7f0e8;
+      --sage-pale: #f1f7f2;
+      --line: #d9e4da;
+      --line-strong: #bfd1c2;
+      --warm: #b77828;
+      --warm-soft: #fbf0de;
+      --shadow-soft: 0 1px 2px rgb(23 34 26 / 4%), 0 12px 32px rgb(23 34 26 / 6%);
+      --shadow-window: 0 24px 80px rgb(23 34 26 / 13%), 0 2px 6px rgb(23 34 26 / 8%);
+      --display: "Noto Serif SC", "Songti SC", serif;
+      --body: "DM Sans", "Noto Sans SC", system-ui, sans-serif;
+      --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+      --max: 1240px;
+      --nav-height: 72px;
+      --radius-sm: 10px;
+      --radius-md: 18px;
+      --radius-lg: 28px;
+      --ease: cubic-bezier(.2,.8,.2,1);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--paper); }
+    body {
+      margin: 0;
+      overflow-x: clip;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 1rem;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; }
+    img { max-width: 100%; }
+    h1, h2, h3, h4, p { margin: 0; }
+    h1, h2, h3, h4 { text-wrap: balance; }
+    p { text-wrap: pretty; }
+    :focus-visible { outline: 3px solid var(--sage); outline-offset: 4px; }
+    [hidden] { display: none !important; }
+
+    .skip-link {
+      position: fixed;
+      inset-block-start: 1rem;
+      inset-inline-start: 1rem;
+      z-index: 50;
+      transform: translateY(-180%);
+      padding: .55rem .85rem;
+      border-radius: .5rem;
+      background: var(--ink);
+      color: var(--surface);
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .site-header {
+      position: sticky;
+      inset-block-start: 0;
+      z-index: 30;
+      border-block-end: 1px solid rgb(217 228 218 / 82%);
+      background: rgb(251 252 249 / 84%);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .nav-inner, .wrap {
+      width: min(calc(100% - 3rem), var(--max));
+      margin-inline: auto;
+    }
+    .nav-inner {
+      display: flex;
+      min-height: var(--nav-height);
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: .7rem;
+      color: var(--ink);
+      font-size: .95rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .brand-mark {
+      display: grid;
+      width: 2rem;
+      height: 2rem;
+      place-items: center;
+      border-radius: .7rem;
+      background: var(--sage);
+      color: var(--surface);
+      font-family: var(--display);
+      font-size: 1.1rem;
+      box-shadow: inset 0 0 0 1px rgb(255 255 255 / 22%);
+    }
+    .nav-links { display: flex; align-items: center; gap: .25rem; }
+    .nav-links a {
+      min-height: 2.75rem;
+      display: inline-flex;
+      align-items: center;
+      padding-inline: .85rem;
+      border-radius: 999px;
+      color: var(--ink-soft);
+      font-size: .86rem;
+      text-decoration: none;
+      transition: color .2s var(--ease), background-color .2s var(--ease), transform .2s var(--ease);
+    }
+    .nav-links a:hover { color: var(--sage-strong); background: var(--sage-soft); transform: translateY(-1px); }
+    .nav-cta {
+      display: inline-flex;
+      min-height: 2.75rem;
+      align-items: center;
+      padding-inline: 1rem;
+      border: 1px solid var(--sage);
+      border-radius: 999px;
+      background: var(--sage);
+      color: var(--surface) !important;
+      font-weight: 600;
+    }
+
+    .hero {
+      position: relative;
+      padding-block: clamp(5rem, 10vw, 9rem) clamp(5rem, 9vw, 8rem);
+      isolation: isolate;
+    }
+    .hero::before {
+      position: absolute;
+      z-index: -1;
+      inset: 0 0 auto;
+      height: 78%;
+      background: radial-gradient(circle at 84% 22%, rgb(207 231 212 / 58%), transparent 28rem), linear-gradient(180deg, var(--sage-pale), transparent);
+      content: "";
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .94fr) minmax(25rem, 1.06fr);
+      align-items: center;
+      gap: clamp(3rem, 8vw, 8rem);
+    }
+    .eyebrow, .section-kicker, .window-label, .metric-label, .module-index, .card-kicker {
+      color: var(--sage);
+      font-family: var(--mono);
+      font-size: .7rem;
+      letter-spacing: .1em;
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      max-width: 10ch;
+      margin-block: 1.35rem 1.5rem;
+      font-family: var(--display);
+      font-size: clamp(3.6rem, 7vw, 7rem);
+      font-weight: 400;
+      letter-spacing: -.065em;
+      line-height: 1.05;
+    }
+    .hero h1 em { color: var(--sage); font-style: normal; }
+    .hero-lede {
+      max-width: 33rem;
+      color: var(--ink-soft);
+      font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+      line-height: 1.85;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
+    .button {
+      display: inline-flex;
+      min-height: 3rem;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+      padding-inline: 1.2rem;
+      border: 1px solid var(--sage);
+      border-radius: 999px;
+      background: var(--sage);
+      color: var(--surface);
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform .2s var(--ease), box-shadow .2s var(--ease), background-color .2s var(--ease);
+    }
+    .button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgb(61 107 74 / 20%); }
+    .button.ghost { background: transparent; color: var(--sage-strong); }
+    .button.ghost:hover { background: var(--sage-soft); box-shadow: none; }
+    .hero-note { margin-top: 1.4rem; color: var(--ink-soft); font-size: .84rem; }
+    .hero-note a { color: var(--sage); text-underline-offset: .2em; }
+
+    .window {
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-lg);
+      background: rgb(255 255 255 / 92%);
+      box-shadow: var(--shadow-window);
+      transform: rotate(1.2deg);
+    }
+    .window-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: .9rem 1.1rem;
+      border-block-end: 1px solid var(--line);
+      background: var(--paper-deep);
+    }
+    .window-dots { display: flex; gap: .35rem; }
+    .window-dots i { width: .5rem; height: .5rem; border-radius: 50%; background: var(--line-strong); }
+    .window-dots i:first-child { background: var(--sage); }
+    .window-status { display: flex; align-items: center; gap: .45rem; color: var(--sage); font-size: .72rem; font-weight: 700; }
+    .status-dot { width: .45rem; height: .45rem; border-radius: 50%; background: #64a978; box-shadow: 0 0 0 .2rem rgb(100 169 120 / 15%); }
+    .window-body { display: grid; grid-template-columns: 9rem minmax(0, 1fr); min-height: 24rem; }
+    .window-sidebar { padding: 1.2rem .8rem; border-inline-end: 1px solid var(--line); background: var(--sage-pale); }
+    .window-sidebar strong { display: block; margin-bottom: 1.2rem; font-size: .85rem; }
+    .side-item { display: flex; align-items: center; gap: .5rem; padding: .55rem .5rem; border-radius: .55rem; color: var(--ink-soft); font-size: .73rem; }
+    .side-item.active { background: var(--surface); color: var(--sage-strong); font-weight: 700; box-shadow: 0 1px 3px rgb(23 34 26 / 5%); }
+    .side-item b { width: .45rem; height: .45rem; border-radius: 50%; background: var(--line-strong); }
+    .side-item.active b { background: var(--sage); }
+    .window-main { padding: 1.35rem; }
+    .window-main h2 { font-family: var(--display); font-size: 1.7rem; font-weight: 500; letter-spacing: -.04em; }
+    .window-sub { margin-top: .25rem; color: var(--ink-soft); font-size: .75rem; }
+    .window-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: .65rem; margin-top: 1.35rem; }
+    .window-metric { padding: .75rem; border: 1px solid var(--line); border-radius: .7rem; background: var(--surface); }
+    .metric-value { display: block; margin-top: .25rem; color: var(--sage-strong); font-family: var(--display); font-size: 1.45rem; line-height: 1; }
+    .window-feed { display: grid; gap: .6rem; margin-top: 1.25rem; }
+    .feed-row { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) auto; align-items: center; gap: .6rem; padding-block: .7rem; border-block-end: 1px solid var(--line); font-size: .72rem; }
+    .feed-row:last-child { border-block-end: 0; }
+    .feed-time { color: var(--ink-soft); font-family: var(--mono); font-size: .65rem; }
+    .feed-row strong { font-size: .75rem; font-weight: 600; }
+    .feed-state { padding: .16rem .42rem; border-radius: 999px; background: var(--sage-soft); color: var(--sage); font-family: var(--mono); font-size: .62rem; }
+    .feed-state.warm { background: var(--warm-soft); color: var(--warm); }
+
+    .metrics {
+      border-block: 1px solid var(--line);
+      background: var(--surface);
+    }
+    .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .metric-block { padding: 1.4rem 1.5rem; border-inline-end: 1px solid var(--line); }
+    .metric-block:last-child { border-inline-end: 0; }
+    .metric-block strong { display: block; margin-top: .35rem; color: var(--sage-strong); font-family: var(--display); font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 500; line-height: 1.1; }
+    .metric-block p { margin-top: .25rem; color: var(--ink-soft); font-size: .82rem; }
+
+    .section { padding-block: clamp(5rem, 10vw, 9rem); }
+    .section-heading { display: grid; grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr); gap: 3rem; align-items: end; margin-bottom: 3.5rem; }
+    .section-heading h2 { margin-top: .9rem; font-family: var(--display); font-size: clamp(2.5rem, 5vw, 4.8rem); font-weight: 400; letter-spacing: -.06em; line-height: 1.08; }
+    .section-heading p { max-width: 35rem; color: var(--ink-soft); font-size: 1.08rem; line-height: 1.85; }
+    .section-heading.align-start { align-items: start; }
+
+    .principle-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-block-start: 1px solid var(--line); }
+    .principle { min-height: 16rem; padding: 1.6rem 1.5rem 2rem; border-inline-end: 1px solid var(--line); border-block-end: 1px solid var(--line); }
+    .principle:last-child { border-inline-end: 0; }
+    .principle-number { color: var(--sage); font-family: var(--mono); font-size: .72rem; }
+    .principle h3 { margin-top: 3.2rem; font-family: var(--display); font-size: 1.8rem; font-weight: 500; letter-spacing: -.04em; }
+    .principle p { margin-top: .65rem; color: var(--ink-soft); font-size: .92rem; line-height: 1.8; }
+
+    .module-shell { display: grid; grid-template-columns: 16rem minmax(0, 1fr); gap: 3rem; align-items: start; }
+    .module-nav { position: sticky; top: calc(var(--nav-height) + 1.5rem); display: grid; gap: .35rem; }
+    .module-tab { display: grid; grid-template-columns: 2rem 1fr; align-items: center; gap: .7rem; min-height: 3.7rem; padding: .6rem .75rem; border: 1px solid transparent; border-radius: .8rem; background: transparent; color: var(--ink-soft); text-align: start; cursor: pointer; transition: border-color .2s var(--ease), background-color .2s var(--ease), color .2s var(--ease), transform .2s var(--ease); }
+    .module-tab:hover { color: var(--sage-strong); background: var(--sage-pale); transform: translateX(2px); }
+    .module-tab[aria-selected="true"] { border-color: var(--line-strong); background: var(--surface); color: var(--sage-strong); box-shadow: var(--shadow-soft); }
+    .module-tab .tab-no { color: var(--sage); font-family: var(--mono); font-size: .67rem; }
+    .module-tab strong { font-size: .9rem; font-weight: 600; }
+    .module-tab small { display: block; margin-top: .1rem; color: var(--ink-soft); font-size: .7rem; }
+    .module-detail { min-width: 0; }
+    .module-copy { display: grid; grid-template-columns: minmax(0, 1fr) minmax(13rem, .55fr); gap: 2.5rem; align-items: end; }
+    .module-copy h3 { margin-top: .8rem; font-family: var(--display); font-size: clamp(2.3rem, 5vw, 4.4rem); font-weight: 400; letter-spacing: -.06em; line-height: 1.05; }
+    .module-copy p { max-width: 28rem; margin-top: 1rem; color: var(--ink-soft); font-size: 1rem; line-height: 1.85; }
+    .module-aside { padding-block: .7rem; border-block: 1px solid var(--line); color: var(--ink-soft); font-size: .78rem; }
+    .module-aside strong { display: block; margin-bottom: .15rem; color: var(--sage); font-family: var(--mono); font-size: .65rem; letter-spacing: .08em; text-transform: uppercase; }
+    .module-points { display: grid; grid-template-columns: repeat(2, 1fr); gap: .65rem 1.5rem; margin: 2rem 0; padding: 0; list-style: none; }
+    .module-points li { padding-top: .6rem; border-block-start: 1px solid var(--line); color: var(--ink-soft); font-size: .86rem; }
+    .module-points li::before { content: "↳"; display: inline-block; margin-right: .45rem; color: var(--sage); }
+    .module-points strong { color: var(--ink); font-weight: 600; }
+    .module-preview { overflow: hidden; border: 1px solid var(--line-strong); border-radius: var(--radius-md); background: var(--surface); box-shadow: var(--shadow-soft); }
+    .preview-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .85rem 1rem; border-block-end: 1px solid var(--line); background: var(--paper-deep); }
+    .preview-head strong { color: var(--sage-strong); font-size: .78rem; }
+    .preview-head span { color: var(--ink-soft); font-family: var(--mono); font-size: .65rem; }
+    .preview-frame { display: block; width: 100%; height: 32rem; border: 0; background: var(--paper); }
+    .preview-placeholder { min-height: 32rem; padding: 2rem; background: linear-gradient(135deg, var(--paper-deep), var(--surface)); }
+    .tip-stack { display: grid; gap: .7rem; max-width: 38rem; margin: 2rem auto; }
+    .tip-note { padding: 1rem 1.1rem; border: 1px solid var(--line); border-radius: .8rem; background: var(--surface); }
+    .tip-note strong { display: block; color: var(--sage-strong); font-size: .85rem; }
+    .tip-note span { display: block; margin-top: .25rem; color: var(--ink-soft); font-size: .78rem; line-height: 1.6; }
+
+    .loop-section { background: var(--sage-strong); color: var(--surface); }
+    .loop-section .section-kicker { color: #b7d9bd; }
+    .loop-section .section-heading p { color: #c2d7c6; }
+    .loop-section .section-heading h2 { color: var(--surface); }
+    .loop { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); border-block: 1px solid rgb(255 255 255 / 22%); }
+    .loop::before { position: absolute; inset: 50% 8% auto; height: 1px; background: rgb(255 255 255 / 26%); content: ""; }
+    .loop-step { position: relative; min-height: 13rem; padding: 1.5rem 1.1rem 1.3rem; border-inline-end: 1px solid rgb(255 255 255 / 18%); }
+    .loop-step:last-child { border-inline-end: 0; }
+    .loop-step .step-no { display: grid; width: 2.2rem; height: 2.2rem; place-items: center; border: 1px solid rgb(255 255 255 / 35%); border-radius: 50%; background: var(--sage-strong); color: #d8ecda; font-family: var(--mono); font-size: .7rem; }
+    .loop-step h3 { margin-top: 3.6rem; color: var(--surface); font-family: var(--display); font-size: 1.5rem; font-weight: 500; }
+    .loop-step p { margin-top: .35rem; color: #b6cdbb; font-size: .8rem; line-height: 1.7; }
+
+    .outputs { background: var(--paper-deep); }
+    .output-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-block-start: 1px solid var(--line); }
+    .output-card { min-height: 18rem; padding: 1.4rem 1.3rem 1.6rem; border-inline-end: 1px solid var(--line); border-block-end: 1px solid var(--line); background: transparent; transition: background-color .2s var(--ease), transform .2s var(--ease); }
+    .output-card:hover { background: var(--surface); transform: translateY(-3px); }
+    .output-card:last-child { border-inline-end: 0; }
+    .output-card h3 { margin-top: 3.2rem; font-family: var(--display); font-size: 1.5rem; font-weight: 500; letter-spacing: -.04em; }
+    .output-card p { margin-top: .6rem; color: var(--ink-soft); font-size: .83rem; line-height: 1.75; }
+    .output-link { display: inline-flex; margin-top: 1.2rem; color: var(--sage); font-family: var(--mono); font-size: .67rem; text-decoration: none; text-transform: uppercase; }
+    .output-link:hover { text-decoration: underline; text-underline-offset: .25em; }
+
+    .architecture-grid { display: grid; grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr); gap: clamp(2rem, 8vw, 7rem); align-items: center; }
+    .architecture-copy h2 { margin-top: .8rem; font-family: var(--display); font-size: clamp(2.6rem, 5vw, 4.8rem); font-weight: 400; letter-spacing: -.06em; line-height: 1.08; }
+    .architecture-copy p { max-width: 31rem; margin-top: 1.2rem; color: var(--ink-soft); line-height: 1.85; }
+    .architecture-list { display: grid; gap: 1rem; margin-top: 2rem; padding: 0; list-style: none; }
+    .architecture-list li { display: grid; grid-template-columns: 2rem 1fr; gap: .75rem; align-items: start; color: var(--ink-soft); font-size: .86rem; }
+    .architecture-list b { color: var(--sage); font-family: var(--mono); font-size: .7rem; }
+    .architecture-list strong { color: var(--ink); font-weight: 600; }
+    .file-diagram { padding: 1.5rem; border: 1px solid var(--line-strong); border-radius: var(--radius-md); background: var(--paper-deep); }
+    .file-layer { display: grid; grid-template-columns: 8rem 1fr; min-height: 5rem; border: 1px solid var(--line); background: var(--surface); }
+    .file-layer + .file-layer { border-top: 0; }
+    .file-layer-label { display: flex; align-items: center; padding: 1rem; border-inline-end: 1px solid var(--line); color: var(--sage); font-family: var(--mono); font-size: .67rem; }
+    .file-layer-copy { display: flex; align-items: center; padding: 1rem 1.1rem; color: var(--ink-soft); font-size: .8rem; }
+    .file-layer-copy strong { margin-right: .45rem; color: var(--ink); font-weight: 600; }
+    .file-arrow { display: grid; min-height: 2.3rem; place-items: center; color: var(--sage); font-family: var(--mono); font-size: .75rem; }
+
+    .profile-strip { display: grid; grid-template-columns: 8rem 1fr auto; gap: 1.5rem; align-items: center; padding-block: 1.2rem; border-block: 1px solid var(--line); }
+    .profile-strip img { width: 8rem; height: 8rem; border-radius: 1rem; border: 1px solid var(--line-strong); object-fit: cover; object-position: center; }
+    .profile-strip h2 { font-family: var(--display); font-size: 1.8rem; font-weight: 500; letter-spacing: -.04em; }
+    .profile-strip p { max-width: 38rem; margin-top: .4rem; color: var(--ink-soft); font-size: .86rem; }
+
+    .closing { padding-block: clamp(6rem, 13vw, 12rem); text-align: center; }
+    .closing h2 { max-width: 11ch; margin: .9rem auto 1.1rem; font-family: var(--display); font-size: clamp(3.2rem, 7vw, 6.5rem); font-weight: 400; letter-spacing: -.07em; line-height: 1.02; }
+    .closing p { max-width: 34rem; margin-inline: auto; color: var(--ink-soft); line-height: 1.85; }
+    .closing .hero-actions { justify-content: center; }
+    .site-footer { padding-block: 1.5rem; border-block-start: 1px solid var(--line); color: var(--ink-soft); font-size: .76rem; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .footer-inner a { color: var(--sage); text-underline-offset: .2em; }
+
+    .reveal { opacity: 0; transform: translateY(1.2rem); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+      .reveal { opacity: 1; transform: none; }
+      .window { transform: none; }
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --paper: #16221a; --paper-deep: #1d2b21; --surface: #1b291f; --ink: #edf5ed; --ink-soft: #afc2b1; --sage-soft: #294735; --sage-pale: #20382a; --line: #314b38; --line-strong: #496752; --sage: #9dcc9f; --sage-strong: #d5ebd5; --shadow-soft: 0 1px 2px rgb(0 0 0 / 18%), 0 12px 32px rgb(0 0 0 / 18%); }
+      .site-header { background: rgb(22 34 26 / 84%); border-color: rgb(73 103 82 / 70%); }
+      .hero::before { background: radial-gradient(circle at 84% 22%, rgb(72 112 78 / 36%), transparent 28rem), linear-gradient(180deg, var(--sage-pale), transparent); }
+      .window, .module-tab[aria-selected="true"], .output-card:hover { background: var(--surface); }
+      .button { color: var(--paper); background: var(--sage); border-color: var(--sage); }
+      .button.ghost { color: var(--sage-strong); }
+      .preview-frame { background: var(--paper); }
+    }
+    @media (max-width: 58rem) {
+      .hero-grid, .architecture-grid { grid-template-columns: 1fr; }
+      .hero-grid { gap: 4rem; }
+      .hero h1 { max-width: 12ch; }
+      .window { max-width: 48rem; margin-inline: auto; }
+      .module-shell { grid-template-columns: 1fr; gap: 2rem; }
+      .module-nav { position: static; display: flex; overflow-x: auto; padding-bottom: .35rem; scrollbar-width: thin; }
+      .module-tab { min-width: 10.5rem; }
+      .output-grid { grid-template-columns: repeat(2, 1fr); }
+      .output-card:nth-child(2) { border-inline-end: 0; }
+      .output-card:nth-child(-n + 2) { border-block-end: 1px solid var(--line); }
+      .loop { grid-template-columns: repeat(3, 1fr); }
+      .loop::before { display: none; }
+      .loop-step:nth-child(3) { border-inline-end: 0; }
+      .loop-step:nth-child(-n + 3) { border-block-end: 1px solid rgb(255 255 255 / 18%); }
+    }
+    @media (max-width: 42rem) {
+      .nav-inner, .wrap { width: min(calc(100% - 2rem), var(--max)); }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .nav-cta { padding-inline: .8rem; font-size: .8rem; }
+      .hero { padding-top: 4rem; }
+      .hero h1 { font-size: clamp(3.2rem, 16vw, 5.4rem); }
+      .window-body { grid-template-columns: 1fr; }
+      .window-sidebar { display: none; }
+      .window-main { padding: 1rem; }
+      .window-metrics { gap: .45rem; }
+      .window-metric { padding: .6rem; }
+      .metric-block { padding: 1rem .75rem; }
+      .metric-block strong { font-size: 1.5rem; }
+      .metric-block p { font-size: .68rem; }
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .metric-block:nth-child(2) { border-inline-end: 0; }
+      .metric-block:nth-child(-n + 2) { border-block-end: 1px solid var(--line); }
+      .section-heading, .module-copy { grid-template-columns: 1fr; gap: 1.5rem; }
+      .section-heading { margin-bottom: 2.5rem; }
+      .principle-grid, .output-grid { grid-template-columns: 1fr; }
+      .principle, .output-card { min-height: auto; border-inline-end: 0; }
+      .principle h3, .output-card h3 { margin-top: 2rem; }
+      .module-points { grid-template-columns: 1fr; }
+      .preview-frame, .preview-placeholder { height: 25rem; min-height: 25rem; }
+      .loop { grid-template-columns: 1fr; }
+      .loop-step, .loop-step:nth-child(3) { border-inline-end: 0; border-block-end: 1px solid rgb(255 255 255 / 18%); }
+      .loop-step:last-child { border-block-end: 0; }
+      .profile-strip { grid-template-columns: 4.5rem 1fr; }
+      .profile-strip img { width: 4.5rem; height: 4.5rem; }
+      .profile-strip .button { grid-column: 1 / -1; width: 100%; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="site-header">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="AgentOS 首页"><span class="brand-mark" aria-hidden="true">A</span><span>AgentOS</span></a>
+      <nav class="nav-links" aria-label="页面章节">
+        <a href="#system">系统</a>
+        <a href="#modules">底座</a>
+        <a href="#outputs">产出</a>
+        <a class="nav-cta" href="https://vivihuang.evopearl.com/" target="_blank" rel="noopener noreferrer">查看 Vivi</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div class="reveal">
+          <p class="eyebrow">VIVI HUANG / PERSONAL AGENT INFRASTRUCTURE</p>
+          <h1 id="hero-title">让 Agent <em>自己工作。</em></h1>
+          <p class="hero-lede">AgentOS 不是一堆工具的清单，而是一套让 AI Agent 能够被调度、被守护、被验证，也能持续沉淀经验的个人工作系统。</p>
+          <div class="hero-actions">
+            <a class="button" href="#modules">进入系统 <span aria-hidden="true">↘</span></a>
+            <a class="button ghost" href="https://vivihuang.evopearl.com/#agentos" target="_blank" rel="noopener noreferrer">查看原始发布页</a>
+          </div>
+          <p class="hero-note">面向网页访客与 HR 的公开架构说明 · <a href="#architecture">先看它如何保持可控</a></p>
+        </div>
+
+        <div class="window reveal" aria-label="AgentOS 控制台预览">
+          <div class="window-topbar">
+            <div class="window-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+            <span class="window-label">AGENTOS / CONTROL PLANE</span>
+            <span class="window-status"><i class="status-dot" aria-hidden="true"></i>系统可见</span>
+          </div>
+          <div class="window-body">
+            <aside class="window-sidebar" aria-label="控制台导航预览">
+              <strong>工作台</strong>
+              <div class="side-item active"><b></b>总览</div>
+              <div class="side-item"><b></b>工具架</div>
+              <div class="side-item"><b></b>调度</div>
+              <div class="side-item"><b></b>巡检</div>
+              <div class="side-item"><b></b>知识库</div>
+            </aside>
+            <div class="window-main">
+              <h2>今天，让系统自己推进。</h2>
+              <p class="window-sub">状态不是藏在日志里，而是打开页面就能看见。</p>
+              <div class="window-metrics">
+                <div class="window-metric"><span class="metric-label">tools</span><strong class="metric-value">60+</strong></div>
+                <div class="window-metric"><span class="metric-label">pipelines</span><strong class="metric-value">9</strong></div>
+                <div class="window-metric"><span class="metric-label">tips</span><strong class="metric-value">200+</strong></div>
+              </div>
+              <div class="window-feed" aria-label="工作流预览">
+                <div class="feed-row"><span class="feed-time">07:30 / cron</span><strong>每日 AI 信号流 · 采集</strong><span class="feed-state">运行中</span></div>
+                <div class="feed-row"><span class="feed-time">08:00 / check</span><strong>Inspector · 系统巡检</strong><span class="feed-state">通过</span></div>
+                <div class="feed-row"><span class="feed-time">after / hook</span><strong>Forma · 内容排版</strong><span class="feed-state warm">待触发</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="metrics" aria-label="AgentOS 已公开能力">
+      <div class="wrap metrics-grid">
+        <div class="metric-block"><span class="metric-label">registered tools</span><strong>60+</strong><p>工具注册在架</p></div>
+        <div class="metric-block"><span class="metric-label">scheduled jobs</span><strong>12+</strong><p>cron 链式调度</p></div>
+        <div class="metric-block"><span class="metric-label">inspection</span><strong>30s</strong><p>探活与异常自愈</p></div>
+        <div class="metric-block"><span class="metric-label">source of truth</span><strong>文件</strong><p>不复制，不漂移</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="system" aria-labelledby="system-title">
+      <div class="wrap">
+        <div class="section-heading reveal">
+          <div><p class="section-kicker">01 / SYSTEM LOGIC</p><h2 id="system-title">不是多一个工具，<br>是少一点盯着。</h2></div>
+          <p>AgentOS 的目标很克制：把“记得做、看着跑、出问题再修”这类人工注意力，改造成文件化、可调度、可验证的系统动作。人保留方向决策，Agent 接管重复执行。</p>
+        </div>
+        <div class="principle-grid">
+          <article class="principle reveal"><span class="principle-number">01 / DECOUPLED</span><h3>Agent 解耦</h3><p>调度不感知执行者。换模型、换 Agent、换管线，系统仍然按同一组约定继续工作。</p></article>
+          <article class="principle reveal"><span class="principle-number">02 / FILE-FIRST</span><h3>真相在文件</h3><p>工具、项目、知识都有明确的源文件。网页和面板是派生视图，不另建一份会漂移的数据库。</p></article>
+          <article class="principle reveal"><span class="principle-number">03 / HUMAN-GUIDED</span><h3>人是监理</h3><p>AI 是第一公民，人不再充当操作员。系统负责推进，人负责确认边界、判断方向与处理例外。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="modules" aria-labelledby="modules-title">
+      <div class="wrap">
+        <div class="section-heading reveal">
+          <div><p class="section-kicker">02 / CONTROL PLANE</p><h2 id="modules-title">五个模块，<br>各自负责一件事。</h2></div>
+          <p>从工具发现到异常沉淀，每个模块都拥有清晰边界。点击左侧模块，查看它的职责、关键判断和来自原始网站的真实界面预览。</p>
+        </div>
+        <div class="module-shell">
+          <nav class="module-nav" aria-label="AgentOS 模块" role="tablist">
+            <button class="module-tab" type="button" role="tab" data-module="agentboard" aria-selected="true"><span class="tab-no">01</span><span><strong>Agentboard</strong><small>工具架中枢</small></span></button>
+            <button class="module-tab" type="button" role="tab" data-module="supervisor" aria-selected="false"><span class="tab-no">02</span><span><strong>Supervisor</strong><small>监管者</small></span></button>
+            <button class="module-tab" type="button" role="tab" data-module="scheduler" aria-selected="false"><span class="tab-no">03</span><span><strong>Scheduler</strong><small>调度器</small></span></button>
+            <button class="module-tab" type="button" role="tab" data-module="inspector" aria-selected="false"><span class="tab-no">04</span><span><strong>Inspector</strong><small>巡检员</small></span></button>
+            <button class="module-tab" type="button" role="tab" data-module="knowledge" aria-selected="false"><span class="tab-no">05</span><span><strong>Tips</strong><small>知识库</small></span></button>
+          </nav>
+          <div class="module-detail" role="tabpanel" aria-live="polite">
+            <div class="module-copy reveal">
+              <div><p class="module-index" id="module-index">01 / AGENTBOARD</p><h3 id="module-title">文件即注册，状态即界面。</h3><p id="module-description">Agentboard 是全部工具的管理中枢：工具通过 manifest 自发现，人在面板里看状态，Agent 通过 API 直接调用。</p></div>
+              <div class="module-aside"><strong id="module-aside-label">WHY IT MATTERS</strong><span id="module-aside-text">不需要再维护第二套配置。</span></div>
+            </div>
+            <ul class="module-points" id="module-points">
+              <li><strong>自发现注册</strong> —— Agent 写 manifest，工具架自动发现</li>
+              <li><strong>双平面架构</strong> —— MCP 给 AI，REST 给人和系统</li>
+              <li><strong>状态可见</strong> —— 绿色在跑，灰色未启动，一眼即知</li>
+              <li><strong>零残留下架</strong> —— 删除项目文件夹即可退出系统</li>
+            </ul>
+            <div class="module-preview">
+              <div class="preview-head"><strong id="preview-title">真实界面预览 · Agentboard</strong><span id="preview-source">vivihuang.evopearl.com/assets/tool-previews</span></div>
+              <iframe class="preview-frame" id="module-preview-frame" loading="lazy" title="Agentboard 真实界面预览" src="https://vivihuang.evopearl.com/assets/tool-previews/agentboard.html"></iframe>
+              <div class="preview-placeholder" id="module-preview-placeholder" hidden><div class="tip-stack"><div class="tip-note"><strong>根因非直觉</strong><span>只有那些“看起来应该能跑、实际上总会踩坑”的问题，才进入知识库。</span></div><div class="tip-note"><strong>修复可复用</strong><span>每条记录带明确修复步骤，让 Agent 在下一次对话前先加载经验。</span></div><div class="tip-note"><strong>同类错误不再重复</strong><span>知识库不是收藏夹，而是系统的反复验证层。</span></div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section loop-section" aria-labelledby="loop-title">
+      <div class="wrap">
+        <div class="section-heading reveal">
+          <div><p class="section-kicker">03 / CLOSED LOOP</p><h2 id="loop-title">从触发到沉淀，<br>不靠人盯。</h2></div>
+          <p>一个稳定的 Agent 系统，不是让 Agent 永远“聪明”，而是让每一次执行都有入口、状态、门禁与结果。</p>
+        </div>
+        <div class="loop">
+          <article class="loop-step reveal"><span class="step-no">01</span><h3>发现</h3><p>文件和 manifest 让工具自己进入系统。</p></article>
+          <article class="loop-step reveal"><span class="step-no">02</span><h3>调度</h3><p>cron 与链式依赖让任务按条件推进。</p></article>
+          <article class="loop-step reveal"><span class="step-no">03</span><h3>执行</h3><p>Agent 通过 MCP / REST 调用具体工具。</p></article>
+          <article class="loop-step reveal"><span class="step-no">04</span><h3>巡检</h3><p>纯规则验证端口、文件、磁盘与状态。</p></article>
+          <article class="loop-step reveal"><span class="step-no">05</span><h3>沉淀</h3><p>异常写入 Tips，下一次先读经验再行动。</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section outputs" id="outputs" aria-labelledby="outputs-title">
+      <div class="wrap">
+        <div class="section-heading reveal">
+          <div><p class="section-kicker">04 / WHAT IT POWERS</p><h2 id="outputs-title">底座的价值，<br>在它持续产出。</h2></div>
+          <p>AgentOS 不是展示架。它支撑的是一组可以被访问、被使用、被继续迭代的公开工作成果。</p>
+        </div>
+        <div class="output-grid">
+          <article class="output-card reveal"><span class="card-kicker">CONTENT PIPELINE</span><h3>内容生产</h3><p>从研究、筛选到排版和发布，Forma 与每日 AI 信号流把内容管线拆成可调度步骤。</p><a class="output-link" href="https://forma.evopearl.com/" target="_blank" rel="noopener noreferrer">打开 Forma ↗</a></article>
+          <article class="output-card reveal"><span class="card-kicker">KNOWLEDGE SYSTEM</span><h3>知识与选型</h3><p>版式画廊、Source Rack 与人物思维顾问局，把“找到合适的东西”变成可查询、可复用的视图。</p><a class="output-link" href="https://gallery.evopearl.com/" target="_blank" rel="noopener noreferrer">打开版式画廊 ↗</a></article>
+          <article class="output-card reveal"><span class="card-kicker">DATA INTELLIGENCE</span><h3>信息情报</h3><p>自动采集候选，AI 负责筛选，JSON 日存档持续累积，让今天的信号成为明天的分析资产。</p><a class="output-link" href="https://data.evopearl.com/" target="_blank" rel="noopener noreferrer">打开每日 AI 信号流 ↗</a></article>
+          <article class="output-card reveal"><span class="card-kicker">PUBLIC PRODUCTS</span><h3>对外产品</h3><p>同一套 Agent 基础设施也用于建筑、制造、税务与工具型产品，把内部能力转成真实网页。</p><a class="output-link" href="https://vivihuang.evopearl.com/#apps" target="_blank" rel="noopener noreferrer">查看完整作品集 ↗</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="architecture" aria-labelledby="architecture-title">
+      <div class="wrap architecture-grid">
+        <div class="architecture-copy reveal">
+          <p class="section-kicker">05 / SOURCE OF TRUTH</p>
+          <h2 id="architecture-title">把复杂度放进约定，<br>不要放进人的记忆。</h2>
+          <p>AgentOS 的控制力来自边界：定义写进文件，视图由文件派生，运行时再接受巡检。这样换工具、换页面、换 Agent，都不会让系统失去方向。</p>
+          <ol class="architecture-list">
+            <li><b>01</b><span><strong>定义层</strong>：manifest、.project、Markdown 是源文件。</span></li>
+            <li><b>02</b><span><strong>控制层</strong>：Agentboard、Scheduler、Supervisor 协调运行。</span></li>
+            <li><b>03</b><span><strong>证据层</strong>：Inspector 与 Tips 让状态可验证、经验可回收。</span></li>
+          </ol>
+        </div>
+        <div class="file-diagram reveal" aria-label="AgentOS 文件真相架构图">
+          <div class="file-layer"><span class="file-layer-label">SOURCE</span><span class="file-layer-copy"><strong>manifest / .project / .md</strong> 定义工具、项目与知识</span></div>
+          <div class="file-arrow" aria-hidden="true">↓ 读取并聚合</div>
+          <div class="file-layer"><span class="file-layer-label">CONTROL</span><span class="file-layer-copy"><strong>Agentboard / Scheduler</strong> 发现、调度、执行与呈现</span></div>
+          <div class="file-arrow" aria-hidden="true">↓ 运行中验证</div>
+          <div class="file-layer"><span class="file-layer-label">GUARDRAIL</span><span class="file-layer-copy"><strong>Supervisor / Inspector / Tips</strong> 守护、巡检、沉淀与自愈</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="profile-title">
+      <div class="wrap">
+        <div class="profile-strip reveal">
+          <img src="https://vivihuang.evopearl.com/assets/images/photo.webp" width="128" height="128" loading="lazy" alt="Vivi Huang">
+          <div><h2 id="profile-title">一个建筑背景的人，正在把工作做成可被 Agent 接手的系统。</h2><p>从空间设计里的拆解、边界与协同，到 AI 基础设施里的调度、门禁与真相源，AgentOS 是这两种工作方法的交汇。</p></div>
+          <a class="button ghost" href="https://vivihuang.evopearl.com/" target="_blank" rel="noopener noreferrer">回到 Vivi Huang</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing" aria-labelledby="closing-title">
+      <div class="wrap reveal">
+        <p class="section-kicker">END / BUILD THE SYSTEM</p>
+        <h2 id="closing-title">让人做判断，让系统做推进。</h2>
+        <p>这是 AgentOS 目前的公开切面。监管者、调度器、巡检员与知识库会继续分别发布，最终回到同一套可验证的工作底座。</p>
+        <div class="hero-actions"><a class="button" href="https://vivihuang.evopearl.com/#agentos" target="_blank" rel="noopener noreferrer">查看原始 AgentOS ↗</a><a class="button ghost" href="https://vivihuang.evopearl.com/" target="_blank" rel="noopener noreferrer">进入完整主页</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner"><span>AgentOS · Vivi Huang</span><span><a href="https://vivihuang.evopearl.com/" target="_blank" rel="noopener noreferrer">evopearl.com</a> · 2026</span></div>
+  </footer>
+
+  <script>
+    const modules = {
+      agentboard: { index: '01 / AGENTBOARD', title: '文件即注册，状态即界面。', description: 'Agentboard 是全部工具的管理中枢：工具通过 manifest 自发现，人在面板里看状态，Agent 通过 API 直接调用。', aside: '不需要再维护第二套配置。', preview: 'https://vivihuang.evopearl.com/assets/tool-previews/agentboard.html', previewTitle: '真实界面预览 · Agentboard', points: ['自发现注册 —— Agent 写 manifest，工具架自动发现', '双平面架构 —— MCP 给 AI，REST 给人和系统', '状态可见 —— 绿色在跑，灰色未启动，一眼即知', '零残留下架 —— 删除项目文件夹即可退出系统'] },
+      supervisor: { index: '02 / SUPERVISOR', title: '不死比能跑更重要。', description: 'Supervisor 是进程守护层：watchdog + guard 双重保护，30 秒探活，端口、PID 与进程身份交叉确认。', aside: '守护者也必须被守护。', preview: 'https://vivihuang.evopearl.com/assets/tool-previews/supervisor.html', previewTitle: '真实界面预览 · Supervisor', points: ['三层守护链 —— 每层都能接管上一层', '30s 探活自愈 —— 异常自动重启，不靠人盯日志', 'PID 身份验证 —— 端口活跃不等于进程可信', '指数退避告警 —— 失败可见，不假装无限自愈'] },
+      scheduler: { index: '03 / SCHEDULER', title: '定时任务不该靠人记。', description: 'Scheduler 把分散的 cron 任务收进链式依赖：上游完成自动触发下游，超时熔断并通过飞书告警。', aside: '让时间成为系统条件。', preview: 'https://vivihuang.evopearl.com/assets/tool-previews/scheduler.html', previewTitle: '真实界面预览 · Scheduler', points: ['链式依赖 —— 上游完成自动触发下游', '超时熔断 —— 单任务异常不影响整体链路', '统一调度 —— 全部任务走统一 REST API', '飞书告警 —— 异常第一时间推送，不等人发现'] },
+      inspector: { index: '04 / INSPECTOR', title: '纯规则验证，不调 LLM。', description: 'Inspector 是每日自动巡检的质量门禁：端口、文件、磁盘、任务与配置一致性全部通过规则验证。', aside: '不花钱，也不产生幻觉。', preview: 'https://vivihuang.evopearl.com/assets/tool-previews/inspector.html', previewTitle: '真实界面预览 · Inspector', points: ['端口探活 —— 哪个服务挂了第一时间知道', '文件完整性 —— 配置漂移自动检测', '磁盘空间 —— 满之前就预警，不等到炸盘', '交叉验证 —— manifest、运行时与飞书多方对账'] },
+      knowledge: { index: '05 / TIPS', title: '同样的坑，不踩两次。', description: 'Tips 不是收藏夹，而是 Agent 的可加载经验层。只有根因非直觉、修复步骤明确且会再次出现的问题，才值得沉淀。', aside: '经验必须回到下一次行动。', preview: '', previewTitle: '知识库预览 · Tips', points: ['根因非直觉 —— 不记录显而易见的提醒', '修复可复用 —— 每条记录带明确行动步骤', '对话前加载 —— Agent 先读经验再开始工作', '文件即数据 —— 内容可追溯，视图不建新库'] }
+    };
+
+    const tabs = [...document.querySelectorAll('.module-tab')];
+    const frame = document.getElementById('module-preview-frame');
+    const placeholder = document.getElementById('module-preview-placeholder');
+    const points = document.getElementById('module-points');
+    const moduleEls = { index: document.getElementById('module-index'), title: document.getElementById('module-title'), description: document.getElementById('module-description'), aside: document.getElementById('module-aside-text'), previewTitle: document.getElementById('preview-title') };
+
+    function setModule(id, updateUrl = true) {
+      const item = modules[id] || modules.agentboard;
+      tabs.forEach(tab => tab.setAttribute('aria-selected', String(tab.dataset.module === id)));
+      moduleEls.index.textContent = item.index;
+      moduleEls.title.textContent = item.title;
+      moduleEls.description.textContent = item.description;
+      moduleEls.aside.textContent = item.aside;
+      moduleEls.previewTitle.textContent = item.previewTitle;
+      points.innerHTML = item.points.map(point => {
+        const parts = point.split(' —— ');
+        return '<li><strong>' + parts[0] + '</strong>' + (parts[1] ? ' —— ' + parts[1] : '') + '</li>';
+      }).join('');
+      const hasPreview = Boolean(item.preview);
+      frame.hidden = !hasPreview;
+      placeholder.hidden = hasPreview;
+      if (hasPreview && frame.src !== item.preview) {
+        frame.src = item.preview;
+        frame.title = item.previewTitle;
+      }
+      if (updateUrl) history.replaceState(null, '', '#module-' + id);
+    }
+
+    tabs.forEach(tab => tab.addEventListener('click', () => setModule(tab.dataset.module)));
+    const requestedModule = location.hash.startsWith('#module-') ? location.hash.replace('#module-', '') : 'agentboard';
+    setModule(requestedModule, false);
+
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); revealObserver.unobserve(entry.target); } });
+    }, { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>

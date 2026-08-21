@@ -19,6 +19,41 @@ html{overflow-y:scroll}
   .site-nav-brand span{display:none}
   .site-nav-links a{padding:6px 12px;font-size:13px}
 }
+/* 绿色品牌顶栏 (nav + header 连成一片压住顶部) — learn 与 home/library/grow 共用 */
+body.learn .site-nav,body.green .site-nav{background:var(--color-primary,#3D6B4A);border-bottom:none}
+body.learn .site-nav-brand,body.green .site-nav-brand{color:#fff}
+body.learn .site-nav-links a,body.green .site-nav-links a{color:rgba(255,255,255,0.82)}
+body.learn .site-nav-links a:hover,body.green .site-nav-links a:hover{color:#fff;background:rgba(255,255,255,0.14)}
+body.learn .site-nav-links a.active,body.green .site-nav-links a.active{background:#fff;color:var(--color-primary,#3D6B4A)}
+body.learn .site-nav-links a.active:hover,body.green .site-nav-links a.active:hover{color:var(--color-primary,#3D6B4A);background:#fff}
+body.learn .learn-header,body.green .learn-header{background:var(--color-primary,#3D6B4A);border-bottom:none}
+body.learn .learn-header h1,body.green .learn-header h1{color:#fff}
+body.learn .learn-header .lead,body.green .learn-header .lead{color:rgba(255,255,255,0.85)}
+/* 统一英雄区：四页标题字号/第一排位置/绿色高度一致 */
+body.green .hero,body.green .learn-header,body.learn .learn-header{min-height:clamp(360px,44vw,520px);padding-top:clamp(48px,7vw,96px);padding-bottom:clamp(48px,7vw,96px)}
+body.green .hero-tagline,body.green .learn-header h1,body.learn .learn-header h1{font-size:clamp(40px,7vw,72px);line-height:1.1;white-space:nowrap}
+body.green .hero-sub,body.green .learn-header .lead,body.learn .learn-header .lead{font-weight:300;text-wrap:pretty;line-break:strict}
+
+/* 英雄区背景图带（画廊/版式库/设计指南共用）：现有截图横排铺满，慢速平移，文字层叠其上 */
+.hero,.learn-header{position:relative;overflow:hidden}
+.hero-inner,.learn-header h1,.learn-header .lead{position:relative;z-index:2}
+.hero-strip{position:absolute;inset:0;overflow:hidden}
+.hero-strip-track{display:flex;height:100%;animation:strip-scroll 55s linear infinite;will-change:transform}
+.hero-strip-track img{height:100%;width:auto;flex-shrink:0;display:block;filter:brightness(.84) saturate(.92)}
+@keyframes strip-scroll{to{transform:translateX(-50%)}}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(18,34,24,.58),rgba(18,34,24,.75))}
+@media(prefers-reduced-motion:reduce){.hero-strip-track{animation:none}}
+.hero-track{position:relative;z-index:2;display:flex;transition:transform var(--duration-slow) var(--ease-standard)}
+.hero-slide{flex:0 0 100%;min-width:100%;padding:0 clamp(8px,2vw,24px)}
+.hero-slide h1{font-family:var(--font-display);font-size:clamp(40px,7vw,64px);font-weight:700;letter-spacing:-0.03em;line-height:1.1;color:#fff;margin-bottom:var(--space-16);text-shadow:0 2px 12px rgba(18,34,24,.35)}
+.hero-slide .lead{font-size:var(--typescale-body-large);color:rgba(255,255,255,0.92);max-width:560px;margin:0 auto;line-height:1.65;text-shadow:0 1px 8px rgba(18,34,24,.4)}
+.carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:10;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.14);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--duration-fast)}
+.carousel-arrow:hover{background:rgba(255,255,255,0.28)}
+.carousel-prev{left:var(--space-16)}
+.carousel-next{right:var(--space-16)}
+.carousel-dots{position:relative;z-index:2;display:flex;justify-content:center;gap:var(--space-8);margin-top:var(--space-32)}
+.carousel-dot{width:8px;height:8px;border-radius:50%;border:none;background:rgba(255,255,255,0.4);cursor:pointer;padding:0;transition:all var(--duration-fast)}
+.carousel-dot.active{background:#fff;width:24px;border-radius:var(--radius-pill)}
 </style>
 <div id="site-nav" class="site-nav" data-turbo-permanent>
   <div class="site-nav-inner">
@@ -29,13 +64,26 @@ html{overflow-y:scroll}
     <nav class="site-nav-links">
       <a href="/" data-nav="home">画廊</a>
       <a href="/library" data-nav="library">版式库</a>
-      <a href="/learn" data-nav="learn">知识库</a>
+      <a href="/learn" data-nav="learn">设计指南</a>
       <a href="/grow" data-nav="grow">AI 萃取</a>
     </nav>
   </div>
 </div>
 <script>
 (function(){
+  // 每次进入页面回到顶部，禁用浏览器滚动位置恢复（修复首页/版式库跳转后落在中部的 bug）
+  if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+  function resetScroll() {
+    if (window.location.hash) return;
+    var de = document.documentElement;
+    var prev = de.style.scrollBehavior;
+    de.style.scrollBehavior = 'auto';
+    window.scrollTo(0, 0);
+    de.style.scrollBehavior = prev;
+  }
+  resetScroll();
+  window.addEventListener('pageshow', resetScroll);
+
   var pathToNav = { '/': 'home', '/library': 'library', '/learn': 'learn', '/grow': 'grow' };
   window.updateSiteNavActive = function() {
     var active = pathToNav[window.location.pathname];

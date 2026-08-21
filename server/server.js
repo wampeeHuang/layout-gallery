@@ -340,14 +340,32 @@ app.get('/templates/:slug/', (req, res) => {
   servePage(res, path.join(PROJECT_DIR, 'public', 'template-detail.html'), galleryTokensDir, 'library', html);
 });
 
-// GET /learn — knowledge base
+// GET /learn — knowledge base hub
 app.get('/learn', (req, res) => {
   servePage(res, path.join(PROJECT_DIR, 'public', 'learn.html'), galleryTokensDir, 'learn');
+});
+
+// GET /learn/articles/:slug — 设计方法论文章（build-time 由 scripts/generate-articles.mjs 生成）
+const ARTICLE_SLUGS = new Set(['delivery-standard', 'visual-quality', 'design-token', 'anti-ai-slop']);
+app.get('/learn/articles/:slug', (req, res, next) => {
+  const { slug } = req.params;
+  if (!ARTICLE_SLUGS.has(slug)) return next(); // 非文章 slug（如 .svg 静态资源）放行给 express.static
+  const filePath = path.join(PROJECT_DIR, 'public', 'learn', 'articles', slug + '.html');
+  servePage(res, filePath, galleryTokensDir, 'learn');
 });
 
 // GET /grow — AI extraction
 app.get('/grow', (req, res) => {
   servePage(res, path.join(PROJECT_DIR, 'public', 'grow.html'), galleryTokensDir, 'grow');
+});
+
+// GET /agentos — public AgentOS case-study / product narrative
+app.get(['/agentos', '/agentos/'], (req, res) => {
+  const filePath = path.join(PROJECT_DIR, 'public', 'agentos', 'index.html');
+  if (!fs.existsSync(filePath)) return res.status(404).send('AgentOS page not found');
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.sendFile(filePath);
 });
 
 // POST /api/grow — SSE growth pipeline

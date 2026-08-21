@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumina 笔记</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#fbfaf6;--surface:#ffffff;--ink:#1a1a1a;--muted:#6b6b66;--line:#e6e3d8;
+    --primary:#3D6B4A;--primary-ink:#2c4f36;--radius-s:4px;--radius-m:8px;--radius-l:16px;
+    --sp1:4px;--sp2:8px;--sp3:12px;--sp4:16px;--sp6:24px;--sp8:32px;--sp12:48px;--sp16:64px;
+  }
+  body{background:var(--bg);color:var(--ink);font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',system-ui,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-bottom:1px solid var(--line)}
+  .nav .logo{font-weight:700;font-size:17px;letter-spacing:-.01em}
+  .nav .logo b{color:var(--primary)}
+  .nav-links{display:flex;gap:26px;font-size:14px;color:var(--muted)}
+  .nav .cta{padding:8px 16px;background:var(--primary);color:#fff;border-radius:var(--radius-m);font-size:14px}
+
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding:64px 0 72px}
+  .eyebrow{display:inline-block;font-size:12px;font-weight:600;color:var(--primary);letter-spacing:.14em;margin-bottom:14px}
+  h1{font-size:44px;line-height:1.15;font-weight:700;letter-spacing:-.02em;margin-bottom:16px}
+  .hero p.sub{color:var(--muted);font-size:17px;max-width:440px;margin-bottom:28px}
+  .btns{display:flex;align-items:center;gap:18px}
+  .btn{padding:12px 22px;border-radius:var(--radius-m);font-size:15px;font-weight:600}
+  .btn-primary{background:var(--primary);color:#fff;transition:background .18s}
+  .btn-primary:hover{background:var(--primary-ink)}
+  .btn-text{color:var(--primary);font-weight:600;font-size:15px}
+  .hero-note{font-size:12px;color:var(--muted);margin-top:16px}
+
+  /* 界面示意：真实截图占位，非代码画的假图 */
+  .window{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-l);box-shadow:0 10px 30px rgba(0,0,0,.08);overflow:hidden}
+  .window .bar{display:flex;align-items:center;gap:6px;padding:12px 16px;border-bottom:1px solid var(--line)}
+  .dot{width:10px;height:10px;border-radius:50%}
+  .d1{background:#f2b8b5}.d2{background:#f0d8a8}.d3{background:#a8d4b0}
+  .win-body{display:grid;grid-template-columns:150px 1fr;min-height:230px}
+  .win-side{border-right:1px solid var(--line);padding:12px}
+  .win-side div{font-size:12px;color:var(--muted);padding:7px 10px;border-radius:var(--radius-s)}
+  .win-side div.on{background:rgba(61,107,74,.1);color:var(--primary-ink);font-weight:600}
+  .win-main{padding:14px 18px}
+  .win-note h4{font-size:14px;font-weight:700;margin-bottom:6px}
+  .win-note p{font-size:12px;color:var(--muted);line-height:1.6}
+  .win-tag{display:inline-block;font-size:11px;background:rgba(61,107,74,.1);color:var(--primary-ink);padding:2px 8px;border-radius:999px;margin-top:8px}
+
+  .features{padding:56px 0 72px}
+  .features .h{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:32px}
+  .features h2{font-size:28px;letter-spacing:-.01em}
+  .features .h p{color:var(--muted);font-size:14px;max-width:300px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .fcard{background:var(--surface);border-radius:var(--radius-l);box-shadow:0 2px 10px rgba(0,0,0,.05);padding:24px 24px 26px}
+  .fcard .ico{width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:rgba(61,107,74,.1);border-radius:var(--radius-m);margin-bottom:16px}
+  .fcard h3{font-size:17px;margin-bottom:8px}
+  .fcard p{font-size:14px;color:var(--muted)}
+  .fcard.wide{grid-column:1/-1;display:grid;grid-template-columns:1.2fr .8fr;gap:26px;align-items:center}
+  .fcard.wide .stat-line{border-left:2px solid rgba(61,107,74,.4);padding-left:16px}
+  .stat-line b{display:block;font-size:22px;color:var(--primary-ink)}
+  .stat-line span{font-size:13px;color:var(--muted)}
+
+  .claim{padding:26px 28px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-l);font-size:14px;color:var(--muted);margin-bottom:80px}
+  .claim b{color:var(--ink)}
+  .claim .src{color:var(--primary);font-weight:600}
+
+  .cta{text-align:center;padding:64px 24px 80px;background:var(--surface);border-top:1px solid var(--line)}
+  .cta h2{font-size:30px;letter-spacing:-.01em;margin-bottom:12px}
+  .cta p{color:var(--muted);font-size:15px;margin-bottom:28px}
+  .cta .btn-primary{font-size:16px;padding:13px 26px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <div class="logo"><b>Lumina</b> 笔记</div>
+      <div class="nav-links"><span>功能</span><span>定价</span><span>博客</span></div>
+      <div class="cta">免费开始</div>
+    </nav>
+
+    <header class="hero">
+      <div>
+        <span class="eyebrow">LOCAL-FIRST 笔记工具</span>
+        <h1>笔记存在你电脑里，<br>AI 只是帮你整理</h1>
+        <p class="sub">Lumina 不做"云上第二大脑"的空话。它把笔记本地加密存放，AI 在需要时调用来梳理——隐私和数据价值，不必二选一。</p>
+        <div class="btns">
+          <a class="btn btn-primary" href="#">免费开始</a>
+          <a class="btn-text" href="#">看 3 分钟演示 →</a>
+        </div>
+        <p class="hero-note">无需注册，下载即用。macOS / Windows / Linux。</p>
+      </div>
+      <div class="window">
+        <div class="bar"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span></div>
+        <div class="win-body">
+          <div class="win-side">
+            <div>全部笔记</div><div class="on">工作</div><div>读书</div><div>灵感</div>
+          </div>
+          <div class="win-main">
+            <div class="win-note">
+              <h4>采访「转接器」——为什么 DTCG 值得一篇笔记</h4>
+              <p>三个问题的根因一样：每套工具各说各的语言，没有翻译层……</p>
+              <span class="win-tag">#设计方法论</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="features">
+      <div class="h">
+        <h2>只做三件事，每件做透</h2>
+        <p>不是 20 个功能的清单。是三个你每天都会用到的核心。</p>
+      </div>
+      <div class="grid">
+        <div class="fcard wide">
+          <div>
+            <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3D6B4A" stroke-width="2" stroke-linecap="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4"/><path d="M4 21h16"/></svg></div>
+            <h3>本地加密，AI 按需调用</h3>
+            <p>笔记默认不出你的设备。只有在你主动要求整理时，选中的内容才发给模型，用完即弃。数据不出门，是产品底线不是卖点。</p>
+          </div>
+          <div class="stat-line">
+            <b>3 家工作室</b>
+            <span>迁移过来后，笔记数据从未离开过本地设备（2026-06 验证）</span>
+          </div>
+        </div>
+        <div class="fcard">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3D6B4A" stroke-width="2" stroke-linecap="round"><path d="M8 6l6 6-6 6"/></svg></div>
+          <h3>纯文本起步</h3>
+          <p>Markdown 存储，随时可迁移。不用锁在某个格式里，十年后也能打开。</p>
+        </div>
+        <div class="fcard">
+          <div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3D6B4A" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/></svg></div>
+          <h3>双向链接</h3>
+          <p>笔记之间手动连线，关系由你定义，不是 AI 猜。</p>
+        </div>
+      </div>
+    </section>
+
+    <p class="claim">验证过的改动：一个设计团队把 4 万条笔记迁入后，检索时间从约 40 秒降到 3 秒——因为全文索引跑在本地。<span class="src">来源：2026-05 迁移日志</span></p>
+  </div>
+
+  <section class="cta">
+    <h2>先下载，再决定</h2>
+    <p>30 天免费试用，本地数据无需导出——不续费，你的笔记原封不动。</p>
+    <a class="btn btn-primary" href="#">下载 Lumina</a>
+  </section>
+</body>
+</html>

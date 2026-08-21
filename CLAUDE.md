@@ -12,7 +12,13 @@
 - `guides/color-systems.md` — 颜色体系说明
 - `guides/image-conventions.md` — 图片约定
 - `guides/workflows.md` — 工作流（做幻灯片 / 迁移 / 品牌套件）
+- `guides/research-curation-quality-system-20260809.md` — 调研/策展质量系统
+- `guides/methodology-articles.md` — 方法论文章体系机制（真相流 / 卡片数据源 / demo 双图 / 问号门禁 / 排版契约）
 - `D:\tools\guizang-ppt-skill-main\references\` — 归藏配方上游（themes / layouts / components / checklist）
+
+## 方法论文章（/learn）
+
+wiki 是唯一真相源，`npm run generate:articles` 复现产物。**页面层是呈现端，永远由生成器复现，不手工改 HTML**（含 learn.html 方法论卡片——`METHODOLOGY_CARDS` 双标记区内）。详见 `AGENTS.md` §方法论文章体系 + `guides/methodology-articles.md`。
 
 ## 文件纪律
 

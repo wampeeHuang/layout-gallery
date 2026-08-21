@@ -34,13 +34,20 @@ a { color: inherit; text-decoration: none; }
    HERO
    ═══════════════════════════════════════════════════════════════ */
 .hero {
+  background: var(--color-primary);
   padding: clamp(3rem, 7vw, 5rem) var(--space-32);
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: 1.35fr .65fr;
-  align-items: end;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-inner {
   max-width: var(--space-page-wmax);
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .hero-tagline {
@@ -48,12 +55,12 @@ a { color: inherit; text-decoration: none; }
   font-size: clamp(2.5rem, 5vw, 4.5rem);
   line-height: 1.1;
   letter-spacing: -0.04em;
-  max-width: 12ch;
+  color: #fff;
 }
 
 .hero-sub {
   max-width: 36rem;
-  color: var(--color-on-surface-variant);
+  color: rgba(255,255,255,0.85);
   font-size: var(--typescale-body-large);
   line-height: 1.8;
   margin-top: var(--space-16);
@@ -63,7 +70,7 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   gap: var(--space-12);
   margin-top: var(--space-24);
-  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .hero-cta a {
@@ -71,150 +78,223 @@ a { color: inherit; text-decoration: none; }
   min-height: 2.75rem;
   align-items: center;
   padding: 0 1.25rem;
-  background: var(--color-primary);
-  color: #fff;
+  background: #fff;
+  color: var(--color-primary);
   font-size: var(--typescale-body-medium);
+  font-weight: 600;
   border-radius: var(--radius-xs);
   transition: opacity var(--duration-fast);
 }
 
 .hero-cta a:hover { opacity: 0.88; }
 
-.hero-contract {
-  border-top: var(--hairline) solid var(--color-outline);
-  padding-top: var(--space-16);
-}
-
-.hero-contract-item {
-  display: flex;
-  justify-content: space-between;
-  padding: var(--space-8) 0;
-  border-bottom: var(--hairline) solid var(--color-outline-variant);
-  font-size: var(--typescale-label-large);
-}
-
-.hero-contract-item:last-child { border-bottom: 0; }
-
-.hero-contract-item strong { color: var(--color-primary); }
-
 /* ═══════════════════════════════════════════════════════════════
    KNOWLEDGE BASE
    ═══════════════════════════════════════════════════════════════ */
-.kb-section {
-  padding: var(--space-48) var(--space-32) var(--space-64);
-  max-width: var(--space-page-wmax);
+.learn-strip {
+  width: 100%;
+  max-width: 1800px;
   margin: 0 auto;
+  padding: var(--space-48) clamp(20px, 4vw, 48px) var(--space-64);
 }
 
-.kb-section h2 {
+.strip-title {
   font-family: var(--font-display);
   font-size: var(--typescale-headline-large);
   font-weight: 700;
   letter-spacing: -0.02em;
-  margin-bottom: var(--space-8);
+  color: var(--heading);
+  margin-bottom: var(--space-24);
 }
 
-.kb-section > .desc {
-  font-size: var(--typescale-body-medium);
-  color: var(--color-on-surface-variant);
-  line-height: 1.65;
-  margin-bottom: var(--space-32);
-  max-width: 36rem;
-}
-
-.kb-grid {
+.strip-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--space-gutter);
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-12);
 }
 
-.kb-card {
+.strip-card {
+  display: flex;
+  flex-direction: column;
   background: var(--color-surface-container-low);
   border: var(--hairline) solid var(--color-outline);
   border-radius: var(--radius-xs);
-  padding: var(--space-32);
-  text-decoration: none;
-  transition: all var(--duration-slow);
-  display: flex; flex-direction: column; gap: var(--space-12);
+  overflow: hidden;
+  transition: all var(--duration-fast);
 }
 
-.kb-card:hover {
-  box-shadow: var(--elevation-md);
-  transform: translateY(-2px);
+.strip-card:hover {
   border-color: var(--color-primary);
+  box-shadow: var(--elevation-sm);
+  transform: translateY(-2px);
 }
 
-.kb-card h3 {
-  font-family: var(--font-display);
-  font-size: var(--typescale-body-large);
+.strip-card-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-32) var(--space-24);
+  flex: 1;
+}
+
+.strip-card .order {
+  font-size: 24px;
   font-weight: 700;
-  color: var(--heading);
+  color: var(--color-primary);
+  letter-spacing: 0.02em;
+}
+
+.strip-card strong {
+  font-family: var(--font-display);
+  font-size: var(--typescale-title-medium);
+  color: var(--color-on-surface);
   line-height: 1.3;
 }
 
-.kb-card p {
-  font-size: var(--typescale-label-large);
+.strip-card-main .main-desc {
+  font-size: var(--typescale-label-medium);
   color: var(--color-on-surface-variant);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
-.kb-card .kb-arrow {
+.strip-card-case {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--space-4);
+  aspect-ratio: 16 / 9;
+  padding: var(--space-24);
+  background-image:
+    linear-gradient(to top, rgba(18, 34, 24, 0.94) 0%, rgba(18, 34, 24, 0.5) 55%, rgba(18, 34, 24, 0.15) 100%),
+    var(--case-img, none);
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  transition: opacity var(--duration-fast);
+}
+
+.strip-card-case:hover { opacity: 0.92; }
+
+.strip-card-case--portrait {
+  background-size: cover, contain;
+  background-repeat: no-repeat, no-repeat;
+}
+
+
+.case-title {
+  font-family: var(--font-display);
+  font-size: var(--typescale-body-large);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.4;
+}
+
+.case-desc {
   font-size: var(--typescale-label-large);
-  color: var(--color-primary);
-  font-weight: 600;
-  margin-top: auto;
+  color: rgba(255,255,255,0.82);
+  line-height: 1.55;
 }
 
 /* ═══════════════════════════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════════════════════════ */
 @media (max-width: 680px) {
-  .hero {
+  .strip-grid {
     grid-template-columns: 1fr;
-    gap: var(--space-32);
   }
 }
 </style>
 </head>
-<body>
+<body class="green">
 
 <!-- NAV_INJECT -->
 
 <section class="hero">
-  <div>
-    <h1 class="hero-tagline">好版式，<br>替你筛过了。</h1>
+  <div class="hero-strip" aria-hidden="true">
+    <div class="hero-strip-track">
+      <img src="/public/img/screenshots/linear.app.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/studio.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/dribbble.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/capsule.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/elevenlabs.io.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/daisy-days.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/mobbin.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/signal.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/godly.website.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/vellum.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/huemint.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/neo-grid-bold.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/linear.app.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/studio.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/dribbble.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/capsule.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/elevenlabs.io.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/daisy-days.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/mobbin.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/signal.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/godly.website.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/vellum.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/huemint.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/neo-grid-bold.jpg" alt="" loading="lazy">
+    </div>
+  </div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <h1 class="hero-tagline">好版式<br>替你筛过了</h1>
     <p class="hero-sub">散在各处的版式——有些好、更多是半成品。一家家翻、一个个试，半天就没了。我们筛过第一轮了。来这里，挑一个顺眼的。</p>
     <div class="hero-cta">
       <a href="/library">开始挑选</a>
     </div>
   </div>
-  <div class="hero-contract">
-    <div class="hero-contract-item"><span>不只是好看</span><strong>每个版式都经过真实内容测试</strong></div>
-    <div class="hero-contract-item"><span>不只是承诺</span><strong>三次独立复现，全部通过才上线</strong></div>
-    <div class="hero-contract-item"><span>不只是模板</span><strong>源码、设计稿、配色方案，打包给你</strong></div>
-    <div class="hero-contract-item"><span>我们相信</span><strong>好的版式，伸手就能够到</strong></div>
-  </div>
 </section>
 
-<section class="kb-section">
-  <h2>做网站，不靠猜。</h2>
-  <p class="desc">配色怎么选、字体怎么搭、间距怎么定——这些不是审美直觉，是工程问题。我们把答案整理好了，你只管查。</p>
-  <div class="kb-grid">
-    <a href="/learn" class="kb-card">
-      <h3>我做的够好吗？</h3>
-      <p>14 道门禁，逐条对照。哪里差一口气，一眼就知道。</p>
-      <span class="kb-arrow">去看看 →</span>
-    </a>
-    <a href="/learn" class="kb-card">
-      <h3>有现成的吗？</h3>
-      <p>图标、动效、字体、配色。别人造好的轮子，直接拿走。</p>
-      <span class="kb-arrow">去看看 →</span>
-    </a>
-    <a href="/learn" class="kb-card">
-      <h3>怎么变强？</h3>
-      <p>设计原则不是背的，是用的。理解一个，顶一百个技巧。</p>
-      <span class="kb-arrow">去看看 →</span>
-    </a>
+<section class="learn-strip">
+  <h2 class="strip-title">设计指南</h2>
+  <div class="strip-grid">
+    <div class="strip-card">
+      <a class="strip-card-main" href="/learn#methodology">
+        <span class="order">01</span>
+        <strong>设计方法论</strong>
+        <span class="main-desc">交付标准、视觉品质、Design Token、去 AI 味——一篇一个主题。</span>
+      </a>
+      <a class="strip-card-case" style="--case-img:url(/public/img/cases/delivery-standard.jpg)" href="/learn/articles/delivery-standard">
+        <span class="case-title">网页交付标准指南</span>
+        <span class="case-desc">网页能不能上线，四个门依次过：能访问 → 能理解 → 能行动 → 能相信。</span>
+      </a>
+    </div>
+    <div class="strip-card">
+      <a class="strip-card-main" href="/learn#tools">
+        <span class="order">02</span>
+        <strong>工具网站</strong>
+        <span class="main-desc">字体、配色、图像素材——做界面时拿来即用的外部工具，中文免费商用字体优先。</span>
+      </a>
+      <a class="strip-card-case" style="--case-img:url(/public/img/cases/alibabafonts.jpg)" href="https://alibabafonts.com" target="_blank" rel="noopener">
+        <span class="case-title">阿里巴巴普惠体</span>
+        <span class="case-desc">阿里巴巴官方免费商用中文字体，正文、标题两套字重。</span>
+      </a>
+    </div>
+    <div class="strip-card">
+      <a class="strip-card-main" href="/learn#inspiration">
+        <span class="order">03</span>
+        <strong>灵感网站</strong>
+        <span class="main-desc">灵感平台、标杆产品、消费品牌、AI 产品——对照标杆，策展式收藏比随机刷效率高。</span>
+      </a>
+      <a class="strip-card-case" style="--case-img:url(/public/img/cases/awwwards.jpg)" href="https://www.awwwards.com" target="_blank" rel="noopener">
+        <span class="case-title">Awwwards</span>
+        <span class="case-desc">网页设计奖项平台，每日精选获奖网站，评审评语即免费设计课。</span>
+      </a>
+    </div>
+    <div class="strip-card">
+      <a class="strip-card-main" href="/learn#books">
+        <span class="order">04</span>
+        <strong>书籍推荐</strong>
+        <span class="main-desc">字体排印 + 界面布局——按"解决什么问题"分组，每本解决一类问题。</span>
+      </a>
+      <a class="strip-card-case strip-card-case--portrait" style="--case-img:url(/public/img/cases/refactoringui.jpg)" href="/learn#books">
+        <span class="case-title">《Refactoring UI》</span>
+        <span class="case-desc">从程序员视角讲界面。间距、配色、层级照着改就能好看。</span>
+      </a>
+    </div>
   </div>
 </section>
 

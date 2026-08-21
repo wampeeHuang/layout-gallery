@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233D6B4A'/%3E%3Crect x='10' y='15' width='12' height='34' rx='3' fill='%23fff'/%3E%3Crect x='26' y='19' width='12' height='26' rx='3' fill='%23fff' opacity='.7'/%3E%3Crect x='42' y='24' width='12' height='16' rx='3' fill='%23fff' opacity='.4'/%3E%3C/svg%3E">
+<title>网页交付标准指南 · 设计方法论 · 版式画廊</title>
+<style>
+<!-- ROOT_INJECT -->
+/* 方法论文章版式：黑体标题 + 宋体正文。全局 token 语义 display=标题/body=正文，统一后值 = display 黑体、body 宋体，此处用文章专属变量显式表达，语义随 token 走。 */
+:root{--article-heading:var(--font-display);--article-body:var(--font-body)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{overflow-x:clip;background:var(--color-surface);color:var(--color-on-surface);font-family:var(--font-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit;text-decoration:none}
+.article{width:100%;max-width:var(--space-page-wmax);margin:0 auto;padding:var(--space-48) clamp(20px,4vw,48px) var(--space-64)}
+.article-body{max-width:720px;margin:0 auto;font-family:var(--article-body);font-weight:400}
+.article-back{display:block;max-width:720px;margin:0 auto var(--space-24);font-size:var(--typescale-label-large);color:var(--color-primary);font-weight:600}
+.article-back:hover{text-decoration:underline}
+.article h1{font-family:var(--article-heading);font-size:clamp(36px,6vw,64px);font-weight:500;letter-spacing:-0.02em;line-height:1.15;color:#000;margin-bottom:var(--space-16)}
+.article-meta{font-size:var(--typescale-label-medium);color:var(--color-on-surface-variant);margin-bottom:var(--space-32)}
+.article h2{font-family:var(--article-heading);font-size:clamp(24px,3vw,32px);font-weight:500;letter-spacing:-0.01em;color:#000;margin:var(--space-48,48px) 0 var(--space-16,16px)}
+.article h3{font-family:var(--article-heading);font-size:20px;font-weight:500;color:#000;margin:var(--space-32,32px) 0 var(--space-8,8px)}
+.article p{font-size:17px;line-height:1.9;color:#000;margin-bottom:var(--space-24)}
+.article ul,.article ol{margin:0 0 var(--space-16) var(--space-24);line-height:1.8}
+.article li{margin-bottom:var(--space-8)}
+.article strong{font-weight:600}
+.article blockquote{border-left:3px solid var(--color-primary);padding:var(--space-8) var(--space-16);margin:var(--space-16) 0;background:var(--color-surface-container-low);color:var(--color-on-surface-variant)}
+.article blockquote p{margin:0}
+.article table{border-collapse:collapse;width:100%;margin:var(--space-16) 0 var(--space-24);font-size:var(--typescale-label-large,15px)}
+.article table th,.article table td{border:var(--hairline) solid var(--color-outline);padding:var(--space-8) var(--space-12);text-align:left;vertical-align:top}
+.article table th{background:var(--color-surface-container-low);font-weight:600}
+.article code{font-family:var(--font-mono,monospace);background:var(--color-surface-container-low);padding:2px 6px;border-radius:4px;font-size:0.9em}
+.article pre{background:#1a1a1a;color:#e8e8e8;padding:var(--space-16);border-radius:var(--radius-xs);overflow-x:auto;margin:var(--space-16) 0;font-size:14px;line-height:1.5}
+.article pre code{background:none;padding:0;color:inherit}
+.article .check{list-style:none;margin-left:0;position:relative;padding-left:var(--space-24)}
+.article .check::before{content:'';position:absolute;left:0;top:0.35em;width:14px;height:14px;border:1.5px solid var(--color-outline);border-radius:3px}
+.article .check.done::before{background:var(--color-primary);border-color:var(--color-primary)}
+.article hr{border:none;border-top:var(--hairline) solid var(--color-outline);margin:var(--space-32) 0}
+.article img{max-width:100%;height:auto;margin:var(--space-16) 0}
+</style>
+</head>
+<body class="learn">
+<!-- NAV_INJECT -->
+<article class="article">
+  <a class="article-back" href="/learn#methodology">← 回到设计方法论</a>
+  <div class="article-body">
+<h1>网页交付标准指南</h1>
+<p>现在&quot;做出一个网页&quot;很容易——AI 半小时能生成一个功能齐全的页面。但&quot;做完&quot;和&quot;能上线&quot;之间隔着一段没人说清的距离：功能全有、页面能开，交付出去用户还是流失。</p>
+<p><strong>一个网页能不能上线？</strong> 这份指南用四个门回答：<strong>能访问 → 能理解 → 能行动 → 能相信</strong>。依次过，全过才能交付；任何一个门不过，回去修。</p>
+<h2>为什么是四个门？</h2>
+<p>网页的质量不是一个维度能说清的。学术研究（Morales-Vargas et al., 2023）梳理了 305 篇论文，网站质量评估涵盖 13 个维度、120+ 项指标。但做网页的人不需要 120 项指标——需要一个上手就能用的框架。</p>
+<p><strong>四个门之间互不重叠，合起来覆盖网页质量的完整面。</strong> 切法不按技术模块（前端/后端/视觉），按用户的完整体验路径：从打开页面到形成判断，每个阶段对应一个门。</p>
+<table>
+<thead>
+<tr>
+<th>门</th>
+<th>用户问自己</th>
+<th>交付前问自己</th>
+<th>不通过的表现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>能访问</strong></td>
+<td>打得开吗？加载快吗？</td>
+<td>页面能在目标设备上正常打开吗？</td>
+<td>白屏、加载超 3 秒、手机端乱掉</td>
+</tr>
+<tr>
+<td><strong>能理解</strong></td>
+<td>看清楚了吗？看得懂吗？</td>
+<td>信息架构清晰吗？排版建立层次了吗？</td>
+<td>扫一眼不知道这页干什么的、标题层级乱</td>
+</tr>
+<tr>
+<td><strong>能行动</strong></td>
+<td>能找到吗？能完成吗？</td>
+<td>核心任务能走通吗？交互不出错吗？</td>
+<td>导航迷路、表单报错不清、关键按钮点不到</td>
+</tr>
+<tr>
+<td><strong>能相信</strong></td>
+<td>信得过吗？记得住吗？</td>
+<td>品牌信号到位吗？有辨识度吗？</td>
+<td>&quot;这像 AI 做的&quot;、换了 Logo 就是另一个公司</td>
+</tr>
+</tbody>
+</table>
+<p>四个门是串行的。能访问不过，不用看理解。理解不过，不用看行动。行动不过，信任无从谈起。</p>
+<p><img src="/public/learn/articles/delivery-gates.svg" alt="四门串行判定流程图"></p>
+<h2>第一门：能访问</h2>
+<p><strong>用户问自己：打得开吗？加载快吗？</strong></p>
+<p>这个门检查页面能不能在目标设备上正常打开和加载。是所有门里最客观的一个——大部分有明确的数字指标。</p>
+<h3>加载速度</h3>
+<ul>
+<li>首屏内容出现 &lt; 1.8 秒（FCP）</li>
+<li>最大内容（通常是 Hero 图或大标题）渲染完成 &lt; 2.5 秒（LCP）</li>
+<li>页面总重 &lt; 1500KB——超过这个数，移动网络用户会明显感知到慢</li>
+</ul>
+<h3>设备兼容</h3>
+<ul>
+<li>手机（375px 宽）、平板（768px）、桌面（1440px）三种宽度下页面不崩</li>
+<li>不是&quot;缩小版&quot;，是&quot;适配版&quot;——文字不用缩放就能读，按钮手指能点到</li>
+<li>暗色模式下页面可读（不是白底黑字直接反相就完事）</li>
+</ul>
+<h3>基本可达</h3>
+<ul>
+<li>语义正确的 HTML 结构——屏幕阅读器能从标题导航页面</li>
+<li>所有图片有替代文字（产品图描述内容，装饰图标为空）</li>
+<li>键盘能走完整个页面——Tab 切换、Enter 确认、Esc 关闭</li>
+</ul>
+<h3>自检清单</h3>
+<ul>
+<li class="check">三种设备宽度下页面不崩</li>
+<li class="check">FCP &lt; 1.8s，LCP &lt; 2.5s</li>
+<li class="check">暗色模式可读</li>
+<li class="check">不用鼠标能走完全页</li>
+</ul>
+<h2>第二门：能理解</h2>
+<p><strong>用户问自己：看清楚了吗？看得懂吗？</strong></p>
+<p>这个门检查信息有没有传达到。加载再快、适配再好，用户进来扫一眼不知道干什么——前面的功夫全废。</p>
+<h3>信息架构</h3>
+<ul>
+<li>扫一眼（3 秒以内）能回答三个问题：这是什么、谁做的、我能在上面干什么</li>
+<li>标题层级不跳——h1 后面是 h2，不会从 h1 直接到 h4</li>
+<li>导航标签用用户的语言——不是内部术语，是用户搜索时脑子里蹦出来的词</li>
+</ul>
+<h3>排版层次</h3>
+<ul>
+<li>标题比正文大几倍——不是只大一点点。间距有松有紧——密集区和舒展区节奏不同</li>
+<li>行距正文 ≥ 1.75（本站约定值）——中文行距太挤，长文读起来最累</li>
+<li>相关内容靠近，不相关内容隔开——留白不是浪费，是帮用户分组</li>
+</ul>
+<h3>内容可读</h3>
+<ul>
+<li>一段只讲一件事。一段超过 5 行 → 考虑拆</li>
+<li>没有 lorem ipsum、没有&quot;此处放内容&quot;、没有假数据</li>
+<li>按钮上的字告诉用户点了会怎样——不是&quot;提交&quot;，是&quot;创建账号&quot;或&quot;开始免费试用&quot;</li>
+</ul>
+<h3>自检清单</h3>
+<ul>
+<li class="check">3 秒扫读能回答&quot;这是什么、谁做的、能干什么&quot;</li>
+<li class="check">标题层级不跳</li>
+<li class="check">正文行距 ≥ 1.75</li>
+<li class="check">没有假文案和假数据</li>
+</ul>
+<h2>第三门：能行动</h2>
+<p><strong>用户问自己：能找到吗？能完成吗？</strong></p>
+<p>这个门检查核心任务能不能走通。前面的门让用户&quot;知道这是什么&quot;，这个门让用户&quot;真干了什么&quot;。</p>
+<h3>导航</h3>
+<ul>
+<li>用户知道自己在哪——当前页在导航上有标记</li>
+<li>用户知道能去哪——关键页面从导航能到达，不超过 3 次点击</li>
+<li>有搜索时，搜出来的结果相关且可操作——不是一堆标题列表</li>
+</ul>
+<h3>核心任务</h3>
+<ul>
+<li>最重要的用户行为（注册、购买、搜索、联系）不超过 3 步完成</li>
+<li>每一步有明确的反馈——点了按钮有反应（加载中/已完成/出错了）</li>
+<li>出错时有可操作的提示——不是&quot;发生错误&quot;，是&quot;邮箱格式不对，请检查后重试&quot;</li>
+</ul>
+<h3>表单</h3>
+<ul>
+<li>输入框有明确的标签——不是在框内放灰色文字当标签（填进去就看不见了）</li>
+<li>必填项标注清楚——用户不用提交后才被告知&quot;这里漏了&quot;</li>
+<li>提交按钮点了之后禁用 + 转圈——防止重复提交</li>
+</ul>
+<h3>自检清单</h3>
+<ul>
+<li class="check">核心任务 ≤ 3 步完成</li>
+<li class="check">每个操作有反馈（加载中/完成/出错）</li>
+<li class="check">错误提示告诉用户怎么修，不是只告诉&quot;错了&quot;</li>
+<li class="check">提交按钮防重复点击</li>
+</ul>
+<h2>第四门：能相信</h2>
+<p><strong>用户问自己：信得过吗？记得住吗？</strong></p>
+<p>这个门检查网页有没有建立信任和辨识度。前三个门全过 = 能用。这个门不过 = 能用但没人想用。</p>
+<h3>品牌信号</h3>
+<ul>
+<li>配色、字体、圆角、间距——每一个视觉选择能说出&quot;为什么这样&quot;。不是&quot;AI 默认&quot;，是&quot;品牌决定的&quot;</li>
+<li>品牌色在页面中自然出现 ≥ 3 处（链接、按钮、强调元素）——不是到处都是，是处处有依据</li>
+<li>自己的 Logo 可见、清晰、不小气</li>
+</ul>
+<h3>数据可信</h3>
+<ul>
+<li>产品图是真实截图——哪怕不够精致，比假图强十倍</li>
+<li>每个数字有出处——不是&quot;快 10 倍&quot;和&quot;99.9% 稳定&quot;，是&quot;帮某品牌成本降了 34%&quot;</li>
+<li>社交证明是真人的——有名字、有头像、有具体说了什么</li>
+</ul>
+<h3>有辨识度</h3>
+<ul>
+<li>换了 Logo 和文案，网页不能原封不动当成另一个公司——有只属于你的东西</li>
+<li>没有 AI 味——靛蓝 accent、紫蓝渐变、Inter 字体、等宽卡片网格、emoji 图标、编造数据。详见 <a href="/learn/articles/anti-ai-slop">去AI味网页设计指南</a></li>
+<li>至少一处&quot;值得截图&quot;的细节——不是均匀用力，有一处做到 120%</li>
+</ul>
+<h3>自检清单</h3>
+<ul>
+<li class="check">品牌色在页面中出现 ≥ 3 处</li>
+<li class="check">产品图是真实截图</li>
+<li class="check">没有一条 AI 味特征（详见去AI味指南）</li>
+<li class="check">至少一处&quot;值得截图&quot;</li>
+</ul>
+<h2>交付前总检</h2>
+<p>四个门全过，最后看一眼：</p>
+<ul>
+<li class="check">关了页面重开，扫一眼——还是觉得 ok？</li>
+<li class="check">给一个没看过的人看，不问&quot;你觉得怎么样&quot;，观察他第一个点哪里</li>
+<li class="check">每个视觉决策都能说清品牌依据</li>
+</ul>
+<p>三条全过 → 可以交付。</p>
+<h2>Agent 执行门禁</h2>
+<blockquote>
+<p>以下供 AI 生成网页后逐项自检。每条对应四个门中的一个。</p>
+</blockquote>
+<h3>能访问 — 自动检测</h3>
+<ul>
+<li>FCP &lt; 1.8s，LCP &lt; 2.5s（Lighthouse 或 PageSpeed Insights）</li>
+<li>HTML 验证：<code>&lt;!doctype html&gt;</code> 第一行，<code>&lt;meta charset=&quot;utf-8&quot;&gt;</code>，<code>&lt;meta name=&quot;viewport&quot;&gt;</code></li>
+<li>图片有 <code>width</code>/<code>height</code> 属性防布局偏移</li>
+<li>字体用 WOFF2 格式，<code>unicode-range</code> subset</li>
+<li>无 <code>user-scalable=no</code>（不禁用缩放）</li>
+<li><code>prefers-color-scheme: dark</code> 适配</li>
+<li><code>&lt;html lang&gt;</code> 有正确的语言属性</li>
+<li>语义标签：header/main/footer/nav/section</li>
+</ul>
+<h3>能理解 — 自动检测</h3>
+<ul>
+<li>h1-h6 层级不跳号</li>
+<li>正文 <code>line-height</code> ≥ 1.75</li>
+<li>无 lorem ipsum、无 &quot;此处放内容&quot;、无编造数据</li>
+<li>按钮文字描述行为（&quot;创建账号&quot;不是&quot;提交&quot;）</li>
+</ul>
+<h3>能行动 — 自动检测</h3>
+<ul>
+<li>所有可交互元素键盘可达（Tab/Enter/Escape）</li>
+<li>表单控件有 <code>&lt;label&gt;</code> 关联</li>
+<li>提交按钮点击后 <code>disabled</code> + spinner</li>
+<li>Skip-to-content 链接存在</li>
+<li><code>:focus-visible</code> 可见焦点环</li>
+</ul>
+<h3>能相信 — 自动检测</h3>
+<ul>
+<li><code>:root</code> 中颜色变量 ≥ 1 个来自品牌色系，非 Tailwind 默认</li>
+<li>无 <code>#6366f1</code>、<code>#4f46e5</code>、<code>#8b5cf6</code>（Tailwind 靛蓝）</li>
+<li>无 <code>background-clip: text</code> 渐变文字</li>
+<li>display 字体 ≠ Inter/Roboto/Arial/Geist/system-ui</li>
+<li>字重跨度 ≥ 500，标题字号/正文字号 ≥ 3</li>
+<li>无 unsplash/placehold.co/picsum 外部占位</li>
+<li>无 emoji 做功能图标</li>
+</ul>
+<h3>修复优先级</h3>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>触发</th>
+<th>动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>P0 阻断</strong></td>
+<td>三设备宽度崩、LCP &gt; 4s、白屏</td>
+<td>不交付，回炉</td>
+</tr>
+<tr>
+<td><strong>P1 必须修</strong></td>
+<td>表单无 label、键盘不可达、标题跳级、AI 味靛蓝 accent</td>
+<td>修完再交付</td>
+</tr>
+<tr>
+<td><strong>P2 建议修</strong></td>
+<td>行距 &lt; 1.75、焦点环不明显、圆角统一</td>
+<td>标注，下次迭代修</td>
+</tr>
+</tbody>
+</table>
+<h2>延伸阅读</h2>
+<ul>
+<li><a href="/learn/articles/anti-ai-slop">去AI味网页设计指南</a></li>
+<li><a href="/learn/articles/visual-quality">网页视觉品质原则</a></li>
+<li><a href="https://research.google/pubs/measuring-the-user-experience-on-a-large-scale-user-centered-metrics-for-web-applications/">Google HEART Framework (CHI 2010)</a></li>
+<li><a href="https://www.nngroup.com/articles/ten-usability-heuristics/">Nielsen's 10 Usability Heuristics</a></li>
+<li><a href="https://www.iso.org/standard/63500.html">ISO 9241-11:2018 Usability</a></li>
+<li>网页交付标准 四门来源调研 — 原文存档</li>
+</ul>
+<div class="article-meta">更新于 2026-08-21 · 已验证</div>
+  </div>
+</article>
+<!-- FOOTER_INJECT -->
+</body>
+</html>

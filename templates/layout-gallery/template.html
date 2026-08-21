@@ -421,8 +421,8 @@ h3 { font-size: var(--typescale-title-medium); }
 
   filters.forEach(button => button.addEventListener('click', () => applyFilter(button.dataset.filter)));
 
-  const requestedFilter = location.hash.startsWith('#catalog-') ? location.hash.replace('#catalog-', '') : 'all';
-  if (filters.some(button => button.dataset.filter === requestedFilter)) applyFilter(requestedFilter);
+  const requestedFilter = location.hash.startsWith('#catalog-') ? location.hash.replace('#catalog-', '') : null;
+  if (requestedFilter && filters.some(button => button.dataset.filter === requestedFilter)) applyFilter(requestedFilter);
 
   const brief = '使用 Layout Gallery 四文件包。读取顺序：template.json → design.md → tokens.json → template.html。保持鼠尾草绿、中文衬线标题、细线网格和大留白；不得编造数字、评价、API 或精选状态；输出前运行 npm run check -- --slug layout-gallery。';
   document.getElementById('copy-brief').addEventListener('click', async () => {

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233D6B4A'/%3E%3Crect x='10' y='15' width='12' height='34' rx='3' fill='%23fff'/%3E%3Crect x='26' y='19' width='12' height='26' rx='3' fill='%23fff' opacity='.7'/%3E%3Crect x='42' y='24' width='12' height='16' rx='3' fill='%23fff' opacity='.4'/%3E%3C/svg%3E">
+<title>Design Token 的通用语言 · 设计方法论 · 版式画廊</title>
+<style>
+<!-- ROOT_INJECT -->
+/* 方法论文章版式：黑体标题 + 宋体正文。全局 token 语义 display=标题/body=正文，统一后值 = display 黑体、body 宋体，此处用文章专属变量显式表达，语义随 token 走。 */
+:root{--article-heading:var(--font-display);--article-body:var(--font-body)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{overflow-x:clip;background:var(--color-surface);color:var(--color-on-surface);font-family:var(--font-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit;text-decoration:none}
+.article{width:100%;max-width:var(--space-page-wmax);margin:0 auto;padding:var(--space-48) clamp(20px,4vw,48px) var(--space-64)}
+.article-body{max-width:720px;margin:0 auto;font-family:var(--article-body);font-weight:400}
+.article-back{display:block;max-width:720px;margin:0 auto var(--space-24);font-size:var(--typescale-label-large);color:var(--color-primary);font-weight:600}
+.article-back:hover{text-decoration:underline}
+.article h1{font-family:var(--article-heading);font-size:clamp(36px,6vw,64px);font-weight:500;letter-spacing:-0.02em;line-height:1.15;color:#000;margin-bottom:var(--space-16)}
+.article-meta{font-size:var(--typescale-label-medium);color:var(--color-on-surface-variant);margin-bottom:var(--space-32)}
+.article h2{font-family:var(--article-heading);font-size:clamp(24px,3vw,32px);font-weight:500;letter-spacing:-0.01em;color:#000;margin:var(--space-48,48px) 0 var(--space-16,16px)}
+.article h3{font-family:var(--article-heading);font-size:20px;font-weight:500;color:#000;margin:var(--space-32,32px) 0 var(--space-8,8px)}
+.article p{font-size:17px;line-height:1.9;color:#000;margin-bottom:var(--space-24)}
+.article ul,.article ol{margin:0 0 var(--space-16) var(--space-24);line-height:1.8}
+.article li{margin-bottom:var(--space-8)}
+.article strong{font-weight:600}
+.article blockquote{border-left:3px solid var(--color-primary);padding:var(--space-8) var(--space-16);margin:var(--space-16) 0;background:var(--color-surface-container-low);color:var(--color-on-surface-variant)}
+.article blockquote p{margin:0}
+.article table{border-collapse:collapse;width:100%;margin:var(--space-16) 0 var(--space-24);font-size:var(--typescale-label-large,15px)}
+.article table th,.article table td{border:var(--hairline) solid var(--color-outline);padding:var(--space-8) var(--space-12);text-align:left;vertical-align:top}
+.article table th{background:var(--color-surface-container-low);font-weight:600}
+.article code{font-family:var(--font-mono,monospace);background:var(--color-surface-container-low);padding:2px 6px;border-radius:4px;font-size:0.9em}
+.article pre{background:#1a1a1a;color:#e8e8e8;padding:var(--space-16);border-radius:var(--radius-xs);overflow-x:auto;margin:var(--space-16) 0;font-size:14px;line-height:1.5}
+.article pre code{background:none;padding:0;color:inherit}
+.article .check{list-style:none;margin-left:0;position:relative;padding-left:var(--space-24)}
+.article .check::before{content:'';position:absolute;left:0;top:0.35em;width:14px;height:14px;border:1.5px solid var(--color-outline);border-radius:3px}
+.article .check.done::before{background:var(--color-primary);border-color:var(--color-primary)}
+.article hr{border:none;border-top:var(--hairline) solid var(--color-outline);margin:var(--space-32) 0}
+.article img{max-width:100%;height:auto;margin:var(--space-16) 0}
+</style>
+</head>
+<body class="learn">
+<!-- NAV_INJECT -->
+<article class="article">
+  <a class="article-back" href="/learn#methodology">← 回到设计方法论</a>
+  <div class="article-body">
+<h1>Design Token 的通用语言</h1>
+<p>设计稿定好了品牌色，开发做出来跟设计稿不一样。换了一个设计工具，之前定义的颜色全要重来一遍。让 AI 生成网页，它总是用那个&quot;AI 味靛蓝&quot;而不是你的品牌色——哪怕你告诉它了。</p>
+<p><strong>为什么你的品牌色，换个工具就要重来一遍？</strong> 三个问题的根因一样：<strong>每套工具、每个平台、每个 AI 各说各的语言，没有翻译层。</strong> 你在 Figma 里定的&quot;按钮色 #38608F&quot;，到了网页变成变量名，到了 App 变另一套名字——每一层都是人肉翻译。</p>
+<p>Design Token 的通用语言就是那个翻译层，正式名字叫 Design Tokens Format，由 DTCG（W3C 下的 Design Tokens Community Group）制定。它做的事很简单：<strong>不管你在哪个工具里定义的颜色、字体、间距，导出成一个标准文件，其他工具和平台直接读。</strong></p>
+<h2>它是什么？</h2>
+<p>一种文件格式。你写：&quot;品牌主色是 #38608F&quot;，它规定这句话在文件里怎么写——不是写成自然语言，是写成机器也能读的格式。这样：</p>
+<ul>
+<li>设计工具（Figma、Sketch）能导出成它</li>
+<li>网页代码能读取它</li>
+<li>App 代码也能读取它</li>
+<li>AI Agent 也能读取它</li>
+</ul>
+<p>一套定义，不用重复口述。</p>
+<h2>为什么需要它？</h2>
+<p>市面上的设计系统各有各的叫法。同一个&quot;品牌主色&quot;：</p>
+<table>
+<thead>
+<tr>
+<th>在哪个系统</th>
+<th>叫法</th>
+<th style="text-align:center">支持 DTCG 导出吗</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Google Material Design</td>
+<td><code>primary</code></td>
+<td style="text-align:center">可导出</td>
+</tr>
+<tr>
+<td>Microsoft Fluent</td>
+<td><code>AccentFillColorDefault</code></td>
+<td style="text-align:center">已支持</td>
+</tr>
+<tr>
+<td>华为 HarmonyOS</td>
+<td><code>brand</code></td>
+<td style="text-align:center">手动映射</td>
+</tr>
+<tr>
+<td>Apple 设计规范</td>
+<td><code>systemBlue</code> 或自定义</td>
+<td style="text-align:center">可映射</td>
+</tr>
+</tbody>
+</table>
+<p>名字都不一样，但指的都是&quot;你的品牌色&quot;。没有 DTCG 之前，从这个系统换到那个系统——不是你导出我导入，是人肉对照表。DTCG 让每个系统都认同一套写法，不用翻译。</p>
+<h2>核心原理</h2>
+<ol>
+<li><strong>单一翻译层，不规定内容</strong> — DTCG 只规定颜色/字体/间距在文件里怎么写，不规定写什么值。各体系保留自己的叫法，只是都认同一套文件格式。</li>
+<li><strong>导出一次，处处可读</strong> — 设计稿在 Figma 定义，导出成 DTCG 文件，Web、App、AI 直接读。换工具不用重录。</li>
+<li><strong>基础层与语义层分离</strong> — 令牌分&quot;品牌主色 #38608F&quot;（基础层）和&quot;按钮色 = 品牌主色&quot;（语义层）。换肤只改基础层，语义层引用不动。</li>
+<li><strong>机器可读，人也可读</strong> — 文件既给程序解析，也给 AI 生成页面时当约束。告诉 AI&quot;按这个文件写&quot;，它就知道你的品牌色。</li>
+</ol>
+<p><img src="/public/learn/articles/dtcg-runtime.svg" alt="DTCG 运行机制架构图"></p>
+<h2>它省的不是&quot;翻译&quot;，是&quot;翻译的数量&quot;</h2>
+<p>翻译躲不掉——A 系统的话总要变成 B 系统能懂的话。真正的问题是：<strong>有多少个系统要互相翻译？</strong></p>
+<ul>
+<li><strong>两个系统</strong>：一条对接线，写个转接就行，标准格式纯属多余。</li>
+<li><strong>十个系统</strong>：每两个系统之间都要一条线，十个系统要四十五条对接线——系统越多，线涨得越疯。如果大家都认同一个中间格式，十个系统只要十条线：每个对接一次枢纽，就全通了。</li>
+</ul>
+<p>所以 DTCG 的价值不在&quot;让翻译消失&quot;，在&quot;把对接线的疯涨，压成一条条加&quot;。<strong>值不值得用标准格式，只取决于一件事：有几个消费者要互相读。</strong> 两个消费者，私有约定最划算；消费者一多，标准格式才值回票价。</p>
+<h2>它不是 W3C 官方标准</h2>
+<p>名字里有 W3C，但 DTCG 不是官方标准。W3C 有两种产出物，地位差很多：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>相当于</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工作组报告（Recommendation）</td>
+<td>国标——正式标准，被广泛引用</td>
+<td>HTML、CSS</td>
+</tr>
+<tr>
+<td>社区组报告（Community Group Report）</td>
+<td>白皮书——业内共识，无强制力</td>
+<td>DTCG</td>
+</tr>
+</tbody>
+</table>
+<p>DTCG 2025 年 10 月发布的是 Final Community Group Report，属于后者：是&quot;大家谈妥了&quot;，不是&quot;官方背书了&quot;。这不影响它的实用价值——Google、Microsoft、Apple、Adobe、Figma、Shopify 都参与制定并实际采用。</p>
+<p>另一个现实：基础 token（颜色、间距、圆角）已经稳定；复合 token（字体、阴影、渐变）工具支持还滞后。用复合 token，等于&quot;赌在工具前面&quot;——标准定了，工具还没跟上。</p>
+<h2>AI 要理由，不要只要值</h2>
+<p>翻译层解决了&quot;机器能不能互相读&quot;，没解决&quot;AI 和人懂不懂为什么&quot;。</p>
+<p>token 给的是值，不给理由。AI 拿到 <code>#38608F</code>，不知道&quot;为什么是它、什么时候不能用、跟品牌什么关系&quot;——只能猜，猜错就是 AI 味靛蓝。</p>
+<p>Google Labs 2026 年 4 月开源 DESIGN.md 专治这个。做法：一个 Markdown 文件塞两层——结构化数据写 token 值（机器读），散文写理由（AI 和人读）。它的核心理念原文是 &quot;Prose, not Tokens&quot;：散文是重点，token 不是。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>解决什么</th>
+<th>类比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DTCG</td>
+<td>机器之间能不能互相读</td>
+<td>字典：词对应意思</td>
+</tr>
+<tr>
+<td>DESIGN.md</td>
+<td>AI 和人懂不懂为什么这么用</td>
+<td>说明书：为什么这么用、什么时候别用</td>
+</tr>
+</tbody>
+</table>
+<p>两个不冲突，是叠加。DESIGN.md 的 token 部分就参考 DTCG 语义，还能导出成 DTCG。</p>
+<h2>怎么选？</h2>
+<p>不用&quot;迁&quot; DTCG，用 DESIGN.md 当真相源，按消费者各取所需。</p>
+<p><strong>迁</strong> DTCG = 改存储格式、重写定义、改所有读取方——代价大，通常不值。
+<strong>导出</strong> DTCG = 存储不动，加转换层按需输出——代价小，互操作时再做。</p>
+<p>DESIGN.md 值 + 理由一个文件装下：</p>
+<table>
+<thead>
+<tr>
+<th>消费者</th>
+<th>怎么用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>你自己 + AI agent</td>
+<td>直接读 DESIGN.md，值、理由都在里面</td>
+</tr>
+<tr>
+<td>工具（Figma / Style Dictionary / 生成器）</td>
+<td>从 DESIGN.md 导出 DTCG</td>
+</tr>
+</tbody>
+</table>
+<p>它的 token 部分精简，但没丢关键信息——分组名（colors、spacing）暗含类型，组件里的内联引用保住&quot;语义层指向基础层&quot;，所以导出的是真 DTCG，不是空壳。</p>
+<p>判断标准一句话：<strong>协调成本高不高。</strong> 一个 builder 一套意见时，协调成本为零，任何格式迁移都是纯损耗；消费者一多，加导出层比迁格式便宜得多。</p>
+<h2>延伸阅读</h2>
+<ul>
+<li>m3-material-io — 用 DTCG 可导出的令牌体系</li>
+<li><a href="/learn/articles/anti-ai-slop">去AI味网页设计指南</a> — 用令牌文件管住 AI 的默认色</li>
+</ul>
+<h2>原文存档</h2>
+<ul>
+<li>Design Token 的通用语言 — 原文存档</li>
+</ul>
+<div class="article-meta">更新于 2026-08-21 · 已验证</div>
+  </div>
+</article>
+<!-- FOOTER_INJECT -->
+</body>
+</html>

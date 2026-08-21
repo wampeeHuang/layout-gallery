@@ -2,8 +2,14 @@
 /* ═══════════════════════════════════════════════════════════════
    FOOTER — 干净底部
    ═══════════════════════════════════════════════════════════════ */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .site-footer {
-  margin-top: var(--space-64);
+  margin-top: auto;
   padding: var(--space-32) clamp(20px, 4vw, 48px);
   background: var(--color-surface-container-low);
   color: var(--color-on-surface-variant);
@@ -37,7 +43,7 @@
 
 <footer class="site-footer">
   <div class="site-footer-inner">
-    <span>基于 <a href="https://tr.designtokens.org/" target="_blank" rel="noopener">DTCG 2025.10</a>（W3C Community Group Report）与 <a href="https://m3.material.io/" target="_blank" rel="noopener">Material Design 3</a> 构建</span>
+    <span>HTML 版式模板画廊 · AI Agent 发现 / 预览 / 复用版式</span>
     <span>© 2026 EvoPearl</span>
   </div>
 </footer>

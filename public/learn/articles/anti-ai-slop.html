@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233D6B4A'/%3E%3Crect x='10' y='15' width='12' height='34' rx='3' fill='%23fff'/%3E%3Crect x='26' y='19' width='12' height='26' rx='3' fill='%23fff' opacity='.7'/%3E%3Crect x='42' y='24' width='12' height='16' rx='3' fill='%23fff' opacity='.4'/%3E%3C/svg%3E">
+<title>去AI味网页设计指南 · 设计方法论 · 版式画廊</title>
+<style>
+<!-- ROOT_INJECT -->
+/* 方法论文章版式：黑体标题 + 宋体正文。全局 token 语义 display=标题/body=正文，统一后值 = display 黑体、body 宋体，此处用文章专属变量显式表达，语义随 token 走。 */
+:root{--article-heading:var(--font-display);--article-body:var(--font-body)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{overflow-x:clip;background:var(--color-surface);color:var(--color-on-surface);font-family:var(--font-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit;text-decoration:none}
+.article{width:100%;max-width:var(--space-page-wmax);margin:0 auto;padding:var(--space-48) clamp(20px,4vw,48px) var(--space-64)}
+.article-body{max-width:720px;margin:0 auto;font-family:var(--article-body);font-weight:400}
+.article-back{display:block;max-width:720px;margin:0 auto var(--space-24);font-size:var(--typescale-label-large);color:var(--color-primary);font-weight:600}
+.article-back:hover{text-decoration:underline}
+.article h1{font-family:var(--article-heading);font-size:clamp(36px,6vw,64px);font-weight:500;letter-spacing:-0.02em;line-height:1.15;color:#000;margin-bottom:var(--space-16)}
+.article-meta{font-size:var(--typescale-label-medium);color:var(--color-on-surface-variant);margin-bottom:var(--space-32)}
+.article h2{font-family:var(--article-heading);font-size:clamp(24px,3vw,32px);font-weight:500;letter-spacing:-0.01em;color:#000;margin:var(--space-48,48px) 0 var(--space-16,16px)}
+.article h3{font-family:var(--article-heading);font-size:20px;font-weight:500;color:#000;margin:var(--space-32,32px) 0 var(--space-8,8px)}
+.article p{font-size:17px;line-height:1.9;color:#000;margin-bottom:var(--space-24)}
+.article ul,.article ol{margin:0 0 var(--space-16) var(--space-24);line-height:1.8}
+.article li{margin-bottom:var(--space-8)}
+.article strong{font-weight:600}
+.article blockquote{border-left:3px solid var(--color-primary);padding:var(--space-8) var(--space-16);margin:var(--space-16) 0;background:var(--color-surface-container-low);color:var(--color-on-surface-variant)}
+.article blockquote p{margin:0}
+.article table{border-collapse:collapse;width:100%;margin:var(--space-16) 0 var(--space-24);font-size:var(--typescale-label-large,15px)}
+.article table th,.article table td{border:var(--hairline) solid var(--color-outline);padding:var(--space-8) var(--space-12);text-align:left;vertical-align:top}
+.article table th{background:var(--color-surface-container-low);font-weight:600}
+.article code{font-family:var(--font-mono,monospace);background:var(--color-surface-container-low);padding:2px 6px;border-radius:4px;font-size:0.9em}
+.article pre{background:#1a1a1a;color:#e8e8e8;padding:var(--space-16);border-radius:var(--radius-xs);overflow-x:auto;margin:var(--space-16) 0;font-size:14px;line-height:1.5}
+.article pre code{background:none;padding:0;color:inherit}
+.article .check{list-style:none;margin-left:0;position:relative;padding-left:var(--space-24)}
+.article .check::before{content:'';position:absolute;left:0;top:0.35em;width:14px;height:14px;border:1.5px solid var(--color-outline);border-radius:3px}
+.article .check.done::before{background:var(--color-primary);border-color:var(--color-primary)}
+.article hr{border:none;border-top:var(--hairline) solid var(--color-outline);margin:var(--space-32) 0}
+.article img{max-width:100%;height:auto;margin:var(--space-16) 0}
+</style>
+</head>
+<body class="learn">
+<!-- NAV_INJECT -->
+<article class="article">
+  <a class="article-back" href="/learn#methodology">← 回到设计方法论</a>
+  <div class="article-body">
+<h1>去AI味网页设计</h1>
+<p>打开一个网页，三秒内能判断&quot;这是 AI 做的&quot;——但说不出具体哪里不对。可功能、排版、响应式样样齐全。</p>
+<p><strong>为什么 AI 生成的网页，一眼就能认出来？</strong> 因为 AI 不做设计判断，只拼它见过最多次的套路。这份指南用大白话告诉你：AI 味长什么样、怎么去掉。</p>
+<h2>这是什么？</h2>
+<p>网页 AI 味 = AI 做网页的时候，不是在做&quot;设计判断&quot;，而是在拼凑它见过最多次的视觉套路。紫色渐变？因为教程里最多。Inter 字体？因为没人告诉它还有别的选择。三列卡片？因为这是它被喂过最多的布局。</p>
+<p>问题不在于这些套路丑——它们很多来自优秀的网站。问题在于：<strong>每一处选择都没有你自己的理由。</strong></p>
+<p>打个比方：一个人穿衣服，全身都是优衣库基础款——不丑，但你看不出这个人的个性。AI 做的网页就是这样。<strong>品牌依据</strong>就是你这个人的穿衣风格——为什么戴这条围巾？因为跟你的外套颜色呼应。为什么用这个字体？因为你的品牌偏文化感，不是科技感。</p>
+<p>多个 anti-slop 项目（<a href="https://github.com/nexu-io/open-design/blob/main/craft/anti-ai-slop.md">open-design</a> / <a href="https://github.com/SimHacker/moollm/blob/main/skills/skill-snitch/catalog/anthropic/frontend-design-anti-slop.md">SimHacker</a> / <a href="https://github.com/febbhav/signs-of-ai-design/blob/main/design-rules.md">febbhav</a>）不约而同列出：AI 擅长选&quot;最安全&quot;的选项，不擅长选&quot;最对&quot;的选项。结果 = 平均、安全、记不住。</p>
+<h2>AI 网页长什么样</h2>
+<p>以下任何一条单独出现都不是问题。同时中了好几条、而且每条都说不清&quot;为什么这样选&quot;→ 这是 AI 网页。</p>
+<p>同一个虚构产品，两版对照：左边是 AI 默认产物，右边按本文规则重做。下面的每一条特征，你都能在左图里找到。</p>
+<figure style="display:flex;gap:16px;flex-wrap:wrap;margin:var(--space-16) 0 var(--space-24)">
+  <div style="flex:1 1 45%;min-width:280px">
+    <img src="/public/learn/articles/demo-ai-slop.png" alt="AI 味版" style="width:100%;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.14)">
+    <div style="font-size:12px;color:var(--color-on-surface-variant);margin-top:8px">AI 味版：渐变大字、靛蓝按钮、光球、三列卡片、emoji 图标、编造数据</div>
+  </div>
+  <div style="flex:1 1 45%;min-width:280px">
+    <img src="/public/learn/articles/demo-designed.png" alt="去味版" style="width:100%;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.14)">
+    <div style="font-size:12px;color:var(--color-on-surface-variant);margin-top:8px">去味版：品牌绿、左对齐、字重拉开、真实截图占位、具体数据</div>
+  </div>
+</figure>
+<h3>配色</h3>
+<ul>
+<li>紫→蓝渐变、青→红渐变铺满首屏 — 因为 AI 被喂了太多&quot;用这个表达科技感&quot;的例子</li>
+<li>靛蓝色（就是那种偏紫的蓝，#6366f1）做按钮和强调色 — 这不是谁的设计选择，是 AI 训练框架 Tailwind 出厂自带的颜色，多个 anti-slop 目录（<a href="https://github.com/nexu-io/open-design/blob/main/craft/anti-ai-slop.md">open-design</a> / <a href="https://github.com/febbhav/signs-of-ai-design/blob/main/design-rules.md">febbhav</a>）不约而同列为&quot;AI 味第一信号&quot;</li>
+<li>深色背景 + 发光的霓虹描边 — 暗色程序员审美当成万用方案</li>
+<li>那种漂浮在背景里的彩色光球 — AI 表达&quot;智能/魔法&quot;最泛滥的手法</li>
+<li>翠绿色配奶油色 — 第二波被用烂的组合</li>
+<li>好几种浅色平均铺开，没有哪一个更突出 — 说明没做取舍</li>
+</ul>
+<h3>字体</h3>
+<ul>
+<li>Inter、Roboto、Arial、Geist、Space Grotesk、Poppins — 不是这些字体丑，是 AI 把它们当&quot;没想法时的安全牌&quot;反复打</li>
+<li>标题文字做成渐变色 — AI 让标题&quot;花哨一点&quot;的默认操作</li>
+<li>字体粗细永远在&quot;正常&quot;到&quot;稍粗&quot;之间晃，标题比正文只大一点点 — 不敢拉开差距</li>
+</ul>
+<h3>页面结构</h3>
+<ul>
+<li>一样大的卡片排成整齐的网格，圆角一样、阴影一样 — 这不是排版，是填空</li>
+<li>首屏大标题 → 合作方 Logo 墙 → 三列功能介绍 → 用户好评 → 数据展示 → 价格表 → 常见问题 → 底部注册入口 — 软件官网的标准流水线，换个产品只换字</li>
+<li>首屏居中一个小标签 + 居中大标题 + 两个按钮（一个实心彩色、一个空心）+ 背景飘彩色光球 — 这是 AI 首屏的完整公式</li>
+<li>卡片左边一条彩色竖线 — &quot;全世界被 AI 生成最多的后台卡片样式&quot;</li>
+<li>所有位置间距一样、所有内容居中对齐 — 没有节奏</li>
+</ul>
+<h3>内容</h3>
+<ul>
+<li>编造的数据（&quot;快 10 倍&quot;&quot;99.9% 稳定&quot;）— 每个 AI 生成的软件页都在用同一套数字</li>
+<li>用代码画的假产品图 — 产品长什么样没人知道</li>
+<li>unsplash 之类的公共图库占位图 — 一看就知道是 demo，不是真实产品</li>
+<li>套话连篇 — &quot;赋能&quot;&quot;释放&quot;&quot;全方位&quot;&quot;一站式&quot;，语法全对但没有一句是人话</li>
+</ul>
+<h3>动效</h3>
+<ul>
+<li>滚动时所有元素统一从下往上浮出来 + 弹跳效果</li>
+<li>按钮周围一圈发光的动画阴影 — 用户只注意到光在闪，没注意到按钮是干什么的</li>
+</ul>
+<h3>图标</h3>
+<ul>
+<li>emoji 表情当功能图标（✨🚀🎯⚡🔥💡）</li>
+<li>不同产品的页面出现同一套图标（闪光=AI、闪电=快、盾牌=安全）</li>
+</ul>
+<h3>灵魂</h3>
+<ul>
+<li>换了 Logo 和文案，这个网页可以原封不动当成另一个公司的 — 没有任何只属于你的东西</li>
+</ul>
+<h2>怎么修？</h2>
+<p><strong>一句话：每个选择都要有自己的理由。</strong> 80% 用经过验证的成熟做法，20% 做只属于你的选择。去 AI 味的本质不是背禁用清单，是找回每一个视觉决策的&quot;为什么&quot;。</p>
+<h3>先定字体</h3>
+<p>字体是观众第一眼感知的东西，也是脱 AI 味最快的地方。</p>
+<ul>
+<li>挑一款有辨识度的字体做标题，配一套稳的做正文。全站用两到三套，别多</li>
+<li>拉开差距：标题比正文大好几倍，粗细也要极端——要么很细要么很粗，别用中间档</li>
+<li>搭配逻辑：衬线体（笔画带小尾巴的，有文化感）+ 无衬线体（笔画干净的，现代感）= 编辑气质。两种都是无衬线体但气质不同 = 科技气质。等宽字体（每个字一样宽的，代码风格）+ 无衬线体 = 技术气质</li>
+</ul>
+<p>被反复验证过的组合：</p>
+<ul>
+<li>科技产品：IBM Plex 系列 / Source Sans 3 + JetBrains Mono</li>
+<li>内容/文化产品：Playfair Display + Crimson Pro</li>
+<li>现代品牌：Cabinet Grotesk / Satoshi / Plus Jakarta Sans</li>
+<li>中文页面：Noto Sans SC 做正文 + 思源宋体或 Smiley Sans 做标题</li>
+</ul>
+<h3>颜色从品牌里取</h3>
+<ul>
+<li>从你自己的品牌色里找背景色和强调色，不要用 AI 出厂自带的靛蓝</li>
+<li>全站统一管理颜色代码，强调色每屏最多出现两处——多了就不叫强调了</li>
+<li>主色占六成、辅色占三成、强调色占一成</li>
+<li>黑白灰里调一点品牌色方向的温度——偏冷像蓝灰，偏暖像米白</li>
+</ul>
+<h3>打破平均感</h3>
+<ul>
+<li>一个页面最多两种卡片尺寸。留一块区域完全不用卡片——让别人注意到你不是在填模板</li>
+<li>圆角分着用：大卡片圆角大一点、按钮圆角小一点、小标签接近直角——每个地方有自己的处理</li>
+<li>间距有松有紧——密集的信息区和舒展的展示区节奏不同</li>
+<li>你产品的核心信息流保留，但叙事顺序换一换——不是每个页面都需要价格表和常见问题</li>
+</ul>
+<h3>用真人真数</h3>
+<ul>
+<li>每个数字能说出出处。产品图用真实截图——哪怕不够精致也比假图强十倍</li>
+<li>占位图不用公共图库——用纯色方块或灰色骨架占位，至少不假</li>
+<li>文案只有你自己能写——用具体的有名有姓的结果（&quot;帮某个 D2C 品牌的广告成本降了 34%&quot;），不用通用套话</li>
+<li>按钮上的字、报错的提示、鼠标悬停的解释——写成跟朋友说话的语气</li>
+</ul>
+<h3>动效做减法</h3>
+<ul>
+<li>每个动效只问一个问题：它帮用户理解发生了什么，还是帮页面&quot;显得高级&quot;？前者留，后者删</li>
+<li>鼠标放上去 = 微微放大 + 变亮，够了。不为炫而炫</li>
+<li>动效有先后顺序——不是所有东西一起浮上来</li>
+</ul>
+<h3>图标统一</h3>
+<ul>
+<li>一套线条风格统一的图标用到底。不混 emoji、不混多种风格</li>
+<li>图标只在非用不可的时候出现——文字排版本身已经建立了层次，不需要图标来撑场面</li>
+</ul>
+<h2>怎么判断？</h2>
+<p>一个网页是 AI 味的，如果：</p>
+<ul>
+<li>换了 Logo 和文案，可以原封不动当成另一个公司的网站</li>
+<li>装饰大于信息——看完只记得&quot;挺好看的&quot;，说不出产品到底做什么</li>
+<li>每一个&quot;为什么选这个颜色/字体/间距&quot;都答不上来</li>
+</ul>
+<h2>记两件事</h2>
+<p><strong>第一件：底层站不住，特效救不了。</strong> 更多人选择加渐变、加发光、加毛玻璃、加数据数字、加看起来很炫的装置——用特效密度掩盖设计上没有想法。正确的方向相反：把特效全删了，问自己——排版层次清楚吗？空间留白有节奏吗？字体选对了吗？信息先说什么后说什么？这些都站住了，再加回你真正需要的那一个特效。</p>
+<p><strong>第二件：改完还要再看。</strong> AI 味不是背一遍规则就能根治的。做 → 看 → 挑毛病 → 改 → 再看 → 直到每个选择都能说清为什么。AI 网页之所以千篇一律，是因为&quot;一次生成就接受&quot;——反复审视本身就是反 AI 味。</p>
+<h2>延伸阅读</h2>
+<ul>
+<li><a href="/learn/articles/visual-quality">网页视觉品质原则</a></li>
+<li><a href="/learn/articles/delivery-standard">网页交付标准指南</a> — 交付前的完整检查单</li>
+<li><a href="https://github.com/nexu-io/open-design/blob/main/craft/anti-ai-slop.md">Open Design anti-ai-slop linter</a></li>
+<li><a href="https://github.com/SimHacker/moollm/blob/main/skills/skill-snitch/catalog/anthropic/frontend-design-anti-slop.md">Frontend Design Anti-Slop Catalog</a></li>
+<li><a href="https://github.com/febbhav/signs-of-ai-design/blob/main/design-rules.md">Signs of AI Design — design-rules.md</a></li>
+<li><a href="https://smoothui.dev/blog/ai-design-slop">AI Design Slop: Why AI-Generated UI Looks Generic</a></li>
+<li><a href="https://webdesignerdepot.com/10-ways-to-build-radical-trust-in-the-age-of-ai-junk/">10 Ways to Build Radical Trust in the Age of AI Junk</a></li>
+<li><a href="https://www.vandelaydesign.com/why-ai-generated-designs-look-the-same/">Why Most AI-Generated Designs Look the Same</a></li>
+<li>网页 AI 味信号与去味方法调研 — 原文存档</li>
+</ul>
+<hr>
+<h2>Agent 执行门禁</h2>
+<blockquote>
+<p>以下规则供 AI 生成网页时逐条校验。人读层在上一节，这里只放可机械检查的约束。</p>
+</blockquote>
+<h3>NEVER — 禁止出现的颜色</h3>
+<ul>
+<li><code>#6366f1</code>, <code>#4f46e5</code>, <code>#4338ca</code>, <code>#8b5cf6</code>, <code>#7c3aed</code>, <code>#a855f7</code> — Tailwind 靛蓝/紫罗兰范围，AI 味最可靠信号</li>
+<li><code>#0D1117</code> + 青紫霓虹 glow 组合（<code>box-shadow</code> 含 <code>#7c3aed</code> 或 <code>#8b5cf6</code> 且背景 <code>#0D1117</code>）</li>
+<li><code>linear-gradient</code> 方向为紫→蓝、青→品红、靛蓝→粉红 — 除非 <code>:root</code> 中品牌色变量明确定义了这些色值</li>
+<li>极光球装饰：<code>radial-gradient</code> + <code>blur(60px+)</code> + <code>opacity(0.4+)</code> 组合的绝对定位 <code>&lt;div&gt;</code></li>
+<li>5 种以上等权重的 muted 色（<code>saturation &lt; 30%</code> 且 <code>lightness</code> 均匀分布）— 无主次信号</li>
+</ul>
+<h3>NEVER — 禁止使用的字体（作为主要 display/body 字体）</h3>
+<p><code>Inter</code>, <code>Roboto</code>, <code>Arial</code>, <code>Geist</code>, <code>Space Grotesk</code>, <code>Poppins</code>, <code>Open Sans</code>, <code>Lato</code>, <code>Montserrat</code>, <code>system-ui</code></p>
+<p>例外：品牌 spec 中明确指定的除外。中文正文允许 <code>system-ui</code> fallback。</p>
+<h3>NEVER — 禁止出现的 CSS 模式</h3>
+<ul>
+<li><code>background-clip: text; -webkit-text-fill-color: transparent</code> — 渐变文字标题</li>
+<li><code>backdrop-filter: blur()</code> 在 3 个以上组件上 — 玻璃态泛滥</li>
+<li><code>border-radius: 0.5rem</code>（Tailwind rounded-2xl）应用于 4 个以上不同组件类型</li>
+<li><code>box-shadow</code> + <code>border: 1px solid</code> 同时出现在同一卡片上（hairline + diffuse shadow 冲突）</li>
+<li><code>animation: fade-up-on-scroll</code> 或等效的 <code>@keyframes</code> + <code>IntersectionObserver</code> 全页应用</li>
+<li><code>@keyframes glow</code> 作用于 <code>box-shadow</code> — 发光阴影动画</li>
+<li>卡片左边框 accent 色条：<code>border-left: 3px solid</code> + <code>border-radius</code> 同卡片</li>
+</ul>
+<h3>NEVER — 禁止的页面骨架</h3>
+<p><code>&lt;Hero&gt;</code> → <code>&lt;LogoWall&gt;</code> → <code>&lt;FeatureCards3&gt;</code> → <code>&lt;TestimonialCarousel&gt;</code> → <code>&lt;StatsRow&gt;</code> → <code>&lt;Pricing&gt;</code> → <code>&lt;FAQ&gt;</code> → <code>&lt;FooterCTA&gt;</code></p>
+<p>任何页面如果同时命中其中 4 段以上 → 触发重新设计。</p>
+<h3>NEVER — 禁止的内容模式</h3>
+<ul>
+<li><code>/10[×x] faster|99\.[0-9]% uptime|unleash|leverage|comprehensive|one-stop/</code> — 虚假数据 + 套话列表</li>
+<li><code>lorem ipsum</code> — 任何拉丁文占位</li>
+<li><code>unsplash.com</code>, <code>placehold.co</code>, <code>placekitten.com</code>, <code>picsum.photos</code> — 外部占位图 CDN</li>
+<li><code>✨|🚀|🎯|⚡|🔥|💡</code> — emoji 功能图标</li>
+<li>Lucide <code>Sparkles</code>, <code>Zap</code>, <code>Shield</code> 出现在不同概念区块</li>
+</ul>
+<h3>ALWAYS — 必须执行</h3>
+<ul>
+<li><code>:root</code> 中定义的颜色变量 ≥ 1 个来自品牌色系，不是 Tailwind 默认</li>
+<li>accent 色可见使用 ≤ 2 处/屏</li>
+<li>display 字体 ≠ Inter/Roboto/Arial/Geist/system-ui（除非品牌 spec 指定）</li>
+<li>字重跨度 ≥ 500（如 200 + 700），标题 <code>font-size</code> / 正文 <code>font-size</code> ≥ 3</li>
+<li><code>border-radius</code> 值 ≥ 2 种（不同组件类型不同值）</li>
+<li>页面含 ≥ 1 个非卡片布局区域</li>
+<li>动效用 <code>transform</code> + <code>opacity</code>，禁 <code>width</code>/<code>height</code>/<code>box-shadow</code> 动画</li>
+<li>产品图 = 真实截图或几何色块占位，禁 unsplash 系</li>
+</ul>
+<h3>修复优先级</h3>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>触发条件</th>
+<th>动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>P0 阻断</strong></td>
+<td>命中靛蓝 accent + Inter/默认字体 + SaaS 骨架</td>
+<td>不交付，回炉重做</td>
+</tr>
+<tr>
+<td><strong>P1 必须修</strong></td>
+<td>命中渐变文字、emoji 图标、编造数字、外部占位图</td>
+<td>修复后才能交付</td>
+</tr>
+<tr>
+<td><strong>P2 建议修</strong></td>
+<td>命中统一圆角、全部居中、fade-up 泛滥</td>
+<td>标注，下次迭代修</td>
+</tr>
+</tbody>
+</table>
+<div class="article-meta">更新于 2026-08-21 · 已验证</div>
+  </div>
+</article>
+<!-- FOOTER_INJECT -->
+</body>
+</html>

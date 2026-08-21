@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233D6B4A'/%3E%3Crect x='10' y='15' width='12' height='34' rx='3' fill='%23fff'/%3E%3Crect x='26' y='19' width='12' height='26' rx='3' fill='%23fff' opacity='.7'/%3E%3Crect x='42' y='24' width='12' height='16' rx='3' fill='%23fff' opacity='.4'/%3E%3C/svg%3E">
+<title>网页视觉品质原则 · 设计方法论 · 版式画廊</title>
+<style>
+<!-- ROOT_INJECT -->
+/* 方法论文章版式：黑体标题 + 宋体正文。全局 token 语义 display=标题/body=正文，统一后值 = display 黑体、body 宋体，此处用文章专属变量显式表达，语义随 token 走。 */
+:root{--article-heading:var(--font-display);--article-body:var(--font-body)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{overflow-x:clip;background:var(--color-surface);color:var(--color-on-surface);font-family:var(--font-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit;text-decoration:none}
+.article{width:100%;max-width:var(--space-page-wmax);margin:0 auto;padding:var(--space-48) clamp(20px,4vw,48px) var(--space-64)}
+.article-body{max-width:720px;margin:0 auto;font-family:var(--article-body);font-weight:400}
+.article-back{display:block;max-width:720px;margin:0 auto var(--space-24);font-size:var(--typescale-label-large);color:var(--color-primary);font-weight:600}
+.article-back:hover{text-decoration:underline}
+.article h1{font-family:var(--article-heading);font-size:clamp(36px,6vw,64px);font-weight:500;letter-spacing:-0.02em;line-height:1.15;color:#000;margin-bottom:var(--space-16)}
+.article-meta{font-size:var(--typescale-label-medium);color:var(--color-on-surface-variant);margin-bottom:var(--space-32)}
+.article h2{font-family:var(--article-heading);font-size:clamp(24px,3vw,32px);font-weight:500;letter-spacing:-0.01em;color:#000;margin:var(--space-48,48px) 0 var(--space-16,16px)}
+.article h3{font-family:var(--article-heading);font-size:20px;font-weight:500;color:#000;margin:var(--space-32,32px) 0 var(--space-8,8px)}
+.article p{font-size:17px;line-height:1.9;color:#000;margin-bottom:var(--space-24)}
+.article ul,.article ol{margin:0 0 var(--space-16) var(--space-24);line-height:1.8}
+.article li{margin-bottom:var(--space-8)}
+.article strong{font-weight:600}
+.article blockquote{border-left:3px solid var(--color-primary);padding:var(--space-8) var(--space-16);margin:var(--space-16) 0;background:var(--color-surface-container-low);color:var(--color-on-surface-variant)}
+.article blockquote p{margin:0}
+.article table{border-collapse:collapse;width:100%;margin:var(--space-16) 0 var(--space-24);font-size:var(--typescale-label-large,15px)}
+.article table th,.article table td{border:var(--hairline) solid var(--color-outline);padding:var(--space-8) var(--space-12);text-align:left;vertical-align:top}
+.article table th{background:var(--color-surface-container-low);font-weight:600}
+.article code{font-family:var(--font-mono,monospace);background:var(--color-surface-container-low);padding:2px 6px;border-radius:4px;font-size:0.9em}
+.article pre{background:#1a1a1a;color:#e8e8e8;padding:var(--space-16);border-radius:var(--radius-xs);overflow-x:auto;margin:var(--space-16) 0;font-size:14px;line-height:1.5}
+.article pre code{background:none;padding:0;color:inherit}
+.article .check{list-style:none;margin-left:0;position:relative;padding-left:var(--space-24)}
+.article .check::before{content:'';position:absolute;left:0;top:0.35em;width:14px;height:14px;border:1.5px solid var(--color-outline);border-radius:3px}
+.article .check.done::before{background:var(--color-primary);border-color:var(--color-primary)}
+.article hr{border:none;border-top:var(--hairline) solid var(--color-outline);margin:var(--space-32) 0}
+.article img{max-width:100%;height:auto;margin:var(--space-16) 0}
+</style>
+</head>
+<body class="learn">
+<!-- NAV_INJECT -->
+<article class="article">
+  <a class="article-back" href="/learn#methodology">← 回到设计方法论</a>
+  <div class="article-body">
+<h1>网页视觉品质原则</h1>
+<p>AI 能生成功能完整的网页，但默认产物总有一种&quot;模板味&quot;——均匀对称、全灰白底、一个蓝色强调。功能全对，看起来就是不像人做的。</p>
+<p><strong>为什么 AI 生成的网页一眼就能看出来？</strong> 缺的不是功能，是视觉约束——让每个视觉选择都有依据的规矩。这份指南给出 10 条约束，照着做，页面有质感，不像模板。</p>
+<p>来源：Refactoring UI（Wathan &amp; Schoger，Tailwind CSS 作者）、Material Design 3、UI/UX Pro Max 实践。</p>
+<p>同一个虚构产品，两版页面对照——上面是 AI 默认产物，下面是按下面 10 条约束重做。看观感差别，再看约束怎么落到具体选择上。</p>
+<figure style="display:flex;gap:16px;flex-wrap:wrap;margin:var(--space-16) 0 var(--space-24)">
+  <div style="flex:1 1 45%;min-width:280px">
+    <img src="/public/learn/articles/demo-ai-slop.png" alt="AI 默认产物" style="width:100%;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.14)">
+    <div style="font-size:12px;color:var(--color-on-surface-variant);margin-top:8px">AI 默认产物</div>
+  </div>
+  <div style="flex:1 1 45%;min-width:280px">
+    <img src="/public/learn/articles/demo-designed.png" alt="按 10 条约束重做" style="width:100%;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.14)">
+    <div style="font-size:12px;color:var(--color-on-surface-variant);margin-top:8px">按 10 条约束重做</div>
+  </div>
+</figure>
+<hr>
+<h2>1. 视觉层次：不是什么东西都一样大</h2>
+<p><strong>核心：</strong> 重要和不重要的东西，视觉上要有明显差别。靠字重和颜色拉开层次，不只靠字号。</p>
+<p><strong>常见错误：</strong> 页面从上到下全是差不多大的字，用户扫一眼不知道看哪。</p>
+<p><strong>怎么让 AI 做：</strong></p>
+<ul>
+<li>一个页面最多三级层次：最想让人看的一眼看到 → 次要信息 → 辅助信息</li>
+<li>强调用字重（600-700），不用只放大字号</li>
+<li>弱化用颜色（浅灰），不是缩小字号</li>
+<li>想强调一个东西，先弱化它周围的东西</li>
+</ul>
+<hr>
+<h2>2. 色彩系统：不是只用一个品牌色</h2>
+<p><strong>核心：</strong> 做网页至少需要 3 类颜色——中性灰阶（8-10 级）、品牌主色（5-10 级深浅）、语义色（成功绿/警告黄/错误红）。</p>
+<p><strong>常见错误：</strong> 一个蓝色当按钮、当链接、当标题、当强调——页面花成一片。灰色只有 <code>#ccc</code> 和 <code>#333</code> 两档。</p>
+<p><strong>怎么让 AI 做：</strong></p>
+<ul>
+<li>中性色用&quot;有色灰&quot;——偏蓝的灰显冷，偏黄的灰显暖。纯灰（#888）没质感</li>
+<li>品牌色准备深浅 5-10 级。深色做按钮背景，浅色做选中态</li>
+<li>60-30-10 法则：60% 中性背景色、30% 次要色（卡片/面板）、10% 品牌强调色</li>
+<li>主按钮上的白字，降低一点不透明度（0.9）比纯白更高级</li>
+</ul>
+<hr>
+<h2>3. 间距系统：间距一致，页面才会有&quot;气质&quot;</h2>
+<p><strong>核心：</strong> 所有间距按固定倍数来——4px 的倍数或 8px 的倍数。不出现&quot;差不多&quot;的间距。</p>
+<p><strong>常见错误：</strong> 这个卡片 padding 是 18px，那个是 22px——肉眼看不出区别，但脑子会觉得&quot;哪里不对&quot;。</p>
+<p><strong>怎么让 AI 做：</strong></p>
+<ul>
+<li>定一个间距体系：比如 4、8、12、16、24、32、48、64、96（px）</li>
+<li>所有 margin、padding、gap 只从这组数字里选</li>
+<li>宁可先多留白，再慢慢减——白太多显空，白太少显挤，后一种更难救</li>
+<li>元素间距别暧昧：要么明显在一起（近），要么明显分开（远）。不远不近最难受</li>
+</ul>
+<hr>
+<h2>4. 排版：字选对了，页面高级一半</h2>
+<p><strong>核心：</strong> 最多用两种字体。一种标题、一种正文。字号有明确层级，行高跟字号配套。</p>
+<p><strong>常见错误：</strong> 正文字太小（14px 以下）、行太密（行高 1.2）、行长太长（一屏扫不完一行）。</p>
+<p><strong>怎么让 AI 做：</strong></p>
+<ul>
+<li>正文字号不低于 16px，行高 ≥ 1.75（本站约定值，与交付标准门禁一致）</li>
+<li>每行控制在 45-75 个字符（中文约 20-35 个字）</li>
+<li>大字号行高收紧（标题 ≈1.1-1.3），小字号行高放宽</li>
+<li>字重不要太轻——正文 400、强调 600、标题 700。300 以下的字重不要在 UI 上大面积用（看起来像缺墨）</li>
+</ul>
+<hr>
+<h2>5. 深度与阴影：让页面有前后关系</h2>
+<p><strong>核心：</strong> 阴影不是&quot;加个灰色模糊&quot;。好的阴影模拟光从上方打下来——有垂直偏移、有多层叠加。</p>
+<p><strong>常见错误：</strong> 全页面只有一个 <code>box-shadow: 0 0 10px rgba(0,0,0,0.1)</code> ——没方向、没层级、像贴纸。</p>
+<p><strong>怎么让 AI 做：</strong></p>
+<ul>
+<li>阴影分四级：小（按钮悬浮）→ 中（卡片）→ 大（弹出层）→ 最大（对话框）</li>
+<li>每级阴影两层叠加：一层紧的（偏移小、暗）做轮廓 + 一层松的（偏移大、淡）做氛围</li>
+<li>垂直偏移：光从正上方来，阴影往下偏（<code>0 4px</code> 不是 <code>0 0</code>）</li>
+<li>不要把阴影当边框用——如果页面上到处是阴影，就没有东西&quot;浮起来&quot;了</li>
+</ul>
+<hr>
+<h2>6. 圆角：决定页面的&quot;性格&quot;</h2>
+<p><strong>核心：</strong> 圆角大小传递不同的感觉。小而尖 = 专业严肃；大而圆 = 友好活泼。</p>
+<p><strong>常见错误：</strong> 页面上圆角混乱——卡片 16px 圆角，里面按钮 2px 圆角，像两套东西拼的。</p>
+<p><strong>怎么让 AI 做：</strong></p>
+<ul>
+<li>定一个圆角体系：4px（小，输入框）→ 8px（中，卡片内部）→ 16px（大，卡片本身）→ 全圆角（按钮/标签）</li>
+<li>全站统一——同一类元素圆角一样</li>
+<li>风格选择：专业感用 4-8px，活泼感用 12-24px，胶囊按钮用全圆角</li>
+</ul>
+<hr>
+<h2>7. 少用边框，用其他方式分隔</h2>
+<p><strong>核心：</strong> 边框会让页面变&quot;忙&quot;。两个元素之间的分隔，优先用背景色差、阴影、间距——最后才用边框。</p>
+<p><strong>常见错误：</strong> 卡片一个框、里面按钮一个框、里面文字一个框——页面像 Excel 表格。</p>
+<p><strong>怎么让 AI 做：</strong></p>
+<ul>
+<li>两个相邻区域 → 不同背景色（一个白一个浅灰），不加边框</li>
+<li>卡片 → 阴影分隔，不加边框</li>
+<li>分割线 → 只在必须的时候用，用 <code>outline-variant</code> 级别，不用纯黑线</li>
+<li>如果加了边框还是分不清 → 不是边框的问题，是间距不够</li>
+</ul>
+<hr>
+<h2>8. 交互状态：不会动的页面像死的</h2>
+<p><strong>核心：</strong> 每个可交互元素，至少有四个状态：默认 → 悬停 → 点击 → 禁用。</p>
+<p><strong>常见错误：</strong> 按钮悬停不变色、点了没反馈、禁用态和正常态分不清。用户不知道&quot;能点吗&quot;&quot;点了吗&quot;。</p>
+<p><strong>怎么让 AI 做：</strong></p>
+<ul>
+<li>悬停：颜色变深 10-15%，加轻微上浮（<code>translateY(-2px)</code>），过渡 150-200ms</li>
+<li>点击：颜色最深，去掉上浮（压下去的感觉）</li>
+<li>禁用：降低不透明度到 40-50%，去掉所有交互反馈</li>
+<li>所有过渡不要太快（&lt;100ms = 感觉不到）也不要太慢（&gt;300ms = 感觉卡）</li>
+<li>焦点态（键盘选中的时候）：一圈明显的轮廓，不能删</li>
+</ul>
+<hr>
+<h2>9. 图片与图标：不用 emoji 当图标</h2>
+<p><strong>核心：</strong> 图标用 SVG（矢量），不用 emoji、不用像素图。</p>
+<p><strong>常见错误：</strong> 页面上几个 emoji 当图标——在不同系统上显示不一样，有的精致有的像贴图。</p>
+<p><strong>怎么让 AI 做：</strong></p>
+<ul>
+<li>图标用 SVG 代码内嵌，或 Material Symbols / Lucide 等图标库</li>
+<li>同类图标统一线条粗细（1.5px 或 2px），要么全是线框要么全是实心，不混用</li>
+<li>图标和文字对齐：图标垂直居中于文字，而不是飘在上面或掉在下面</li>
+<li>图片给 <code>width</code>/<code>height</code> 或占位，防加载时布局偏移（CLS）</li>
+</ul>
+<hr>
+<h2>10. 避免模板感</h2>
+<p><strong>核心：</strong> AI 默认产出的页面有一种&quot;模板味&quot;——均匀对称、全灰白底、只有一处蓝色强调。打破它。</p>
+<p><strong>常见错误（AI 会犯的）：</strong></p>
+<ul>
+<li>卡片矩阵 + 统一间距 + 无层级 → 一眼&quot;这是 AI 生成的&quot;</li>
+<li>纯白底 + 灰文字 + 一个蓝色按钮 → 史上最安全的配色，也是最无聊的</li>
+<li>所有圆角一样大、所有阴影一样深、所有间距一样宽 → 没有节奏</li>
+</ul>
+<p><strong>怎么让 AI 做：</strong></p>
+<ul>
+<li>打破网格：至少有一个元素跨出常规列宽</li>
+<li>在浅色背景上加一个有色的装饰区（浅色块、渐变、纹理）</li>
+<li>字体选有辨识度的——不是 Arial 也不是系统默认</li>
+<li>至少一处&quot;意外&quot;：一张不对称的图、一个打破常规间距的标题、一个有色背景的全宽区域</li>
+</ul>
+<hr>
+<h2>参考</h2>
+<ul>
+<li>Wathan &amp; Schoger, <em>Refactoring UI</em> — <a href="https://www.refactoringui.com">https://www.refactoringui.com</a></li>
+<li><em>UI/UX Pro Max</em> skill — <a href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill">https://github.com/nextlevelbuilder/ui-ux-pro-max-skill</a></li>
+<li>Google, <em>Material Design 3</em> — <a href="https://m3.material.io">https://m3.material.io</a></li>
+</ul>
+<h2>相关</h2>
+<ul>
+<li><a href="/learn/articles/anti-ai-slop">去AI味网页设计指南</a> — 视觉原则的另一面：识别并去掉 AI 味</li>
+<li><a href="/learn/articles/delivery-standard">网页交付标准指南</a> — 交付前的完整检查单</li>
+<li>网页视觉品质原则 来源调研 — 原文存档</li>
+</ul>
+<div class="article-meta">更新于 2026-08-21 · 已验证</div>
+  </div>
+</article>
+<!-- FOOTER_INJECT -->
+</body>
+</html>

@@ -4,369 +4,863 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233D6B4A'/%3E%3Crect x='10' y='15' width='12' height='34' rx='3' fill='%23fff'/%3E%3Crect x='26' y='19' width='12' height='26' rx='3' fill='%23fff' opacity='.7'/%3E%3Crect x='42' y='24' width='12' height='16' rx='3' fill='%23fff' opacity='.4'/%3E%3C/svg%3E">
-<title>设计原理 · 版式画廊</title>
+<title>设计指南 · 版式画廊</title>
 <style>
-/* ═══════════════════════════════════════════════════════════════
-   TOKENS — injected by server from tokens.json
-   ═══════════════════════════════════════════════════════════════ */
 <!-- ROOT_INJECT -->
 
-/* ═══════════════════════════════════════════════════════════════
-   RESET & BASE
-   ═══════════════════════════════════════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
+body{overflow-x:clip;background:var(--color-surface);color:var(--color-on-surface);font-family:var(--font-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit;text-decoration:none}
 
-body {
-  overflow-x: clip;
-  background: var(--color-surface);
-  color: var(--color-on-surface);
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
+/* ════════ HERO CAROUSEL (green + 背景图带) ════════ */
+.learn-header{position:relative;overflow:hidden;background:var(--color-primary);text-align:center;padding:clamp(48px,6vw,72px) clamp(20px,4vw,48px) var(--space-48);border-bottom:none}
+/* 背景图带：一排现成截图横排铺满 hero 宽，慢速平移（多图填满 + 保住每张内容），文字层叠其上 */
+.hero-strip{position:absolute;inset:0;overflow:hidden}
+.hero-strip-track{display:flex;height:100%;animation:strip-scroll 55s linear infinite;will-change:transform}
+.hero-strip-track img{height:100%;width:auto;flex-shrink:0;display:block;filter:brightness(.84) saturate(.92)}
+@keyframes strip-scroll{to{transform:translateX(-50%)}}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(18,34,24,.58),rgba(18,34,24,.75))}
+@media(prefers-reduced-motion:reduce){.hero-strip-track{animation:none}}
+/* ════════ SUB-NAV (sticky section switcher) ════════ */
+.learn-subnav{position:sticky;top:56px;z-index:150;background:rgba(255,255,255,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:var(--hairline) solid var(--color-outline)}
+.learn-subnav-inner{width:100%;max-width:var(--space-page-wmax);margin:0 auto;display:flex;gap:var(--space-4);padding:0 clamp(20px,4vw,48px);overflow-x:auto;scrollbar-width:none}
+.learn-subnav-inner::-webkit-scrollbar{display:none}
+.subnav-link{padding:14px 16px;font-size:var(--typescale-body-medium);font-weight:500;color:var(--color-on-surface-variant);border-bottom:2px solid transparent;white-space:nowrap;transition:color var(--duration-fast),border-color var(--duration-fast)}
+.subnav-link:hover{color:var(--color-primary)}
+.subnav-link.active{color:var(--color-primary);border-bottom-color:var(--color-primary);font-weight:600}
 
-a { color: inherit; text-decoration: none; }
+/* ════════ CONTENT PANELS ════════ */
+.learn-main{width:100%;max-width:var(--space-page-wmax);margin:0 auto;padding:0 clamp(20px,4vw,48px) var(--space-64)}
+.content-panel{display:none}
+.content-panel.active{display:block}
+.learn-section{margin-top:var(--space-64);scroll-margin-top:168px}
+.content-panel>.learn-section:first-child{margin-top:var(--space-48)}
+.learn-section h2{font-family:var(--font-display);font-size:var(--typescale-headline-large);font-weight:700;letter-spacing:-0.02em;color:var(--heading);margin-bottom:var(--space-8)}
+.section-nav{position:sticky;top:111px;z-index:140;display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-4);height:55px;margin-left:calc(clamp(20px,4vw,48px)*-1);margin-right:calc(clamp(20px,4vw,48px)*-1);padding:0 clamp(20px,4vw,48px);background:rgba(255,255,255,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.section-nav+.learn-section{margin-top:var(--space-32)}
+.section-nav-link{padding:14px 16px;font-size:var(--typescale-label-large);color:var(--color-on-surface-variant);white-space:nowrap;transition:color var(--duration-fast)}
+.section-nav-link:hover{color:var(--color-primary)}
+.learn-section>.desc{font-size:var(--typescale-body-medium);color:var(--color-on-surface-variant);line-height:1.7;margin-bottom:var(--space-32);max-width:640px}
 
-/* ═══════════════════════════════════════════════════════════════
-   PAGE HEADER
-   ═══════════════════════════════════════════════════════════════ */
-.learn-header {
-  text-align: center;
-  padding: clamp(40px, 6vw, 72px) clamp(20px, 4vw, 48px) var(--space-32);
-  border-bottom: var(--hairline) solid var(--color-outline);
-}
+/* ════════ CARD COMPONENTS（统一尺寸 + 标签钉底） ════════ */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(500px,1fr));grid-auto-rows:1fr;gap:var(--space-24)}
+.card-grid--books{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
 
-.learn-header h1 {
-  font-family: var(--font-display);
-  font-size: clamp(40px, 7vw, 64px);
-  font-weight: 700; letter-spacing: -0.03em; line-height: 1.1;
-  color: var(--heading);
-  margin-bottom: var(--space-16);
-}
+.card{display:flex;flex-direction:column;background:var(--color-surface-container-low);border:var(--hairline) solid var(--color-outline);border-radius:var(--radius-xs);overflow:hidden;transition:box-shadow var(--duration-slow),transform var(--duration-fast)}
+.card:hover{box-shadow:var(--elevation-sm);transform:translateY(-2px)}
 
-.learn-header .lead {
-  font-size: var(--typescale-body-large); color: var(--color-on-surface-variant);
-  max-width: 560px; margin: 0 auto; line-height: 1.65;
-}
+/* 预览区 16:9（模拟桌面浏览器：红绿灯 + 站点图标 + 地址栏 + 骨架内容） */
+.card-preview{aspect-ratio:16/9;background:var(--color-surface);border-bottom:var(--hairline) solid var(--color-outline);display:flex;flex-direction:column}
+.card-browser{display:flex;align-items:center;gap:5px;padding:8px 10px;background:var(--color-surface-container-high);border-bottom:var(--hairline) solid var(--color-outline)}
+.card-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.card-dot:nth-child(1){background:#f87171}
+.card-dot:nth-child(2){background:#fbbf24}
+.card-dot:nth-child(3){background:#34d399}
+.card-urlbar{display:flex;align-items:center;gap:6px;flex:1;min-width:0;margin-left:6px;padding:3px 10px;background:var(--color-surface);border:var(--hairline) solid var(--color-outline);border-radius:var(--radius-pill)}
+.card-favicon{width:14px;height:14px;flex-shrink:0;object-fit:contain}
+.url-text{font-size:var(--typescale-label-medium);color:var(--color-on-surface-variant);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-preview-body{flex:1;padding:0;overflow:hidden;position:relative;background:var(--color-surface-container-high)}
+.card-shot{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.skel{height:8px;border-radius:4px;background:var(--color-surface-container-low)}
+.skel.w80{width:80%}
+.skel.w60{width:60%}
+.skel.w40{width:40%}
 
-/* ═══════════════════════════════════════════════════════════════
-   SUB NAV
-   ═══════════════════════════════════════════════════════════════ */
-.learn-nav {
-  position: sticky; top: 56px; z-index: 99;
-  background: rgba(255,255,255,0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: var(--hairline) solid var(--color-outline-variant);
-  padding: var(--space-12) clamp(20px, 4vw, 48px);
-  display: flex; justify-content: center; flex-wrap: wrap;
-  gap: var(--space-4);
-}
+/* 正文 + 标签钉底 */
+.card-body{display:flex;flex-direction:column;flex:1;gap:var(--space-8);padding:var(--space-24)}
+.card-body h3{font-size:var(--typescale-body-large);font-weight:600;color:var(--color-on-surface);line-height:1.3}
+.card-body h3 .ext{font-size:0.8em;opacity:0.5}
+.card-body .author{font-size:var(--typescale-label-medium);color:var(--color-on-surface-variant)}
+.card-body p{font-size:var(--typescale-label-large);color:var(--color-on-surface-variant);line-height:1.6}
+.card-note{display:inline-block;align-self:flex-start;margin-top:auto;font-size:var(--typescale-label-medium);color:var(--color-on-surface-variant);padding:var(--space-4) var(--space-12);background:var(--color-surface);border-radius:var(--radius-pill);border:var(--hairline) solid var(--color-outline);font-family:var(--font-mono)}
+.card-link{display:inline-block;align-self:flex-start;margin-top:auto;color:var(--color-primary);font-weight:600;font-size:var(--typescale-label-large)}
+.card-link:hover{text-decoration:underline}
 
-.learn-nav a {
-  font-size: var(--typescale-label-large); color: var(--color-on-surface-variant);
-  padding: var(--space-8) var(--space-16);
-  border-radius: var(--radius-pill);
-  border: var(--hairline) solid transparent;
-  transition: all var(--duration-fast); white-space: nowrap;
-}
-.learn-nav a:hover,
-.learn-nav a.active {
-  color: var(--color-on-surface); background: var(--color-surface-container-low);
-  border-color: var(--color-outline); font-weight: 500;
-}
+/* 书籍卡片：封面在顶 + 中文名/英文名并列（竖版紧凑） */
+.book-cover{aspect-ratio:3/4;width:100%;background:var(--color-surface);display:flex;align-items:center;justify-content:flex-start;padding:var(--space-8) var(--space-8) var(--space-16);overflow:hidden}
+.book-cover img{width:100%;height:100%;object-fit:contain;box-shadow:0 6px 18px rgba(0,0,0,0.16)}
+.book-cover--placeholder{color:var(--color-primary);background:var(--color-primary-container);font-weight:600;font-size:var(--typescale-label-large);text-align:center;letter-spacing:0.04em;box-shadow:0 6px 18px rgba(0,0,0,0.10)}
+.book-title-zh{font-family:var(--font-display);font-size:var(--typescale-body-large);font-weight:700;color:var(--color-on-surface);line-height:1.35}
+.book-title-en{font-size:var(--typescale-label-medium);color:var(--color-on-surface-variant);font-style:italic;line-height:1.4}
 
-/* ═══════════════════════════════════════════════════════════════
-   MAIN CONTENT
-   ═══════════════════════════════════════════════════════════════ */
-.learn-main {
-  max-width: var(--space-page-wmax); margin: 0 auto;
-  padding: 0 clamp(20px, 4vw, 48px) var(--space-64);
-}
+/* 方法论卡片预览：流程 / 关键词 / 架构图，填满 16:9 预览区 */
+.card-preview--article .card-preview-body{display:flex;align-items:center;justify-content:center;padding:var(--space-20) var(--space-24)}
+.flow{display:flex;align-items:stretch;justify-content:center;gap:var(--space-8);width:100%}
+.flow-step{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-4);padding:var(--space-12) var(--space-8);background:var(--color-surface);border:var(--hairline) solid var(--color-outline);border-radius:var(--radius-xs);text-align:center}
+.flow-step b{font-family:var(--font-mono);font-size:var(--typescale-title-small);font-weight:700;color:var(--color-primary);line-height:1}
+.flow-step span{font-size:var(--typescale-label-large);color:var(--color-on-surface);font-weight:600;line-height:1.3}
+.flow-arrow{flex-shrink:0;align-self:center;color:var(--color-on-surface-variant);font-size:var(--typescale-title-small);font-weight:700}
+.word-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-8);max-width:420px}
+.word-grid span{padding:var(--space-8) var(--space-16);background:var(--color-surface);border:var(--hairline) solid var(--color-outline);border-radius:var(--radius-pill);font-size:var(--typescale-label-large);color:var(--color-on-surface);font-weight:600;font-family:var(--font-display)}
+.card-preview--fig .card-preview-body{padding:0;background:#f4f9fc}
+.fig-shot{width:100%;height:100%;object-fit:contain;display:block}
+.card-preview--duo .card-preview-body{display:flex;gap:2px;padding:0;background:#f4f9fc}
+.card-preview--duo .fig-shot{flex:1 1 50%;min-width:0;width:auto}
 
-.learn-section {
-  margin-top: var(--space-64);
-  scroll-margin-top: 130px;
-}
-.learn-section:first-of-type { margin-top: var(--space-48); }
-
-.learn-section h2 {
-  font-family: var(--font-display);
-  font-size: var(--typescale-headline-large); font-weight: 700;
-  letter-spacing: -0.02em; color: var(--heading);
-  margin-bottom: var(--space-8);
-}
-
-.learn-section > .desc {
-  font-size: var(--typescale-body-medium); color: var(--color-on-surface-variant);
-  line-height: 1.7; margin-bottom: var(--space-32);
-  max-width: 560px;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   CARDS
-   ═══════════════════════════════════════════════════════════════ */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--space-32);
-}
-
-.card {
-  background: var(--color-surface-container-low);
-  border: var(--hairline) solid var(--color-outline);
-  border-radius: var(--radius-xs);
-  padding: var(--space-32);
-  transition: box-shadow var(--duration-slow);
-}
-.card:hover { box-shadow: var(--elevation-sm); }
-
-.card h3 {
-  font-size: var(--typescale-body-large); font-weight: 600;
-  margin-bottom: var(--space-8); color: var(--color-on-surface);
-}
-
-.card p {
-  font-size: var(--typescale-label-large); color: var(--color-on-surface-variant);
-  line-height: 1.6; margin-bottom: var(--space-16);
-}
-
-.card .card-note {
-  font-size: var(--typescale-label-medium); color: var(--color-on-surface-variant);
-  padding: var(--space-8) var(--space-12);
-  background: var(--color-surface);
-  border-radius: var(--radius-xs);
-  border: var(--hairline) solid var(--color-outline);
-  font-family: var(--font-mono);
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   COMING SOON
-   ═══════════════════════════════════════════════════════════════ */
-.coming-soon {
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column;
-  padding: var(--space-64) var(--space-24);
-  text-align: center;
-  border: 2px dashed var(--color-outline);
-  border-radius: var(--radius-xs);
-  background: var(--color-surface);
-  color: var(--color-on-surface-variant);
-}
-.coming-soon .icon { font-size: 36px; margin-bottom: var(--space-12); }
-.coming-soon h3 { font-size: var(--typescale-body-large); color: var(--color-on-surface-variant); margin-bottom: var(--space-8); }
-.coming-soon p { font-size: var(--typescale-label-large); }
-
-/* ═══════════════════════════════════════════════════════════════
-   RESPONSIVE
-   ═══════════════════════════════════════════════════════════════ */
-@media (max-width: 680px) {
-  .learn-header h1 { font-size: clamp(32px, 10vw, 48px); }
-  .learn-section { margin-top: var(--space-48); }
-  .card-grid { grid-template-columns: 1fr; }
+@media(max-width:680px){
+  .learn-section{margin-top:var(--space-48)}
+  .card-grid,.card-grid--books{grid-template-columns:1fr}
 }
 </style>
 </head>
-<body>
+<body class="learn">
 
 <!-- NAV_INJECT -->
 
-<header class="learn-header">
-  <h1>设计原理</h1>
-  <p class="lead">版式画廊的设计工程方法论——让每个模板背后都有可以复现的原则、有据可查的标准。</p>
+<header class="learn-header" id="learn-hero">
+  <div class="hero-strip" aria-hidden="true">
+    <div class="hero-strip-track">
+      <img src="/public/img/screenshots/elevenlabs.io.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/color.adobe.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/mobbin.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/fonts.google.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/cases/awwwards.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/godly.website.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/huemint.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/dribbble.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/colorhunt.co.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/linear.app.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/alibabafonts.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/claude.ai.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/elevenlabs.io.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/color.adobe.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/mobbin.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/fonts.google.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/cases/awwwards.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/godly.website.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/huemint.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/dribbble.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/colorhunt.co.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/linear.app.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/alibabafonts.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/claude.ai.jpg" alt="" loading="lazy">
+    </div>
+  </div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-track">
+    <div class="hero-slide">
+      <h1>设计方法论</h1>
+      <p class="lead">方法论文章——网页交付标准、视觉品质原则、Design Token、去 AI 味。一篇解决一类"网页怎么做才对"的问题。</p>
+    </div>
+    <div class="hero-slide">
+      <h1>工具网站</h1>
+      <p class="lead">做界面时拿来即用的外部工具，按用途分组——字体、配色、图像素材。</p>
+    </div>
+    <div class="hero-slide">
+      <h1>灵感网站</h1>
+      <p class="lead">对照标杆——精选网页设计与产品设计参照。策展式收藏比随机刷效率高。</p>
+    </div>
+    <div class="hero-slide">
+      <h1>书籍推荐</h1>
+      <p class="lead">网页界面设计值得读的书，按"解决什么问题"分组——字体排印、界面与布局。每本解决一类问题。</p>
+    </div>
+  </div>
+  <button class="carousel-arrow carousel-prev" aria-label="上一部分">‹</button>
+  <button class="carousel-arrow carousel-next" aria-label="下一部分">›</button>
+  <div class="carousel-dots"></div>
 </header>
 
-<nav class="learn-nav" id="learn-nav">
-  <a href="#image-specs">图像规范</a>
-  <a href="#palette">配色库</a>
-  <a href="#typography">字体配对</a>
-  <a href="#principles">设计原则</a>
-  <a href="#books">推荐资源</a>
+<nav class="learn-subnav" id="learn-subnav">
+  <div class="learn-subnav-inner">
+    <a href="#methodology" class="subnav-link">设计方法论</a>
+    <a href="#tools" class="subnav-link">工具网站</a>
+    <a href="#inspiration" class="subnav-link">灵感网站</a>
+    <a href="#books" class="subnav-link">书籍推荐</a>
+  </div>
 </nav>
 
 <main class="learn-main">
 
-<!-- ==================== IMAGE SPECS ==================== -->
-<section class="learn-section" id="image-specs">
-  <h2>图像规范</h2>
-  <p class="desc">模板中图片占位的统一约定——比例、加载、缩放。45 个模板遵守同一套规则。</p>
+<!-- ════════ 01 设计方法论 ════════ -->
+<div class="content-panel">
+  <section class="learn-section">
+    <h2>设计方法论</h2>
+    <p class="desc">不是宣言，是判断“好网页长什么样”的清单。一篇解决一类问题。</p>
+    <div class="card-grid">
+      <!-- METHODOLOGY_CARDS:start -->
+      <a class="card" href="/learn/articles/delivery-standard">
+        <div class="card-preview card-preview--fig"><div class="card-preview-body"><img class="fig-shot" src="/public/learn/articles/delivery-gates.svg" alt="四门串行判定流程图" loading="lazy"></div></div>
+        <div class="card-body">
+          <h3>网页交付标准指南</h3>
+          <p>网页能不能上线，四个门依次过：能访问 → 能理解 → 能行动 → 能相信。</p>
+          <span class="card-link">阅读全文 →</span>
+        </div>
+      </a>
+      <a class="card" href="/learn/articles/visual-quality">
+        <div class="card-preview card-preview--duo"><div class="card-preview-body">
+          <img class="fig-shot" src="/public/learn/articles/demo-ai-slop.png" alt="AI 默认产物" loading="lazy">
+          <img class="fig-shot" src="/public/learn/articles/demo-designed.png" alt="按 10 条约束重做" loading="lazy">
+        </div></div>
+        <div class="card-body">
+          <h3>网页视觉品质原则</h3>
+          <p>10 条视觉约束，让 AI 产出的页面有质感、不像模板生成。</p>
+          <span class="card-link">阅读全文 →</span>
+        </div>
+      </a>
+      <a class="card" href="/learn/articles/design-token">
+        <div class="card-preview card-preview--fig"><div class="card-preview-body"><img class="fig-shot" src="/public/learn/articles/dtcg-runtime.svg" alt="DTCG 运行机制架构图" loading="lazy"></div></div>
+        <div class="card-body">
+          <h3>Design Token 的通用语言</h3>
+          <p>DTCG 标准，设计稿到代码的翻译层，一套定义处处可读。</p>
+          <span class="card-link">阅读全文 →</span>
+        </div>
+      </a>
+      <a class="card" href="/learn/articles/anti-ai-slop">
+        <div class="card-preview card-preview--duo"><div class="card-preview-body">
+          <img class="fig-shot" src="/public/learn/articles/demo-ai-slop.png" alt="AI 味版" loading="lazy">
+          <img class="fig-shot" src="/public/learn/articles/demo-designed.png" alt="去味版" loading="lazy">
+        </div></div>
+        <div class="card-body">
+          <h3>去AI味网页设计指南</h3>
+          <p>三秒识破 AI 味，每个视觉选择找回「为什么」。</p>
+          <span class="card-link">阅读全文 →</span>
+        </div>
+      </a>
+      <!-- METHODOLOGY_CARDS:end -->
+    </div>
+  </section>
+</div>
 
-  <div class="card-grid">
-    <div class="card">
-      <h3>画幅比例 16:10</h3>
-      <p>比 16:9 多 6% 纵高，中文排版不局促；比 4:3 更接近现代屏幕。MacBook 原生比例，mockup 事实标准（1440×900、1920×1200）。</p>
-      <div class="card-note">推荐 · 16:10</div>
+<!-- ════════ 02 工具网站 ════════ -->
+<div class="content-panel">
+  <nav class="section-nav">
+    <a class="section-nav-link" href="#sec-font">字体</a>
+    <a class="section-nav-link" href="#sec-color">配色</a>
+    <a class="section-nav-link" href="#sec-image">图像素材</a>
+  </nav>
+  <section class="learn-section" id="sec-font">
+    <h2>字体</h2>
+    <p class="desc">选字、配对、识别字体。中文免费商用字体优先。</p>
+    <div class="card-grid">
+      <a class="card" href="https://fonts.google.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/fonts.google.com.png" alt="" loading="lazy"><span class="url-text">fonts.google.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/fonts.google.com.jpg" alt="fonts.google.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Google Fonts <span class="ext">↗</span></h3>
+          <p>全球免费字体库，网页/桌面字体下载，按风格筛选。</p>
+          <span class="card-note">字体</span>
+        </div>
+      </a>
+      <a class="card" href="https://www.fontpair.co" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/www.fontpair.co.ico" alt="" loading="lazy"><span class="url-text">fontpair.co</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/www.fontpair.co.jpg" alt="www.fontpair.co 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Fontpair <span class="ext">↗</span></h3>
+          <p>免费 Google Fonts 配对工具，按用途推荐标题+正文组合。</p>
+          <span class="card-note">字体</span>
+        </div>
+      </a>
+      <a class="card" href="https://www.typewolf.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/www.typewolf.com.ico" alt="" loading="lazy"><span class="url-text">typewolf.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/www.typewolf.com.jpg" alt="www.typewolf.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Typewolf <span class="ext">↗</span></h3>
+          <p>字体排版灵感库，识别真实网站所用的字体与字重。</p>
+          <span class="card-note">字体</span>
+        </div>
+      </a>
+      <a class="card" href="https://www.100font.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/www.100font.com.ico" alt="" loading="lazy"><span class="url-text">100font.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/www.100font.com.jpg" alt="www.100font.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>100font <span class="ext">↗</span></h3>
+          <p>免费商用字体汇总，中文免费字体下载合集。</p>
+          <span class="card-note">字体</span>
+        </div>
+      </a>
+      <a class="card" href="https://www.maoken.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/www.maoken.com.ico" alt="" loading="lazy"><span class="url-text">maoken.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/www.maoken.com.jpg" alt="www.maoken.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>猫啃网 <span class="ext">↗</span></h3>
+          <p>无版权中文字体，免费商用中文字体精选。</p>
+          <span class="card-note">字体</span>
+        </div>
+      </a>
+      <a class="card" href="https://alibabafonts.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/alibabafonts.com.png" alt="" loading="lazy"><span class="url-text">alibabafonts.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/alibabafonts.com.jpg" alt="alibabafonts.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>阿里巴巴普惠体 <span class="ext">↗</span></h3>
+          <p>阿里巴巴官方免费商用中文字体，正文/标题两套字重。</p>
+          <span class="card-note">字体</span>
+        </div>
+      </a>
     </div>
-    <div class="card">
-      <h3>骨架屏占位</h3>
-      <p>图片加载前用纯 CSS 骨架屏占位，避免布局偏移（CLS）。@keyframes 驱动 opacity 脉冲，零 JS 依赖。骨架条宽度递减模拟真实行长分布。</p>
-      <div class="card-note">CSS only · 1.5s pulse</div>
-    </div>
-    <div class="card">
-      <h3>transform scale 缩放</h3>
-      <p>hover 缩放用 transform: scale()，不走 width/height。transform 在 GPU 合成层执行，不触发 reflow，60fps 平滑。配合 overflow: hidden 裁切边缘。</p>
-      <div class="card-note">GPU 合成 · 不重排</div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- ==================== PALETTE ==================== -->
-<section class="learn-section" id="palette">
-  <h2>配色库</h2>
-  <p class="desc">8 套 oklch 色板，按行业分类。每套含主色、辅色、中性色、语义色四层，可直接复制为 CSS :root。</p>
-  <div class="coming-soon">
-    <div class="icon">🎨</div>
-    <h3>即将上线</h3>
-    <p>配色库正在从 45 个模板中提炼行业通用色板，敬请期待。</p>
-  </div>
-</section>
+  <section class="learn-section" id="sec-color">
+    <h2>配色</h2>
+    <p class="desc">生成、调和、验证配色。AI 配色优先看对比度。</p>
+    <div class="card-grid">
+      <a class="card" href="https://coolors.co" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/coolors.co.png" alt="" loading="lazy"><span class="url-text">coolors.co</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/coolors.co.jpg" alt="coolors.co 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Coolors <span class="ext">↗</span></h3>
+          <p>配色方案生成器，空格随机五色，锁定喜欢的色继续调。</p>
+          <span class="card-note">配色</span>
+        </div>
+      </a>
+      <a class="card" href="https://huemint.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/huemint.com.ico" alt="" loading="lazy"><span class="url-text">huemint.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/huemint.com.jpg" alt="huemint.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Huemint <span class="ext">↗</span></h3>
+          <p>AI 配色工具，生成时考虑对比度，可直接用于界面。</p>
+          <span class="card-note">配色</span>
+        </div>
+      </a>
+      <a class="card" href="https://color.adobe.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/color.adobe.com.png" alt="" loading="lazy"><span class="url-text">color.adobe.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/color.adobe.com.jpg" alt="color.adobe.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Adobe Color <span class="ext">↗</span></h3>
+          <p>专业配色工具，色轮/调和规则/趋势色板。</p>
+          <span class="card-note">配色</span>
+        </div>
+      </a>
+      <a class="card" href="https://colorhunt.co" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/colorhunt.co.png" alt="" loading="lazy"><span class="url-text">colorhunt.co</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/colorhunt.co.jpg" alt="colorhunt.co 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Color Hunt <span class="ext">↗</span></h3>
+          <p>配色方案分享社区，每日精选四色搭配。</p>
+          <span class="card-note">配色</span>
+        </div>
+      </a>
+      <a class="card" href="https://www.happyhues.co" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/www.happyhues.co.ico" alt="" loading="lazy"><span class="url-text">happyhues.co</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/www.happyhues.co.jpg" alt="www.happyhues.co 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Happy Hues <span class="ext">↗</span></h3>
+          <p>调色板灵感 + 配色在真实界面中的实际应用示例。</p>
+          <span class="card-note">配色</span>
+        </div>
+      </a>
+      <a class="card" href="https://www.zhongguose.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/www.zhongguose.com.png" alt="" loading="lazy"><span class="url-text">zhongguose.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/www.zhongguose.com.jpg" alt="www.zhongguose.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>中国色 <span class="ext">↗</span></h3>
+          <p>中国传统颜色百科，传统色谱 + CMYK/HEX 对照。</p>
+          <span class="card-note">配色</span>
+        </div>
+      </a>
+    </div>
+  </section>
 
-<!-- ==================== TYPOGRAPHY ==================== -->
-<section class="learn-section" id="typography">
-  <h2>字体配对</h2>
-  <p class="desc">6 套中英文字体组合，覆盖正文/标题/代码三场景。每套标注适用风格和字体回退栈。</p>
-  <div class="coming-soon">
-    <div class="icon">🔤</div>
-    <h3>即将上线</h3>
-    <p>字体配对库建设中——从模板中提炼已验证的中英文组合方案。</p>
-  </div>
-</section>
+  <section class="learn-section" id="sec-image">
+    <h2>图像素材</h2>
+    <p class="desc">配图、图标、矢量素材。免费商用可查授权。</p>
+    <div class="card-grid">
+      <a class="card" href="https://unsplash.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/unsplash.com.png" alt="" loading="lazy"><span class="url-text">unsplash.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/unsplash.com.jpg" alt="unsplash.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Unsplash <span class="ext">↗</span></h3>
+          <p>免费高清图片标杆，摄影师社区，可商用配图。</p>
+          <span class="card-note">素材</span>
+        </div>
+      </a>
+      <a class="card" href="https://www.pexels.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/www.pexels.com.ico" alt="" loading="lazy"><span class="url-text">pexels.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/www.pexels.com.jpg" alt="www.pexels.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Pexels <span class="ext">↗</span></h3>
+          <p>免费商用图片+视频，高质量免版权素材。</p>
+          <span class="card-note">素材</span>
+        </div>
+      </a>
+      <a class="card" href="https://pixabay.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/pixabay.com.png" alt="" loading="lazy"><span class="url-text">pixabay.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/pixabay.com.jpg" alt="pixabay.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Pixabay <span class="ext">↗</span></h3>
+          <p>免费素材库，图片/视频/矢量/音效免版权。</p>
+          <span class="card-note">素材</span>
+        </div>
+      </a>
+      <a class="card" href="https://www.iconfont.cn" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/www.iconfont.cn.ico" alt="" loading="lazy"><span class="url-text">iconfont.cn</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/www.iconfont.cn.jpg" alt="www.iconfont.cn 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>iconfont <span class="ext">↗</span></h3>
+          <p>阿里矢量图标库，免费 UI 图标，支持 SVG/字体下载。</p>
+          <span class="card-note">素材</span>
+        </div>
+      </a>
+      <a class="card" href="https://www.pinterest.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/www.pinterest.com.ico" alt="" loading="lazy"><span class="url-text">pinterest.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/www.pinterest.com.jpg" alt="www.pinterest.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Pinterest <span class="ext">↗</span></h3>
+          <p>全球图片灵感社区，设计/家居/穿搭视觉灵感。</p>
+          <span class="card-note">素材</span>
+        </div>
+      </a>
+    </div>
+  </section>
+</div>
 
-<!-- ==================== PRINCIPLES ==================== -->
-<section class="learn-section" id="principles">
-  <h2>设计原则</h2>
-  <p class="desc">版式画廊遵循 7 条通用设计原则 + 5 条 AI 输出约束。不是宣言，是每个模板通过 P0 门禁前的检查清单。</p>
+<!-- ════════ 03 灵感网站 ════════ -->
+<div class="content-panel">
+  <nav class="section-nav">
+    <a class="section-nav-link" href="#sec-platform">灵感平台</a>
+    <a class="section-nav-link" href="#sec-product">标杆产品</a>
+    <a class="section-nav-link" href="#sec-brand">消费品牌</a>
+    <a class="section-nav-link" href="#sec-ai">AI 产品</a>
+  </nav>
+  <section class="learn-section" id="sec-platform">
+    <h2>灵感平台</h2>
+    <p class="desc">每日精选、评审、归档。找标杆先来这里。</p>
+    <div class="card-grid">
+      <a class="card" href="https://www.awwwards.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/www.awwwards.com.ico" alt="" loading="lazy"><span class="url-text">awwwards.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/www.awwwards.com.jpg" alt="www.awwwards.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Awwwards <span class="ext">↗</span></h3>
+          <p>网页设计奖项平台，每日精选获奖网站，评审评语即免费设计课。</p>
+          <span class="card-note">评审</span>
+        </div>
+      </a>
+      <a class="card" href="https://godly.website" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/godly.website.png" alt="" loading="lazy"><span class="url-text">godly.website</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/godly.website.jpg" alt="godly.website 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Godly <span class="ext">↗</span></h3>
+          <p>精选网页设计灵感，策展式收藏比随机刷效率高。</p>
+          <span class="card-note">策展</span>
+        </div>
+      </a>
+      <a class="card" href="https://www.hoverstat.es" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/www.hoverstat.es.ico" alt="" loading="lazy"><span class="url-text">hoverstat.es</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/www.hoverstat.es.jpg" alt="www.hoverstat.es 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Hoverstat <span class="ext">↗</span></h3>
+          <p>网页设计归档，前卫交互/创意网站案例。</p>
+          <span class="card-note">归档</span>
+        </div>
+      </a>
+      <a class="card" href="https://mobbin.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/mobbin.com.ico" alt="" loading="lazy"><span class="url-text">mobbin.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/mobbin.com.jpg" alt="mobbin.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Mobbin <span class="ext">↗</span></h3>
+          <p>真实 App 截图/交互流程库，按 flow 对照真实做法。</p>
+          <span class="card-note">App 参考</span>
+        </div>
+      </a>
+      <a class="card" href="https://dribbble.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/dribbble.com.ico" alt="" loading="lazy"><span class="url-text">dribbble.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/dribbble.com.jpg" alt="dribbble.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Dribbble <span class="ext">↗</span></h3>
+          <p>全球 UI/UX/插画设计师社区，顶级作品展示。</p>
+          <span class="card-note">社区</span>
+        </div>
+      </a>
+      <a class="card" href="https://www.behance.net" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/www.behance.net.ico" alt="" loading="lazy"><span class="url-text">behance.net</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/www.behance.net.jpg" alt="www.behance.net 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Behance <span class="ext">↗</span></h3>
+          <p>Adobe 创意社区，全球设计师作品展示平台。</p>
+          <span class="card-note">社区</span>
+        </div>
+      </a>
+    </div>
+  </section>
 
-  <h3 style="margin-top:var(--space-32);font-family:var(--font-display);color:var(--heading)">通用设计原则 · 7 条</h3>
+  <section class="learn-section" id="sec-product">
+    <h2>标杆产品</h2>
+    <p class="desc">SaaS / 开发工具的官网本身就是设计课。产品 UI 即营销页。</p>
+    <div class="card-grid">
+      <a class="card" href="https://linear.app" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/linear.app.ico" alt="" loading="lazy"><span class="url-text">linear.app</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/linear.app.jpg" alt="linear.app 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Linear <span class="ext">↗</span></h3>
+          <p>任务管理产品，极简设计标杆，产品 UI 即营销页。</p>
+          <span class="card-note">SaaS</span>
+        </div>
+      </a>
+      <a class="card" href="https://stripe.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/stripe.com.ico" alt="" loading="lazy"><span class="url-text">stripe.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/stripe.com.jpg" alt="stripe.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Stripe <span class="ext">↗</span></h3>
+          <p>支付产品设计标杆，蓝调阴影+轻字重=精密可信。</p>
+          <span class="card-note">SaaS</span>
+        </div>
+      </a>
+      <a class="card" href="https://vercel.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/vercel.com.ico" alt="" loading="lazy"><span class="url-text">vercel.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/vercel.com.jpg" alt="vercel.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Vercel <span class="ext">↗</span></h3>
+          <p>开发者工具设计标杆，“阴影即边框”手法出处。</p>
+          <span class="card-note">SaaS</span>
+        </div>
+      </a>
+      <a class="card" href="https://www.figma.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/www.figma.com.ico" alt="" loading="lazy"><span class="url-text">figma.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/www.figma.com.jpg" alt="www.figma.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Figma <span class="ext">↗</span></h3>
+          <p>云端协作原型工具，UI/UX 行业标准，免费版够用。</p>
+          <span class="card-note">工具</span>
+        </div>
+      </a>
+      <a class="card" href="https://www.raycast.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/www.raycast.com.ico" alt="" loading="lazy"><span class="url-text">raycast.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/www.raycast.com.jpg" alt="www.raycast.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Raycast <span class="ext">↗</span></h3>
+          <p>生产力工具产品设计，官网排版精致克制。</p>
+          <span class="card-note">SaaS</span>
+        </div>
+      </a>
+      <a class="card" href="https://sentry.io" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/sentry.io.ico" alt="" loading="lazy"><span class="url-text">sentry.io</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/sentry.io.jpg" alt="sentry.io 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Sentry <span class="ext">↗</span></h3>
+          <p>开发者工具产品设计，深色科技感排版参考。</p>
+          <span class="card-note">SaaS</span>
+        </div>
+      </a>
+    </div>
+  </section>
 
-  <div class="card-grid">
-    <div class="card">
-      <h3>唯一真相源</h3>
-      <p>每条数据只有一个家。tokens.json 是视觉属性的唯一权威，所有视图从它派生。不因展示需要建冗余数据副本。</p>
+  <section class="learn-section" id="sec-brand">
+    <h2>消费品牌</h2>
+    <p class="desc">摄影、留白、场景化陈列。大品牌的视觉表达范式。</p>
+    <div class="card-grid">
+      <a class="card" href="https://www.apple.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/www.apple.com.png" alt="" loading="lazy"><span class="url-text">apple.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/www.apple.com.jpg" alt="www.apple.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Apple <span class="ext">↗</span></h3>
+          <p>摄影优先的极致极简设计，留白与产品焦点的教科书。</p>
+          <span class="card-note">品牌</span>
+        </div>
+      </a>
+      <a class="card" href="https://www.muji.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/www.muji.com.ico" alt="" loading="lazy"><span class="url-text">muji.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/www.muji.com.jpg" alt="www.muji.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>MUJI <span class="ext">↗</span></h3>
+          <p>极简美学与留白排版，东方克制设计标杆。</p>
+          <span class="card-note">品牌</span>
+        </div>
+      </a>
+      <a class="card" href="https://www.airbnb.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/www.airbnb.com.ico" alt="" loading="lazy"><span class="url-text">airbnb.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/www.airbnb.com.jpg" alt="www.airbnb.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Airbnb <span class="ext">↗</span></h3>
+          <p>旅行场景化产品设计，图片叙事与搜索体验。</p>
+          <span class="card-note">品牌</span>
+        </div>
+      </a>
+      <a class="card" href="https://www.bugatti.com" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/www.bugatti.com.png" alt="" loading="lazy"><span class="url-text">bugatti.com</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/www.bugatti.com.jpg" alt="www.bugatti.com 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Bugatti <span class="ext">↗</span></h3>
+          <p>超跑品牌视觉呈现，奢华与速度的视觉张力。</p>
+          <span class="card-note">品牌</span>
+        </div>
+      </a>
     </div>
-    <div class="card">
-      <h3>语义优先</h3>
-      <p>命名表达意图而非数值。--color-primary 而非 --blue-500。变量名自述其设计角色，读者无需查色值表。</p>
-    </div>
-    <div class="card">
-      <h3>少即是多</h3>
-      <p>不添加未请求的功能。三个一样的才算模式。不处理不可能发生的错误。200 行能压到 50 行则不压。</p>
-    </div>
-    <div class="card">
-      <h3>工具退后</h3>
-      <p>设计工具服务于设计系统，不是反过来。token 文件是人类可读的 JSON，不是某个工具的专有格式。</p>
-    </div>
-    <div class="card">
-      <h3>静态优先</h3>
-      <p>默认交付纯 CSS + 语义 HTML。JS 是增强层，不是依赖项。无 JS 环境下页面核心体验不受损。</p>
-    </div>
-    <div class="card">
-      <h3>诚实</h3>
-      <p>不把推测包装成事实，不把个案包装成规律。不确定的说"不确定"。数字断言必须跑程序验证。</p>
-    </div>
-    <div class="card">
-      <h3>精确到底</h3>
-      <p>字号、行高、字距、对比度——每个视觉决策有可量化依据。设计审查不看"感觉"，看数据。</p>
-    </div>
-  </div>
+  </section>
 
-  <h3 style="margin-top:var(--space-48);font-family:var(--font-display);color:var(--heading)">AI 输出约束 · 5 条</h3>
+  <section class="learn-section" id="sec-ai">
+    <h2>AI 产品</h2>
+    <p class="desc">AI 产品的界面范式，对话与生成的交互呈现。</p>
+    <div class="card-grid">
+      <a class="card" href="https://claude.ai" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/claude.ai.ico" alt="" loading="lazy"><span class="url-text">claude.ai</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/claude.ai.jpg" alt="claude.ai 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>Claude <span class="ext">↗</span></h3>
+          <p>Anthropic 官方对话入口，长上下文 + Artifacts 编程界面。</p>
+          <span class="card-note">AI</span>
+        </div>
+      </a>
+      <a class="card" href="https://elevenlabs.io" target="_blank" rel="noopener">
+        <div class="card-preview">
+          <div class="card-browser"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span><div class="card-urlbar"><img class="card-favicon" src="/public/img/favicons/elevenlabs.io.ico" alt="" loading="lazy"><span class="url-text">elevenlabs.io</span></div></div>
+          <div class="card-preview-body"><img class="card-shot" src="/public/img/screenshots/elevenlabs.io.jpg" alt="elevenlabs.io 截图" loading="lazy"></div>
+        </div>
+        <div class="card-body">
+          <h3>ElevenLabs <span class="ext">↗</span></h3>
+          <p>AI 语音合成标杆，多语言自然语音生成。</p>
+          <span class="card-note">AI</span>
+        </div>
+      </a>
+    </div>
+  </section>
+</div>
 
-  <div class="card-grid">
-    <div class="card">
-      <h3>可审计性</h3>
-      <p>所有 CSS 值从 :root 变量派生。任何视觉属性可沿变量链追溯到 tokens.json 源值。审计路径完整、机械、不可绕行。</p>
+<!-- ════════ 04 书籍推荐 ════════ -->
+<div class="content-panel">
+  <nav class="section-nav">
+    <a class="section-nav-link" href="#sec-typography">字体排印</a>
+    <a class="section-nav-link" href="#sec-layout">界面与布局</a>
+  </nav>
+  <section class="learn-section" id="sec-typography">
+    <h2>字体排印</h2>
+    <p class="desc">看字——字母结构、排版韵律、字体组合。设计的第一层是“字”。</p>
+    <div class="card-grid card-grid--books">
+      <!-- BOOK_CARDS:sec-typography:start -->
+      <div class="card">
+        <div class="book-cover"><img src="/public/img/covers/elements-typographic-style.jpg" alt="字体的技艺封面" loading="lazy"></div>
+        <div class="card-body">
+          <div class="book-title-zh">《字体的技艺》</div>
+          <div class="book-title-en">The Elements of Typographic Style</div>
+          <div class="author">Robert Bringhurst</div>
+          <p>排版领域公认的“圣经”。从字母结构、字距、行高、页边距到页面比例，把字体排印讲成一套有历史渊源、有审美判断的技艺。网页排版的每一个视觉决策——衬线还是无衬线、行高多少、留白怎么留——都能追溯到这本书里的排版传统。</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="book-cover"><img src="/public/img/covers/practical-typography.jpg" alt="实用字体排印封面" loading="lazy"></div>
+        <div class="card-body">
+          <div class="book-title-zh">《实用字体排印》</div>
+          <div class="book-title-en">Butterick's Practical Typography</div>
+          <div class="author">Matthew Butterick</div>
+          <p>在线免费，网页排版实操指南。字体选择、行距、对比度的具体建议，直接对应 CSS 里的 font-size、line-height、color 设置。面向写作和网页场景，给的是一照做就见效的参数，不是理论。</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="book-cover"><img src="/public/img/covers/designing-with-type.jpg" alt="用字设计封面" loading="lazy"></div>
+        <div class="card-body">
+          <div class="book-title-zh">《用字设计》</div>
+          <div class="book-title-en">Designing with Type: The Essential Guide to Typography</div>
+          <div class="author">James Craig</div>
+          <p>字体选择与组合的系统方法论。从字体的历史、分类（古体/过渡体/现代体/粗衬线/无衬线）到搭配规则，讲清“为什么这两个字体放在一起好看”——靠的是对比与同族的搭配逻辑，不是凭感觉。</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="book-cover"><img src="/public/img/covers/thinking-with-type.jpg" alt="图解字型思考封面" loading="lazy"></div>
+        <div class="card-body">
+          <div class="book-title-zh">《图解字型思考》</div>
+          <div class="book-title-en">Thinking with Type: A Critical Guide for Designers, Writers, Editors, and Students</div>
+          <div class="author">Ellen Lupton</div>
+          <p>从字母结构一路讲到网格系统，适合设计师与前端工程师共读。把“字体怎么选、怎么排、怎么搭网格”讲成一套可操作的方法：字体分类（人文体/过渡体/现代体）、字距、行距、层次、栅格。</p>
+        </div>
+      </div>
+      <!-- BOOK_CARDS:sec-typography:end -->
     </div>
-    <div class="card">
-      <h3>确定性</h3>
-      <p>同一份 tokens.json + 同一份 template.html = 逐像素一致的输出。消除环境差异、时间差异、模型随机性。</p>
-    </div>
-    <div class="card">
-      <h3>排版即编辑</h3>
-      <p>版式的第一职责是传达内容结构。标题、正文、标注之间的层级关系依靠字号和间距，不依靠颜色或装饰。</p>
-    </div>
-    <div class="card">
-      <h3>CSS 是接口协议</h3>
-      <p>模板通过 CSS 自定义属性声明自己的视觉合约。外部工具（验证器、品牌渲染器、对比度检查器）通过读 tokens.json 与模板通信。</p>
-    </div>
-    <div class="card">
-      <h3>按面分级</h3>
-      <p>颜色、间距、圆角、阴影、动效——每层独立声明，不耦合。换色不碰间距，调间距不染半径。分层即分责。</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- ==================== BOOKS ==================== -->
-<section class="learn-section" id="books">
-  <h2>推荐资源</h2>
-  <p class="desc">设计工程领域的经典书籍与常用工具——覆盖排版、配色、设计系统、CSS 工程。</p>
-
-  <div class="card-grid">
-    <div class="card">
-      <h3>《The Elements of Typographic Style》</h3>
-      <p>Robert Bringhurst 著。排版圣经，网页排版的底层逻辑都在这本书里。</p>
-      <div class="card-note">排版 · 经典</div>
+  <section class="learn-section" id="sec-layout">
+    <h2>界面与布局</h2>
+    <p class="desc">排布——界面元素怎么摆、栅格怎么分。设计的第一层之上是“结构”。</p>
+    <div class="card-grid card-grid--books">
+      <!-- BOOK_CARDS:sec-layout:start -->
+      <div class="card">
+        <div class="book-cover"><img src="/public/img/covers/refactoring-ui.jpg" alt="重构界面封面" loading="lazy"></div>
+        <div class="card-body">
+          <div class="book-title-zh">《重构界面》</div>
+          <div class="book-title-en">Refactoring UI</div>
+          <div class="author">Adam Wathan, Steve Schoger</div>
+          <p>从程序员视角讲界面设计，实用至上。间距、配色、层级、组件状态——不教设计理论，直接给“照着改就能好看”的具体手法。作者是 Tailwind CSS 作者，全书思路与原子化 CSS 一脉相承。</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="book-cover"><img src="/public/img/covers/grid-systems.jpg" alt="平面设计中的网格系统封面" loading="lazy"></div>
+        <div class="card-body">
+          <div class="book-title-zh">《平面设计中的网格系统》</div>
+          <div class="book-title-en">Grid Systems in Graphic Design</div>
+          <div class="author">Josef Müller-Brockmann</div>
+          <p>网格系统的开山之作，理解 layout 底层逻辑的必读。用数学思维构建视觉秩序：栅格如何切分页面、留白如何参与节奏、多页之间如何保持一致。网页的栅格系统、响应式布局、留白节奏都能追溯到这本书。</p>
+        </div>
+      </div>
+      <!-- BOOK_CARDS:sec-layout:end -->
     </div>
-    <div class="card">
-      <h3>《Thinking with Type》</h3>
-      <p>Ellen Lupton 著。从字母结构到网格系统，适合设计师和前端工程师共读。</p>
-      <div class="card-note">排版 · 入门到进阶</div>
-    </div>
-    <div class="card">
-      <h3>《Refactoring UI》</h3>
-      <p>Adam Wathan & Steve Schoger 著。从程序员视角讲界面设计，实用至上。</p>
-      <div class="card-note">UI 设计 · 实用</div>
-    </div>
-    <div class="card">
-      <h3>《Designing with Type》</h3>
-      <p>James Craig 著。字体选择与组合的系统方法论。</p>
-      <div class="card-note">字体 · 经典</div>
-    </div>
-    <div class="card">
-      <h3>《Grid Systems in Graphic Design》</h3>
-      <p>Josef Müller-Brockmann 著。网格系统的开山之作，理解 layout 的底层逻辑。</p>
-      <div class="card-note">网格 · 经典</div>
-    </div>
-    <div class="card">
-      <h3>《Practical Typography》</h3>
-      <p>Matthew Butterick 著。在线免费，网页排版实操指南，字体选择、行距、对比度的具体建议。</p>
-      <div class="card-note">排版 · 免费在线</div>
-    </div>
-  </div>
-</section>
+  </section>
+</div>
 
 </main>
 
+<!-- FOOTER_INJECT -->
+
 <script>
 (function(){
-  var nav = document.getElementById('learn-nav');
-  if (!nav) return;
-  var links = nav.querySelectorAll('a');
-  var sections = [].slice.call(document.querySelectorAll('.learn-section'));
-  function update() {
-    var id = sections[0].id;
-    var atBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 120;
-    if (atBottom) id = sections[sections.length-1].id;
-    else for (var i = sections.length-1; i >= 0; i--) if (sections[i].getBoundingClientRect().top <= 150) { id = sections[i].id; break; }
-    links.forEach(function(a) { a.classList.toggle('active', a.getAttribute('href') === '#' + id); });
-  }
-  if (window._learnScrollHandler) window.removeEventListener('scroll', window._learnScrollHandler);
-  window._learnScrollHandler = update;
-  window.addEventListener('scroll', update, {passive: true});
-  update();
+  /* ── 英雄区：独立自动轮播（广告），不再驱动下方内容 ── */
+  var hero = document.getElementById('learn-hero');
+  if (hero) {
+    var track = hero.querySelector('.hero-track');
+    var slides = hero.querySelectorAll('.hero-slide');
+    var dotsWrap = hero.querySelector('.carousel-dots');
+    var n = slides.length;
+    var D = 5000;   // 自动播放间隔
+    var T = 350;    // 过渡时长，对应 --duration-slow
+    var timer = null;
 
-  // Sync sub-nav top with site-nav height
-  var siteNav = document.querySelector('.site-nav');
-  var learnNav = document.getElementById('learn-nav');
-  function syncNavTop() { if (siteNav && learnNav) learnNav.style.top = siteNav.offsetHeight + 'px'; }
-  syncNavTop();
-  window.addEventListener('resize', syncNavTop);
+    // 克隆首尾实现无缝循环：track = [clone(04), 01, 02, 03, 04, clone(01)]
+    track.appendChild(slides[0].cloneNode(true));
+    track.insertBefore(slides[n - 1].cloneNode(true), slides[0]);
+
+    var pos = 1;    // 当前 DOM 位置 1..n，真实索引 = (pos - 1)
+
+    var dots = [];
+    for (var k = 0; k < n; k++) {
+      (function(idx){
+        var b = document.createElement('button');
+        b.className = 'carousel-dot';
+        b.setAttribute('aria-label', '第' + (idx + 1) + '部分');
+        b.addEventListener('click', function(){ goHero(idx); start(); });
+        dotsWrap.appendChild(b);
+        dots.push(b);
+      })(k);
+    }
+
+    function renderHero(){
+      track.style.transform = 'translateX(-' + (pos * 100) + '%)';
+      var real = ((pos - 1) + n) % n;
+      for (var d = 0; d < n; d++) dots[d].classList.toggle('active', d === real);
+    }
+    function goHero(k){ pos = k + 1; renderHero(); }
+
+    function jumpBack(target){
+      setTimeout(function(){
+        track.style.transition = 'none';
+        pos = target;
+        renderHero();
+        track.offsetHeight;               // 强制 reflow，使 transition:none 生效
+        track.style.transition = '';
+      }, T);
+    }
+
+    function next(){ pos++; renderHero(); if (pos === n + 1) jumpBack(1); }
+    function prev(){ pos--; renderHero(); if (pos === 0) jumpBack(n); }
+
+    function start(){ stop(); timer = setInterval(next, D); }
+    function stop(){ if (timer){ clearInterval(timer); timer = null; } }
+
+    hero.querySelector('.carousel-prev').addEventListener('click', function(){ prev(); start(); });
+    hero.querySelector('.carousel-next').addEventListener('click', function(){ next(); start(); });
+    hero.addEventListener('mouseenter', stop);
+    hero.addEventListener('mouseleave', start);
+
+    // 初始定位，无过渡避免加载闪烁
+    track.style.transition = 'none';
+    renderHero();
+    track.offsetHeight;
+    track.style.transition = '';
+    start();
+  }
+
+  /* ── 下方内容：sub-nav + hash 驱动，与英雄区解耦 ── */
+  var panels = document.querySelectorAll('.content-panel');
+  var links = document.querySelectorAll('.subnav-link');
+  var hashToIndex = { '#methodology': 0, '#tools': 1, '#inspiration': 2, '#books': 3 };
+
+  function showPanel(idx){
+    for (var p = 0; p < panels.length; p++) panels[p].classList.toggle('active', p === idx);
+    for (var s = 0; s < links.length; s++) links[s].classList.toggle('active', s === idx);
+  }
+
+  for (var s = 0; s < links.length; s++) {
+    (function(idx){
+      links[idx].addEventListener('click', function(e){
+        e.preventDefault();
+        showPanel(idx);
+        if (location.hash !== links[idx].getAttribute('href')) {
+          location.hash = links[idx].getAttribute('href');
+        }
+      });
+    })(s);
+  }
+
+  var initial = hashToIndex[location.hash] != null ? hashToIndex[location.hash] : 0;
+  showPanel(initial);
+
+  window.addEventListener('hashchange', function() {
+    var idx = hashToIndex[location.hash];
+    if (idx != null) showPanel(idx);
+  });
+
+  document.querySelectorAll('.section-nav-link').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var t = document.getElementById(a.getAttribute('href').slice(1));
+      if (t) t.scrollIntoView({behavior:'smooth'});
+    });
+  });
 })();
 </script>
-
-<!-- FOOTER_INJECT -->
 </body>
 </html>

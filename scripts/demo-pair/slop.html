@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumina AI 笔记</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter','system-ui',sans-serif;background:#fff;color:#111;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .hero{position:relative;text-align:center;padding:110px 24px 90px;background:linear-gradient(135deg,#7c3aed,#6366f1 45%,#2563eb);color:#fff;overflow:hidden}
+  .orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:.6}
+  .orb1{width:320px;height:320px;background:radial-gradient(circle,#a78bfa,transparent 70%);top:-60px;left:-40px}
+  .orb2{width:380px;height:380px;background:radial-gradient(circle,#38bdf8,transparent 70%);top:20px;right:-80px}
+  .orb3{width:240px;height:240px;background:radial-gradient(circle,#c084fc,transparent 70%);bottom:-80px;left:35%}
+  .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);padding:6px 16px;border-radius:999px;font-size:13px;font-weight:500;margin-bottom:28px}
+  h1{font-size:52px;line-height:1.15;font-weight:700;background:linear-gradient(90deg,#f0abfc,#93c5fd);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.02em}
+  .hero p.sub{margin:18px auto 36px;max-width:520px;font-size:18px;color:rgba(255,255,255,.85)}
+  .btns{display:flex;gap:14px;justify-content:center}
+  .btn{padding:14px 30px;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;transition:.2s}
+  .btn-primary{background:#6366f1;color:#fff;border:none;box-shadow:0 0 24px rgba(99,102,241,.6)}
+  .btn-primary:hover{background:#4f46e5;transform:translateY(-2px)}
+  .btn-ghost{background:rgba(255,255,255,.12);color:#fff;border:1.5px solid rgba(255,255,255,.5)}
+  .logo-wall{padding:56px 24px;text-align:center}
+  .logo-wall p{font-size:13px;color:#94a3b8;letter-spacing:.12em;margin-bottom:26px}
+  .logos{display:flex;justify-content:center;gap:44px;font-size:18px;font-weight:600;color:#cbd5e1}
+  .features{padding:70px 24px 80px;max-width:1080px;margin:0 auto}
+  .features h2{text-align:center;font-size:34px;margin-bottom:14px}
+  .features>p{text-align:center;color:#64748b;margin-bottom:48px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .card{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #6366f1;border-radius:14px;padding:28px 22px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .card .ico{font-size:34px;margin-bottom:16px}
+  .card h3{font-size:19px;margin-bottom:10px}
+  .card p{font-size:15px;color:#475569}
+  .stats{padding:60px 24px;background:#f8fafc;display:flex;justify-content:center;gap:70px}
+  .stat{text-align:center}
+  .stat b{display:block;font-size:38px;color:#6366f1}
+  .stat span{font-size:14px;color:#64748b}
+  .cta{padding:90px 24px;text-align:center}
+  .cta h2{font-size:36px;margin-bottom:16px}
+  .cta p{color:#64748b;margin-bottom:32px}
+  .cta .btn-primary{font-size:17px;padding:16px 36px}
+</style>
+</head>
+<body>
+  <section class="hero">
+    <div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
+    <div class="badge">✨ 全新 AI 加持</div>
+    <h1>让笔记拥有思考能力</h1>
+    <p class="sub">Lumina 用 AI 重塑你的第二大脑，自动整理、智能连接、一键成稿——把想法变成行动力。</p>
+    <div class="btns">
+      <a class="btn btn-primary" href="#">🚀 免费开始</a>
+      <a class="btn btn-ghost" href="#">了解更多</a>
+    </div>
+  </section>
+
+  <section class="logo-wall">
+    <p>被全球 500 万+ 用户信赖</p>
+    <div class="logos">Google&nbsp; Meta&nbsp; Notion&nbsp; Slack&nbsp; Figma&nbsp; Dropbox</div>
+  </section>
+
+  <section class="features">
+    <h2>强大功能，一站搞定</h2>
+    <p>全面赋能你的每一次记录</p>
+    <div class="grid">
+      <div class="card"><div class="ico">⚡</div><h3>实时同步</h3><p>毫秒级同步，快 10 倍，随时随地捕捉灵感。</p></div>
+      <div class="card"><div class="ico">🧠</div><h3>智能连接</h3><p>AI 自动建立笔记关联，释放认知潜力。</p></div>
+      <div class="card"><div class="ico">🚀</div><h3>一键成稿</h3><p>从零散想法到完整文章，极致效率。</p></div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><b>10×</b><span>效率提升</span></div>
+    <div class="stat"><b>99.9%</b><span>运行稳定</span></div>
+    <div class="stat"><b>500万</b><span>全球用户</span></div>
+  </section>
+
+  <section class="cta">
+    <h2>现在就开始你的 Lumina 之旅</h2>
+    <p>免费体验 30 天，无任何风险承诺</p>
+    <a class="btn btn-primary" href="#">🚀 立即加入</a>
+  </section>
+</body>
+</html>

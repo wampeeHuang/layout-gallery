@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="270" viewBox="0 0 1040 270">
+<defs>
+  <marker id="arrow-dtcg" markerWidth="9" markerHeight="9" refX="6" refY="4.5" orient="auto">
+    <path d="M0,0 L9,4.5 L0,9 Z" fill="#7b97aa"/>
+  </marker>
+</defs>
+
+<rect width="100%" height="100%" fill="#f4f9fc"/>
+
+<text x="520" y="40" text-anchor="middle" style="font-family:'JetBrains Mono','Cascadia Code','Consolas','PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;font-size:17px;fill:#102638;font-weight:600">DTCG 运行机制：一个品牌色怎么流到各端</text>
+<text x="520" y="64" text-anchor="middle" style="font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;font-size:12px;fill:#587287">DTCG 本身不运行，是静态文件格式；真正干活的是转换器——读文件、生成各平台代码</text>
+
+<!-- 设计工具 -->
+<g transform="translate(95,160)">
+  <rect x="-85" y="-50" width="170" height="100" rx="10" style="fill:rgba(217,119,6,0.08);stroke:#b9670b;stroke-width:1.8"/>
+  <text y="-22" text-anchor="middle" style="font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;font-size:14px;fill:#102638;font-weight:600">设计工具</text>
+  <text y="-4" text-anchor="middle" style="font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;font-size:11px;fill:#587287">Figma / Sketch</text>
+  <text y="18" text-anchor="middle" style="font-family:'JetBrains Mono','Cascadia Code','Consolas',monospace;font-size:11px;fill:#b9670b">brand.primary = #38608F</text>
+</g>
+
+<!-- DTCG 标准文件 -->
+<g transform="translate(375,160)">
+  <rect x="-110" y="-75" width="220" height="150" rx="10" style="fill:rgba(124,58,237,0.09);stroke:#7254c7;stroke-width:1.8"/>
+  <text y="-54" text-anchor="middle" style="font-family:'JetBrains Mono','Cascadia Code','Consolas','PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;font-size:14px;fill:#102638;font-weight:600">tokens.json（静态文件）</text>
+  <text y="-30" text-anchor="middle" style="font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;font-size:11px;fill:#7254c7;font-weight:600">基础层</text>
+  <text y="-12" text-anchor="middle" style="font-family:'JetBrains Mono','Cascadia Code','Consolas',monospace;font-size:11px;fill:#102638">brand.primary = #38608F</text>
+  <text y="14" text-anchor="middle" style="font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;font-size:11px;fill:#7254c7;font-weight:600">语义层（$ref）</text>
+  <text y="32" text-anchor="middle" style="font-family:'JetBrains Mono','Cascadia Code','Consolas',monospace;font-size:11px;fill:#102638">button.bg = {brand.primary}</text>
+</g>
+
+<!-- 转换器 -->
+<g transform="translate(670,160)">
+  <rect x="-90" y="-50" width="180" height="100" rx="10" style="fill:rgba(5,150,105,0.09);stroke:#087f69;stroke-width:1.8"/>
+  <text y="-22" text-anchor="middle" style="font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;font-size:13px;fill:#102638;font-weight:600">转换器（真正干活）</text>
+  <text y="2" text-anchor="middle" style="font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;font-size:10.5px;fill:#587287">Style Dictionary / Terrazzo</text>
+  <text y="22" text-anchor="middle" style="font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;font-size:10.5px;fill:#087f69">读文件 → 生成平台代码</text>
+</g>
+
+<!-- 消费端 -->
+<g transform="translate(940,160)">
+  <rect x="-90" y="-90" width="180" height="180" rx="10" style="fill:#ffffff;stroke:#7b97aa;stroke-width:1.8"/>
+  <text y="-62" text-anchor="middle" style="font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;font-size:14px;fill:#102638;font-weight:600">各平台消费端</text>
+  <text y="-36" text-anchor="middle" style="font-family:'JetBrains Mono','Cascadia Code','Consolas',monospace;font-size:11px;fill:#587287">CSS → --brand-primary</text>
+  <text y="-16" text-anchor="middle" style="font-family:'JetBrains Mono','Cascadia Code','Consolas',monospace;font-size:11px;fill:#587287">iOS → UIColor</text>
+  <text y="4" text-anchor="middle" style="font-family:'JetBrains Mono','Cascadia Code','Consolas',monospace;font-size:11px;fill:#587287">Android → Color</text>
+</g>
+
+<!-- 主流程箭头 -->
+<path d="M 180 160 L 258 160" style="fill:none;stroke:#7b97aa;stroke-width:1.8;stroke-linecap:round" marker-end="url(#arrow-dtcg)"/>
+<text x="222" y="146" text-anchor="middle" style="font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;font-size:11px;fill:#587287">导出</text>
+
+<path d="M 485 160 L 573 160" style="fill:none;stroke:#7b97aa;stroke-width:1.8;stroke-linecap:round" marker-end="url(#arrow-dtcg)"/>
+<text x="532" y="146" text-anchor="middle" style="font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;font-size:11px;fill:#587287">读取</text>
+
+<path d="M 760 160 L 843 160" style="fill:none;stroke:#7b97aa;stroke-width:1.8;stroke-linecap:round" marker-end="url(#arrow-dtcg)"/>
+<text x="805" y="146" text-anchor="middle" style="font-family:'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;font-size:11px;fill:#587287">生成</text>
+
+</svg>

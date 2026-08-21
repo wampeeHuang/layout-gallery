@@ -33,231 +33,38 @@ a { color: inherit; text-decoration: none; }
 /* ═══════════════════════════════════════════════════════════════
    PAGE HEADER
    ═══════════════════════════════════════════════════════════════ */
-.page-header {
-  padding: clamp(32px, 5vw, 56px) clamp(20px, 4vw, 48px) var(--space-32);
-  border-bottom: var(--hairline) solid var(--color-outline);
-  max-width: var(--space-page-wmax); margin: 0 auto;
-}
-
-.page-header h1 {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4.5vw, 3.2rem);
-  font-weight: 700; line-height: 1.05;
-  letter-spacing: -0.04em;
-  color: var(--heading);
-  margin-bottom: var(--space-8);
-}
-
-.page-header .subtitle {
-  font-size: var(--typescale-body-medium); color: var(--color-on-surface-variant);
-  max-width: 600px;
-}
+.learn-header{background:var(--color-primary);text-align:center;padding:clamp(48px,6vw,72px) clamp(20px,4vw,48px) var(--space-48);border-bottom:none}
+.learn-header h1{font-family:var(--font-display);font-size:clamp(40px,7vw,64px);font-weight:700;letter-spacing:-0.03em;line-height:1.1;color:#fff;margin-bottom:var(--space-16)}
+.learn-header .lead{font-size:var(--typescale-body-large);color:rgba(255,255,255,0.85);max-width:560px;margin:0 auto;line-height:1.65}
 
 /* ═══════════════════════════════════════════════════════════════
-   MAIN CONTENT
+   COMING SOON（白底，独立于绿色英雄区）
    ═══════════════════════════════════════════════════════════════ */
-.page-wrap {
-  max-width: var(--space-page-wmax); margin: 0 auto;
-  padding: var(--space-32) clamp(20px, 4vw, 48px) var(--space-64);
+.grow-coming {
+  text-align: center;
+  padding: var(--space-64) var(--space-24) var(--space-96);
 }
-
-/* ═══════════════════════════════════════════════════════════════
-   STATUS BANNER
-   ═══════════════════════════════════════════════════════════════ */
-.status-banner {
-  display: flex; gap: var(--space-24); align-items: flex-start;
-  background: var(--color-primary-container);
-  border: var(--hairline) solid var(--color-primary);
-  padding: var(--space-24) var(--space-32);
-  margin-bottom: var(--space-48);
-}
-.status-badge {
-  flex-shrink: 0;
-  font-size: var(--typescale-label-medium); font-weight: 700; letter-spacing: 0.06em;
-  text-transform: uppercase;
-  background: var(--color-primary); color: #fff;
-  padding: 4px 12px;
-}
-.status-body p {
-  font-size: var(--typescale-label-large); color: var(--color-on-surface);
-  line-height: 1.7; max-width: 640px;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   PIPELINE PREVIEW
-   ═══════════════════════════════════════════════════════════════ */
-.pipeline-preview {
-  margin-bottom: var(--space-48);
-}
-.pipeline-preview h3 {
+.coming-soon {
   font-family: var(--font-display);
-  font-size: var(--typescale-body-large); font-weight: 600;
-  color: var(--color-on-surface);
-  margin-bottom: var(--space-16);
-}
-.pipe-steps {
-  display: flex; gap: var(--space-8); align-items: center;
-  flex-wrap: wrap;
-}
-.pipe-step {
-  display: flex; align-items: center; gap: var(--space-8);
-  padding: var(--space-12) var(--space-16);
-  background: var(--color-surface-container-low);
-  border: var(--hairline) solid var(--color-outline);
-  font-size: var(--typescale-label-large);
-}
-.pipe-num {
-  font-family: var(--font-display);
-  font-size: var(--typescale-body-large); font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
   color: var(--color-on-surface-variant);
-}
-.pipe-label {
-  color: var(--color-on-surface-variant);
-}
-.pipe-arrow {
-  color: var(--color-on-surface-variant);
-  font-size: var(--typescale-body-large);
-  flex-shrink: 0;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   PREREQUISITES GRID
-   ═══════════════════════════════════════════════════════════════ */
-.prereq-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--space-gutter);
-  margin-bottom: var(--space-48);
-}
-.prereq-card {
-  background: var(--color-surface-container-low);
-  border: var(--hairline) solid var(--color-outline);
-  padding: var(--space-32);
-}
-.prereq-icon {
-  font-size: 24px; margin-bottom: var(--space-12);
-}
-.prereq-card h4 {
-  font-family: var(--font-display);
-  font-size: var(--typescale-body-medium); font-weight: 600;
-  color: var(--color-on-surface);
-  margin-bottom: var(--space-8);
-}
-.prereq-card p {
-  font-size: var(--typescale-label-large); color: var(--color-on-surface-variant);
-  line-height: 1.6;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   WATCH ZONE
-   ═══════════════════════════════════════════════════════════════ */
-.watch-zone {
-  border-top: var(--hairline) solid var(--color-outline);
-  padding-top: var(--space-32);
-}
-.watch-zone h3 {
-  font-family: var(--font-display);
-  font-size: var(--typescale-body-large); font-weight: 600;
-  color: var(--color-on-surface);
-  margin-bottom: var(--space-16);
-}
-.watch-links {
-  display: flex; gap: var(--space-gap); flex-wrap: wrap;
-}
-.watch-link {
-  flex: 1; min-width: 240px;
-  display: block;
-  padding: var(--space-24);
-  border: var(--hairline) solid var(--color-outline);
-  text-decoration: none;
-  transition: box-shadow var(--duration-fast) var(--ease-standard);
-}
-.watch-link:hover {
-  box-shadow: var(--elevation-sm);
-}
-.watch-label {
-  display: block;
-  font-family: var(--font-display);
-  font-size: var(--typescale-body-medium); font-weight: 600;
-  color: var(--color-primary);
-  margin-bottom: 4px;
-}
-.watch-desc {
-  font-size: var(--typescale-label-large); color: var(--color-on-surface-variant);
-}
-
-@media(max-width:640px) {
-  .pipe-steps { flex-direction: column; align-items: flex-start; }
-  .pipe-arrow { transform: rotate(90deg); }
-  .status-banner { flex-direction: column; }
 }
 </style>
 </head>
-<body>
+<body class="green">
 <!-- NAV_INJECT -->
 
-<div class="page-header">
+<header class="learn-header">
   <h1>AI 萃取</h1>
-  <p class="subtitle">输入网站 URL，AI 自动提取设计 token，生成 tokens.json + 品牌套件预览</p>
-</div>
+  <p class="lead">输入网站 URL，自动提取设计 token，生成品牌套件。</p>
+</header>
 
-<div class="page-wrap">
-
-<div class="status-banner">
-  <div class="status-badge">即将开放</div>
-  <div class="status-body">
-    <p>AI 萃取管线已在本地跑通。等待精选区开张后开放——精选模板是 AI 生长的训练样本，有足够的精选模板后，AI 萃取质量才有保证。</p>
-  </div>
-</div>
-
-<div class="pipeline-preview">
-  <h3>生长管线（5 步）</h3>
-  <div class="pipe-steps">
-    <div class="pipe-step"><span class="pipe-num">1</span><span class="pipe-label">验证 URL</span></div>
-    <div class="pipe-arrow">→</div>
-    <div class="pipe-step"><span class="pipe-num">2</span><span class="pipe-label">抓取样式</span></div>
-    <div class="pipe-arrow">→</div>
-    <div class="pipe-step"><span class="pipe-num">3</span><span class="pipe-label">DeepSeek 提取</span></div>
-    <div class="pipe-arrow">→</div>
-    <div class="pipe-step"><span class="pipe-num">4</span><span class="pipe-label">Schema 校验</span></div>
-    <div class="pipe-arrow">→</div>
-    <div class="pipe-step"><span class="pipe-num">5</span><span class="pipe-label">写入 + 同步</span></div>
-  </div>
-</div>
-
-<div class="prereq-grid">
-  <div class="prereq-card">
-    <div class="prereq-icon">⭐</div>
-    <h4>精选区开张</h4>
-    <p>需要 10-15 个精选模板作为训练样本。当前 0 个，Phase 1 第一批做完后开放。</p>
-  </div>
-  <div class="prereq-card">
-    <div class="prereq-icon">🔒</div>
-    <h4>写入安全</h4>
-    <p>生长管线的 approve/reject 涉及文件写入和 registry 修改，需在精选区验证通过后，以受控方式开放。</p>
-  </div>
-  <div class="prereq-card">
-    <div class="prereq-icon">📐</div>
-    <h4>标签体系就绪</h4>
-    <p>生长出的模板需要准确的 taxonomy 标签。等标签整顿（taxonomy-plan 步骤 1-5）完成后再开。</p>
-  </div>
-</div>
-
-<div class="watch-zone">
-  <h3>当前可关注</h3>
-  <div class="watch-links">
-    <a href="/" class="watch-link">
-      <span class="watch-label">画廊首页</span>
-      <span class="watch-desc">浏览 35 个已有模板，按风格筛选</span>
-    </a>
-    <a href="/library" class="watch-link">
-      <span class="watch-label">版式库</span>
-      <span class="watch-desc">列表视图，批量对比模板属性</span>
-    </a>
-  </div>
-</div>
+<section class="grow-coming">
+  <p class="coming-soon">即将开放</p>
+</section>
 
 <!-- FOOTER_INJECT -->
-</div>
 </body>
 </html>

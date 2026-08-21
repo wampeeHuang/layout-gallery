@@ -21,6 +21,14 @@ AI 调用的设计风格仓库。模板统一索引 → 按意图发现 → 一�
 
 非 git：inbox/(投料) _runtime/(过程) _archive/(留档) generated/(产物)
 
+## 内容真相源（/learn）
+
+/learn 全部内容（方法论文章、书籍推荐、工具、灵感）真相源在 Obsidian wiki（`D:\Obsidian\wiki\`），网站是派生呈现端。**铁律：改内容先改 wiki 源，过 `D:\Obsidian` 的 `node scripts/check.js wiki` 门禁，再复现到网站；禁止下游先漂移。** 发现下游比上游多内容（描述更全/新增条目）→ 同步回上游，以 wiki 为准。
+
+- 方法论文章已接生成器：改 wiki → `npm run generate:articles` → 复现文章 + 方法论卡片。机制细节（真相流 / 卡片数据源 / demo 双图 / 问号门禁 / 排版契约）见 `guides/methodology-articles.md`。
+- 书籍区已接生成器：改 wiki 书籍推荐.md（分组/书单顺序）或 `D:\Obsidian\Raw\书籍\` 书页（英文名/完整简介/封面）→ `npm run generate:books` → 复现 learn.html 书籍卡片 + 缺封面自动补齐。**生成器即门禁**：wikilink 解析、书名字段、内容简介、封面任一缺失 exit 非 0，不得手工改卡片（marker 块全量重写）。
+- 工具/灵感区（learn.html）暂手工维护、无生成器——改 wiki 后需手动同步 learn.html，架构未闭环。
+
 ## P0 交付门禁
 
 ```bash
