@@ -1,7 +1,7 @@
 ---
 version: 1
 name: 版式画廊 · Layout Gallery
-description: 以鼠尾草绿、衬线标题、细网格和大留白构成的精选版式目录。结构即纹理；零圆角框架与克制动效强化机构感，不用装饰性假数据制造繁荣。
+description: 以鼠尾草绿、中文衬线标题、白底零边框和大留白构成的精选版式目录。高级感来自少——不靠边框线和网格纹理，靠超轻大字号标题、真实模板缩略渲染与克制动效；不用装饰性假数据制造繁荣。
 scheme: light
 qualityTier: standard
 colors:
@@ -14,10 +14,10 @@ colors:
   line: "#D4D4D8"
 typography:
   display: "Noto Serif SC, Source Han Serif SC, Songti SC, SimSun, serif"
-  body: "Noto Sans SC, Inter, Segoe UI, PingFang SC, system-ui, sans-serif"
+  body: "Noto Sans SC, Inter, Segoe UI, PingFang SC, Microsoft YaHei UI, system-ui, sans-serif"
   mono: "SF Mono, Consolas, Cascadia Code, ui-monospace, monospace"
 spacing:
-  page-wmax: 1732px
+  page-wmax: 1920px
   page-pad: 48px
   gap: 16px
   gutter: 24px
@@ -30,7 +30,9 @@ motion:
 
 ## 设计意图
 
-这是平台自身的标准预览，不是“纸媒宣言”展示页，也不是虚构数据的缩略图陈列。首屏先解释精选边界，目录展示真实可用条目，质量证据与 Agent 使用入口紧随其后。任何数字、等级和状态都必须能追溯到仓库文件或生成报告。
+这是平台自身的标准预览，不是”纸媒宣言”展示页，也不是虚构数据的缩略图陈列。首屏先解释精选边界，目录展示真实可用条目，质量证据与 Agent 使用入口紧随其后。任何数字、等级和状态都必须能追溯到仓库文件或生成报告。
+
+全局按点线面构成经营，但不靠铺满底色——面来自真实内容（模板缩略图）与单一强调块（agent 交接段的全宽鼠尾草绿面），其余区段白底、靠内部排版关系立结构。白底为主体，鼠尾草绿为唯一强调色，不引入第三种。
 
 ## Anatomy
 
@@ -39,11 +41,13 @@ motion:
 | 结构 | 真实用途 | 约束 |
 |---|---|---|
 | `.masthead` / `.nav` | 品牌身份与页内导航 | 保持低高度、细边线，不增加营销式主导航 |
-| `.hero` / `.hero-aside` | 价值主张与收录边界 | 不展示无法验证的模板数量、评分或承诺 |
+| `.hero` / `.hero-aside` | 价值主张与收录边界 | 不展示无法验证的模板数量、评分或承诺；纯白底无纹理，超大衬线标题为唯一视觉锚点；aside 事实以 `01-04` 等宽编号索引呈现，去规格表感 |
 | `.filters` / `[data-filter]` | 目录筛选状态 | 必须键盘可达；无匹配项时显示真实空状态 |
-| `.catalog` / `.template-card` | 实际收录项和版式预览 | 卡片数据必须来自仓库现有 slug；缩略预览体现版式差异 |
+| `.catalog` / `.template-card` | 实际收录项和版式预览 | 卡片数据必须来自仓库现有 slug；卡片零边框，靠留白分隔，真实缩略图即"面"；`.preview` 内嵌真实模板缩略图（`/public/thumbs/{slug}.png`）且整图可点（跳真实模板页），hover 时 `scale(1.03)` + 标题变色 |
+| `.preview` / `.preview img` | 真实模板缩略渲染 | 16:10 容器、`object-fit: cover`、`loading="lazy"`；替换旧 CSS 假预览（preview-sheet/kicker 已移除） |
+| `.reveal` / `.revealed` | 滚动渐现动效 | IntersectionObserver 触发 `translateY + opacity`，走 `--ease-standard`/`--duration-slow`；`prefers-reduced-motion` 下禁用，无 IntersectionObserver 时直接显示 |
 | `.evidence-grid` / `.gate` | 质量门禁证据 | 只引用可生成的质量报告，不手写“全部通过” |
-| `.agent-panel` / `.read-order` | Agent 最短使用路径 | 明示四文件读取顺序并提供可复制提示词 |
+| `.agent-panel` / `.read-order` | Agent 最短使用路径 | 整段为全宽鼠尾草绿面（`--color-primary`），明示四文件读取顺序并提供可复制提示词 |
 | `.stress` / `.stress-list` | 长文案与混合字符压力测试 | 保留中英数混排、长标题和窄屏检验内容 |
 
 ## 使用规则

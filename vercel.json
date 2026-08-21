@@ -10,7 +10,8 @@
     { "src": "public/learn/articles/*.svg", "use": "@vercel/static" },
     { "src": "public/img/cases/*.jpg", "use": "@vercel/static" },
     { "src": "public/img/screenshots/*.jpg", "use": "@vercel/static" },
-    { "src": "public/img/previews/*.jpg", "use": "@vercel/static" }
+    { "src": "public/img/previews/*.jpg", "use": "@vercel/static" },
+    { "src": "public/thumbs/*.png", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "server/server.js" },

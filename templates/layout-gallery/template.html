@@ -29,8 +29,8 @@
   --font-mono: "SF Mono","Consolas","Cascadia Code","IBM Plex Mono",ui-monospace,monospace;
   --typescale-title-medium: 20px;
   --typescale-label-large: 13px;
-  --typescale-display-large: clamp(48px,6vw,80px);
-  --typescale-headline-large: 40px;
+  --typescale-display-large: clamp(56px,7vw,104px);
+  --typescale-headline-large: 48px;
   --typescale-title-large: 28px;
   --typescale-body-large: 17px;
   --typescale-body-medium: 15px;
@@ -52,7 +52,7 @@
   --radius-pill: 999px;
 
   /* ── spacing ── */
-  --space-page-wmax: 1732px;
+  --space-page-wmax: 1920px;
   --space-page-pad: 48px;
   --space-gap: 16px;
   --space-gutter: 24px;
@@ -136,8 +136,7 @@ a { color: inherit; }
   display: grid;
   grid-template-columns: minmax(0, 1.45fr) minmax(16rem, .55fr);
   gap: var(--space-64);
-  padding-block: clamp(4rem, 10vw, 9rem);
-  border-block-end: var(--hairline) solid var(--color-outline);
+  padding-block: clamp(5rem, 12vw, 10rem);
 }
 .eyebrow, .index, .meta, .status, .source-note, .gate-label {
   font-family: var(--font-mono);
@@ -146,13 +145,15 @@ a { color: inherit; }
   text-transform: uppercase;
 }
 .eyebrow { color: var(--color-primary); }
-h1, h2, h3 { margin: 0; color: var(--heading); font-family: var(--font-display); font-weight: 600; line-height: 1.12; }
-h1 { max-inline-size: 15ch; margin-block: var(--space-24); font-size: var(--typescale-display-large); letter-spacing: -.04em; }
-h2 { font-size: clamp(2rem, 4vw, var(--typescale-headline-large)); letter-spacing: -.025em; }
+h1, h2, h3 { margin: 0; color: var(--heading); font-family: var(--font-display); font-weight: 400; line-height: 1.15; }
+h1 { max-inline-size: 22ch; margin-block: var(--space-24); font-size: var(--typescale-display-large); letter-spacing: -.05em; }
+h2 { font-size: clamp(1.75rem, 3.5vw, var(--typescale-headline-large)); letter-spacing: -.03em; }
 h3 { font-size: var(--typescale-title-medium); }
 .hero-copy { max-inline-size: 48rem; color: var(--color-on-surface-variant); font-size: var(--typescale-body-large); }
-.hero-aside { align-self: end; border-block-start: var(--hairline) solid var(--color-outline); }
-.fact { display: grid; grid-template-columns: 1fr auto; gap: var(--space-24); padding-block: var(--space-16); border-block-end: var(--hairline) solid var(--color-outline-variant); }
+.hero-aside { align-self: end; display: grid; gap: var(--space-12); counter-reset: fact; }
+.fact { counter-increment: fact; display: grid; grid-template-columns: auto 1fr auto; gap: var(--space-16); align-items: baseline; padding-block: var(--space-4); }
+.fact::before { content: "0" counter(fact); font-family: var(--font-mono); font-size: var(--typescale-label-medium); letter-spacing: .08em; color: var(--color-on-surface-variant); }
+.fact span { color: var(--color-on-surface-variant); }
 .fact strong { color: var(--color-primary); }
 .actions { display: flex; flex-wrap: wrap; gap: var(--space-12); margin-block-start: var(--space-32); }
 .button {
@@ -171,9 +172,13 @@ h3 { font-size: var(--typescale-title-medium); }
 .button.secondary { background: var(--color-surface); color: var(--color-primary); }
 .button:hover { transform: var(--transform-2); }
 
-.section { padding-block: clamp(4rem, 8vw, 7rem); border-block-end: var(--hairline) solid var(--color-outline); }
-.section-heading { display: grid; grid-template-columns: minmax(0, .7fr) minmax(18rem, 1.3fr); gap: var(--space-64); margin-block-end: var(--space-48); }
-.section-heading p { margin: 0; max-inline-size: 48rem; color: var(--color-on-surface-variant); }
+.reveal { opacity: 0; transform: translateY(1.25rem); transition: opacity var(--duration-slow) var(--ease-standard), transform var(--duration-slow) var(--ease-standard); }
+.revealed { opacity: 1; transform: none; }
+
+.section { padding-block: clamp(4rem, 8vw, 7rem); }
+#agent { background: var(--color-primary); }
+.section-heading { margin-block-end: var(--space-48); }
+.section-heading p { margin: var(--space-16) 0 0; max-inline-size: 38rem; color: var(--color-on-surface-variant); }
 
 .filters { display: flex; flex-wrap: wrap; gap: var(--space-8); margin-block-end: var(--space-32); }
 .filter {
@@ -186,47 +191,45 @@ h3 { font-size: var(--typescale-title-medium); }
 .filter[aria-pressed="true"] { border-color: var(--color-primary); background: var(--color-primary-container); color: var(--color-primary); }
 
 .catalog { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-gutter); }
-.template-card { display: grid; border: var(--hairline) solid var(--color-outline); background: var(--color-surface); }
-.preview { position: relative; min-block-size: 17rem; overflow: hidden; border-block-end: var(--hairline) solid var(--color-outline); background: var(--color-surface-container-low); }
-.preview::before { content: ""; position: absolute; inset: 0; background-image: var(--bg-0); background-size: 25% 25%; opacity: .62; }
-.preview-sheet { position: absolute; inset: var(--space-24); display: grid; align-content: space-between; padding: var(--space-24); background: var(--color-surface); border: var(--hairline) solid var(--color-outline); box-shadow: var(--elevation-sm); }
-.preview-swiss .preview-sheet { border-inline-start: var(--space-8) solid var(--color-primary); }
-.preview-grid .preview-sheet { background: var(--color-on-surface); color: var(--color-surface); }
-.preview-grid .preview-title { color: var(--color-surface); font-family: var(--font-body); font-weight: 800; text-transform: uppercase; }
-.preview-kicker { position: relative; z-index: 1; font-family: var(--font-mono); font-size: var(--typescale-label-medium); color: var(--color-primary); }
-.preview-title { position: relative; z-index: 1; max-inline-size: 12ch; font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 3.5rem); line-height: 1; color: var(--heading); }
-.preview-rule { position: relative; z-index: 1; inline-size: 38%; border-block-start: var(--hairline) solid currentColor; }
-.card-body { display: grid; gap: var(--space-16); padding: var(--space-24); }
+.template-card { display: grid; gap: var(--space-16); }
+.preview { display: block; position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--color-surface-container-low); text-decoration: none; }
+.preview img { inline-size: 100%; block-size: 100%; object-fit: cover; object-position: top; transition: transform var(--duration-base) var(--ease-standard); }
+.template-card:hover .preview img { transform: scale(1.03); }
+.template-card:hover h3 { color: var(--color-primary); }
+.card-body { display: grid; gap: var(--space-12); }
 .card-topline { display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); }
 .status { padding: var(--space-4) var(--space-8); background: var(--color-primary-container); color: var(--color-primary); }
 .card-body p { margin: 0; color: var(--color-on-surface-variant); }
 .tags { display: flex; flex-wrap: wrap; gap: var(--space-8); }
 .tag { padding: var(--space-4) var(--space-8); border: var(--hairline) solid var(--color-outline); font-size: var(--typescale-label-medium); }
-.detail { border-block-start: var(--hairline) solid var(--color-outline-variant); padding-block-start: var(--space-16); }
+.detail { margin-block-start: var(--space-8); }
 .detail summary { color: var(--color-primary); cursor: pointer; }
 .detail p { margin-block-end: 0; }
 
-.empty-state { display: grid; grid-template-columns: auto 1fr; gap: var(--space-24); align-items: start; padding: var(--space-32); border: var(--hairline) solid var(--color-outline); background: var(--color-surface-container-low); }
+.empty-state { display: grid; grid-template-columns: auto 1fr; gap: var(--space-24); align-items: start; padding: var(--space-32); background: var(--color-surface-container-low); }
 .empty-mark { font-family: var(--font-display); font-size: var(--typescale-title-large); color: var(--color-primary); }
 .empty-state p { margin: var(--space-8) 0 0; color: var(--color-on-surface-variant); }
 
-.evidence-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block-start: var(--hairline) solid var(--color-outline); border-inline-start: var(--hairline) solid var(--color-outline); }
-.gate { min-block-size: 11rem; padding: var(--space-24); border-block-end: var(--hairline) solid var(--color-outline); border-inline-end: var(--hairline) solid var(--color-outline); }
+.evidence-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-24); counter-reset: gate; }
+.gate { counter-increment: gate; min-block-size: 9rem; }
+.gate::before { content: "0" counter(gate); display: block; font-family: var(--font-display); font-size: var(--typescale-title-large); color: var(--color-primary); margin-block-end: var(--space-8); }
 .gate strong { display: block; margin-block: var(--space-12); font-family: var(--font-display); font-size: var(--typescale-body-large); }
 .gate p { margin: 0; color: var(--color-on-surface-variant); font-size: var(--typescale-label-large); }
 
-.agent-panel { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(18rem, .9fr); gap: var(--space-64); padding: var(--space-48); background: var(--color-primary); color: var(--color-surface); }
+.agent-panel { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(18rem, .9fr); gap: var(--space-64); color: var(--color-surface); }
 .agent-panel h2, .agent-panel h3 { color: var(--color-surface); }
 .agent-panel p { color: var(--color-primary-container); }
 .read-order { margin: 0; padding: 0; list-style: none; counter-reset: order; }
-.read-order li { counter-increment: order; display: grid; grid-template-columns: auto 1fr; gap: var(--space-16); padding-block: var(--space-12); border-block-end: var(--hairline) solid var(--color-primary-container); }
+.read-order li { counter-increment: order; display: grid; grid-template-columns: auto 1fr; gap: var(--space-16); padding-block: var(--space-12); }
 .read-order li::before { content: "0" counter(order); font-family: var(--font-mono); }
 .copy-status { min-block-size: 1.75rem; margin-block-start: var(--space-12); font-size: var(--typescale-label-large); }
 
 .stress { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: var(--space-64); }
 .stress-title { overflow-wrap: anywhere; font-size: clamp(2.4rem, 6vw, 6rem); }
-.stress-list { margin: 0; padding: 0; list-style: none; border-block-start: var(--hairline) solid var(--color-outline); }
-.stress-list li { display: grid; grid-template-columns: minmax(8rem, .35fr) minmax(0, .65fr); gap: var(--space-24); padding-block: var(--space-16); border-block-end: var(--hairline) solid var(--color-outline-variant); }
+.stress .index { font-family: var(--font-display); font-size: var(--typescale-title-large); color: var(--color-primary); text-transform: none; letter-spacing: 0; margin-block-end: var(--space-12); }
+.stress-list { margin: 0; padding: 0; list-style: none; }
+.stress-list li { display: grid; grid-template-columns: minmax(8rem, .35fr) minmax(0, .65fr); gap: var(--space-24); padding-block: var(--space-24); }
+.stress-list .meta { color: var(--color-primary); }
 .stress-list span:last-child { overflow-wrap: anywhere; color: var(--color-on-surface-variant); }
 
 .footer { display: flex; justify-content: space-between; gap: var(--space-24); padding-block: var(--space-32); color: var(--color-on-surface-variant); }
@@ -234,7 +237,7 @@ h3 { font-size: var(--typescale-title-medium); }
 :focus-visible { outline: var(--space-4) solid var(--color-primary); outline-offset: var(--space-4); }
 
 @media (max-width: 62rem) {
-  .hero, .section-heading, .agent-panel, .stress { grid-template-columns: 1fr; }
+  .hero, .agent-panel, .stress { grid-template-columns: 1fr; }
   .catalog { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .evidence-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
@@ -290,11 +293,11 @@ h3 { font-size: var(--typescale-title-medium); }
       </section>
     </div>
 
-    <section class="section" id="catalog" aria-labelledby="catalog-title">
+    <section class="section reveal" id="catalog" aria-labelledby="catalog-title">
       <div class="shell">
         <div class="section-heading">
-          <div><div class="index">01 · Catalog</div><h2 id="catalog-title">先看公开资格，再看风格。</h2></div>
-          <p>以下内容是明确标注日期的静态 fixture，slug 与身份分类取自本仓库 registry。它用于演示卡片与筛选，不把动态计数硬编码进模板。</p>
+          <div><div class="index">01 · 目录</div><h2 id="catalog-title">先看公开资格，再看风格。</h2></div>
+          <p>这里是标注日期的静态快照，slug 与分类取自仓库 registry；它演示卡片与筛选，不把动态计数写死进模板。</p>
         </div>
         <p class="source-note">STATIC FIXTURE · 2026-08-09 · SOURCE: data/registry.json</p>
         <div class="filters" role="group" aria-label="按视觉家族筛选">
@@ -307,9 +310,9 @@ h3 { font-size: var(--typescale-title-medium); }
 
         <div class="catalog" id="catalog-grid" aria-live="polite">
           <article class="template-card" data-family="editorial">
-            <div class="preview preview-editorial" aria-label="版式画廊编辑式缩略预览">
-              <div class="preview-sheet"><span class="preview-kicker">Collection / 01</span><strong class="preview-title">Layout Gallery</strong><span class="preview-rule"></span></div>
-            </div>
+            <a class="preview" href="/templates/layout-gallery/template.html" aria-label="打开 layout-gallery 模板真实渲染页">
+              <img src="../../public/thumbs/layout-gallery.png" alt="layout-gallery 模板真实渲染缩略图" loading="lazy">
+            </a>
             <div class="card-body">
               <div class="card-topline"><span class="meta">layout-gallery</span><span class="status">标准</span></div>
               <h3>版式画廊 · Layout Gallery</h3>
@@ -320,9 +323,9 @@ h3 { font-size: var(--typescale-title-medium); }
           </article>
 
           <article class="template-card" data-family="swiss">
-            <div class="preview preview-swiss" aria-label="瑞士国际主义缩略预览">
-              <div class="preview-sheet"><span class="preview-kicker">SS / 22 layouts</span><strong class="preview-title">Swiss System</strong><span class="preview-rule"></span></div>
-            </div>
+            <a class="preview" href="/templates/template-swiss/template.html" aria-label="打开 template-swiss 模板真实渲染页">
+              <img src="../../public/thumbs/template-swiss.png" alt="template-swiss 模板真实渲染缩略图" loading="lazy">
+            </a>
             <div class="card-body">
               <div class="card-topline"><span class="meta">template-swiss</span><span class="status">标准</span></div>
               <h3>归藏PPT · 瑞士国际主义</h3>
@@ -333,9 +336,9 @@ h3 { font-size: var(--typescale-title-medium); }
           </article>
 
           <article class="template-card" data-family="grid">
-            <div class="preview preview-grid" aria-label="新网格粗体缩略预览">
-              <div class="preview-sheet"><span class="preview-kicker">12 × 8 grid</span><strong class="preview-title">Neo Grid Bold</strong><span class="preview-rule"></span></div>
-            </div>
+            <a class="preview" href="/templates/neo-grid-bold/template.html" aria-label="打开 neo-grid-bold 模板真实渲染页">
+              <img src="../../public/thumbs/neo-grid-bold.png" alt="neo-grid-bold 模板真实渲染缩略图" loading="lazy">
+            </a>
             <div class="card-body">
               <div class="card-topline"><span class="meta">neo-grid-bold</span><span class="status">标准</span></div>
               <h3>新网格粗体 · Neo-Grid Bold</h3>
@@ -353,10 +356,10 @@ h3 { font-size: var(--typescale-title-medium); }
       </div>
     </section>
 
-    <section class="section" id="evidence" aria-labelledby="evidence-title">
+    <section class="section reveal" id="evidence" aria-labelledby="evidence-title">
       <div class="shell">
         <div class="section-heading">
-          <div><div class="index">02 · Evidence</div><h2 id="evidence-title">标签后面必须有可重建的证据。</h2></div>
+          <div><div class="index">02 · 证据</div><h2 id="evidence-title">标签后面必须有可重建的证据。</h2></div>
           <p>页面不硬编码“全绿”结论。机器结果写入 <code>generated/layout-gallery/quality-report.json</code>；这里演示用户需要看到的证据类型与失败边界。</p>
         </div>
         <div class="evidence-grid">
@@ -368,10 +371,10 @@ h3 { font-size: var(--typescale-title-medium); }
       </div>
     </section>
 
-    <section class="section" id="agent" aria-labelledby="agent-title">
+    <section class="section reveal" id="agent" aria-labelledby="agent-title">
       <div class="shell agent-panel">
         <div>
-          <div class="index">03 · Agent handoff</div>
+          <div class="index">03 · Agent 交接</div>
           <h2 id="agent-title">让 Agent 按影响顺序读取，而不是猜。</h2>
           <p>先知道“是什么”，再理解“为什么”，随后读取可修改控制面，最后参考可执行正例。</p>
           <button class="button secondary" type="button" id="copy-brief">复制 Agent brief</button>
@@ -386,9 +389,9 @@ h3 { font-size: var(--typescale-title-medium); }
       </div>
     </section>
 
-    <section class="section" aria-labelledby="stress-title">
+    <section class="section reveal" id="stress" aria-labelledby="stress-title">
       <div class="shell stress">
-        <div><div class="index">04 · Content pressure</div><h2 class="stress-title" id="stress-title">超长标题与多语言元数据也不能挤破网格边界</h2></div>
+        <div><div class="index">04 · 内容压力</div><h2 class="stress-title" id="stress-title">超长标题与多语言元数据也不能挤破网格边界</h2></div>
         <ul class="stress-list">
           <li><span class="meta">LONG SLUG</span><span>layout-gallery-for-institutional-collection-and-agent-reproduction-validation</span></li>
           <li><span class="meta">中英混排</span><span>策展式结构 Curatorial Structure / 证据优先 Evidence First / 可重复 Reproducible</span></li>
@@ -434,6 +437,20 @@ h3 { font-size: var(--typescale-title-medium); }
       status.textContent = '浏览器未授权剪贴板，请从 design.md 复制。';
     }
   });
+
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('revealed'));
+  }
   </script>
 </body>
 </html>
