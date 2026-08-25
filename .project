@@ -1,12 +1,12 @@
 {
   "id": "html-gallery",
-  "name": "版式画廊部署",
-  "description": "99个HTML幻灯片模板的浏览器，7个来源汇集，公开站 gallery.evopearl.com",
+  "name": "版式画廊 · Layout Gallery",
+  "description": "AI 调用的设计风格仓库。28 个 HTML 版式模板统一索引 → 按意图发现 → 一行 API 拿到模板源码。归藏配方开源致谢在 footer。",
   "status": "stable",
   "created": "2026-06-06",
   "deploy": {
     "pipeline": "vercel",
-    "project": "html-gallery",
+    "project": "layout-gallery",
     "domain": "gallery.evopearl.com"
   }
 }

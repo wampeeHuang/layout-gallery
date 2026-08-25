@@ -100,4 +100,4 @@ node scripts/add-template.mjs <slug>     # 新模板注册
 
 - 线上：https://gallery.evopearl.com（Vercel）
 - GitHub：wampeeHuang/layout-gallery
-- 本地：:3080。工具架 (:3099) 已注册 id=`layout-gallery`
+- 本地：:3080。工具架 (:3099) 已注册 id=`html-gallery`（机器主键，与 .project 一致；GitHub/Vercel/目录名为 layout-gallery，同一项目）
