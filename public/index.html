@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+<!-- ds-template:landing 换皮溯源：从本模板衍生的页面必须保留此行，交付前 grep 校验 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>版式画廊</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233D6B4A'/%3E%3Crect x='10' y='15' width='12' height='34' rx='3' fill='%23fff'/%3E%3Crect x='26' y='19' width='12' height='26' rx='3' fill='%23fff' opacity='.7'/%3E%3Crect x='42' y='24' width='12' height='16' rx='3' fill='%23fff' opacity='.4'/%3E%3C/svg%3E">
+<title>版式画廊 — 好版式替你筛过了</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2374A63F'/%3E%3Crect x='10' y='15' width='12' height='34' rx='3' fill='%23fff'/%3E%3Crect x='26' y='19' width='12' height='26' rx='3' fill='%23fff' opacity='.7'/%3E%3Crect x='42' y='24' width='12' height='16' rx='3' fill='%23fff' opacity='.4'/%3E%3C/svg%3E">
 <style>
 /* ═══════════════════════════════════════════════════════════════
    TOKENS — injected by server from tokens.json
@@ -12,285 +13,402 @@
 <!-- ROOT_INJECT -->
 
 /* ═══════════════════════════════════════════════════════════════
-   RESET & BASE
+   AGENTBOARD 设计系统（试点，页面局部变量）
+   绿墨白三色 + 瑞士对齐 + 包豪斯几何
    ═══════════════════════════════════════════════════════════════ */
+:root {
+  /* 共享色别名到站点 tokens（tokens.json 唯一真相源），值不变，视觉零回归 */
+  --ab-green: var(--color-primary);
+  --ab-green-deep: #3E571C; /* 深绿小面板（局部，无站点 token） */
+  --ab-yellow: #D9E26B;     /* 点睛黄 10%（局部，无站点 token） */
+  --ab-ink: var(--color-on-surface);
+  --ab-ink-light: var(--color-on-surface-variant);
+  --ab-ink-faint: #9AA39E;
+  --ab-cream: var(--color-surface-container-low);
+  --ab-cream-dark: var(--color-primary-container);
+  --ab-line: var(--color-outline);
+}
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 
 body {
   overflow-x: clip;
-  background: var(--color-surface);
-  color: var(--color-on-surface);
-  font-family: var(--font-body);
+  background: var(--ab-cream);
+  color: var(--ab-ink);
+  font-family: var(--font-body,'Inter','Noto Sans SC','Microsoft YaHei',sans-serif);
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 a { color: inherit; text-decoration: none; }
 
+::selection { background: var(--ab-ink); color: var(--ab-cream); }
+
 /* ═══════════════════════════════════════════════════════════════
-   HERO
+   SECTION 1 — HERO（全屏居中 + 截图电影带）
+   布局：单栏垂直居中堆叠，底部真实截图横带做"筛过了"证据
    ═══════════════════════════════════════════════════════════════ */
 .hero {
-  background: var(--color-primary);
-  padding: clamp(3rem, 7vw, 5rem) var(--space-32);
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero-inner {
-  max-width: var(--space-page-wmax);
-  margin: 0 auto;
+  position: relative;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.hero-tagline {
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  line-height: 1.1;
-  letter-spacing: -0.04em;
-  color: #fff;
-}
-
-.hero-sub {
-  max-width: 36rem;
-  color: rgba(255,255,255,0.85);
-  font-size: var(--typescale-body-large);
-  line-height: 1.8;
-  margin-top: var(--space-16);
-}
-
-.hero-cta {
-  display: flex;
-  gap: var(--space-12);
-  margin-top: var(--space-24);
   justify-content: center;
+  text-align: center;
+  padding: clamp(64px, 10vh, 120px) clamp(20px, 4vw, 48px) clamp(40px, 6vh, 72px);
+  background: var(--ab-cream);
+  overflow: hidden;
 }
 
-.hero-cta a {
-  display: inline-flex;
-  min-height: 2.75rem;
-  align-items: center;
-  padding: 0 1.25rem;
-  background: #fff;
-  color: var(--color-primary);
-  font-size: var(--typescale-body-medium);
+/* 包豪斯几何装饰（克制，1 黄方 + 1 绿圆） */
+.hero-deco { position: absolute; pointer-events: none; z-index: 0; }
+.hero-deco--sq {
+  width: clamp(72px, 9vw, 120px);
+  height: clamp(72px, 9vw, 120px);
+  background: var(--ab-yellow);
+  border-radius: 8px;
+  transform: rotate(12deg);
+  top: 12%;
+  right: 7%;
+  opacity: .55;
+}
+.hero-deco--circ {
+  width: clamp(120px, 16vw, 200px);
+  height: clamp(120px, 16vw, 200px);
+  border: 2px solid var(--ab-green);
+  border-radius: 50%;
+  bottom: 26%;
+  left: 3%;
+  opacity: .35;
+}
+
+.hero-body { position: relative; z-index: 1; }
+
+.hero .label-caps {
+  display: inline-block;
+  font-size: .78rem;
+  letter-spacing: .22em;
   font-weight: 600;
-  border-radius: var(--radius-xs);
-  transition: opacity var(--duration-fast);
+  color: var(--ab-green);
+  text-transform: uppercase;
+  margin-bottom: 1.4rem;
 }
 
-.hero-cta a:hover { opacity: 0.88; }
+.hero h1 {
+  font-family: var(--font-display,'Noto Serif SC','Songti SC','SimSun',serif);
+  font-weight: 900;
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--ab-ink);
+}
+
+.hero .hero-sub {
+  max-width: 34rem;
+  margin: 1.6rem auto 0;
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  color: var(--ab-ink-light);
+  line-height: 1.9;
+}
+
+.hero-cta { margin-top: 2.4rem; }
+
+/* 截图电影带：真实版式横排慢速平移，两端淡出 */
+.hero-film {
+  position: relative;
+  width: 100%;
+  max-width: 1300px;
+  margin-top: clamp(40px, 6vh, 72px);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.hero-film-track {
+  display: flex;
+  gap: 14px;
+  padding: 4px;
+  animation: film-scroll 50s linear infinite;
+  will-change: transform;
+}
+.hero-film-track img {
+  height: clamp(120px, 20vh, 200px);
+  width: auto;
+  flex-shrink: 0;
+  border-radius: 10px;
+  border: 1px solid var(--ab-line);
+}
+@keyframes film-scroll { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-film-track { animation: none; overflow-x: auto; }
+}
 
 /* ═══════════════════════════════════════════════════════════════
-   KNOWLEDGE BASE
+   SECTION 2 — 设计指南（左对齐段头 + 编号卡片网格 2×2）
+   布局：段头左对齐 + 编号主导卡片，与 HERO 布局不同
    ═══════════════════════════════════════════════════════════════ */
-.learn-strip {
-  width: 100%;
-  max-width: 1800px;
+.guides {
+  max-width: 1300px;
   margin: 0 auto;
-  padding: var(--space-48) clamp(20px, 4vw, 48px) var(--space-64);
+  padding: clamp(80px, 12vh, 140px) clamp(20px, 4vw, 48px);
 }
 
-.strip-title {
-  font-family: var(--font-display);
-  font-size: var(--typescale-headline-large);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--heading);
-  margin-bottom: var(--space-24);
+.guides-head { max-width: 640px; margin-bottom: clamp(40px, 6vw, 64px); }
+.guides-head .eyebrow {
+  display: block;
+  font-size: .78rem;
+  letter-spacing: .22em;
+  font-weight: 600;
+  color: var(--ab-green);
+  text-transform: uppercase;
+  margin-bottom: .75rem;
 }
+.guides-head h2 {
+  font-family: var(--font-display,'Noto Serif SC','Songti SC','SimSun',serif);
+  font-weight: 900;
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  line-height: 1.2;
+  color: var(--ab-ink);
+}
+.guides-head p { margin-top: .9rem; color: var(--ab-ink-light); max-width: 40rem; }
 
-.strip-grid {
+.guides-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-12);
+  justify-items: center;
+  gap: clamp(16px, 2vw, 24px);
 }
 
-.strip-card {
+.guide-card {
   display: flex;
   flex-direction: column;
-  background: var(--color-surface-container-low);
-  border: var(--hairline) solid var(--color-outline);
-  border-radius: var(--radius-xs);
+  background: #fff;
+  border: 1px solid var(--ab-line);
+  border-radius: 14px;
   overflow: hidden;
-  transition: all var(--duration-fast);
+  transition: transform .25s cubic-bezier(.16,1,.3,1), box-shadow .25s;
 }
+.guide-card:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(38,43,39,.08); }
 
-.strip-card:hover {
-  border-color: var(--color-primary);
-  box-shadow: var(--elevation-sm);
-  transform: translateY(-2px);
-}
-
-.strip-card-main {
+.guide-card-main {
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
-  padding: var(--space-32) var(--space-24);
-  flex: 1;
+  gap: .5rem;
+  flex: 0 0 auto;
+  padding: clamp(18px, 2.2vw, 26px);
 }
-
-.strip-card .order {
-  font-size: 24px;
+.guide-card-main p {
+  font-size: .92rem;
+  color: var(--ab-ink-light);
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+.guide-card .num {
+  font-family: var(--font-display,'Noto Serif SC','Songti SC','SimSun',serif);
+  font-weight: 900;
+  font-size: 1.05rem;
+  color: var(--ab-green);
+  letter-spacing: .06em;
+}
+.guide-card-main h3 {
+  font-family: var(--font-display,'Noto Serif SC','Songti SC','SimSun',serif);
   font-weight: 700;
-  color: var(--color-primary);
-  letter-spacing: 0.02em;
-}
-
-.strip-card strong {
-  font-family: var(--font-display);
-  font-size: var(--typescale-title-medium);
-  color: var(--color-on-surface);
+  font-size: 1.3rem;
+  color: var(--ab-ink);
   line-height: 1.3;
 }
 
-.strip-card-main .main-desc {
-  font-size: var(--typescale-label-medium);
-  color: var(--color-on-surface-variant);
-  line-height: 1.5;
-}
-
-.strip-card-case {
+.guide-card-case {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: var(--space-4);
+  gap: .3rem;
+  flex-shrink: 0;
   aspect-ratio: 16 / 9;
-  padding: var(--space-24);
+  padding: clamp(14px, 1.8vw, 22px);
   background-image:
-    linear-gradient(to top, rgba(18, 34, 24, 0.94) 0%, rgba(18, 34, 24, 0.5) 55%, rgba(18, 34, 24, 0.15) 100%),
-    var(--case-img, none);
+    linear-gradient(to top, rgba(38,43,39,.85) 0%, rgba(38,43,39,.4) 45%, rgba(38,43,39,.05) 100%),
+    var(--case, transparent);
   background-size: cover;
   background-position: center;
   color: #fff;
-  transition: opacity var(--duration-fast);
+  transition: opacity .2s;
 }
-
-.strip-card-case:hover { opacity: 0.92; }
-
-.strip-card-case--portrait {
-  background-size: cover, contain;
-  background-repeat: no-repeat, no-repeat;
-}
-
-
-.case-title {
-  font-family: var(--font-display);
-  font-size: var(--typescale-body-large);
+.guide-card-case:hover { opacity: .92; }
+.guide-card-case--contain { background-size: cover, contain; background-repeat: no-repeat, no-repeat; }
+.guide-card-case .case-title {
+  font-family: var(--font-display,'Noto Serif SC','Songti SC','SimSun',serif);
   font-weight: 700;
-  color: #fff;
-  line-height: 1.4;
+  font-size: 1.05rem;
 }
+.guide-card-case .case-desc { font-size: .82rem; color: rgba(255,255,255,.82); line-height: 1.5; }
 
-.case-desc {
-  font-size: var(--typescale-label-large);
-  color: rgba(255,255,255,0.82);
-  line-height: 1.55;
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 3 — CTA 行动区（全宽品牌绿面板）
+   布局：居中行动号召，与前面两段布局都不同
+   ═══════════════════════════════════════════════════════════════ */
+.cta {
+  background: var(--ab-green);
+  color: #fff;
+  padding: clamp(72px, 10vh, 120px) clamp(20px, 4vw, 48px);
+  text-align: center;
+}
+.cta-inner { max-width: 1300px; margin: 0 auto; }
+.cta h2 {
+  font-family: var(--font-display,'Noto Serif SC','Songti SC','SimSun',serif);
+  font-weight: 900;
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  line-height: 1.2;
+  color: #fff;
+}
+.cta p { margin: .9rem auto 2rem; color: rgba(255,255,255,.85); max-width: 28rem; font-size: 1.02rem; }
+
+/* CTA 按钮（通用） */
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: 1rem 2.2rem;
+  background: var(--ab-green);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: transform .2s, box-shadow .2s;
+}
+.cta-button:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(116,166,63,.3); }
+.cta-button--yellow { background: var(--ab-yellow); color: var(--ab-ink); }
+.cta-button--yellow:hover { box-shadow: 0 10px 28px rgba(217,226,107,.35); }
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLL REVEAL（尊重 prefers-reduced-motion）
+   ═══════════════════════════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: .08s; }
+.reveal-d2 { transition-delay: .16s; }
+.reveal-d3 { transition-delay: .24s; }
+.reveal-d4 { transition-delay: .32s; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
 }
 
 /* ═══════════════════════════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════════════════════════ */
-@media (max-width: 680px) {
-  .strip-grid {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 900px) {
+  .hero { min-height: auto; }
+  .guides-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  body { font-size: 15px; }
+  .hero h1 { font-size: clamp(2rem, 9vw, 2.6rem); }
+  .hero-film-track img { height: 108px; }
+  .cta-button { width: 100%; justify-content: center; }
 }
 </style>
 </head>
-<body class="green">
+<body>
 
 <!-- NAV_INJECT -->
 
+<!-- ====== SECTION 1 · HERO ====== -->
 <section class="hero">
-  <div class="hero-strip" aria-hidden="true">
-    <div class="hero-strip-track">
-      <img src="/public/img/screenshots/linear.app.jpg" alt="" loading="lazy">
-      <img src="/public/img/previews/studio.jpg" alt="" loading="lazy">
-      <img src="/public/img/screenshots/dribbble.com.jpg" alt="" loading="lazy">
-      <img src="/public/img/previews/capsule.jpg" alt="" loading="lazy">
-      <img src="/public/img/screenshots/elevenlabs.io.jpg" alt="" loading="lazy">
-      <img src="/public/img/previews/daisy-days.jpg" alt="" loading="lazy">
-      <img src="/public/img/screenshots/mobbin.com.jpg" alt="" loading="lazy">
-      <img src="/public/img/previews/signal.jpg" alt="" loading="lazy">
-      <img src="/public/img/screenshots/godly.website.jpg" alt="" loading="lazy">
-      <img src="/public/img/previews/vellum.jpg" alt="" loading="lazy">
-      <img src="/public/img/screenshots/huemint.com.jpg" alt="" loading="lazy">
-      <img src="/public/img/previews/neo-grid-bold.jpg" alt="" loading="lazy">
-      <img src="/public/img/screenshots/linear.app.jpg" alt="" loading="lazy">
-      <img src="/public/img/previews/studio.jpg" alt="" loading="lazy">
-      <img src="/public/img/screenshots/dribbble.com.jpg" alt="" loading="lazy">
-      <img src="/public/img/previews/capsule.jpg" alt="" loading="lazy">
-      <img src="/public/img/screenshots/elevenlabs.io.jpg" alt="" loading="lazy">
-      <img src="/public/img/previews/daisy-days.jpg" alt="" loading="lazy">
-      <img src="/public/img/screenshots/mobbin.com.jpg" alt="" loading="lazy">
-      <img src="/public/img/previews/signal.jpg" alt="" loading="lazy">
-      <img src="/public/img/screenshots/godly.website.jpg" alt="" loading="lazy">
-      <img src="/public/img/previews/vellum.jpg" alt="" loading="lazy">
-      <img src="/public/img/screenshots/huemint.com.jpg" alt="" loading="lazy">
-      <img src="/public/img/previews/neo-grid-bold.jpg" alt="" loading="lazy">
-    </div>
-  </div>
-  <div class="hero-overlay" aria-hidden="true"></div>
-  <div class="hero-inner">
-    <h1 class="hero-tagline">好版式<br>替你筛过了</h1>
+  <span class="hero-deco hero-deco--sq" aria-hidden="true"></span>
+  <span class="hero-deco hero-deco--circ" aria-hidden="true"></span>
+  <div class="hero-body">
+    <span class="label-caps">版式画廊 · 免费 HTML 版式模板</span>
+    <h1>好版式<br>替你筛过了</h1>
     <p class="hero-sub">散在各处的版式——有些好、更多是半成品。一家家翻、一个个试，半天就没了。我们筛过第一轮了。来这里，挑一个顺眼的。</p>
     <div class="hero-cta">
-      <a href="/library">开始挑选</a>
+      <a class="cta-button" href="/library">开始挑选</a>
+    </div>
+  </div>
+  <div class="hero-film" aria-hidden="true">
+    <div class="hero-film-track">
+      <img src="/public/img/screenshots/linear.app.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/studio.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/dribbble.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/capsule.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/elevenlabs.io.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/daisy-days.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/mobbin.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/signal.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/godly.website.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/vellum.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/huemint.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/neo-grid-bold.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/linear.app.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/studio.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/dribbble.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/capsule.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/elevenlabs.io.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/daisy-days.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/mobbin.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/signal.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/godly.website.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/vellum.jpg" alt="" loading="lazy">
+      <img src="/public/img/screenshots/huemint.com.jpg" alt="" loading="lazy">
+      <img src="/public/img/previews/neo-grid-bold.jpg" alt="" loading="lazy">
     </div>
   </div>
 </section>
 
-<section class="learn-strip">
-  <h2 class="strip-title">设计指南</h2>
-  <div class="strip-grid">
-    <div class="strip-card">
-      <a class="strip-card-main" href="/learn#methodology">
-        <span class="order">01</span>
-        <strong>设计方法论</strong>
-        <span class="main-desc">交付标准、视觉品质、Design Token、去 AI 味——一篇一个主题。</span>
+<!-- ====== SECTION 2 · 设计指南 ====== -->
+<section class="guides">
+  <header class="guides-head reveal">
+    <span class="eyebrow">设计指南</span>
+    <h2>看懂了再动手，少走弯路</h2>
+    <p>设计方法、工具、灵感、书——四类收藏，每篇解决一类问题。</p>
+  </header>
+  <div class="guides-grid">
+    <div class="guide-card reveal reveal-d1">
+      <a class="guide-card-main" href="/learn#methodology">
+        <span class="num">01</span>
+        <h3>设计方法论</h3>
+        <p>交付标准、视觉品质、Design Token、去 AI 味——一篇一个主题。</p>
       </a>
-      <a class="strip-card-case" style="--case-img:url(/public/img/cases/delivery-standard.jpg)" href="/learn/articles/delivery-standard">
+      <a class="guide-card-case" style="--case:url(/public/img/cases/delivery-standard.jpg)" href="/learn/articles/delivery-standard">
         <span class="case-title">网页交付标准指南</span>
         <span class="case-desc">网页能不能上线，四个门依次过：能访问 → 能理解 → 能行动 → 能相信。</span>
       </a>
     </div>
-    <div class="strip-card">
-      <a class="strip-card-main" href="/learn#tools">
-        <span class="order">02</span>
-        <strong>工具网站</strong>
-        <span class="main-desc">字体、配色、图像素材——做界面时拿来即用的外部工具，中文免费商用字体优先。</span>
+    <div class="guide-card reveal reveal-d2">
+      <a class="guide-card-main" href="/learn#tools">
+        <span class="num">02</span>
+        <h3>工具网站</h3>
+        <p>字体、配色、图像素材——做界面时拿来即用的外部工具，中文免费商用字体优先。</p>
       </a>
-      <a class="strip-card-case" style="--case-img:url(/public/img/cases/alibabafonts.jpg)" href="https://alibabafonts.com" target="_blank" rel="noopener">
+      <a class="guide-card-case" style="--case:url(/public/img/cases/alibabafonts.jpg)" href="https://alibabafonts.com" target="_blank" rel="noopener">
         <span class="case-title">阿里巴巴普惠体</span>
         <span class="case-desc">阿里巴巴官方免费商用中文字体，正文、标题两套字重。</span>
       </a>
     </div>
-    <div class="strip-card">
-      <a class="strip-card-main" href="/learn#inspiration">
-        <span class="order">03</span>
-        <strong>灵感网站</strong>
-        <span class="main-desc">灵感平台、标杆产品、消费品牌、AI 产品——对照标杆，策展式收藏比随机刷效率高。</span>
+    <div class="guide-card reveal reveal-d3">
+      <a class="guide-card-main" href="/learn#inspiration">
+        <span class="num">03</span>
+        <h3>灵感网站</h3>
+        <p>灵感平台、标杆产品、消费品牌、AI 产品——对照标杆，策展式收藏比随机刷效率高。</p>
       </a>
-      <a class="strip-card-case" style="--case-img:url(/public/img/cases/awwwards.jpg)" href="https://www.awwwards.com" target="_blank" rel="noopener">
+      <a class="guide-card-case" style="--case:url(/public/img/cases/awwwards.jpg)" href="https://www.awwwards.com" target="_blank" rel="noopener">
         <span class="case-title">Awwwards</span>
         <span class="case-desc">网页设计奖项平台，每日精选获奖网站，评审评语即免费设计课。</span>
       </a>
     </div>
-    <div class="strip-card">
-      <a class="strip-card-main" href="/learn#books">
-        <span class="order">04</span>
-        <strong>书籍推荐</strong>
-        <span class="main-desc">字体排印 + 界面布局——按"解决什么问题"分组，每本解决一类问题。</span>
+    <div class="guide-card reveal reveal-d4">
+      <a class="guide-card-main" href="/learn#books">
+        <span class="num">04</span>
+        <h3>书籍推荐</h3>
+        <p>字体排印 + 界面布局——按"解决什么问题"分组，每本解决一类问题。</p>
       </a>
-      <a class="strip-card-case strip-card-case--portrait" style="--case-img:url(/public/img/cases/refactoringui.jpg)" href="/learn#books">
+      <a class="guide-card-case guide-card-case--contain" style="--case:url(/public/img/cases/refactoringui.jpg)" href="/learn#books">
         <span class="case-title">《Refactoring UI》</span>
         <span class="case-desc">从程序员视角讲界面。间距、配色、层级照着改就能好看。</span>
       </a>
@@ -298,6 +416,69 @@ a { color: inherit; text-decoration: none; }
   </div>
 </section>
 
+<!-- ====== SECTION 3 · CTA ====== -->
+<section class="cta">
+  <div class="cta-inner">
+    <h2 class="reveal">来这里，挑一个顺眼的</h2>
+    <p class="reveal reveal-d1">免费 HTML 版式模板，点击预览，拿走即用。</p>
+    <a class="cta-button cta-button--yellow reveal reveal-d2" href="/library">进入版式库</a>
+  </div>
+</section>
+
 <!-- FOOTER_INJECT -->
+
+<script>
+(function () {
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
+})();
+(function () {
+  function to4(n) { return Math.max(4, Math.round(n / 4) * 4); }
+  function snapCards() {
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.guide-card'));
+    if (!cards.length) return;
+    var nw = to4(Math.round(cards[0].getBoundingClientRect().width));
+    var ih = to4(nw * 9 / 16);
+    cards.forEach(function (c) { c.style.width = nw + 'px'; });
+    var rows = {};
+    cards.forEach(function (c) {
+      var top = Math.round(c.getBoundingClientRect().top + window.scrollY);
+      (rows[top] = rows[top] || []).push(c);
+    });
+    Object.keys(rows).forEach(function (top) {
+      var group = rows[top];
+      var maxH = 0;
+      group.forEach(function (c) {
+        var img = c.querySelector('.guide-card-case');
+        img.style.height = 'auto';
+        c.style.height = 'auto';
+        var th = Math.round(c.querySelector('.guide-card-main').getBoundingClientRect().height);
+        var total = to4(ih + th);
+        if (total > maxH) maxH = total;
+      });
+      group.forEach(function (c) {
+        c.querySelector('.guide-card-case').style.height = ih + 'px';
+        c.style.height = maxH + 'px';
+      });
+    });
+  }
+  function unsnap() {
+    document.querySelectorAll('.guide-card').forEach(function (c) {
+      c.style.width = ''; c.style.height = '';
+      c.querySelector('.guide-card-case').style.height = '';
+    });
+  }
+  snapCards();
+  window.addEventListener('resize', function () { unsnap(); snapCards(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(snapCards);
+})();
+</script>
 </body>
 </html>

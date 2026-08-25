@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233D6B4A'/%3E%3Crect x='10' y='15' width='12' height='34' rx='3' fill='%23fff'/%3E%3Crect x='26' y='19' width='12' height='26' rx='3' fill='%23fff' opacity='.7'/%3E%3Crect x='42' y='24' width='12' height='16' rx='3' fill='%23fff' opacity='.4'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2374A63F'/%3E%3Crect x='10' y='15' width='12' height='34' rx='3' fill='%23fff'/%3E%3Crect x='26' y='19' width='12' height='26' rx='3' fill='%23fff' opacity='.7'/%3E%3Crect x='42' y='24' width='12' height='16' rx='3' fill='%23fff' opacity='.4'/%3E%3C/svg%3E">
 <title>设计指南 · 版式画廊</title>
 <style>
 <!-- ROOT_INJECT -->
@@ -14,7 +14,7 @@ body{overflow-x:clip;background:var(--color-surface);color:var(--color-on-surfac
 a{color:inherit;text-decoration:none}
 
 /* ════════ HERO CAROUSEL (green + 背景图带) ════════ */
-.learn-header{position:relative;overflow:hidden;background:var(--color-primary);text-align:center;padding:clamp(48px,6vw,72px) clamp(20px,4vw,48px) var(--space-48);border-bottom:none}
+.learn-header{position:relative;overflow:hidden;background:#3E571C;text-align:center;padding:clamp(48px,6vw,72px) clamp(20px,4vw,48px) var(--space-48);border-bottom:none}
 /* 背景图带：一排现成截图横排铺满 hero 宽，慢速平移（多图填满 + 保住每张内容），文字层叠其上 */
 .hero-strip{position:absolute;inset:0;overflow:hidden}
 .hero-strip-track{display:flex;height:100%;animation:strip-scroll 55s linear infinite;will-change:transform}
@@ -37,6 +37,7 @@ a{color:inherit;text-decoration:none}
 .learn-section{margin-top:var(--space-64);scroll-margin-top:168px}
 .content-panel>.learn-section:first-child{margin-top:var(--space-48)}
 .learn-section h2{font-family:var(--font-display);font-size:var(--typescale-headline-large);font-weight:700;letter-spacing:-0.02em;color:var(--heading);margin-bottom:var(--space-8)}
+.learn-section h2::before{content:"";display:inline-block;width:14px;height:14px;background:#D9E26B;border-radius:3px;margin-right:12px;vertical-align:middle}
 .section-nav{position:sticky;top:111px;z-index:140;display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-4);height:55px;margin-left:calc(clamp(20px,4vw,48px)*-1);margin-right:calc(clamp(20px,4vw,48px)*-1);padding:0 clamp(20px,4vw,48px);background:rgba(255,255,255,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .section-nav+.learn-section{margin-top:var(--space-32)}
 .section-nav-link{padding:14px 16px;font-size:var(--typescale-label-large);color:var(--color-on-surface-variant);white-space:nowrap;transition:color var(--duration-fast)}
@@ -93,9 +94,9 @@ a{color:inherit;text-decoration:none}
 .flow-arrow{flex-shrink:0;align-self:center;color:var(--color-on-surface-variant);font-size:var(--typescale-title-small);font-weight:700}
 .word-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-8);max-width:420px}
 .word-grid span{padding:var(--space-8) var(--space-16);background:var(--color-surface);border:var(--hairline) solid var(--color-outline);border-radius:var(--radius-pill);font-size:var(--typescale-label-large);color:var(--color-on-surface);font-weight:600;font-family:var(--font-display)}
-.card-preview--fig .card-preview-body{padding:0;background:#f4f9fc}
+.card-preview--fig .card-preview-body{padding:0;background:#EEF4EF}
 .fig-shot{width:100%;height:100%;object-fit:contain;display:block}
-.card-preview--duo .card-preview-body{display:flex;gap:2px;padding:0;background:#f4f9fc}
+.card-preview--duo .card-preview-body{display:flex;gap:2px;padding:0;background:#EEF4EF}
 .card-preview--duo .fig-shot{flex:1 1 50%;min-width:0;width:auto}
 
 @media(max-width:680px){
