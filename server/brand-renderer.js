@@ -7,11 +7,12 @@ const { readManifest } = require('../scripts/template-package.cjs');
 // per role. When a template lacks a token, renderer reads from contract,
 // never hardcodes.
 
-function loadFallbackMap(projectDir) {
+function loadFallbackMap() {
   // Last-resort defaults when a template lacks a token. Not derived from
   // contract (MD3 defines roles, not values). Values live in data/token-defaults.json
   // — single source of truth, editable without touching code.
-  const configPath = path.join(projectDir, 'data', 'token-defaults.json');
+  // __dirname-derived so Vercel's file tracer bundles the file into the lambda.
+  const configPath = path.join(__dirname, '..', 'data', 'token-defaults.json');
   if (!fs.existsSync(configPath)) {
     throw new Error('Missing token fallback defaults: ' + configPath);
   }
@@ -50,7 +51,7 @@ function renderBrandKit(entry, projectDir) {
     scheme: packageManifest.scheme || packageManifest.taxonomy?.scheme || entry.scheme,
     tagline: packageManifest.tagline || entry.tagline,
   };
-  const fb = loadFallbackMap(projectDir);
+  const fb = loadFallbackMap();
   const tmplPath = path.join(projectDir, entry.template_path);
   const html = fs.readFileSync(tmplPath, 'utf-8');
 
